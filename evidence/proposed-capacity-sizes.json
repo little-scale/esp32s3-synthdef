@@ -1,0 +1,17 @@
+{
+  "selected": false,
+  "scope": "Target ABI size probe only; renderer behavior and timing not tested with these capacities. Vendored header and selected firmware unchanged.",
+  "proposed_limits": {
+    "FM_NODES": 24,
+    "FM_OUTPUTS": 32,
+    "FM_INPUTS": 256
+  },
+  "proposed_sizes": {
+    "graph_bytes": 8076,
+    "scratch_bytes": 8192,
+    "voice_bytes": 6720
+  },
+  "proposed_engine_fixed_bytes": 31064,
+  "current_engine_fixed_bytes": 112136,
+  "potential_saved_internal_bytes": 81072
+}

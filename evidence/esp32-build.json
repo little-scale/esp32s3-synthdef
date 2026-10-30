@@ -1,0 +1,56 @@
+{
+  "status": "cross-compiled; physical runtime results are recorded separately",
+  "build_id": "274d3d2273a6f01ed8fafdfe92668df468107a67c9479c0deeff1ba0093b1d7e",
+  "touch_ui_enabled": false,
+  "quad_flash_enabled": true,
+  "pcm_conversion": "bounded nearest/even; no lrintf call in target instrument object",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "profile_sha256": "c0d0c3f2e6f3d2d12f7af0048fdb38d55ead17d26043d1d3e86f8fbafd1805a6",
+  "idf_version": "v5.5",
+  "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+  "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+  "target": "esp32s3",
+  "board_revision": "V2 (user confirmed; not physically probed)",
+  "compiled_loader_types_checked_in_target_object": 154,
+  "engine_compile_options_verified": [
+    {
+      "source": "upstream/fm1-synthdef/synthdef-engine/src/fm_load.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    },
+    {
+      "source": "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    }
+  ],
+  "target_structure_sizes": {
+    "graph_bytes": 13620,
+    "scratch_bytes": 49152,
+    "voice_bytes": 35744
+  },
+  "engine_fixed_allocation_bytes": 98516,
+  "audio_task_stack_bytes": 16384,
+  "event_queue_capacity": 16,
+  "dma_descriptors": 6,
+  "dma_frames_per_descriptor": 128,
+  "app_bytes": 511104,
+  "sha256": {
+    "firmware/build-esp32s3/waveshare_synthdef.bin": "b6acf677aa918e1b8d4a229a7f9b7370e505d79488773bdbaedc13979c4f0b74",
+    "firmware/build-esp32s3/bootloader/bootloader.bin": "9796cfa069d5c6efb38330ae569cd7a7bc6c5fc860196f7101f203e4ff96fafe",
+    "firmware/build-esp32s3/partition_table/partition-table.bin": "3d6618f869e029b89931eedaa807f28e696aeb86aacb08ae8a418ca6c846fa7f",
+    "firmware/sdkconfig": "afaf24c61e2584b3f1e718c331ac1ca4f8132d78400a4a55e6b94f0dd1146a62",
+    "firmware/sdkconfig.defaults": "c9bae6505b9e2785c900b570b7b5b7e88b85528698f58fd201c715b0bcfc816f",
+    "firmware/partitions.csv": "11e1a6f2c0a677945771ab08b81761fe19c9ecd46829f2810b118aa16236f6e3",
+    "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+  },
+  "runtime_heap_and_clocks": "see runtime logs; actual clocks still require external measurement"
+}

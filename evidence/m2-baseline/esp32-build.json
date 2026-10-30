@@ -1,0 +1,53 @@
+{
+  "status": "cross-compiled; physical runtime results are recorded separately",
+  "build_id": "640955889acd1607330661dc3ab0a427a56931a026868af92f6c8653d80d3eef",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "profile_sha256": "856828e1cc2920a3e202a0498a24ea63b7abb75a0fcf0efb9288b453b1e7d7ee",
+  "idf_version": "v5.5",
+  "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+  "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+  "target": "esp32s3",
+  "board_revision": "V2 (user confirmed; not physically probed)",
+  "compiled_loader_types_checked_in_target_object": 154,
+  "engine_compile_options_verified": [
+    {
+      "source": "upstream/fm1-synthdef/synthdef-engine/src/fm_load.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    },
+    {
+      "source": "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    }
+  ],
+  "target_structure_sizes": {
+    "graph_bytes": 13620,
+    "scratch_bytes": 49152,
+    "voice_bytes": 35744
+  },
+  "engine_fixed_allocation_bytes": 98516,
+  "audio_task_stack_bytes": 16384,
+  "event_queue_capacity": 16,
+  "dma_descriptors": 6,
+  "dma_frames_per_descriptor": 128,
+  "app_bytes": 510224,
+  "sha256": {
+    "firmware/build-esp32s3/waveshare_synthdef.bin": "500ef708125754d35e99dfdf19f237d82991577f7bbc8fa653f4d6c5009ff682",
+    "firmware/build-esp32s3/bootloader/bootloader.bin": "0e336ae93d0b738fc3ab921a58bbd029acb8082d2a9e26f5c92b1adef459898d",
+    "firmware/build-esp32s3/partition_table/partition-table.bin": "3d6618f869e029b89931eedaa807f28e696aeb86aacb08ae8a418ca6c846fa7f",
+    "firmware/sdkconfig": "c4973c72996d826f11eb3484349984e2e422fe594c60efdebfe09cb321d4f1cd",
+    "firmware/sdkconfig.defaults": "8f46f4979e6fdad8674e6012e87a45d003b528eb1c81f89fbc682c9f4cd86d25",
+    "firmware/partitions.csv": "11e1a6f2c0a677945771ab08b81761fe19c9ecd46829f2810b118aa16236f6e3",
+    "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+  },
+  "runtime_heap_and_clocks": "see runtime logs; actual clocks still require external measurement"
+}

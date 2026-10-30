@@ -1,0 +1,278 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40379c6a
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x1710
+load:0x403c8700,len:0xe1c
+load:0x403cb700,len:0x31e0
+entry 0x403c8938
+I (24) boot: ESP-IDF v5.5 2nd stage bootloader
+I (24) boot: compile time Oct 30 2026 13:42:14
+I (25) boot: Multicore bootloader
+I (25) boot: chip revision: v0.2
+I (25) boot: efuse block revision: v1.4
+I (25) qio_mode: Enabling default flash chip QIO
+I (25) boot.esp32s3: Boot SPI Speed : 80MHz
+I (26) boot.esp32s3: SPI Mode       : QIO
+I (26) boot.esp32s3: SPI Flash Size : 16MB
+I (26) boot: Enabling RNG early entropy source...
+I (26) boot: Partition Table:
+I (26) boot: ## Label            Usage          Type ST Offset   Length
+I (27) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (27) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (27) boot:  2 factory          factory app      00 00 00010000 00300000
+I (28) boot:  3 storage          Unknown data     01 82 00310000 00cf0000
+I (28) boot: End of partition table
+I (29) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=30c00h (199680) map
+I (59) esp_image: segment 1: paddr=00040c28 vaddr=3fc96800 size=0b400h ( 46080) load
+I (67) esp_image: segment 2: paddr=0004c030 vaddr=40374000 size=03fe8h ( 16360) load
+I (71) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=87e58h (556632) map
+I (154) esp_image: segment 4: paddr=000d7e80 vaddr=40377fe8 size=0e7a4h ( 59300) load
+I (165) esp_image: segment 5: paddr=000e662c vaddr=600fe000 size=00020h (    32) load
+I (174) boot: Loaded app from partition at offset 0x10000
+I (174) boot: Disabling RNG early entropy source...
+I (175) octal_psram: vendor id    : 0x0d (AP)
+I (176) octal_psram: dev id       : 0x02 (generation 3)
+I (176) octal_psram: density      : 0x03 (64 Mbit)
+I (176) octal_psram: good-die     : 0x01 (Pass)
+I (176) octal_psram: Latency      : 0x01 (Fixed)
+I (177) octal_psram: VCC          : 0x01 (3V)
+I (177) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (177) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (177) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (177) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (178) octal_psram: DriveStrength: 0x00 (1/1)
+I (178) MSPI Timing: PSRAM timing tuning index: 5
+I (179) esp_psram: Found 8MB PSRAM device
+I (179) esp_psram: Speed: 80MHz
+I (179) cpu_start: Multicore app
+I (592) esp_psram: SPI SRAM memory test OK
+I (601) cpu_start: Pro cpu start user code
+I (601) cpu_start: cpu freq: 240000000 Hz
+I (601) app_init: Application information:
+I (601) app_init: Project name:     waveshare_synthdef
+I (601) app_init: App version:      0.1.0
+I (601) app_init: Compile time:     Oct 30 2026 19:58:08
+I (602) app_init: ELF file SHA256:  b2f79bbf8...
+I (602) app_init: ESP-IDF:          v5.5
+I (602) efuse_init: Min chip rev:     v0.0
+I (602) efuse_init: Max chip rev:     v0.99 
+I (602) efuse_init: Chip rev:         v0.2
+I (602) heap_init: Initializing. RAM available for dynamic allocation:
+I (602) heap_init: At 3FCB3AF0 len 00035C20 (215 KiB): RAM
+I (603) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+I (603) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM
+I (603) heap_init: At 600FE020 len 00001FC8 (7 KiB): RTCRAM
+I (603) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator
+I (604) spi_flash: detected chip: generic
+I (604) spi_flash: flash io: qio
+I (604) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+I (605) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+I (605) main_task: Started on CPU0
+I (606) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations
+I (606) main_task: Calling app_main()
+I (607) synthdef: V2 target (user-confirmed; display/touch not probed) IDF=v5.5 compiler=14.2.0
+I (607) synthdef: build=b7758cfd1b69080df2b011af79e3c0053c6560749cc06fe2d0a74fbf684a001c engine=00ac338904304e87845477808e598ef973f49b52 profile=f14065db2e81fe35e7c7dfe8dfd8d0c9507d6d0242cead96276ef9da49c4d4bc
+I (607) synthdef: app=waveshare_synthdef version=0.1.0 ELF=b2f79bbf flash=16777216 PSRAM=8388608
+I (608) synthdef: requested_rate=44100 block=64 mono S16 Philips slot=left MCLK=256fs DMA=6x128
+W (608) synthdef: Actual clocks, channel packing, continuity and latency require hardware measurement
+I (608) synthdef: graph=13620 voice=35744 scratch=49152 arena=0 baseline_patch=ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45 touch_patch=f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5
+I (609) synthdef: Active graph=touch-sine nodes=14 controls=7
+W (4223) i2c.master: Please check pull-up resistances whether be connected properly. Otherwise unexpected behavior would happen. For more detailed information, please read docs
+I (4225) display: Power/reset before: output=ff direction=fc
+I (4546) display: Display power enabled and hardware reset released
+I (4546) LVGL: Starting LVGL task
+I (4546) ESP32-S3-Touch-AMOLED-1.8: Initialize SPI bus
+I (4547) co5300: version: 2.2.0
+I (4547) co5300_spi: LCD panel create success, version: 2.2.0
+W (4627) co5300_spi: The 3Ah command has been used and will be overwritten by external initialization sequence
+I (4727) ESP32-S3-Touch-AMOLED-1.8: Touch CST816S 0x15 found
+I (4727) CST816S: IC id: 183
+I (4783) synthdef: V2 touchscreen ready: Pitch, Level, Attack, Release
+I (7140) ES8311: Work in Slave mode
+E (7143) i2s_common: i2s_channel_disable(1218): the channel has not been enabled yet
+I (7143) I2S_IF: No paired data, current mode: playback
+I (7143) I2S_IF: STD: TX, data_bit: 16, slot_bit: 16, ws_width: 16, slot_mode: MONO, slot_mask: 0x1
+I (7193) I2S_IF: STD: TX, sample_rate_hz: 44100, mclk_multiple: 256, clk_src: 6
+I (7209) Adev_Codec: Open codec device OK
+I (7210) board_audio: Codec output level=100/100; bounded software master gain follows
+I (7210) board_audio: Pre-owner startup DMA event overflows=0; DMA now stopped
+I (7211) synthdef: Boots silent. Console: n note-on; o release; ! panic; +/- pitch; [/] amplitude
+@SD1 69e1d190 OK 7b2270726f746f636f6c223a312c226d6f64656c223a2257617665736861726520414d4f4c454420312e38205632222c226275696c64223a2262373735386366643162363930383064663262303131616637396533633030353363363536303734396363303666653264306137346662663638346130303163222c22656e67696e65223a2230306163333338393034333034653837383435343737383038653539386566393733663439623532222c2270726f66696c65223a2266313430363564623265383166653335653763376466653864666438643063393530376436643032343263656164393632373665663964613439633464346263222c2272617465223a34343130302c22626c6f636b223a36342c22766f69636573223a312c2265666665637473223a302c227472616e73706f727473223a5b227573622d73657269616c2d6a746167225d2c2267726170685f6d6178223a36353533362c22736f757263655f6d6178223a36353533362c226368756e6b223a3235362c22736c6f7473223a382c2273746f72616765223a747275652c2273746f726167655f746f74616c223a31323436323430312c2273746f726167655f66726565223a31323435383838372c22706f6c696379223a2273696d706c652d766f6963652d7631227d dba43af0
+@SD1 69e1d191 OK 7b22736c6f74223a307d 6d5ab87f
+BENCH_BEGIN cases=84 rate=44100 block=64 failures=0 pow512_us=1555 exp2512_us=1531
+BENCH_CASE 0 freq=110 pitch=0.00 attack=0 release=0 reset=71 controls=22 prepare=400 dsp=163 pcm=31 total=702 live=154
+BENCH_CASE 1 freq=110 pitch=0.00 attack=0 release=1 reset=57 controls=13 prepare=188 dsp=166 pcm=24 total=456 live=132
+BENCH_CASE 2 freq=110 pitch=0.00 attack=1 release=0 reset=64 controls=8 prepare=179 dsp=165 pcm=24 total=448 live=140
+BENCH_CASE 3 freq=110 pitch=0.00 attack=1 release=1 reset=76 controls=28 prepare=382 dsp=172 pcm=30 total=701 live=152
+BENCH_CASE 4 freq=110 pitch=0.13 attack=0 release=0 reset=59 controls=14 prepare=262 dsp=189 pcm=25 total=558 live=151
+BENCH_CASE 5 freq=110 pitch=0.13 attack=0 release=1 reset=63 controls=14 prepare=232 dsp=193 pcm=25 total=534 live=151
+BENCH_CASE 6 freq=110 pitch=0.13 attack=1 release=0 reset=66 controls=13 prepare=227 dsp=196 pcm=27 total=537 live=152
+BENCH_CASE 7 freq=110 pitch=0.13 attack=1 release=1 reset=61 controls=19 prepare=228 dsp=191 pcm=24 total=531 live=155
+BENCH_CASE 8 freq=110 pitch=0.37 attack=0 release=0 reset=61 controls=12 prepare=216 dsp=191 pcm=25 total=513 live=150
+BENCH_CASE 9 freq=110 pitch=0.37 attack=0 release=1 reset=61 controls=11 prepare=211 dsp=189 pcm=28 total=508 live=150
+BENCH_CASE 10 freq=110 pitch=0.37 attack=1 release=0 reset=66 controls=11 prepare=222 dsp=197 pcm=24 total=531 live=157
+BENCH_CASE 11 freq=110 pitch=0.37 attack=1 release=1 reset=61 controls=14 prepare=222 dsp=189 pcm=25 total=519 live=163
+BENCH_CASE 12 freq=110 pitch=0.50 attack=0 release=0 reset=66 controls=21 prepare=205 dsp=163 pcm=24 total=488 live=126
+BENCH_CASE 13 freq=110 pitch=0.50 attack=0 release=1 reset=56 controls=10 prepare=151 dsp=156 pcm=23 total=405 live=116
+BENCH_CASE 14 freq=110 pitch=0.50 attack=1 release=0 reset=54 controls=9 prepare=147 dsp=154 pcm=23 total=394 live=124
+BENCH_CASE 15 freq=110 pitch=0.50 attack=1 release=1 reset=54 controls=9 prepare=145 dsp=156 pcm=24 total=394 live=116
+BENCH_CASE 16 freq=110 pitch=0.63 attack=0 release=0 reset=55 controls=10 prepare=229 dsp=184 pcm=25 total=511 live=156
+BENCH_CASE 17 freq=110 pitch=0.63 attack=0 release=1 reset=60 controls=12 prepare=212 dsp=183 pcm=28 total=503 live=156
+BENCH_CASE 18 freq=110 pitch=0.63 attack=1 release=0 reset=66 controls=10 prepare=206 dsp=189 pcm=25 total=504 live=160
+BENCH_CASE 19 freq=110 pitch=0.63 attack=1 release=1 reset=60 controls=10 prepare=203 dsp=185 pcm=25 total=491 live=158
+BENCH_CASE 20 freq=110 pitch=0.87 attack=0 release=0 reset=63 controls=10 prepare=233 dsp=199 pcm=25 total=538 live=159
+BENCH_CASE 21 freq=110 pitch=0.87 attack=0 release=1 reset=60 controls=14 prepare=220 dsp=186 pcm=24 total=512 live=157
+BENCH_CASE 22 freq=110 pitch=0.87 attack=1 release=0 reset=61 controls=10 prepare=201 dsp=194 pcm=26 total=500 live=157
+BENCH_CASE 23 freq=110 pitch=0.87 attack=1 release=1 reset=60 controls=11 prepare=199 dsp=190 pcm=25 total=493 live=161
+BENCH_CASE 24 freq=110 pitch=1.00 attack=0 release=0 reset=61 controls=10 prepare=169 dsp=169 pcm=24 total=440 live=145
+BENCH_CASE 25 freq=110 pitch=1.00 attack=0 release=1 reset=56 controls=10 prepare=170 dsp=169 pcm=23 total=435 live=137
+BENCH_CASE 26 freq=110 pitch=1.00 attack=1 release=0 reset=58 controls=10 prepare=161 dsp=171 pcm=23 total=430 live=143
+BENCH_CASE 27 freq=110 pitch=1.00 attack=1 release=1 reset=57 controls=9 prepare=159 dsp=168 pcm=23 total=423 live=144
+BENCH_CASE 28 freq=440 pitch=0.00 attack=0 release=0 reset=54 controls=9 prepare=170 dsp=169 pcm=23 total=433 live=132
+BENCH_CASE 29 freq=440 pitch=0.00 attack=0 release=1 reset=58 controls=9 prepare=171 dsp=172 pcm=24 total=442 live=134
+BENCH_CASE 30 freq=440 pitch=0.00 attack=1 release=0 reset=56 controls=13 prepare=168 dsp=170 pcm=23 total=438 live=132
+BENCH_CASE 31 freq=440 pitch=0.00 attack=1 release=1 reset=57 controls=8 prepare=176 dsp=177 pcm=23 total=449 live=137
+BENCH_CASE 32 freq=440 pitch=0.13 attack=0 release=0 reset=58 controls=11 prepare=234 dsp=233 pcm=35 total=581 live=363
+BENCH_CASE 33 freq=440 pitch=0.13 attack=0 release=1 reset=70 controls=15 prepare=270 dsp=189 pcm=28 total=580 live=190
+BENCH_CASE 34 freq=440 pitch=0.13 attack=1 release=0 reset=61 controls=10 prepare=201 dsp=193 pcm=29 total=501 live=157
+BENCH_CASE 35 freq=440 pitch=0.13 attack=1 release=1 reset=61 controls=11 prepare=193 dsp=187 pcm=24 total=485 live=186
+BENCH_CASE 36 freq=440 pitch=0.37 attack=0 release=0 reset=64 controls=12 prepare=215 dsp=188 pcm=24 total=510 live=166
+BENCH_CASE 37 freq=440 pitch=0.37 attack=0 release=1 reset=60 controls=9 prepare=202 dsp=184 pcm=24 total=487 live=162
+BENCH_CASE 38 freq=440 pitch=0.37 attack=1 release=0 reset=62 controls=10 prepare=198 dsp=190 pcm=25 total=493 live=155
+BENCH_CASE 39 freq=440 pitch=0.37 attack=1 release=1 reset=62 controls=10 prepare=194 dsp=186 pcm=23 total=483 live=164
+BENCH_CASE 40 freq=440 pitch=0.50 attack=0 release=0 reset=62 controls=12 prepare=164 dsp=173 pcm=24 total=442 live=140
+BENCH_CASE 41 freq=440 pitch=0.50 attack=0 release=1 reset=58 controls=9 prepare=147 dsp=158 pcm=23 total=401 live=124
+BENCH_CASE 42 freq=440 pitch=0.50 attack=1 release=0 reset=54 controls=9 prepare=133 dsp=162 pcm=23 total=387 live=129
+BENCH_CASE 43 freq=440 pitch=0.50 attack=1 release=1 reset=57 controls=9 prepare=138 dsp=158 pcm=24 total=391 live=127
+BENCH_CASE 44 freq=440 pitch=0.63 attack=0 release=0 reset=53 controls=9 prepare=203 dsp=189 pcm=24 total=486 live=177
+BENCH_CASE 45 freq=440 pitch=0.63 attack=0 release=1 reset=63 controls=10 prepare=193 dsp=194 pcm=24 total=492 live=166
+BENCH_CASE 46 freq=440 pitch=0.63 attack=1 release=0 reset=63 controls=11 prepare=207 dsp=190 pcm=26 total=508 live=170
+BENCH_CASE 47 freq=440 pitch=0.63 attack=1 release=1 reset=68 controls=11 prepare=203 dsp=193 pcm=23 total=506 live=170
+BENCH_CASE 48 freq=440 pitch=0.87 attack=0 release=0 reset=63 controls=10 prepare=202 dsp=199 pcm=23 total=505 live=163
+BENCH_CASE 49 freq=440 pitch=0.87 attack=0 release=1 reset=62 controls=10 prepare=198 dsp=192 pcm=26 total=496 live=168
+BENCH_CASE 50 freq=440 pitch=0.87 attack=1 release=0 reset=67 controls=12 prepare=211 dsp=192 pcm=24 total=516 live=177
+BENCH_CASE 51 freq=440 pitch=0.87 attack=1 release=1 reset=64 controls=10 prepare=215 dsp=194 pcm=24 total=515 live=191
+BENCH_CASE 52 freq=440 pitch=1.00 attack=0 release=0 reset=71 controls=13 prepare=175 dsp=175 pcm=23 total=465 live=154
+BENCH_CASE 53 freq=440 pitch=1.00 attack=0 release=1 reset=59 controls=8 prepare=154 dsp=171 pcm=24 total=422 live=141
+BENCH_CASE 54 freq=440 pitch=1.00 attack=1 release=0 reset=56 controls=9 prepare=147 dsp=170 pcm=28 total=416 live=146
+BENCH_CASE 55 freq=440 pitch=1.00 attack=1 release=1 reset=55 controls=9 prepare=146 dsp=171 pcm=24 total=411 live=148
+BENCH_CASE 56 freq=1760 pitch=0.00 attack=0 release=0 reset=58 controls=11 prepare=169 dsp=175 pcm=24 total=445 live=139
+BENCH_CASE 57 freq=1760 pitch=0.00 attack=0 release=1 reset=55 controls=9 prepare=163 dsp=173 pcm=24 total=432 live=134
+BENCH_CASE 58 freq=1760 pitch=0.00 attack=1 release=0 reset=56 controls=9 prepare=161 dsp=176 pcm=24 total=434 live=140
+BENCH_CASE 59 freq=1760 pitch=0.00 attack=1 release=1 reset=56 controls=9 prepare=159 dsp=173 pcm=24 total=429 live=142
+BENCH_CASE 60 freq=1760 pitch=0.13 attack=0 release=0 reset=56 controls=9 prepare=233 dsp=192 pcm=25 total=523 live=191
+BENCH_CASE 61 freq=1760 pitch=0.13 attack=0 release=1 reset=61 controls=13 prepare=217 dsp=192 pcm=25 total=516 live=167
+BENCH_CASE 62 freq=1760 pitch=0.13 attack=1 release=0 reset=62 controls=11 prepare=195 dsp=367 pcm=30 total=673 live=295
+BENCH_CASE 63 freq=1760 pitch=0.13 attack=1 release=1 reset=71 controls=14 prepare=240 dsp=203 pcm=27 total=566 live=172
+BENCH_CASE 64 freq=1760 pitch=0.37 attack=0 release=0 reset=59 controls=12 prepare=203 dsp=201 pcm=23 total=508 live=170
+BENCH_CASE 65 freq=1760 pitch=0.37 attack=0 release=1 reset=62 controls=11 prepare=185 dsp=204 pcm=24 total=493 live=162
+BENCH_CASE 66 freq=1760 pitch=0.37 attack=1 release=0 reset=66 controls=10 prepare=174 dsp=199 pcm=24 total=481 live=166
+BENCH_CASE 67 freq=1760 pitch=0.37 attack=1 release=1 reset=61 controls=10 prepare=178 dsp=204 pcm=23 total=484 live=155
+BENCH_CASE 68 freq=1760 pitch=0.50 attack=0 release=0 reset=62 controls=10 prepare=145 dsp=174 pcm=24 total=421 live=130
+BENCH_CASE 69 freq=1760 pitch=0.50 attack=0 release=1 reset=55 controls=9 prepare=128 dsp=171 pcm=23 total=393 live=129
+BENCH_CASE 70 freq=1760 pitch=0.50 attack=1 release=0 reset=54 controls=11 prepare=141 dsp=166 pcm=24 total=402 live=125
+BENCH_CASE 71 freq=1760 pitch=0.50 attack=1 release=1 reset=56 controls=9 prepare=127 dsp=165 pcm=23 total=387 live=127
+BENCH_CASE 72 freq=1760 pitch=0.63 attack=0 release=0 reset=55 controls=8 prepare=194 dsp=191 pcm=25 total=481 live=157
+BENCH_CASE 73 freq=1760 pitch=0.63 attack=0 release=1 reset=62 controls=11 prepare=183 dsp=196 pcm=24 total=487 live=161
+BENCH_CASE 74 freq=1760 pitch=0.63 attack=1 release=0 reset=61 controls=11 prepare=199 dsp=196 pcm=24 total=499 live=175
+BENCH_CASE 75 freq=1760 pitch=0.63 attack=1 release=1 reset=61 controls=11 prepare=184 dsp=199 pcm=23 total=487 live=159
+BENCH_CASE 76 freq=1760 pitch=0.87 attack=0 release=0 reset=61 controls=10 prepare=185 dsp=194 pcm=24 total=482 live=165
+BENCH_CASE 77 freq=1760 pitch=0.87 attack=0 release=1 reset=60 controls=10 prepare=189 dsp=204 pcm=23 total=494 live=162
+BENCH_CASE 78 freq=1760 pitch=0.87 attack=1 release=0 reset=63 controls=9 prepare=186 dsp=200 pcm=24 total=490 live=164
+BENCH_CASE 79 freq=1760 pitch=0.87 attack=1 release=1 reset=61 controls=10 prepare=179 dsp=214 pcm=24 total=495 live=166
+BENCH_CASE 80 freq=1760 pitch=1.00 attack=0 release=0 reset=62 controls=12 prepare=164 dsp=184 pcm=24 total=452 live=146
+BENCH_CASE 81 freq=1760 pitch=1.00 attack=0 release=1 reset=58 controls=9 prepare=138 dsp=178 pcm=24 total=414 live=131
+BENCH_CASE 82 freq=1760 pitch=1.00 attack=1 release=0 reset=57 controls=9 prepare=141 dsp=183 pcm=23 total=421 live=140
+BENCH_CASE 83 freq=1760 pitch=1.00 attack=1 release=1 reset=58 controls=8 prepare=141 dsp=180 pcm=23 total=418 live=144
+BENCH_END
+@SD1 69e1d192 OK 7b22736c6f74223a317d 5975641b
+BENCH_BEGIN cases=84 rate=44100 block=64 failures=0 pow512_us=1545 exp2512_us=1534
+BENCH_CASE 0 freq=110 pitch=0.00 attack=0 release=0 reset=72 controls=25 prepare=394 dsp=166 pcm=31 total=702 live=154
+BENCH_CASE 1 freq=110 pitch=0.00 attack=0 release=1 reset=59 controls=9 prepare=182 dsp=161 pcm=25 total=444 live=135
+BENCH_CASE 2 freq=110 pitch=0.00 attack=1 release=0 reset=59 controls=9 prepare=184 dsp=162 pcm=25 total=447 live=133
+BENCH_CASE 3 freq=110 pitch=0.00 attack=1 release=1 reset=77 controls=33 prepare=331 dsp=256 pcm=26 total=741 live=169
+BENCH_CASE 4 freq=110 pitch=0.13 attack=0 release=0 reset=65 controls=16 prepare=282 dsp=216 pcm=27 total=616 live=173
+BENCH_CASE 5 freq=110 pitch=0.13 attack=0 release=1 reset=63 controls=16 prepare=195 dsp=218 pcm=23 total=523 live=161
+BENCH_CASE 6 freq=110 pitch=0.13 attack=1 release=0 reset=62 controls=11 prepare=198 dsp=214 pcm=24 total=517 live=158
+BENCH_CASE 7 freq=110 pitch=0.13 attack=1 release=1 reset=60 controls=11 prepare=183 dsp=218 pcm=23 total=503 live=158
+BENCH_CASE 8 freq=110 pitch=0.37 attack=0 release=0 reset=62 controls=11 prepare=229 dsp=210 pcm=24 total=546 live=166
+BENCH_CASE 9 freq=110 pitch=0.37 attack=0 release=1 reset=61 controls=13 prepare=186 dsp=204 pcm=24 total=496 live=162
+BENCH_CASE 10 freq=110 pitch=0.37 attack=1 release=0 reset=66 controls=10 prepare=192 dsp=204 pcm=24 total=504 live=164
+BENCH_CASE 11 freq=110 pitch=0.37 attack=1 release=1 reset=60 controls=10 prepare=187 dsp=203 pcm=24 total=492 live=165
+BENCH_CASE 12 freq=110 pitch=0.50 attack=0 release=0 reset=63 controls=18 prepare=178 dsp=176 pcm=23 total=467 live=137
+BENCH_CASE 13 freq=110 pitch=0.50 attack=0 release=1 reset=55 controls=10 prepare=135 dsp=179 pcm=23 total=409 live=130
+BENCH_CASE 14 freq=110 pitch=0.50 attack=1 release=0 reset=54 controls=12 prepare=144 dsp=164 pcm=23 total=404 live=127
+BENCH_CASE 15 freq=110 pitch=0.50 attack=1 release=1 reset=54 controls=9 prepare=133 dsp=161 pcm=23 total=387 live=131
+BENCH_CASE 16 freq=110 pitch=0.63 attack=0 release=0 reset=56 controls=8 prepare=216 dsp=223 pcm=27 total=539 live=207
+BENCH_CASE 17 freq=110 pitch=0.63 attack=0 release=1 reset=66 controls=14 prepare=230 dsp=215 pcm=25 total=558 live=173
+BENCH_CASE 18 freq=110 pitch=0.63 attack=1 release=0 reset=64 controls=11 prepare=198 dsp=213 pcm=23 total=517 live=173
+BENCH_CASE 19 freq=110 pitch=0.63 attack=1 release=1 reset=61 controls=12 prepare=189 dsp=206 pcm=24 total=500 live=167
+BENCH_CASE 20 freq=110 pitch=0.87 attack=0 release=0 reset=67 controls=9 prepare=194 dsp=203 pcm=23 total=504 live=168
+BENCH_CASE 21 freq=110 pitch=0.87 attack=0 release=1 reset=60 controls=11 prepare=198 dsp=202 pcm=23 total=502 live=164
+BENCH_CASE 22 freq=110 pitch=0.87 attack=1 release=0 reset=63 controls=11 prepare=196 dsp=203 pcm=24 total=505 live=164
+BENCH_CASE 23 freq=110 pitch=0.87 attack=1 release=1 reset=60 controls=11 prepare=206 dsp=209 pcm=23 total=517 live=174
+BENCH_CASE 24 freq=110 pitch=1.00 attack=0 release=0 reset=63 controls=13 prepare=175 dsp=183 pcm=24 total=465 live=152
+BENCH_CASE 25 freq=110 pitch=1.00 attack=0 release=1 reset=59 controls=9 prepare=147 dsp=177 pcm=24 total=422 live=144
+BENCH_CASE 26 freq=110 pitch=1.00 attack=1 release=0 reset=56 controls=9 prepare=148 dsp=181 pcm=24 total=424 live=148
+BENCH_CASE 27 freq=110 pitch=1.00 attack=1 release=1 reset=58 controls=9 prepare=150 dsp=182 pcm=24 total=430 live=158
+BENCH_CASE 28 freq=440 pitch=0.00 attack=0 release=0 reset=55 controls=11 prepare=160 dsp=181 pcm=23 total=438 live=134
+BENCH_CASE 29 freq=440 pitch=0.00 attack=0 release=1 reset=56 controls=10 prepare=167 dsp=180 pcm=24 total=446 live=140
+BENCH_CASE 30 freq=440 pitch=0.00 attack=1 release=0 reset=60 controls=9 prepare=162 dsp=180 pcm=24 total=444 live=138
+BENCH_CASE 31 freq=440 pitch=0.00 attack=1 release=1 reset=56 controls=9 prepare=164 dsp=179 pcm=24 total=445 live=141
+BENCH_CASE 32 freq=440 pitch=0.13 attack=0 release=0 reset=64 controls=15 prepare=407 dsp=193 pcm=29 total=721 live=201
+BENCH_CASE 33 freq=440 pitch=0.13 attack=0 release=1 reset=65 controls=14 prepare=238 dsp=193 pcm=26 total=546 live=177
+BENCH_CASE 34 freq=440 pitch=0.13 attack=1 release=0 reset=64 controls=10 prepare=219 dsp=196 pcm=24 total=521 live=168
+BENCH_CASE 35 freq=440 pitch=0.13 attack=1 release=1 reset=62 controls=10 prepare=201 dsp=198 pcm=24 total=503 live=164
+BENCH_CASE 36 freq=440 pitch=0.37 attack=0 release=0 reset=63 controls=10 prepare=208 dsp=194 pcm=23 total=506 live=157
+BENCH_CASE 37 freq=440 pitch=0.37 attack=0 release=1 reset=62 controls=10 prepare=198 dsp=194 pcm=25 total=497 live=159
+BENCH_CASE 38 freq=440 pitch=0.37 attack=1 release=0 reset=71 controls=14 prepare=228 dsp=198 pcm=27 total=548 live=161
+BENCH_CASE 39 freq=440 pitch=0.37 attack=1 release=1 reset=63 controls=16 prepare=208 dsp=197 pcm=23 total=515 live=157
+BENCH_CASE 40 freq=440 pitch=0.50 attack=0 release=0 reset=64 controls=12 prepare=164 dsp=163 pcm=25 total=434 live=131
+BENCH_CASE 41 freq=440 pitch=0.50 attack=0 release=1 reset=55 controls=9 prepare=151 dsp=153 pcm=23 total=398 live=118
+BENCH_CASE 42 freq=440 pitch=0.50 attack=1 release=0 reset=54 controls=8 prepare=146 dsp=158 pcm=28 total=400 live=128
+BENCH_CASE 43 freq=440 pitch=0.50 attack=1 release=1 reset=57 controls=11 prepare=156 dsp=154 pcm=24 total=408 live=128
+BENCH_CASE 44 freq=440 pitch=0.63 attack=0 release=0 reset=54 controls=11 prepare=218 dsp=194 pcm=24 total=510 live=165
+BENCH_CASE 45 freq=440 pitch=0.63 attack=0 release=1 reset=62 controls=12 prepare=200 dsp=199 pcm=24 total=505 live=162
+BENCH_CASE 46 freq=440 pitch=0.63 attack=1 release=0 reset=68 controls=12 prepare=206 dsp=195 pcm=25 total=514 live=166
+BENCH_CASE 47 freq=440 pitch=0.63 attack=1 release=1 reset=62 controls=12 prepare=197 dsp=195 pcm=24 total=498 live=159
+BENCH_CASE 48 freq=440 pitch=0.87 attack=0 release=0 reset=66 controls=13 prepare=233 dsp=194 pcm=24 total=540 live=166
+BENCH_CASE 49 freq=440 pitch=0.87 attack=0 release=1 reset=62 controls=11 prepare=211 dsp=195 pcm=24 total=511 live=167
+BENCH_CASE 50 freq=440 pitch=0.87 attack=1 release=0 reset=63 controls=11 prepare=216 dsp=190 pcm=26 total=520 live=224
+BENCH_CASE 51 freq=440 pitch=0.87 attack=1 release=1 reset=68 controls=17 prepare=236 dsp=199 pcm=24 total=552 live=171
+BENCH_CASE 52 freq=440 pitch=1.00 attack=0 release=0 reset=66 controls=14 prepare=187 dsp=176 pcm=24 total=477 live=146
+BENCH_CASE 53 freq=440 pitch=1.00 attack=0 release=1 reset=56 controls=9 prepare=167 dsp=169 pcm=23 total=431 live=137
+BENCH_CASE 54 freq=440 pitch=1.00 attack=1 release=0 reset=57 controls=9 prepare=160 dsp=176 pcm=23 total=432 live=137
+BENCH_CASE 55 freq=440 pitch=1.00 attack=1 release=1 reset=54 controls=9 prepare=155 dsp=170 pcm=23 total=418 live=147
+BENCH_CASE 56 freq=1760 pitch=0.00 attack=0 release=0 reset=58 controls=9 prepare=164 dsp=177 pcm=25 total=441 live=135
+BENCH_CASE 57 freq=1760 pitch=0.00 attack=0 release=1 reset=58 controls=11 prepare=183 dsp=178 pcm=25 total=464 live=131
+BENCH_CASE 58 freq=1760 pitch=0.00 attack=1 release=0 reset=54 controls=10 prepare=172 dsp=181 pcm=25 total=451 live=137
+BENCH_CASE 59 freq=1760 pitch=0.00 attack=1 release=1 reset=58 controls=8 prepare=173 dsp=178 pcm=25 total=451 live=137
+BENCH_CASE 60 freq=1760 pitch=0.13 attack=0 release=0 reset=55 controls=8 prepare=240 dsp=195 pcm=25 total=532 live=172
+BENCH_CASE 61 freq=1760 pitch=0.13 attack=0 release=1 reset=61 controls=13 prepare=228 dsp=425 pcm=28 total=765 live=335
+BENCH_CASE 62 freq=1760 pitch=0.13 attack=1 release=0 reset=70 controls=20 prepare=279 dsp=192 pcm=27 total=600 live=192
+BENCH_CASE 63 freq=1760 pitch=0.13 attack=1 release=1 reset=61 controls=13 prepare=199 dsp=191 pcm=23 total=495 live=163
+BENCH_CASE 64 freq=1760 pitch=0.37 attack=0 release=0 reset=60 controls=11 prepare=187 dsp=196 pcm=23 total=485 live=164
+BENCH_CASE 65 freq=1760 pitch=0.37 attack=0 release=1 reset=61 controls=10 prepare=177 dsp=198 pcm=23 total=477 live=167
+BENCH_CASE 66 freq=1760 pitch=0.37 attack=1 release=0 reset=66 controls=10 prepare=205 dsp=190 pcm=24 total=505 live=167
+BENCH_CASE 67 freq=1760 pitch=0.37 attack=1 release=1 reset=61 controls=12 prepare=206 dsp=191 pcm=23 total=501 live=160
+BENCH_CASE 68 freq=1760 pitch=0.50 attack=0 release=0 reset=62 controls=10 prepare=152 dsp=169 pcm=23 total=423 live=128
+BENCH_CASE 69 freq=1760 pitch=0.50 attack=0 release=1 reset=55 controls=9 prepare=144 dsp=160 pcm=28 total=402 live=122
+BENCH_CASE 70 freq=1760 pitch=0.50 attack=1 release=0 reset=54 controls=9 prepare=141 dsp=160 pcm=24 total=394 live=123
+BENCH_CASE 71 freq=1760 pitch=0.50 attack=1 release=1 reset=56 controls=9 prepare=141 dsp=158 pcm=24 total=395 live=126
+BENCH_CASE 72 freq=1760 pitch=0.63 attack=0 release=0 reset=55 controls=9 prepare=216 dsp=191 pcm=23 total=502 live=166
+BENCH_CASE 73 freq=1760 pitch=0.63 attack=0 release=1 reset=61 controls=14 prepare=188 dsp=181 pcm=23 total=477 live=172
+BENCH_CASE 74 freq=1760 pitch=0.63 attack=1 release=0 reset=66 controls=10 prepare=186 dsp=185 pcm=24 total=479 live=170
+BENCH_CASE 75 freq=1760 pitch=0.63 attack=1 release=1 reset=61 controls=10 prepare=194 dsp=186 pcm=23 total=482 live=169
+BENCH_CASE 76 freq=1760 pitch=0.87 attack=0 release=0 reset=62 controls=10 prepare=213 dsp=196 pcm=23 total=512 live=177
+BENCH_CASE 77 freq=1760 pitch=0.87 attack=0 release=1 reset=62 controls=13 prepare=194 dsp=191 pcm=23 total=491 live=168
+BENCH_CASE 78 freq=1760 pitch=0.87 attack=1 release=0 reset=61 controls=11 prepare=191 dsp=195 pcm=23 total=489 live=169
+BENCH_CASE 79 freq=1760 pitch=0.87 attack=1 release=1 reset=61 controls=11 prepare=189 dsp=194 pcm=23 total=486 live=165
+BENCH_CASE 80 freq=1760 pitch=1.00 attack=0 release=0 reset=61 controls=11 prepare=155 dsp=175 pcm=25 total=433 live=153
+BENCH_CASE 81 freq=1760 pitch=1.00 attack=0 release=1 reset=57 controls=10 prepare=167 dsp=174 pcm=23 total=438 live=138
+BENCH_CASE 82 freq=1760 pitch=1.00 attack=1 release=0 reset=58 controls=11 prepare=155 dsp=175 pcm=23 total=429 live=146
+BENCH_CASE 83 freq=1760 pitch=1.00 attack=1 release=1 reset=57 controls=9 prepare=148 dsp=172 pcm=23 total=416 live=148
+BENCH_END
+@SD1 69e1d193 OK 7b22736c6f74223a317d fcfef415

@@ -1,0 +1,176 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4200896f
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x159c
+load:0x403c8700,len:0xc80
+load:0x403cb700,len:0x2f54
+entry 0x403c8910
+I (24) boot: ESP-IDF v5.5 2nd stage bootloader
+I (24) boot: compile time Oct 30 2026 10:56:32
+I (25) boot: Multicore bootloader
+I (25) boot: chip revision: v0.2
+I (25) boot: efuse block revision: v1.4
+I (25) boot.esp32s3: Boot SPI Speed : 80MHz
+I (25) boot.esp32s3: SPI Mode       : DIO
+I (26) boot.esp32s3: SPI Flash Size : 16MB
+I (26) boot: Enabling RNG early entropy source...
+I (26) boot: Partition Table:
+I (26) boot: ## Label            Usage          Type ST Offset   Length
+I (26) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (27) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (27) boot:  2 factory          factory app      00 00 00010000 00300000
+I (28) boot:  3 storage          Unknown data     01 82 00310000 00cf0000
+I (28) boot: End of partition table
+I (28) esp_image: segment 0: paddr=00010020 vaddr=3c050020 size=27720h (161568) map
+I (57) esp_image: segment 1: paddr=00037748 vaddr=3fc93700 size=02dd4h ( 11732) load
+I (60) esp_image: segment 2: paddr=0003a524 vaddr=40374000 size=05af4h ( 23284) load
+I (65) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=42d08h (273672) map
+I (114) esp_image: segment 4: paddr=00082d30 vaddr=40379af4 size=09b8ch ( 39820) load
+I (123) esp_image: segment 5: paddr=0008c8c4 vaddr=600fe000 size=00020h (    32) load
+I (130) boot: Loaded app from partition at offset 0x10000
+I (130) boot: Disabling RNG early entropy source...
+I (131) octal_psram: vendor id    : 0x0d (AP)
+I (131) octal_psram: dev id       : 0x02 (generation 3)
+I (131) octal_psram: density      : 0x03 (64 Mbit)
+I (131) octal_psram: good-die     : 0x01 (Pass)
+I (132) octal_psram: Latency      : 0x01 (Fixed)
+I (132) octal_psram: VCC          : 0x01 (3V)
+I (132) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (132) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (132) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (133) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (133) octal_psram: DriveStrength: 0x00 (1/1)
+I (134) MSPI Timing: PSRAM timing tuning index: 5
+I (134) esp_psram: Found 8MB PSRAM device
+I (134) esp_psram: Speed: 80MHz
+I (134) cpu_start: Multicore app
+I (548) esp_psram: SPI SRAM memory test OK
+I (556) cpu_start: Pro cpu start user code
+I (556) cpu_start: cpu freq: 240000000 Hz
+I (556) app_init: Application information:
+I (557) app_init: Project name:     waveshare_synthdef
+I (557) app_init: App version:      0.1.0
+I (557) app_init: Compile time:     Oct 30 2026 10:54:30
+I (557) app_init: ELF file SHA256:  fed527be3...
+I (557) app_init: ESP-IDF:          v5.5
+I (557) efuse_init: Min chip rev:     v0.0
+I (557) efuse_init: Max chip rev:     v0.99 
+I (558) efuse_init: Chip rev:         v0.2
+I (558) heap_init: Initializing. RAM available for dynamic allocation:
+I (558) heap_init: At 3FC96EE8 len 00052828 (330 KiB): RAM
+I (558) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+I (558) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM
+I (558) heap_init: At 600FE020 len 00001FC8 (7 KiB): RTCRAM
+I (559) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator
+I (560) spi_flash: detected chip: generic
+I (560) spi_flash: flash io: dio
+I (560) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+I (560) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+I (561) main_task: Started on CPU0
+I (562) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations
+I (563) main_task: Calling app_main()
+I (563) synthdef: V2 target (user-confirmed; display/touch not probed) IDF=v5.5 compiler=14.2.0
+I (563) synthdef: build=640955889acd1607330661dc3ab0a427a56931a026868af92f6c8653d80d3eef engine=00ac338904304e87845477808e598ef973f49b52 profile=856828e1cc2920a3e202a0498a24ea63b7abb75a0fcf0efb9288b453b1e7d7ee
+I (563) synthdef: app=waveshare_synthdef version=0.1.0 ELF=fed527be flash=16777216 PSRAM=8388608
+I (564) synthdef: requested_rate=44100 block=64 mono S16 Philips slot=left MCLK=256fs DMA=6x128
+W (564) synthdef: Actual clocks, channel packing, continuity and latency require hardware measurement
+I (564) synthdef: graph=13620 voice=35744 scratch=49152 arena=0 patch=ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45
+W (565) i2c.master: Please check pull-up resistances whether be connected properly. Otherwise unexpected behavior would happen. For more detailed information, please read docs
+I (573) ES8311: Work in Slave mode
+E (577) i2s_common: i2s_channel_disable(1218): the channel has not been enabled yet
+I (577) I2S_IF: No paired data, current mode: playback
+I (577) I2S_IF: STD: TX, data_bit: 16, slot_bit: 16, ws_width: 16, slot_mode: MONO, slot_mask: 0x1
+I (578) I2S_IF: STD: TX, sample_rate_hz: 44100, mclk_multiple: 256, clk_src: 6
+I (594) Adev_Codec: Open codec device OK
+I (594) board_audio: Codec output level=100/100; bounded software master gain follows
+I (595) synthdef: Boots silent. Console: n note-on; o release; ! panic; +/- pitch; [/] amplitude
+I (1580) synthdef: frame=44160 active=0 render_max_us=101 prep_max_us=0 combined_max_us=124 budget70_exceeded=0
+I (1580) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2835 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=0
+I (1580) synthdef: queue_high=0 overflow=0 rejected=0 stack_free_bytes=14772 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (2581) synthdef: frame=88320 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (2582) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4633 pcm_peak_max=9243
+I (2582) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13892 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (3583) synthdef: frame=132480 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (3583) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4633 pcm_peak_max=9243
+I (3583) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13876 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (4584) synthdef: frame=176640 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (4584) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4633 pcm_peak_max=9243
+I (4585) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13876 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (5585) synthdef: frame=220800 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (5586) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4634 pcm_peak_max=9243
+I (5586) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13876 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (6587) synthdef: frame=264960 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (6587) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4634 pcm_peak_max=9243
+I (6587) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13876 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (7588) synthdef: frame=309120 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (7588) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4634 pcm_peak_max=9243
+I (7589) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13876 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (8589) synthdef: frame=353280 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (8590) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4634 pcm_peak_max=9243
+I (8590) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (9591) synthdef: frame=397440 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (9591) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4634 pcm_peak_max=9243
+I (9591) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (10592) synthdef: frame=441600 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (10592) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=5096 pcm_peak_max=9243
+I (10593) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (11593) synthdef: frame=485760 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (11594) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4632 pcm_peak_max=9243
+I (11594) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (12595) synthdef: frame=529920 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (12595) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=68 pcm_peak_max=9243
+I (12596) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (13596) synthdef: frame=574080 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (13596) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (13597) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (14597) synthdef: frame=618240 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (14598) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (14598) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (15599) synthdef: frame=662400 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (15599) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4633 pcm_peak_max=9243
+I (15600) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (16600) synthdef: frame=706560 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (16601) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4632 pcm_peak_max=9243
+I (16601) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (17601) synthdef: frame=750720 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (17602) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (17602) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (18603) synthdef: frame=794880 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (18603) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (18603) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (19604) synthdef: frame=839040 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (19605) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (19605) synthdef: queue_high=1 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (20606) synthdef: frame=883200 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (20606) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (20606) synthdef: queue_high=2 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (21607) synthdef: frame=927360 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (21607) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (21608) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (22608) synthdef: frame=971520 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (22609) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (22609) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (23610) synthdef: frame=1015680 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (23610) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (23610) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (24611) synthdef: frame=1059840 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (24612) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=4633 pcm_peak_max=9243
+I (24612) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13860 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (25612) synthdef: frame=1104000 active=1 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (25613) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=10 pcm_peak_max=9243
+I (25613) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13780 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (26614) synthdef: frame=1148160 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (26614) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (26614) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13780 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (27615) synthdef: frame=1192320 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (27615) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (27616) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13780 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (28616) synthdef: frame=1236480 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (28617) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (28617) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13780 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536
+I (29618) synthdef: frame=1280640 active=0 render_max_us=323 prep_max_us=667 combined_max_us=1020 budget70_exceeded=1
+I (29618) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2836 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=9243
+I (29618) synthdef: queue_high=3 overflow=0 rejected=0 stack_free_bytes=13780 internal_free=252943 internal_min=252943 internal_largest=147456 psram_free=8384536

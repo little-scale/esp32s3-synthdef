@@ -1,0 +1,22 @@
+{
+  "test": "ESP32 offline gated sine vs pinned host",
+  "passed": true,
+  "firmware_build_id": "6797a6f15122fc239ff4cbf51e0187e6accdd18c20a1f83f9f42512fc6aecec1",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "capture_binary_sha256": "e463d176f0fb24634d8a914ca7ea8dae66129b8afb2228bad5ca646e968fcdb1",
+  "capture_sdkconfig_sha256": "f13275737dc83d7900ab1a4663e3eca14a9e8bd300c24473c60bf57f0c7f431a",
+  "source_log": "evidence/offline-capture.log",
+  "fixture_sha256": "ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45",
+  "frames": 22080,
+  "sample_rate": 44100,
+  "seed": 0,
+  "gate_off_block": 172,
+  "peak_error": 7.450580596923828e-09,
+  "rms_error": 1.8569577336448553e-09,
+  "peak_limit": 0.0001,
+  "rms_limit": 3e-05,
+  "target_float_sha256": "38f14e7f57e6f177a07a87870bf513b7d067e4dae7c7aa52cc67b101f8b962e6",
+  "host_float_sha256": "7ab6461bdb46b638b6af6b376aae439e545c06d452c4ac7d4e1b67850282aab0",
+  "offline_render_us_including_psram_output": 44286,
+  "scope": "one fixture, no codec, no real-time scheduling/latency claim"
+}

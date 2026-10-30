@@ -1,0 +1,132 @@
+{
+  "status": "cross-compiled; physical runtime results are recorded separately",
+  "build_id": "0b1e5b1df540c2498a4e6bf0903e4bac776acae14b547efed1b19e5b9aae3163",
+  "touch_ui_enabled": true,
+  "quad_flash_enabled": true,
+  "pcm_conversion": "bounded nearest/even; no lrintf call in target instrument object",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "profile_sha256": "f14065db2e81fe35e7c7dfe8dfd8d0c9507d6d0242cead96276ef9da49c4d4bc",
+  "idf_version": "v5.5",
+  "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+  "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+  "target": "esp32s3",
+  "board_revision": "V2 (user confirmed; not physically probed)",
+  "compiled_loader_types_checked_in_target_object": 154,
+  "engine_compile_options_verified": [
+    {
+      "source": "upstream/fm1-synthdef/synthdef-engine/src/fm_load.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    },
+    {
+      "source": "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    }
+  ],
+  "target_structure_sizes": {
+    "graph_bytes": 13620,
+    "scratch_bytes": 49152,
+    "voice_bytes": 35744
+  },
+  "engine_fixed_allocation_bytes": 112136,
+  "graph_buffers": 2,
+  "package_buffers_psram_bytes": 393216,
+  "diagnostics_enabled": true,
+  "internal_render_kernels": true,
+  "hot_kernel_symbols": {
+    "render_graph": {
+      "address": 1077447888,
+      "bytes": 18460
+    },
+    "fast_arithmetic": {
+      "address": 1077440912,
+      "bytes": 3944
+    },
+    "fast_sine": {
+      "address": 1077446416,
+      "bytes": 979
+    },
+    "fast_envelope": {
+      "address": 1077444856,
+      "bytes": 744
+    },
+    "fast_pan": {
+      "address": 1077445600,
+      "bytes": 814
+    },
+    "binary": {
+      "address": 1077437940,
+      "bytes": 1272
+    },
+    "envelope": {
+      "address": 1077439212,
+      "bytes": 986
+    },
+    "envelope_init": {
+      "address": 1077440200,
+      "bytes": 712
+    },
+    "segment": {
+      "address": 1077466348,
+      "bytes": 1233
+    },
+    "sine_control_step": {
+      "address": 1077467584,
+      "bytes": 162
+    },
+    "fm_start": {
+      "address": 1077447744,
+      "bytes": 143
+    },
+    "fm_seed": {
+      "address": 1077447516,
+      "bytes": 48
+    },
+    "fm_set": {
+      "address": 1077447564,
+      "bytes": 180
+    },
+    "fm_prepare": {
+      "address": 1077447396,
+      "bytes": 51
+    },
+    "fm_render": {
+      "address": 1077447448,
+      "bytes": 66
+    }
+  },
+  "optional_wrapper_not_retained": [
+    "fm_render_input"
+  ],
+  "sine_table_internal": false,
+  "sine_table_symbol": {
+    "address": 1007408672,
+    "bytes": 32772
+  },
+  "sine_table_sha256": "3264f07efa6217955d24e1756a7887972ef7fce7ad6709e99eec1dc9331232fd",
+  "console_patch_task_stack_bytes": 16384,
+  "audio_task_stack_bytes": 16384,
+  "event_queue_capacity": 16,
+  "dma_descriptors": 6,
+  "dma_frames_per_descriptor": 128,
+  "app_bytes": 878640,
+  "sha256": {
+    "firmware/build-ui/waveshare_synthdef.bin": "4342e7ee3e575d60ff3dc381301bec9fab25a3bb0b522203a8a49b74d273c7cc",
+    "firmware/build-ui/bootloader/bootloader.bin": "cd0f54bc0c7e27ada911cd9a136ad665538c5e8f4b691a02907ed69cfaae35bb",
+    "firmware/build-ui/partition_table/partition-table.bin": "3d6618f869e029b89931eedaa807f28e696aeb86aacb08ae8a418ca6c846fa7f",
+    "firmware/build-ui/sdkconfig": "a6089ad6110ced1a29780cfffea18c1c3c39a5ef34aec88726ea6fb3142d2288",
+    "firmware/sdkconfig.defaults": "6c28a07e9aed2c48e10c1f4cbe3bae8c430cdbfab406dd0a6200028430e016fc",
+    "firmware/partitions.csv": "11e1a6f2c0a677945771ab08b81761fe19c9ecd46829f2810b118aa16236f6e3",
+    "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+  },
+  "runtime_heap_and_clocks": "see runtime logs; actual clocks still require external measurement"
+}

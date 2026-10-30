@@ -1,0 +1,616 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40379e26
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x1710
+load:0x403c8700,len:0xe1c
+load:0x403cb700,len:0x31e0
+entry 0x403c8938
+I (24) boot: ESP-IDF v5.5 2nd stage bootloader
+I (24) boot: compile time Oct 30 2026 13:42:14
+I (25) boot: Multicore bootloader
+I (25) boot: chip revision: v0.2
+I (25) boot: efuse block revision: v1.4
+I (25) qio_mode: Enabling default flash chip QIO
+I (26) boot.esp32s3: Boot SPI Speed : 80MHz
+I (26) boot.esp32s3: SPI Mode       : QIO
+I (26) boot.esp32s3: SPI Flash Size : 16MB
+I (26) boot: Enabling RNG early entropy source...
+I (26) boot: Partition Table:
+I (26) boot: ## Label            Usage          Type ST Offset   Length
+I (27) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (27) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (28) boot:  2 factory          factory app      00 00 00010000 00300000
+I (28) boot:  3 storage          Unknown data     01 82 00310000 00cf0000
+I (28) boot: End of partition table
+I (29) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=38fe0h (233440) map
+I (64) esp_image: segment 1: paddr=00049008 vaddr=3fc9de00 size=033fch ( 13308) load
+I (67) esp_image: segment 2: paddr=0004c40c vaddr=40374000 size=03c0ch ( 15372) load
+I (70) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=80c38h (527416) map
+I (149) esp_image: segment 4: paddr=000d0c60 vaddr=40377c0c size=160f8h ( 90360) load
+I (166) esp_image: segment 5: paddr=000e6d60 vaddr=600fe000 size=00020h (    32) load
+I (176) boot: Loaded app from partition at offset 0x10000
+I (176) boot: Disabling RNG early entropy source...
+I (177) octal_psram: vendor id    : 0x0d (AP)
+I (178) octal_psram: dev id       : 0x02 (generation 3)
+I (178) octal_psram: density      : 0x03 (64 Mbit)
+I (178) octal_psram: good-die     : 0x01 (Pass)
+I (178) octal_psram: Latency      : 0x01 (Fixed)
+I (178) octal_psram: VCC          : 0x01 (3V)
+I (179) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (179) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (179) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (179) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (179) octal_psram: DriveStrength: 0x00 (1/1)
+I (180) MSPI Timing: PSRAM timing tuning index: 5
+I (180) esp_psram: Found 8MB PSRAM device
+I (181) esp_psram: Speed: 80MHz
+I (181) cpu_start: Multicore app
+I (594) esp_psram: SPI SRAM memory test OK
+I (603) cpu_start: Pro cpu start user code
+I (603) cpu_start: cpu freq: 240000000 Hz
+I (603) app_init: Application information:
+I (603) app_init: Project name:     waveshare_synthdef
+I (603) app_init: App version:      0.1.0
+I (603) app_init: Compile time:     Oct 30 2026 20:04:15
+I (603) app_init: ELF file SHA256:  b48139cab...
+I (604) app_init: ESP-IDF:          v5.5
+I (604) efuse_init: Min chip rev:     v0.0
+I (604) efuse_init: Max chip rev:     v0.99 
+I (604) efuse_init: Chip rev:         v0.2
+I (604) heap_init: Initializing. RAM available for dynamic allocation:
+I (604) heap_init: At 3FCB22A0 len 00037470 (221 KiB): RAM
+I (605) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+I (605) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM
+I (605) heap_init: At 600FE020 len 00001FC8 (7 KiB): RTCRAM
+I (605) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator
+I (606) spi_flash: detected chip: generic
+I (606) spi_flash: flash io: qio
+I (606) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+I (607) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+I (607) main_task: Started on CPU0
+I (608) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations
+I (608) main_task: Calling app_main()
+I (609) synthdef: V2 target (user-confirmed; display/touch not probed) IDF=v5.5 compiler=14.2.0
+I (609) synthdef: build=104e814a59657976508aac050ef1fef936733a0b8ccf55e5c5a692bfe14ed957 engine=00ac338904304e87845477808e598ef973f49b52 profile=4c3eb18029528e05858e2325e6673530cd0ccfa048f3af7702696d24b06eb1de
+I (609) synthdef: app=waveshare_synthdef version=0.1.0 ELF=b48139ca flash=16777216 PSRAM=8388608
+I (609) synthdef: requested_rate=44100 block=64 mono S16 Philips slot=left MCLK=256fs DMA=6x128
+W (610) synthdef: Actual clocks, channel packing, continuity and latency require hardware measurement
+I (610) synthdef: graph=13620 voice=35744 scratch=49152 arena=0 baseline_patch=ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45 touch_patch=f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5
+I (611) synthdef: Active graph=touch-sine nodes=14 controls=7
+W (4206) i2c.master: Please check pull-up resistances whether be connected properly. Otherwise unexpected behavior would happen. For more detailed information, please read docs
+I (4208) display: Power/reset before: output=ff direction=fc
+I (4529) display: Display power enabled and hardware reset released
+I (4529) LVGL: Starting LVGL task
+I (4529) ESP32-S3-Touch-AMOLED-1.8: Initialize SPI bus
+I (4530) co5300: version: 2.2.0
+I (4530) co5300_spi: LCD panel create success, version: 2.2.0
+W (4610) co5300_spi: The 3Ah command has been used and will be overwritten by external initialization sequence
+I (4710) ESP32-S3-Touch-AMOLED-1.8: Touch CST816S 0x15 found
+I (4710) CST816S: IC id: 183
+I (4766) synthdef: V2 touchscreen ready: Pitch, Level, Attack, Release
+I (7123) ES8311: Work in Slave mode
+E (7126) i2s_common: i2s_channel_disable(1218): the channel has not been enabled yet
+I (7127) I2S_IF: No paired data, current mode: playback
+I (7127) I2S_IF: STD: TX, data_bit: 16, slot_bit: 16, ws_width: 16, slot_mode: MONO, slot_mask: 0x1
+I (7127) I2S_IF: STD: TX, sample_rate_hz: 44100, mclk_multiple: 256, clk_src: 6
+I (7194) Adev_Codec: Open codec device OK
+I (7195) board_audio: Codec output level=100/100; bounded software master gain follows
+I (7195) board_audio: Pre-owner startup DMA event overflows=18; DMA now stopped
+I (7195) synthdef: Boots silent. Console: n note-on; o release; ! panic; +/- pitch; [/] amplitude
+@SD1 8be76950 OK 7b2270726f746f636f6c223a312c226d6f64656c223a2257617665736861726520414d4f4c454420312e38205632222c226275696c64223a2231303465383134613539363537393736353038616163303530656631666566393336373333613062386363663535653563356136393262666531346564393537222c22656e67696e65223a2230306163333338393034333034653837383435343737383038653539386566393733663439623532222c2270726f66696c65223a2234633365623138303239353238653035383538653233323565363637333533306364306363666130343866336166373730323639366432346230366562316465222c2272617465223a34343130302c22626c6f636b223a36342c22766f69636573223a312c2265666665637473223a302c227472616e73706f727473223a5b227573622d73657269616c2d6a746167225d2c2267726170685f6d6178223a36353533362c22736f757263655f6d6178223a36353533362c226368756e6b223a3235362c22736c6f7473223a382c2273746f72616765223a747275652c2273746f726167655f746f74616c223a31323436323430312c2273746f726167655f66726565223a31323435383838372c22706f6c696379223a22636174616c6f672d766f6963652d7632222c22636174616c6f67223a5b7b226964223a2270686173652d666d222c22737461747573223a2263616e646964617465222c2267726170685f736861323536223a2234613639383737356631383435303538663732373731636533633537613838323365623536393532626332626137653264333237306564333034646431623966227d2c7b226964223a226164646974697665222c22737461747573223a2263616e646964617465222c2267726170685f736861323536223a2236636337313036666136363763633734366630323764636561376438313663346531363035633839323734353035383262636666346262373365376666393034227d2c7b226964223a2266696c7465726564222c22737461747573223a2263616e646964617465222c2267726170685f736861323536223a2263616466363834613133363931323361623062633338313438646131383663306131323135333431383935643062653061666666643965383236643263323761227d5d7d 276b9533
+@SD1 8be76951 OK 7b2270726f746f636f6c223a312c226d6f64656c223a2257617665736861726520414d4f4c454420312e38205632222c226275696c64223a2231303465383134613539363537393736353038616163303530656631666566393336373333613062386363663535653563356136393262666531346564393537222c22656e67696e65223a2230306163333338393034333034653837383435343737383038653539386566393733663439623532222c2270726f66696c65223a2234633365623138303239353238653035383538653233323565363637333533306364306363666130343866336166373730323639366432346230366562316465222c2272617465223a34343130302c22626c6f636b223a36342c22766f69636573223a312c2265666665637473223a302c227472616e73706f727473223a5b227573622d73657269616c2d6a746167225d2c2267726170685f6d6178223a36353533362c22736f757263655f6d6178223a36353533362c226368756e6b223a3235362c22736c6f7473223a382c2273746f72616765223a747275652c2273746f726167655f746f74616c223a31323436323430312c2273746f726167655f66726565223a31323435383838372c22706f6c696379223a22636174616c6f672d766f6963652d7632222c22636174616c6f67223a5b7b226964223a2270686173652d666d222c22737461747573223a2263616e646964617465222c2267726170685f736861323536223a2234613639383737356631383435303538663732373731636533633537613838323365623536393532626332626137653264333237306564333034646431623966227d2c7b226964223a226164646974697665222c22737461747573223a2263616e646964617465222c2267726170685f736861323536223a2236636337313036666136363763633734366630323764636561376438313663346531363035633839323734353035383262636666346262373365376666393034227d2c7b226964223a2266696c7465726564222c22737461747573223a2263616e646964617465222c2267726170685f736861323536223a2263616466363834613133363931323361623062633338313438646131383663306131323135333431383935643062653061666666643965383236643263323761227d5d7d 1b6a76cc
+@SD1 8be76952 OK 7b227265636569766564223a307d b79bde59
+@SD1 8be76953 OK 7b227265636569766564223a3235367d 46cb9bb3
+@SD1 8be76954 OK 7b227265636569766564223a3531327d 45d7c2fe
+@SD1 8be76955 OK 7b227265636569766564223a3736387d ed0f9d0e
+@SD1 8be76956 OK 7b227265636569766564223a313032347d e103c9ff
+@SD1 8be76957 OK 7b227265636569766564223a313238307d 75ac6302
+@SD1 8be76958 OK 7b227265636569766564223a313533367d e84373ba
+@SD1 8be76959 OK 7b227265636569766564223a313637337d 646906a5
+@SD1 8be7695a OK 7b227265616479223a747275657d 6d189344
+@SD1 8be7695b OK 7b22616374697665223a747275657d 7dea2acb
+@SD1 8be7695c OK 7b227374617465223a332c2272657365745f7265717569726564223a66616c73652c227265636569766564223a313637332c227472616e73666572223a313136353330393531372c22736c6f74223a2d312c226e616d65223a224861726d6f6e6963204d6978222c2267726170685f736861323536223a2236636337313036666136363763633734366630323764636561376438313663346531363035633839323734353035383262636666346262373365376666393034227d 82701e75
+@SD1 8be7695d OK 7b2273746f70706564223a747275657d 0c09513c
+I (7507) synthdef: EXERCISE_BEGIN epoch=1 duration_ms=30000
+I (8255) synthdef: frame=44160 active=1 render_max_us=466 prep_max_us=386 combined_max_us=732 budget70_exceeded=0
+I (8255) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=2804 pcm_peak_max=3083
+I (8256) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13472 internal_free=79827 internal_min=79827 internal_largest=31744 psram_free=7845560
+I (8256) synthdef: worst reset=94 controls=17 prepare=254 dsp=240 pcm=43 knobs=0.8700,0.4500,0.0000,0.0000
+I (8257) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=386 combined_max_us=732 budget70_exceeded=0 reset=94 controls=17 prepare=254 dsp=240 pcm=43 knobs=0.8700,0.4500,0.0000,0.0000
+I (9256) synthdef: frame=88320 active=0 render_max_us=466 prep_max_us=408 combined_max_us=732 budget70_exceeded=0
+I (9256) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (9257) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13472 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (9257) synthdef: worst reset=94 controls=17 prepare=254 dsp=240 pcm=43 knobs=0.8700,0.4500,0.0000,0.0000
+I (9258) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=408 combined_max_us=732 budget70_exceeded=0 reset=94 controls=17 prepare=254 dsp=240 pcm=43 knobs=0.8700,0.4500,0.0000,0.0000
+I (10224) synthdef: frame=132480 active=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0
+I (10224) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=3007 pcm_peak_max=3252
+I (10225) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13472 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (10225) synthdef: worst reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (10226) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0 reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (11236) synthdef: frame=176640 active=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0
+I (11237) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=2117 pcm_peak_max=3252
+I (11237) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13472 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (11237) synthdef: worst reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (11238) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0 reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (12234) synthdef: frame=220800 active=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0
+I (12235) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=2082 pcm_peak_max=3252
+I (12235) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13472 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (12236) synthdef: worst reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (12236) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0 reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (13237) synthdef: frame=264960 active=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0
+I (13238) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=3188 pcm_peak_max=3252
+I (13238) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13472 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (13238) synthdef: worst reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (13239) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0 reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (14234) synthdef: frame=309120 active=0 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0
+I (14235) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (14235) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (14236) synthdef: worst reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (14236) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=408 combined_max_us=752 budget70_exceeded=0 reset=88 controls=12 prepare=263 dsp=258 pcm=45 knobs=0.8700,0.5300,1.0000,0.0000
+I (15243) synthdef: frame=353280 active=1 render_max_us=466 prep_max_us=418 combined_max_us=764 budget70_exceeded=0
+I (15244) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2849 faults=0 clips=0 nonfinite=0 pcm_peak=1994 pcm_peak_max=3252
+I (15244) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (15245) synthdef: worst reset=87 controls=14 prepare=239 dsp=269 pcm=52 knobs=0.3700,0.4500,0.0000,0.0000
+I (15245) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=764 budget70_exceeded=0 reset=87 controls=14 prepare=239 dsp=269 pcm=52 knobs=0.3700,0.4500,0.0000,0.0000
+I (16253) synthdef: frame=397440 active=0 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0
+I (16253) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (16253) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (16254) synthdef: worst reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (16254) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0 reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (17255) synthdef: frame=441600 active=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0
+I (17256) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2496 pcm_peak_max=3252
+I (17256) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (17256) synthdef: worst reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (17257) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0 reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (18263) synthdef: frame=485760 active=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0
+I (18264) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=660 pcm_peak_max=3252
+I (18264) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (18265) synthdef: worst reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (18265) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0 reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (19266) synthdef: frame=529920 active=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0
+I (19267) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2694 pcm_peak_max=3252
+I (19267) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (19267) synthdef: worst reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (19268) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0 reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (20265) synthdef: frame=574080 active=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0
+I (20265) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=1904 pcm_peak_max=3252
+I (20266) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (20266) synthdef: worst reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (20267) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0 reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (21265) synthdef: frame=618240 active=0 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0
+I (21266) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (21266) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (21266) synthdef: worst reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (21267) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0 reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (22240) synthdef: frame=662400 active=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0
+I (22240) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=1356 pcm_peak_max=3252
+I (22241) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (22241) synthdef: worst reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (22281) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=773 budget70_exceeded=0 reset=87 controls=17 prepare=305 dsp=235 pcm=53 knobs=0.8700,0.4100,1.0000,0.0000
+I (23241) synthdef: frame=706560 active=1 render_max_us=466 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (23280) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2170 pcm_peak_max=3252
+I (23280) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (23280) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (23281) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (24243) synthdef: frame=750720 active=1 render_max_us=466 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (24282) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=3125 pcm_peak_max=3252
+I (24282) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (24283) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (24283) synthdef: PROFILE epoch=1 render_max_us=466 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (25285) synthdef: frame=794880 active=1 render_max_us=469 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (25285) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=1104 pcm_peak_max=3252
+I (25286) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (25286) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (25287) synthdef: PROFILE epoch=1 render_max_us=469 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (26249) synthdef: frame=839040 active=0 render_max_us=469 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (26249) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (26250) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (26250) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (26251) synthdef: PROFILE epoch=1 render_max_us=469 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (27256) synthdef: frame=883200 active=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (27256) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2749 pcm_peak_max=3252
+I (27257) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (27257) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (27258) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (28256) synthdef: frame=927360 active=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (28256) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=1941 pcm_peak_max=3252
+I (28256) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (28257) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (28257) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (29257) synthdef: frame=971520 active=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (29258) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2813 pcm_peak_max=3252
+I (29258) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (29259) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (29259) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (30264) synthdef: frame=1015680 active=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (30264) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2765 pcm_peak_max=3252
+I (30265) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (30265) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (30266) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (31262) synthdef: frame=1059840 active=0 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (31262) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (31263) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (31263) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (31264) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (32270) synthdef: frame=1104000 active=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0
+I (32270) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2952 pcm_peak_max=3252
+I (32270) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (32271) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (32271) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=418 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (33277) synthdef: frame=1148160 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (33278) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (33278) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (33278) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (33279) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (34278) synthdef: frame=1192320 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (34278) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=2724 pcm_peak_max=3252
+I (34279) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (34279) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (34280) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (35285) synthdef: frame=1236480 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (35285) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=3125 pcm_peak_max=3252
+I (35286) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (35286) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (35287) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (36294) synthdef: frame=1280640 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (36295) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=1657 pcm_peak_max=3252
+I (36295) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (36296) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (36296) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (37296) synthdef: frame=1324800 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (37297) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=1914 pcm_peak_max=3252
+I (37297) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (37297) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (37298) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (38262) synthdef: frame=1368960 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (38262) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (38262) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (38263) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (38263) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (39263) synthdef: frame=1413120 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (39263) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2851 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (39264) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (39264) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (39265) synthdef: PROFILE epoch=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0 reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (39593) synthdef: EXERCISE_STOP
+@SD1 8be7695e OK 7b2273746f70706564223a747275657d 8cf94623
+@SD1 8be7695f OK 7b2273746f70706564223a747275657d d6987943
+I (39677) synthdef: EXERCISE_BEGIN epoch=2 duration_ms=30000
+I (40280) synthdef: frame=1457280 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (40280) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (40281) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (40281) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (40326) synthdef: PROFILE epoch=2 render_max_us=436 prep_max_us=374 combined_max_us=723 budget70_exceeded=0 reset=90 controls=14 prepare=270 dsp=226 pcm=46 knobs=0.8700,0.4500,0.0000,0.0000
+I (41282) synthdef: frame=1501440 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (41282) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2371 pcm_peak_max=3252
+I (41283) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (41283) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (41284) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=377 combined_max_us=725 budget70_exceeded=0 reset=76 controls=18 prepare=267 dsp=264 pcm=40 knobs=0.3700,0.5700,0.0000,0.0000
+I (42289) synthdef: frame=1545600 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (42289) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (42290) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (42290) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (42291) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=377 combined_max_us=725 budget70_exceeded=0 reset=76 controls=18 prepare=267 dsp=264 pcm=40 knobs=0.3700,0.5700,0.0000,0.0000
+I (43292) synthdef: frame=1589760 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (43293) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2701 pcm_peak_max=3252
+I (43293) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (43294) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (43294) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=395 combined_max_us=740 budget70_exceeded=0 reset=90 controls=11 prepare=266 dsp=252 pcm=43 knobs=0.3700,0.6500,1.0000,0.0000
+I (44303) synthdef: frame=1633920 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (44303) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=1141 pcm_peak_max=3252
+I (44304) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (44304) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (44305) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=395 combined_max_us=740 budget70_exceeded=0 reset=90 controls=11 prepare=266 dsp=252 pcm=43 knobs=0.3700,0.6500,1.0000,0.0000
+I (45306) synthdef: frame=1678080 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (45306) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2726 pcm_peak_max=3252
+I (45307) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13456 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (45307) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (45308) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=395 combined_max_us=740 budget70_exceeded=0 reset=90 controls=11 prepare=266 dsp=252 pcm=43 knobs=0.3700,0.6500,1.0000,0.0000
+I (46304) synthdef: frame=1722240 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (46305) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2262 pcm_peak_max=3252
+I (46305) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (46306) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (46306) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=395 combined_max_us=747 budget70_exceeded=0 reset=98 controls=16 prepare=279 dsp=232 pcm=50 knobs=0.8700,0.3300,0.0000,0.0000
+I (47305) synthdef: frame=1766400 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (47305) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (47305) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (47306) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (47306) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=402 combined_max_us=747 budget70_exceeded=0 reset=98 controls=16 prepare=279 dsp=232 pcm=50 knobs=0.8700,0.3300,0.0000,0.0000
+I (48318) synthdef: frame=1810560 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (48319) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2889 pcm_peak_max=3252
+I (48319) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (48320) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (48320) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=402 combined_max_us=747 budget70_exceeded=0 reset=98 controls=16 prepare=279 dsp=232 pcm=50 knobs=0.8700,0.3300,0.0000,0.0000
+I (49315) synthdef: frame=1854720 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (49315) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=696 pcm_peak_max=3252
+I (49315) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (49316) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (49316) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=402 combined_max_us=747 budget70_exceeded=0 reset=98 controls=16 prepare=279 dsp=232 pcm=50 knobs=0.8700,0.3300,0.0000,0.0000
+I (50316) synthdef: frame=1898880 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (50316) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2612 pcm_peak_max=3252
+I (50317) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (50317) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (50318) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=407 combined_max_us=747 budget70_exceeded=0 reset=98 controls=16 prepare=279 dsp=232 pcm=50 knobs=0.8700,0.3300,0.0000,0.0000
+I (51318) synthdef: frame=1943040 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (51319) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2075 pcm_peak_max=3252
+I (51319) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (51320) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (51320) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=407 combined_max_us=749 budget70_exceeded=0 reset=85 controls=10 prepare=297 dsp=219 pcm=38 knobs=0.1300,0.5300,1.0000,0.0000
+I (52321) synthdef: frame=1987200 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (52321) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (52322) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (52322) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (52323) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=410 combined_max_us=771 budget70_exceeded=0 reset=100 controls=18 prepare=268 dsp=240 pcm=44 knobs=0.8700,0.6500,0.0000,0.0000
+I (53329) synthdef: frame=2031360 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (53329) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2901 pcm_peak_max=3252
+I (53329) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (53330) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (53330) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=410 combined_max_us=771 budget70_exceeded=0 reset=100 controls=18 prepare=268 dsp=240 pcm=44 knobs=0.8700,0.6500,0.0000,0.0000
+I (54333) synthdef: frame=2075520 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (54333) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=248 pcm_peak_max=3252
+I (54333) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (54334) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (54334) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=410 combined_max_us=771 budget70_exceeded=0 reset=100 controls=18 prepare=268 dsp=240 pcm=44 knobs=0.8700,0.6500,0.0000,0.0000
+I (55334) synthdef: frame=2119680 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (55335) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2425 pcm_peak_max=3252
+I (55335) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (55336) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (55336) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=410 combined_max_us=771 budget70_exceeded=0 reset=100 controls=18 prepare=268 dsp=240 pcm=44 knobs=0.8700,0.6500,0.0000,0.0000
+I (56338) synthdef: frame=2163840 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (56338) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=3026 pcm_peak_max=3252
+I (56338) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (56339) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (56339) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=410 combined_max_us=771 budget70_exceeded=0 reset=100 controls=18 prepare=268 dsp=240 pcm=44 knobs=0.8700,0.6500,0.0000,0.0000
+I (57333) synthdef: frame=2208000 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (57333) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (57334) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (57334) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (57335) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=420 combined_max_us=776 budget70_exceeded=0 reset=100 controls=18 prepare=302 dsp=223 pcm=49 knobs=0.1300,0.4100,1.0000,0.0000
+I (58344) synthdef: frame=2252160 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (58345) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=3134 pcm_peak_max=3252
+I (58345) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (58346) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (58346) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=420 combined_max_us=776 budget70_exceeded=0 reset=100 controls=18 prepare=302 dsp=223 pcm=49 knobs=0.1300,0.4100,1.0000,0.0000
+I (59308) synthdef: frame=2296320 active=0 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (59308) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (59309) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (59309) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (59310) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=420 combined_max_us=776 budget70_exceeded=0 reset=100 controls=18 prepare=302 dsp=223 pcm=49 knobs=0.1300,0.4100,1.0000,0.0000
+I (60314) synthdef: frame=2340480 active=1 render_max_us=472 prep_max_us=420 combined_max_us=801 budget70_exceeded=0
+I (60314) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2859 pcm_peak_max=3252
+I (60315) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (60315) synthdef: worst reset=77 controls=19 prepare=293 dsp=262 pcm=46 knobs=0.3700,0.4100,1.0000,0.0000
+I (60315) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=420 combined_max_us=789 budget70_exceeded=0 reset=94 controls=18 prepare=265 dsp=276 pcm=45 knobs=0.3700,0.6500,0.0000,0.0000
+I (61317) synthdef: frame=2384640 active=1 render_max_us=472 prep_max_us=420 combined_max_us=808 budget70_exceeded=0
+I (61317) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2748 pcm_peak_max=3252
+I (61318) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (61318) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (61319) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=420 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (62324) synthdef: frame=2428800 active=1 render_max_us=472 prep_max_us=420 combined_max_us=808 budget70_exceeded=0
+I (62325) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2304 pcm_peak_max=3252
+I (62325) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (62326) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (62326) synthdef: PROFILE epoch=2 render_max_us=459 prep_max_us=420 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (63327) synthdef: frame=2472960 active=1 render_max_us=472 prep_max_us=420 combined_max_us=808 budget70_exceeded=0
+I (63328) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2039 pcm_peak_max=3252
+I (63328) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (63328) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (63329) synthdef: PROFILE epoch=2 render_max_us=468 prep_max_us=420 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (64331) synthdef: frame=2517120 active=0 render_max_us=472 prep_max_us=420 combined_max_us=808 budget70_exceeded=0
+I (64332) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (64332) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (64332) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (64333) synthdef: PROFILE epoch=2 render_max_us=468 prep_max_us=420 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (65335) synthdef: frame=2561280 active=1 render_max_us=472 prep_max_us=420 combined_max_us=808 budget70_exceeded=0
+I (65336) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2572 pcm_peak_max=3252
+I (65336) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (65336) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (65337) synthdef: PROFILE epoch=2 render_max_us=468 prep_max_us=420 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (66340) synthdef: frame=2605440 active=1 render_max_us=472 prep_max_us=420 combined_max_us=808 budget70_exceeded=0
+I (66341) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=451 pcm_peak_max=3252
+I (66341) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (66342) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (66342) synthdef: PROFILE epoch=2 render_max_us=468 prep_max_us=420 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (67342) synthdef: frame=2649600 active=1 render_max_us=472 prep_max_us=420 combined_max_us=808 budget70_exceeded=0
+I (67342) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2859 pcm_peak_max=3252
+I (67342) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (67343) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (67343) synthdef: PROFILE epoch=2 render_max_us=468 prep_max_us=420 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (68339) synthdef: frame=2693760 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (68340) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2162 pcm_peak_max=3252
+I (68340) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (68340) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (68341) synthdef: PROFILE epoch=2 render_max_us=468 prep_max_us=425 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (69349) synthdef: frame=2737920 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (69349) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (69349) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (69350) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (69350) synthdef: PROFILE epoch=2 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (70321) synthdef: frame=2782080 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (70321) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (70322) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (70322) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (70323) synthdef: PROFILE epoch=2 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (71322) synthdef: frame=2826240 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (71323) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (71323) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (71323) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (71324) synthdef: PROFILE epoch=2 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0 reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (71769) synthdef: EXERCISE_STOP
+@SD1 8be76960 OK 7b2273746f70706564223a747275657d 1e0e2fec
+@SD1 8be76961 OK 7b2273746f70706564223a747275657d 9efe38f3
+I (71856) synthdef: EXERCISE_BEGIN epoch=3 duration_ms=30000
+I (72361) synthdef: frame=2870400 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (72362) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=1030 pcm_peak_max=3252
+I (72362) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (72363) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (72363) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=366 combined_max_us=748 budget70_exceeded=0 reset=80 controls=18 prepare=268 dsp=246 pcm=55 knobs=0.8700,0.4500,0.0000,0.0000
+I (73366) synthdef: frame=2914560 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (73366) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=134 pcm_peak_max=3252
+I (73367) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (73367) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (73368) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=407 combined_max_us=748 budget70_exceeded=0 reset=80 controls=18 prepare=268 dsp=246 pcm=55 knobs=0.8700,0.4500,0.0000,0.0000
+I (74377) synthdef: frame=2958720 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (74378) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=1904 pcm_peak_max=3252
+I (74378) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (74379) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (74379) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=407 combined_max_us=748 budget70_exceeded=0 reset=80 controls=18 prepare=268 dsp=246 pcm=55 knobs=0.8700,0.4500,0.0000,0.0000
+I (75373) synthdef: frame=3002880 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (75374) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2229 pcm_peak_max=3252
+I (75374) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (75375) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (75375) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=407 combined_max_us=765 budget70_exceeded=0 reset=87 controls=10 prepare=290 dsp=227 pcm=45 knobs=0.6300,0.4500,0.0000,0.0000
+I (76375) synthdef: frame=3047040 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (76376) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2854 pcm_peak_max=3252
+I (76376) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (76376) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (76377) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=407 combined_max_us=765 budget70_exceeded=0 reset=87 controls=10 prepare=290 dsp=227 pcm=45 knobs=0.6300,0.4500,0.0000,0.0000
+I (77374) synthdef: frame=3091200 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (77374) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=648 pcm_peak_max=3252
+I (77375) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (77375) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (77375) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=408 combined_max_us=769 budget70_exceeded=0 reset=104 controls=18 prepare=286 dsp=216 pcm=48 knobs=0.1300,0.6500,1.0000,0.0000
+I (78382) synthdef: frame=3135360 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (78382) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=710 pcm_peak_max=3252
+I (78382) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (78383) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (78383) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=408 combined_max_us=769 budget70_exceeded=0 reset=104 controls=18 prepare=286 dsp=216 pcm=48 knobs=0.1300,0.6500,1.0000,0.0000
+I (79385) synthdef: frame=3179520 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (79386) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=3008 pcm_peak_max=3252
+I (79386) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (79386) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (79387) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=408 combined_max_us=769 budget70_exceeded=0 reset=104 controls=18 prepare=286 dsp=216 pcm=48 knobs=0.1300,0.6500,1.0000,0.0000
+I (80385) synthdef: frame=3223680 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (80386) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2357 pcm_peak_max=3252
+I (80386) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (80387) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (80387) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=408 combined_max_us=769 budget70_exceeded=0 reset=104 controls=18 prepare=286 dsp=216 pcm=48 knobs=0.1300,0.6500,1.0000,0.0000
+I (81387) synthdef: frame=3267840 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (81387) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=3091 pcm_peak_max=3252
+I (81388) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (81388) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (81389) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=408 combined_max_us=785 budget70_exceeded=0 reset=82 controls=20 prepare=300 dsp=252 pcm=49 knobs=0.3700,0.5300,1.0000,0.0000
+I (82390) synthdef: frame=3312000 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (82391) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=3187 pcm_peak_max=3252
+I (82391) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (82391) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (82392) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=408 combined_max_us=785 budget70_exceeded=0 reset=82 controls=20 prepare=300 dsp=252 pcm=49 knobs=0.3700,0.5300,1.0000,0.0000
+I (83388) synthdef: frame=3356160 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (83389) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=681 pcm_peak_max=3252
+I (83389) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (83390) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (83390) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=409 combined_max_us=785 budget70_exceeded=0 reset=82 controls=20 prepare=300 dsp=252 pcm=49 knobs=0.3700,0.5300,1.0000,0.0000
+I (84360) synthdef: frame=3400320 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (84397) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=3251 pcm_peak_max=3252
+I (84397) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (84398) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (84398) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=409 combined_max_us=785 budget70_exceeded=0 reset=82 controls=20 prepare=300 dsp=252 pcm=49 knobs=0.3700,0.5300,1.0000,0.0000
+I (85362) synthdef: frame=3444480 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (85362) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (85363) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (85363) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (85364) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=409 combined_max_us=785 budget70_exceeded=0 reset=82 controls=20 prepare=300 dsp=252 pcm=49 knobs=0.3700,0.5300,1.0000,0.0000
+I (86362) synthdef: frame=3488640 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (86364) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2318 pcm_peak_max=3252
+I (86401) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (86402) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (86402) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=409 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (87401) synthdef: frame=3532800 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (87401) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=1295 pcm_peak_max=3252
+I (87402) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (87402) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (87402) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=409 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (88403) synthdef: frame=3576960 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (88404) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2650 pcm_peak_max=3252
+I (88404) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (88404) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (88405) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=409 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (89367) synthdef: frame=3621120 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (89405) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=1662 pcm_peak_max=3252
+I (89406) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (89406) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (89407) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (90367) synthdef: frame=3665280 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (90368) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (90368) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (90405) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (90405) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (91370) synthdef: frame=3709440 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (91408) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2499 pcm_peak_max=3252
+I (91408) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (91409) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (91409) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (92370) synthdef: frame=3753600 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (92371) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2165 pcm_peak_max=3252
+I (92371) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (92372) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (92372) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (93372) synthdef: frame=3797760 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (93372) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=3125 pcm_peak_max=3252
+I (93373) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (93373) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (93374) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (94373) synthdef: frame=3841920 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (94374) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=1737 pcm_peak_max=3252
+I (94374) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (94374) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (94415) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (95376) synthdef: frame=3886080 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (95377) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (95377) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (95378) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (95378) synthdef: PROFILE epoch=3 render_max_us=467 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (96389) synthdef: frame=3930240 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (96390) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2749 pcm_peak_max=3252
+I (96390) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (96390) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (96391) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (97387) synthdef: frame=3974400 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (97388) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2084 pcm_peak_max=3252
+I (97388) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (97389) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (97389) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (98387) synthdef: frame=4018560 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (98387) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2813 pcm_peak_max=3252
+I (98387) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (98388) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (98388) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (99389) synthdef: frame=4062720 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (99390) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2855 pcm_peak_max=3252
+I (99390) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (99391) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (99391) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (100394) synthdef: frame=4106880 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (100394) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (100395) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (100395) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (100396) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (101400) synthdef: frame=4151040 active=1 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (101400) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=2953 pcm_peak_max=3252
+I (101401) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (101401) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (101402) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (102384) synthdef: frame=4195200 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (102384) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (102385) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (102385) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (102386) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (103385) synthdef: frame=4239360 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (103386) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (103386) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (103386) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (103387) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+I (103911) synthdef: EXERCISE_STOP
+@SD1 8be76962 OK 7b2273746f70706564223a747275657d c49f0793
+I (104409) synthdef: frame=4283520 active=0 render_max_us=472 prep_max_us=425 combined_max_us=808 budget70_exceeded=0
+I (104410) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2866 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=3252
+I (104410) synthdef: queue_high=1 overflow=0 coalesced=0 rejected=0 stack_free_bytes=13440 internal_free=79607 internal_min=79607 internal_largest=31744 psram_free=7845560
+I (104411) synthdef: worst reset=90 controls=16 prepare=291 dsp=269 pcm=39 knobs=0.3700,0.2900,1.0000,0.0000
+I (104411) synthdef: PROFILE epoch=3 render_max_us=468 prep_max_us=422 combined_max_us=796 budget70_exceeded=0 reset=88 controls=11 prepare=301 dsp=273 pcm=52 knobs=0.3700,0.3300,0.0000,0.0000
+@SD1 8be76963 OK 7b227374617465223a332c2272657365745f7265717569726564223a66616c73652c227265636569766564223a313637332c227472616e73666572223a313136353330393531372c22736c6f74223a2d312c226e616d65223a224861726d6f6e6963204d6978222c2267726170685f736861323536223a2236636337313036666136363763633734366630323764636561376438313663346531363035633839323734353035383262636666346262373365376666393034227d 5d26b298
+I (105276) synthdef: EXERCISE_STOP
+@SD1 8be76964 OK 7b2273746f70706564223a747275657d 705d7953
+@SD1 8be76965 OK 7b22736c6f74223a317d 134d4dd2

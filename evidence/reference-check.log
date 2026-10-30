@@ -1,0 +1,7 @@
+cc -std=c99 -O2 -Wall -Wextra -Werror -Wpedantic -fno-fast-math -ffp-contract=off -Isrc src/fm_load.c tests/decay_sparse.c -lm -o build/decay-sparse-test
+build/decay-sparse-test
+Sparse decay: 21 long runs, 6,300,000 samples; maximum normalized error 5.94923935e-08
+python3 tests/compare_reference.py
+PASS fm1_voice peak=7.450581e-09 rms=1.088017e-09
+python3 tests/test_scale_catalog.py
+{'presets': 143, 'scales': 108, 'tunings': 35, 'lookup_checks': 6514}

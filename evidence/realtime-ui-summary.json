@@ -1,0 +1,37 @@
+{
+  "test": "short ESP32 control/playback run",
+  "build_id": "274d3d2273a6f01ed8fafdfe92668df468107a67c9479c0deeff1ba0093b1d7e",
+  "active_graph": "touch-sine",
+  "source_log": "evidence/realtime-ui.log",
+  "last_logical_frame": 1236480,
+  "last_note_active": false,
+  "maximum": {
+    "render_max_us": 650,
+    "prep_max_us": 505,
+    "combined_max_us": 759,
+    "budget70_exceeded": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "queue_high": 1,
+    "overflow": 0,
+    "pcm_peak_max": 4634
+  },
+  "minimum": {
+    "stack_free_bytes": 13632,
+    "internal_min": 178371,
+    "internal_largest": 73728,
+    "psram_free": 8384500
+  },
+  "block_us": 1451.2471655328798,
+  "max_combined_fraction_of_block": 0.5229984375,
+  "reported_output_checks_passed": true,
+  "observed_70_percent_budget_passed": true,
+  "ui_redraw_stress_requested": true,
+  "scope": "short run with touch UI and requested 25 Hz redraw stress; no radio/storage; driver counters do not prove zero physical underruns",
+  "release_soak_30_minutes": "not run",
+  "external_recording_and_latency": "pending"
+}

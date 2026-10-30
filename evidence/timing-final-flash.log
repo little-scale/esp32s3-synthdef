@@ -1,0 +1,66 @@
+esptool.py --chip esp32s3 --port /dev/cu.usbmodem101 --after watchdog_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 16MB 0x0 bootloader/bootloader.bin 0x10000 waveshare_synthdef.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.12.dev2
+Serial port /dev/cu.usbmodem101
+Connecting...
+Chip is ESP32-S3 (QFN56) (revision v0.2)
+Features: WiFi, BLE, Embedded PSRAM 8MB (AP_3v3)
+Crystal is 40MHz
+USB mode: USB-Serial/JTAG
+MAC: 28:84:85:3a:d3:90
+Uploading stub...
+Running stub...
+Stub running...
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00005fff...
+Flash will be erased from 0x00010000 to 0x000e6fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 22368 bytes to 14185...
+Writing at 0x00000000... (100 %)
+Wrote 22368 bytes (14185 compressed) at 0x00000000 in 0.2 seconds (effective 876.4 kbit/s)...
+Hash of data verified.
+Compressed 878640 bytes to 560106...
+Writing at 0x00010000... (2 %)
+Writing at 0x0001c1a7... (5 %)
+Writing at 0x00026818... (8 %)
+Writing at 0x0002f16e... (11 %)
+Writing at 0x00035817... (14 %)
+Writing at 0x0003ac0f... (17 %)
+Writing at 0x00040628... (20 %)
+Writing at 0x00046fcd... (22 %)
+Writing at 0x0004f6b8... (25 %)
+Writing at 0x0005524d... (28 %)
+Writing at 0x0005acc2... (31 %)
+Writing at 0x0006029c... (34 %)
+Writing at 0x00065aaa... (37 %)
+Writing at 0x0006aa14... (40 %)
+Writing at 0x0006fae8... (42 %)
+Writing at 0x00074db6... (45 %)
+Writing at 0x0007a82f... (48 %)
+Writing at 0x0008041f... (51 %)
+Writing at 0x0008562e... (54 %)
+Writing at 0x0008a62e... (57 %)
+Writing at 0x0008fe7a... (60 %)
+Writing at 0x00095072... (62 %)
+Writing at 0x0009aceb... (65 %)
+Writing at 0x000a00ee... (68 %)
+Writing at 0x000a605b... (71 %)
+Writing at 0x000ac7c7... (74 %)
+Writing at 0x000b663b... (77 %)
+Writing at 0x000bcd87... (80 %)
+Writing at 0x000c26d6... (82 %)
+Writing at 0x000c898f... (85 %)
+Writing at 0x000ce136... (88 %)
+Writing at 0x000d398a... (91 %)
+Writing at 0x000d99ae... (94 %)
+Writing at 0x000dfa89... (97 %)
+Writing at 0x000e56d9... (100 %)
+Wrote 878640 bytes (560106 compressed) at 0x00010000 in 4.6 seconds (effective 1530.9 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 120...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (120 compressed) at 0x00008000 in 0.0 seconds (effective 1178.7 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting with a watchdog...

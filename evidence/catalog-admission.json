@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "reports": [
+    {
+      "patch": "phase-fm",
+      "diagnostic": false,
+      "admitted": true,
+      "passed": true
+    },
+    {
+      "patch": "additive",
+      "diagnostic": false,
+      "admitted": true,
+      "passed": true
+    },
+    {
+      "patch": "filtered",
+      "diagnostic": false,
+      "admitted": true,
+      "passed": true
+    },
+    {
+      "patch": "phase-fm",
+      "diagnostic": true,
+      "admitted": true,
+      "passed": true
+    },
+    {
+      "patch": "additive",
+      "diagnostic": true,
+      "admitted": true,
+      "passed": true
+    },
+    {
+      "patch": "filtered",
+      "diagnostic": true,
+      "admitted": true,
+      "passed": true
+    }
+  ]
+}

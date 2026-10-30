@@ -1,0 +1,22 @@
+{
+  "test": "ESP32 offline touch-sine vs pinned host",
+  "passed": true,
+  "firmware_build_id": "5552e76ae491553782f646c27106831377b16aed4076bd7038eb97134c185db8",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "capture_binary_sha256": "0862d3e3d8c81b98b9ec6e439c02c32b59443661657172a9ce998f1d228c063e",
+  "capture_sdkconfig_sha256": "e90dc1b840496e942e41a3625d989fd9b20af8923958501f0882c19841ecf8d6",
+  "source_log": "evidence/touch-target-capture.log",
+  "fixture_sha256": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5",
+  "frames": 22080,
+  "sample_rate": 44100,
+  "seed": 0,
+  "gate_off_block": 172,
+  "peak_error": 1.4901161193847656e-08,
+  "rms_error": 8.03048325228584e-09,
+  "peak_limit": 0.0001,
+  "rms_limit": 3e-05,
+  "target_float_sha256": "f8cb22df5e70e9589102927c5e4c269015c77bc04ee9e7916c508662a72d7d6c",
+  "host_float_sha256": "1341fda256e40c5ee3bf27da4a9e619fb8f58b31da7fd93fb2a908fc0d18e017",
+  "offline_render_us_including_psram_output": 35735,
+  "scope": "one fixture, no codec, no real-time scheduling/latency claim"
+}

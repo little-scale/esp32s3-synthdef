@@ -1,0 +1,11 @@
+Open On-Chip Debugger v0.12.0-esp32-20250422 (2025-04-22-13:02)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : only one transport option; autoselecting 'jtag'
+Info : esp_usb_jtag: VID set to 0x303a and PID to 0x1001
+Info : esp_usb_jtag: capabilities descriptor set to 0x2000
+Error: libusb_get_string_descriptor_ascii() failed with -1
+/Users/a1106632/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250422/openocd-esp32/share/openocd/scripts/target/esp_common.cfg:9: Error: 
+Traceback (most recent call last):
+  File "/Users/a1106632/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250422/openocd-esp32/share/openocd/scripts/target/esp_common.cfg", line 9, in script

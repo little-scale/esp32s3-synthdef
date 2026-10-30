@@ -1,0 +1,22 @@
+{
+  "repository": "https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-1.8",
+  "commit": "78e13f852929c2ab4f9d5e0ad1c50ea378dbf2b4",
+  "sha256": {
+    "00_board_check/CMakeLists.txt": "2038a9afb80292f940ec3055b600cf1eab37bb518b366da1f1b44e1f98012b8c",
+    "00_board_check/main/CMakeLists.txt": "cb58d67f2ae8fb81835348a07eba4af5f6fa3b36ce471fa04ae6c5e59a8418ce",
+    "00_board_check/main/board_check_main.c": "3b7b1d9220a619ce13bc9b918a9f6ceceb0d980ed34717aee3d338b7c0765743",
+    "00_board_check/main/idf_component.yml": "e200764ae2d687f839795a33d525eb153408ce2f7bea809e7ce715ad84fe3e4f",
+    "00_board_check/sdkconfig.defaults": "1688be0b2e7a776c1ab6c943f4896a21e4b9fd01c42a92b4fb980df35bed6a67",
+    "12_i2s_codec/CMakeLists.txt": "220c508128b6ee7db9addd0c84c11ab2f81fa9681336295d2e071dca3f1ce294",
+    "12_i2s_codec/main/CMakeLists.txt": "4da8bbb71454598dcbf7ba4e4f219cf365efc4c51b78345925d3a7dcc903c5ad",
+    "12_i2s_codec/main/Kconfig.projbuild": "d11788da405a1826fed70d9f2ec7bef3ab5948e3b7acf13054d063ea8ab8d16c",
+    "12_i2s_codec/main/i2s_es8311_example.c": "51bf24978210231cc7151cef1faf0b8dba52999cea5b17cab926965a101f8167",
+    "12_i2s_codec/main/idf_component.yml": "e200764ae2d687f839795a33d525eb153408ce2f7bea809e7ce715ad84fe3e4f",
+    "12_i2s_codec/sdkconfig.defaults": "4e5540380aa95b01cd01aba6731297918cd8d8e696489b74b3dd5fa68419da89",
+    "LICENSE": "b3b341839dbbbbbe32a8664d9aac72a78270a8986d40f7065082b37bbce4b301",
+    "reference/board_variant.c": "822d9e664bfaa7ca99e0f16e02cf3997477d2aaab3294743b9cc307faf1d1c9e"
+  },
+  "reference_paths": {
+    "reference/board_variant.c": "examples/esp-idf/90_axp2101_pmu/components/board_variant/board_variant.c"
+  }
+}

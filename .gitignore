@@ -1,0 +1,8 @@
+**/build/
+**/build-*/
+**/__pycache__/
+**/managed_components/
+**/sdkconfig
+**/sdkconfig.old
+recovery/*.bin
+.DS_Store

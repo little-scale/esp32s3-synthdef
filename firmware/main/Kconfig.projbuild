@@ -1,0 +1,11 @@
+menu "SynthDef diagnostics"
+    config SYNTHDEF_DIAGNOSTICS
+        bool "Enable explicit muted benchmark and automated UI exercise commands"
+        default n
+    config SYNTHDEF_TOUCH_UI
+        bool "Enable V2 touchscreen and four-control factory patch"
+        default n
+    config SYNTHDEF_OFFLINE_CAPTURE
+        bool "Render the factory fixture offline, dump float output, and remain silent"
+        default n
+endmenu

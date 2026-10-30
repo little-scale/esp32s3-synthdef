@@ -1,0 +1,29 @@
+{
+  "test": "touch sine vs SuperCollider, live pitch/level and gate release",
+  "passed": true,
+  "peak_error": 1.9155442714691162e-05,
+  "rms_error": 1.2892777310823212e-07,
+  "peak_limit": 0.0001,
+  "rms_limit": 3e-05,
+  "frames": 22080,
+  "sample_rate": 44100,
+  "reference_version": "scsynth 3.14.1 (Built from tag 'Version-3.14.1' [426edf6])",
+  "graph_sha256": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5",
+  "events": [
+    [
+      68,
+      "knob1",
+      0.75
+    ],
+    [
+      137,
+      "knob2",
+      0.3
+    ],
+    [
+      172,
+      "gate",
+      0
+    ]
+  ]
+}

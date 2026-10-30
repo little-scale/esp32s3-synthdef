@@ -1,0 +1,20 @@
+menu "SynthDef memory placement"
+    config SYNTHDEF_INTERNAL_ADAPTER
+        bool "Keep audio control and PCM routines in internal instruction RAM"
+        default y
+        help
+            Avoids flash instruction misses in the small per-block adapter.
+            The sound algorithms and PCM rounding remain unchanged.
+    config SYNTHDEF_INTERNAL_KERNELS
+        bool "Keep admitted-voice rendering kernels in internal instruction RAM"
+        default y
+        help
+            Avoids contention with display code for the flash instruction cache.
+            Only linker placement changes; engine source and math stay pinned.
+    config SYNTHDEF_INTERNAL_SINE
+        bool "Keep the immutable sine lookup table in internal RAM"
+        default n
+        help
+            Uses 32772 bytes of internal RAM to avoid flash data-cache misses
+            in the admitted oscillator. No engine code or table bytes change.
+endmenu

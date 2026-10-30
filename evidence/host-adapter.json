@@ -1,0 +1,21 @@
+{
+  "test": "portable instrument adapter",
+  "result": "passed",
+  "hardware": false,
+  "sample_rates": [
+    44100,
+    48000
+  ],
+  "seed": 0,
+  "factory_patch_sha256": "ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45",
+  "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "details": "PASS: 44.1/48 kHz, pitch, release, stale note IDs, panic, same-block cancellation, initial-rate rejection, finite PCM and clipping\nPASS: 262136 PCM conversions agree with the lrintf nearest/even oracle\nPASS: four normalized controls, pre-start values, live changes and touch-patch release",
+  "address_sanitizer": "not run successfully: installed Apple runtime deadlocks during initialization on this OS, before main",
+  "pcm_sha256": "0c78a84e670ce9cf40fa56f166d07446dcf897ddaa20af9d431c977ea1db0102",
+  "hash_scope": "same host/compiler diagnostic; cross-target comparisons require numerical tolerances"
+}

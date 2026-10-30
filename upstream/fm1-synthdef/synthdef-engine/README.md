@@ -1,0 +1,259 @@
+# FM1 SynthDef engine
+
+A bounded C99 runtime that reads SuperCollider version-2 `.scsyndef` files and executes their UGen graphs. It powers the Mac preview and the installed FM-1 instrument. The development profile implements 154 UGen types, with explicit limits on rates, operators, memory and graph size. It is an embedded SynthDef runtime, not the full SuperCollider language or server. See [the project overview](../README.md) for installation and [the instrument](../fm1-synth/README.md) for controls and hardware behaviour.
+
+## Try it
+
+From this directory:
+
+```sh
+make
+make test
+make reference-test
+make sanitize
+build/fm-inspect fixtures/fm1_voice.scsyndef
+python3 tools/render-wav.py fixtures/fm1_voice.scsyndef build/fm1-voice.wav
+```
+
+`make test` needs C99 and C++17 compilers and Python 3, with no Python packages. `make reference-test` additionally uses the installed SuperCollider **3.14.1** offline server, without opening audio hardware. Override `SCSYNTH` to change its location. The recorded fixtures are sufficient to run these tests; regeneration uses `python3 tools/export-all.py` with the installed `sclang` 3.14.1. It runs all twelve export scripts with timeouts and refreshes the fixture integrity manifest. The Makefile currently targets macOS shared libraries.
+
+The example in `examples/subtractive.scd` combines Saw, Pulse, a modulated RLPF, envelopes and panning. `build/subtractive-voice.wav` is its host-rendered companion test voice.
+
+The simpler example in `examples/voice.scd` exports a playable gated sine voice with `freq`, `amp`, `gate` and `pan` controls. `build/fm1-voice.wav` is a one-second host render with release at 0.25 seconds. `build/fm-render` emits raw native-endian stereo float samples at 44.1 kHz; `render-wav.py` converts them to portable 16-bit WAV.
+
+## Supported profile
+
+| UGen | Calculation rates | Current limits |
+| --- | --- | --- |
+| Control | initial, control | Up to 64 parameters; initial parameters freeze after rendering starts |
+| LagControl, TrigControl | control | Per-output lag state; triggers reset after one block; lag times are initial rate |
+| SinOscFB, Blip | audio/control | Initial/control parameters; bounded feedback/harmonic count and frequency; no arena |
+| Phasor | audio/control | Audio trigger/increment supported; audio increment requires audio trigger; bounded control range/reset |
+| Pluck | audio | Audio excitation; audio/control trigger and damping; literal maximum delay; bounded arena |
+| MoogFF | audio/control | Initial/control cutoff, feedback and reset; audio input for `.ar` |
+| FreqShift | audio | Audio input; audio/control shift and phase; corrected initial control phase; no arena |
+| Limiter | audio | Audio input; control threshold; positive literal lookahead; three bounded buffers |
+| FBSineN/L/C, StandardN/L | audio | Float chaotic maps; initial/control parameters; no arena |
+| SinOsc | audio, control | Frequency and phase inputs; bounded integer phase accumulator |
+| Saw, Pulse | audio, control | Band-limited impulse kernels with harmonic-count crossfades; parameters initial/control rate |
+| LFSaw, LFTri, LFPulse | audio, control | Frequency may be audio rate; initial phase is initial rate; pulse width initial/control rate |
+| WhiteNoise, PinkNoise | audio, control | SuperCollider taus88 random stream per voice |
+| LFNoise0, LFNoise1, LFNoise2 | audio, control | Initial/control frequency, sampled when generating the next segment |
+| Rand / ExpRand | initial | Bounds sampled once per voice; initial/control bounds accepted. ExpRand requires nonzero bounds of the same sign |
+| RandSeed (additional) | initial, control, audio | Rising-edge reseeding; seed must be a literal integer within ±2²⁴ |
+| FreeVerb, FreeVerb2 | audio | Audio signal input(s), initial/control mix/room/damp, parameters clipped to 0–1; caller-owned memory |
+| MiVerb | audio | One/two audio inputs, stereo output; six initial/control parameters, pinned upstream limits; caller-owned memory |
+| MiRings1–MiRings6 | audio | Separate mono-in/stereo-out models, one internal voice, explicit initial/control-rate trigger; other parameters initial/control rate; literal `compact` flag; 32–192 kHz. [Model, memory and compatibility details](../docs/RINGS.md) |
+| MiMu | audio | Mono input/output per instance; audio or initial/control gain; initial/control bypass; language-level array expansion gives stereo; no delay memory |
+| Fold, Wrap | audio, control | Bounds may be audio rate; control bounds interpolate at audio rate; ordered bounds required, equal bounds return that bound |
+| BrownNoise, ClipNoise | audio, control | Seeded per-voice random stream and reference constructor draws |
+| Trig, Trig1 | audio, control | Initial/control duration; nonnegative representable sample count; held triggers do not retrigger |
+| PulseDivider | audio, control | Initial/control division and initial start; audio output requires audio trigger; integer values bounded to ±8,388,607 |
+| PulseCount, SetResetFF, ToggleFF | audio, control | Rising-edge behavior; reset takes precedence; PulseCount/SetResetFF audio outputs require audio trigger |
+| Stepper | audio, control | Initial/control inclusive integer bounds, step and reset value; ordered bounds and values within ±8,388,607; audio output requires audio trigger |
+| XFade2, LinXFade2, Balance2 | audio, control | Two input channels; audio outputs require audio inputs; position may be audio rate; level initial/control rate |
+| LinExp | audio, control | Initial/control source and destination bounds; nonzero source span; destination endpoints nonzero and same sign; extrapolates |
+| Slew, Lag2, Lag3 | audio, control | Nonnegative initial/control rate limits or lag times; constructor state and lag coefficient interpolation |
+| VarSaw, LFCub, LFPar | audio, control | Frequency 0 to half calculation rate, may be audio rate; initial-rate phase; VarSaw width initial/control, clipped to 0.001–0.999 and latched per cycle |
+| SyncSaw | audio, control | Both frequencies may be audio rate; 0 to half calculation rate; reference constructor phase advance |
+| LFDNoise0, LFDNoise1, LFDNoise3 | audio, control | Frequency may be audio rate; supported domain 0 to four times calculation rate; negative frequency faults; cubic version retains upstream 0.8 scaling |
+| RHPF, BRF | audio, control | Initial/control cutoff and resonance/bandwidth; SC coefficient interpolation in a stable difference-state realization |
+| Amplitude | audio, control | Also supports audio input with control output; nonnegative initial/control attack/release; pinned SC rate semantics |
+| Formant | audio | Initial/control fundamental, formant frequency and bandwidth, each 0–Nyquist; bandwidth is raised to at least the fundamental internally, as upstream |
+| Formlet | audio/control | Audio input required for `.ar`; initial/control resonance frequency and attack/decay; nonnegative times; no extra arena allocation |
+| Crackle, LFClipNoise, LFDClipNoise, GrayNoise, Hasher | audio/control | Bounded random/chaotic generators; Hasher audio requires audio input; LFDClipNoise supports audio frequency |
+| CoinGate, TIRand, TWindex | audio/control | Probability/weighted/integer edge-triggered random values; audio CoinGate/TIRand require audio trigger; TWindex 1–64 weights |
+| Logistic | audio/control | Chaos parameter 0–4, initial-only value 0–1; initial/control frequency |
+| HenonN/L/C, CuspN/L, LatoocarfianN/L/C, LorenzL | audio | Single-precision upstream maps and interpolation; initial/control parameters; explicit bounded domains |
+| Gendy1, Gendy2, Gendy3 | audio/control | All seven distributions; every parameter initial/control; `initCPs` must be an integer literal 1–64; runtime `knum` follows upstream fallback to allocated count |
+| BPeakEQ, BLowShelf, BHiShelf | audio | Initial/control frequency, reciprocal Q/slope and gain; frequency strictly inside (0, Nyquist), positive Q/slope, gain ±120 dB; invalid coefficient domains fault |
+| SampleRate, SampleDur, ControlRate, ControlDur, BlockSize, RadiansPerSample | initial | Information for this voice; control rate uses engine block size 64 |
+| Delay1, Delay2 | audio, control | One/two calculation-sample delay; explicit initial values are initial/control inputs |
+| OnePole, OneZero | audio, control | Initial/control coefficient in [-1,1], interpolated across audio blocks |
+| LPZ1, HPZ1 | audio, control | One-sample average/difference; reference constructor state |
+| Latch, Gate | audio, control | Rising-edge capture / positive-trigger tracking; inputs no faster than output |
+| TRand, TExpRand | audio, control | Initial/control bounds; audio outputs require audio triggers; exponential bounds nonzero and same sign |
+| Dust, Dust2 | audio, control | Initial/control density; deterministic per-voice random stream; nonpositive density produces silence |
+| Impulse | audio, control | Frequency may be audio rate; phase must be initial rate; zero and negative frequency supported |
+| Decay, Decay2 | audio, control | Initial/control times, nonnegative; -60 dB time constants; zero and equal-time cases supported |
+| EnvGen | audio, control | All nine curve codes; up to 32 segments; details below |
+| Pan2 | audio, control | Position can be audio rate; level must be initial/control rate |
+| In | audio | Bus 0, one or two channels from the immutable input mix; effect slot only in the instrument |
+| Out | audio | Bus 0, literal or initial/control expression; one or two audio channels; additive mixing |
+| MaxLocalBufs, LocalBuf, SetBuf | initial | Up to 16 mono immutable tables, 1–128 literal entries each; one complete initializer before lookup; no general buffers |
+| DegreeToKey | audio, control | Live degree; literal octave; bounded table and degree rules below |
+| UnaryOpUGen | initial, control, audio | Explicit selector subset below |
+| BinaryOpUGen | initial, control, audio | Explicit selector subset below |
+| MulAdd, Sum3, Sum4 | initial, control, audio | Optimizer-generated arithmetic nodes |
+| DC | initial, control, audio | Samples its value at initialization |
+| K2A | audio | Initial/control input; block interpolation |
+| A2K | control | Takes the first input sample of each block |
+| Line, XLine | audio, control | Initial start/end/duration; doneAction 0/2 |
+| Resonz, Ringz | audio, control | Initial/control frequency and bandwidth/decay; block coefficient interpolation |
+| LPF, HPF, RLPF, BPF, LeakDC | audio, control | Initial/control cutoff, resonance/bandwidth or coefficient; block interpolation |
+| Lag, LagUD | audio, control | Initial/control lag times; changing coefficients are interpolated |
+| Select | initial, control, audio | Audio output requires audio choices; index is truncated and clamped |
+| Clip | audio, control | Bounds may be audio rate; control bounds interpolate |
+| Klang, Klank | audio | Initial-rate bank parameters; 64 total partials per graph |
+| DelayN/L/C, CombN/L/C, AllpassN/L/C | audio, control | Literal maxdelaytime; delay time may be audio rate; decay initial/control rate; bounded caller-owned memory |
+
+This is a tested compatibility subset, not full scsynth compatibility or bit-identical output. `DynKlang` expands to supported oscillators and arithmetic. `DynKlank` expands to Ringz and arithmetic, including control-rate frequency/decay modulation. Fixed Klang/Klank banks retain initial-rate parameter restrictions.
+
+Unary selectors: neg (0), abs (5), ceil (8), floor (9), frac (10), sign (11), squared (12), cubed (13), sqrt (14), exp (15), reciprocal (16), midicps (17), cpsmidi (18), midiratio (19), ratiomidi (20), dbamp (21), ampdb (22), octcps (23), cpsoct (24), log (25), log2 (26), log10 (27), sin (28), cos (29), tan (30), asin (31), acos (32), atan (33), sinh (34), cosh (35), tanh (36), distort (42), softclip (43).
+
+Mixed audio/control arithmetic interpolates control operands across the block, including optimizer-generated MulAdd/Sum3/Sum4 nodes. A separate constructor pass initializes upstream outputs before the first audio block.
+
+Binary selectors: add (0), subtract (1), multiply (2), integer div (3; floor division), divide (4), modulo (5), equal (6), unequal (7), less (8), greater (9), less-or-equal (10), greater-or-equal (11), min (12), max (13), lcm (17), gcd (18), round (19), roundUp (20), trunc (21; floor quantization), atan2 (22), hypot (23), hypotApx (24), signed pow / ** (25), ring1–ring4 (30–33), difsqr (34), sumsqr (35), sqrsum (36), sqrdif (37), absdif (38), thresh (39), amclip (40), scaleneg (41), clip2 (42), excess (43), fold2 (44), wrap2 (45), firstArg (46). Other selectors are rejected. These are **33 unary and 40 binary selectors**. Bitwise/shift selectors, random arithmetic selectors (`.rand`, `.rrand`, etc.), and demand-rate operators remain unsupported; existing Rand/TRand and noise UGens remain available.
+
+`pow` retains SC's signed-base convention: `(-a).pow(b)` returns `-pow(a,b)` for positive `a`, including fractional exponents. `gcd`/`lcm` truncate their inputs to integers and require absolute inputs ≤ 2²⁴; this avoids unbounded/64-bit arithmetic in the callback. Nonfinite results and outputs above the engine's 1e12 magnitude ceiling fault the voice.
+
+Three explicitly tested SC 3.14.1 edge differences are intentional: DegreeToKey uses safe Euclidean indexing at exact negative octave multiples, where upstream can read one past the table; audio/control `div` fills every sample for a held divisor, where upstream omits a loop; control/audio `firstArg` returns the first input with the usual control interpolation, where upstream falls back to addition. Those paths are checked against independent mathematical expectations, not treated as matching broken reference output.
+
+### Scale and Tuning
+
+These are sclang objects, not additional DSP oscillators. Stock named scales/tunings and custom `Scale.new` / `Tuning.new` objects, `.semitones`, `.ratios`, `.cents`, and numeric `.degreeToFreq` / `.degreeToRatio` are evaluated on the Mac. For a **live control/audio degree**, use the standard pitch-table path:
+
+```supercollider
+var scale = Scale.major(Tuning.just);
+var table = scale.as(LocalBuf);
+var semitones = DegreeToKey.kr(table, degree, 12);
+var freq = (60 + semitones).midicps;
+```
+
+`degree` can be a SynthDef control, knob expression or audio signal (`DegreeToKey.ar`). It is floored, wraps through the table in both directions, and must stay within ±2²⁴. `octave` is a literal constant truncated to an integer, matching SC; fractional periods need an explicit ratio-array/Select/pow construction instead. The table must be mono, contain 1–128 literal values, and have exactly one full SetBuf initializer at offset zero before lookup. At most 16 tables are accepted, still subject to overall constant/node/input limits. Their values share the immutable graph constants and require **no extra DSP arena memory**. LocalBuf references may only feed SetBuf or DegreeToKey; sample playback, mutable buffers, server buffer IDs and live table editing are not supplied.
+
+The installed SC library still governs source-language methods: `scale.degreeToFreq` with an ordinary numeric degree is compile-time work; use DegreeToKey for UGen degrees rather than assuming every Scale method accepts a signal. Merely declaring a scale does not change the keyboard mapping or create a Pbind/Event system. See the [playable just-intonation example](../fm1-synth/examples/just-intonation.scd). All 108 stock Scale and 35 Tuning presets pass live-table lookup checks, including negative degrees.
+
+
+### Reverbs
+
+FreeVerb (mono), FreeVerb2 (stereo) and MiVerb (mono/stereo input to stereo output) are implemented at **audio rate only**. Controls must be initial/control rate. Their entire memory reservation is charged to the existing caller-owned delay arena, including FreeVerb recurrence/counter state. `fm_delay_required` therefore budgets both delay and reverb storage. The common graph/voice/scratch structures have not grown.
+
+| Type | Memory per instance | Parameters |
+| --- | --- | --- |
+| FreeVerb | 50,492 bytes | mix, room, damp, clipped to 0–1 |
+| FreeVerb2 | 102,088 bytes | mix, room, damp, clipped to 0–1 |
+| MiVerb | 65,536 bytes | time 0–1.25, drywet 0–1, damp mapped as upstream, hp 0–1, freeze > 0, diffusion 0–0.95 |
+
+FreeVerb follows SuperCollider 3.14.1, including constructor processing, fixed delay lengths and calculation order. `tools/generate-freeverb.py` regenerates its arena-based C kernels from the pinned source. MiVerb follows mi-UGens commit `10f6824f68ad63475f67dfe3fe5016e2d2634f84`: packed signed-16 delay samples, floating-point filters/modulation, freeze input closure and the wrapper's output soft clipping (also applied to dry output). It accepts one or two input channels; arbitrary multichannel folding is outside this profile. Delay tap lengths remain fixed as upstream; sample rate changes modulation rates but do not rescale the rings.
+
+Prefer one reverb in slot 0. FreeVerb2 exceeds the instrument's per-synth-voice 64 KiB limit but fits its shared effect allocation. The total remains `2 * synth memory + effect memory <= 128 KiB`. FreeVerb2 plus the supplied echo exceeds it. MiVerb plus that echo exactly fills the arena and leaves no synth delay memory; CPU feasibility is a separate hardware check.
+
+The pinned MiVerb class is bundled for compilation. The manager/exporter now use the stock SuperCollider class library plus this class, without loading user extensions. No installed MiVerb plugin is needed for FM1 playback or host preview. Reference tests build an isolated upstream MiVerb plugin using the included pinned headers; the reference sources retain their licences. These additions have passed emulation/build tests and are installed on the test FM-1. Graph-specific hardware results and limits are recorded in [VERIFICATION.md](../docs/VERIFICATION.md).
+
+### Trigger and decay compatibility
+
+These additions are verified in host emulation and the freestanding device-math backend; they are not in the published 0.1.0-preview firmware; the development hardware checks and limitations are recorded in [VERIFICATION.md](../docs/VERIFICATION.md). `Dust` emits positive random impulses; `Dust2` emits bipolar impulses. `Decay` smooths its input with one exponential tail; `Decay2` subtracts attack and decay recurrences. Overlapping triggers add, so they are not amplitude-normalized envelopes. Equal attack/decay times yield zero; an attack longer than decay can yield negative output. Negative times fault the voice. Compensated single-precision state preserves long-tail accuracy without double arithmetic or extra allocation.
+
+`TRand`/`TExpRand` draw once at construction and subsequently on triggers, using the shared seeded voice stream. For `.ar`, provide an audio trigger; wrap control triggers with `K2A.ar` and constant triggers with `DC.ar`. Bounds may change at control rate. `TExpRand.ar` deliberately matches the pinned **SuperCollider 3.14.1** implementation: throughout an audio block, it compares triggers with the previous block's final trigger. A positive held trigger can therefore cause several draws in that block. `.kr` uses ordinary rising-edge behavior. This version-specific quirk is reference-tested.
+
+The new logarithmic conversions require positive input; zero/negative domains fault and silence the voice. Information UGens use the actual voice sample rate, including constructor-time caching. Delay1/Delay2 need no delay arena; at control rate their unit is one control block.
+
+### Envelopes
+
+`Env` constructors become EnvGen input data during export. The suite includes `Env.perc`, `adsr`, `dadsr`, `asr`, `cutoff`, `linen`, `triangle`, `sine` and custom breakpoints. The nine curves are step, linear, exponential, sine, Welch, numeric curvature, squared, cubed and hold. All nine have both audio- and control-rate reference tests.
+
+Supported behaviour includes sustain/release nodes, looping, retrigger, audio-rate gates, forced release (`gate <= -1`), fractional segment durations, zero-duration segments and doneAction 0/2. A doneAction of 2 retires this voice after its current block; it does not manage a scsynth node tree.
+
+Segment count, shape codes, release/loop indices and doneAction must be literal constants. Segment levels/times, numeric curve values and scale/bias may use initial/control signals; only the gate may be audio rate in this profile. Shape domain requirements still apply (for example, avoid exponential segments that cross zero). Non-finite or excessively large results fault and silence the voice rather than reaching the output.
+
+Sine/Welch curves use elapsed-sample formulas instead of a nearly-unit recursive coefficient, avoiding loss of precision on a single-precision FPU. Compensated float products preserve fractional segment boundaries without introducing software double arithmetic.
+
+### Delays and feedback filters
+
+The N/L/C variants use no, linear or cubic interpolation. Comb/Allpass decay is the signed time to decay by 60 dB; negative values invert feedback. All nine have audio/control-rate references, changing delay and decay, negative feedback, zero-delay cases, and audio-rate delay modulation. The implementation also reproduces the reference cubic-allpass startup behaviour. Maximum delay must be a nonnegative literal so memory can be checked before playing; non-finite constants (including infinite decay) remain outside this profile. Actual delay time is clamped using the reference ring-length/minimum-sample rules. `Delay*` has the reference initial-zero bypass; feedback delays retain their minimum delay.
+
+Rand and ExpRand use the per-voice random stream once at construction and retain their values across blocks, even when their control-valued bounds change. The instrument chooses a new seed per note; `fm_seed` or `RandSeed` makes tests repeatable. `randamp` therefore affects new notes only. The seeded five-harmonic `addy` integration fixture compares the entire 1.05-second voice lifetime plus silence against SuperCollider.
+
+The output defaults to bus **0**, the first stereo pair (left 0, right 1). `Out.ar(output, signal)` works with `output=0`; no parameter name is special to the renderer. Literal nonzero buses are rejected on import. A nonzero computed/control bus faults and silences that voice, preserving other voices; it is never silently redirected. Internal bus routing is not implemented.
+
+## Bounds and runtime contract
+
+One definition per version-2 file; at most 65,536 file bytes, 160 nodes, 192 output signals, 1,024 input references, 512 constants, 64 control values/names, 32 segments per envelope and 64 bank partials in total. Names are limited to 63 bytes. Variants, multiple definitions, unknown nodes/selectors/rates, forward references, malformed/truncated files and trailing bytes are rejected.
+
+The render block is 64 samples. Host references use 44.1 kHz. `fm_start` accepts 8–192 kHz, but those other sample rates do not yet have reference suites. A graph occupies 13,620 bytes, a voice 35,752 bytes, and shared scratch 49,152 bytes on this host. The band-limited oscillators additionally use 65,544 bytes of read-only sine/cosecant tables, generated at build-development time by `tools/generate-sine-tables.py`. These are compiled host sizes, not measurements of final device RAM, stack or CPU usage.
+
+`fm_load` runs outside the audio callback and invalidates the destination graph on failure. Never load into a graph while a voice uses it. Treat a validated graph as immutable. `fm_start` resets all per-voice state and uses deterministic seed 0. For graphs containing delay UGens, call `fm_delay_required` to budget memory and `fm_bind_delay` after start, before the first render. The caller supplies a non-overlapping float array that stays alive for that voice. The bind clears used memory; rendering allocates nothing. Each line rounds its maximum delay plus block overhead up to a power of two. Total delay memory is bounded to 65,536 samples per voice by the general host API; insufficient binding faults the voice before output. This memory is additional to the voice/scratch sizes above. The instrument adapter uses a smaller 16,384-sample budget per voice. Call `fm_seed` before the first render to choose a distinct seed per note/voice; explicit RandSeed nodes can override it. Noise nodes share the voice’s random stream in graph order, including initialization draws. A seeded graph is repeatable across restarts. Call `fm_set` between render blocks on the owning audio thread; cross-thread queuing is the firmware adapter's responsibility. Array controls can be addressed by index by a future adapter; the current named setter changes the named first value only.
+
+`fm_render` adds a block to the caller's interleaved stereo buffer. Clear it once before mixing voices. Scratch can be shared serially among voices; each voice owns its own oscillator, envelope and resonator state. No allocation, file access or logging occurs inside rendering. The current numerical fault policy discards the faulting voice's whole block, preserves other voices, and deactivates that voice until restart. Voice allocation, stealing and MIDI event scheduling are not implemented here.
+
+## Validation and remaining work
+
+Verified on 2026-10-28: **553/553 SuperCollider reference graphs, 34 API test groups, and 440,000 sanitizer mutation/truncation cases passed**. All 76 types other than In appear in the reference suite; stereo In is covered by dedicated API checks. The saved verification record is in `../evidence/`.
+
+The reference suite compares exported graphs against SuperCollider 3.14.1 and writes per-fixture errors to `build/reference-results.json`. Envelope tests use a peak-error limit of 5e-6 and RMS limit of 1e-6. New control/filter/noise/oscillator/delay fixtures use peak 5e-6 / RMS 1e-6, except audio-rate LagUD (peak 2e-5 / RMS 8e-6) for accumulated single-precision rounding. Earlier non-envelope fixtures use peak 1e-4 / RMS 3e-5, except audio-rate panning (peak 1e-3) because small floating-point differences can select adjacent pan-table entries. The 37 m7 reverb graphs run for approximately four seconds and use peak 5e-6 / RMS 1e-6, except the overdriven MiVerb oscillator integration case (peak 2e-4 / RMS 2e-5): tiny oscillator differences enter quantized nonlinear feedback. A separate identical-input oracle compares 819,200 frames across four sample rates and two input amplitudes, including control changes, freeze and overdrive; it matches the unmodified upstream DSP exactly on the tested host. The m6 additions use peak 1e-4 / RMS 3e-5. One sinusoidally frequency-modulated Impulse fixture uses a pulse-count/amplitude oracle with a maximum one-sample timing difference, because upstream oscillator rounding can move a discontinuous wrap. A separate exact-valued frequency-modulation fixture retains ordinary waveform comparison. The timing oracle is tested to reject missing, extra and two-sample-shifted pulses. Passing these finite fixtures is not an exhaustive guarantee over every possible graph or parameter range.
+
+API tests cover controls, restart, done actions, mixing, scratch reuse, invalidation on failed load, malformed references, every truncation of a fixture, numerical faults and deterministic mutations. `make sanitize` exercises 440,000 mutations/truncations across twenty-two graph families with bounds, undefined-behaviour and float-conversion checks. Apple's installed AddressSanitizer deadlocked in its own startup before `main`; no ASan success is claimed. A stack sample is retained under `build/asan-startup-sample.txt`.
+
+All 49 planned UGen names are implemented. This does not imply support for every scsynth graph, operator selector or parameter combination. Unsupported types/rates/selectors are rejected; numerical faults retire the voice. In particular:
+
+- Saw/Pulse frequency must be positive, no greater than half the calculation rate, and require at most 2²⁴ harmonics. Pulse width must be in 0..1. Invalid runtime parameters fault the voice.
+- Filter and lag parameters, band-limited oscillator parameters and LFNoise frequency cannot be audio-rate signals in this profile. Fixed bank parameters remain initial rate.
+- RandSeed supports literal integer seeds only. Demand-rate seed expressions and RandID are excluded.
+- There is no automatic voice seed selection, server node tree, bus routing beyond stereo bus zero, shared buffer system, general feedback graph or plugin loading.
+
+The seeded white/pink noise and mixed-noise reference cases match the reference samples exactly at audio rate. Other kernels are assessed by the explicit tolerances above; the full runtime is not claimed bit-identical.
+
+The companion `../fm1-synth/` provides the two-voice instrument, eight playable slots plus a permanent effect, browser manager, physical flash journal and USB MIDI transfer. Both the host and freestanding device math backends have passed the 553 reference comparisons. The supplied patches have separate hardware timing checks; admitted graph size is not a guarantee of realtime performance.
+
+## Provenance
+
+New engine code is GPL-3.0-or-later. DSP, noise, interpolation and oscillator-table algorithms were adapted from SuperCollider's GPL-2.0-or-later sources; this distribution uses the compatible GPL-3.0-or-later option. See `LICENSE` and `reference/README.md`. Existing fm1-base files keep their original licenses.
+
+## Device renderer work (28 October 2026)
+
+`fm_fast.inc` binds inputs once per node, specializes arithmetic, uses the existing interpolated sine table, and calculates control-rate panning gains once per block. Numeric envelope curves in [-20,20] use a compensated exponential recurrence; extreme curvature retains the direct equation. An independent analytic test checks 36 combinations of curvature and endpoints, including nonzero starts and negative levels. The original SuperCollider fixture checks still apply.
+
+The device backend and adapter are in `../fm1-synth/firmware/`; their hardware test status and measured memory are documented by that project. The device and Mac preview allocate two voices. The device uses the optional `fm_prepare` constructor pass and a 128-frame startup interval to reduce note-on bursts. The hardware acceptance record, rather than graph admission alone, determines whether a patch meets the realtime budget.
+
+The polyphony update adds a 25th API test group verifying idempotent early preparation and identical later audio with shared scratch. Scalar/audio arithmetic loops bind their rates outside the sample loop; scalar-gated numeric envelopes process runs up to the next segment boundary; unchanged Pan2 positions reuse their gains. IEEE-754 magnitude checks retain NaN/infinity and excessive-output rejection.
+
+## Stereo input and permanent effects
+
+`In.ar(0, 1)` reads the left channel and `In.ar(0, 2)` reads both channels from the immutable stereo input passed to `fm_render_input`. Missing input is silence. Nonzero buses fault the voice. The instrument admits this UGen only in its dedicated effect slot; ordinary note SynthDefs keep using `Out.ar(0, ...)`. Effect output replaces the instrument mix before final gain/metering; it is not recursively fed into the same input bus. The 26th API test group verifies channel mapping, silence and bus/rate rejection. The full 553-graph SuperCollider suite also passes on host and device-math backends.
+
+### Mix and stereo Splay helpers
+
+`Mix.ar` and `Splay.ar` work through the stock SuperCollider compiler. Mix expands into additions/Sum3/Sum4 (plus K2A or DC for control/scalar input); Splay expands into Pan2, summation and level multiplication. Fifteen helper comparisons cover mono/stereo arrays, 1/2/3/4/5/9-channel sums, scalar/control rate conversion, 1/2/5-channel spreading, center/width changes and compensation on/off. The compiled-node count remains 77. Dynamic numeric `levelComp` may emit unsupported `pow`; `SplayAz`/PanAz are not supported.
+
+Dust/Decay/Decay2 use dedicated block loops to avoid repeated graph-reference decoding and per-sample type dispatch. Unchanged decay times reuse coefficients; the state keeps a compensation word and retains changed-time interpolation. Zero-input samples use a cheaper compensated addition; 21 long runs (6.3 million samples) remain within 5.95e-8 normalized error of a double-precision recurrence. No state or delay allocation is added.
+
+## Expansion verification and MiRings feasibility
+
+The October 30 expansion reuses existing node state: no additional per-voice or global DSP RAM. New kernels have separate constructor/rate, live-control, malformed-input and numerical-fault coverage. MiMu is checked with identical input against the unmodified upstream implementation, including audio-rate gain and bypass. Full emulation and build results are in [the verification record](../docs/VERIFICATION.md); hardware checks for these additions are pending.
+
+`SelectX.ar/kr` now compiles and renders through supported selectors and crossfade nodes. As with Mix and Splay, it is a source helper rather than an additional runtime type.
+
+MiRings1–MiRings6 now use independent model arenas. Models 2/5 offer optional compact eight-string buffers; model 6 removes unused reverb padding while retaining every delay length. The full upstream MiRings API and alternate/Easter-egg modes remain unsupported. See [Rings model/memory details](../docs/RINGS.md).
+
+## Gendy profile
+
+Gendy1 and Gendy2 expose their min/max frequency, amplitude/duration scales and distribution controls; Gendy2 also exposes `a` and `c`. Gendy3 uses a single cycle-frequency control. Standard SuperCollider `.ar`/`.kr` defaults, `mul`/`add`, multichannel expansion and `RandSeed` work within the normal graph limits. Rates and random draw order follow the pinned 3.14.1 implementation. All parameters must be initial/control rate, including frequency. `initCPs` must be a literal integer in 1–64; changing `knum` affects active points without reallocating memory. A `knum` outside 1–initCPs selects the allocated count, as upstream does.
+
+Each instance charges the shared DSP arena: Gendy1 uses `8 * initCPs` bytes, Gendy2 `16 * initCPs`, Gendy3 `16 * initCPs + 8`. At the default 12 points this is 96, 192 and 200 bytes respectively. There is no heap allocation or increase to fixed per-node/per-voice state. The same synth-plus-effect memory admission applies as for delay/reverb buffers.
+
+Distribution parameters are clamped to 0.0001–1, and unrecognized distribution selectors use the upstream linear fallback. Negative frequencies, non-finite controls or control magnitudes above 1,000,000 fault the voice. Degenerate duration/interpolation state or an exhausted Gendy3 breakpoint list faults safely instead of accessing outside the allocation. Excessive frequency relative to breakpoint count can extrapolate beyond ±1, as upstream does; the supplied examples soft-clip before filtering and leave output headroom.
+
+Floating-point details matter here. Compensated phase pairs preserve timing without software doubles. Gendy3 retains the upstream **integer** interpolation multiplier. Gendy2 feedback amplifies minute numerical differences; Gendy3 can cross an integer interpolation boundary differently. Exact long waveform identity with desktop SuperCollider is therefore not promised. The 81 Gendy fixtures use 53 ordinary waveform checks and 28 stochastic-summary checks (RMS/peak ratios and mean offset). Independently, 707,707 distribution inputs and 2,795,520 identical-state transitions are compared with the unmodified upstream kernels on host and firmware-math backends. Breakpoint updates and RNG draw order are checked; the two observed host integer-boundary transitions use an analytical discontinuity bound. See [Gendy verification](../docs/VERIFICATION.md).
+
+Examples: [Gendy1](../fm1-synth/examples/gendy1.scd), [Gendy2](../fm1-synth/examples/gendy2.scd), [Gendy3](../fm1-synth/examples/gendy3.scd). Knobs 1–4 control amplitude movement, duration movement, active points and cutoff. Existing slots are not overwritten. Restart an already-running local editor to load the updated native library. Hardware CPU, listening and power-cycle checks remain deferred.
+
+## Formant and Formlet profile
+
+`Formant.ar(fundfreq, formfreq, bwfreq)` implements SuperCollider's table-based formant oscillator, including its constructor phase reset, control-block parameter sampling, minimum bandwidth rule and wrapped 32-bit phase-reset arithmetic. It has no `.kr` constructor. This profile requires initial/control-rate frequency arguments, each finite and within 0–Nyquist. Although desktop Formant will sample audio-rate arguments once per block, this profile rejects those arguments explicitly.
+
+`Formlet.ar/kr(input, freq, attacktime, decaytime)` implements the two resonator recurrences and three-sample audio-rate coefficient interpolation from the pinned SuperCollider source. It supports equal times (cancellation), attack greater than decay (inversion), zero times and live changes. Resonance frequency must be initial/control rate within 0–Nyquist of the UGen's rate; times must be finite, initial/control rate in 0–1,000,000 seconds. `.ar` requires an audio input; `.kr` accepts initial/control input. Invalid domains fault and mute that voice. These limits are bounds, not a guarantee that extreme time/frequency combinations are musically useful.
+
+A compensated difference-state realization reduces cancellation near DC. Alternating-sign modulation applies the same stable calculation near Nyquist, converting existing state when a live frequency crosses the midpoint. The transformation preserves the filter recurrence; it does not alter its intended tuning. Both new types reuse existing node state and allocate **zero** bytes from the DSP arena. Like the upstream resonator, output level depends on sample rate and excitation; examples leave headroom.
+
+The 95 new waveform fixtures cover audio/control operation, zero and boundary frequencies, seeded-noise/sine/impulse excitation, equal/reversed/zero times and live controls, including repeated changes between the low- and high-frequency representations. Ordinary-host limits are peak 1e-4 / RMS 3e-5; firmware-math limits remain peak 1e-3 / RMS 1e-4. All 15 Formant fixtures match the pinned desktop reference exactly on the ordinary host. API tests also cover restart, shared scratch, invalid inputs and 2,097,152 long-render frames over four sample rates. These are emulation checks, not measured realtime device performance.
+
+Examples: [Formant voice](../fm1-synth/examples/formant.scd) maps knobs to formant frequency, bandwidth, note attack and release; [Formlet voice](../fm1-synth/examples/formlet.scd) maps knobs to resonant harmonic, resonance attack, resonance decay and note release. No saved slot is replaced automatically. See the [upstream Formant help](https://doc.sccode.org/Classes/Formant.html) and [Formlet help](https://doc.sccode.org/Classes/Formlet.html).
+
+## Random and chaotic generator profile
+
+See [the detailed generator guide](../docs/STOCHASTIC.md) for all 18 additions, precise domains/rates, single-precision behavior, deliberate TIRand trigger fixes, validation and examples. They reuse existing node state and require no DSP-arena storage.
+
+## Synthesis/effects expansion profile
+
+The [complete rate, domain, memory and precision guide](../docs/SYNTHESIS-EXPANSION.md) covers the 12 newer types, the FreqShift constructor-phase correction and four optional example patches. Pluck and Limiter share the existing arena; other additions reuse node storage.

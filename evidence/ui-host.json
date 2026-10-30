@@ -1,0 +1,11 @@
+{
+  "test": "real LVGL host simulation",
+  "passed": true,
+  "details": "UI fixed heap: 65536 bytes, currently free 26648, largest free block 26592\nPASS: real LVGL press/drag/release, all sliders, panic, page cancellation, metadata, library load/save and busy controls",
+  "source_sha256": "dccb4346597892be396dd3c7a7eaead9d1cab5be6be067d1fecba5149ab74f95",
+  "hardware": false,
+  "dimensions": [
+    368,
+    448
+  ]
+}

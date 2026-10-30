@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/host/test_device_patches.py", line 38, in <module>
+    hello = d.hello()
+  File "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/host/patches.py", line 108, in hello
+    result = self.request('HELLO')
+  File "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/host/patches.py", line 105, in request
+    raise TimeoutError(f'{operation}: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation')
+TimeoutError: HELLO: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation

@@ -1,0 +1,41 @@
+{
+  "reference": "scsynth 3.14.1 (Built from tag 'Version-3.14.1' [426edf6])",
+  "reports": [
+    {
+      "patch": "phase-fm",
+      "passed": true,
+      "peak_error": 2.168118953704834e-05,
+      "rms_error": 1.459392566869197e-07,
+      "peak_limit": 0.0001,
+      "rms_limit": 3e-05,
+      "frames": 22080,
+      "sample_rate": 44100,
+      "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
+      "layout": "nodes=18 signals=24 inputs=53 delay=0\nControl:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 SinOsc:2 BinaryOpUGen:1 BinaryOpUGen:2 SinOsc:2 MulAdd:1 MulAdd:1 EnvGen:2 BinaryOpUGen:2 BinaryOpUGen:2 BinaryOpUGen:2 Pan2:2 Out:2"
+    },
+    {
+      "patch": "additive",
+      "passed": true,
+      "peak_error": 1.3530254364013672e-05,
+      "rms_error": 9.108093605951235e-08,
+      "peak_limit": 0.0001,
+      "rms_limit": 3e-05,
+      "frames": 22080,
+      "sample_rate": 44100,
+      "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
+      "layout": "nodes=21 signals=27 inputs=61 delay=0\nControl:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 SinOsc:2 BinaryOpUGen:1 SinOsc:2 BinaryOpUGen:2 MulAdd:2 SinOsc:2 MulAdd:2 MulAdd:1 MulAdd:1 EnvGen:2 BinaryOpUGen:2 BinaryOpUGen:2 BinaryOpUGen:2 Pan2:2 Out:2"
+    },
+    {
+      "patch": "filtered",
+      "passed": true,
+      "peak_error": 1.090019941329956e-05,
+      "rms_error": 1.6130885038610508e-07,
+      "peak_limit": 0.0001,
+      "rms_limit": 3e-05,
+      "frames": 22080,
+      "sample_rate": 44100,
+      "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a",
+      "layout": "nodes=23 signals=29 inputs=65 delay=0\nControl:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 SinOsc:2 BinaryOpUGen:1 SinOsc:2 MulAdd:2 MulAdd:1 BinaryOpUGen:1 BinaryOpUGen:1 BinaryOpUGen:1 Lag:1 LPF:2 MulAdd:1 MulAdd:1 EnvGen:2 BinaryOpUGen:2 BinaryOpUGen:2 BinaryOpUGen:2 Pan2:2 Out:2"
+    }
+  ]
+}

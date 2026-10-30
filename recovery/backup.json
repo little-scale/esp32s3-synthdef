@@ -1,0 +1,10 @@
+{
+  "file": "before-synthdef-2026-10-30.bin",
+  "bytes": 16777216,
+  "sha256": "b43804c763856796cdfa5c2ed0bd7ed13f900fecac551b51f153132b0f82c356",
+  "source": "read_flash 0 ALL before any project flashing",
+  "observed_port": "/dev/cu.usbmodem3101",
+  "chip": "ESP32-S3 rev0.2",
+  "flash_bytes": 16777216,
+  "embedded_psram_bytes": 8388608
+}

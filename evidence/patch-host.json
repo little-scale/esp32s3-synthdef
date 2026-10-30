@@ -1,0 +1,12 @@
+{
+  "test": "portable patch protocol/storage formats",
+  "passed": true,
+  "hardware": false,
+  "details": "PASS: 513 frame sizes/CRC rejection, manifest bounds, admission, digest/UTF-8, 1037 truncated and 1037 corrupt generations rejected",
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "scope": "Byte-boundary interruption/corruption of individual files; physical power-cut/filesystem tests remain pending"
+}

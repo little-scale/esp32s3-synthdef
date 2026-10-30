@@ -1,0 +1,116 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40041a76
+invalid header: 0xffffff7f
+invalid header: 0xffffff7f
+invalid header: 0xffffff7f
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x1710
+load:0x403c8700,len:0xe1c
+load:0x403cb700,len:0x31e0
+entry 0x403c8938
+I (32) boot: ESP-IDF v5.5 2nd stage bootloader
+I (32) boot: compile time Oct 30 2026 13:42:14
+I (32) boot: Multicore bootloader
+I (32) boot: chip revision: v0.2
+I (32) boot: efuse block revision: v1.4
+I (33) qio_mode: Enabling default flash chip QIO
+I (33) boot.esp32s3: Boot SPI Speed : 80MHz
+I (33) boot.esp32s3: SPI Mode       : QIO
+I (33) boot.esp32s3: SPI Flash Size : 16MB
+I (33) boot: Enabling RNG early entropy source...
+I (34) boot: Partition Table:
+I (34) boot: ## Label            Usage          Type ST Offset   Length
+I (34) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (34) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (35) boot:  2 factory          factory app      00 00 00010000 00300000
+I (35) boot:  3 storage          Unknown data     01 82 00310000 00cf0000
+I (36) boot: End of partition table
+I (36) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=38980h (231808) map
+I (71) esp_image: segment 1: paddr=000489a8 vaddr=3fc96800 size=033fch ( 13308) load
+I (74) esp_image: segment 2: paddr=0004bdac vaddr=40374000 size=0426ch ( 17004) load
+I (77) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=87528h (554280) map
+I (160) esp_image: segment 4: paddr=000d7550 vaddr=4037826c size=0e520h ( 58656) load
+I (171) esp_image: segment 5: paddr=000e5a78 vaddr=600fe000 size=00020h (    32) load
+I (179) boot: Loaded app from partition at offset 0x10000
+I (179) boot: Disabling RNG early entropy source...
+I (180) octal_psram: vendor id    : 0x0d (AP)
+I (180) octal_psram: dev id       : 0x02 (generation 3)
+I (180) octal_psram: density      : 0x03 (64 Mbit)
+I (180) octal_psram: good-die     : 0x01 (Pass)
+I (181) octal_psram: Latency      : 0x01 (Fixed)
+I (181) octal_psram: VCC          : 0x01 (3V)
+I (181) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (181) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (182) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (182) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (182) octal_psram: DriveStrength: 0x00 (1/1)
+I (183) MSPI Timing: PSRAM timing tuning index: 5
+I (183) esp_psram: Found 8MB PSRAM device
+I (183) esp_psram: Speed: 80MHz
+I (183) cpu_start: Multicore app
+I (597) esp_psram: SPI SRAM memory test OK
+I (605) cpu_start: Pro cpu start user code
+I (605) cpu_start: cpu freq: 240000000 Hz
+I (605) app_init: Application information:
+I (605) app_init: Project name:     waveshare_synthdef
+I (606) app_init: App version:      0.1.0
+I (606) app_init: Compile time:     Oct 30 2026 13:41:48
+I (606) app_init: ELF file SHA256:  13d94ec0b...
+I (606) app_init: ESP-IDF:          v5.5
+I (606) efuse_init: Min chip rev:     v0.0
+I (606) efuse_init: Max chip rev:     v0.99 
+I (606) efuse_init: Chip rev:         v0.2
+I (607) heap_init: Initializing. RAM available for dynamic allocation:
+I (607) heap_init: At 3FCA2C70 len 00046AA0 (282 KiB): RAM
+I (607) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+I (607) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM
+I (607) heap_init: At 600FE020 len 00001FC8 (7 KiB): RTCRAM
+I (608) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator
+I (608) spi_flash: detected chip: generic
+I (608) spi_flash: flash io: qio
+I (609) sleep_gpio: Configure to isolate all GPIO pins in sleep state
+I (609) sleep_gpio: Enable automatic switching of GPIO sleep configuration
+I (610) main_task: Started on CPU0
+I (611) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations
+I (611) main_task: Calling app_main()
+I (612) synthdef: V2 target (user-confirmed; display/touch not probed) IDF=v5.5 compiler=14.2.0
+I (612) synthdef: build=a68d7b3f525fd1f1639b91446a21e7911b9d168f3b85122d8c9f82c26477fb6c engine=00ac338904304e87845477808e598ef973f49b52 profile=f14065db2e81fe35e7c7dfe8dfd8d0c9507d6d0242cead96276ef9da49c4d4bc
+I (612) synthdef: app=waveshare_synthdef version=0.1.0 ELF=13d94ec0 flash=16777216 PSRAM=8388608
+I (612) synthdef: requested_rate=44100 block=64 mono S16 Philips slot=left MCLK=256fs DMA=6x128
+W (613) synthdef: Actual clocks, channel packing, continuity and latency require hardware measurement
+I (613) synthdef: graph=13620 voice=35744 scratch=49152 arena=0 baseline_patch=ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45 touch_patch=f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5
+I (614) synthdef: Active graph=touch-sine nodes=14 controls=7
+W (4666) i2c.master: Please check pull-up resistances whether be connected properly. Otherwise unexpected behavior would happen. For more detailed information, please read docs
+I (4667) display: Power/reset before: output=ff direction=fc
+I (4988) display: Display power enabled and hardware reset released
+I (4988) LVGL: Starting LVGL task
+I (4988) ESP32-S3-Touch-AMOLED-1.8: Initialize SPI bus
+I (4989) co5300: version: 2.2.0
+I (4989) co5300_spi: LCD panel create success, version: 2.2.0
+W (5069) co5300_spi: The 3Ah command has been used and will be overwritten by external initialization sequence
+I (5169) ESP32-S3-Touch-AMOLED-1.8: Touch CST816S 0x15 found
+I (5169) CST816S: IC id: 183
+I (5225) synthdef: V2 touchscreen ready: Pitch, Level, Attack, Release
+I (7381) ES8311: Work in Slave mode
+E (7384) i2s_common: i2s_channel_disable(1218): the channel has not been enabled yet
+I (7385) I2S_IF: No paired data, current mode: playback
+I (7385) I2S_IF: STD: TX, data_bit: 16, slot_bit: 16, ws_width: 16, slot_mode: MONO, slot_mask: 0x1
+I (7385) I2S_IF: STD: TX, sample_rate_hz: 44100, mclk_multiple: 256, clk_src: 6
+I (7401) Adev_Codec: Open codec device OK
+I (7402) board_audio: Codec output level=100/100; bounded software master gain follows
+I (7402) synthdef: Boots silent. Console: n note-on; o release; ! panic; +/- pitch; [/] amplitude
+I (8387) synthdef: frame=44160 active=0 render_max_us=66 prep_max_us=0 combined_max_us=94 budget70_exceeded=0
+I (8388) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2852 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=0
+I (8388) synthdef: queue_high=0 overflow=0 coalesced=0 rejected=0 stack_free_bytes=14624 internal_free=143587 internal_min=143587 internal_largest=63488 psram_free=7967680
+I (9389) synthdef: frame=88320 active=0 render_max_us=66 prep_max_us=0 combined_max_us=94 budget70_exceeded=0
+I (9389) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2852 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=0
+I (9389) synthdef: queue_high=0 overflow=0 coalesced=0 rejected=0 stack_free_bytes=14624 internal_free=143587 internal_min=143587 internal_largest=63488 psram_free=7967680
+I (10390) synthdef: frame=132480 active=0 render_max_us=66 prep_max_us=0 combined_max_us=94 budget70_exceeded=0
+I (10390) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2852 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=0
+I (10391) synthdef: queue_high=0 overflow=0 coalesced=0 rejected=0 stack_free_bytes=14624 internal_free=143587 internal_min=143587 internal_largest=63488 psram_free=7967680
+I (11391) synthdef: frame=176640 active=0 render_max_us=66 prep_max_us=0 combined_max_us=94 budget70_exceeded=0
+I (11392) synthdef: write_fail=0 partial=0 dma_event_overflow=0 write_max_us=2852 faults=0 clips=0 nonfinite=0 pcm_peak=0 pcm_peak_max=0
+I (11392) synthdef: queue_high=0 overflow=0 coalesced=0 rejected=0 stack_free_bytes=14624 internal_free=143587 internal_min=143587 internal_largest=63488 psram_free=7967680

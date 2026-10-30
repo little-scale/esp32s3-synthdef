@@ -1,0 +1,169 @@
+{
+  "test": "ESP32 control-index caching and audio-adapter instruction placement",
+  "build_id": "3793e0b3753c31eef80933b34ebc2d40e888d65d214be433494f1d689cedbdbb",
+  "app_sha256": "c686fbada7d12504041770e76b708ab53b823de2d13463c0de70afa648e2508c",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "final_image_passed": true,
+  "selected_configuration": {
+    "internal_kernels": true,
+    "internal_adapter": true,
+    "sine_table_internal": false,
+    "diagnostics_enabled": true
+  },
+  "adapter_function_body_bytes": 1470,
+  "host_cached_controls_bit_identical": "control-cache-equivalence.json",
+  "filter_before_adapter_iram": "filtered-exercise-before-adapter-iram.json",
+  "qualification": "qualified-voices.json",
+  "qualification_session": "adapter-candidate-suite.json",
+  "final_session": "catalog-device-final.json",
+  "final_patches": [
+    {
+      "patch": "phase-fm",
+      "slot": 2,
+      "final_combined_max_us": 675,
+      "final_fraction_of_block": 0.46511718750000003,
+      "final_rounds": 1,
+      "maximum": {
+        "render_max_us": 415,
+        "prep_max_us": 408,
+        "combined_max_us": 675,
+        "budget70_exceeded": 0,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0,
+        "coalesced": 0
+      },
+      "minimum": {
+        "internal_min": 77703,
+        "internal_largest": 31744,
+        "stack_free_bytes": 12848
+      },
+      "numerical": {
+        "samples": 53760,
+        "max_pcm_step_error": 1,
+        "limit_pcm_steps": 1,
+        "passed": true
+      }
+    },
+    {
+      "patch": "additive",
+      "slot": 3,
+      "final_combined_max_us": 800,
+      "final_fraction_of_block": 0.55125,
+      "final_rounds": 1,
+      "maximum": {
+        "render_max_us": 464,
+        "prep_max_us": 414,
+        "combined_max_us": 800,
+        "budget70_exceeded": 0,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0,
+        "coalesced": 0
+      },
+      "minimum": {
+        "internal_min": 77703,
+        "internal_largest": 31744,
+        "stack_free_bytes": 12848
+      },
+      "numerical": {
+        "samples": 53760,
+        "max_pcm_step_error": 1,
+        "limit_pcm_steps": 1,
+        "passed": true
+      }
+    },
+    {
+      "patch": "filtered",
+      "slot": 4,
+      "final_combined_max_us": 792,
+      "final_fraction_of_block": 0.5457375,
+      "final_rounds": 1,
+      "maximum": {
+        "render_max_us": 532,
+        "prep_max_us": 480,
+        "combined_max_us": 792,
+        "budget70_exceeded": 0,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0,
+        "coalesced": 0
+      },
+      "minimum": {
+        "internal_min": 77703,
+        "internal_largest": 31744,
+        "stack_free_bytes": 12848
+      },
+      "numerical": {
+        "samples": 53760,
+        "max_pcm_step_error": 1,
+        "limit_pcm_steps": 1,
+        "passed": true
+      }
+    },
+    {
+      "patch": "mac-sine",
+      "slot": 1,
+      "final_combined_max_us": 588,
+      "final_fraction_of_block": 0.40516875,
+      "final_rounds": 1,
+      "maximum": {
+        "render_max_us": 369,
+        "prep_max_us": 410,
+        "combined_max_us": 588,
+        "budget70_exceeded": 0,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0,
+        "coalesced": 0
+      },
+      "minimum": {
+        "internal_min": 77703,
+        "internal_largest": 31744,
+        "stack_free_bytes": 12848
+      },
+      "numerical": {
+        "samples": 53760,
+        "max_pcm_step_error": 1,
+        "limit_pcm_steps": 1,
+        "passed": true
+      }
+    }
+  ],
+  "final_matrix_mono_samples": 268800,
+  "proposed_capacity_saving": {
+    "selected": false,
+    "scope": "Target ABI size probe only; renderer behavior and timing not tested with these capacities. Vendored header and selected firmware unchanged.",
+    "proposed_limits": {
+      "FM_NODES": 24,
+      "FM_OUTPUTS": 32,
+      "FM_INPUTS": 256
+    },
+    "proposed_sizes": {
+      "graph_bytes": 8076,
+      "scratch_bytes": 8192,
+      "voice_bytes": 6720
+    },
+    "proposed_engine_fixed_bytes": 31064,
+    "current_engine_fixed_bytes": 112136,
+    "potential_saved_internal_bytes": 81072
+  },
+  "scope": "Exact one-voice graphs. Three 30-second qualification rounds per new graph plus a 30-second final-image repeat; defaults for realtime exercise, parked extreme-frequency numerical matrix. Listening and long soak remain separate.",
+  "user_listening_confirmation": "All three sound clean and stop (31 October 2026)"
+}

@@ -1,0 +1,4 @@
+# Preserve pinned source hashes, firmware identities and raw captures on checkout.
+* -text
+*.scsyndef binary
+*.osc binary

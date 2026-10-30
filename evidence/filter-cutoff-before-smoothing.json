@@ -1,0 +1,18 @@
+{
+  "test": "rejected unsmoothed filter cutoff experiment",
+  "passed": false,
+  "hardware": false,
+  "graph_sha256": "eb3a294708fb071ead260c3f3103d870c6903813af04e45e7c7b7396ef8cc085",
+  "scope": "280-case portable control matrix; stopped at first failure",
+  "first_failure": {
+    "freq": 440,
+    "pitch": 0,
+    "timbre": 0,
+    "attack": 0,
+    "release": 0,
+    "clipped_samples": 14,
+    "faults": 0,
+    "nonfinite": 0
+  },
+  "resolution": "100 ms control-rate Lag on the cutoff; new exact binary is independently checked. No clipping tolerance was relaxed."
+}

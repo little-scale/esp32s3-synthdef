@@ -1,0 +1,9 @@
+# Keep note/control dispatch and PCM conversion beside the rendering kernels.
+[mapping:instrument_hot_code]
+archive: libinstrument.a
+entries:
+    if SYNTHDEF_INTERNAL_ADAPTER = y:
+        instrument:instrument_apply (noflash_text)
+        instrument:instrument_apply_batch (noflash_text)
+        instrument:instrument_render (noflash_text)
+        instrument:instrument_pcm (noflash_text)

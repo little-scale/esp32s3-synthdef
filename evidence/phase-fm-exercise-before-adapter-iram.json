@@ -1,0 +1,110 @@
+{
+  "test": "30-second normal-UI control and note exercise",
+  "rounds": 3,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "104e814a59657976508aac050ef1fef936733a0b8ccf55e5c5a692bfe14ed957",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "4c3eb18029528e05858e2325e6673530cd0ccfa048f3af7702696d24b06eb1de",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 0,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12458887,
+    "policy": "catalog-voice-v2",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 1501,
+    "transfer": 3990615835,
+    "slot": -1,
+    "name": "Phase FM",
+    "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+  },
+  "active": {
+    "state": 3,
+    "reset_required": false,
+    "received": 1501,
+    "transfer": 3990615835,
+    "slot": -1,
+    "name": "Phase FM",
+    "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+  },
+  "maximum": {
+    "render_max_us": 463,
+    "prep_max_us": 424,
+    "combined_max_us": 799,
+    "budget70_exceeded": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "coalesced": 0
+  },
+  "minimum": {
+    "internal_min": 79607,
+    "internal_largest": 31744,
+    "stack_free_bytes": 13440
+  },
+  "worst_phases": {
+    "reset": "87",
+    "controls": "19",
+    "prepare": "188",
+    "dsp": "384",
+    "pcm": "45"
+  },
+  "cumulative_maximum": {
+    "render_max_us": 463,
+    "prep_max_us": 424,
+    "combined_max_us": 799,
+    "budget70_exceeded": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "coalesced": 0
+  },
+  "epochs": [
+    1,
+    2,
+    3
+  ],
+  "max_combined_fraction_of_block": 0.5505609375,
+  "reported_output_checks_passed": true,
+  "timing_budget_passed": true,
+  "scope": "four UI controls at 25 Hz, seven pitch positions, attack/release extremes, five note starts/second; no physical continuity claim"
+}

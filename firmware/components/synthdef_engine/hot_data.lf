@@ -1,0 +1,25 @@
+# Keep the admitted voice's kernels off the shared flash instruction cache.
+# The optional table-only experiment is disabled in the selected configuration;
+# lookup values, engine source, and the broader engine data remain unchanged.
+[mapping:synthdef_hot_data]
+archive: libsynthdef_engine.a
+entries:
+    if SYNTHDEF_INTERNAL_SINE = y:
+        fm_render:fm_sine (noflash_data)
+    if SYNTHDEF_INTERNAL_KERNELS = y:
+        fm_render:render_graph (noflash_text)
+        fm_render:fast_arithmetic (noflash_text)
+        fm_render:fast_sine (noflash_text)
+        fm_render:fast_envelope (noflash_text)
+        fm_render:fast_pan (noflash_text)
+        fm_render:binary (noflash_text)
+        fm_render:envelope (noflash_text)
+        fm_render:envelope_init (noflash_text)
+        fm_render:segment (noflash_text)
+        fm_render:sine_control_step (noflash_text)
+        fm_render:fm_start (noflash_text)
+        fm_render:fm_seed (noflash_text)
+        fm_render:fm_set (noflash_text)
+        fm_render:fm_prepare (noflash_text)
+        fm_render:fm_render_input (noflash_text)
+        fm_render:fm_render (noflash_text)

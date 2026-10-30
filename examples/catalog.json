@@ -1,0 +1,41 @@
+[
+  {
+    "id": "phase-fm",
+    "name": "Phase FM",
+    "slot": 2,
+    "labels": [
+      "PITCH",
+      "INDEX",
+      "ATTACK",
+      "RELEASE"
+    ],
+    "mapping": 1,
+    "status": "qualified"
+  },
+  {
+    "id": "additive",
+    "name": "Harmonic Mix",
+    "slot": 3,
+    "labels": [
+      "PITCH",
+      "HARMONICS",
+      "ATTACK",
+      "RELEASE"
+    ],
+    "mapping": 1,
+    "status": "qualified"
+  },
+  {
+    "id": "filtered",
+    "name": "Filtered Tone",
+    "slot": 4,
+    "labels": [
+      "PITCH",
+      "CUTOFF",
+      "ATTACK",
+      "RELEASE"
+    ],
+    "mapping": 1,
+    "status": "qualified"
+  }
+]

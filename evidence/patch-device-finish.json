@@ -1,0 +1,9 @@
+{
+  "test": "target patch workflow",
+  "phase": "finish",
+  "passed": false,
+  "build_expected": "95630e07d0e09d031823f8a084e3d348de19313b2ae25304dadd857c469b2ca7",
+  "status": "USB stopped responding after watchdog restart; physical reconnect requested",
+  "last_boot_output": "boot: Disabling RNG early entropy source...",
+  "evidence": "evidence/patch-usb-reset-failure.log"
+}

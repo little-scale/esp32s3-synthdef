@@ -1,0 +1,39 @@
+{
+  "test": "M4 USB transfer, parsing while playing, activation and saved library",
+  "build_id": "95630e07d0e09d031823f8a084e3d348de19313b2ae25304dadd857c469b2ca7",
+  "source_log": "evidence/patch-device-setup.log",
+  "maximum": {
+    "render_max_us": 644,
+    "prep_max_us": 500,
+    "combined_max_us": 809
+  },
+  "minimum": {
+    "stack_free_bytes": 13556,
+    "internal_min": 109907,
+    "internal_largest": 63488
+  },
+  "max_combined_fraction_of_block": 0.5574515625,
+  "counters": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "budget70_exceeded": 0
+  },
+  "physical_power_cut_during_save": "not tested",
+  "release_soak_30_minutes": "not run",
+  "external_audio_and_latency": "pending",
+  "final_restart_verification": "recovered by physical reconnect; current USB and selected package verified",
+  "physical_power_cycle_report": "evidence/patch-device-powercycle.json",
+  "initial_interaction_report": "evidence/patch-device-powercycle-initial.json",
+  "overall_timing_acceptance": false,
+  "timing_note": "Historical M4 measurements retained. The reproduced interaction case is resolved on the new internal-kernel configuration; see source-specific timing reports. Extended release testing remains open.",
+  "physical_usb_reconnect": "passed; user confirmed screen/library and device readback matched",
+  "physical_power_cycle": "USB unplug/reconnect and subsequent startup tested; battery/rail power removal not measured",
+  "resolved_timing_investigation": "evidence/timing-summary.json",
+  "historical_report": true,
+  "superseded_by_build": "0b1e5b1df540c2498a4e6bf0903e4bac776acae14b547efed1b19e5b9aae3163"
+}

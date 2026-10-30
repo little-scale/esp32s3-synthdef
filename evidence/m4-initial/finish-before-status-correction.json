@@ -1,0 +1,51 @@
+{
+  "test": "target patch workflow",
+  "phase": "finish",
+  "passed": true,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "7949803b2ea479a3104b6841a977e511890c42dccb16af6d6b1269cd28bd79f4",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "f14065db2e81fe35e7c7dfe8dfd8d0c9507d6d0242cead96276ef9da49c4d4bc",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 0,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12458887,
+    "policy": "simple-voice-v1"
+  },
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 3457584916,
+    "slot": 1,
+    "name": "Mac Sine",
+    "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+  },
+  "checks": [
+    "Restart restored selected graph, source and metadata"
+  ],
+  "counters": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "budget70_exceeded": 0
+  },
+  "log": "evidence/patch-device-finish.log",
+  "immediate_restart_requested": false
+}

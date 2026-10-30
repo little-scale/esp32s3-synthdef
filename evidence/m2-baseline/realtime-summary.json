@@ -1,0 +1,35 @@
+{
+  "test": "short ESP32 control/playback run",
+  "build_id": "640955889acd1607330661dc3ab0a427a56931a026868af92f6c8653d80d3eef",
+  "source_log": "evidence/realtime-final.log",
+  "last_logical_frame": 1280640,
+  "last_note_active": false,
+  "maximum": {
+    "render_max_us": 323,
+    "prep_max_us": 667,
+    "combined_max_us": 1020,
+    "budget70_exceeded": 1,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "queue_high": 3,
+    "overflow": 0,
+    "pcm_peak_max": 9243
+  },
+  "minimum": {
+    "stack_free_bytes": 13780,
+    "internal_min": 252943,
+    "internal_largest": 147456,
+    "psram_free": 8384536
+  },
+  "block_us": 1451.2471655328798,
+  "max_combined_fraction_of_block": 0.70284375,
+  "reported_output_checks_passed": true,
+  "observed_70_percent_budget_passed": false,
+  "scope": "short run, no UI/radio/storage; driver counters do not prove zero physical underruns",
+  "release_soak_30_minutes": "not run",
+  "external_recording_and_latency": "pending"
+}

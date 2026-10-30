@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "before_source_sha256": "3f225488d438337ba340cbbe77b89127367ef3deedd06562f9f4ba0e2926c121",
+  "after_source_sha256": "5a095cc53d8f33d5c94bebdd53a6fbdf282c3aad504b10d1474b301a106be370",
+  "reports": [
+    {
+      "patch": "touch-sine",
+      "cases": 280,
+      "mono_samples": 53760,
+      "bit_identical": true
+    },
+    {
+      "patch": "mac-sine",
+      "cases": 280,
+      "mono_samples": 53760,
+      "bit_identical": true
+    },
+    {
+      "patch": "phase-fm",
+      "cases": 280,
+      "mono_samples": 53760,
+      "bit_identical": true
+    },
+    {
+      "patch": "additive",
+      "cases": 280,
+      "mono_samples": 53760,
+      "bit_identical": true
+    },
+    {
+      "patch": "filtered",
+      "cases": 280,
+      "mono_samples": 53760,
+      "bit_identical": true
+    }
+  ]
+}
