@@ -29,7 +29,8 @@ if not binary.exists() or not stamp.exists() or stamp.read_text()!=fingerprint:
     stamp.write_text(fingerprint)
 idle,playing,library,effect=BUILD/'idle.rgb565',BUILD/'playing.rgb565',BUILD/'library.rgb565',BUILD/'effect.rgb565'
 code=BUILD/'code.rgb565';scrolled=BUILD/'code-scrolled.rgb565'
-result=subprocess.run([str(binary),str(idle),str(playing),str(library),str(effect),str(code),str(scrolled)],capture_output=True,text=True,check=True)
+readme=BUILD/'readme-code.rgb565'
+result=subprocess.run([str(binary),str(idle),str(playing),str(library),str(effect),str(code),str(scrolled),str(readme)],capture_output=True,text=True,check=True)
 print(result.stdout.strip())
 def png(raw,path):
     assert len(raw)==368*448*2
@@ -44,7 +45,7 @@ def png(raw,path):
         return struct.pack('>I',len(data))+tag+data+struct.pack('>I',binascii.crc32(tag+data)&0xffffffff)
     path.write_bytes(b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',368,448,8,2,0,0,0))+
                      chunk(b'IDAT',zlib.compress(b''.join(rows)))+chunk(b'IEND',b''))
-for name,file in [('idle',idle),('playing',playing),('library',library),('effect',effect),('code',code),('code-scrolled',scrolled)]: png(file.read_bytes(),ROOT/f'evidence/ui-{name}-preview.png')
+for name,file in [('idle',idle),('playing',playing),('library',library),('effect',effect),('code',code),('code-scrolled',scrolled),('readme-code',readme)]: png(file.read_bytes(),ROOT/f'evidence/ui-{name}-preview.png')
 report={'test':'real LVGL host simulation','passed':True,'details':result.stdout.strip(),
         'source_sha256':fingerprint,'hardware':False,'dimensions':[368,448]}
 (ROOT/'evidence/ui-host.json').write_text(json.dumps(report,indent=2)+'\n')

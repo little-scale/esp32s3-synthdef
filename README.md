@@ -10,9 +10,12 @@ SuperCollider patterns. The display shows the original source with syntax
 colours, touch control input, CPU load, battery, Wi-Fi strength and a green receive
 indicator. Controls provides module identity, output volume and Main/FX actions.
 
-![Controls screen rendered by the real LVGL host preview](evidence/ui-library-preview.png)
+| Code / touch input | Controls |
+| --- | --- |
+| <img src="evidence/ui-readme-code-preview.png" alt="Code screen with syntax-coloured SynthDef source, scroll strips and status indicators" width="300"> | <img src="evidence/ui-library-preview.png" alt="Controls screen with module identity, volume and Main/FX selection" width="300"> |
 
-*Host-rendered layout preview; the device runs the same widgets.*
+*Host-rendered previews from the real LVGL widgets, with example telemetry;
+these are layout renders, not live hardware captures.*
 
 ## Quickstart
 
@@ -187,6 +190,92 @@ not combined utilisation of both cores. The receive dot signals valid incoming
 control/upload frames; it is not a playback acknowledgement. Module volume is
 linear, 0–1 in SC and 0–100% on screen; remote changes are live, while releasing
 the physical slider saves its value. See [UI](docs/UI.md).
+
+## Supported UGens and operators
+
+These are the complete native names/selectors in the current **FM1/cache build**:
+**154 UGens, 33 unary operators and 40 binary operators**. Valid rates, parameter
+layouts and numerical/CPU qualifications are detailed in the
+[support ledger](docs/UGEN_SUPPORT.md); inclusion is not a guarantee that every
+graph meets the audio deadline.
+
+### UGens (154)
+
+```text
+A2K               AllpassC          AllpassL          AllpassN
+Amplitude         BHiShelf          BLowShelf         BPF
+BPeakEQ           BRF               Balance2          BinaryOpUGen
+Blip              BlockSize         BrownNoise        Clip
+ClipNoise         CoinGate          CombC             CombL
+CombN             Control           ControlDur        ControlRate
+Crackle           CuspL             CuspN             DC
+Decay             Decay2            DegreeToKey       Delay1
+Delay2            DelayC            DelayL            DelayN
+Dust              Dust2             EnvGen            ExpRand
+FBSineC           FBSineL           FBSineN           Fold
+Formant           Formlet           FreeVerb          FreeVerb2
+FreqShift         Gate              Gendy1            Gendy2
+Gendy3            GrayNoise         HPF               HPZ1
+Hasher            HenonC            HenonL            HenonN
+Impulse           In                K2A               Klang
+Klank             LFClipNoise       LFCub             LFDClipNoise
+LFDNoise0         LFDNoise1         LFDNoise3         LFNoise0
+LFNoise1          LFNoise2          LFPar             LFPulse
+LFSaw             LFTri             LPF               LPZ1
+Lag               Lag2              Lag3              LagControl
+LagUD             Latch             LatoocarfianC     LatoocarfianL
+LatoocarfianN     LeakDC            Limiter           LinExp
+LinXFade2         Line              LocalBuf          Logistic
+LorenzL           MaxLocalBufs      MiMu              MiRings1
+MiRings2          MiRings3          MiRings4          MiRings5
+MiRings6          MiVerb            MoogFF            MulAdd
+OnePole           OneZero           Out               Pan2
+Phasor            PinkNoise         Pluck             Pulse
+PulseCount        PulseDivider      RHPF              RLPF
+RadiansPerSample  Rand              RandSeed          Resonz
+Ringz             SampleDur         SampleRate        Saw
+Select            SetBuf            SetResetFF        SinOsc
+SinOscFB          Slew              StandardL         StandardN
+Stepper           Sum3              Sum4              SyncSaw
+TExpRand          TIRand            TRand             TWindex
+ToggleFF          Trig              Trig1             TrigControl
+UnaryOpUGen       VarSaw            WhiteNoise        Wrap
+XFade2            XLine
+```
+
+`DynKlank`, `DynKlang`, `Splay` and `Mix` are also usable host-side composites:
+SC expands them into the supported native UGens. They are not extra native types
+in the count above. Patterns and array-building code also run on the host.
+
+### Unary operators (33)
+
+```text
+neg            abs            ceil           floor          frac
+sign           squared        cubed          sqrt           exp
+reciprocal     midicps        cpsmidi        midiratio      ratiomidi
+dbamp          ampdb          octcps         cpsoct         log
+log2           log10          sin            cos            tan
+asin           acos           atan           sinh           cosh
+tanh           distort        softclip
+```
+
+### Binary operators (40)
+
+```text
++              -              *              div            /
+mod            ==             !=             <              >
+<=             >=             min            max            lcm
+gcd            round          roundUp        trunc          atan2
+hypot          hypotApx       pow            ring1          ring2
+ring3          ring4          difsqr         sumsqr         sqrsum
+sqrdif         absdif         thresh         amclip         scaleneg
+clip2          excess         fold2          wrap2          firstArg
+```
+
+Operator names above follow the engine's SC selectors. `div` uses floor integer
+division, `trunc` uses floor quantization, and `pow` uses the engine's signed-power
+behaviour. The support ledger includes selector numbers, tested rates and board
+evidence for every operation.
 
 ## Testing and development
 
