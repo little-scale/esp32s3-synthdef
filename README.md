@@ -1,111 +1,220 @@
 # SynthDefs for ESP32-S3 Touch AMOLED 1.8
 
-Native C99 SynthDef runtime for the **Waveshare ESP32-S3-Touch-AMOLED-1.8 V2**.
-SuperCollider compiles patches on the computer; synthesis runs on the ESP32.
-The project uses one voice, 64-frame blocks and a mono ES8311 output. The optimized
-audio core has passed its short hardware timing comparison. The four-control
-touch screen is running on the V2 board and has passed initial display, touch,
-target numerical and audio-under-redraw checks. Extended release testing remains.
+Run compiled SuperCollider sounds on a **Waveshare ESP32-S3-Touch-AMOLED-1.8 V2**.
+The computer compiles the code; the ESP32 makes the sound. Upload from the local
+browser tool or directly from the SuperCollider IDE over USB or Wi-Fi.
 
-See [STATUS.md](STATUS.md) for completed checks and outstanding hardware gates, and
-[handover.md](handover.md) for the full specification. See [docs/UI.md](docs/UI.md)
-for the touchscreen variant. USB patch transfer and the saved library are described
-in [docs/PATCHES.md](docs/PATCHES.md). Effects and sequencing remain later milestones.
-Phase FM, additive and filtered examples are included as exact tested one-voice
-catalog entries; the generic sine family remains supported.
-The reproducible interaction-timing fix and its checks are in
-[docs/PERFORMANCE.md](docs/PERFORMANCE.md).
+Each module has **one Main definition, one master FX definition, and FX bypass**.
+Use continuous sound Functions, literal SynthDefs, named controls and routed
+SuperCollider patterns. The display shows the original source with syntax
+colours, touch control input, CPU load, battery, Wi-Fi strength and a green receive
+indicator. Controls provides module identity, output volume and Main/FX actions.
 
-## Reproduce the software checks
+![Controls screen rendered by the real LVGL host preview](evidence/ui-library-preview.png)
 
-```sh
-python3 host/prepare.py
-python3 host/test.py
-python3 host/test_touch.py
-python3 host/test_patches.py
-python3 host/test_catalog.py
-make -C upstream/fm1-synthdef/synthdef-engine test
-FM_REFERENCE_FILTER=fm1_voice make -C upstream/fm1-synthdef/synthdef-engine reference-test
-```
+*Host-rendered layout preview; the device runs the same widgets.*
 
-The reference check requires SuperCollider 3.14.1 installed at its normal macOS
-location, or `SCSYNTH` pointing to that version. It checks one pinned sine fixture
-against SuperCollider, then runs the scale catalog check. `make test` runs the
-full upstream host API/oracle suite. FM1 device-math oracles are host tests, not
-ESP32 hardware tests. The adapter checks use undefined-behavior, bounds and
-float-conversion sanitizers. AddressSanitizer initialization currently deadlocks
-on this Mac and is not counted as passing coverage.
+## Quickstart
 
-After ESP-IDF has resolved the managed components, `python3 host/preview_ui.py`
-exercises the actual LVGL widgets with simulated input and renders host previews.
-These checks cannot validate physical panel power, transfer or touch behavior.
+### 1. Prepare the board and host
 
-## Build and flash
+Use the **V2 board with 16 MB flash, 8 MB PSRAM and a connected speaker**. For a
+board that does not yet run this firmware, follow [Build and flash](docs/BUILD.md)
+first. Other ESP32 boards and headless I2S builds are not supplied by this port.
 
-Pinned application dependencies: ESP-IDF **5.5.0**, Waveshare BSP **2.0.3**,
-LVGL **8.4.0**. The generated `firmware/dependencies.lock` pins transitive versions.
-The current touchscreen/library configuration is retained as
-`evidence/sdkconfig.catalog.esp32s3`; earlier audio-only configurations remain
-separately recorded.
-The current build uses Xtensa GCC 14.2.0 and the normal ESP maths library.
+On the computer, install **SuperCollider** (tested with 3.14.1), Python 3.11+ and
+a C compiler (`cc`; on macOS, the Command Line Tools). Then:
 
 ```sh
 git clone https://github.com/little-scale/synthdefs-for-esp32-s3-touch-amoled-1.8.git
 cd synthdefs-for-esp32-s3-touch-amoled-1.8
-python3 host/prepare.py
-SYNTHDEF_BUILD_DIR=build-ui host/idf.sh -D IDF_TARGET=esp32s3 \
-  -D "SDKCONFIG=$PWD/firmware/build-ui/sdkconfig" \
-  -D "SDKCONFIG_DEFAULTS=sdkconfig.defaults;$PWD/docs/ui.defaults;$PWD/docs/timing.defaults" build
-python3 host/record_build.py --build-dir build-ui --output esp32-ui-build.json
-# After board/codec bring-up, using the observed device port:
-SYNTHDEF_BUILD_DIR=build-ui host/idf.sh -p /dev/cu.usbmodem101 flash
-SYNTHDEF_BUILD_DIR=build-ui host/idf.sh -p /dev/cu.usbmodem101 monitor
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r host/requirements.txt
+sh host/studio.sh
 ```
 
-`host/idf.sh` activates the existing `$HOME/esp/esp-idf` installation and an
-existing IDF 5.5 Python environment. Override `IDF_PATH` and
-`IDF_PYTHON_ENV_PATH` for another installation. Build outputs are in
-`firmware/build-ui/` with the command above, or `firmware/build-esp32s3/` by default.
-The port shown above was observed locally on 31 October
-2026; check it again after reconnecting. Exit the IDF monitor with Ctrl-].
+Keep Studio running. It opens a local browser page; the terminal also prints its
+complete session URL. If `sclang` is elsewhere, use
+`python host/studio.py --sclang /path/to/sclang` instead.
 
-The firmware boots silent. In the monitor, single characters control it:
+### 2. Hear your first sound from the browser
 
-| Key | Action |
+1. Connect the board by USB and close other serial monitors.
+2. In Studio, select the USB device, connect, and choose **Editing → Main**.
+3. Paste this block, **Compile**, then **Upload Main**. Replacing Main replaces
+   its previous saved code.
+
+```supercollider
+{ SinOsc.ar(220, 0, 0.05) ! 2 }.play
+```
+
+The browser's sound-block workflow starts this sound without touch input. Use
+**Panic** to stop it and **Restart Main** to start it again. The code display is a
+viewer; editing and compilation happen on the host.
+
+### 3. Pair Wi-Fi and identify your module
+
+While connected over USB, open **Wi-Fi setup**, select a **2.4 GHz** network,
+enter its credentials, choose a module name and save/pair. Check Wi-Fi, disconnect
+USB in Studio, then select **Connection → Wi-Fi**, find modules and connect to the
+intended **name and permanent ID**. USB pairing is required for each node.
+
+IDs look like `esp32-001122334455`; they remain stable when the IP changes. The
+Controls screen also shows the module name and ID. If broadcast discovery is
+blocked, enter the module's IPv4 address in Studio. See [Studio](docs/STUDIO.md)
+for setup, fixed Main/FX destinations and reviewed Omni uploads.
+
+### 4. Send directly from SuperCollider
+
+With Studio still running, install the linked extension:
+
+```sh
+python host/install_supercollider.py
+```
+
+In the SC IDE, choose **Language → Recompile Class Library** once, then evaluate:
+
+```supercollider
+ESP32.connect;
+ESP32.scan.onDone(_.postln); // Find your paired module IDs.
+```
+
+Replace the example ID below with yours:
+
+```supercollider
+~node = "esp32-001122334455";
+
+// Upload and create a running instance. No local audio server is required.
+{ arg freq = 220, amp = 0.05;
+    SinOsc.ar(freq, 0, amp) ! 2;
+}.playESP32(~node);
+
+ESP32.set(~node, \freq, 330);
+ESP32.module(~node, \volume, 0.5); // Global output scale: 50%.
+ESP32.stop(~node);
+```
+
+**`.sendESP32(target)` saves a definition silently.** Start that definition with
+`ESP32.play(target, args)`, or use `.playESP32(target)` to upload and start in one
+step. Newly saved definitions also boot inactive. Browser sound-block uploads
+retain their automatic-start behaviour. These are separate workflows.
+
+### 5. Add master FX or route a pattern
+
+FX reads Main's stereo bus 0. Here a Function upload supplies output routing:
+
+```supercollider
+{ arg wet = 0.25;
+    var input = In.ar(0, 2);
+    FreeVerb2.ar(input[0], input[1], wet, 0.8, 0.4);
+}.playESP32(~node, stage: \fx);
+
+ESP32.module(~node).fx.set(\wet, 0.4);
+ESP32.module(~node).fx.bypass(true);
+ESP32.module(~node).fx.bypass(false);
+```
+
+For notes, upload a gate-controlled Main. Wait for deployment before starting the
+pattern; notes reuse **one monophonic instance**:
+
+```supercollider
+(
+Routine({
+    { arg freq = 440, amp = 0.1, gate = 0;
+        (SinOsc.ar(freq) * amp * EnvGen.kr(Env.asr(0.01, 1, 0.1), gate)) ! 2;
+    }.sendESP32(~node).wait;
+
+    p = Pbind(
+        \type, \esp32Note,
+        \module, ~node,
+        \midinote, Pseq([60, 64, 67, 72], inf),
+        \amp, 0.1,
+        \dur, 0.25
+    ).playESP32;
+}).play;
+)
+```
+
+Stop the pattern later with:
+
+```supercollider
+p.stop;
+```
+
+Use `\esp32Set` to automate arguments without sending notes. A `\module` value
+can come from `Pseq` or `Prand`; targets accept permanent IDs, aliases, IPv4
+addresses, explicit groups or `\all`. For example:
+
+```supercollider
+ESP32.alias(\left, "esp32-001122334455");
+ESP32.module(\all, \volume, 0.5);
+// Sending a Function with .sendESP32(\all) compiles once and uploads the same definition
+// to all paired online recipients; it does not start instances.
+```
+
+[The SC guide](docs/SUPERCOLLIDER.md) covers literal SynthDefs, initial arguments,
+Main/FX lifecycle, named Pbindef players, FX patterns and connection recovery.
+
+## Current capabilities and limits
+
+| Area | Current behaviour |
 | --- | --- |
-| `n` | Start/retrigger one note |
-| `o` | Release the current note |
-| `!` | Panic: immediate engine silence |
-| `+` / `-` | Raise/lower pitch by one semitone |
-| `]` / `[` | Raise/lower amplitude |
+| Hardware | Waveshare AMOLED 1.8 **V2**, ESP32-S3 at 240 MHz |
+| Audio | 44.1 kHz, 64-frame DSP blocks, float32 internals, mono ES8311 speaker output |
+| Routing | Stereo graph bus through Main → FX/bypass → smoothed output volume → mono sink |
+| Definitions | One saved Main and one saved FX; legacy numbered slots are archived, not exposed |
+| Instances | One Main voice and one FX instance; note patterns are monophonic |
+| Code | Compiled SC SynthDef graphs, not the full SC language executing on the board |
+| Coverage | 154 native UGen types, 33 unary and 40 binary operators in the pinned FM1 profile |
+| Composites | DynKlank, DynKlang, Splay and similar classes expand on the host into supported UGens |
+| Limits | 160 nodes, 192 signals, 1,024 input references; graph and original source up to 64 KiB each |
+| Delay memory | Separate 1 MiB PSRAM arenas for Main and FX; admission checks actual rounded allocations |
+| Live events | Named scalar/array control values, scheduled notes and cancellation; 16 queued events |
+| Wi-Fi | Paired authenticated HTTP; discovery by UDP; targeted and concurrent Omni uploads |
+| Control compression | Unchanged float32 values omitted per node/stream/stage; every note retained |
 
-Codec output level starts at 100/100, synth amplitude at 0.5 and master gain at
-0.8. Panic and release reach the sink after already-queued audio. Current DMA
-capacity is six 128-frame descriptors, approximately 17.4 ms at 44.1 kHz before
-codec/input delays. This is capacity, not measured end-to-end latency.
+Supported does not mean every graph fits the audio deadline. Software comparisons,
+physical numerical traces, CPU measurements and listening checks are distinguished
+in the [support ledger](docs/UGEN_SUPPORT.md) and [extended tests](docs/EXTENDED_TESTS.md).
+Some moving-control Rings workloads still overrun. `MiVerb` and other external
+SC classes require their corresponding host-side class installations to compile.
+Return mono/stereo from a Function, or use `Splay`/`Mix` for larger arrays. Literal
+SynthDefs keep authored outputs and must follow the documented bus routing.
 
-Boot/runtime logs include source identity, requested format, memory, preparation
-and render maxima, budget overruns, write failures, partial writes and queue
-statistics. A failed/partial write mutes and stops the audio task until reset.
-DMA event queue overflow is logged separately and is not an underrun detector.
+The CPU indicator measures **audio processing time against the block budget**,
+not combined utilisation of both cores. The receive dot signals valid incoming
+control/upload frames; it is not a playback acknowledgement. Module volume is
+linear, 0–1 in SC and 0–100% on screen; remote changes are live, while releasing
+the physical slider saves its value. See [UI](docs/UI.md).
 
-## Architecture and evidence
+## Testing and development
 
-`firmware/components/instrument` owns portable note/control/DSP behavior.
-`board_audio` owns I2S and codec configuration using BSP pins. The audio task
-alone mutates the voice; console controls enter through a bounded queue. Panic
-has an independent atomic latch. The touchscreen and patch service run on core 0.
-Filesystem writes use explicit muted maintenance; radio remains off.
-Admitted rendering kernels reside in internal instruction RAM to avoid the
-reproduced interaction stalls. Their source and lookup values remain pinned.
+The [build guide](docs/BUILD.md) provides the current FM1/cache configuration,
+flashing/recovery steps and test commands. The latest installed image is recorded
+in [STATUS.md](STATUS.md) with matching build and device evidence.
 
-`host/prepare.py` checks vendored source hashes, compares the enum with the
-compiled loader, generates the target capability manifest and embeds the pinned
-factory patch. Builds fail when this metadata is stale. All 154 types compile;
-uploads use `catalog-voice-v2`: the narrower `simple-voice-v1` sine family plus
-exact qualified example hashes. Broad hardware compatibility has not been established.
+The compact-control change passes full/delta PCM identity tests with interleaved
+future events, 300 real EnvGen retriggers, 37 SC/network/control regressions and
+muted physical note tests. Typical four-argument note payloads shrink from 52 to
+37 bytes when only pitch changes; their ASCII request bodies shrink from 136 to
+106 bytes. HTTP/TCP/Wi-Fi headers and event frequency remain unchanged.
 
-Recorded checks and build identities are in `evidence/`. See [docs/BOARD.md](docs/BOARD.md),
-[docs/BRINGUP.md](docs/BRINGUP.md), [docs/MEMORY.md](docs/MEMORY.md) and
-[THIRD_PARTY.md](THIRD_PARTY.md). The source follows GPL-3.0-or-later; original
-third-party notices remain with the vendored material.
+## Documentation
+
+- [Build, flash and tests](docs/BUILD.md)
+- [Browser compiler, USB/Wi-Fi pairing and Omni upload](docs/STUDIO.md)
+- [SuperCollider sending, instances, module settings and patterns](docs/SUPERCOLLIDER.md)
+- [Display and controls](docs/UI.md), [code viewer](docs/CODE_VIEW.md), [touch buses](docs/TOUCH_BUSES.md)
+- [UGen/operator support](docs/UGEN_SUPPORT.md), [dynamic banks](docs/DYNAMIC_BANKS.md)
+- [Memory](docs/MEMORY.md), [performance](docs/PERFORMANCE.md), [MiVerb](docs/MIVERB_OPTIMIZATION.md), [Saw](docs/SAW_OPTIMIZATION.md), [Rings](docs/RINGS_OPTIMIZATION.md)
+- [Test evidence and its scope](evidence/README.md), [current status](STATUS.md)
+- [Storage/protocol history](docs/PATCHES.md), [original handover](handover.md), [third-party notices](THIRD_PARTY.md)
+
+Studio and the SC bridge run locally. Pairing keys and connection tokens remain
+under Git-ignored `build/host/private/`; firmware stores network settings in NVS.
+LAN HTTP is authenticated but not encrypted, so use a trusted network. Source
+compilation executes SC language code on the host; compile trusted source.
+
+The project is **GPL-3.0-or-later**. Vendored code and the bundled DejaVu font
+retain their original notices; see [THIRD_PARTY.md](THIRD_PARTY.md).

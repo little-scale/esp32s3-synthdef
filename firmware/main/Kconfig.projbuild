@@ -2,6 +2,14 @@ menu "SynthDef diagnostics"
     config SYNTHDEF_DIAGNOSTICS
         bool "Enable explicit muted benchmark and automated UI exercise commands"
         default n
+    config SYNTHDEF_FM1_COMPAT
+        bool "Enable software-validated FM1 compatibility profile"
+        depends on SYNTHDEF_DIAGNOSTICS
+        default n
+        help
+            Accept the complete pinned FM1 UGen/operator set and full graph
+            capacities. Adds a 1 MiB PSRAM synth arena with incremental clearing.
+            This experimental profile has no ESP32 real-time qualification.
     config SYNTHDEF_TOUCH_UI
         bool "Enable V2 touchscreen and four-control factory patch"
         default n

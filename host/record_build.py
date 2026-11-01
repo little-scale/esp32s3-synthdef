@@ -9,6 +9,8 @@ import shlex
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
+from engine_profile import generate
+from prepare import qualification_fingerprint
 parser=argparse.ArgumentParser()
 parser.add_argument('--build-dir',default='build-esp32s3')
 parser.add_argument('--output',default='esp32-build.json')
@@ -28,11 +30,16 @@ for entry in engine:
                      'math': ['-fno-fast-math', '-ffp-contract=off'], 'language': 'c99',
                      'fm1_platform_includes': False})
 compiler = shlex.split(engine[0]['command'])[0]
+profile=BUILD/'esp-idf/synthdef_engine/target-profile/src'
+profile_manifest=json.loads((profile.parent/'profile.json').read_text())
+expected_profile=generate(ROOT/'build/host/verified-profile'/profile_manifest['profile']/'src',profile_manifest['profile'])
+for source in expected_profile.iterdir():
+    assert (profile/source.name).read_bytes()==source.read_bytes(),'Target engine copy differs from audited profile: '+source.name
 probe = ROOT/'build/host/target_sizes.c'
 probe.write_text('#include "fm_synth.h"\nchar target_graph[sizeof(fm_graph)];\n'
                  'char target_voice[sizeof(fm_voice)];\nchar target_scratch[sizeof(fm_scratch)];\n')
 obj = probe.with_suffix('.o')
-subprocess.run([compiler, '-I'+str(ROOT/'upstream/fm1-synthdef/synthdef-engine/src'),
+subprocess.run([compiler, '-I'+str(profile),
                 '-c', str(probe), '-o', str(obj)], check=True)
 nm = Path(compiler).with_name('xtensa-esp-elf-nm')
 sizes = {}
@@ -47,6 +54,8 @@ build_id=re.search(r'#define BUILD_ID "(.*?)"', generated)[1]
 assert build_id.encode() in app.read_bytes(), 'Binary is stale relative to the generated source identity'
 config_path=Path(description['config_file'])
 config=config_path.read_text()
+compat='CONFIG_SYNTHDEF_FM1_COMPAT=y' in config
+assert profile_manifest['profile']==('fm1' if compat else 'compact')
 if 'CONFIG_SYNTHDEF_TOUCH_UI=y' in config:
     assert int(re.search(r'CONFIG_LV_MEM_SIZE_KILOBYTES=(\d+)', config)[1]) >= 64, 'Expanded library needs a 64 KiB LVGL heap'
     assert 'CONFIG_LV_THEME_DEFAULT_TRANSITION_TIME=0' in config
@@ -63,16 +72,22 @@ for line in subprocess.check_output([str(nm),'-S',str(BUILD/'waveshare_synthdef.
     if match:symbols[match[3]]={'address':int(match[1],16),'bytes':int(match[2],16)}
 hot=['render_graph','fast_arithmetic','fast_sine','fast_envelope','fast_pan','binary',
      'envelope','envelope_init','segment','sine_control_step','fm_start','fm_seed','fm_set',
-     'fm_prepare','fm_render_input','fm_render']
+     'fm_prepare','fm_render_input','fm_render','delay_render','unary']
 internal_kernels='CONFIG_SYNTHDEF_INTERNAL_KERNELS=y' in config
-optional={'fm_render_input','fm_set'} # wrappers/name lookup can be unused and discarded
+optional={'fm_render_input','fm_set','delay_render','unary'} # unused wrappers or helpers inlined into render_graph
 assert all(name in symbols for name in hot if name not in optional), 'Required rendering symbol absent'
 hot_retained=[name for name in hot if name in symbols]
+internal_rings='CONFIG_SYNTHDEF_INTERNAL_RINGS=y' in config
+rings_hot=['rg_process','rings_render','rg_hermite','rg_fx_write']
+if internal_rings:
+    assert all(name in symbols for name in rings_hot),'Expected Rings routine missing'
+    assert all(0x40370000<=symbols[name]['address']<0x403e0000 for name in rings_hot),'Rings routine escaped internal instruction RAM'
 if internal_kernels:
     assert all(0x40370000<=symbols[name]['address']<0x403e0000 for name in hot_retained), 'Hot kernel escaped internal instruction RAM'
 internal_sine='CONFIG_SYNTHDEF_INTERNAL_SINE=y' in config
 internal_adapter='CONFIG_SYNTHDEF_INTERNAL_ADAPTER=y' in config
 adapter_hot=['instrument_apply','instrument_apply_batch','instrument_render','instrument_pcm']
+adapter_hot+=['instrument_render_stereo','master_delay_render','master_delay_set']
 assert all(name in symbols for name in adapter_hot)
 if internal_adapter:
     assert all(0x40370000<=symbols[name]['address']<0x403e0000 for name in adapter_hot),'Audio adapter escaped internal instruction RAM'
@@ -91,6 +106,7 @@ assert size==32772 and sine_hash=='3264f07efa6217955d24e1756a7887972ef7fce7ad670
 report = {
     'status': 'cross-compiled; physical runtime results are recorded separately',
     'build_id': build_id,
+    'firmware_fingerprint':qualification_fingerprint(),
     'touch_ui_enabled': 'CONFIG_SYNTHDEF_TOUCH_UI=y' in config,
     'quad_flash_enabled': 'CONFIG_ESPTOOLPY_FLASHMODE_QIO=y' in config,
     'pcm_conversion': 'bounded nearest/even; no lrintf call in target instrument object',
@@ -102,10 +118,26 @@ report = {
     'target': 'esp32s3', 'board_revision': 'V2 (user confirmed; not physically probed)',
     'compiled_loader_types_checked_in_target_object': len(capabilities['compiled_types']),
     'engine_compile_options_verified': verified, 'target_structure_sizes': sizes,
-    'engine_fixed_allocation_bytes': sum(sizes.values())+sizes['graph_bytes'],
-    'graph_buffers': 2, 'package_buffers_psram_bytes': 3*131072,
+    'engine_fixed_allocation_bytes': 3*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
+    'engine_fixed_internal_bytes':sizes['voice_bytes'] if compat else 3*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
+    'master_voice_storage':'PSRAM' if compat else 'internal',
+    'engine_fixed_psram_bytes':3*sizes['graph_bytes']+sizes['scratch_bytes']+sizes['voice_bytes'] if compat else 0,
+    'synth_arena_psram_bytes':1048576 if compat else 0,
+    'synth_fast_arena_internal_bytes':int(re.search(r'CONFIG_SYNTHDEF_INTERNAL_VOICE_ARENA_SAMPLES=(\d+)',config)[1])*4 if 'CONFIG_SYNTHDEF_INTERNAL_VOICE_ARENA_SAMPLES=' in config else 0,
+    'cache':{key:int(re.search(r'^CONFIG_'+option+r'=(\w+)$',config,re.M)[1],0) for key,option in (
+        ('instruction_bytes','ESP32S3_INSTRUCTION_CACHE_SIZE'),('data_bytes','ESP32S3_DATA_CACHE_SIZE'),
+        ('data_line_bytes','ESP32S3_DATA_CACHE_LINE_SIZE'))},
+    'admission_policy':'fm1-compat-v1' if compat else 'catalog-voice-v2',
+    'fm1_compat_hardware_qualified':False,
+    'one_voice_without_effect_fixed_bytes':2*sizes['graph_bytes']+sizes['voice_bytes']+sizes['scratch_bytes'],
+    'graph_buffers': 3, 'voice_instances':2,'shared_scratch_instances':1,
+    'master_delay_arena_psram_bytes':1048576,
+    'engine_profile':json.loads((profile.parent/'profile.json').read_text()),
+    'package_buffers_psram_bytes': 3*131072,
     'diagnostics_enabled': 'CONFIG_SYNTHDEF_DIAGNOSTICS=y' in config,
     'internal_render_kernels': internal_kernels,
+    'internal_rings_kernels':internal_rings,
+    'rings_hot_symbols':{name:symbols[name] for name in rings_hot if name in symbols},
     'internal_audio_adapter':internal_adapter,
     'adapter_hot_symbols':{name:symbols[name] for name in adapter_hot},
     'hot_kernel_symbols': {name:symbols[name] for name in hot_retained},

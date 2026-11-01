@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "graphs": 1445,
+  "memory_graphs": 271,
+  "minimum_compared_frames_per_graph": 1024,
+  "full_arena_seconds": 6,
+  "hardware_tested": false,
+  "audio_playback": false,
+  "profile": "fm1-compat-v1",
+  "assertions": [
+    "all pinned fixture graphs admitted after addition of test-only live controls",
+    "incremental clearing versus ordinary binding: exact float output equality",
+    "arena guards, full 1 MiB arena, pending release, Panic and undersized/null bindings"
+  ],
+  "wrapper_scope": "Added controls are unused by fixture DSP; this is an admission test, not an automatic patch converter"
+}

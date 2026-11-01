@@ -1,4 +1,4 @@
-# First touch instrument
+# Touchscreen instrument
 
 The touchscreen is running on the V2 board; the user confirmed screen, sound and
 finger-lift release. SPI integration and display power/reset fixes resolved the
@@ -14,50 +14,63 @@ source-specific comparisons and remaining acceptance scope.
 
 ## Controls
 
-Hold the large pad to gate one note. Horizontal movement controls pitch;
-vertical movement controls level. Leaving the pad while held retains ownership
-until release, so the correct note receives its note-off. Panic acts on press.
-The four sliders also work independently of the pad.
+The default screen is the original SynthDef source, on white with line numbers,
+a fixed-width font and SuperCollider colours. Startup restores the last selected
+Main patch. There are two screens:
 
-PATCHES opens the numbered saved library, with LOAD and SAVE HERE controls.
-Factory slot 0 is always retained. See [PATCHES.md](PATCHES.md) for compilation,
-upload, recovery and the meaning of saved defaults. The Mac Sine example uses
-330 Hz as its base frequency; custom labels and normalized displays are supported.
+- **Code/play:** touch the code to play and move X/Y. The 48-pixel strip on the
+  right scrolls vertically; the 40-pixel strip below the code scrolls horizontally.
+- **Controls:** CONTROLS opens a black page with white UI, output volume,
+  one Main row to restart the saved patch, and FX / Bypass choices. CODE returns
+  without loading. Loading Main returns to code. The footer retains its light
+  CODE/CPU/PANIC area. Legacy numbered slots are hidden and inaccessible.
 
-| Control | Graph parameter | Mapping at base frequency 440 Hz |
-| --- | --- | --- |
-| Pitch | `knob1` | 220–880 Hz, exponential; center 440 Hz |
-| Level | `knob2` | Linear 0–100%, multiplied by note amplitude |
-| Attack | `knob3` | 2–200 ms, applied at the next attack |
-| Release | `knob4` | 20–1,000 ms, read when release begins |
+The title is the active patch on Code, and the module name on Controls. Controls
+shows the permanent module ID beneath the name. A small green circle beside the
+battery lights for 140 ms after a valid upload/control frame (USB or Wi-Fi);
+background queries stay dark. Wi-Fi RSSI is shown in dBm beneath the battery,
+updated once per second; disconnected nodes show Wi-Fi off. Sampling and bounded
+display updates run outside the audio task. The receive cue acknowledges traffic,
+not successful sound playback.
 
-The engine retains the 64-frame boundary contract. GUI events cannot call into
-the voice directly. Continuous updates enter atomic latest-value mailboxes;
-notes use the bounded queue with unique shared IDs. Queue overflow requests
-panic. The default base amplitude is 0.5 and software master gain 0.8; codec
-level 100 avoids the attenuation that made the earlier board test too quiet.
-Actual speaker quality/gain preferences still require listening.
+Battery remains top right; PANIC remains bottom right and acts on press, even
+while loading. Starting in a scroll strip stays a scroll gesture until release,
+including when crossing over the code. Starting over the code stays a playing
+gesture when crossing into a strip; X/Y clamp at the edges. Scrolling never
+posts notes or changes the touch buses. Flick-to-change is removed.
 
-## Build variants
+The top title starts 28 pixels from the left and the battery ends 20 pixels
+from the right. Subtitle positions are unchanged.
 
-```sh
-python3 host/prepare.py
-# Current audio-only build (includes patch service):
-host/idf.sh build
-python3 host/record_build.py
+The code playing area is 320 × 320 pixels at screen (0,48). X is 0 at the left
+and 1 at the right; Y is 0 at the bottom and 1 at the top. Its coordinates do
+not depend on the document's scroll position. The gate is 1 while held and
+0 on release, page changes, busy transitions or Panic. See
+[TOUCH_BUSES.md](TOUCH_BUSES.md) for In.kr and host testing.
 
-# Prepared touchscreen variant:
-SYNTHDEF_BUILD_DIR=build-ui host/idf.sh -D IDF_TARGET=esp32s3 \
-  -D "SDKCONFIG=$PWD/firmware/build-ui/sdkconfig" \
-  -D "SDKCONFIG_DEFAULTS=sdkconfig.defaults;$PWD/docs/ui.defaults" build
-python3 host/record_build.py --build-dir build-ui --output esp32-ui-build.json
-```
+Existing saved patches retain the old touch mapping through knob1/knob2.
+The Main graph and saved FX determine its envelope/effect behaviour. Four
+sliders, the separate pad, on-screen SAVE and the DELAY page are no longer part
+of this interface. USB patch save and FX commands remain available.
 
-After the port is re-identified (last observed `/dev/cu.usbmodem101`):
+Battery uses read-only AXP2101 telemetry every five seconds. It shows the gauge
+percentage and charging symbol; USB/empty means no battery detected and ? means
+unavailable. The
+[pinned vendor reference](https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-1.8/blob/78e13f852929c2ab4f9d5e0ad1c50ea378dbf2b4/examples/arduino/libraries/XPowersLib/src/XPowersAXP2101.tpp)
+defines the registers; this firmware changes no charger/rail configuration.
 
-```sh
-SYNTHDEF_BUILD_DIR=build-ui host/idf.sh -p /dev/cu.usbmodem101 flash monitor
-```
+The footer on both screens shows **CPU** above READY/PLAYING. It is the average
+audio processing time as a percentage of the available block duration, refreshed
+about once per second. Controls, synthesis, master delay and PCM conversion are
+included; waiting for I2S is excluded. This measures the audio budget, not total
+utilisation across both cores. The text turns amber if a block in the latest
+window uses at least 70% of its budget, or red at 100%. Values can exceed 100%.
+Before the first reading, or when telemetry stops, it shows `CPU --`.
+
+## Build and placement
+
+Use the current FM1/cache recipe in [BUILD.md](BUILD.md). Earlier compact/audio-only
+build recipes describe historical configurations, not the README quickstart.
 
 The BSP uses a 20-line partial buffer. The LVGL task is pinned to core 0 with a
 10 KiB stack. LVGL has a fixed 64 KiB heap and theme transitions are disabled;
@@ -113,14 +126,37 @@ Compare the same source build's telemetry before/after redraw stress. Keep the
 70% margin target, count output failures/partial writes, and listen/record for
 discontinuities; reported counters alone cannot certify continuity.
 
-If this board remains in download mode after an otherwise verified flash, use
-the IDF Python environment's recovery reset:
+Native USB recovery and port identification are covered in [BUILD.md](BUILD.md).
 
-```sh
-python -m esptool --chip esp32s3 --port /dev/cu.usbmodem101 \
-  --after watchdog_reset chip_id
-```
+## Output volume in CONTROLS
 
-The final restore was programmed from `firmware/build-ui` with
-`python -m esptool --chip esp32s3 --port /dev/cu.usbmodem101 --after watchdog_reset write_flash @flash_args`.
-This starts the ordinary playable application; it does not erase the whole flash.
+A fixed VOLUME row sits above Main and FX controls. The white slider and numeric
+percentage use the existing black background; the code screen and footer remain
+unchanged. The list starts at y=114 and is 294 pixels tall. Its scrolling cannot
+move the volume row. Dragging volume never sends notes, X/Y or library actions.
+
+The range is 0–100%, default 100%. This is a scale on the existing final output,
+after master FX and before PCM quantization. It does not change synth arguments,
+feedback levels or the codec setting. Zero keeps the DSP running silently.
+A 20 ms linear gain ramp avoids abrupt changes; stable 100% is bit-exact with the
+previous PCM conversion. Release saves the value in NVS through a short muted
+maintenance operation preserving source and FX state. Patch changes and reboot
+retain it. The user confirmed smooth operation; 30% survived a firmware update.
+
+Native LVGL tests exercise drag, busy-state rejection and note/load isolation.
+The fixed 64 KiB widget heap retains 33,960 bytes free in the checked fixture.
+
+
+## Main / FX simplification
+
+There is one writable Main package and one writable FX package, with protected
+transparent bypass. The three control rows fit without scrolling. Main is always
+restored on ordinary startup when its saved package is valid; FX/bypass and volume
+restore independently. Older numbered slot files remain archived in storage.
+The host LVGL check retains 44,408 bytes free in the fixed 64 KiB widget heap.
+
+
+SuperCollider can set the same live output scale with
+`ESP32.module(target, \volume, 0.5)` (50%), including `\all`. This updates the
+slider without loading a patch. Remote changes are not saved to flash; physical
+slider release saves as described above. See [SUPERCOLLIDER.md](SUPERCOLLIDER.md).

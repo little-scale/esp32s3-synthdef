@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "firmware": "f90f3603486a",
+  "studio_tests": 33,
+  "network_tests": 18,
+  "parameter_tests": 3,
+  "native_sc_tests": 2,
+  "portable_control_tests": true,
+  "instrument_regression": true,
+  "physical_device": "ide-device.json",
+  "native_two_module_test": "ide-host.json",
+  "steady_audio": "ide-controls-steady.json",
+  "transport": "private loopback OSC/TCP; paired HTTP to devices",
+  "sample_locked": false
+}

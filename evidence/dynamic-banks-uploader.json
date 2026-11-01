@@ -1,0 +1,261 @@
+{
+  "passed": true,
+  "examples": [
+    {
+      "example": "dynklank",
+      "compile": {
+        "artifact": "22c42b1b87e00b0c207267d7f7a21dca",
+        "fm1_admitted": true,
+        "continuous": true,
+        "nodes": 50,
+        "signals": 49,
+        "inputs": 110,
+        "delay_samples": 0,
+        "touch_buses": false,
+        "ugens": [
+          "Rand",
+          "SinOsc",
+          "MulAdd",
+          "BinaryOpUGen",
+          "Dust",
+          "Ringz",
+          "Out",
+          "Control"
+        ],
+        "controls": [
+          {
+            "default": 1,
+            "name": "__esp32_autoplay"
+          }
+        ],
+        "master_admitted": false,
+        "name": "SoundBlock",
+        "target": "sound",
+        "admitted": true,
+        "graph_bytes": 2020,
+        "source_bytes": 518,
+        "graph_sha256": "ea0cf7cc1da28ed096649aea9882ae1b5e08810838796fe1eeca86878c814eb5",
+        "source_sha256": "db0fefa060bbc758a4ba967c5214797bf84d607d9204d1b4e6a8c859a6cbba62",
+        "admission_error": "",
+        "source_pairing": "compiled_from_source",
+        "compiler_log": "compiling class library...\n\tFound 872 primitives.\n\tCompiling directory '/Applications/SuperCollider.app/Contents/Resources/SCClassLibrary'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/Extensions'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/downloaded-quarks/Bjorklund'\n\tnumentries = 876526 / 13283824 = 0.066\n\t5672 method selectors, 2342 classes\n\tmethod table size 14073992 bytes, big table size 106270592\n\tNumber of Symbols 12957\n\tByte Code Size 400153\n\tcompiled 355 files in 0.24 seconds\ncompile done\nlocalhost : setting clientID to 0.\ninternal : setting clientID to 0.\nClass tree inited in 0.04 seconds\n\n\n*** Welcome to SuperCollider 3.14.1. *** For help type cmd-d.\ncleaning up OSC\n",
+        "input_kind": "sound_block"
+      },
+      "native": {
+        "passed": true,
+        "nodes": 50,
+        "signals": 49,
+        "peak": 0.010509192
+      }
+    },
+    {
+      "example": "dynklang",
+      "compile": {
+        "artifact": "dffc79c122f7e5ca9711ee2f907f57de",
+        "fm1_admitted": true,
+        "continuous": true,
+        "nodes": 36,
+        "signals": 35,
+        "inputs": 77,
+        "delay_samples": 0,
+        "touch_buses": false,
+        "ugens": [
+          "SinOsc",
+          "MulAdd",
+          "BinaryOpUGen",
+          "Out",
+          "Control"
+        ],
+        "controls": [
+          {
+            "default": 1,
+            "name": "__esp32_autoplay"
+          }
+        ],
+        "master_admitted": false,
+        "name": "SoundBlock",
+        "target": "sound",
+        "admitted": true,
+        "graph_bytes": 1541,
+        "source_bytes": 392,
+        "graph_sha256": "a27ae6ad56fc522c8f2429015f1b81e30e767918d2d7e8e7186a5cb4e18a56ec",
+        "source_sha256": "00654c573aef92666438f1efda56b89c812a7e0fccd90d7ba939b4aaee60964c",
+        "admission_error": "",
+        "source_pairing": "compiled_from_source",
+        "compiler_log": "compiling class library...\n\tFound 872 primitives.\n\tCompiling directory '/Applications/SuperCollider.app/Contents/Resources/SCClassLibrary'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/Extensions'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/downloaded-quarks/Bjorklund'\n\tnumentries = 876526 / 13283824 = 0.066\n\t5672 method selectors, 2342 classes\n\tmethod table size 14073992 bytes, big table size 106270592\n\tNumber of Symbols 12957\n\tByte Code Size 400153\n\tcompiled 355 files in 0.17 seconds\ncompile done\nlocalhost : setting clientID to 0.\ninternal : setting clientID to 0.\nClass tree inited in 0.04 seconds\n\n\n*** Welcome to SuperCollider 3.14.1. *** For help type cmd-d.\ncleaning up OSC\n",
+        "input_kind": "sound_block"
+      },
+      "native": {
+        "passed": true,
+        "nodes": 36,
+        "signals": 35,
+        "peak": 0.159328327
+      }
+    }
+  ],
+  "final_state": {
+    "connected": true,
+    "port": "/dev/cu.usbmodem3101",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "f05ace547b090d894d09d6478a2573a1051b02a6bbad2427ec4bddb9695bd401",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "a7550a34a2c59c996e4168436986d7047e11d2b5112c6f7d1d5a11239214fc2f",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "global_volume": true,
+      "transports": [
+        "usb-serial-jtag"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12435544,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ]
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 0,
+      "transfer": 2611038605,
+      "slot": 6,
+      "name": "Klank cloud",
+      "graph_sha256": "67f5c371cabfd088bf68fbe6d414e38539801d7ed2db29713dcb49fd84126eb0",
+      "continuous": true,
+      "seed": 3555169587
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "Mac Sine",
+        "generations": [
+          11,
+          12
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Klank cloud",
+        "generations": [
+          3,
+          4
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "Comb cloud KR",
+        "generations": [
+          1,
+          0
+        ]
+      }
+    ],
+    "audio": {},
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": true
+      }
+    ]
+  },
+  "mixed_rate_live_checks": [
+    {
+      "case": "DynKlank_audio_parameters",
+      "nodes": 19,
+      "admitted": true
+    },
+    {
+      "case": "DynKlang_kr_audio_parameters",
+      "nodes": 19,
+      "admitted": true
+    }
+  ]
+}

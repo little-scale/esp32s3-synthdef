@@ -1,0 +1,324 @@
+{
+  "passed": true,
+  "hardware": false,
+  "audio_playback": false,
+  "frames_per_case": 262144,
+  "cases": [
+    {
+      "name": "DynKlank_ar",
+      "native": {
+        "passed": true,
+        "nodes": 37,
+        "signals": 36,
+        "peak": 0.0167004503
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "Impulse",
+        "MulAdd",
+        "Out",
+        "Ringz",
+        "SinOsc"
+      ],
+      "kernel": "Ringz",
+      "kernel_count": 3,
+      "graph_sha256": "c2da057246b33ded801e5c3c228e34762cee91f3c87fc13ee54da81109e35984",
+      "peak_error": 7.417576853185892e-06,
+      "rms_error": 7.534683047890757e-07,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlang_ar",
+      "native": {
+        "passed": true,
+        "nodes": 29,
+        "signals": 28,
+        "peak": 0.179216519
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "MulAdd",
+        "Out",
+        "SinOsc"
+      ],
+      "kernel": "SinOsc",
+      "kernel_count": 8,
+      "graph_sha256": "62881a853b7cbbb6f21689215f349e9122b2c09f268e9de28f6f2937190154e8",
+      "peak_error": 1.288577914237976e-05,
+      "rms_error": 2.2729984765698436e-06,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlank_kr",
+      "native": {
+        "passed": true,
+        "nodes": 39,
+        "signals": 38,
+        "peak": 0.0155148394
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "Impulse",
+        "K2A",
+        "MulAdd",
+        "Out",
+        "Ringz",
+        "SinOsc"
+      ],
+      "kernel": "Ringz",
+      "kernel_count": 3,
+      "graph_sha256": "796642c49e0b6f4420bea16ea96e56db85ad52d9a8b051095ccec72c65ca16da",
+      "peak_error": 2.1420419216156006e-08,
+      "rms_error": 3.3361331613000427e-09,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlang_kr",
+      "native": {
+        "passed": true,
+        "nodes": 31,
+        "signals": 30,
+        "peak": 0.173563212
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "K2A",
+        "MulAdd",
+        "Out",
+        "SinOsc"
+      ],
+      "kernel": "SinOsc",
+      "kernel_count": 8,
+      "graph_sha256": "26635b709c77dc55a4cb1252a7f66cf817ad8faea854eeb9dcbba0a9b9d3e753",
+      "peak_error": 2.60770320892334e-07,
+      "rms_error": 6.149493097674229e-08,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlank_nil_ar",
+      "native": {
+        "passed": true,
+        "nodes": 9,
+        "signals": 8,
+        "peak": 0.00897049904
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "Impulse",
+        "Out",
+        "Ringz",
+        "Sum3"
+      ],
+      "kernel": "Ringz",
+      "kernel_count": 3,
+      "graph_sha256": "e793388a101d171f808f48b1a26b2b47f6d6a48014ee07467afb407acf83ebb2",
+      "peak_error": 1.1396710760891438e-05,
+      "rms_error": 3.2086690012999627e-06,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlank_nil_kr",
+      "native": {
+        "passed": true,
+        "nodes": 11,
+        "signals": 10,
+        "peak": 0.00842488557
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "Impulse",
+        "K2A",
+        "Out",
+        "Ringz",
+        "Sum3"
+      ],
+      "kernel": "Ringz",
+      "kernel_count": 3,
+      "graph_sha256": "3e7fbe11717f4bb96cc462dc73a8546cdd072fc886e50f39af8a0a177977d08d",
+      "peak_error": 9.39471647143364e-08,
+      "rms_error": 2.048737534348581e-08,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlang_nil_ar",
+      "native": {
+        "passed": true,
+        "nodes": 7,
+        "signals": 6,
+        "peak": 0.137588307
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "Out",
+        "SinOsc",
+        "Sum3"
+      ],
+      "kernel": "SinOsc",
+      "kernel_count": 3,
+      "graph_sha256": "f52bdb2902b7a9543a012b13beea1b4d705fd66657cb363fe26e38dccb6720f6",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 1.6348548990245986e-10,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlang_nil_kr",
+      "native": {
+        "passed": true,
+        "nodes": 9,
+        "signals": 8,
+        "peak": 0.148180231
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "K2A",
+        "Out",
+        "SinOsc",
+        "Sum3"
+      ],
+      "kernel": "SinOsc",
+      "kernel_count": 3,
+      "graph_sha256": "46635674096a0e0d9e4506c22c338ed0780143be745de3b05a2d4ece651a8414",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 1.2516544157905681e-08,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlang_audio_parameters",
+      "native": {
+        "passed": true,
+        "nodes": 21,
+        "signals": 20,
+        "peak": 0.104063481
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "MulAdd",
+        "Out",
+        "SinOsc"
+      ],
+      "kernel": "SinOsc",
+      "kernel_count": 6,
+      "graph_sha256": "46a53b4b71ad97760479a7f002238dc6dd140842982c9a98d9c77973783db363",
+      "peak_error": 2.2351741790771484e-08,
+      "rms_error": 2.1659615831258773e-09,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlank_audio_parameters",
+      "native": {
+        "passed": true,
+        "nodes": 19,
+        "signals": 18,
+        "peak": 0.0105518168
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "Impulse",
+        "MulAdd",
+        "Out",
+        "Ringz",
+        "SinOsc"
+      ],
+      "kernel": "Ringz",
+      "kernel_count": 3,
+      "graph_sha256": "5d5de0845ea2ddb2146cc962bf6656f4502ee0557d0b73ee2e949a36f7012986",
+      "peak_error": 3.401000867597759e-07,
+      "rms_error": 5.456057006579466e-08,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlang_kr_audio_parameters",
+      "native": {
+        "passed": true,
+        "nodes": 19,
+        "signals": 18,
+        "peak": 0.17787765
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "K2A",
+        "MulAdd",
+        "Out",
+        "SinOsc"
+      ],
+      "kernel": "SinOsc",
+      "kernel_count": 5,
+      "graph_sha256": "b414a5d48ccd0adc90235779cdf08e4c9972e9b63780e8c22a4215e0f50838e9",
+      "peak_error": 1.341104507446289e-07,
+      "rms_error": 1.757970335073662e-08,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    },
+    {
+      "name": "DynKlank_kr_audio_parameters",
+      "native": {
+        "passed": true,
+        "nodes": 21,
+        "signals": 20,
+        "peak": 0.0135762319
+      },
+      "types": [
+        "BinaryOpUGen",
+        "Control",
+        "Impulse",
+        "K2A",
+        "MulAdd",
+        "Out",
+        "Ringz",
+        "SinOsc"
+      ],
+      "kernel": "Ringz",
+      "kernel_count": 3,
+      "graph_sha256": "06819b4954cac3949fd362182e66b8d5b0a026595b80cbbcf14828bf33558821",
+      "peak_error": 6.682239472866058e-08,
+      "rms_error": 7.880492986487373e-09,
+      "peak_limit": 0.0002,
+      "rms_limit": 3e-05,
+      "passed": true
+    }
+  ],
+  "rejections": [
+    {
+      "name": "audio_excitation_into_control_ringz",
+      "passed": true,
+      "error": "Input rate exceeds calculation rate (node 11)"
+    },
+    {
+      "name": "audio_coefficients_into_resonz",
+      "passed": true,
+      "error": "Filter/lag/duty parameters require control or initial rate (node 11)"
+    }
+  ]
+}

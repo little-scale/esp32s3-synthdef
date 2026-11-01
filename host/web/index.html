@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SynthDef Studio</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+      <div><span class="eyebrow">ESP32-S3 · MAIN + FX</span><h1>SynthDef Studio<span class="local">LOCAL</span></h1></div>
+    <p>Write on your computer.<br>Play on your instrument.</p>
+  </header>
+  <main>
+    <section class="composer panel" aria-labelledby="source-title">
+      <div class="panel-heading"><div><span class="step">01 / SOURCE</span><h2 id="source-title">Main code</h2></div>
+        <div class="file-actions"><button id="example" class="quiet">Load example</button><button id="open-file" class="quiet">Open file</button><input type="file" id="file" tabindex="-1" accept=".scd,.sc,.scsyndef"></div>
+      </div>
+      <div id="file-mode" class="file-mode" hidden><span id="file-description"></span><button id="source-mode" class="quiet">Use source instead</button></div>
+      <label for="source" class="sr-only">SuperCollider source code</label>
+      <textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off" aria-describedby="source-help" placeholder="Paste a SynthDef or { sound }.play block, or open a .scd file…"></textarea>
+      <div class="editor-footer"><span id="source-size">0 / 65,536 bytes</span><span>SuperCollider · UTF-8</span></div>
+      <p id="source-help" class="hint">Use a SynthDef or { sound } block; a trailing .play is accepted without host playback. Source runs locally; use code you trust.</p>
+      <div class="compile-bar"><button id="compile" class="primary">Compile</button><span id="compile-status" role="status">Ready to compile</span></div>
+      <div id="result" class="result" hidden>
+        <div class="result-heading"><span class="success-dot"></span><strong id="result-title"></strong></div>
+        <div id="result-facts" class="facts"></div><p id="result-note" class="hint"></p>
+        <div class="downloads"><button id="download-graph" class="quiet">Download .scsyndef</button><button id="download-source" class="quiet">Download source</button></div>
+        <details><summary>Graph details and compiler output</summary><pre id="diagnostics"></pre></details>
+      </div>
+    </section>
+    <aside class="device panel" aria-labelledby="device-title">
+      <div class="panel-heading"><div><span class="step">02 / INSTRUMENT</span><h2 id="device-title">Main + FX</h2></div><span id="connection-indicator" class="connection">OFFLINE</span></div>
+      <label for="target">Editing</label><select id="target"><option value="sound">Main · sound generator</option><option value="master">FX · output processor</option></select>
+      <p class="hint">One saved Main patch feeds one saved FX patch. Bypass passes Main straight to the output.</p>
+      <label for="transport">Connection</label><select id="transport"><option value="usb">USB</option><option value="wifi">Wi-Fi · choose a module</option></select>
+      <div id="usb-panel"><label for="port">USB device</label><div class="connect-row"><select id="port"><option value="">Looking for devices…</option></select><button id="ports-refresh" class="quiet" aria-label="Refresh USB ports">Refresh</button></div></div>
+      <div id="wifi-panel" hidden>
+        <label for="wifi-mode">Wi-Fi upload mode</label><select id="wifi-mode"><option value="single">One module</option><option value="omni">Omni broadcast · paired online modules</option></select>
+        <label for="network-device">Target module</label><select id="network-device"><option value="">Scan for modules…</option></select>
+        <p id="network-hint" class="hint">Pair each module over USB once. Names and permanent IDs distinguish modules sharing a network.</p>
+        <div class="connect-row"><input id="network-address" type="text" placeholder="Optional device IP" aria-label="Device IPv4 address"><button id="network-scan" class="quiet">Find modules</button></div>
+      </div>
+      <button id="connect" class="secondary wide">Connect</button>
+      <p id="device-status" class="hint" role="status">Choose USB or a paired Wi-Fi module, then connect.</p>
+      <div id="connected-tools" class="connected-tools" hidden><button id="read-active" class="quiet">Read Main</button><button id="slots-refresh" class="quiet">Refresh</button><button id="panic" class="panic">Panic</button></div>
+      <details id="wifi-setup" hidden><summary>Wi-Fi setup · this USB module</summary>
+        <p id="setup-identity" class="hint"></p>
+        <label for="module-name">Module name</label><input id="module-name" type="text" maxlength="31" placeholder="AMOLED-left">
+        <label for="wifi-ssid">Wi-Fi network · 2.4 GHz</label><input id="wifi-ssid" type="text" autocomplete="off" maxlength="32">
+        <button id="wifi-nearby" class="quiet">Find Wi-Fi networks</button><select id="wifi-networks" aria-label="Visible 2.4 GHz networks" hidden></select>
+        <label for="wifi-password">Wi-Fi password</label><input id="wifi-password" type="password" autocomplete="off" maxlength="63">
+        <button id="wifi-save" class="secondary wide">Save Wi-Fi and pair this module</button>
+        <button id="wifi-pair" class="quiet">Pair existing Wi-Fi setup</button><button id="wifi-status" class="quiet">Check Wi-Fi</button>
+        <p id="wifi-status-text" class="hint">Credentials are saved on this module. The computer remembers its pairing.</p>
+      </details>
+      <fieldset id="slots-field" disabled><legend>Saved on this module</legend><div id="slots" class="stages"><p class="hint">Connect to see Main and FX.</p></div></fieldset>
+      <div class="playback-controls"><button id="main-load" class="quiet">Restart Main</button><button id="master-load" class="quiet" aria-pressed="false">FX bypass</button></div>
+      <p id="fx-status" class="hint" role="status">FX state appears after connecting.</p>
+      <div id="broadcast-panel" hidden><button id="broadcast-review" class="secondary wide">Review broadcast recipients</button>
+        <p id="broadcast-status" class="hint" role="status"></p><div id="broadcast-nodes"></div>
+        <p class="hint">Transfers run concurrently, up to eight at a time. Starts are not sample-synchronised. Only the listed paired modules receive the package.</p>
+      </div>
+      <label for="patch-name">Name on the instrument</label><input id="patch-name" type="text" maxlength="31" placeholder="Patch name" autocomplete="off">
+      <p id="destination" class="hint destination">Compile Main or FX, then upload to the selected module.</p>
+      <button id="upload" class="primary wide" disabled>Upload to device</button>
+      <p class="hint">Upload replaces the selected Main or FX patch and saves its original code. Sound blocks start on upload and reboot without touch. Panic stops Main; Restart Main starts it again. FX uploads enable FX.</p>
+      <details class="advanced"><summary>Control metadata</summary><p class="hint">Used by legacy patches. X/Y/gate bus patches use buses 0/1/2.</p>
+        <div class="metadata"><label>X label<input id="label-0" maxlength="11" value="X"></label><label>Y label<input id="label-1" maxlength="11" value="Y"></label><label>Third label<input id="label-2" maxlength="11" value="ATTACK"></label><label>Fourth label<input id="label-3" maxlength="11" value="RELEASE"></label></div>
+        <label for="mapping">Legacy mapping</label><select id="mapping"><option value="1">Pitch / level</option><option value="0">Normalized values</option></select>
+      </details>
+    </aside>
+    <div id="message" class="message" role="alert" hidden></div>
+  </main>
+  <footer class="page-footer"><span>SuperCollider compiler → USB or Wi-Fi → Main → FX / bypass → output</span><span>Compilation runs locally on this computer.</span></footer>
+</body>
+</html>

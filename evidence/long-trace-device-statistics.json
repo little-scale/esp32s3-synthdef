@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "m15_StandardN_live",
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9970291520252206,
+      "sd_ratio": 0.99391258802223,
+      "roughness_ratio": 1.205570683470016,
+      "normalized_mean_error": 0.02756189742049653,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m15_StandardL_live",
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9362338265221365,
+      "sd_ratio": 0.9276361568467236,
+      "roughness_ratio": 1.1364846025203725,
+      "normalized_mean_error": 0.048894493775327674,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_LatoocarfianN_live",
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0127533219501497,
+      "sd_ratio": 0.991244750382277,
+      "roughness_ratio": 0.9917237437931709,
+      "normalized_mean_error": 0.23935385648740423,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_LatoocarfianL_live",
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0082950468378862,
+      "sd_ratio": 0.9877257596165704,
+      "roughness_ratio": 1.0141737747430655,
+      "normalized_mean_error": 0.2335342164954521,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_LatoocarfianC_live",
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9898075337011667,
+      "sd_ratio": 0.979163862813973,
+      "roughness_ratio": 1.1713358011503794,
+      "normalized_mean_error": 0.18311618098138643,
+      "stochastic_passed": true
+    }
+  ],
+  "scope": "Pinned chaotic distribution/roughness criteria on captured hardware windows versus the native reference, in addition to full-duration device RMS/peak and canary checks. Does not prove waveform identity or replace an identical-state hardware oracle."
+}

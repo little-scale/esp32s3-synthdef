@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "details": "PASS: 5-second echo timing, feedback decay, new-note tail preservation, panic/reset, sustained feedback bound, dry PCM identity, invalid controls and arena canaries",
+  "arena_bytes": 1048576
+}

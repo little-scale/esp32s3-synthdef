@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "native_checks": "PASS: control bus default zeros, partial binding, last valid range, dynamic index, invalid ranges/count/rates, nonfinite data and restart binding\nPASS: bus-only patch admission, X/Y/gate, stale releases, persistent state after release, same-block retrigger, silence after tail, Panic and early cancellation",
+  "sc_reference": "scsynth 3.14.1 (Built from tag 'Version-3.14.1' [426edf6])",
+  "frames": 28672,
+  "peak_error": 1.5756551874801517e-05,
+  "rms_error": 4.05071802393536e-06,
+  "peak_limit": 0.0001,
+  "rms_limit": 3e-05,
+  "graph_sha256": "4a7754df80d89b1227148d9eee9d716142ae919d678b4a5ad93da15c273cd4ff",
+  "source_sha256": "7cb8d53dab148fb97710da6857d4bb4bbd6cbeff66a487ac3b5e77823747520a",
+  "audio_playback": false,
+  "hardware": false
+}

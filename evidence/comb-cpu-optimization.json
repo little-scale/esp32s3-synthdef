@@ -1,0 +1,512 @@
+{
+  "cpu_config_mhz": 240,
+  "sample_rate": 44100,
+  "block_frames": 64,
+  "initial_selection": 4,
+  "before_state": {
+    "connected": true,
+    "port": "/dev/cu.usbmodem3101",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "931c9593efd19e0003fad819efda25d4fe5623caa8a19bafcb3a067dbb08a3d7",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "2d5e8a5a89c22b828416153c2e2f6a4d0e98f5fe522d16f52d57025be65a7946",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "transports": [
+        "usb-serial-jtag"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12440815,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ]
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 2704,
+      "transfer": 2433449150,
+      "slot": 7,
+      "name": "Comb cloud",
+      "graph_sha256": "d3b4f5802c78d1f5711fdf76761bd43882dd16805c6076de1fd702a9697d71fc",
+      "continuous": true
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "Mac Sine",
+        "generations": [
+          11,
+          12
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Sound block",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "",
+        "generations": [
+          0,
+          0
+        ]
+      }
+    ],
+    "audio": {
+      "frame": 25568640,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14710.330095458,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 764,
+      "peak_x10": 919
+    },
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": true
+      }
+    ]
+  },
+  "before_samples": [
+    {
+      "frame": 25612800,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14711.347038541,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 763,
+      "peak_x10": 935
+    },
+    {
+      "frame": 25656960,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14712.363450541,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 764,
+      "peak_x10": 892
+    },
+    {
+      "frame": 25701120,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14713.37678075,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 763,
+      "peak_x10": 921
+    },
+    {
+      "frame": 25745280,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14714.128653583,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 763,
+      "peak_x10": 906
+    },
+    {
+      "frame": 25789440,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14715.147228833,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 763,
+      "peak_x10": 938
+    }
+  ],
+  "before_average_percent": 76.32,
+  "before_recent_peak_percent": 93.8,
+  "after_state": {
+    "connected": true,
+    "port": "/dev/cu.usbmodem3101",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "931c9593efd19e0003fad819efda25d4fe5623caa8a19bafcb3a067dbb08a3d7",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "2d5e8a5a89c22b828416153c2e2f6a4d0e98f5fe522d16f52d57025be65a7946",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "transports": [
+        "usb-serial-jtag"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12440815,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ]
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 2704,
+      "transfer": 2776480928,
+      "slot": 7,
+      "name": "Comb cloud",
+      "graph_sha256": "24cc211b4511310b91f18c53fa403c1d9c99e54ce29cd41ac9123be35dbd0e88",
+      "continuous": true
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "Mac Sine",
+        "generations": [
+          11,
+          12
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Sound block",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "",
+        "generations": [
+          0,
+          0
+        ]
+      }
+    ],
+    "audio": {
+      "frame": 28836480,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14786.230416375,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 577,
+      "peak_x10": 757
+    },
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": true
+      }
+    ]
+  },
+  "after_samples": [
+    {
+      "frame": 28880640,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14787.24580275,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 577,
+      "peak_x10": 687
+    },
+    {
+      "frame": 28924800,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14788.259885708,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 578,
+      "peak_x10": 710
+    },
+    {
+      "frame": 28968960,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14789.272680833,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 577,
+      "peak_x10": 727
+    },
+    {
+      "frame": 29013120,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14790.288999958,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 577,
+      "peak_x10": 689
+    },
+    {
+      "frame": 29057280,
+      "active": 1,
+      "render_max_us": 1823,
+      "combined_max_us": 1848,
+      "updated": 14791.308171708,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 577,
+      "peak_x10": 695
+    }
+  ],
+  "after_average_percent": 57.72,
+  "after_recent_peak_percent": 72.7,
+  "change": "Only CombC delay LFO SinOsc.ar(5) -> SinOsc.kr(5)",
+  "master_unchanged": true,
+  "relative_reduction_percent": 24.371069182389938,
+  "native_lifecycle_test": "PASS: block starts without input, keeps running past 10 seconds, ignores touch gates, resumes after maintenance, stays stopped after Panic, and restarts on reload; peak=0.466641724",
+  "user_reported_average_percent": 57,
+  "hardware_panic_followup": "Not run: selection changed during the precondition check; no Panic or reload was sent."
+}

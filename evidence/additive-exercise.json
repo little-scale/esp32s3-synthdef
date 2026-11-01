@@ -4,13 +4,13 @@
   "hello": {
     "protocol": 1,
     "model": "Waveshare AMOLED 1.8 V2",
-    "build": "4df188df98d59e3f96ea6fa3ac6ed3d4a193c5c4838aac599d40756b3db597c3",
+    "build": "e9906a502a8a9b7aa92498bdf3d2687aae051cc3df739ae39b86ed357f7aa8a3",
     "engine": "00ac338904304e87845477808e598ef973f49b52",
-    "profile": "4c3eb18029528e05858e2325e6673530cd0ccfa048f3af7702696d24b06eb1de",
+    "profile": "32a72c6115aba4dcf4d01cbce52dc29b27151fc040da16c6db8a6b1f28969d09",
     "rate": 44100,
     "block": 64,
     "voices": 1,
-    "effects": 0,
+    "effects": 1,
     "transports": [
       "usb-serial-jtag"
     ],
@@ -20,7 +20,7 @@
     "slots": 8,
     "storage": true,
     "storage_total": 12462401,
-    "storage_free": 12458887,
+    "storage_free": 12452361,
     "policy": "catalog-voice-v2",
     "catalog": [
       {
@@ -44,7 +44,7 @@
     "state": 3,
     "reset_required": false,
     "received": 1673,
-    "transfer": 3051750941,
+    "transfer": 2576576072,
     "slot": -1,
     "name": "Harmonic Mix",
     "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
@@ -53,15 +53,15 @@
     "state": 3,
     "reset_required": false,
     "received": 1673,
-    "transfer": 3051750941,
+    "transfer": 2576576072,
     "slot": -1,
     "name": "Harmonic Mix",
     "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
   },
   "maximum": {
-    "render_max_us": 447,
-    "prep_max_us": 424,
-    "combined_max_us": 694,
+    "render_max_us": 874,
+    "prep_max_us": 374,
+    "combined_max_us": 910,
     "budget70_exceeded": 0,
     "write_fail": 0,
     "partial": 0,
@@ -70,24 +70,24 @@
     "clips": 0,
     "nonfinite": 0,
     "overflow": 0,
-    "coalesced": 0
+    "coalesced": 4
   },
   "minimum": {
-    "internal_min": 78107,
-    "internal_largest": 31744,
-    "stack_free_bytes": 12832
+    "internal_min": 141911,
+    "internal_largest": 63488,
+    "stack_free_bytes": 12008
   },
   "worst_phases": {
-    "reset": "93",
-    "controls": "10",
-    "prepare": "302",
-    "dsp": "225",
-    "pcm": "20"
+    "reset": "0",
+    "controls": "0",
+    "prepare": "0",
+    "dsp": "635",
+    "pcm": "21"
   },
   "cumulative_maximum": {
-    "render_max_us": 523,
-    "prep_max_us": 481,
-    "combined_max_us": 813,
+    "render_max_us": 886,
+    "prep_max_us": 443,
+    "combined_max_us": 914,
     "budget70_exceeded": 0,
     "write_fail": 0,
     "partial": 0,
@@ -96,15 +96,15 @@
     "clips": 0,
     "nonfinite": 0,
     "overflow": 0,
-    "coalesced": 0
+    "coalesced": 4
   },
   "epochs": [
     7,
     8,
     9
   ],
-  "max_combined_fraction_of_block": 0.478209375,
+  "max_combined_fraction_of_block": 0.627046875,
   "reported_output_checks_passed": true,
   "timing_budget_passed": true,
-  "scope": "four UI controls at 25 Hz, seven pitch positions, attack/release extremes, five note starts/second; no physical continuity claim"
+  "scope": "four synth controls and three master delay controls at 25 Hz; delay 20 ms to 5 s, feedback 0 to 0.8, wet 0 to 1; seven pitch positions, attack/release extremes, five note starts/second; no physical continuity claim"
 }

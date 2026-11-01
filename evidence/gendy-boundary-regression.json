@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "original_fault_reproduced": true,
+  "reports": [
+    {
+      "version": "original",
+      "fixture_seed": 12345,
+      "passed": false,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 5513,
+      "peak": 1.24791932
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 12345,
+      "passed": true,
+      "rate": 8000,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 5.72983313
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 12345,
+      "passed": true,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 2.93747878
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 12345,
+      "passed": true,
+      "rate": 48000,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 3.5407331
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 12345,
+      "passed": true,
+      "rate": 96000,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 3.23421717
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 12345,
+      "passed": true,
+      "rate": 192000,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 1.77545774
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 0,
+      "passed": true,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 4.68803406
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 1,
+      "passed": true,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 6.42874002
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": -12345,
+      "passed": true,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 4.77952147
+    },
+    {
+      "version": "fixed",
+      "fixture_seed": 16777215,
+      "passed": true,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 2.8544786
+    },
+    {
+      "version": "original",
+      "calculation_rate": "control",
+      "frequency": 0.1,
+      "passed": false,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 6887,
+      "peak": 0.131663352
+    },
+    {
+      "version": "fixed",
+      "calculation_rate": "control",
+      "frequency": 0.1,
+      "passed": true,
+      "rate": 44100,
+      "seconds": 60,
+      "seed": 0,
+      "fault_block": 0,
+      "peak": 0.131663352
+    }
+  ],
+  "scope": "Original pinned source versus audited target patch, 64-point Gendy3 at five sample rates and five explicit RandSeed values, with memory canaries and sanitizers."
+}

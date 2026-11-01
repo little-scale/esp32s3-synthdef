@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "hardware": true,
+  "native_supercollider": true,
+  "firmware_build": "8b4cc4a9955a1b9d15fcc6720709a4a564174a33c507adfa3b5a5ac8bbb89988",
+  "device_id": "esp32-2884853ad390",
+  "muted": true,
+  "notes": [
+    {
+      "kind": 1,
+      "stage": 0,
+      "count": 4,
+      "delta": 0,
+      "bytes": 52,
+      "sequence": 3,
+      "queued": true
+    },
+    {
+      "kind": 1,
+      "stage": 0,
+      "count": 1,
+      "delta": 1,
+      "bytes": 37,
+      "sequence": 4,
+      "queued": true
+    },
+    {
+      "kind": 1,
+      "stage": 0,
+      "count": 0,
+      "delta": 1,
+      "bytes": 32,
+      "sequence": 5,
+      "queued": true
+    },
+    {
+      "kind": 1,
+      "stage": 0,
+      "count": 1,
+      "delta": 1,
+      "bytes": 37,
+      "sequence": 6,
+      "queued": true
+    }
+  ],
+  "missing_baseline_recovery": true,
+  "interleaved_set_restored": true,
+  "late": 0,
+  "rejected": 0,
+  "queued_after_test": 0,
+  "binary_note_bytes": 158,
+  "uncompressed_note_bytes": 208,
+  "original_packages_source_controls_restored": true,
+  "volume_restored_percent": 20,
+  "selected_fx_retained": true,
+  "regression_tests": 37,
+  "ide_reconnected_and_prepared": true,
+  "patterns_paused_for_update": true
+}

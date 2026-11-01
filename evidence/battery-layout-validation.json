@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "build_id": "a5e08c991829e9e00a7bb9a1cf9e2e18e783b9726706726b20a7a5f029e54c9d",
+  "layout": {
+    "battery": "top right in all pages",
+    "panic": "bottom right; one shared button above CODE; active while busy",
+    "code_viewport": [
+      0,
+      52,
+      368,
+      354
+    ],
+    "code_footer_max_width": 240
+  },
+  "battery": {
+    "source": "AXP2101 read-only registers 0x00,0x01,0xA4; chip ID 0x4A at 0x03",
+    "poll_seconds": 5,
+    "task": "control; I2C reads before acquiring display lock",
+    "power_configuration_changed": false,
+    "displayed_percent_in_actual_snapshots": 100,
+    "reference": "https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-1.8/blob/78e13f852929c2ab4f9d5e0ad1c50ea378dbf2b4/examples/arduino/libraries/XPowersLib/src/XPowersAXP2101.tpp"
+  },
+  "tests": {
+    "real_lvgl": "passed: all sliders, Panic on press in PLAY/CODE/busy, source drag, sparse/wrapped title navigation, effect save",
+    "source_lexer": "passed: UBSan/bounds and 1000 guard-page randomized inputs",
+    "hardware": "passed: 10 queued patch changes, CODE retention, upload rejection recovery, saved package/generation/FX preservation",
+    "visual": "actual PLAY/CODE snapshots inspected",
+    "builds": "FM1 and compact; strict DSP compile options verified"
+  },
+  "new_output_errors": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "audio_dsp_changed": false,
+  "physical_finger_tested": false,
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 1870690230,
+    "slot": 1,
+    "name": "Mac Sine",
+    "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+  }
+}

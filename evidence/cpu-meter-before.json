@@ -1,0 +1,131 @@
+{
+  "HELLO": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "1320eb6b191f502666ebb8e6e0b5ec9bed0167ab5dc0526e8011384c0306d522",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "2d5e8a5a89c22b828416153c2e2f6a4d0e98f5fe522d16f52d57025be65a7946",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12448596,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "STATUS": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 2050711642,
+    "slot": 5,
+    "name": "Touch buses",
+    "graph_sha256": "4a7754df80d89b1227148d9eee9d716142ae919d678b4a5ad93da15c273cd4ff"
+  },
+  "LIST": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "Touch buses",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "FX": {
+    "time": 0.35,
+    "feedback": 0.35,
+    "wet": 0.25,
+    "max_time": 5,
+    "arena_bytes": 1048576
+  }
+}

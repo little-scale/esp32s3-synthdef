@@ -1,4 +1,21 @@
 menu "SynthDef memory placement"
+    config SYNTHDEF_INTERNAL_VOICE_ARENA_SAMPLES
+        int "Internal-memory arena for smaller stateful voices (float samples)"
+        depends on SYNTHDEF_FM1_COMPAT
+        range 0 16896
+        default 0
+        help
+            Optionally reserves up to 66 KiB for voices whose state fits, including
+            each non-compact Rings model. Larger voices keep the full 1 MiB
+            PSRAM arena. No delay capacity or sample precision is reduced.
+            Disabled by default; the measured gain is small relative to RAM cost.
+    config SYNTHDEF_INTERNAL_RINGS
+        bool "Keep Rings processing routines in internal instruction RAM"
+        default y if SYNTHDEF_FM1_COMPAT
+        default n
+        help
+            Places existing Rings code in internal instruction RAM without
+            changing algorithms, table values, precision or string capacity.
     config SYNTHDEF_INTERNAL_ADAPTER
         bool "Keep audio control and PCM routines in internal instruction RAM"
         default y

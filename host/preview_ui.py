@@ -16,18 +16,20 @@ binary=BUILD/'ui-preview'
 flags=['-std=c99','-O1','-DLV_CONF_SKIP','-DLV_MEM_CUSTOM=0','-DLV_MEM_SIZE=65536','-DLV_COLOR_DEPTH=16',
        '-DLV_COLOR_16_SWAP=1','-DLV_FONT_MONTSERRAT_22=1','-DLV_USE_SNAPSHOT=1',
        '-DLV_DISP_DEF_REFR_PERIOD=40','-DLV_THEME_DEFAULT_GROW=0','-DLV_THEME_DEFAULT_TRANSITION_TIME=0']
-includes=[ROOT/'tests/ui_stubs',lvgl,component/'include',ROOT/'firmware/components/instrument/include',
-          ROOT/'upstream/fm1-synthdef/synthdef-engine/src']
-sources=[component/'touch_ui.c',ROOT/'tests/ui_preview.c',*sorted((lvgl/'src').rglob('*.c'))]
+from engine_profile import generate
+engine=generate(BUILD/'engine/src')
+includes=[ROOT/'tests/ui_stubs',lvgl,component/'include',ROOT/'firmware/components/instrument/include',engine]
+sources=[component/'touch_ui.c',component/'sc_source.c',component/'sc_code_view.c',component/'code_font.c',ROOT/'tests/ui_preview.c',*sorted((lvgl/'src').rglob('*.c'))]
 fingerprint=hashlib.sha256((''.join(str(p)+hashlib.sha256(p.read_bytes()).hexdigest() for p in
-                         sources+sorted((ROOT/'tests/ui_stubs').rglob('*.h')))+str(flags)).encode()).hexdigest()
+                         sources+sorted((component/'include').rglob('*.h'))+sorted((ROOT/'firmware/components/instrument/include').glob('*.h'))+[engine/'fm_synth.h']+sorted((ROOT/'tests/ui_stubs').rglob('*.h')))+str(flags)).encode()).hexdigest()
 stamp=BUILD/'source.sha256'
 if not binary.exists() or not stamp.exists() or stamp.read_text()!=fingerprint:
     subprocess.run(['cc',*flags,*['-I'+str(p) for p in includes],*[str(p) for p in sources],
                     '-lm','-o',str(binary)],check=True)
     stamp.write_text(fingerprint)
-idle,playing,library=BUILD/'idle.rgb565',BUILD/'playing.rgb565',BUILD/'library.rgb565'
-result=subprocess.run([str(binary),str(idle),str(playing),str(library)],capture_output=True,text=True,check=True)
+idle,playing,library,effect=BUILD/'idle.rgb565',BUILD/'playing.rgb565',BUILD/'library.rgb565',BUILD/'effect.rgb565'
+code=BUILD/'code.rgb565';scrolled=BUILD/'code-scrolled.rgb565'
+result=subprocess.run([str(binary),str(idle),str(playing),str(library),str(effect),str(code),str(scrolled)],capture_output=True,text=True,check=True)
 print(result.stdout.strip())
 def png(raw,path):
     assert len(raw)==368*448*2
@@ -42,7 +44,7 @@ def png(raw,path):
         return struct.pack('>I',len(data))+tag+data+struct.pack('>I',binascii.crc32(tag+data)&0xffffffff)
     path.write_bytes(b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',368,448,8,2,0,0,0))+
                      chunk(b'IDAT',zlib.compress(b''.join(rows)))+chunk(b'IEND',b''))
-for name,file in [('idle',idle),('playing',playing),('library',library)]: png(file.read_bytes(),ROOT/f'evidence/ui-{name}-preview.png')
+for name,file in [('idle',idle),('playing',playing),('library',library),('effect',effect),('code',code),('code-scrolled',scrolled)]: png(file.read_bytes(),ROOT/f'evidence/ui-{name}-preview.png')
 report={'test':'real LVGL host simulation','passed':True,'details':result.stdout.strip(),
         'source_sha256':fingerprint,'hardware':False,'dimensions':[368,448]}
 (ROOT/'evidence/ui-host.json').write_text(json.dumps(report,indent=2)+'\n')

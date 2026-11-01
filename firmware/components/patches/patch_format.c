@@ -4,8 +4,12 @@
 #include <math.h>
 #include <string.h>
 #include <unistd.h>
+#include "patch_policy.h"
+#include "../instrument/include/playback_mode.h"
+#if !PATCH_FM1_COMPAT
 #define PATCH_CATALOG_IMPLEMENTATION
 #include "catalog_generated.h"
+#endif
 #ifdef ESP_PLATFORM
 #include "sdkconfig.h"
 #endif
@@ -41,13 +45,13 @@ int patch_meta_decode(const void *data,size_t n,patch_meta *m,char e[160])
     if(n!=PATCH_META_BYTES)return bad(e,"Wrong manifest size");
     if(!field(p+76,32))return bad(e,"Invalid patch name");
     for(unsigned k=0;k<4;++k)if(!field(p+108+12*k,12))return bad(e,"Invalid control label");
-    if(p[156]>1 || p[157] || p[158] || p[159])return bad(e,"Unknown UI mapping/schema flags");
+    if(p[156]>1 || (p[157]&~PATCH_DEFINITION) || p[158] || p[159])return bad(e,"Unknown UI mapping/schema flags");
     memset(m,0,sizeof *m);
     m->transfer=patch_get32(p); m->graph_bytes=patch_get32(p+4); m->source_bytes=patch_get32(p+8);
     if(!m->graph_bytes || m->graph_bytes>FM_FILE_BYTES || m->source_bytes>PATCH_SOURCE_BYTES)
         return bad(e,"Package length exceeds device limits");
     memcpy(m->graph_hash,p+12,32); memcpy(m->source_hash,p+44,32);
-    memcpy(m->name,p+76,32); memcpy(m->label,p+108,48); m->mapping=p[156];
+    memcpy(m->name,p+76,32); memcpy(m->label,p+108,48); m->mapping=p[156];m->flags=p[157];
     return 1;
 }
 void patch_meta_encode(const patch_meta *m,unsigned char p[PATCH_META_BYTES])
@@ -55,7 +59,7 @@ void patch_meta_encode(const patch_meta *m,unsigned char p[PATCH_META_BYTES])
     memset(p,0,PATCH_META_BYTES);
     patch_put32(p,m->transfer); patch_put32(p+4,m->graph_bytes); patch_put32(p+8,m->source_bytes);
     memcpy(p+12,m->graph_hash,32); memcpy(p+44,m->source_hash,32);
-    memcpy(p+76,m->name,32); memcpy(p+108,m->label,48); p[156]=m->mapping;
+    memcpy(p+76,m->name,32); memcpy(p+108,m->label,48); p[156]=m->mapping;p[157]=m->flags;
 }
 static int utf8(const unsigned char *p,size_t n)
 {
@@ -83,6 +87,20 @@ int patch_verify(const patch_meta *m,const unsigned char *blob,patch_hash_fn has
 }
 int patch_validate(const fm_graph *g,const patch_meta *m,char e[160])
 {
+    if(!g || !g->valid)return bad(e,"Graph has not been parsed successfully");
+#if PATCH_FM1_COMPAT
+    /* fm_load remains authoritative for every type, rate, selector, reference
+     * and literal-domain restriction. This is experimental admission, never
+     * an assertion that an arbitrary graph meets an ESP32 audio deadline. */
+    uint32_t need=fm_delay_required(g,44100);
+    if(need==UINT32_MAX || need>FM_DELAY_LIMIT)return bad(e,"FM1 synth arena budget exceeded");
+    int continuous=graph_continuous_mode(g);
+    if(continuous<0)return bad(e,"Invalid autoplay marker");
+    if(m->flags&PATCH_DEFINITION)return 1;
+    if(continuous)return 1;
+    /* Bus-driven touch patches define their own parameters and gate envelope. */
+    for(unsigned i=0;i<g->nodes;++i)if(g->node[i].type==FM_In && g->node[i].rate==1)return 1;
+#else
     /* Callers must hash-verify the raw bytes and parse them before this check.
      * Catalog matches are exact binaries, not a general UGen-family expansion. */
     const patch_catalog_entry *catalog=NULL;
@@ -128,8 +146,9 @@ int patch_validate(const fm_graph *g,const patch_meta *m,char e[160])
     }
     if(audio>8 || sines!=1 || envs!=1 || pans!=1 || outs!=1 || powers>1)return bad(e,"simple-voice-v1: voice complexity exceeded");
     }
+#endif
     static const char *const required[]={"freq","amp","gate","knob1","knob2","knob3","knob4"};
-    for(unsigned k=0;k<7;++k) {
+    for(unsigned k=0;k<(PATCH_FM1_COMPAT?3u:7u);++k) {
         int found=0;
         for(unsigned i=0;i<g->names;++i)if(!strcmp(g->control_name[i].name,required[k])) {
             unsigned index=g->control_name[i].index; float v=g->defaults[index];
@@ -145,6 +164,21 @@ int patch_validate(const fm_graph *g,const patch_meta *m,char e[160])
         if(!found) {snprintf(e,160,"Missing live control %s",required[k]);return 0;}
     }
     return 1;
+}
+
+int patch_validate_master(const fm_graph *g,const patch_meta *m,char e[160])
+{
+    (void)m;if(!g || !g->valid)return bad(e,"Master graph has not been parsed");
+    uint32_t need=fm_delay_required(g,44100);
+    if(need==UINT32_MAX || need>FM_DELAY_LIMIT)return bad(e,"Master FX arena budget exceeded");
+    if(graph_continuous_mode(g))return bad(e,"Compile this program for the Master FX target");
+    unsigned inputs=0,outputs=0;
+    for(unsigned i=0;i<g->nodes;++i){
+        const fm_node *n=&g->node[i];
+        if(n->type==FM_In && n->rate==2){if(n->outputs!=2)return bad(e,"Master input must be In.ar(0,2)");++inputs;}
+        if(n->type==FM_Out){if(n->inputs!=3)return bad(e,"Master output must have two channels");++outputs;}
+    }
+    return inputs && outputs?1:bad(e,"Master FX must route In.ar(0,2) to stereo Out.ar(0,...)");
 }
 
 int patch_record_write(const char *path,const patch_meta *m,uint32_t generation,const unsigned char *blob,char e[160])

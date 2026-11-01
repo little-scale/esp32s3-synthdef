@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "details": "Source lexer: token boundaries, escapes, nested comments, UTF-8, markup literals and 1000 guarded fuzz cases passed",
+  "hardware": false,
+  "sanitizers": [
+    "undefined",
+    "bounds"
+  ],
+  "memory_checks": "Guard pages before/after source and style allocations; randomized inputs end directly at the inaccessible page",
+  "address_sanitizer": "Local runtime deadlocked during initialization before main; not counted as a passed ASan run"
+}

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "samples": 20971520,
+  "hardware": false,
+  "audio_playback": false,
+  "rates": [
+    8000,
+    44100,
+    48000,
+    192000
+  ],
+  "blocks_per_case": 8192,
+  "compared": "Audio and complete voice/random state",
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "graphs": {
+    "Saw": "f951f5b0555923f1d5a83ff30f685f4a3fe87e287f9d5a00d878bc6458b60243",
+    "SawMod": "dee50ea22c256dec078e5b5e65e3d7f101ae712a4f0c0665e8da5b31143823dd",
+    "Pulse": "170902c5bd789d736b5b1b850c3c01d3d44f7fa6db653f8547109135ff188360",
+    "PulseMod": "c751c3644c1d033a6498c4ac4db0a2452a94f4a6daab026d714c2599e5a83edc",
+    "Blip": "ba3dd0de15f14857a32b8e3f26b5c43cc5008a8088264a0efdd315cc71fc15dc"
+  },
+  "target_sha256": "c81b2f9dd2acdc46142792d1eb76b959a96e6f3c00e420626b04c7644473d409",
+  "reference_sha256": "28d80e96ae8b16f6c70aa5e34de2cba30de6b1d28b8633170ee5a354bb6250db"
+}

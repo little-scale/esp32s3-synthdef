@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "build": "54c1db191d063fed7a7ee55cc5b54c289e91b13afbaa61825b9c88d406958f09",
+  "title_x": 28,
+  "battery_x": 262,
+  "battery_unchanged": true,
+  "saved_library_and_fx_unchanged": true,
+  "selected_slot": 5,
+  "new_output_errors": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "final_page": "slots"
+}

@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "3afda820448ba4077e3fa6a3b24bde90a987d3d6d05bcebeb7411a4a5bb642ca",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "683571cba3eb1ec2058ccfd4b71939d3bc5fd2f1c7d906fde197c06a14c2cba4",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12452361,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 1870690230,
+    "slot": 1,
+    "name": "Mac Sine",
+    "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+  },
+  "effect": {
+    "time": 0.35,
+    "feedback": 0.35,
+    "wet": 0.25,
+    "max_time": 5,
+    "arena_bytes": 1048576
+  },
+  "library": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "saved_package_unchanged": true,
+  "screen_capture_complete": true,
+  "state": "Mac Sine selected, original effects restored, Panic acknowledged"
+}

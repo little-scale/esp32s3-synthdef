@@ -8,8 +8,9 @@ import argparse
 import json
 from pathlib import Path
 import re
+import struct
 from patches import Device,ROOT,manifest
-from profile_timing import compile_renderer,collect_matrix
+from profile_timing import compile_renderer,collect_matrix,compile_delay_renderer,collect_delay_matrix
 from exercise_timing import collect_exercise
 
 def main():
@@ -19,13 +20,16 @@ def main():
     p.add_argument('--rounds',type=int,choices=range(1,11),default=1);args=p.parse_args()
     assert not (args.install and args.diagnostic)
     report={'passed':False,'status':'incomplete','patches':[]}
-    args.output.write_text(json.dumps(report,indent=2)+'\n');renderer=compile_renderer()
+    args.output.write_text(json.dumps(report,indent=2)+'\n');renderer=compile_renderer();delay_renderer=compile_delay_renderer()
     entries=json.loads((ROOT/'examples/catalog.json').read_text())
     assert all(e['status'] in (('candidate','qualified') if args.diagnostic else ('qualified',)) for e in entries)
     with args.output.with_suffix('.log').open('wb') as log:
-        d=Device(args.port,log)
+        d=Device(args.port,log);original_effect=None
         try:
             hello=d.hello();report['hello']=hello
+            if hello.get('effects'):
+                original_effect=d.request('FX');report['initial_effect']=original_effect
+                report['master_delay_numerical']=collect_delay_matrix(d,delay_renderer)
             assert hello['build']==re.search(r'#define BUILD_ID "(.*?)"',(ROOT/'firmware/main/generated.h').read_text())[1]
             inventory=d.request('LIST');report['before_library']=inventory;slots={}
             if not args.diagnostic:
@@ -83,7 +87,10 @@ def main():
             report['passed']=True;report['status']='complete'
             args.output.write_text(json.dumps(report,indent=2)+'\n')
         finally:
-            try:d.link.write(b'x');d.request('PANIC');d.request('LOAD',b'\1')
+            try:
+                d.link.write(b'x');d.request('PANIC')
+                if original_effect:d.request('FX',struct.pack('<fff',original_effect['time'],original_effect['feedback'],original_effect['wet']))
+                d.request('LOAD',b'\1')
             finally:d.link.write(b'!');d.close()
 
 if __name__=='__main__':main()

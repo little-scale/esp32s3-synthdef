@@ -1,0 +1,166 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "m15_StandardN_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0168899437389436,
+      "sd_ratio": 1.016890086609069,
+      "roughness_ratio": 0.8878348691555747,
+      "normalized_mean_error": 0.0010633328153823985,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m15_StandardL_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0604485063880016,
+      "sd_ratio": 1.060448697967649,
+      "roughness_ratio": 0.887547537628911,
+      "normalized_mean_error": 0.0011382254270826868,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m15_FBSineN_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0000540290441131,
+      "sd_ratio": 1.000069796443727,
+      "roughness_ratio": 1.0006576515139405,
+      "normalized_mean_error": 0.00013579828252716845,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m15_FBSineL_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9999905538377007,
+      "sd_ratio": 1.000010239038932,
+      "roughness_ratio": 1.0004733198748348,
+      "normalized_mean_error": 0.00016871084470160703,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m15_FBSineC_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0002946697739796,
+      "sd_ratio": 1.0003407774937405,
+      "roughness_ratio": 1.0008038080748378,
+      "normalized_mean_error": 0.0003789000049588678,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_LorenzL_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9998774590575134,
+      "sd_ratio": 0.9992439895242925,
+      "roughness_ratio": 1.0017767738379149,
+      "normalized_mean_error": 0.034894073542503214,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_LatoocarfianN_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9999285981446583,
+      "sd_ratio": 0.9999527662932648,
+      "roughness_ratio": 0.998373653186852,
+      "normalized_mean_error": 0.0031776433681244397,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_LatoocarfianL_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0004103841888772,
+      "sd_ratio": 1.000441612241705,
+      "roughness_ratio": 0.9985756091059187,
+      "normalized_mean_error": 0.0036113682628059907,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_LatoocarfianC_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0000578220573975,
+      "sd_ratio": 1.0000802825899853,
+      "roughness_ratio": 0.9981983978743382,
+      "normalized_mean_error": 0.0028289465221066523,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_HenonN_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9993724495037826,
+      "sd_ratio": 0.9984930781567899,
+      "roughness_ratio": 0.9996462706476906,
+      "normalized_mean_error": 0.0021084500440628406,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_HenonL_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9990032840841364,
+      "sd_ratio": 0.9974889698435223,
+      "roughness_ratio": 0.9997063952448428,
+      "normalized_mean_error": 0.00247914891691485,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_HenonC_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9991714796787147,
+      "sd_ratio": 0.9979058555836126,
+      "roughness_ratio": 0.9996464225300425,
+      "normalized_mean_error": 0.0024398754726794904,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_CuspN_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0077569549727696,
+      "sd_ratio": 1.0073139596496485,
+      "roughness_ratio": 1.004673038310314,
+      "normalized_mean_error": 0.009118737938328783,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_CuspL_live",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0093694427913436,
+      "sd_ratio": 1.0087099144630274,
+      "roughness_ratio": 1.004943265448222,
+      "normalized_mean_error": 0.01115463923358233,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_Crackle_ar_2",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 1.0022090156540997,
+      "sd_ratio": 1.001498566176199,
+      "roughness_ratio": 1.0019715298707559,
+      "normalized_mean_error": 0.002079334672738903,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m14_Crackle_kr_2",
+      "samples": 1048576,
+      "comparison": "single-precision chaotic statistics; independent transition oracle required",
+      "rms_ratio": 0.9726225311110721,
+      "sd_ratio": 0.9629986868573024,
+      "roughness_ratio": 0.9822854906068804,
+      "normalized_mean_error": 0.016941153683568338,
+      "stochastic_passed": true
+    }
+  ],
+  "scope": "Full 11.89-second host-versus-SuperCollider recordings using the unchanged pinned distribution/roughness criteria. Statistical agreement is not waveform identity; identical-state transition oracles are covered separately by the earlier host suite."
+}

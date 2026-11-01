@@ -6,3 +6,17 @@
 **/sdkconfig.old
 recovery/*.bin
 .DS_Store
+
+# Local Python/tool environments and private credentials.
+.venv/
+venv/
+.env
+.env.*
+**/private/
+
+# Raw development captures remain local; publish summaries and UI previews.
+evidence/*.log
+evidence/*browser*.png
+evidence/network-connected.jpg
+evidence/network-setup.jpg
+evidence/studio-current-page.jpg

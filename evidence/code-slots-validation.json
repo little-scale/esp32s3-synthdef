@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "build_id": "1320eb6b191f502666ebb8e6e0b5ec9bed0167ab5dc0526e8011384c0306d522",
+  "ui": "two screens: code/play default and scrollable SLOTS; right/bottom strips preserve touch ownership",
+  "buses": {
+    "count": 32,
+    "x": 0,
+    "y": 1,
+    "gate": 2,
+    "reader": "In.kr",
+    "legacy_compatibility": true,
+    "runs_at_load_with_gate_low": true
+  },
+  "tests": {
+    "native_ui": "UI fixed heap: 65536 bytes, currently free 40696, largest free block 40248\nPASS: code-first play/slots screens, X/Y, release ownership, independent vertical/horizontal scroll strips, list scroll/load, busy/Panic, source ownership and 64 KiB limits",
+    "native_bus_and_SC": {
+      "passed": true,
+      "native_checks": "PASS: control bus default zeros, partial binding, last valid range, dynamic index, invalid ranges/count/rates, nonfinite data and restart binding\nPASS: bus-only patch admission, X/Y/gate, stale releases, persistent state after release, same-block retrigger, silence after tail, Panic and early cancellation",
+      "sc_reference": "scsynth 3.14.1 (Built from tag 'Version-3.14.1' [426edf6])",
+      "frames": 28672,
+      "peak_error": 1.5756551874801517e-05,
+      "rms_error": 4.05071802393536e-06,
+      "peak_limit": 0.0001,
+      "rms_limit": 3e-05,
+      "graph_sha256": "4a7754df80d89b1227148d9eee9d716142ae919d678b4a5ad93da15c273cd4ff",
+      "source_sha256": "7cb8d53dab148fb97710da6857d4bb4bbd6cbeff66a487ac3b5e77823747520a",
+      "audio_playback": false,
+      "hardware": false
+    },
+    "device_bus": {
+      "passed": true,
+      "header": "BUSES_BEGIN passed=1 blocks=448 windows=4 max_us=443",
+      "windows": [
+        {
+          "block": 63,
+          "peak_error": 1.4901161193847656e-08,
+          "rms_error": 5.300773570224753e-09
+        },
+        {
+          "block": 127,
+          "peak_error": 9.313225746154785e-08,
+          "rms_error": 6.694582307356659e-08
+        },
+        {
+          "block": 255,
+          "peak_error": 8.585629984736443e-10,
+          "rms_error": 6.176960670698063e-10
+        },
+        {
+          "block": 447,
+          "peak_error": 0.0,
+          "rms_error": 0.0
+        }
+      ],
+      "peak_limit": 0.0001,
+      "rms_limit": 3e-05,
+      "muted": true
+    },
+    "legacy_device_cases": 1960,
+    "legacy_library_unchanged": true,
+    "master_delay": {
+      "passed": true,
+      "max_float_error": 0.0,
+      "limit": 1e-06,
+      "samples": 1024,
+      "times": [
+        0.02,
+        0.35,
+        1,
+        5
+      ]
+    },
+    "restart": "USB_UART_CHIP_RESET followed by restored slot 5 and captured default code screen"
+  },
+  "original_slots_unchanged": true,
+  "example_slot": 5,
+  "new_output_errors": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "physical_finger_confirmation": "pending",
+  "precision": "unchanged float32; strict DSP compile options verified",
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 0,
+    "slot": 0,
+    "name": "Touch Sine",
+    "graph_sha256": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5"
+  }
+}

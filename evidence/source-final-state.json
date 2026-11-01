@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "cabbeb035d5b59516e85ee8fce5ebfd244e278d57b52ead097e717cb5841bafe",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "910203396f326e96cacb30aad6f564b28d8876c936cac51661af88743f5912c2",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12452361,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 1870690230,
+    "slot": 1,
+    "name": "Mac Sine",
+    "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+  },
+  "effect": {
+    "time": 0.35,
+    "feedback": 0.35,
+    "wet": 0.25,
+    "max_time": 5,
+    "arena_bytes": 1048576
+  },
+  "library_unchanged": true,
+  "page": "CODE",
+  "audio": "Panic acknowledged"
+}

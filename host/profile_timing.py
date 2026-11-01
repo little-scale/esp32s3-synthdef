@@ -45,6 +45,33 @@ def collect_matrix(d,active,patch,slot,renderer):
     return {'slot':slot,'active':active,'header':header,'cases':cases,'worst':max(cases,key=lambda case:case['total']),
                     'numerical':{'samples':len(a),'max_pcm_step_error':peak,'limit_pcm_steps':1,'passed':True}}
 
+def compile_delay_renderer():
+    exe=ROOT/'build/host/delay-matrix'
+    subprocess.run(['cc',*FLAGS,'-I'+str(ENGINE/'src'),'-I'+str(ROOT/'firmware/components/instrument/include'),
+                    str(ENGINE/'src/fm_load.c'),str(ENGINE/'src/fm_render.c'),
+                    str(ROOT/'firmware/components/instrument/master_delay.c'),str(ROOT/'tests/delay_matrix.c'),
+                    '-lm','-o',str(exe)],check=True)
+    return exe
+
+def collect_delay_matrix(d,renderer):
+    reference=ROOT/'build/host/delay-matrix-final.f32'
+    subprocess.run([str(renderer),str(ROOT/'examples/master-delay.scsyndef'),str(reference)],check=True)
+    d.link.write(b'e');lines=[];end=False;until=time.monotonic()+35
+    while time.monotonic()<until and not end:
+        for raw in d.lines():
+            line=raw.rstrip(b'\r')
+            if line.startswith(b'DELAY_BENCH_'):lines.append(line.decode())
+            if line==b'DELAY_BENCH_END':end=True;break
+    assert end and len(lines)==6,lines[-2:]
+    header=dict(re.findall(r'(\w+)=(\d+)',lines[0]));assert header['failures']=='0' and header['cases']=='4'
+    actual=b''
+    for i,line in enumerate(lines[1:-1]):
+        _,index,checksum,hexdata=line.split();raw=bytes.fromhex(hexdata)
+        assert int(index)==i and len(raw)==1024 and zlib.crc32(raw)==int(checksum,16);actual+=raw
+    a=struct.unpack('<1024f',actual);b=struct.unpack('<1024f',reference.read_bytes())
+    peak=max(abs(x-y) for x,y in zip(a,b));assert peak<=1e-6,peak
+    return {'passed':True,'max_float_error':peak,'limit':1e-6,'samples':1024,'times':[.02,.35,1,5]}
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port',required=True)

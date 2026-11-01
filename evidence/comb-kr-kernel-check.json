@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "details": "PASS: 1 graphs, four rates for kernel fixtures / 44.1 kHz for legacy presets, 4194304 bit-identical output samples; delay memory and shared random sequence also match under changing controls.",
+  "hardware": false
+}

@@ -1,0 +1,1456 @@
+{
+  "passed": true,
+  "blocks": 8192,
+  "seconds_per_graph": 11.888616780045352,
+  "windows": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    7,
+    8,
+    15,
+    16,
+    31,
+    63,
+    64,
+    127,
+    172,
+    344,
+    516,
+    688,
+    1023,
+    1024,
+    1722,
+    2047,
+    2048,
+    2755,
+    3444,
+    3445,
+    3446,
+    4095,
+    4096,
+    4097,
+    4098,
+    4268,
+    4440,
+    5120,
+    6143,
+    6890,
+    6891,
+    7540,
+    7541,
+    7542,
+    8191
+  ],
+  "expected_type_rates": [
+    [
+      "BinaryOpUGen",
+      1
+    ],
+    [
+      "BinaryOpUGen",
+      2
+    ],
+    [
+      "Control",
+      0
+    ],
+    [
+      "Control",
+      1
+    ],
+    [
+      "DC",
+      2
+    ],
+    [
+      "EnvGen",
+      2
+    ],
+    [
+      "Lag",
+      1
+    ],
+    [
+      "MiRings1",
+      2
+    ],
+    [
+      "MiRings2",
+      2
+    ],
+    [
+      "MiRings3",
+      2
+    ],
+    [
+      "MiRings4",
+      2
+    ],
+    [
+      "MiRings5",
+      2
+    ],
+    [
+      "MiRings6",
+      2
+    ],
+    [
+      "MulAdd",
+      1
+    ],
+    [
+      "Out",
+      2
+    ],
+    [
+      "RandSeed",
+      0
+    ],
+    [
+      "SinOsc",
+      2
+    ],
+    [
+      "UnaryOpUGen",
+      1
+    ]
+  ],
+  "jobs": [
+    {
+      "id": "m13_MiRings1_bypass",
+      "graph": "build/host/rings-voices/m13_MiRings1_bypass.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings1_bypass.f32",
+      "graph_sha256": "555adab9cd1dd8b1153dddc220e1eda5b7e62fa72f0ef13ac35f2928489edfa3",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings1_bypass.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings1_forced",
+      "graph": "build/host/rings-voices/m13_MiRings1_forced.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings1_forced.f32",
+      "graph_sha256": "46d8829cdbafb7f45ca1f4909c56768779ac101cf258b767bd1f5c368fc79837",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.582521319,
+        "rms": 0.0112868501
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings1_forced.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings1_live",
+      "graph": "build/host/rings-voices/m13_MiRings1_live.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings1_live.f32",
+      "graph_sha256": "6e3638f5a0adfc8845524c54b170a2fe95b148c77ca522a3c14f62baba7723a6",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.582521319,
+        "rms": 0.0121093011
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings1_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings2_bypass",
+      "graph": "build/host/rings-voices/m13_MiRings2_bypass.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings2_bypass.f32",
+      "graph_sha256": "3deb6aec21c97019a7aa1c50acabe443e3b019968707dd2868e1f98c171a7e5b",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings2_bypass.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings2_forced",
+      "graph": "build/host/rings-voices/m13_MiRings2_forced.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings2_forced.f32",
+      "graph_sha256": "776dc11df7ab132a5a0107f6a0334c24fa2b6d2310449caaf8e1e1654d4d1db3",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.381430119,
+        "rms": 0.0458050184
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings2_forced.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings2_live",
+      "graph": "build/host/rings-voices/m13_MiRings2_live.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings2_live.f32",
+      "graph_sha256": "9c184e1289ffa84caa4c1ad030894316dc82486ffab806410c6eaa20590b2474",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.381430119,
+        "rms": 0.0361929759
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings2_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings3_bypass",
+      "graph": "build/host/rings-voices/m13_MiRings3_bypass.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings3_bypass.f32",
+      "graph_sha256": "68c6f10d6813482c193721d11aca9eff4f547797a547d81c236831fc37c14988",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings3_bypass.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings3_forced",
+      "graph": "build/host/rings-voices/m13_MiRings3_forced.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings3_forced.f32",
+      "graph_sha256": "69e5145a0e9f80213c088ae4eb5cb38a8f115194c2e0ad07ac50bec38276e8f9",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.415543497,
+        "rms": 0.00750069646
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings3_forced.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings3_live",
+      "graph": "build/host/rings-voices/m13_MiRings3_live.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings3_live.f32",
+      "graph_sha256": "9d5861b4b2507c22138835c85f473d90dd33393031e45105914d9624b9423597",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.415543497,
+        "rms": 0.00751842605
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings3_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings4_bypass",
+      "graph": "build/host/rings-voices/m13_MiRings4_bypass.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings4_bypass.f32",
+      "graph_sha256": "3a6d34adc31840d1f02a1e326486699aa4203717ce1be5c7a1a34aae27bbdb9e",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings4_bypass.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings4_forced",
+      "graph": "build/host/rings-voices/m13_MiRings4_forced.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings4_forced.f32",
+      "graph_sha256": "7b5ed3e51eb038bdda28ebfba4df22f2cd0d240f21ea332168f36cec65caefbd",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.686977684,
+        "rms": 0.0323173739
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings4_forced.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings4_live",
+      "graph": "build/host/rings-voices/m13_MiRings4_live.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings4_live.f32",
+      "graph_sha256": "8d3f9f64b9ef577148e7a9e18570cec78545e9fe8e7b6f75cb15c270f2f1d303",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.686977684,
+        "rms": 0.0400907882
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings4_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings5_bypass",
+      "graph": "build/host/rings-voices/m13_MiRings5_bypass.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings5_bypass.f32",
+      "graph_sha256": "e0bc6818c7e422e773c78dd8fa67e2a65cf10608733f6a8a258c30f231d46e53",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings5_bypass.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings5_forced",
+      "graph": "build/host/rings-voices/m13_MiRings5_forced.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings5_forced.f32",
+      "graph_sha256": "4910b5d827ee58b0b3d0d6059f149c7c9b05fe3fffa933897d78bdba26ca7bf4",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.190521523,
+        "rms": 0.0079743946
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings5_forced.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings5_live",
+      "graph": "build/host/rings-voices/m13_MiRings5_live.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings5_live.f32",
+      "graph_sha256": "07accf14c09f1c31de9f929e879949f763705dac038e8fba7864d4b31a5a1725",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.190521523,
+        "rms": 0.00737462146
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings5_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings6_bypass",
+      "graph": "build/host/rings-voices/m13_MiRings6_bypass.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings6_bypass.f32",
+      "graph_sha256": "e4c1fee3ce8cd6db7120a6b6281d1b624c20420d167515b60e8149d7b920f2c6",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings6_bypass.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings6_forced",
+      "graph": "build/host/rings-voices/m13_MiRings6_forced.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings6_forced.f32",
+      "graph_sha256": "f71744f0ac41f37a948864c5a1de5b93ca354dea509094d55eaad2a46fa69677",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.27403748,
+        "rms": 0.010821078
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings6_forced.scsyndef",
+      "events": [],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "m13_MiRings6_live",
+      "graph": "build/host/rings-voices/m13_MiRings6_live.scsyndef",
+      "samples": "build/host/rings-voices/m13_MiRings6_live.f32",
+      "graph_sha256": "77c3852dc5464a44c0e2cbd31d206705604eb13136644d97c2205f9b8e22069d",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.27403748,
+        "rms": 0.0175554175
+      },
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings6_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "byte_identical_to_preoptimization_capture": true
+    },
+    {
+      "id": "rings-1-long-release",
+      "graph": "build/host/rings-voices/rings-1-trace.scsyndef",
+      "samples": "build/host/rings-voices/rings-1-trace.f32",
+      "graph_sha256": "5a04e2fe573dfbb1504bf1de4f82bcb762eb40704488d2e5ba9544057ac463d8",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0470418595,
+        "rms": 0.0025254786
+      },
+      "source": "build/host/rings-voices/rings-1.scsyndef",
+      "events": [
+        [
+          10.942403628117914,
+          0
+        ]
+      ],
+      "final_window_exactly_silent": true
+    },
+    {
+      "id": "rings-2-long-release",
+      "graph": "build/host/rings-voices/rings-2-trace.scsyndef",
+      "samples": "build/host/rings-voices/rings-2-trace.f32",
+      "graph_sha256": "e444c61836324fed784087b845bdf1632823e644e4ac864526ff2319e9f2d619",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500456616,
+        "rms": 0.00649517076
+      },
+      "source": "build/host/rings-voices/rings-2.scsyndef",
+      "events": [
+        [
+          10.942403628117914,
+          0
+        ]
+      ],
+      "final_window_exactly_silent": true
+    },
+    {
+      "id": "rings-3-long-release",
+      "graph": "build/host/rings-voices/rings-3-trace.scsyndef",
+      "samples": "build/host/rings-voices/rings-3-trace.f32",
+      "graph_sha256": "df69b3d1a4ad24803602f78a7d42d8abb631fb259ca6b1adc8ef102250f5ac66",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0315041095,
+        "rms": 0.000722236466
+      },
+      "source": "build/host/rings-voices/rings-3.scsyndef",
+      "events": [
+        [
+          10.942403628117914,
+          0
+        ]
+      ],
+      "final_window_exactly_silent": true
+    },
+    {
+      "id": "rings-4-long-release",
+      "graph": "build/host/rings-voices/rings-4-trace.scsyndef",
+      "samples": "build/host/rings-voices/rings-4-trace.f32",
+      "graph_sha256": "91954810121429285febf2c2983958ea2134d4954aa333904ad7a8117292417b",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0618811622,
+        "rms": 0.00506476825
+      },
+      "source": "build/host/rings-voices/rings-4.scsyndef",
+      "events": [
+        [
+          10.942403628117914,
+          0
+        ]
+      ],
+      "final_window_exactly_silent": true
+    },
+    {
+      "id": "rings-5-long-release",
+      "graph": "build/host/rings-voices/rings-5-trace.scsyndef",
+      "samples": "build/host/rings-voices/rings-5-trace.f32",
+      "graph_sha256": "f6fcb292f722755a294679f28d6da38f44149bf18a8051a0fd2daa3464c4a76d",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0185869057,
+        "rms": 0.00162600901
+      },
+      "source": "build/host/rings-voices/rings-5.scsyndef",
+      "events": [
+        [
+          10.942403628117914,
+          0
+        ]
+      ],
+      "final_window_exactly_silent": true
+    },
+    {
+      "id": "rings-6-long-release",
+      "graph": "build/host/rings-voices/rings-6-trace.scsyndef",
+      "samples": "build/host/rings-voices/rings-6-trace.f32",
+      "graph_sha256": "5d4855179abe046b68bf8502beb8ef7c508943f5728b776eff3a7e0bd67b5eed",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0243904218,
+        "rms": 0.00089632289
+      },
+      "source": "build/host/rings-voices/rings-6.scsyndef",
+      "events": [
+        [
+          10.942403628117914,
+          0
+        ]
+      ],
+      "final_window_exactly_silent": true
+    }
+  ],
+  "scope": "Six original live models, twelve forced/bypass fixtures, six playable voices with release. Native traces use guarded PSRAM-equivalent arenas; normal playback tests internal arena selection separately."
+}

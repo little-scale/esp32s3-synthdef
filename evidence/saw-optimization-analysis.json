@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "samples": 20971520,
+  "hardware": false,
+  "firmware_changed": false,
+  "variant": "Crossfade j/count replaced by exact power-of-two multiplication",
+  "rates": [
+    8000,
+    44100,
+    48000,
+    192000
+  ],
+  "blocks_per_case": 8192,
+  "fixtures": [
+    "Saw",
+    "SawMod",
+    "Pulse",
+    "PulseMod",
+    "Blip"
+  ],
+  "compared": "Audio and complete voice state",
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "before_division_sites": 10,
+  "after_division_sites": 8,
+  "source_sha256": "6a34f826cab6db42c97a0a81c84151809fc60ed78ed650dc5fef5ae39108240f"
+}

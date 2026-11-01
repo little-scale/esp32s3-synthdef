@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "native_supercollider": true,
+  "hardware": false,
+  "note_events": 4,
+  "optimized_payload_bytes": 158,
+  "legacy_payload_bytes": 208,
+  "same_note_retriggers_preserved": true,
+  "interleaved_set_restored": true,
+  "mixed_firmware_fallback": true
+}

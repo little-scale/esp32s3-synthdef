@@ -1,0 +1,239 @@
+{
+  "fx": {
+    "results": [
+      {
+        "applied": 20,
+        "total": 1,
+        "queued": 0,
+        "device_id": "esp32-2884853ad390",
+        "revision": 3,
+        "late": 0,
+        "prepared": true,
+        "active": true,
+        "controls": [
+          {
+            "trigger": false,
+            "writable": true,
+            "count": 1,
+            "rate": 1,
+            "index": 0,
+            "values": [
+              0.75
+            ],
+            "name": "wet"
+          }
+        ],
+        "offset_us": -43140985307.374504,
+        "boot": 1344902485,
+        "clock_error_us": 23220.791499625193,
+        "now_us": 140352935,
+        "rejected": 0
+      }
+    ]
+  },
+  "passed": true,
+  "main": {
+    "results": [
+      {
+        "applied": 19,
+        "total": 5,
+        "queued": 0,
+        "device_id": "esp32-2884853ad390",
+        "revision": 3,
+        "late": 0,
+        "prepared": true,
+        "active": true,
+        "controls": [
+          {
+            "trigger": false,
+            "writable": true,
+            "count": 1,
+            "rate": 1,
+            "index": 0,
+            "values": [
+              391.995422
+            ],
+            "name": "freq"
+          },
+          {
+            "trigger": false,
+            "writable": true,
+            "count": 1,
+            "rate": 1,
+            "index": 1,
+            "values": [
+              2
+            ],
+            "name": "dev"
+          },
+          {
+            "trigger": false,
+            "writable": true,
+            "count": 1,
+            "rate": 1,
+            "index": 2,
+            "values": [
+              0.00999999978
+            ],
+            "name": "amp"
+          },
+          {
+            "trigger": false,
+            "writable": true,
+            "count": 1,
+            "rate": 1,
+            "index": 3,
+            "values": [
+              0
+            ],
+            "name": "gate"
+          },
+          {
+            "trigger": false,
+            "writable": false,
+            "count": 1,
+            "rate": 0,
+            "index": 4,
+            "values": [
+              1
+            ],
+            "name": "__esp32_autoplay"
+          }
+        ],
+        "offset_us": -43140975527.5205,
+        "boot": 1344902485,
+        "clock_error_us": 32338.312499632593,
+        "now_us": 136774421,
+        "rejected": 0
+      }
+    ]
+  },
+  "initial_args_survived_reboot": true,
+  "live_values_not_written_to_flash": true,
+  "old_boot_command_rejected": true,
+  "original_packages_restored": true,
+  "final_state": {
+    "connected": true,
+    "port": "192.168.0.224",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "f90f3603486a2fb7b535404b8e6842572fd965eeb81283c661464efdf0791c1e",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "1448771eb8e740553e5eafe0abd601835efcb2831be1ad49bb93bb4693126d3e",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "global_volume": true,
+      "remote_controls": 1,
+      "transports": [
+        "usb-serial-jtag",
+        "wifi-http"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 1,
+      "main_slot": 1,
+      "fx_slot": 1,
+      "fx_bypass_slot": 0,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12431779,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ],
+      "device_id": "esp32-2884853ad390",
+      "device_name": "AMOLED-3ad390",
+      "wifi_upload": true
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 0,
+      "transfer": 2840491357,
+      "slot": 1,
+      "name": "SoundBlock",
+      "graph_sha256": "e613e597ec969d9cd0f195935ec1c032a0fb03df5fd1de1f07945fa158cfa1fc",
+      "continuous": true,
+      "seed": 1012298692
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "SoundBlock",
+        "generations": [
+          43,
+          42
+        ]
+      }
+    ],
+    "audio": {},
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          7,
+          6
+        ],
+        "selected": true
+      }
+    ],
+    "connection": {
+      "transport": "wifi",
+      "device_id": "esp32-2884853ad390",
+      "device_name": "AMOLED-3ad390",
+      "address": "192.168.0.224"
+    }
+  },
+  "volume_percent": 0,
+  "hardware": true,
+  "physical_nodes": 1,
+  "original_heavy_patch_automation": {
+    "passed": true,
+    "applied": 31,
+    "new_late": 0,
+    "restored_parameters": {
+      "freq": 550,
+      "dev": 50
+    }
+  },
+  "uploader_left_connected_over_wifi": true
+}

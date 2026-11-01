@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "hardware": false,
+  "native_supercollider": true,
+  "modules": 2,
+  "events": [
+    43,
+    15
+  ],
+  "max_native_packet_bytes": 8276,
+  "largest_source_bytes": 65485,
+  "source_preserved": true,
+  "literal_synthdef_bytes_preserved": true,
+  "definition_upload_inactive": true,
+  "explicit_main_fx_instances": true,
+  "initial_rate_creation_args": true,
+  "cmd_period_recovery": true,
+  "pbindef_live_edits": true,
+  "named_player_reuse": true,
+  "named_stop": true,
+  "natural_note_completion": true,
+  "long_pattern_interval_seconds": 5,
+  "details": "identical compile-once deployment; saved defaults; alias targeting; Pseq/Prand; note/set; cancellation; CmdPeriod then reuse; five-second all-module pattern"
+}

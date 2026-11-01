@@ -1,0 +1,282 @@
+{
+  "passed": true,
+  "saved_slots_written": false,
+  "jobs": [
+    {
+      "name": "DynKlank_ar",
+      "header": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "495",
+        "peak": "0.0167004503",
+        "rms": "0.00120284269"
+      },
+      "peak_error": 1.2421514838933945e-07,
+      "rms_error": 3.1335646475810034e-08,
+      "captured_floats": 5120,
+      "native": {
+        "passed": true,
+        "nodes": 37,
+        "signals": 36,
+        "peak": 0.0167004503
+      },
+      "passed": true
+    },
+    {
+      "name": "DynKlang_ar",
+      "header": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "324",
+        "peak": "0.179670662",
+        "rms": "0.0569720417"
+      },
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "captured_floats": 5120,
+      "native": {
+        "passed": true,
+        "nodes": 29,
+        "signals": 28,
+        "peak": 0.179670662
+      },
+      "passed": true
+    },
+    {
+      "name": "DynKlank_audio_parameters",
+      "header": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "483",
+        "peak": "0.0105518168",
+        "rms": "0.000746555277"
+      },
+      "peak_error": 4.940375220030546e-08,
+      "rms_error": 7.87563692614713e-09,
+      "captured_floats": 5120,
+      "native": {
+        "passed": true,
+        "nodes": 19,
+        "signals": 18,
+        "peak": 0.0105518168
+      },
+      "passed": true
+    },
+    {
+      "name": "DynKlang_kr_audio_parameters",
+      "header": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "189",
+        "peak": "0.17787765",
+        "rms": "0.0760085955"
+      },
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "captured_floats": 5120,
+      "native": {
+        "passed": true,
+        "nodes": 19,
+        "signals": 18,
+        "peak": 0.17787765
+      },
+      "passed": true
+    }
+  ],
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "f05ace547b090d894d09d6478a2573a1051b02a6bbad2427ec4bddb9695bd401",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "a7550a34a2c59c996e4168436986d7047e11d2b5112c6f7d1d5a11239214fc2f",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "continuous_blocks": true,
+    "master_slots": 2,
+    "atomic_install": true,
+    "global_volume": true,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12435544,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "volume": 5,
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 894,
+    "transfer": 2776480928,
+    "slot": 7,
+    "name": "Comb cloud",
+    "graph_sha256": "24cc211b4511310b91f18c53fa403c1d9c99e54ce29cd41ac9123be35dbd0e88",
+    "continuous": true,
+    "seed": 2168107286
+  },
+  "final_slots": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "Touch buses",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "Klank cloud",
+      "generations": [
+        3,
+        4
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "Comb cloud",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "Comb cloud KR",
+      "generations": [
+        1,
+        0
+      ]
+    }
+  ],
+  "final_masters": [
+    {
+      "slot": 0,
+      "name": "Bypass",
+      "generations": [
+        0,
+        0
+      ],
+      "selected": false
+    },
+    {
+      "slot": 1,
+      "name": "Master FX",
+      "generations": [
+        1,
+        0
+      ],
+      "selected": true
+    }
+  ],
+  "final_volume": {
+    "percent": 5
+  }
+}

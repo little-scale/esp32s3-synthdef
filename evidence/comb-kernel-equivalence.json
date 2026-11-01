@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "details": "PASS: 14 graphs, four rates for kernel fixtures / 44.1 kHz for legacy presets, 46137344 bit-identical output samples; delay memory and shared random sequence also match under changing controls.",
+  "rates": [
+    8000,
+    44100,
+    48000,
+    192000
+  ],
+  "legacy_presets_rate": 44100,
+  "graphs": {
+    "build/host/comb-kernel-test/SineControl.scsyndef": "c243caad90595f12de8d38a63a099a3b1ac5b1cf0a8f5d132d5109c3db357c07",
+    "build/host/comb-kernel-test/SineAudio.scsyndef": "00c90a38dd8f0edc01379c95cd6264ab9b59d54135578fa7f34dc7ca2aadd55d",
+    "build/host/comb-kernel-test/SineKR.scsyndef": "7418e3555d682886632836d44c6e1f24dad21788d0a841a3c894a2b9e6741491",
+    "build/host/comb-kernel-test/DustShared.scsyndef": "ec85bd7caf6934ba2ac72e1925aef6ba4b45b8dd82c628ec5f29b0366e6ab74f",
+    "build/host/comb-kernel-test/DustKR.scsyndef": "b069846f1efe7a405ba59748461f48d225904d22c349bd010c95e1b95ad0dc7f",
+    "build/host/comb-kernel-test/Decay2Control.scsyndef": "bab27e4a27f58ae58f7343752d239158edfe0b6ed106862d8f04c792b28732ca",
+    "build/host/comb-kernel-test/Decay2Modulated.scsyndef": "87829f84088d74bbe7e8ad7eca80b56c73703f049fcff19ca0ff2e488945c1e9",
+    "build/host/comb-kernel-test/Decay2KR.scsyndef": "a60d2ec6bc7fa49780f0d70ae2f1bdde8e7464dc5816db4b179f685ab9d72172",
+    "build/host/comb-kernel-test/DecaySingle.scsyndef": "71778ce2dde19cdad23851119d686c208333263abc988e85395fecd2d0d37308",
+    "build/host/comb-kernel-test/CombCloud.scsyndef": "24cc211b4511310b91f18c53fa403c1d9c99e54ce29cd41ac9123be35dbd0e88",
+    "examples/mac-sine.scsyndef": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448",
+    "examples/phase-fm.scsyndef": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
+    "examples/additive.scsyndef": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
+    "examples/filtered.scsyndef": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+  },
+  "kernel_files": {
+    "optimized/fm_fast.inc": "b10651bf4b60cce1efb59e73891064356027f9f3757be87f8c5250def99b0f65",
+    "optimized/fm_extensions.inc": "fd023b2ce6cba840cac66b28f95e5116a25931a24fe32f3f44c5c1ae6dff6cfe",
+    "reference/fm_fast.inc": "cffe0679d7804f6db660182cbd4ada25d204b97aa50f46935dcfc57e99fca204",
+    "reference/fm_extensions.inc": "ea06d3036253b97993f9702959f8cfb806c4724b6948cee768d9981ff9eb0132"
+  },
+  "sanitizers": "undefined,bounds; local AddressSanitizer runtime deadlocks before main on this Mac",
+  "hardware": false
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "native_supercollider": true,
+  "hardware": true,
+  "device_id": "esp32-2884853ad390",
+  "firmware_build": "3e8d398ee10a11f461676bb5365f91989fc435459dabc050ea1f64dd4ff7e5d2",
+  "tested_percent": 25,
+  "restored_percent": 50,
+  "main_and_fx_packages_instances_unchanged": true,
+  "concurrent_control_changes": [],
+  "firmware_update_needed": false,
+  "physical_slider_visual_confirmation": false
+}

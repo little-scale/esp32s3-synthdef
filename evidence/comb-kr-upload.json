@@ -1,0 +1,220 @@
+{
+  "artifact": {
+    "artifact": "3607f1ca25db6e241c13c619858cc688",
+    "fm1_admitted": true,
+    "continuous": true,
+    "nodes": 56,
+    "signals": 60,
+    "inputs": 124,
+    "delay_samples": 8192,
+    "touch_buses": false,
+    "ugens": [
+      "Control",
+      "BinaryOpUGen",
+      "Rand",
+      "SinOsc",
+      "MulAdd",
+      "Dust",
+      "Decay2",
+      "Pan2",
+      "Sum4",
+      "CombC",
+      "Out"
+    ],
+    "controls": [
+      {
+        "default": 330,
+        "name": "freq"
+      },
+      {
+        "default": 1,
+        "name": "__esp32_autoplay"
+      }
+    ],
+    "master_admitted": false,
+    "name": "SoundBlock",
+    "target": "sound",
+    "admitted": true,
+    "graph_bytes": 2300,
+    "source_bytes": 434,
+    "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0",
+    "source_sha256": "66c59c58d621bf6b8bfeb1f3e898e71218ccf44350a74cc2a927a7f54f12b1fb",
+    "admission_error": "",
+    "source_pairing": "compiled_from_source",
+    "compiler_log": "compiling class library...\n\tFound 872 primitives.\n\tCompiling directory '/Applications/SuperCollider.app/Contents/Resources/SCClassLibrary'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/Extensions'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/downloaded-quarks/Bjorklund'\n\tnumentries = 876526 / 13283824 = 0.066\n\t5672 method selectors, 2342 classes\n\tmethod table size 14073992 bytes, big table size 106270592\n\tNumber of Symbols 12957\n\tByte Code Size 400153\n\tcompiled 355 files in 0.19 seconds\ncompile done\nlocalhost : setting clientID to 0.\ninternal : setting clientID to 0.\nClass tree inited in 0.04 seconds\n\n\n*** Welcome to SuperCollider 3.14.1. *** For help type cmd-d.\ncleaning up OSC\n",
+    "input_kind": "sound_block"
+  },
+  "result": {
+    "saved": true,
+    "verified": true,
+    "target": "sound",
+    "continuous": true,
+    "slot": 8,
+    "name": "Comb cloud KR",
+    "connected": true,
+    "port": "/dev/cu.usbmodem3101",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "0e3cffb75dafc2be1da72f97e18351f9f8698973c5bb545fc547e284bcf2b447",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "69fa5bc284ea87f43b1009cf7420bad631ebcc928c005349c54cb7c26875cb25",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "global_volume": true,
+      "transports": [
+        "usb-serial-jtag"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12433536,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ]
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 2734,
+      "transfer": 2901878554,
+      "slot": 8,
+      "name": "Comb cloud KR",
+      "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0",
+      "continuous": true
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "Mac Sine",
+        "generations": [
+          11,
+          12
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Sound block",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "Comb cloud KR",
+        "generations": [
+          1,
+          0
+        ]
+      }
+    ],
+    "audio": {
+      "frame": 88320,
+      "active": 1,
+      "render_max_us": 1585,
+      "combined_max_us": 1600,
+      "updated": 21711.627871833,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 499,
+      "peak_x10": 694
+    },
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": true
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": false
+      }
+    ]
+  }
+}

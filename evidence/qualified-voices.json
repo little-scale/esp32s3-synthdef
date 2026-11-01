@@ -1,14 +1,14 @@
 {
-  "firmware_fingerprint": "3e446a570857d45c4acfd40d7c14f22236ed8e5efbbb9d4759103d894fc6acba",
-  "measured_build": "4df188df98d59e3f96ea6fa3ac6ed3d4a193c5c4838aac599d40756b3db597c3",
+  "firmware_fingerprint": "18dbd819b493f6b4b3edf6b68417084a20f4eb08318d8cb31e1607fbb94fd7ca",
+  "measured_build": "e9906a502a8a9b7aa92498bdf3d2687aae051cc3df739ae39b86ed357f7aa8a3",
   "measured_configuration_sha256": "fa4f81bf6d327ec0bfcd45ef6cce4c27882b77400dbc895aec2ee276eff444e8",
   "reports": [
     {
       "patch": "phase-fm",
       "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
       "passed": true,
-      "combined_max_us": 681,
-      "block_fraction": 0.4692515625,
+      "combined_max_us": 857,
+      "block_fraction": 0.5905265625,
       "max_pcm_step_error": 1,
       "reference": "qualified-host-reference.json",
       "matrix": "phase-fm-matrix.json",
@@ -18,8 +18,8 @@
       "patch": "additive",
       "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
       "passed": true,
-      "combined_max_us": 694,
-      "block_fraction": 0.478209375,
+      "combined_max_us": 910,
+      "block_fraction": 0.627046875,
       "max_pcm_step_error": 1,
       "reference": "qualified-host-reference.json",
       "matrix": "additive-matrix.json",
@@ -29,8 +29,8 @@
       "patch": "filtered",
       "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a",
       "passed": true,
-      "combined_max_us": 813,
-      "block_fraction": 0.5602078125000001,
+      "combined_max_us": 914,
+      "block_fraction": 0.629803125,
       "max_pcm_step_error": 1,
       "reference": "qualified-host-reference.json",
       "matrix": "filtered-matrix.json",
@@ -40,8 +40,17 @@
   "sample_rate": 44100,
   "block_frames": 64,
   "voices": 1,
-  "listening": "User confirmed all three sound clean and stop on touch release",
+  "listening": "pending user review of new sounds",
   "extended_soak": "pending",
   "scope": "exact compiled graph hashes on the measured configuration; no general multi-oscillator/filter admission",
-  "user_listening_confirmation": "All three sound clean and stop (31 October 2026)"
+  "master_delay": {
+    "graph_sha256": "837addbc31c3f66824d18b1eace82d73a394f60755e7aa97a9f495d1921cc940",
+    "arena_bytes": 1048576,
+    "max_seconds": 5,
+    "reference": "delay-host-reference.json",
+    "functional": "delay-device-functional.json",
+    "tail_and_panic_passed": true,
+    "settings_restart_observed": true
+  },
+  "note_preparation_blocks": 1
 }

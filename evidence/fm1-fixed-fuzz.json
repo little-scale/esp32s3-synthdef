@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "audio_playback": false,
+  "profile": "fm1",
+  "seed_count": 78,
+  "mutated_or_truncated_inputs": 1560000,
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ]
+}

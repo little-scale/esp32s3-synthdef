@@ -11,6 +11,12 @@ from prepare import ROOT,qualification_fingerprint
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--promote',action='store_true');args=p.parse_args()
 read=lambda name:json.loads((ROOT/'evidence'/name).read_text())
 build=read('qualified-candidate-build.json');reference=read('qualified-host-reference.json')
+assert build.get('firmware_fingerprint')==qualification_fingerprint(), 'Candidate build has stale or missing source provenance; rebuild and record it before qualification'
+assert build.get('engine_profile',{}).get('profile')=='compact', 'FM1 compatibility measurements cannot qualify the compact profile'
+delay=read('delay-device-functional.json');delay_reference=read('delay-host-reference.json')
+delay_hash=hashlib.sha256((ROOT/'examples/master-delay.scsyndef').read_bytes()).hexdigest()
+assert delay['passed'] and delay['hello']['build']==build['build_id']
+assert delay_reference['passed'] and delay_reference['graph_sha256']==delay_hash
 catalog_path=ROOT/'examples/catalog.json';catalog=json.loads(catalog_path.read_text());reports=[]
 for entry in catalog:
     name=entry['id'];graph_hash=hashlib.sha256((ROOT/f'examples/{name}.scsyndef').read_bytes()).hexdigest()
@@ -18,6 +24,7 @@ for entry in catalog:
     assert matrix.get('checks_passed') and 'maximum' in exercise,'Incomplete checks: '+name
     numerical=matrix['reports'][0];ref=next(r for r in reference['reports'] if r['patch']==name)
     assert matrix['hello']['build']==exercise['hello']['build']==build['build_id']
+    assert matrix['hello']['policy']==exercise['hello']['policy']=='catalog-voice-v2', 'Wrong admission profile in hardware evidence'
     assert numerical['active']['graph_sha256']==exercise['status']['graph_sha256']==ref['graph_sha256']==graph_hash
     assert int(numerical['header']['cases'])==280 and exercise['rounds']>=3
     passed=bool(ref['passed'] and numerical['numerical']['passed'] and exercise['timing_budget_passed'] and exercise['reported_output_checks_passed'])
@@ -30,6 +37,11 @@ report={'firmware_fingerprint':qualification_fingerprint(),'measured_build':buil
         'reports':reports,'sample_rate':44100,'block_frames':64,'voices':1,
         'listening':'pending user review of new sounds','extended_soak':'pending',
         'scope':'exact compiled graph hashes on the measured configuration; no general multi-oscillator/filter admission'}
+report['master_delay']={'graph_sha256':delay_hash,'arena_bytes':1048576,'max_seconds':5,
+                        'reference':'delay-host-reference.json','functional':'delay-device-functional.json',
+                        'tail_and_panic_passed':delay['tail_across_retrigger']['passed'] and delay['panic_cleared_tail'],
+                        'settings_restart_observed':delay['restart_observed']}
+report['note_preparation_blocks']=1
 (ROOT/'evidence/qualified-voices.json').write_text(json.dumps(report,indent=2)+'\n')
 if args.promote:catalog_path.write_text(json.dumps(catalog,indent=2)+'\n')
 print(json.dumps(report,indent=2))

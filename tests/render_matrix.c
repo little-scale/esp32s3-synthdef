@@ -5,6 +5,7 @@
 static fm_graph graph;
 static fm_voice voice;
 static fm_scratch scratch;
+static float arena[FM_DELAY_LIMIT];
 static instrument synth;
 static void apply(inst_event_type type,float value)
 {inst_event event={type,1,value};assert(instrument_apply(&synth,&event));}
@@ -17,7 +18,7 @@ int main(int argc,char **argv)
     const float pitch[]={0,.13f,.37f,.5f,.63f,.87f,1},frequencies[]={20,110,440,1760,20000};
     for(unsigned j=0;j<5;++j)for(unsigned p=0;p<7;++p)for(unsigned t=0;t<2;++t)for(unsigned a=0;a<2;++a)for(unsigned r=0;r<2;++r) {
         int16_t pcm[FM_BLOCK];
-        assert(instrument_init(&synth,&graph,&voice,&scratch,NULL,0,44100));
+        assert(instrument_init(&synth,&graph,&voice,&scratch,arena,FM_DELAY_LIMIT,44100));
         apply(INST_FREQ,frequencies[j]);apply(INST_KNOB1,pitch[p]);apply(INST_KNOB2,(float)t);
         apply(INST_KNOB3,(float)a);apply(INST_KNOB4,(float)r);apply(INST_NOTE_ON,0);
         instrument_render(&synth,pcm);assert(fwrite(pcm,1,sizeof pcm,f)==sizeof pcm);

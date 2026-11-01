@@ -1,0 +1,7 @@
+{
+  "build": "3afda820448ba4077e3fa6a3b24bde90a987d3d6d05bcebeb7411a4a5bb642ca",
+  "sha256": "100a4f31dad84a3d60030404d31cd0a4c28ed32c6ac5b525a742447feeffedd3",
+  "application_flash_offset": "0x10000",
+  "scope": "Validated cache configuration; application-only recovery, preserving saved library and settings",
+  "record": "evidence/rings-cache-build.json"
+}

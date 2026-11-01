@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "status": "incomplete",
+  "results": [],
+  "scope": "Parked/muted 280-case diagnostic. Constructor and synchronous reset are separated from first/live rendering; no master effect or normal UI stress is included.",
+  "error": "TimeoutError('HELLO: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation')",
+  "diagnosis": "Experimental 66 KiB pool fragmented internal RAM; console task creation failed. Superseded by early task-stack reservation."
+}

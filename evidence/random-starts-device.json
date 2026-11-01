@@ -1,0 +1,468 @@
+{
+  "installed": {
+    "saved": true,
+    "verified": true,
+    "target": "sound",
+    "continuous": true,
+    "slot": 6,
+    "name": "Klank cloud",
+    "connected": true,
+    "port": "/dev/cu.usbmodem3101",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "d6a94c2adccd4fb124df8dbca62efa988f27046f74d225a819392d03c7a718d6",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "69fa5bc284ea87f43b1009cf7420bad631ebcc928c005349c54cb7c26875cb25",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "global_volume": true,
+      "transports": [
+        "usb-serial-jtag"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12433285,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ]
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 1051,
+      "transfer": 3763853257,
+      "slot": 6,
+      "name": "Klank cloud",
+      "graph_sha256": "67f5c371cabfd088bf68fbe6d414e38539801d7ed2db29713dcb49fd84126eb0",
+      "continuous": true,
+      "seed": 3547606057
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "Mac Sine",
+        "generations": [
+          11,
+          12
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Klank cloud",
+        "generations": [
+          3,
+          4
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "Comb cloud KR",
+        "generations": [
+          1,
+          0
+        ]
+      }
+    ],
+    "audio": {},
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": true
+      }
+    ]
+  },
+  "loads": [
+    {
+      "state": 3,
+      "reset_required": false,
+      "received": 1051,
+      "transfer": 3763853257,
+      "slot": 6,
+      "name": "Klank cloud",
+      "graph_sha256": "67f5c371cabfd088bf68fbe6d414e38539801d7ed2db29713dcb49fd84126eb0",
+      "continuous": true,
+      "seed": 3547606057
+    },
+    {
+      "state": 3,
+      "reset_required": false,
+      "received": 1051,
+      "transfer": 3763853257,
+      "slot": 6,
+      "name": "Klank cloud",
+      "graph_sha256": "67f5c371cabfd088bf68fbe6d414e38539801d7ed2db29713dcb49fd84126eb0",
+      "continuous": true,
+      "seed": 1687197068
+    },
+    {
+      "state": 3,
+      "reset_required": false,
+      "received": 1051,
+      "transfer": 3763853257,
+      "slot": 6,
+      "name": "Klank cloud",
+      "graph_sha256": "67f5c371cabfd088bf68fbe6d414e38539801d7ed2db29713dcb49fd84126eb0",
+      "continuous": true,
+      "seed": 780282100
+    }
+  ],
+  "samples": [
+    {
+      "frame": 485760,
+      "active": 1,
+      "render_max_us": 1503,
+      "combined_max_us": 1527,
+      "updated": 23788.301631083,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 103,
+      "peak_x10": 145
+    },
+    {
+      "frame": 574080,
+      "active": 1,
+      "render_max_us": 1503,
+      "combined_max_us": 1527,
+      "updated": 23790.432898958,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 104,
+      "peak_x10": 167
+    },
+    {
+      "frame": 618240,
+      "active": 1,
+      "render_max_us": 1503,
+      "combined_max_us": 1527,
+      "updated": 23791.450682458,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 108,
+      "peak_x10": 170
+    },
+    {
+      "frame": 662400,
+      "active": 1,
+      "render_max_us": 1503,
+      "combined_max_us": 1527,
+      "updated": 23792.4624305,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 107,
+      "peak_x10": 164
+    },
+    {
+      "frame": 706560,
+      "active": 1,
+      "render_max_us": 1503,
+      "combined_max_us": 1527,
+      "updated": 23793.475978208,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 112,
+      "peak_x10": 154
+    },
+    {
+      "frame": 750720,
+      "active": 1,
+      "render_max_us": 1503,
+      "combined_max_us": 1527,
+      "updated": 23794.491686,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 103,
+      "peak_x10": 142
+    }
+  ],
+  "final": {
+    "connected": true,
+    "port": "/dev/cu.usbmodem3101",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "d6a94c2adccd4fb124df8dbca62efa988f27046f74d225a819392d03c7a718d6",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "69fa5bc284ea87f43b1009cf7420bad631ebcc928c005349c54cb7c26875cb25",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "global_volume": true,
+      "transports": [
+        "usb-serial-jtag"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12433285,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ]
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 1051,
+      "transfer": 3763853257,
+      "slot": 6,
+      "name": "Klank cloud",
+      "graph_sha256": "67f5c371cabfd088bf68fbe6d414e38539801d7ed2db29713dcb49fd84126eb0",
+      "continuous": true,
+      "seed": 780282100
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "Mac Sine",
+        "generations": [
+          11,
+          12
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Klank cloud",
+        "generations": [
+          3,
+          4
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "Comb cloud KR",
+        "generations": [
+          1,
+          0
+        ]
+      }
+    ],
+    "audio": {
+      "frame": 750720,
+      "active": 1,
+      "render_max_us": 1503,
+      "combined_max_us": 1527,
+      "updated": 23794.491686,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 103,
+      "peak_x10": 142
+    },
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": true
+      }
+    ]
+  },
+  "native_lifecycle": "PASS: fixed starts repeat, randomized starts choose different Rand values, notes advance seeds, maintenance/constructor retries preserve values, and Panic stays stopped.",
+  "random_generators": 15,
+  "average_percent": 10.616666666666667,
+  "recent_peak_percent": 17.0,
+  "default_diagnostics_seed": 0,
+  "other_saved_slots_and_masters_unchanged": true
+}

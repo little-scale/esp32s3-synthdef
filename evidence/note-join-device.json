@@ -1,0 +1,31 @@
+{
+  "firmware_build": "e8f46c6ae2c94e58e397aa6ff5b2c065ec244cffd4185a3762c903124ff923ab",
+  "app_bytes": 1669600,
+  "main_change_tested": "Connected named gate to ADSR EnvGen; original backed up",
+  "test_main_revision": 3,
+  "current_main_revision": 4,
+  "current_main_sha256": "231476fc7ab08c25524a94f78cdb8c2273a789a5ab1f82ff71a428edaeabf439",
+  "native_pattern": {
+    "duration_seconds": 30,
+    "degree": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      8,
+      10
+    ],
+    "dur_beats": 0.125,
+    "delta_beats": 0.1,
+    "amp": 0.6,
+    "curve": 0,
+    "applied": 298,
+    "new_rejections": 0,
+    "new_late": 0,
+    "queued_after_stop": 0
+  },
+  "portable_rendered_envelope_retriggers": 300,
+  "user_listening": "Yes, consistent now",
+  "note": "A subsequent user upload changed Main after the successful test; retained without restoration"
+}

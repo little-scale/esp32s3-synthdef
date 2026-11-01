@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "session_policy": "silent local software tests only",
+  "hardware_tested": false,
+  "serial_opened": false,
+  "flashed": false,
+  "audio_playback": false,
+  "mode": "Native C DSP plus SuperCollider non-real-time comparisons, not cycle-accurate Xtensa emulation",
+  "build_id": "7a796e945d522a3952d67d87d6de73f963c07f76584f702f149fe33ce3cf674c",
+  "firmware_fingerprint": "d95d5f1aeebc17ef79c1ea48dac57355f1381113d2873b8cc061bbdccec91cd9",
+  "upstream_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "ugen_count": 154,
+  "unary_operator_count": 33,
+  "binary_operator_count": 40,
+  "supercollider_comparisons": 1444,
+  "additional_delay_comparisons": 3,
+  "voice_admission_and_lifecycle_graphs": 1445,
+  "upstream_api_test_methods": 80,
+  "fuzz_inputs": 1560000,
+  "reports": {
+    "fm1-inventory": {
+      "passed": true,
+      "sha256": "29b9582fc1a1f03dcdeec83617a9392234811f9a39dd432870662273c80c1ec3"
+    },
+    "fm1-reference": {
+      "passed": true,
+      "sha256": "028ede317b09d05ac95aa1188a648107fd7886b4cef4372837cfb3e8ad5ab70e"
+    },
+    "fm1-voice": {
+      "passed": true,
+      "sha256": "73849fd4660c529c8ec6c517ed40450807fbe505eec7f7f82932f6cb18b8ee58"
+    },
+    "fm1-admission": {
+      "passed": true,
+      "sha256": "e53bfb32789c735043ceb4196092cc55a60fcfa2976e7b5f1a638aad36d67bc4"
+    },
+    "fm1-fuzz": {
+      "passed": true,
+      "sha256": "53d6a7ddee2950b76bc799ddf84f084534777d7ccafb7b9899e0881ee60e4dad"
+    },
+    "delay-host-reference": {
+      "passed": true,
+      "sha256": "7566026662e640c84e26968d787a62f8a79007f47777d210e33e09c3d7859f6e"
+    },
+    "master-delay-host": {
+      "passed": true,
+      "sha256": "d5c7935a935cb0775c08bbfad7e68eb47c491fcea1e2c3d816be22586080bd21"
+    }
+  },
+  "cross_compiled_profiles": [
+    "compact",
+    "fm1"
+  ],
+  "stale_hardware_qualification_rejected_without_writes": true,
+  "remaining": "ESP32 timing and workload qualification of the new profile; no board tests authorized",
+  "largest_synth_arena_preparation_ms": 372.9705215419501
+}

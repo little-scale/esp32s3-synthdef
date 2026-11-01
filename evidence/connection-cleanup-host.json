@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "native_supercollider": true,
+  "hardware": false,
+  "regression_tests": 33,
+  "failed_send_and_cancel_contained": true,
+  "peer_disconnect_stops_once": true,
+  "unavailable_bridge_returns_failed_job": true,
+  "reconnect_after_failure": true,
+  "late_old_socket_close_ignored": true,
+  "ordinary_cancel_does_not_reconnect": true,
+  "live_uploader_restarted": false,
+  "ide_reload_pending": true,
+  "ide_reload_reason": "User is running local SC synths; installed extension activates at next class-library recompile.",
+  "logs": [
+    "build/host/send-failure-native.log",
+    "build/host/peer-close-native.log",
+    "build/host/unavailable-native.log"
+  ]
+}

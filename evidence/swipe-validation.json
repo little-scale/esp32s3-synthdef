@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "build_id": "be3dbbad76fca1401004af2bd633f50b8a5242cd3f214b506da1fecdd72bab37",
+  "tests": {
+    "real_lvgl_pointer_gestures": "passed; evidence/ui-host.json",
+    "lexer": "passed; 1000 guarded randomized cases plus UBSan/bounds",
+    "patch_package": "passed; framing, bounds, UTF-8 and damaged-generation rejection",
+    "fm1_and_compact_cross_builds": "passed; strict DSP options verified",
+    "board_patch_navigation": "passed; 10 next/previous changes, CODE retained, upload rejection recovers, saved packages/generations and FX unchanged"
+  },
+  "new_output_errors": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "physical_finger_swipe_tested": false,
+  "audio_dsp_changed": false,
+  "final_slot": 1,
+  "final_view": "CODE",
+  "saved_patch_writes": false
+}

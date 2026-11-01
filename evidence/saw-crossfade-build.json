@@ -1,0 +1,253 @@
+{
+  "status": "cross-compiled; physical runtime results are recorded separately",
+  "build_id": "b11132eaf076454307a2a47884d12acab391e7bb500f877d3838c3eb6507366f",
+  "firmware_fingerprint": "a5bf9edfd3759946eb6d2a24039a11992ef6b3441635fee20aaf3068d7a65cff",
+  "touch_ui_enabled": true,
+  "quad_flash_enabled": true,
+  "pcm_conversion": "bounded nearest/even; no lrintf call in target instrument object",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "profile_sha256": "013f15e329aa2dfc367171d3bad5300d874c8bbc9164870daabdcd2d1a4984b1",
+  "idf_version": "v5.5",
+  "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+  "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+  "target": "esp32s3",
+  "board_revision": "V2 (user confirmed; not physically probed)",
+  "compiled_loader_types_checked_in_target_object": 154,
+  "engine_compile_options_verified": [
+    {
+      "source": "firmware/build-fm1-cache/esp-idf/synthdef_engine/target-profile/src/fm_load.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    },
+    {
+      "source": "firmware/build-fm1-cache/esp-idf/synthdef_engine/target-profile/src/fm_render.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    }
+  ],
+  "target_structure_sizes": {
+    "graph_bytes": 13620,
+    "scratch_bytes": 49152,
+    "voice_bytes": 35752
+  },
+  "engine_fixed_allocation_bytes": 161516,
+  "engine_fixed_internal_bytes": 35752,
+  "master_voice_storage": "PSRAM",
+  "engine_fixed_psram_bytes": 125764,
+  "synth_arena_psram_bytes": 1048576,
+  "synth_fast_arena_internal_bytes": 0,
+  "cache": {
+    "instruction_bytes": 32768,
+    "data_bytes": 65536,
+    "data_line_bytes": 64
+  },
+  "admission_policy": "fm1-compat-v1",
+  "fm1_compat_hardware_qualified": false,
+  "one_voice_without_effect_fixed_bytes": 112144,
+  "graph_buffers": 3,
+  "voice_instances": 2,
+  "shared_scratch_instances": 1,
+  "master_delay_arena_psram_bytes": 1048576,
+  "engine_profile": {
+    "profile": "fm1",
+    "changes": {
+      "FM_NODES": {
+        "upstream": 160,
+        "target": 160
+      },
+      "FM_OUTPUTS": {
+        "upstream": 192,
+        "target": 192
+      },
+      "FM_INPUTS": {
+        "upstream": 1024,
+        "target": 1024
+      },
+      "FM_DELAY_LIMIT": {
+        "upstream": "65536u",
+        "target": "262144u"
+      }
+    },
+    "upstream_header_sha256": "cd18ce36033a4075db21430c9f501157f74cc730ad5493d85ebfea9fe2bd0223",
+    "target_header_sha256": "e2cf44b6ec413b083bf0ced67e42b41e7b3eedcc2936313891b7a9ecd8967009",
+    "control_bus_extension": "32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.",
+    "target_load_sha256": "04563032b575d4e1c78b8ef15c5cd904d2fa69ef03db15eff05c34c4677c35ef",
+    "dynamic_banks": "DynKlank/DynKlang expand to Ringz/SinOsc; mixed-rate parameter inputs accepted with the existing SC sampling semantics; Ringz excitation rate remains checked.",
+    "target_render_sha256": "e09e06c33f076875a318e93efdeb60c08c606bffdfca83954e0bdb8fc8bea5dc",
+    "binding_extension": "fm_bind_delay_precleared: same checked layout; caller clears arena incrementally",
+    "target_delay_sha256": "0dc73a4d9b68c53baebb3f5e625b468a0a75d14a3c8f0f2e09bba08b392c839c",
+    "target_gendy_sha256": "d1b11544a84325f51714ba469222c05821bbbc6ff4d043af31acfb8cbfa1feb4",
+    "target_rings_sha256": "39b7c11c91b43d4c5bf7cd0899949dc1d12e7a4007c4e48455df82d256c45332",
+    "target_fast_sha256": "b10651bf4b60cce1efb59e73891064356027f9f3757be87f8c5250def99b0f65",
+    "target_extensions_sha256": "fd023b2ce6cba840cac66b28f95e5116a25931a24fe32f3f44c5c1ae6dff6cfe",
+    "target_miverb_sha256": "07281d7b35a837dcaeb145015da44a9d7f33bf467617ad070eeaaae297ec4b59",
+    "miverb_optimized": true,
+    "target_bandlimited_sha256": "c81b2f9dd2acdc46142792d1eb76b959a96e6f3c00e420626b04c7644473d409",
+    "saw_crossfade_optimized": true,
+    "saw_crossfade_optimization": "Exact j/64 reciprocal multiplication; constructor/control one-sample fraction remains zero.",
+    "miverb_optimization": "Finite ordered Q1.15 write clamp; identical quantisation, fault handling and accumulator scaling.",
+    "kernel_optimized": true,
+    "kernel_optimization": "Exact cached sine increments; power-of-two Decay2 ramp division; independent coefficient caches; identical block-local Dust/Dust2 RNG.",
+    "rings_startup": "Bound voices use rg_init_precleared after zeroed binding; standalone rg_init retains its original clear for independent oracle callers.",
+    "gendy_fix": "Allow the allocated zero-valued Gendy3 closing segment after discarded sub-sample breakpoints; keep bounds checks beyond it.",
+    "scope": "Checked capacities, control bus input, precleared binding, Gendy3 closing-segment fix and duplicate Rings clear removal and bit-preserving hot-kernel optimizations; no precision reduction or changes to existing DSP equations."
+  },
+  "package_buffers_psram_bytes": 393216,
+  "diagnostics_enabled": true,
+  "internal_render_kernels": true,
+  "internal_rings_kernels": true,
+  "rings_hot_symbols": {
+    "rg_process": {
+      "address": 1077499900,
+      "bytes": 13482
+    },
+    "rings_render": {
+      "address": 1077513384,
+      "bytes": 2762
+    },
+    "rg_hermite": {
+      "address": 1077499616,
+      "bytes": 282
+    },
+    "rg_fx_write": {
+      "address": 1077499480,
+      "bytes": 135
+    }
+  },
+  "internal_audio_adapter": true,
+  "adapter_hot_symbols": {
+    "instrument_apply": {
+      "address": 1077454344,
+      "bytes": 1145
+    },
+    "instrument_apply_batch": {
+      "address": 1077455492,
+      "bytes": 279
+    },
+    "instrument_render": {
+      "address": 1077456040,
+      "bytes": 57
+    },
+    "instrument_pcm": {
+      "address": 1077455772,
+      "bytes": 268
+    },
+    "instrument_render_stereo": {
+      "address": 1077456100,
+      "bytes": 626
+    },
+    "master_delay_render": {
+      "address": 1077456728,
+      "bytes": 108
+    },
+    "master_delay_set": {
+      "address": 1077456836,
+      "bytes": 90
+    }
+  },
+  "hot_kernel_symbols": {
+    "render_graph": {
+      "address": 1077481132,
+      "bytes": 18346
+    },
+    "fast_arithmetic": {
+      "address": 1077473904,
+      "bytes": 3942
+    },
+    "fast_sine": {
+      "address": 1077479412,
+      "bytes": 1160
+    },
+    "fast_envelope": {
+      "address": 1077477848,
+      "bytes": 744
+    },
+    "fast_pan": {
+      "address": 1077478592,
+      "bytes": 818
+    },
+    "binary": {
+      "address": 1077469084,
+      "bytes": 1272
+    },
+    "envelope": {
+      "address": 1077472204,
+      "bytes": 986
+    },
+    "envelope_init": {
+      "address": 1077473192,
+      "bytes": 712
+    },
+    "segment": {
+      "address": 1077516148,
+      "bytes": 1233
+    },
+    "sine_control_step": {
+      "address": 1077517384,
+      "bytes": 162
+    },
+    "fm_start": {
+      "address": 1077480988,
+      "bytes": 143
+    },
+    "fm_seed": {
+      "address": 1077480760,
+      "bytes": 48
+    },
+    "fm_set": {
+      "address": 1077480808,
+      "bytes": 180
+    },
+    "fm_prepare": {
+      "address": 1077480572,
+      "bytes": 51
+    },
+    "fm_render_input": {
+      "address": 1077480692,
+      "bytes": 66
+    },
+    "fm_render": {
+      "address": 1077480624,
+      "bytes": 66
+    },
+    "delay_render": {
+      "address": 1077470356,
+      "bytes": 1845
+    },
+    "unary": {
+      "address": 1077517548,
+      "bytes": 1030
+    }
+  },
+  "optional_wrapper_not_retained": [],
+  "sine_table_internal": false,
+  "sine_table_symbol": {
+    "address": 1008021856,
+    "bytes": 32772
+  },
+  "sine_table_sha256": "3264f07efa6217955d24e1756a7887972ef7fce7ad6709e99eec1dc9331232fd",
+  "console_patch_task_stack_bytes": 16384,
+  "audio_task_stack_bytes": 16384,
+  "event_queue_capacity": 16,
+  "dma_descriptors": 6,
+  "dma_frames_per_descriptor": 128,
+  "app_bytes": 1664800,
+  "sha256": {
+    "firmware/build-fm1-cache/waveshare_synthdef.bin": "fcfc9b1b202cb2fb0c6a96164b796255a64501a0aa52b1f8c0aa1654994caac8",
+    "firmware/build-fm1-cache/bootloader/bootloader.bin": "f4eadd1e993225eddf3a0f7c49818f76c1502f8a112b0139c2164d7a3a4aee5d",
+    "firmware/build-fm1-cache/partition_table/partition-table.bin": "3d6618f869e029b89931eedaa807f28e696aeb86aacb08ae8a418ca6c846fa7f",
+    "build/host/fm1-cache-sdkconfig": "e4ef4dbc9ba74adf88f31b1a2f21e1bf9a8df7eec873cac22a41b720dcaef774",
+    "firmware/sdkconfig.defaults": "f3e05b85fbc3930fefc7596fa4dafed1ccdf72f3ce9a73e3bfc3090b131d5cdd",
+    "firmware/partitions.csv": "11e1a6f2c0a677945771ab08b81761fe19c9ecd46829f2810b118aa16236f6e3",
+    "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+  },
+  "runtime_heap_and_clocks": "see runtime logs; actual clocks still require external measurement"
+}

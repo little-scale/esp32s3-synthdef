@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "host_tests": 25,
+  "emulation": "PASS: anonymous block is silent at load, plays on touch, releases to silence, and responds to Panic; peak=0.393575311 tail=0",
+  "slot": 6,
+  "name": "Sound block",
+  "nodes": 80,
+  "signals": 91,
+  "graph_bytes": 3265,
+  "source_bytes": 157,
+  "graph_sha256": "3a6edab7f6b8d1d793ae7a628fd7882640b9b1c93c73c55e80b2a660273a40bb",
+  "source_sha256": "3ec284c7f298c8df90574d8d25120434ec8d1274ead3e7a78373a3be09578eed",
+  "original_source_preserved": true,
+  "other_slots_unchanged": true,
+  "firmware_unchanged": true,
+  "hardware_readback_verified": true,
+  "hardware_listening_tested": false,
+  "host_audio_playback": false,
+  "library": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "Touch buses",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "Sound block",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ]
+}

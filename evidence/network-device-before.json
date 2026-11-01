@@ -1,0 +1,168 @@
+{
+  "connected": true,
+  "port": "/dev/cu.usbmodem3101",
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "f05ace547b090d894d09d6478a2573a1051b02a6bbad2427ec4bddb9695bd401",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "a7550a34a2c59c996e4168436986d7047e11d2b5112c6f7d1d5a11239214fc2f",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "continuous_blocks": true,
+    "master_slots": 2,
+    "atomic_install": true,
+    "global_volume": true,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12435544,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 3442,
+    "transfer": 2050958694,
+    "slot": 1,
+    "name": "SoundBlock",
+    "graph_sha256": "f7110b44af18a347a78503feaa55570564fafeafe930914052165904c901a3fb",
+    "continuous": true,
+    "seed": 698927634
+  },
+  "slots": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "SoundBlock",
+      "generations": [
+        17,
+        18
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "Touch buses",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "Triggered harmonics",
+      "generations": [
+        5,
+        4
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "Comb cloud",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "Comb cloud KR",
+      "generations": [
+        1,
+        0
+      ]
+    }
+  ],
+  "audio": {
+    "frame": 100773120,
+    "active": 1,
+    "render_max_us": 2676,
+    "combined_max_us": 2682,
+    "updated": 28112.826147208,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 388,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "average_x10": 782,
+    "peak_x10": 1089
+  },
+  "masters": [
+    {
+      "slot": 0,
+      "name": "Bypass",
+      "generations": [
+        0,
+        0
+      ],
+      "selected": false
+    },
+    {
+      "slot": 1,
+      "name": "Master FX",
+      "generations": [
+        1,
+        0
+      ],
+      "selected": true
+    }
+  ]
+}

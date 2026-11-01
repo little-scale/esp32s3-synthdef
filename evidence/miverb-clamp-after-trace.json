@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "header": {
+    "passed": "1",
+    "blocks": "8192",
+    "windows": "40",
+    "rate": "44100",
+    "block": "64",
+    "faults": "0",
+    "nonfinite": "0",
+    "guards": "0",
+    "updates": "0",
+    "rejected": "0",
+    "initial_rejections": "0",
+    "initial_accepts": "0",
+    "restarts": "0",
+    "max_us": "1497",
+    "peak": "0.268178195",
+    "rms": "0.0560326651"
+  },
+  "graph_sha256": "1004139e01892a92ae19c460f20d405aae6db08060159ac2e7a72396fa71af2c",
+  "capture_bytes": 20480
+}

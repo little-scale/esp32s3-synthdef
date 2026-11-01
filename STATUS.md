@@ -1,104 +1,569 @@
-# Project status — 31 October 2026
+# Project status — 2 November 2026
 
-## Current outcome
+The board runs **FM1 compatibility firmware `8b4cc4a9955a`**
+(1,674,528 bytes), configured for 240 MHz, with internal Rings code
+and 32 KiB instruction / 64 KiB data caches. Saved sound and master selections,
+original source and global output volume survive updates.
 
-The optimized one-voice instrument now has three richer SuperCollider examples
-saved alongside Mac Sine. **Phase FM is in slot 2, Harmonic Mix in slot 3 and
-Filtered Tone in slot 4.** Factory slot 0 and Mac Sine slot 1 remain available.
-Saved graph, source and UI metadata read back byte-identically. The automated
-checks finished with Mac Sine selected and silent, before manual listening review. The user subsequently confirmed all three new
-sounds are clean and stop on touch release.
+The public-repository update now includes a README quickstart, current build/flash
+instructions, refreshed browser/UI/storage/memory guides and the SC examples.
+The documented fresh build matches all measured SDK configuration values and
+passes profile/IRAM/strict-FP checks; see evidence/publication-build.json. The
+full Studio/network/control/native-SC suite passes 70 tests both locally and from a clean staged checkout, and the 12 documented
+portable suites pass. README SC snippets compile without executing or sending
+messages. New raw logs and private setup/browser captures remain local; public
+summaries and safe UI previews are retained. No additional firmware flash was
+performed for the documentation/publication pass. See evidence/publication-checks.json.
 
-Current source build: `3793e0b3753c31eef80933b34ebc2d40e888d65d214be433494f1d689cedbdbb`.
-Verified application: 880,080 bytes. Image/configuration hashes,
-compiler flags and checked instruction placement: `evidence/esp32-ui-build.json`.
-Observed port: `/dev/cu.usbmodem101`. See `evidence/board-state.json`,
-`docs/PATCHES.md`, `docs/PERFORMANCE.md` and `evidence/optimization-summary.json`.
+The display now shows a green receive dot beside the battery (140 ms after
+valid upload/control frames), plus Wi-Fi RSSI in dBm, sampled once per second.
+Status/schema queries do not keep the dot lit; repeated valid frames still
+signal reception. Controls shows the friendly module name and permanent ID.
+Network sampling and display updates run outside the audio task. Real LVGL
+snapshots check the layout, active green pixels, idle/offline states and module
+labels; all 21 network/control regressions pass. The physical board's RSSI,
+quiet queries, repeated frames and malformed-frame rejection were checked;
+Main/FX packages, original source, live controls and the current output level
+were retained.
+Physical visual confirmation is still separate from the rendered layout checks.
+See evidence/network-ui-device.json and evidence/network-ui-build.json.
 
-## Optimization and execution
+SC module settings now use `ESP32.module(target, \volume, 0.5)` for 50% global
+output, including aliases, groups and `\all`. The existing one-argument module
+handle is retained. Calls reuse the firmware's smoothed `VOLUME` command and
+update the Controls slider; no firmware update is required. Values are 0–1,
+rounded to 1% resolution, and are live rather than saved to flash. Invalid
+settings are rejected before transmission; concurrent recipient results report
+individual failures, and module commands from each SC connection retain order.
+All 30 bridge/network/control tests pass, including actual sclang against two
+HTTP modules. See evidence/module-volume-host.json and docs/SUPERCOLLIDER.md.
+Actual SC → running Studio → physical module volume changes also pass (25%,
+then restored to its current 50%). Main/FX packages and instance state remained
+unchanged. The updated class library is loaded in the IDE; its reload stopped
+previous SC patterns. See evidence/module-volume-device.json.
 
-- The pinned GPL C99 engine remains unmodified at
-  `00ac338904304e87845477808e598ef973f49b52`. Synthesis runs on the ESP32;
-  SuperCollider 3.14.1 compiles source on the Mac. One voice, 64-frame blocks,
-  requested 44.1 kHz and a bounded mono ES8311 sink remain selected.
-- Control indices are cached at activation. Live events retain finite/range
-  checks, and initial-rate aliases are rejected before audio ownership changes.
-  Cached and name-lookup adapters produce bit-identical PCM over 1,400 cases /
-  268,800 mono samples.
-- Rendering kernels and the small audio adapter use internal instruction RAM.
-  Adapter bodies consume 1,470 bytes plus literals/alignment. Math flags, table
-  contents and PCM rounding are unchanged. The sine table remains in flash.
-- The earlier kernel placement fixed the reproduced 1,818 µs interaction overrun.
-  The new filter exposed a smaller remaining issue: 1,019 µs and one 70% margin
-  violation with the adapter in flash. Internal adapter placement reduced its
-  three-round maximum to 813 µs with zero violations. Failed runs remain recorded.
-- `catalog-voice-v2` retains the generic `simple-voice-v1` sine family and adds
-  only the exact three measured graph hashes. Candidates require a diagnostic
-  build; rejected graphs remain blocked. This is not blanket admission for all
-  154 compiled UGen types or arbitrary FM/filter graph variants.
-- Filter cutoff uses 100 ms control-rate smoothing. The unsmoothed candidate
-  clipped on extreme jumps and was excluded; clipping tolerances were unchanged.
+The SC connection cleanup now catches failed sends, stops affected patterns
+once, and keeps cancel/stop from throwing on a dead socket. Failed explicit or
+automatic connection attempts return failed jobs; reconnect is safe from late
+old-socket callbacks. All 33 bridge/network/control regressions pass, including
+native send/cancel failure, real peer shutdown and refused-connection tests.
+The running uploader and board were not restarted for this fix. The updated
+extension is installed; the user's active local SC synth session was left
+running, so the IDE will load it on the next class-library recompile.
+See evidence/connection-cleanup-host.json.
 
-## Verification
+Control-value compression is now automatic on firmware advertising
+`control_deltas: 1`. The host sends changed float32 pairs, while the node expands
+full per-stream/per-stage snapshots before queueing: other writers and out-of-order
+future timestamps cannot alter a note's intended arguments. First events, changed
+field sets, new revisions/reboots and idle gaps send full packets. Explicit cache
+misses allow one full resend; uncertain acknowledgements never retry. Old firmware
+receives full packets. Fixed baseline storage adds 17 KiB of PSRAM (remote state
+24,968 bytes; status snapshot remains 512 bytes), with no audio-task allocation.
 
-Each new graph passed a SuperCollider float reference comparison, the expanded
-ESP32 matrix and three 30-second UI exercises on the qualification image. The
-final image repeated all five numerical matrices plus one 30-second exercise per
-saved patch. Its maxima were:
+All 37 bridge/network/control regressions pass, including native SC with mixed
+firmware recipients, repeated pitches, another writer, baseline recovery and
+uncertain ACKs. Portable full/delta audio is byte-identical with interleaved future
+events; trigger replay, field removal, queue rollback and stage invalidation pass,
+alongside the existing 300 real EnvGen retriggers. The physical board passed muted
+SC note tests: 52/37/32/37-byte payloads instead of 52 bytes each, no late/rejected
+commands, zero queued events after completion, and correct values after an
+interleaved direct set. The current packages, controls and 20% output are retained.
+See evidence/control-deltas-build.json, control-deltas-host.json,
+control-deltas-device.json and remote-control-host.json. Existing patterns need
+only be restarted; no SC syntax change or class-library reload is needed for
+compression. The previous SC-only disconnect fix still loads at the next class
+library recompile, which was left to the user to preserve local SC synths.
 
-| Patch | Slot | Combined maximum | Fraction of block | Margin violations |
-| --- | ---: | ---: | ---: | ---: |
-| Phase FM | 2 | 675 µs | 46.51% | 0 |
-| Harmonic Mix | 3 | 800 µs | 55.12% | 0 |
-| Filtered Tone | 4 | 792 µs | 54.57% | 0 |
-| Mac Sine | 1 | 588 µs | 40.52% | 0 |
+Adjacent note releases/attacks now preserve a gate-low audio block. Previously,
+when release and the next attack shared one tick (for example default legato
+0.8 × dur 0.125 = delta 0.1), both changes could collapse to gate-high before
+EnvGen rendered, losing the retrigger. The portable test renders 300 actual
+EnvGen rising edges across gaps, exact joins and overlaps. Control state remains
+7,560 bytes, with a 512-byte status snapshot; no new allocation is required.
+The physical original degree pattern (dur 0.125 / delta 0.1) ran for 30 seconds
+with the saved MiVerb master: 298 applied notes, zero rejected/late commands,
+and no queued events after stop. Listening was confirmed consistent. The Main
+ADSR also needed its named gate connected to EnvGen; the latest user upload
+retains that correction. See evidence/note-join-device.json.
 
-All final output, numerical and queue-failure counters were zero. The five muted
-matrices cover 280 cases each / 268,800 mono samples total and agree with the Mac
-within one PCM step. They include extreme frequencies and first/live/release
-blocks. The audible UI exercise uses compiled base-frequency defaults, four
-controls at 25 Hz, seven pitch positions and five note starts per second. This is
-workload-specific evidence, not a realtime guarantee for every continuous value.
+## SuperCollider sending and routed patterns
 
-The final check also saved/reloaded all new entries, compared graph/source/UI
-metadata, and rejected a renamed catalog binary with a valid digest while
-retaining the current patch. Portable adapter, 262,136 nearest/even PCM oracle
-cases, package corruption/truncation tests and normal/diagnostic catalog-admission
-checks pass. Historical M2/M3/M4 and timing evidence retain their own identities.
+SC Function/String/literal SynthDef `.sendESP32` now saves a definition without
+creating an instance. `ESP32.play(target, args)` creates Main with arguments set
+before constructors; `ESP32.stop(target)` frees it. Stage handles support the
+same Main/FX lifecycle. Function/SynthDef `.playESP32` combines upload and creation.
+The first esp32Note can create Main; subsequent notes still reuse one voice.
+Definition-only startup is persisted in package metadata without editing the
+compiled graph. Literal bytes were verified identical on both test devices and
+the physical board. Reboot retained Main/FX definitions inactive and unprepared,
+including a gate=1 definition. Older saved packages retain their previous startup
+behaviour; a new definition package boots silently until explicit creation.
 
-## Ownership, memory and remaining gates
+All 60 host/native tests, portable lifecycle/FX/300-envelope-edge tests, storage
+parser tests and the instrument adapter regressions pass. Physical Main/FX
+creation, stop, initial-rate args, first-note creation and bypass recovery pass.
+The user's original packages, source, live controls and volume (17%) were restored.
+See evidence/definition-lifecycle-device.json and definition-lifecycle-build.json.
 
-The audio owner alone mutates voice state. Parsing uses an inactive graph and
-activation requires an acknowledgement before reuse. Save/load fades and drains
-silence, parks rendering, stops DMA and verifies codec mute before flash writes.
-Two checked generations per slot, compiled factory recovery, no blanket NVS erase
-and no automatic formatting after provisioning remain in place.
+The installed SC extension adds Function/String `.sendESP32(target, args:, stage:)`,
+selected-code sending (including a small `ESP32.gui` picker), ID/alias/IPv4/group/
+`\all` targets, live named `.set`/`.setn`, and Main/FX helpers. It uses a private
+loopback OSC/TCP bridge in the existing uploader, then the paired HTTP device
+transport. Source/graph jobs are chunked above 30 KiB because SC's OSC builder
+has a fixed message limit; nonempty blob prefixes avoid its empty-blob corruption.
+Original source is retained and initial args are saved in the graph default table.
 
-Selected engine allocations remain 112,136 internal bytes for two graphs, one
-voice and scratch. Retained kernel bodies total 29,614 bytes plus literals;
-adapter bodies add 1,470. Final exercises retained at least 77,703 internal free
-bytes, a 31,744-byte largest block and 12,848 bytes of audio stack margin.
-Diagnostic result/waveform storage uses 120,960 preallocated PSRAM bytes.
+`Pbind` event types `\esp32Set` and `\esp32Note` route `\module` values from
+Pseq/Prand. `.playESP32` installs stop/CmdPeriod cleanup and fresh IDs on replay.
+The reply listener now survives CmdPeriod, which previously silently freed it
+while leaving TCP connected and caused subsequent requests to time out. Pending
+request deadlines are rearmed after clock clearing without extending them.
+Native SC regression tests cover this failure, a stalled request across CmdPeriod,
+and the five-second all-module pattern across schema/clock refresh.
+Pattern cancellation now belongs to the player rather than inherited event
+cleanup, so Pbindef source edits do not cancel the whole stream. Named proxies
+reuse their ESP32 player and support normal Pbindef.stop. Requests retain FIFO
+order per stream; delivery failure stops further device submissions from that
+run, and stale callbacks cannot stop a replay or print a warning storm. Native
+tests cover source-key edits, duplicate play, named stop, delayed failures,
+natural note completion and deadline expiry without device submission.
+The firmware applies transactions at audio boundaries, schedules finite note
+releases, protects ownership, and rejects stale boot/activation revisions. State
+uses preallocated PSRAM (portable host sizes: 7,560 bytes plus 512-byte snapshots);
+no live updates write flash. Pattern lookahead defaults to 250 ms; this is control-
+rate timing, not sample-locked multi-board playback or a scsynth voice pool.
 
-A target size probe for 24 nodes / 32 signals / 256 input references would reduce
-engine allocations to 31,064 bytes, saving 81,072 internal bytes. **That profile is
-not implemented or selected.** It needs a consistent target ABI and fresh
-compatibility/numerical/timing checks. Original engine capacities remain intact.
+All 33 Studio and 18 existing network tests pass, plus parameter/default tests,
+portable control lifecycle tests and real sclang integration with two simulated
+HTTP modules. Physical muted tests verified sending, initial/live args, ID/alias/
+IP routing, Pseq/Prand, note release/stop and FX updates. Reboot restored initial
+values rather than temporary live values and rejected an old-boot packet. Original
+Main/FX/source, master selection and volume were restored afterward.
 
-- A 30-minute release soak remains open. Driver counters do not prove
-  uninterrupted physical audio. External
-  recording, end-to-end latency, actual clock accuracy and battery transitions
-  still need measurement.
-- New-slot physical power-cycle and flash power-cut tests remain separate from
-  checked file readback/reload. Two SPIFFS files cannot guarantee recovery from
-  every filesystem-wide corruption or brownout.
-- Earlier native USB lock-up recovered through a physical reconnect. No fix for
-  that separate reset issue is claimed. USB responded throughout these checks.
-- A second voice, a master effect, sequencing, motion and microphone processing
-  remain later work. This completes the one-voice example step of M5 only.
-- Apple AddressSanitizer deadlocks before main on this Mac; no ASan pass is claimed.
-  Working sanitizers and pinned-source warning exceptions remain documented.
+The current user patch has **eight Saws / 47 UGens**, a different graph from the
+older two-Saw optimisation measurement. Its restored playback averaged **90.27%**
+audio CPU, with no new DMA events or faults over 20.03 seconds, 15,847 minimum
+internal free bytes and 4,204 bytes free control stack. This is not a matched
+before/after CPU comparison. See docs/SUPERCOLLIDER.md, supercollider/examples.scd,
+evidence/ide-device.json and evidence/ide-controls-steady.json.
 
-Original flash and earlier/current application backups remain under `recovery/`,
-excluded from Git. The public source repository is
-[github.com/little-scale/synthdefs-for-esp32-s3-touch-amoled-1.8](https://github.com/little-scale/synthdefs-for-esp32-s3-touch-amoled-1.8).
+## Main + FX and Omni Wi-Fi
+
+Current firmware has one writable Main package and one writable FX package with
+protected bypass. Main restores on boot; FX/bypass and output volume restore
+independently. Legacy slots 2–8 remain archived and inaccessible. CONTROLS replaces
+the numbered touchscreen library; the white code/play page is retained.
+
+The uploader has fixed Main/FX destinations, separate drafts, Restart Main and
+FX bypass. Single-module Wi-Fi and Omni mode share the checked package protocol.
+Omni compiles once, concurrently uploads the exact graph/source to reviewed paired
+online modules (up to eight simultaneous connections, 64 recipients), and reports
+verification/errors per node. Starts are not sample-synchronised. Frozen
+identities/generations and one-use, ten-minute reviews prevent recipient drift.
+
+All 33 Studio tests and 18 real HTTP simulation tests pass. The two-module suite
+checks concurrency, identical bytes, partial failure, stale destinations,
+Main/FX isolation and exclusion of offline/unpaired nodes. Browser logic passes
+with a DOM adapter; real LVGL play/scroll, volume, Main restart and FX controls
+pass with 44,408 bytes of the 64 KiB widget heap free. Physical results are in
+`evidence/main-fx-device.json`; multi-board RF timing is not established.
+New Main and FX code saved and read back correctly on the physical board in
+single-module Wi-Fi and Omni modes. A reset restored Main, continuous mode, FX
+bypass and volume; original Main/FX graph/source and the original FX selection
+were restored after testing. Only one physical module was available.
+See docs/STUDIO.md and evidence/main-fx-build.json. Older slot histories below
+refer to the previous library layout.
+
+## Saw / Pulse crossfade optimisation — installed
+
+The generated band-limited oscillator uses exact multiplication by 1/64 for its
+sample crossfade fraction, with the original zero fraction in one-sample passes.
+Tables, harmonic-count changes, singularity handling, phase rounding and memory
+layout are unchanged. The two Saws in the same saved graph measure **197.81 →
+169.28 µs** per block (14.42% less); normal whole-graph DSP measures **862.55 →
+833.97 µs** (3.31% less), medians of three muted runs per image.
+
+Normal playback averages **60.66%** audio budget (62.0% maximum one-second mean)
+with Wi-Fi/display enabled, no new DMA events or faults across 20.03 measured
+seconds, 15,775 minimum free internal bytes and 4,196 bytes free control stack.
+The host regression passes 20,971,520 bit-identical samples/full voice state for
+Saw/Pulse/Blip cases across four rates. Before/after 11.89-second fixed-seed board
+traces match all 5,120 captured floats, peak/RMS and guard/fault checks. All 31
+Studio tests pass. See docs/SAW_OPTIMIZATION.md and evidence/saw-crossfade-*.json.
+
+## MiVerb clamp optimisation — installed
+
+The generated target replaces two min/max calls per delay write with ordered
+comparisons after the existing finite-value guard. Delay precision/layout,
+quantisation, soft clipping and memory allocation stay the same; vendored source
+is untouched. After the MiVerb change alone, the same 24-UGen Saw / Resonz / MiVerb graph averaged **62.24%**
+audio budget (63.0% maximum one-second mean), with no additional DMA events
+across 20.03 measured seconds. Minimum internal free RAM is 15,759 bytes and
+control-stack headroom is 4,196 bytes.
+
+Three matched muted profiles per image show median MiVerb time **777.58 →
+454.40 µs** (41.56% less) and whole-graph DSP **1,174.42 → 864.14 µs**
+(26.42% less). The host comparison passes 8,388,608 bit-identical output samples
+and 400,000 quantiser probes. Fixed-seed board traces match all 5,120 captured
+floats across 11.89 s with identical full-duration peak/RMS and no faults,
+nonfinite values or canary failures. All 31 Studio tests pass.
+
+See docs/MIVERB_OPTIMIZATION.md and evidence/miverb-clamp-*.json.
+
+## Dynamic bank support
+
+DynKlank and DynKlang compile to native Ringz/SinOsc banks. Both audio/control
+outputs, changing parameters, nil defaults and mixed-rate inputs pass 12 SC NRT
+comparisons (maximum sample error 1.28858e-5). The loader now admits the valid
+mixed-rate Ringz/SinOsc parameter cases; DSP equations are unchanged. Two negative
+rate checks and all 31 Studio tests pass. Four muted 11.89-second board traces
+match native C within 1.24216e-7 and restore the original sound, volume, saved
+library and master selection. Examples and scope: docs/DYNAMIC_BANKS.md.
+The local uploader was refreshed with its existing session and draft retained.
+
+## Current volume, CPU and random-start work
+
+- SLOTS has a fixed white-on-black output volume slider, 0–100%, default 100%.
+  It scales after master FX, uses a 20 ms gain ramp and saves on release. A muted
+  save preserves source/FX state. The user confirmed smooth operation and chose
+  30%; that setting survived the kernel firmware update.
+- The corrected Comb cloud remains in slot 7. Measured average audio CPU fell
+  from 57.86% to 49.76% after exact kernel optimizations; recent peaks fell from
+  78.1% to 66.9%. Per-UGen profiling identified Decay2, Dust and SinOsc costs.
+- The user's control-rate Dust/Decay2 variant is saved in slot 8: 29.02% average,
+  43.4% recent peak, still 56 nodes / 60 signals and a 32 KiB delay arena. The
+  user confirmed similar, clean sound. Oscillators and CombC remain audio-rate.
+- Slot 6 now holds the five-mode Klank cloud, replacing Sound block with user
+  permission. It is one mono resonator bank duplicated to both outputs. The
+  fixed-table version used about 10% CPU (user observation), four nodes and no
+  delay arena. Its source remains in examples/klank-cloud-fixed.scd.
+- The revised Klank source uses 15 initial-rate Rand UGens, choosing frequencies,
+  amplitudes and ring times at start. Normal sound loads receive fresh hardware
+  seeds; note starts advance a per-load seed sequence. Maintenance and pending
+  constructor retries preserve the active seed. Diagnostics remain seed zero.
+  Array.rand still behaves as SC language code: its compiled numbers are fixed.
+  Three hardware reloads chose distinct seeds with the same graph hash; the
+  Rand-based slot 6 measured 10.62% mean / 17.0% recent peak and zero audio errors.
+  Other saved sound slots and both master packages/selections were unchanged.
+- Native tests cover 46,137,344 bit-identical samples across 14 graphs, plus
+  4,194,304 for the KR block, with identical RNG sequences and delay memory.
+  Thirty Studio tests, volume/seed lifecycle tests and LVGL slider tests pass.
+  Local AddressSanitizer hangs during runtime startup; undefined-behaviour and
+  bounds checks completed. Hardware counters were zero in recorded audio checks;
+  recent-window peaks are not lifetime maxima or a worst-case qualification.
+- See docs/PERFORMANCE.md, docs/STUDIO.md, evidence/comb-kernel-equivalence.json,
+  evidence/comb-ugen-profile-after.json, evidence/comb-kr-live.json and the
+  random-starts evidence. Earlier measurements below retain their image identity.
+
+## Continuous blocks, master slots and host Studio
+
+- The local browser accepts named SynthDefs, compiled files and anonymous
+  `{ sound }` / `({ sound }.play)` blocks. Blocks start on load without touch;
+  there is no added envelope or gain. Panic stays stopped until reload.
+- Continuous maintenance preserves a running block. Removed a second Panic at
+  the final parking transition that had erased its resume state.
+- Sound block occupies slot 6 (77 nodes / 86 signals). Comb cloud occupies slot 7
+  (56 nodes / 60 signals, 32 KiB delay arena). Each oscillator gets one Rand;
+  Decay2's slow time modulation uses control rate, as required by the loader.
+- Separate master bank: protected Bypass 0 plus uploadable FX 1, initially blank
+  stereo In/Out code. Master selection and saved generations are independent of
+  sound slots. Both the browser and device library select the master route.
+- Current firmware advertises atomic INSTALL: activate and save form one console
+  transaction, preventing queued screen selection from saving another patch.
+  Studio verifies graph, source and metadata after installation.
+- Thirty Studio tests, continuous lifecycle emulation, master routing and LVGL
+  library checks pass. Browser/device verification saved and read both master FX
+  and Comb cloud. Existing sound slots 0–6 and 8 were retained.
+- Comb cloud's 5 Hz delay LFO changed from audio to control rate: board average
+  audio budget fell from 76.32% to 57.72%; recent peaks from 93.8% to 72.7%.
+  These are five one-second windows per version under the same blank master,
+  not whole-chip utilisation or lifetime maxima. The user confirmed about 57%.
+  Sample rate, float32 precision, gain and cubic delay interpolation are unchanged.
+  Audio error/clipping/nonfinite counters were zero in captured windows.
+- See [STUDIO.md](docs/STUDIO.md), `evidence/master-slots-build.json`,
+  `evidence/master-slots-live.json` and `evidence/comb-cpu-optimization.json`.
+
+## Dark slots view
+
+- Both top titles now start 28 pixels from the left after the additional
+  eight-pixel adjustment. The approved battery position remains 20 pixels from
+  the right. Subtitle positions are unchanged. See evidence/title-inset-device.json
+  and title-inset-build.json.
+- The slots header/list now use a black background with white text and outlined
+  rows. Empty slots are dimmed; the battery adapts to the dark header while
+  retaining its low-battery warning. The white code screen and light footer
+  containing CODE, CPU/status and PANIC retain their existing appearance.
+- Existing native gesture checks pass. Actual device captures verify both
+  pages and default code startup. Saved library, selection and FX settings
+  are unchanged, with no new output errors. The board is left on SLOTS, slot 5,
+  after Panic. See evidence/slots-dark-device.json and slots-dark-build.json.
+- App: 884,880 bytes; fixed UI heap free: 38,704 bytes. Audio code is unchanged.
+
+## Audio CPU display
+
+- Both screens now show CPU percentage in the footer, above READY/PLAYING.
+  This is the latest one-second average audio processing budget, excluding
+  I2S waits. A recent block at 70% turns the label amber; at 100% it turns red.
+  Missing telemetry displays CPU --. It is not total utilisation of both cores.
+- Native LVGL checks and actual panel snapshots pass. Silent board checks
+  verified the percentage calculation for every captured window, with about
+  15.7% for Touch buses running at gate zero and 10.6% after Panic. Saved slots,
+  selection and FX settings remain unchanged; no new output errors were reported.
+- App: 884,512 bytes (704 more); fixed UI heap free: 40,344 bytes (352 fewer).
+  Timing counters reuse existing block measurements; division/formatting and
+  drawing stay off the audio task. See evidence/cpu-meter-device.json and
+  evidence/cpu-meter-build.json. That check left code open on slot 5 after Panic.
+
+## Code-first instrument and control buses
+
+- Two screens: original source/play by default, and a scrollable SLOTS library.
+  Occupied rows load and return to code; startup restores the saved selection.
+  Battery remains top right and PANIC bottom right. Body/header flick selection,
+  the separate pad/sliders and the DELAY page are removed from the touch UI.
+- Code plays X/Y/gate. Separate 48-pixel right and 40-pixel bottom strips scroll
+  vertically/horizontally. Touch ownership persists across region boundaries;
+  scrolling never posts notes or updates X/Y. Coordinates are scroll-independent.
+- Added 32-channel In.kr input to the generated target engine; vendored sources
+  remain unchanged. X/Y/gate occupy 0/1/2. Bus-driven patches run at load with
+  gate low and retain state across touches; legacy patches keep their controls.
+- Added Touch buses to the previously empty slot 5, with original source and
+  a verified source/graph pair. All five original saved packages/generations
+  and delay settings are unchanged. The source has 29 lines to try both strips.
+- Real LVGL tests pass for playing, region ownership, scrolling, list loading,
+  busy/Panic, source ownership and 64 KiB documents. Fixed UI heap free: 40,696
+  bytes (25,304 more than the preceding layout; still within the reserved pool).
+- Host bus bounds/lifecycle checks pass under sanitizers. The 28,672-frame SC
+  comparison peaks at 1.576e-5 error. Four muted board windows differ from
+  native C by at most 9.314e-8. Seven legacy voice/operator matrices (1,960
+  cases) and master-delay comparisons through five seconds pass again.
+- Before the CPU meter, FM1 app: 883,808 bytes; compact app: 883,360 bytes. Voice state grows by eight
+  target bytes for the bus pointer/count; bus values use 128 bytes per instrument.
+  DSP float precision and existing equations/tables are unchanged.
+- Actual panel snapshots and restart logs verify both pages and restoration of
+  slot 5 into code. The user confirmed playing, release, scrolling without
+  sound and slot selection returning to code on 1 November 2026. See
+  evidence/code-slots-user-confirmation.json,
+  evidence/code-slots-device.json, code-slots-regression-device.json,
+  code-slots-final-state.json and [TOUCH_BUSES.md](docs/TOUCH_BUSES.md).
+
+## Touch-controller investigation — 1 November 2026
+
+- Added diagnostic `q`: park/mute audio, disable the normal touch reader and
+  capture raw controller registers for 60 seconds, then resume in CODE.
+  No touch/power configuration registers or saved patches are changed.
+- Device ID bytes are `B7 41 02`. During the user's confirmed one- and two-
+  finger sequence, 3,000 reads completed without I2C errors. Raw register 0x02
+  reported only 0 or 1 contacts, before the driver clamps the count.
+- Reliable two-finger scrolling cannot be based on this observed output.
+  The implemented code-first redesign uses dedicated scroll strips beside and
+  below the XY area; it does not rely on two-finger recognition.
+- At capture time, saved selection (Phase FM, slot 2), library generations and
+  delay settings were unchanged. USB needed one physical reconnect after flashing.
+  See `evidence/touch-probe-run3.json` and `host/probe_touch.py`.
+
+## Swiping across code and pad
+
+- Switching was previously restricted to the title bar. Quick left/right
+  flicks now also work across the code body and play pad, using the existing
+  queued loader and preserving CODE after selection.
+- A flick travels at least 88 pixels predominantly horizontally and releases
+  within 500 ms. Vertical drags and slower/held drags retain source scrolling
+  and pad pitch/level control. The pad releases its note before switching.
+- Real LVGL pointer tests cover both body directions, missing release
+  coordinates, slower/held/vertical drags and all existing header/busy/page
+  behaviour. Native UI heap free: 15,392 bytes. FM1 application: 910,096 bytes.
+- Board package/source switching checks and screenshots are recorded in
+  `evidence/body-swipe-device.json`. Those use USB selection diagnostics;
+  physical touch confirmation is separate. DSP math/tables are unchanged.
+
+## Battery and PANIC placement
+
+- Live AXP2101 battery icon at the top right, with gauge percentage, charging,
+  USB/no-battery and unavailable states. Read-only telemetry polls every five
+  seconds from the control task; power/charger configuration is untouched.
+- One PANIC button stays at the bottom right across all four pages, including
+  busy states. PLAY fits PATCHES/CODE/DELAY alongside it; CODE has a shorter
+  viewport and bounded line/column footer so text stays clear of the button.
+- Native LVGL checks pass with 15,400 bytes free in the fixed 64 KiB UI heap.
+  The FM1 application is 909,728 bytes. Board screenshots and navigation
+  results are in `evidence/battery-layout-device.json`; build records are
+  `battery-layout-build.json` and `battery-layout-compact-build.json`.
+  DSP math/tables are unchanged.
+
+## Title swipes
+
+- Swipe left/right on the title bar in PLAY or CODE for the next/previous
+  occupied saved slot, wrapping around the library and including factory 0.
+  The pad and source body retain their drag controls; CODE stays open after
+  switching. Previous sound is stopped through the existing patch loader.
+- Native LVGL gesture tests cover sparse slots, wraparound, pending/busy/
+  rejected requests and CODE retention. Fixed LVGL heap free: 15,352 bytes.
+- Board checks cover ten queued selections, exact graph/source/metadata
+  identity, CODE display and recovery from an upload rejecting navigation.
+  Device selection uses USB diagnostics; a physical finger swipe is still a
+  manual check. No saved patch writes are made.
+- FM1 application: 908,896 bytes; compact UI: 908,592 bytes. Source lexer and
+  package tests pass again. DSP calculations and tables are unchanged.
+  See `evidence/swipe-device.json` and [CODE_VIEW.md](docs/CODE_VIEW.md).
+
+## Original-source CODE page
+
+- White background, Monaco-style DejaVu Sans Mono, requested syntax colours,
+  line numbers and two-axis drag scrolling. No source editing/recompilation on
+  the board. Strings and backslash symbols stay green; classes/UGens/Patterns
+  blue; ~globals orange; arg/var red; numeric/built-in literals purple.
+- Active package source is copied into owned PSRAM. Factory source is bundled
+  with a verified graph/source pair. Missing text is identified explicitly.
+- Lexer guard-page/sanitizer tests, real LVGL interaction and 64 KiB edge cases
+  pass. Actual device snapshots verify source switching and all colours.
+- Three held-note/scrolling tests report zero new output errors; seven muted
+  matrices plus master-delay echo checks pass. Saved packages are unchanged.
+- That source-view image (`cabbeb035d5b`) is 908,032 bytes; audio results in this
+  section were captured on it. Its compact UI build also compiles. See [CODE_VIEW.md](docs/CODE_VIEW.md) and
+  `evidence/source-device.json` for exact scope and measured memory/timing.
+
+## Earlier optimization follow-up
+
+- Removed duplicate whole-buffer clearing from bound Rings construction while
+  preserving standalone initialization and all float32 calculations/tables.
+- Fixed startup fragmentation by reserving large allocations and task stacks
+  before display/NVS setup, with safe PSRAM fallback for the optional arena.
+  Fixed the LVGL task's overly restrictive allocation request as well.
+- Compared code placement, a 66 KiB internal arena and larger caches. The
+  selected caches preserve more memory and improve original Rings 2/5/6 steady
+  costs by **27–28%**. The optional arena is disabled by default.
+- **26 muted matrices / 7,280 cases** pass within one S16 step of native C.
+  **24 long guarded runs** pass; every captured stereo window matches exactly.
+  Master-delay echo windows through five seconds also match exactly. The full
+  1 MiB synth arena passes normal start/release and early cancellation.
+- Nine 30-second control/display/master-delay exercises report zero new output
+  error events. Existing voices reach **738 / 663 / 731 µs** (Filtered Tone /
+  Phase FM / Harmonic Mix), all below the **1,016 µs** margin target.
+- Moving-control Rings 2/5/6 still reach **1,578 / 1,644 / 1,606 µs**, exceeding
+  the **1,451 µs** block deadline at some settings. Only Rings 3's tested musical
+  graph meets the 70% margin. No Rings graph was promoted to the catalog.
+- The selected live tests retain at least **47,715 internal bytes**, a
+  **38,912-byte** largest free block and **8,280 / 11,760** unused audio/control
+  stack bytes. Both full 1 MiB PSRAM arenas remain available.
+
+See [the optimization report](docs/RINGS_OPTIMIZATION.md) and
+[evidence/rings-optimization.json](evidence/rings-optimization.json) for the
+configuration comparisons, grades and reproducible commands. The earlier
+startup failures and the dedicated-arena Rings 6 DMA overflow remain recorded;
+the selected cache configuration passes the repeated output checks.
+
+## Earlier broad UGen testing
+
+
+- **338 long hardware graph runs** cover all **154 UGen types**, all **258
+  type/rate combinations observed in the fixture set**, and every **33 unary /
+  40 binary selector at initial, control and audio rate**. Each run checks
+  11.89 seconds of output and memory guards, with 40 captured stereo windows.
+- Grades remain separate: **315 waveform-limit matches**, **22 statistical-only
+  matches**, and **one Klang strict-float mismatch** which stays within one
+  S16 output step. No long run reported a renderer fault, nonfinite output or
+  damaged arena guard. Statistical consistency is not trajectory identity.
+- The Gendy3 64-point audio-rate and slow control-rate failures reproduce with
+  the original pinned engine and pass after the fix. Sixty-second host
+  regressions cover five sample rates and five explicit seeds. Both failing
+  cases now capture identically on the board. The independent host Gendy state
+  oracle still passes 2,795,520 samples / 707,707 distribution inputs.
+- The fixed-source **1,444-fixture SuperCollider reference suite** and a fresh
+  **1,560,000-input sanitizer fuzz run** pass. Longer independent SC recordings
+  add waveform and statistical evidence, described in the report below.
+- **24 thirty-second rounds / 12 minutes** of reduced-level playback and UI
+  stress, plus **60 patch activations**, completed without reported output,
+  numerical, clipping, queue or 70%-margin faults. Eighteen rounds were on the
+  pre-fix diagnostic image; six repeated on the fixed image.
+- The final fixed-image maxima were **939 µs Filtered Tone, 918 µs Phase FM and
+  952 µs Harmonic Mix**, against a 1,451 µs block. At least 113,691 internal
+  bytes, a 63,488-byte largest internal block and 8,316 unused audio-stack bytes
+  remained during those exercises.
+- Muted cost profiling separates constructor and live-block work. **Rings
+  models 2/5/6 need performance work**: their tested live blocks alone took
+  approximately 1.4–1.6 ms before the master effect. Dense all-operator banks
+  also exceed the audio deadline. Numerical support does not certify arbitrary
+  graph combinations for real-time use.
+
+See [docs/EXTENDED_TESTS.md](docs/EXTENDED_TESTS.md) for methods, grades, the bug,
+CPU costs and limitations, [docs/UGEN_SUPPORT.md](docs/UGEN_SUPPORT.md) for the
+per-UGen/operator ledger, and
+[evidence/extended-validation.json](evidence/extended-validation.json) for the
+machine-readable summary. Hardware testing and sound were explicitly authorized
+by the user; the preceding computer-only stage is retained in its own evidence.
+
+## Implementation and scope
+
+The optional FM1 profile accepts the full pinned renderer set with 160 nodes,
+192 signals and 1,024 references. Graphs and scratch live in PSRAM; voice states
+remain internal. One musical voice and the persistent master effect render
+serially at requested 44.1 kHz / 64-frame blocks. There is a separate 1 MiB synth
+arena and 1 MiB five-second master-delay arena. The synth clears in 4 KiB chunks,
+with a constructor block; full-arena preparation is approximately 373 ms by
+calculation, not an external latency measurement. Earlier hardware tests verify
+full-arena startup, early cancellation and release.
+
+Ordinary voices require live `freq`, `amp`, `gate`; bus-driven graphs and marked
+continuous blocks have separate admission paths. Master uploads accept stereo
+bus-0 input/output independently of the voice controls. Arbitrary multi-node
+server routing and multiple musical voices are not implemented. Compact
+mode retains its narrower sine-family/exact-catalog policy; catalog entries stay
+candidates for changed source. Its qualification is separate from this FM1
+profile's numerical and workload evidence.
+
+The vendored snapshot at `00ac338904304e87845477808e598ef973f49b52` remains
+byte-identical. The audited target generator changes checked capacities, adds
+precleared binding, corrects Gendy3 closing-segment bounds and removes redundant
+bound Rings clearing. Main DSP remains
+float32, with existing compensated accumulators and strict compiler settings;
+there is no additional precision reduction or fast-math change.
+
+The current target record is
+[evidence/source-view-build.json](evidence/source-view-build.json):
+908,032-byte application, 71,488 bytes of fixed internal engine state,
+90,012 bytes of fixed PSRAM engine state and two 1,048,576-byte arenas.
+Stacks, caches, UI, package buffers and drivers are separate. The earlier
+broad-sweep image remains in `evidence/fm1-gendy-fixed-build.json`. The muted
+long diagnostic uses a temporary additional guarded arena while codec/DMA are
+parked. Build records distinguish source IDs, selected configuration and binary
+hashes.
+
+## Remaining work
+
+Further CPU work is needed for moving-control Rings 2/5/6 and dense operator
+graphs. Longer continuous soak,
+wider parameter domains, external clock/latency/continuity measurements and an
+identical-state hardware oracle for divergent generators remain open. The earlier
+intermittent USB reset problem is not claimed fixed. Sequencing, a second musical
+voice, motion and microphone processing remain later milestones.
+
+Earlier stages remain recorded in [docs/HARDWARE_HISTORY.md](docs/HARDWARE_HISTORY.md),
+`evidence/fm1-device-smoke.json`, `fm1-device-synth-memory.json` and the
+`delay-*` evidence. The older interrupted delay-image repeat remains explicitly
+incomplete; it has not been overwritten by the new independent tests.
+
+## Wi-Fi uploader — verified on the board
+
+The uploader provides USB / Wi-Fi selection, discovery and manual-IP fallback,
+permanent MAC-based module IDs, and USB-only setup/pairing. Station + HTTP startup
+now succeeds after moving the 35,752-byte master voice to PSRAM and reducing the
+control stack to 8 KiB; the instrument voice/audio stack remain internal.
+
+The physical module `esp32-2884853ad390` joined the selected 2.4 GHz network. Sound
+slot 1 compiled from its saved source, uploaded and read back over HTTP in 4.75 s;
+its graph hash remained identical. The master FX bank also saved/read back over
+Wi-Fi without changing the sound. Competing writers, wrong IDs/keys and immediate
+client handoff were checked on the real receiver. The original test selection
+(factory slot 0, stopped) and volume (100%) were restored.
+
+Before the clamp optimisation, the 111-UGen MiVerb test averaged 94.94% audio budget, with 95.3% maximum one-second
+mean and 139% recent peak. DMA event warnings reached 54 around installation /
+initial settling, then stayed unchanged across 22.03 measured seconds of steady
+playback. No synthesis faults, nonfinite samples, clipping or failed/partial
+writes were reported. This patch has little timing margin; the test does not
+qualify every graph or prove that Wi-Fi has zero overhead.
+
+Twelve network/identity tests and 31 existing Studio tests passed. Evidence:
+`network-build.json`, `network-device.json`, `network-live.json`,
+`network-master-live.json`, `network-host.json`, `network-connected.jpg`.

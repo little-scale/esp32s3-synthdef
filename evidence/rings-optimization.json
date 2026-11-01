@@ -1,0 +1,465 @@
+{
+  "validation_completed": true,
+  "all_workloads_realtime_qualified": false,
+  "numerical_and_memory_checks_passed": true,
+  "selected_build": "3afda820448ba4077e3fa6a3b24bde90a987d3d6d05bcebeb7411a4a5bb642ca",
+  "selected_cache": {
+    "instruction_bytes": 32768,
+    "data_bytes": 65536,
+    "data_line_bytes": 64
+  },
+  "selected_internal_voice_arena_bytes": 0,
+  "selected_binary_sha256": "100a4f31dad84a3d60030404d31cd0a4c28ed32c6ac5b525a742447feeffedd3",
+  "cost_comparison": [
+    {
+      "model": 1,
+      "baseline": {
+        "reset": 99.0,
+        "controls": 6.0,
+        "prepare": 63.0,
+        "dsp": 949.0,
+        "pcm": 25.0,
+        "total": 1140.0,
+        "live": 880.0
+      },
+      "iram": {
+        "reset": 101.0,
+        "controls": 2.0,
+        "prepare": 36.0,
+        "dsp": 784.0,
+        "pcm": 24.0,
+        "total": 948.0,
+        "live": 795.0
+      },
+      "internal_arena": {
+        "reset": 61.0,
+        "controls": 3.0,
+        "prepare": 35.0,
+        "dsp": 783.0,
+        "pcm": 24.0,
+        "total": 908.0,
+        "live": 792.0
+      },
+      "larger_caches": {
+        "reset": 88.0,
+        "controls": 2.0,
+        "prepare": 35.0,
+        "dsp": 779.0,
+        "pcm": 25.0,
+        "total": 930.0,
+        "live": 791.0
+      },
+      "live_reduction_percent": 10.11
+    },
+    {
+      "model": 2,
+      "baseline": {
+        "reset": 2189.0,
+        "controls": 7.0,
+        "prepare": 2263.0,
+        "dsp": 1500.0,
+        "pcm": 20.0,
+        "total": 5616.0,
+        "live": 1440.0
+      },
+      "iram": {
+        "reset": 2147.0,
+        "controls": 2.0,
+        "prepare": 75.0,
+        "dsp": 1153.0,
+        "pcm": 20.0,
+        "total": 3402.0,
+        "live": 1134.0
+      },
+      "internal_arena": {
+        "reset": 151.0,
+        "controls": 6.0,
+        "prepare": 45.0,
+        "dsp": 1049.0,
+        "pcm": 20.0,
+        "total": 1269.0,
+        "live": 1031.0
+      },
+      "larger_caches": {
+        "reset": 1517.0,
+        "controls": 2.0,
+        "prepare": 65.0,
+        "dsp": 1088.0,
+        "pcm": 25.0,
+        "total": 2696.0,
+        "live": 1054.0
+      },
+      "live_reduction_percent": 26.81
+    },
+    {
+      "model": 3,
+      "baseline": {
+        "reset": 452.0,
+        "controls": 9.0,
+        "prepare": 101.0,
+        "dsp": 731.0,
+        "pcm": 24.0,
+        "total": 1311.0,
+        "live": 686.0
+      },
+      "iram": {
+        "reset": 447.0,
+        "controls": 2.0,
+        "prepare": 34.0,
+        "dsp": 442.0,
+        "pcm": 24.0,
+        "total": 952.0,
+        "live": 453.0
+      },
+      "internal_arena": {
+        "reset": 81.0,
+        "controls": 3.0,
+        "prepare": 38.0,
+        "dsp": 442.0,
+        "pcm": 24.0,
+        "total": 586.0,
+        "live": 452.0
+      },
+      "larger_caches": {
+        "reset": 331.0,
+        "controls": 2.0,
+        "prepare": 37.0,
+        "dsp": 450.0,
+        "pcm": 20.0,
+        "total": 847.0,
+        "live": 450.0
+      },
+      "live_reduction_percent": 34.4
+    },
+    {
+      "model": 4,
+      "baseline": {
+        "reset": 69.0,
+        "controls": 7.0,
+        "prepare": 77.0,
+        "dsp": 872.0,
+        "pcm": 24.0,
+        "total": 1043.0,
+        "live": 807.0
+      },
+      "iram": {
+        "reset": 68.0,
+        "controls": 2.0,
+        "prepare": 39.0,
+        "dsp": 676.0,
+        "pcm": 25.0,
+        "total": 810.0,
+        "live": 568.0
+      },
+      "internal_arena": {
+        "reset": 63.0,
+        "controls": 5.0,
+        "prepare": 40.0,
+        "dsp": 677.0,
+        "pcm": 25.0,
+        "total": 805.0,
+        "live": 559.0
+      },
+      "larger_caches": {
+        "reset": 62.0,
+        "controls": 7.0,
+        "prepare": 39.0,
+        "dsp": 717.0,
+        "pcm": 20.0,
+        "total": 846.0,
+        "live": 580.0
+      },
+      "live_reduction_percent": 28.13
+    },
+    {
+      "model": 5,
+      "baseline": {
+        "reset": 2158.0,
+        "controls": 7.0,
+        "prepare": 2275.0,
+        "dsp": 1576.0,
+        "pcm": 24.0,
+        "total": 5598.0,
+        "live": 1438.0
+      },
+      "iram": {
+        "reset": 1952.0,
+        "controls": 7.0,
+        "prepare": 83.0,
+        "dsp": 1210.0,
+        "pcm": 20.0,
+        "total": 3271.0,
+        "live": 1130.0
+      },
+      "internal_arena": {
+        "reset": 148.0,
+        "controls": 4.0,
+        "prepare": 46.0,
+        "dsp": 1059.0,
+        "pcm": 20.0,
+        "total": 1280.0,
+        "live": 1028.0
+      },
+      "larger_caches": {
+        "reset": 1407.0,
+        "controls": 7.0,
+        "prepare": 66.0,
+        "dsp": 1112.0,
+        "pcm": 20.0,
+        "total": 2618.0,
+        "live": 1049.0
+      },
+      "live_reduction_percent": 27.05
+    },
+    {
+      "model": 6,
+      "baseline": {
+        "reset": 1808.0,
+        "controls": 8.0,
+        "prepare": 1991.0,
+        "dsp": 1760.0,
+        "pcm": 25.0,
+        "total": 5071.0,
+        "live": 1590.0
+      },
+      "iram": {
+        "reset": 1674.0,
+        "controls": 2.0,
+        "prepare": 52.0,
+        "dsp": 1194.0,
+        "pcm": 25.0,
+        "total": 2925.0,
+        "live": 1167.0
+      },
+      "internal_arena": {
+        "reset": 134.0,
+        "controls": 4.0,
+        "prepare": 34.0,
+        "dsp": 1135.0,
+        "pcm": 20.0,
+        "total": 1329.0,
+        "live": 1139.0
+      },
+      "larger_caches": {
+        "reset": 1209.0,
+        "controls": 7.0,
+        "prepare": 47.0,
+        "dsp": 1157.0,
+        "pcm": 25.0,
+        "total": 2445.0,
+        "live": 1143.0
+      },
+      "live_reduction_percent": 28.11
+    }
+  ],
+  "live_exercises": [
+    {
+      "patch": "rings-1",
+      "combined_max_us": 1184,
+      "within_block_deadline": true,
+      "within_70_percent_margin": false,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "rings-2",
+      "combined_max_us": 1578,
+      "within_block_deadline": false,
+      "within_70_percent_margin": false,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "rings-3",
+      "combined_max_us": 920,
+      "within_block_deadline": true,
+      "within_70_percent_margin": true,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "rings-4",
+      "combined_max_us": 1058,
+      "within_block_deadline": true,
+      "within_70_percent_margin": false,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "rings-5",
+      "combined_max_us": 1644,
+      "within_block_deadline": false,
+      "within_70_percent_margin": false,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "rings-6",
+      "combined_max_us": 1606,
+      "within_block_deadline": false,
+      "within_70_percent_margin": false,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "filtered",
+      "combined_max_us": 738,
+      "within_block_deadline": true,
+      "within_70_percent_margin": true,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "phase-fm",
+      "combined_max_us": 663,
+      "within_block_deadline": true,
+      "within_70_percent_margin": true,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    },
+    {
+      "patch": "additive",
+      "combined_max_us": 731,
+      "within_block_deadline": true,
+      "within_70_percent_margin": true,
+      "output_checks_passed": true,
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    }
+  ],
+  "minimum": {
+    "internal_min": 47715,
+    "internal_largest": 38912,
+    "stack_free_bytes": 8280,
+    "controls_stack_free_bytes": 11760
+  },
+  "matrix_graphs": 26,
+  "matrix_cases": 7280,
+  "long_graphs": 24,
+  "long_blocks_per_graph": 8192,
+  "master_delay_echo_windows": {
+    "passed": true,
+    "max_float_error": 0.0,
+    "limit": 1e-06,
+    "samples": 1024,
+    "times": [
+      0.02,
+      0.35,
+      1,
+      5
+    ]
+  },
+  "long_capture_grades": [
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform",
+    "waveform"
+  ],
+  "live_exercise_seconds": 270,
+  "saved_packages_unchanged": true,
+  "saved_library_unchanged": true,
+  "full_synth_arena_bytes": 1048576,
+  "fixes": [
+    "Bound Rings initialization avoids redundant whole-arena clearing; standalone oracle initializer retains its original contract",
+    "Reserve large internal allocations and task stacks before display/NVS startup; optional arena can fall back to PSRAM",
+    "LVGL task requests internal byte-addressable RAM including the reserved internal pool",
+    "Exercise reports attribute cumulative error-counter increments to the patch that caused them"
+  ],
+  "limits": [
+    "Moving-control Rings workloads remain separately graded; no blanket real-time qualification",
+    "Original raw-fixture timing excludes the master effect and normal UI exercise",
+    "Digital timing/counter checks do not establish physical continuity, clock accuracy or audible quality",
+    "Intermittent USB software-reset behavior is not claimed generally fixed"
+  ]
+}

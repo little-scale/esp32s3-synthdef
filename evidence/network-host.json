@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "hardware": false,
+  "audio_playback": false,
+  "tests": [
+    {
+      "suite": "network",
+      "count": 12,
+      "passed": true
+    },
+    {
+      "suite": "studio",
+      "count": 31,
+      "passed": true
+    }
+  ]
+}

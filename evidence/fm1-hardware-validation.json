@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "build_id": "7a796e945d522a3952d67d87d6de73f963c07f76584f702f149fe33ce3cf674c",
+  "policy": "fm1-compat-v1",
+  "flashed": true,
+  "user_authorized_hardware": true,
+  "user_authorized_playback": true,
+  "ugen_hardware_scope": "Specific graphs, all 73 audio-rate operator selectors, and the full synth arena; not all 154 UGen configurations",
+  "operator_selectors": {
+    "unary": 33,
+    "binary": 40
+  },
+  "muted_matrix_cases": 2240,
+  "mono_pcm_samples_compared": 430080,
+  "operator_pcm_samples_compared": 107520,
+  "operator_max_pcm_step_error": 0,
+  "max_existing_patch_or_full_arena_pcm_step_error": 1,
+  "live_exercise_maximum_us": {
+    "filtered": 956,
+    "phase-fm": 832,
+    "additive": 932
+  },
+  "live_exercise_seconds_per_patch": 30,
+  "live_exercise_rounds_per_patch": 1,
+  "reported_output_and_timing_checks_passed": true,
+  "user_listening_feedback": "User confirmed Filtered Tone, Phase FM and Harmonic Mix sounded clean and stopped.",
+  "library_unchanged": true,
+  "final_slot": 1,
+  "final_state": "Mac Sine restored, original delay settings restored, Panic requested",
+  "reports": [
+    "fm1-device-startup.json",
+    "fm1-device-smoke.json",
+    "fm1-device-synth-memory.json"
+  ],
+  "remaining": [
+    "Other UGen/rate combinations on hardware",
+    "Longer soak and broader workload qualification",
+    "External latency/clock/continuity measurement"
+  ]
+}

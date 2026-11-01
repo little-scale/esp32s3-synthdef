@@ -1,0 +1,27 @@
+{
+  "firmware_build": "3e8d398ee10a11f461676bb5365f91989fc435459dabc050ea1f64dd4ff7e5d2",
+  "physical_visual_confirmation": false,
+  "main": {
+    "graph_sha256": "c132d0d9fcac648feb0a55478ac86c6094311a1252d1768dc228fa715a2a0c5a",
+    "source_sha256": "019b4c7540a048856b91ea886b9faf0e2d0a152a16fa2369815a0000ab8ba7ba",
+    "package_and_live_controls_preserved": true
+  },
+  "fx": {
+    "graph_sha256": "1e29d48399a444e52cf0e8946b8b9851635b456ae598067de88092bb0e64b490",
+    "source_sha256": "c06807284eb3898f6c3e1520cb41118ab1b9069367a3fb8e3f395c2e9eed39f5",
+    "package_and_live_controls_preserved": true
+  },
+  "device_id": "esp32-2884853ad390",
+  "device_name": "AMOLED-3ad390",
+  "wifi_rssi_dbm": -93,
+  "read_only_queries_do_not_signal": true,
+  "valid_frame_signals": true,
+  "live_set_signals": true,
+  "duplicate_frame_signals": true,
+  "malformed_crc_does_not_signal": true,
+  "receive_pulse_ms": 140,
+  "volume_preserved_percent": 100,
+  "host_layout": "real LVGL snapshots and green pixel assertions passed",
+  "host_network_control_tests": 21,
+  "passed": true
+}

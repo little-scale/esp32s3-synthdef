@@ -1,0 +1,154 @@
+{
+  "passed": true,
+  "hardware": true,
+  "physical_touch_tested": false,
+  "steps": [
+    {
+      "direction": ">",
+      "slot": 2,
+      "name": "Phase FM"
+    },
+    {
+      "direction": ">",
+      "slot": 3,
+      "name": "Harmonic Mix"
+    },
+    {
+      "direction": ">",
+      "slot": 4,
+      "name": "Filtered Tone"
+    },
+    {
+      "direction": ">",
+      "slot": 0,
+      "name": "Touch Sine"
+    },
+    {
+      "direction": "<",
+      "slot": 4,
+      "name": "Filtered Tone"
+    },
+    {
+      "direction": "<",
+      "slot": 3,
+      "name": "Harmonic Mix"
+    },
+    {
+      "direction": "<",
+      "slot": 2,
+      "name": "Phase FM"
+    },
+    {
+      "direction": "<",
+      "slot": 1,
+      "name": "Mac Sine"
+    },
+    {
+      "direction": "<",
+      "slot": 0,
+      "name": "Touch Sine"
+    },
+    {
+      "direction": "<",
+      "slot": 4,
+      "name": "Filtered Tone"
+    }
+  ],
+  "saved_patch_writes": false,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "17fd9d362ccb8dbc952f5ab38c3a8abd1e298f95d24793467685c94e56ab81c2",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "910203396f326e96cacb30aad6f564b28d8876c936cac51661af88743f5912c2",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12452361,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "initial_packages": {
+    "0": {
+      "graph": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5",
+      "source": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "metadata": "546f7563682053696e65000000000000000000000000000000000000000000005049544348000000000000004c4556454c0000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "1": {
+      "graph": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448",
+      "source": "b968bdb3d0a301d9a689c8ff96f2919b981e6742c21a64283e11bc1b8ce964c8",
+      "metadata": "4d61632053696e650000000000000000000000000000000000000000000000005049544348000000000000004c4556454c0000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "2": {
+      "graph": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
+      "source": "6377946caa7fc7aaa26a33f9bada2dc32fcdc5c3c0cb8a5b033263fb8678a78f",
+      "metadata": "506861736520464d000000000000000000000000000000000000000000000000504954434800000000000000494e4445580000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "3": {
+      "graph": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
+      "source": "61125e17070ace98985eb5a2f27aaf746f61d92c807da1d6ba174047b36a6622",
+      "metadata": "4861726d6f6e6963204d697800000000000000000000000000000000000000005049544348000000000000004841524d4f4e49435300000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "4": {
+      "graph": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a",
+      "source": "67ccfb8e8af74ba2f8fe4c5b2614ebcd39ab760fb71e3df37378da130f914c23",
+      "metadata": "46696c746572656420546f6e65000000000000000000000000000000000000005049544348000000000000004355544f464600000000000041545441434b00000000000052454c45415345000000000001000000"
+    }
+  },
+  "code_after_navigation": "evidence/body-swipe-code.png",
+  "play_layout": "evidence/body-swipe-play.png",
+  "navigation_recovers_after_upload_rejection": true,
+  "counter_baseline": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "new_output_errors": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 1870690230,
+    "slot": 1,
+    "name": "Mac Sine",
+    "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+  }
+}

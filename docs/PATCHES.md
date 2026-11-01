@@ -1,10 +1,86 @@
-# Mac compilation and saved patches (M4)
+# Saved Main/FX packages and control protocol
 
-The Mac runs SuperCollider; the ESP32 loads and renders the compiled graph.
-The `catalog-voice-v2` policy retains the `simple-voice-v1` factory/Mac sine
-family and adds exact tested binaries for Phase FM, Harmonic Mix and Filtered Tone. The 154 compiled engine types are a separate fact: they are not all
-admitted for uploads or hardware-qualified. See `capabilities.json` for bounds.
-An accepted graph still needs workload-specific timing/listening checks.
+The current instrument has one writable Main package (slot 1), one writable FX
+package (master slot 1), and protected FX bypass (master 0). Sound 0 is a factory
+recovery fallback. Old sound files 2–8 remain archived on storage but are not
+selectable/writable in the normal UI. Use [STUDIO.md](STUDIO.md) for the browser
+and [SUPERCOLLIDER.md](SUPERCOLLIDER.md) for SC instances, parameters and patterns.
+
+## Saved definitions and running instances
+
+SC `.sendESP32` saves a definition without creating it. The package's definition
+flag is stored at manifest byte 157, bit 0. Those packages boot inactive; explicit
+`START` or the first note creates Main, with creation arguments applied before
+constructors. `STOP` frees the stage's instance. `FXSELECT` loads FX without
+creating it; explicit FX play can select it and then `START`. Initial-rate args
+are accepted during creation, while live set/note values require writable controls.
+
+Legacy/browser Main sound Functions retain `__esp32_autoplay=1` and their
+start-on-load/reboot behaviour. They do not require touch/gate input. Literal
+SynthDefs keep their authored controls and output routing. Managed definitions
+need not contain legacy freq/amp/gate/knob controls; a note event specifically
+requires a writable Main gate. Main and FX each retain two saved generations.
+
+## Package transport
+
+The line protocol is `@SD1 <request-hex> <operation> <payload-hex> <crc32>\n`.
+Request IDs and payload CRCs are checked; empty data uses `-`. Package manifests
+include transfer ID, graph/source lengths, independent SHA-256 hashes, display
+metadata and flags. Graph/source each fit 65,536 bytes; transfer chunks are 256
+bytes. The loader/admission policy is authoritative after transfer integrity.
+
+`BEGIN` / `FXBEGIN`, `DATA`, `COMMIT`, then `INSTALL` stage and install a package.
+`INSTALL` carries little-endian transfer ID (u32) and destination (u8), combining
+activation/save under one ownership handshake. `LIST` / `FXLIST`, `INFO` /
+`FXINFO`, and `READ` / `FXREAD` inspect the banks. Readback verifies saved bytes.
+`FXLOAD` selects Bypass/FX; the empty legacy `FX` operation queries old effect
+settings. `VOLUME` queries with no data or sets a one-byte percentage; `VOLSAVE`
+explicitly persists that level. Routine SC volume messages do not save to flash.
+
+USB and authenticated HTTP carry the same bounded frame protocol. Wi-Fi setup
+and pairing are USB-only. Concurrent transport ownership and transfer leases
+protect staging. Storage commits use generation records, not a whole-flash erase.
+The original source is archival text: its hash proves integrity, not independent
+source/binary correspondence when an already compiled graph is imported.
+
+## Scheduled controls and compact values
+
+`RCINFO` returns the current boot token, per-stage revision, controls/rates,
+queue state and device clock. `RCEVENT` has a 32-byte little-endian header:
+
+| Field | Bytes |
+| --- | ---: |
+| Boot token, revision, stream ID, sequence | 4 each |
+| Device timestamp, microseconds | 8 |
+| Note duration, microseconds | 4 |
+| Kind (set/note/cancel), stage, pair count, flags | 1 each |
+
+Each following pair is a one-byte control index plus float32 value (5 bytes).
+Gate is managed by note events and their duration, not sent as a note argument.
+A fixed 16-event queue and 32 stream records retain scheduling, cancellation,
+release ownership and stale/revision checks. Initial-rate/reserved/invalid values
+are rejected before application. Queued notes are not full scsynth polyphony.
+
+On `control_deltas: 1` firmware, flag bit 0 means changed values relative to that
+stream/stage's last accepted full argument set. The node expands a complete
+snapshot before queueing it, so another writer or a later baseline cannot alter
+the event. Zero changed values still enqueue/retrigger a note. A full event
+replaces the cached field set; removed args no longer reapply. Unknown flag bits
+and delta cancellation are rejected. Cache misses reply
+`{"queued":false,"need_full":true}` without consuming the event sequence, allowing
+one acknowledged full resend. Timeouts/unknown ACKs are not blindly retried.
+Legacy hosts send full packets; new hosts use full packets on older firmware.
+
+`START` / `STOP` use a 10-byte boot/revision/stage/count header plus creation
+pairs for START. Stage activation increments its revision and discards only its
+own pending events/baselines. Panic invalidates pending ownership. See the source
+headers and portable remote-control tests for exact bounds and accepted layouts.
+
+## Historical numbered-library implementation
+
+The remainder records earlier M4 library/catalog/delay workflows. Its references
+to PATCHES, eight sound slots, compact admission, required legacy controls and
+fixed delay UI are historical; use the current guides above for normal operation.
 
 ## Compile, upload and save
 
@@ -42,6 +118,31 @@ for that boot. The saved patch is retained. Load slot 0 to persist factory selec
 The uploader does not explicitly request a reset; native USB/host control-line
 behavior can still cause a reset when connecting. An interrupted unsaved upload
 is discarded on restart; the last saved selection remains available.
+
+## Historical shared master delay
+
+The DELAY page keeps the play pad visible and provides TIME (20 ms–5 s), FEEDBACK
+(0–80%) and WET (0–100%). SYNTH returns to the four patch controls. These are global
+effect settings and remain unchanged when recalling synth patches. SAVE DELAY
+stores them in the separate `wsynthfx` NVS namespace. Saving deliberately pauses
+audio and clears the echo tail, as patch maintenance does. PANIC stops notes and
+echoes; ordinary note release and retrigger preserve the tail.
+
+The effect is compiled from `examples/master-delay.scd` and runs once after the
+synth mix. Its 1 MiB ring is in PSRAM. Normal synth uploads still cannot allocate
+delay arenas; arbitrary effect uploads remain outside this version's admission.
+
+```sh
+python host/patches.py --port /dev/cu.usbmodem101 fx
+python host/patches.py --port /dev/cu.usbmodem101 fx --time 5 --feedback 0.5 --wet 0.35 --save
+```
+
+The wire operation `FX` queries settings with an empty payload or queues three
+little-endian float32 values: seconds, feedback fraction and wet fraction.
+`FXSAVE` stores the current desired settings through muted maintenance. Invalid or
+nonfinite values leave the prior settings unchanged. A setting acknowledgement
+means the latest values are queued for the audio owner; changes are smoothed by
+the effect graph.
 
 ## Qualified one-voice examples
 
@@ -84,8 +185,9 @@ image. It reuses only identical existing entries and finishes on Mac Sine.
 
 ## Ownership and activation
 
-Raw graph/source staging uses three preallocated PSRAM buffers. Two graphs reside
-in internal RAM; only one graph and one voice render. The service validates the
+Raw graph/source staging uses three preallocated PSRAM buffers. Compact synth
+graph buffers reside in internal RAM; the FM1 profile places graphs in PSRAM.
+One synth voice and the persistent effect render serially. The service validates the
 inactive graph with SHA-256, UTF-8 checks, the authoritative `fm_load` parser and
 the device admission policy. Invalid uploads leave the active graph unchanged.
 
@@ -187,3 +289,18 @@ resynchronization, and the legacy `!` always requests panic outside valid frames
 Saved record: `WSP1`, u32 schema=1, u32 generation, u32 combined payload length,
 160-byte manifest, graph, source, `DONE`, and u32 CRC32 over header plus payload.
 Exact file length, trailer, CRC, both SHA values and admission must all pass.
+
+
+## Global output volume and sound seeds
+
+`VOLUME` with an empty payload queries the percentage; a one-byte unsigned
+0–100 payload changes it. `VOLSAVE` saves the current value. Replies contain
+`percent`; values above 100 are rejected. HELLO advertises `global_volume`.
+The volume is separate from patch packages and is restored from wsynthfx NVS,
+with 100 as the default. Slider release requests a save; repeated live changes
+are coalesced, and the save retains source/FX state.
+
+STATUS also contains an unsigned 32-bit `seed` for the current sound start.
+Normal loads choose a fresh seed; the seed is not serialized into a saved slot.
+This changes Rand/noise results on restart while keeping the compiled graph fixed.
+Fixed language-generated constants, including Array.rand results, stay fixed.

@@ -1,9 +1,14 @@
 # Keep the admitted voice's kernels off the shared flash instruction cache.
-# The optional table-only experiment is disabled in the selected configuration;
-# lookup values, engine source, and the broader engine data remain unchanged.
+# Lookup values and rendering algorithms remain unchanged. The persistent-delay
+# preset retains the immutable table in flash.
 [mapping:synthdef_hot_data]
 archive: libsynthdef_engine.a
 entries:
+    if SYNTHDEF_INTERNAL_RINGS = y:
+        fm_render:rg_process (noflash_text)
+        fm_render:rings_render (noflash_text)
+        fm_render:rg_hermite (noflash_text)
+        fm_render:rg_fx_write (noflash_text)
     if SYNTHDEF_INTERNAL_SINE = y:
         fm_render:fm_sine (noflash_data)
     if SYNTHDEF_INTERNAL_KERNELS = y:
@@ -23,3 +28,5 @@ entries:
         fm_render:fm_prepare (noflash_text)
         fm_render:fm_render_input (noflash_text)
         fm_render:fm_render (noflash_text)
+        fm_render:delay_render (noflash_text)
+        fm_render:unary (noflash_text)

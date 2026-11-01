@@ -1,0 +1,1015 @@
+{
+  "phase": "after",
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "b11132eaf076454307a2a47884d12acab391e7bb500f877d3838c3eb6507366f",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "013f15e329aa2dfc367171d3bad5300d874c8bbc9164870daabdcd2d1a4984b1",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "continuous_blocks": true,
+    "master_slots": 2,
+    "atomic_install": true,
+    "global_volume": true,
+    "transports": [
+      "usb-serial-jtag",
+      "wifi-http"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12433034,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ],
+    "device_id": "esp32-2884853ad390",
+    "device_name": "AMOLED-3ad390",
+    "wifi_upload": true
+  },
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 2611038605,
+    "slot": 1,
+    "name": "SoundBlock",
+    "graph_sha256": "1004139e01892a92ae19c460f20d405aae6db08060159ac2e7a72396fa71af2c",
+    "continuous": true,
+    "seed": 3742473335
+  },
+  "volume": {
+    "percent": 21
+  },
+  "summary": {
+    "normal_dsp_us": 833.9680582682291,
+    "saw_us": 169.2810831705729
+  },
+  "runs": [
+    {
+      "status": {
+        "state": 3,
+        "reset_required": false,
+        "received": 0,
+        "transfer": 2611038605,
+        "slot": 1,
+        "name": "SoundBlock",
+        "graph_sha256": "1004139e01892a92ae19c460f20d405aae6db08060159ac2e7a72396fa71af2c",
+        "continuous": true,
+        "seed": 3742473335
+      },
+      "header": {
+        "graph": "SoundBlock",
+        "blocks": "1024",
+        "ready": "2",
+        "matched": "1",
+        "normal_cycles": "204837315",
+        "measured_cycles": "209206282",
+        "audio_hash": "215f5481"
+      },
+      "nodes": [
+        {
+          "index": 0,
+          "type": "Control",
+          "rate": 1,
+          "special": 0,
+          "cycles": 176178,
+          "calls": 1024
+        },
+        {
+          "index": 1,
+          "type": "LFNoise2",
+          "rate": 1,
+          "special": 0,
+          "cycles": 643421,
+          "calls": 1024
+        },
+        {
+          "index": 2,
+          "type": "BinaryOpUGen",
+          "rate": 1,
+          "special": 2,
+          "cycles": 430028,
+          "calls": 1024
+        },
+        {
+          "index": 3,
+          "type": "Lag",
+          "rate": 1,
+          "special": 0,
+          "cycles": 1084333,
+          "calls": 1024
+        },
+        {
+          "index": 4,
+          "type": "BinaryOpUGen",
+          "rate": 1,
+          "special": 0,
+          "cycles": 370993,
+          "calls": 1024
+        },
+        {
+          "index": 5,
+          "type": "Saw",
+          "rate": 2,
+          "special": 0,
+          "cycles": 30401891,
+          "calls": 1024
+        },
+        {
+          "index": 6,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1375913,
+          "calls": 1024
+        },
+        {
+          "index": 7,
+          "type": "Pan2",
+          "rate": 2,
+          "special": 0,
+          "cycles": 2325524,
+          "calls": 1024
+        },
+        {
+          "index": 8,
+          "type": "Saw",
+          "rate": 2,
+          "special": 0,
+          "cycles": 10895593,
+          "calls": 1024
+        },
+        {
+          "index": 9,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1300575,
+          "calls": 1024
+        },
+        {
+          "index": 10,
+          "type": "Pan2",
+          "rate": 2,
+          "special": 0,
+          "cycles": 2009285,
+          "calls": 1024
+        },
+        {
+          "index": 11,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1380674,
+          "calls": 1024
+        },
+        {
+          "index": 12,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1281614,
+          "calls": 1024
+        },
+        {
+          "index": 13,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1353787,
+          "calls": 1024
+        },
+        {
+          "index": 14,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1280676,
+          "calls": 1024
+        },
+        {
+          "index": 15,
+          "type": "SinOsc",
+          "rate": 1,
+          "special": 0,
+          "cycles": 390284,
+          "calls": 1024
+        },
+        {
+          "index": 16,
+          "type": "MulAdd",
+          "rate": 1,
+          "special": 0,
+          "cycles": 410578,
+          "calls": 1024
+        },
+        {
+          "index": 17,
+          "type": "Resonz",
+          "rate": 2,
+          "special": 0,
+          "cycles": 16879474,
+          "calls": 1024
+        },
+        {
+          "index": 18,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1313964,
+          "calls": 1024
+        },
+        {
+          "index": 19,
+          "type": "Resonz",
+          "rate": 2,
+          "special": 0,
+          "cycles": 16427302,
+          "calls": 1024
+        },
+        {
+          "index": 20,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1293274,
+          "calls": 1024
+        },
+        {
+          "index": 21,
+          "type": "MiVerb",
+          "rate": 2,
+          "special": 0,
+          "cycles": 111561882,
+          "calls": 1024
+        },
+        {
+          "index": 22,
+          "type": "Out",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1572075,
+          "calls": 1024
+        },
+        {
+          "index": 23,
+          "type": "Control",
+          "rate": 0,
+          "special": 2,
+          "cycles": 135024,
+          "calls": 1024
+        }
+      ],
+      "node_cycle_total": 206294342,
+      "by_type": [
+        {
+          "type": "MiVerb",
+          "cycles": 111561882,
+          "share_percent": 54.078982932067035,
+          "average_us_per_block_at_240mhz": 453.9464599609375
+        },
+        {
+          "type": "Saw",
+          "cycles": 41297484,
+          "share_percent": 20.01871869079182,
+          "average_us_per_block_at_240mhz": 168.039892578125
+        },
+        {
+          "type": "Resonz",
+          "cycles": 33306776,
+          "share_percent": 16.145268782989696,
+          "average_us_per_block_at_240mhz": 135.52561848958334
+        },
+        {
+          "type": "BinaryOpUGen",
+          "cycles": 11381498,
+          "share_percent": 5.517115927493542,
+          "average_us_per_block_at_240mhz": 46.31143391927083
+        },
+        {
+          "type": "Pan2",
+          "cycles": 4334809,
+          "share_percent": 2.101273819715327,
+          "average_us_per_block_at_240mhz": 17.638382975260416
+        },
+        {
+          "type": "Out",
+          "cycles": 1572075,
+          "share_percent": 0.7620543465995786,
+          "average_us_per_block_at_240mhz": 6.39678955078125
+        },
+        {
+          "type": "Lag",
+          "cycles": 1084333,
+          "share_percent": 0.525624207376468,
+          "average_us_per_block_at_240mhz": 4.412162272135417
+        },
+        {
+          "type": "LFNoise2",
+          "cycles": 643421,
+          "share_percent": 0.31189464226798813,
+          "average_us_per_block_at_240mhz": 2.618086751302083
+        },
+        {
+          "type": "MulAdd",
+          "cycles": 410578,
+          "share_percent": 0.1990253324543433,
+          "average_us_per_block_at_240mhz": 1.6706461588541666
+        },
+        {
+          "type": "SinOsc",
+          "cycles": 390284,
+          "share_percent": 0.189187932260401,
+          "average_us_per_block_at_240mhz": 1.5880696614583334
+        },
+        {
+          "type": "Control",
+          "cycles": 311202,
+          "share_percent": 0.1508533859837998,
+          "average_us_per_block_at_240mhz": 1.2662841796875
+        }
+      ],
+      "normal_average_us_at_240mhz": 833.4851684570312,
+      "notes": "Per-node shares include probe overhead in a separate renderer. Normal DSP has no timing probes. Audio, voice-state and delay-memory digests match the normal renderer.",
+      "lines": [
+        "UGEN_PROFILE graph=SoundBlock blocks=1024 ready=2 matched=1 normal_cycles=204837315 measured_cycles=209206282 audio_hash=215f5481",
+        "UGEN_NODE index=0 type=Control rate=1 special=0 cycles=176178 calls=1024",
+        "UGEN_NODE index=1 type=LFNoise2 rate=1 special=0 cycles=643421 calls=1024",
+        "UGEN_NODE index=2 type=BinaryOpUGen rate=1 special=2 cycles=430028 calls=1024",
+        "UGEN_NODE index=3 type=Lag rate=1 special=0 cycles=1084333 calls=1024",
+        "UGEN_NODE index=4 type=BinaryOpUGen rate=1 special=0 cycles=370993 calls=1024",
+        "UGEN_NODE index=5 type=Saw rate=2 special=0 cycles=30401891 calls=1024",
+        "UGEN_NODE index=6 type=BinaryOpUGen rate=2 special=2 cycles=1375913 calls=1024",
+        "UGEN_NODE index=7 type=Pan2 rate=2 special=0 cycles=2325524 calls=1024",
+        "UGEN_NODE index=8 type=Saw rate=2 special=0 cycles=10895593 calls=1024",
+        "UGEN_NODE index=9 type=BinaryOpUGen rate=2 special=2 cycles=1300575 calls=1024",
+        "UGEN_NODE index=10 type=Pan2 rate=2 special=0 cycles=2009285 calls=1024",
+        "UGEN_NODE index=11 type=BinaryOpUGen rate=2 special=0 cycles=1380674 calls=1024",
+        "UGEN_NODE index=12 type=BinaryOpUGen rate=2 special=2 cycles=1281614 calls=1024",
+        "UGEN_NODE index=13 type=BinaryOpUGen rate=2 special=0 cycles=1353787 calls=1024",
+        "UGEN_NODE index=14 type=BinaryOpUGen rate=2 special=2 cycles=1280676 calls=1024",
+        "UGEN_NODE index=15 type=SinOsc rate=1 special=0 cycles=390284 calls=1024",
+        "UGEN_NODE index=16 type=MulAdd rate=1 special=0 cycles=410578 calls=1024",
+        "UGEN_NODE index=17 type=Resonz rate=2 special=0 cycles=16879474 calls=1024",
+        "UGEN_NODE index=18 type=BinaryOpUGen rate=2 special=2 cycles=1313964 calls=1024",
+        "UGEN_NODE index=19 type=Resonz rate=2 special=0 cycles=16427302 calls=1024",
+        "UGEN_NODE index=20 type=BinaryOpUGen rate=2 special=2 cycles=1293274 calls=1024",
+        "UGEN_NODE index=21 type=MiVerb rate=2 special=0 cycles=111561882 calls=1024",
+        "UGEN_NODE index=22 type=Out rate=2 special=0 cycles=1572075 calls=1024",
+        "UGEN_NODE index=23 type=Control rate=0 special=2 cycles=135024 calls=1024",
+        "UGEN_END"
+      ]
+    },
+    {
+      "status": {
+        "state": 3,
+        "reset_required": false,
+        "received": 0,
+        "transfer": 2611038605,
+        "slot": 1,
+        "name": "SoundBlock",
+        "graph_sha256": "1004139e01892a92ae19c460f20d405aae6db08060159ac2e7a72396fa71af2c",
+        "continuous": true,
+        "seed": 3742473335
+      },
+      "header": {
+        "graph": "SoundBlock",
+        "blocks": "1024",
+        "ready": "2",
+        "matched": "1",
+        "normal_cycles": "204955990",
+        "measured_cycles": "209411427",
+        "audio_hash": "2a11a316"
+      },
+      "nodes": [
+        {
+          "index": 0,
+          "type": "Control",
+          "rate": 1,
+          "special": 0,
+          "cycles": 175831,
+          "calls": 1024
+        },
+        {
+          "index": 1,
+          "type": "LFNoise2",
+          "rate": 1,
+          "special": 0,
+          "cycles": 624620,
+          "calls": 1024
+        },
+        {
+          "index": 2,
+          "type": "BinaryOpUGen",
+          "rate": 1,
+          "special": 2,
+          "cycles": 415694,
+          "calls": 1024
+        },
+        {
+          "index": 3,
+          "type": "Lag",
+          "rate": 1,
+          "special": 0,
+          "cycles": 1065102,
+          "calls": 1024
+        },
+        {
+          "index": 4,
+          "type": "BinaryOpUGen",
+          "rate": 1,
+          "special": 0,
+          "cycles": 365357,
+          "calls": 1024
+        },
+        {
+          "index": 5,
+          "type": "Saw",
+          "rate": 2,
+          "special": 0,
+          "cycles": 30685989,
+          "calls": 1024
+        },
+        {
+          "index": 6,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1375025,
+          "calls": 1024
+        },
+        {
+          "index": 7,
+          "type": "Pan2",
+          "rate": 2,
+          "special": 0,
+          "cycles": 2315615,
+          "calls": 1024
+        },
+        {
+          "index": 8,
+          "type": "Saw",
+          "rate": 2,
+          "special": 0,
+          "cycles": 10916530,
+          "calls": 1024
+        },
+        {
+          "index": 9,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1301997,
+          "calls": 1024
+        },
+        {
+          "index": 10,
+          "type": "Pan2",
+          "rate": 2,
+          "special": 0,
+          "cycles": 2011696,
+          "calls": 1024
+        },
+        {
+          "index": 11,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1381918,
+          "calls": 1024
+        },
+        {
+          "index": 12,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1288877,
+          "calls": 1024
+        },
+        {
+          "index": 13,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1356918,
+          "calls": 1024
+        },
+        {
+          "index": 14,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1286607,
+          "calls": 1024
+        },
+        {
+          "index": 15,
+          "type": "SinOsc",
+          "rate": 1,
+          "special": 0,
+          "cycles": 391314,
+          "calls": 1024
+        },
+        {
+          "index": 16,
+          "type": "MulAdd",
+          "rate": 1,
+          "special": 0,
+          "cycles": 412374,
+          "calls": 1024
+        },
+        {
+          "index": 17,
+          "type": "Resonz",
+          "rate": 2,
+          "special": 0,
+          "cycles": 16848617,
+          "calls": 1024
+        },
+        {
+          "index": 18,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1309424,
+          "calls": 1024
+        },
+        {
+          "index": 19,
+          "type": "Resonz",
+          "rate": 2,
+          "special": 0,
+          "cycles": 16450937,
+          "calls": 1024
+        },
+        {
+          "index": 20,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1297859,
+          "calls": 1024
+        },
+        {
+          "index": 21,
+          "type": "MiVerb",
+          "rate": 2,
+          "special": 0,
+          "cycles": 111522206,
+          "calls": 1024
+        },
+        {
+          "index": 22,
+          "type": "Out",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1569949,
+          "calls": 1024
+        },
+        {
+          "index": 23,
+          "type": "Control",
+          "rate": 0,
+          "special": 2,
+          "cycles": 135616,
+          "calls": 1024
+        }
+      ],
+      "node_cycle_total": 206506072,
+      "by_type": [
+        {
+          "type": "MiVerb",
+          "cycles": 111522206,
+          "share_percent": 54.0043229334196,
+          "average_us_per_block_at_240mhz": 453.78501790364584
+        },
+        {
+          "type": "Saw",
+          "cycles": 41602519,
+          "share_percent": 20.145905927647494,
+          "average_us_per_block_at_240mhz": 169.2810831705729
+        },
+        {
+          "type": "Resonz",
+          "cycles": 33299554,
+          "share_percent": 16.125217858000806,
+          "average_us_per_block_at_240mhz": 135.49623209635416
+        },
+        {
+          "type": "BinaryOpUGen",
+          "cycles": 11379676,
+          "share_percent": 5.510576948071532,
+          "average_us_per_block_at_240mhz": 46.304020182291666
+        },
+        {
+          "type": "Pan2",
+          "cycles": 4327311,
+          "share_percent": 2.0954885045704614,
+          "average_us_per_block_at_240mhz": 17.60787353515625
+        },
+        {
+          "type": "Out",
+          "cycles": 1569949,
+          "share_percent": 0.760243505091705,
+          "average_us_per_block_at_240mhz": 6.388138834635416
+        },
+        {
+          "type": "Lag",
+          "cycles": 1065102,
+          "share_percent": 0.5157727274963615,
+          "average_us_per_block_at_240mhz": 4.3339111328125
+        },
+        {
+          "type": "LFNoise2",
+          "cycles": 624620,
+          "share_percent": 0.302470524934492,
+          "average_us_per_block_at_240mhz": 2.5415852864583335
+        },
+        {
+          "type": "MulAdd",
+          "cycles": 412374,
+          "share_percent": 0.1996909805150911,
+          "average_us_per_block_at_240mhz": 1.6779541015625
+        },
+        {
+          "type": "SinOsc",
+          "cycles": 391314,
+          "share_percent": 0.18949273317251417,
+          "average_us_per_block_at_240mhz": 1.5922607421875
+        },
+        {
+          "type": "Control",
+          "cycles": 311447,
+          "share_percent": 0.15081735707994098,
+          "average_us_per_block_at_240mhz": 1.2672810872395834
+        }
+      ],
+      "normal_average_us_at_240mhz": 833.9680582682291,
+      "notes": "Per-node shares include probe overhead in a separate renderer. Normal DSP has no timing probes. Audio, voice-state and delay-memory digests match the normal renderer.",
+      "lines": [
+        "UGEN_PROFILE graph=SoundBlock blocks=1024 ready=2 matched=1 normal_cycles=204955990 measured_cycles=209411427 audio_hash=2a11a316",
+        "UGEN_NODE index=0 type=Control rate=1 special=0 cycles=175831 calls=1024",
+        "UGEN_NODE index=1 type=LFNoise2 rate=1 special=0 cycles=624620 calls=1024",
+        "UGEN_NODE index=2 type=BinaryOpUGen rate=1 special=2 cycles=415694 calls=1024",
+        "UGEN_NODE index=3 type=Lag rate=1 special=0 cycles=1065102 calls=1024",
+        "UGEN_NODE index=4 type=BinaryOpUGen rate=1 special=0 cycles=365357 calls=1024",
+        "UGEN_NODE index=5 type=Saw rate=2 special=0 cycles=30685989 calls=1024",
+        "UGEN_NODE index=6 type=BinaryOpUGen rate=2 special=2 cycles=1375025 calls=1024",
+        "UGEN_NODE index=7 type=Pan2 rate=2 special=0 cycles=2315615 calls=1024",
+        "UGEN_NODE index=8 type=Saw rate=2 special=0 cycles=10916530 calls=1024",
+        "UGEN_NODE index=9 type=BinaryOpUGen rate=2 special=2 cycles=1301997 calls=1024",
+        "UGEN_NODE index=10 type=Pan2 rate=2 special=0 cycles=2011696 calls=1024",
+        "UGEN_NODE index=11 type=BinaryOpUGen rate=2 special=0 cycles=1381918 calls=1024",
+        "UGEN_NODE index=12 type=BinaryOpUGen rate=2 special=2 cycles=1288877 calls=1024",
+        "UGEN_NODE index=13 type=BinaryOpUGen rate=2 special=0 cycles=1356918 calls=1024",
+        "UGEN_NODE index=14 type=BinaryOpUGen rate=2 special=2 cycles=1286607 calls=1024",
+        "UGEN_NODE index=15 type=SinOsc rate=1 special=0 cycles=391314 calls=1024",
+        "UGEN_NODE index=16 type=MulAdd rate=1 special=0 cycles=412374 calls=1024",
+        "UGEN_NODE index=17 type=Resonz rate=2 special=0 cycles=16848617 calls=1024",
+        "UGEN_NODE index=18 type=BinaryOpUGen rate=2 special=2 cycles=1309424 calls=1024",
+        "UGEN_NODE index=19 type=Resonz rate=2 special=0 cycles=16450937 calls=1024",
+        "UGEN_NODE index=20 type=BinaryOpUGen rate=2 special=2 cycles=1297859 calls=1024",
+        "UGEN_NODE index=21 type=MiVerb rate=2 special=0 cycles=111522206 calls=1024",
+        "UGEN_NODE index=22 type=Out rate=2 special=0 cycles=1569949 calls=1024",
+        "UGEN_NODE index=23 type=Control rate=0 special=2 cycles=135616 calls=1024",
+        "UGEN_END"
+      ]
+    },
+    {
+      "status": {
+        "state": 3,
+        "reset_required": false,
+        "received": 0,
+        "transfer": 2611038605,
+        "slot": 1,
+        "name": "SoundBlock",
+        "graph_sha256": "1004139e01892a92ae19c460f20d405aae6db08060159ac2e7a72396fa71af2c",
+        "continuous": true,
+        "seed": 3742473335
+      },
+      "header": {
+        "graph": "SoundBlock",
+        "blocks": "1024",
+        "ready": "2",
+        "matched": "1",
+        "normal_cycles": "205468679",
+        "measured_cycles": "209388563",
+        "audio_hash": "f9ea2210"
+      },
+      "nodes": [
+        {
+          "index": 0,
+          "type": "Control",
+          "rate": 1,
+          "special": 0,
+          "cycles": 176068,
+          "calls": 1024
+        },
+        {
+          "index": 1,
+          "type": "LFNoise2",
+          "rate": 1,
+          "special": 0,
+          "cycles": 603315,
+          "calls": 1024
+        },
+        {
+          "index": 2,
+          "type": "BinaryOpUGen",
+          "rate": 1,
+          "special": 2,
+          "cycles": 412680,
+          "calls": 1024
+        },
+        {
+          "index": 3,
+          "type": "Lag",
+          "rate": 1,
+          "special": 0,
+          "cycles": 1029326,
+          "calls": 1024
+        },
+        {
+          "index": 4,
+          "type": "BinaryOpUGen",
+          "rate": 1,
+          "special": 0,
+          "cycles": 355415,
+          "calls": 1024
+        },
+        {
+          "index": 5,
+          "type": "Saw",
+          "rate": 2,
+          "special": 0,
+          "cycles": 31003884,
+          "calls": 1024
+        },
+        {
+          "index": 6,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1366222,
+          "calls": 1024
+        },
+        {
+          "index": 7,
+          "type": "Pan2",
+          "rate": 2,
+          "special": 0,
+          "cycles": 2300046,
+          "calls": 1024
+        },
+        {
+          "index": 8,
+          "type": "Saw",
+          "rate": 2,
+          "special": 0,
+          "cycles": 10904505,
+          "calls": 1024
+        },
+        {
+          "index": 9,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1303841,
+          "calls": 1024
+        },
+        {
+          "index": 10,
+          "type": "Pan2",
+          "rate": 2,
+          "special": 0,
+          "cycles": 2016344,
+          "calls": 1024
+        },
+        {
+          "index": 11,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1379637,
+          "calls": 1024
+        },
+        {
+          "index": 12,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1285529,
+          "calls": 1024
+        },
+        {
+          "index": 13,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1358381,
+          "calls": 1024
+        },
+        {
+          "index": 14,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1285366,
+          "calls": 1024
+        },
+        {
+          "index": 15,
+          "type": "SinOsc",
+          "rate": 1,
+          "special": 0,
+          "cycles": 366998,
+          "calls": 1024
+        },
+        {
+          "index": 16,
+          "type": "MulAdd",
+          "rate": 1,
+          "special": 0,
+          "cycles": 397184,
+          "calls": 1024
+        },
+        {
+          "index": 17,
+          "type": "Resonz",
+          "rate": 2,
+          "special": 0,
+          "cycles": 16810072,
+          "calls": 1024
+        },
+        {
+          "index": 18,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1298120,
+          "calls": 1024
+        },
+        {
+          "index": 19,
+          "type": "Resonz",
+          "rate": 2,
+          "special": 0,
+          "cycles": 16406807,
+          "calls": 1024
+        },
+        {
+          "index": 20,
+          "type": "BinaryOpUGen",
+          "rate": 2,
+          "special": 2,
+          "cycles": 1298375,
+          "calls": 1024
+        },
+        {
+          "index": 21,
+          "type": "MiVerb",
+          "rate": 2,
+          "special": 0,
+          "cycles": 111435645,
+          "calls": 1024
+        },
+        {
+          "index": 22,
+          "type": "Out",
+          "rate": 2,
+          "special": 0,
+          "cycles": 1561361,
+          "calls": 1024
+        },
+        {
+          "index": 23,
+          "type": "Control",
+          "rate": 0,
+          "special": 2,
+          "cycles": 133786,
+          "calls": 1024
+        }
+      ],
+      "node_cycle_total": 206488907,
+      "by_type": [
+        {
+          "type": "MiVerb",
+          "cycles": 111435645,
+          "share_percent": 53.96689179046311,
+          "average_us_per_block_at_240mhz": 453.43280029296875
+        },
+        {
+          "type": "Saw",
+          "cycles": 41908389,
+          "share_percent": 20.295709638290642,
+          "average_us_per_block_at_240mhz": 170.52567138671876
+        },
+        {
+          "type": "Resonz",
+          "cycles": 33216879,
+          "share_percent": 16.086519843896504,
+          "average_us_per_block_at_240mhz": 135.15982666015626
+        },
+        {
+          "type": "BinaryOpUGen",
+          "cycles": 11343566,
+          "share_percent": 5.493547408820368,
+          "average_us_per_block_at_240mhz": 46.15708821614583
+        },
+        {
+          "type": "Pan2",
+          "cycles": 4316390,
+          "share_percent": 2.090373794268764,
+          "average_us_per_block_at_240mhz": 17.563435872395832
+        },
+        {
+          "type": "Out",
+          "cycles": 1561361,
+          "share_percent": 0.756147641383951,
+          "average_us_per_block_at_240mhz": 6.353194173177084
+        },
+        {
+          "type": "Lag",
+          "cycles": 1029326,
+          "share_percent": 0.4984897324290646,
+          "average_us_per_block_at_240mhz": 4.188338216145834
+        },
+        {
+          "type": "LFNoise2",
+          "cycles": 603315,
+          "share_percent": 0.29217792314625407,
+          "average_us_per_block_at_240mhz": 2.45489501953125
+        },
+        {
+          "type": "MulAdd",
+          "cycles": 397184,
+          "share_percent": 0.19235125303849857,
+          "average_us_per_block_at_240mhz": 1.6161458333333334
+        },
+        {
+          "type": "SinOsc",
+          "cycles": 366998,
+          "share_percent": 0.17773255005897243,
+          "average_us_per_block_at_240mhz": 1.4933186848958333
+        },
+        {
+          "type": "Control",
+          "cycles": 309854,
+          "share_percent": 0.1500584242038726,
+          "average_us_per_block_at_240mhz": 1.2607991536458334
+        }
+      ],
+      "normal_average_us_at_240mhz": 836.0541951497396,
+      "notes": "Per-node shares include probe overhead in a separate renderer. Normal DSP has no timing probes. Audio, voice-state and delay-memory digests match the normal renderer.",
+      "lines": [
+        "UGEN_PROFILE graph=SoundBlock blocks=1024 ready=2 matched=1 normal_cycles=205468679 measured_cycles=209388563 audio_hash=f9ea2210",
+        "UGEN_NODE index=0 type=Control rate=1 special=0 cycles=176068 calls=1024",
+        "UGEN_NODE index=1 type=LFNoise2 rate=1 special=0 cycles=603315 calls=1024",
+        "UGEN_NODE index=2 type=BinaryOpUGen rate=1 special=2 cycles=412680 calls=1024",
+        "UGEN_NODE index=3 type=Lag rate=1 special=0 cycles=1029326 calls=1024",
+        "UGEN_NODE index=4 type=BinaryOpUGen rate=1 special=0 cycles=355415 calls=1024",
+        "UGEN_NODE index=5 type=Saw rate=2 special=0 cycles=31003884 calls=1024",
+        "UGEN_NODE index=6 type=BinaryOpUGen rate=2 special=2 cycles=1366222 calls=1024",
+        "UGEN_NODE index=7 type=Pan2 rate=2 special=0 cycles=2300046 calls=1024",
+        "UGEN_NODE index=8 type=Saw rate=2 special=0 cycles=10904505 calls=1024",
+        "UGEN_NODE index=9 type=BinaryOpUGen rate=2 special=2 cycles=1303841 calls=1024",
+        "UGEN_NODE index=10 type=Pan2 rate=2 special=0 cycles=2016344 calls=1024",
+        "UGEN_NODE index=11 type=BinaryOpUGen rate=2 special=0 cycles=1379637 calls=1024",
+        "UGEN_NODE index=12 type=BinaryOpUGen rate=2 special=2 cycles=1285529 calls=1024",
+        "UGEN_NODE index=13 type=BinaryOpUGen rate=2 special=0 cycles=1358381 calls=1024",
+        "UGEN_NODE index=14 type=BinaryOpUGen rate=2 special=2 cycles=1285366 calls=1024",
+        "UGEN_NODE index=15 type=SinOsc rate=1 special=0 cycles=366998 calls=1024",
+        "UGEN_NODE index=16 type=MulAdd rate=1 special=0 cycles=397184 calls=1024",
+        "UGEN_NODE index=17 type=Resonz rate=2 special=0 cycles=16810072 calls=1024",
+        "UGEN_NODE index=18 type=BinaryOpUGen rate=2 special=2 cycles=1298120 calls=1024",
+        "UGEN_NODE index=19 type=Resonz rate=2 special=0 cycles=16406807 calls=1024",
+        "UGEN_NODE index=20 type=BinaryOpUGen rate=2 special=2 cycles=1298375 calls=1024",
+        "UGEN_NODE index=21 type=MiVerb rate=2 special=0 cycles=111435645 calls=1024",
+        "UGEN_NODE index=22 type=Out rate=2 special=0 cycles=1561361 calls=1024",
+        "UGEN_NODE index=23 type=Control rate=0 special=2 cycles=133786 calls=1024",
+        "UGEN_END"
+      ]
+    }
+  ]
+}

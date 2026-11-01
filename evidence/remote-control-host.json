@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "hardware": false,
+  "details": "PASS: delta/full PCM identity with interleaved future events, trigger replay, field removal, baseline recovery, queue rollback and stage invalidation; definition silence, explicit instance creation/free and stale creation rejection; atomic controls, scheduling, release ownership, cancellation, revisions, Panic and queue bounds; 300 rendered EnvGen retriggers; state=24968 bytes, snapshot=512 bytes"
+}

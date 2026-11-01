@@ -1,0 +1,226 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "m10_Gendy1_ar_dist1",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 0.9999885575751435,
+      "sd_ratio": 0.9999885674369148,
+      "roughness_ratio": 1.0000047916842976,
+      "normalized_mean_error": 3.3293444051883116e-06,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy1_ar_dist4",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 0.9999976593353455,
+      "sd_ratio": 0.9999977181264945,
+      "roughness_ratio": 0.9999792525727851,
+      "normalized_mean_error": 4.314694420984775e-06,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy1_ar_dist5",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 0.9999916725065798,
+      "sd_ratio": 1.0000136875812768,
+      "roughness_ratio": 0.9999763695769244,
+      "normalized_mean_error": 1.2152983299851106e-05,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy1_defaults",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0000060560973076,
+      "sd_ratio": 1.0000081085161985,
+      "roughness_ratio": 0.9999468517006835,
+      "normalized_mean_error": 2.9744859724220663e-05,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_cp2",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0050967992698663,
+      "sd_ratio": 1.0027872239544653,
+      "roughness_ratio": 1.0076515167645612,
+      "normalized_mean_error": 0.005048072871962993,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_cp64",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0053858052308116,
+      "sd_ratio": 0.9671699550475755,
+      "roughness_ratio": 0.9752708996924422,
+      "normalized_mean_error": 0.011605009079133808,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_dist0",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0165639485863815,
+      "sd_ratio": 0.9844743739555958,
+      "roughness_ratio": 0.9848306078471122,
+      "normalized_mean_error": 0.02101489525218188,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_dist1",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0079851670258235,
+      "sd_ratio": 0.9870051257557956,
+      "roughness_ratio": 0.9677661788229227,
+      "normalized_mean_error": 0.014824572754557055,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_dist2",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.009514002594402,
+      "sd_ratio": 1.0095171230488036,
+      "roughness_ratio": 0.9972931701238544,
+      "normalized_mean_error": 0.008266178830564906,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_dist3",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0072558522372375,
+      "sd_ratio": 0.9720888052554227,
+      "roughness_ratio": 0.9773682886262283,
+      "normalized_mean_error": 0.009671638287200478,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_dist4",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0027637353365781,
+      "sd_ratio": 0.9646230813519902,
+      "roughness_ratio": 0.9509985124147173,
+      "normalized_mean_error": 0.007911540534801585,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_dist5",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 0.9953118929313981,
+      "sd_ratio": 1.0487230605864475,
+      "roughness_ratio": 1.0447958770912535,
+      "normalized_mean_error": 0.008831023724094068,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_ar_dist6",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 0.999999442230127,
+      "sd_ratio": 1.0000008686913966,
+      "roughness_ratio": 0.9999965425366146,
+      "normalized_mean_error": 5.948455337834898e-07,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_defaults",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0047759122148519,
+      "sd_ratio": 0.995378689358564,
+      "roughness_ratio": 0.9884820683627825,
+      "normalized_mean_error": 0.007911776106804519,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_kr_cp64",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0162904131135244,
+      "sd_ratio": 0.9252541262860873,
+      "roughness_ratio": 0.9374632648704344,
+      "normalized_mean_error": 0.048002200257740935,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_kr_dist0",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0734793800353815,
+      "sd_ratio": 1.0053320489065063,
+      "roughness_ratio": 0.9580321599804829,
+      "normalized_mean_error": 0.08377263345888387,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_kr_dist1",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0000762756908415,
+      "sd_ratio": 1.0004143373987897,
+      "roughness_ratio": 1.0003814441339496,
+      "normalized_mean_error": 0.00014528704545735177,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_kr_dist2",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0086657068842855,
+      "sd_ratio": 0.9947274888649696,
+      "roughness_ratio": 1.0103930159621646,
+      "normalized_mean_error": 0.013441725685882058,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_kr_dist3",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 0.9999368796204401,
+      "sd_ratio": 0.9999351998206905,
+      "roughness_ratio": 1.0000045269038569,
+      "normalized_mean_error": 5.563380852404623e-05,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_kr_dist4",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.0223304345611948,
+      "sd_ratio": 1.0453483367165337,
+      "roughness_ratio": 1.0198878255117243,
+      "normalized_mean_error": 0.015074808246761768,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy2_kr_dist5",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 1.000445722483594,
+      "sd_ratio": 1.0038053775446576,
+      "roughness_ratio": 0.9937574327819245,
+      "normalized_mean_error": 0.0004418083878089012,
+      "stochastic_passed": true
+    },
+    {
+      "id": "m10_Gendy3_defaults",
+      "samples": 1048576,
+      "comparison": "Extended Gendy statistical consistency, not original short-fixture waveform equivalence",
+      "rms_ratio": 0.9949715231701886,
+      "sd_ratio": 0.9937576625448102,
+      "roughness_ratio": 0.9879759048006704,
+      "normalized_mean_error": 6.848276777463533e-05,
+      "stochastic_passed": true
+    }
+  ],
+  "scope": "Full 11.89-second native-versus-SuperCollider recordings; distribution/roughness criteria use the pinned envelopes, explicitly extended to long Gendy traces. Statistical agreement is not waveform identity; identical-state transition oracles are covered separately by the host suite."
+}

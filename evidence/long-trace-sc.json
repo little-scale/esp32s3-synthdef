@@ -1,0 +1,2025 @@
+{
+  "passed": false,
+  "status": "complete",
+  "reference": "scsynth 3.14.1 (Built from tag 'Version-3.14.1' [426edf6])",
+  "blocks": 8192,
+  "results": [
+    {
+      "id": "operators-unary-0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.9802322387695312e-08,
+      "rms_error": 4.581501288804726e-09,
+      "rms_ratio": 1.0000000517000072,
+      "finite": true
+    },
+    {
+      "id": "operators-unary-1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-08,
+      "rms_error": 4.90317600862888e-09,
+      "rms_ratio": 1.0000000707920558,
+      "finite": true
+    },
+    {
+      "id": "operators-unary-2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.960464477539063e-08,
+      "rms_error": 2.257417883144165e-09,
+      "rms_ratio": 0.9999999747700629,
+      "finite": true
+    },
+    {
+      "id": "operators-binary-0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000127182922,
+      "finite": true
+    },
+    {
+      "id": "operators-binary-1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.30385160446167e-08,
+      "rms_error": 6.738023892272162e-10,
+      "rms_ratio": 0.9999999613614156,
+      "finite": true
+    },
+    {
+      "id": "operators-binary-2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.725290298461914e-09,
+      "rms_error": 1.041250292910165e-10,
+      "rms_ratio": 0.9999999195343239,
+      "finite": true
+    },
+    {
+      "id": "m5_addy",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 1.7093222313101776e-09,
+      "rms_ratio": 0.999999977342239,
+      "finite": true
+    },
+    {
+      "id": "m12_scale_4_kr",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999998124534287,
+      "finite": true
+    },
+    {
+      "id": "m3_subtractive_voice",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.601874828338623e-07,
+      "rms_error": 2.1098618215619096e-08,
+      "rms_ratio": 0.9999989968982137,
+      "finite": true
+    },
+    {
+      "id": "master-delay",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000047731072,
+      "finite": true
+    },
+    {
+      "id": "m3_noise_mix",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000019785662,
+      "finite": true
+    },
+    {
+      "id": "m7_MiVerb_impulse2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000134464881,
+      "finite": true
+    },
+    {
+      "id": "m6_Decay_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 2.0623867918813673e-08,
+      "rms_ratio": 1.0000000827622788,
+      "finite": true
+    },
+    {
+      "id": "m6_Decay_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.21540641784668e-08,
+      "rms_error": 5.13578646968156e-09,
+      "rms_ratio": 0.9999999890610427,
+      "finite": true
+    },
+    {
+      "id": "m15_Phasor_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999426858225,
+      "finite": true
+    },
+    {
+      "id": "m3_Saw_kr_glide",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.152557373046875e-07,
+      "rms_error": 2.998411697303438e-07,
+      "rms_ratio": 1.0000000386805965,
+      "finite": true
+    },
+    {
+      "id": "m2_Ringz_kr_dc",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 6.05359673500061e-09,
+      "rms_error": 1.765007257555832e-09,
+      "rms_ratio": 0.9999997675825529,
+      "finite": true
+    },
+    {
+      "id": "m11_Formlet_kr_2_9",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.7567148208618164e-07,
+      "rms_error": 4.525500167981039e-08,
+      "rms_ratio": 0.9999967266998242,
+      "finite": true
+    },
+    {
+      "id": "m8_SelectX_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.7881393432617188e-07,
+      "rms_error": 2.8126640062832807e-08,
+      "rms_ratio": 0.9999999487614266,
+      "finite": true
+    },
+    {
+      "id": "m8_SelectX_kr",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-08,
+      "rms_error": 1.071889587080717e-08,
+      "rms_ratio": 0.9999999393024877,
+      "finite": true
+    },
+    {
+      "id": "m11_Formant_live2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999525640303,
+      "finite": true
+    },
+    {
+      "id": "m7_FreeVerb_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 6.705522537231445e-08,
+      "rms_error": 5.693489536056716e-09,
+      "rms_ratio": 0.9999998963689145,
+      "finite": true
+    },
+    {
+      "id": "m6_OneZero_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 1.6032331684007095e-09,
+      "rms_ratio": 1.0000000159409037,
+      "finite": true
+    },
+    {
+      "id": "m6_OnePole_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 1.6222025486458673e-09,
+      "rms_ratio": 1.0000000222397833,
+      "finite": true
+    },
+    {
+      "id": "m6_Dust_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 4.34527596194792e-10,
+      "rms_ratio": 0.9999998691140409,
+      "finite": true
+    },
+    {
+      "id": "m6_Dust2_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.2351741790771484e-08,
+      "rms_error": 8.692166053884813e-10,
+      "rms_ratio": 0.9999999318400271,
+      "finite": true
+    },
+    {
+      "id": "m15_StandardN_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.19468367099761963,
+      "rms_error": 0.0607323450804419,
+      "rms_ratio": 0.984582263711071,
+      "finite": true
+    },
+    {
+      "id": "m15_StandardL_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.19173523038625717,
+      "rms_error": 0.053874474287088456,
+      "rms_ratio": 0.944630297409836,
+      "finite": true
+    },
+    {
+      "id": "m15_FBSineN_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.19797589629888535,
+      "rms_error": 0.044734669683855276,
+      "rms_ratio": 0.999924028990657,
+      "finite": true
+    },
+    {
+      "id": "m15_FBSineL_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.19797589629888535,
+      "rms_error": 0.04186392225586464,
+      "rms_ratio": 0.9999787302959288,
+      "finite": true
+    },
+    {
+      "id": "m15_FBSineC_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.19797589629888535,
+      "rms_error": 0.04348168452858311,
+      "rms_ratio": 0.9996758196781284,
+      "finite": true
+    },
+    {
+      "id": "m14_LorenzL_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.1252906657755375,
+      "rms_error": 0.02712344295802454,
+      "rms_ratio": 1.0001674484098177,
+      "finite": true
+    },
+    {
+      "id": "m14_LatoocarfianN_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.269916832447052,
+      "rms_error": 0.057882723855122886,
+      "rms_ratio": 1.0001565706890538,
+      "finite": true
+    },
+    {
+      "id": "m14_LatoocarfianL_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.269916832447052,
+      "rms_error": 0.05232149532413141,
+      "rms_ratio": 1.0000959538691432,
+      "finite": true
+    },
+    {
+      "id": "m14_LatoocarfianC_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.27082115411758423,
+      "rms_error": 0.05606002643280467,
+      "rms_ratio": 1.0004587446997473,
+      "finite": true
+    },
+    {
+      "id": "m14_HenonN_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.2545873075723648,
+      "rms_error": 0.06787792066133629,
+      "rms_ratio": 1.0004996421143462,
+      "finite": true
+    },
+    {
+      "id": "m14_HenonL_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.2545873075723648,
+      "rms_error": 0.05123888128220691,
+      "rms_ratio": 1.0002362668591085,
+      "finite": true
+    },
+    {
+      "id": "m14_HenonC_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.2527315095067024,
+      "rms_error": 0.056767210057835915,
+      "rms_ratio": 1.0002993039537327,
+      "finite": true
+    },
+    {
+      "id": "m14_CuspN_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.1368296593427658,
+      "rms_error": 0.036655295612295226,
+      "rms_ratio": 0.9926657755859554,
+      "finite": true
+    },
+    {
+      "id": "m14_CuspL_live",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.1368296593427658,
+      "rms_error": 0.0289064371157832,
+      "rms_ratio": 0.991175620223431,
+      "finite": true
+    },
+    {
+      "id": "m10_Gendy3_ar_live2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 1.5115720953347855e-09,
+      "rms_ratio": 0.9999999279926226,
+      "finite": true
+    },
+    {
+      "id": "m10_Gendy2_ar_live2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.30866314470768e-05,
+      "rms_error": 6.429113872174295e-06,
+      "rms_ratio": 0.9999994403002687,
+      "finite": true
+    },
+    {
+      "id": "m10_Gendy1_ar_live2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 1.9674696348155757e-09,
+      "rms_ratio": 1.0000000011163666,
+      "finite": true
+    },
+    {
+      "id": "m6_OneZero_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.21540641784668e-08,
+      "rms_error": 7.553906063119998e-09,
+      "rms_ratio": 0.9999999489218273,
+      "finite": true
+    },
+    {
+      "id": "m6_OnePole_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.21540641784668e-08,
+      "rms_error": 5.147758780371791e-09,
+      "rms_ratio": 0.9999999968192432,
+      "finite": true
+    },
+    {
+      "id": "m6_Dust_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.3527612686157227e-08,
+      "rms_error": 5.554493951271633e-09,
+      "rms_ratio": 0.999999904752049,
+      "finite": true
+    },
+    {
+      "id": "m6_Dust2_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.3527612686157227e-08,
+      "rms_error": 5.2224966245266205e-09,
+      "rms_ratio": 1.0000000398375675,
+      "finite": true
+    },
+    {
+      "id": "m6_Decay2_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 1.9487158084956844e-08,
+      "rms_ratio": 1.000000006497411,
+      "finite": true
+    },
+    {
+      "id": "m2_LFTri_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 2.214786893201979e-08,
+      "rms_ratio": 1.0000000101776971,
+      "finite": true
+    },
+    {
+      "id": "m2_LFSaw_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999972936805,
+      "finite": true
+    },
+    {
+      "id": "m15_SinOscFB_ar_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.725290298461914e-09,
+      "rms_error": 5.836139387900653e-11,
+      "rms_ratio": 1.0000000423464808,
+      "finite": true
+    },
+    {
+      "id": "m15_Blip_ar_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 4.982573348858355e-10,
+      "rms_ratio": 1.000000021509845,
+      "finite": true
+    },
+    {
+      "id": "m11_Formlet_ar_live3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.246815711259842e-08,
+      "rms_error": 5.129848174728329e-09,
+      "rms_ratio": 1.000001939253276,
+      "finite": true
+    },
+    {
+      "id": "m10_Gendy3_kr_live2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.2351741790771484e-08,
+      "rms_error": 3.829905008808002e-09,
+      "rms_ratio": 0.9999999118847522,
+      "finite": true
+    },
+    {
+      "id": "m10_Gendy2_kr_live2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.915039658546448e-07,
+      "rms_error": 6.774546219955457e-08,
+      "rms_ratio": 1.0000000001821805,
+      "finite": true
+    },
+    {
+      "id": "m10_Gendy1_kr_live2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.960464477539063e-08,
+      "rms_error": 9.790894899677114e-09,
+      "rms_ratio": 1.0000000961858964,
+      "finite": true
+    },
+    {
+      "id": "m7_FreeVerb2_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.960464477539063e-08,
+      "rms_error": 5.738317737237542e-09,
+      "rms_ratio": 0.9999999389894394,
+      "finite": true
+    },
+    {
+      "id": "m6_Decay2_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 5.498479828314044e-09,
+      "rms_ratio": 0.9999999648635102,
+      "finite": true
+    },
+    {
+      "id": "m4_DelayN_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.725290298461914e-09,
+      "rms_error": 1.0422666428767833e-10,
+      "rms_ratio": 1.0000000182736026,
+      "finite": true
+    },
+    {
+      "id": "m4_DelayL_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 4.3974965266400485e-10,
+      "rms_ratio": 0.9999999940903754,
+      "finite": true
+    },
+    {
+      "id": "m4_DelayC_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 1.2733242113916162e-09,
+      "rms_ratio": 0.9999999780884294,
+      "finite": true
+    },
+    {
+      "id": "m4_CombN_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 3.7249145196691588e-09,
+      "rms_ratio": 1.0000000363974637,
+      "finite": true
+    },
+    {
+      "id": "m4_CombC_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.0489096641540527e-08,
+      "rms_error": 3.851165325285722e-09,
+      "rms_ratio": 0.9999999983783416,
+      "finite": true
+    },
+    {
+      "id": "m4_AllpassN_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 5.7410670050546854e-09,
+      "rms_ratio": 1.0000000101274333,
+      "finite": true
+    },
+    {
+      "id": "m4_AllpassL_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 5.6225043356455495e-09,
+      "rms_ratio": 1.0000000178435768,
+      "finite": true
+    },
+    {
+      "id": "m4_AllpassC_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.862645149230957e-08,
+      "rms_error": 5.634264646109766e-09,
+      "rms_ratio": 0.9999999469981494,
+      "finite": true
+    },
+    {
+      "id": "m3_Pulse_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.364418029785156e-07,
+      "rms_error": 1.1305127865911296e-07,
+      "rms_ratio": 1.000000014592147,
+      "finite": true
+    },
+    {
+      "id": "m3_LFNoise2_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.7881393432617188e-07,
+      "rms_error": 2.135556594407387e-08,
+      "rms_ratio": 0.9999999790069309,
+      "finite": true
+    },
+    {
+      "id": "m3_LFNoise0_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999566992239,
+      "finite": true
+    },
+    {
+      "id": "m2_LFTri_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.980232238769531e-07,
+      "rms_error": 6.685339251398992e-08,
+      "rms_ratio": 1.0000000018001236,
+      "finite": true
+    },
+    {
+      "id": "m2_LFSaw_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 2.2883257084965084e-08,
+      "rms_ratio": 0.9999999709180449,
+      "finite": true
+    },
+    {
+      "id": "m15_SinOscFB_kr_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 9.093752658985795e-09,
+      "rms_ratio": 1.0000000110616087,
+      "finite": true
+    },
+    {
+      "id": "m15_MoogFF_ar_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.259629011154175e-09,
+      "rms_error": 2.007978290738542e-10,
+      "rms_ratio": 1.0000007579600723,
+      "finite": true
+    },
+    {
+      "id": "m15_Limiter_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 9.313225746154785e-10,
+      "rms_error": 1.6024924997237504e-11,
+      "rms_ratio": 1.00000003600083,
+      "finite": true
+    },
+    {
+      "id": "m15_Blip_kr_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.3527612686157227e-08,
+      "rms_error": 6.485555339851216e-09,
+      "rms_ratio": 0.9999999847330296,
+      "finite": true
+    },
+    {
+      "id": "m4_DelayN_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 1.0855190365160413e-08,
+      "rms_ratio": 0.9999999685212844,
+      "finite": true
+    },
+    {
+      "id": "m4_DelayL_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 9.172999191489298e-09,
+      "rms_ratio": 1.0000000216822023,
+      "finite": true
+    },
+    {
+      "id": "m4_DelayC_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.725290298461914e-08,
+      "rms_error": 1.062269478663127e-08,
+      "rms_ratio": 0.9999999876885838,
+      "finite": true
+    },
+    {
+      "id": "m4_CombN_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 8.940696716308594e-08,
+      "rms_error": 2.4270242597748275e-08,
+      "rms_ratio": 1.0000000273843848,
+      "finite": true
+    },
+    {
+      "id": "m4_CombL_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-08,
+      "rms_error": 2.078514011246133e-08,
+      "rms_ratio": 1.0000000255522814,
+      "finite": true
+    },
+    {
+      "id": "m4_CombC_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 8.940696716308594e-08,
+      "rms_error": 2.229497917030095e-08,
+      "rms_ratio": 1.0000000345200284,
+      "finite": true
+    },
+    {
+      "id": "m4_AllpassN_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.21540641784668e-08,
+      "rms_error": 1.508604001306108e-08,
+      "rms_ratio": 0.9999999954225363,
+      "finite": true
+    },
+    {
+      "id": "m4_AllpassL_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 1.2071917746375915e-08,
+      "rms_ratio": 0.9999999838320669,
+      "finite": true
+    },
+    {
+      "id": "m4_AllpassC_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.21540641784668e-08,
+      "rms_error": 1.4983405174764472e-08,
+      "rms_ratio": 1.0000000035336407,
+      "finite": true
+    },
+    {
+      "id": "m3_LFNoise2_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.5762786865234375e-07,
+      "rms_error": 7.00857213601116e-08,
+      "rms_ratio": 1.0000000442606787,
+      "finite": true
+    },
+    {
+      "id": "m3_LFNoise1_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.5762786865234375e-07,
+      "rms_error": 7.337390972927723e-08,
+      "rms_ratio": 0.9999999822969836,
+      "finite": true
+    },
+    {
+      "id": "m3_LFNoise0_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.5762786865234375e-07,
+      "rms_error": 7.337390972927723e-08,
+      "rms_ratio": 0.9999999822969836,
+      "finite": true
+    },
+    {
+      "id": "m15_MoogFF_kr_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.862645149230957e-08,
+      "rms_error": 1.7652444322815021e-09,
+      "rms_ratio": 0.9999999145656095,
+      "finite": true
+    },
+    {
+      "id": "m15_FreqShift_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 6.407499313354492e-07,
+      "rms_error": 1.6129061953007354e-07,
+      "rms_ratio": 1.0000000295812348,
+      "finite": true
+    },
+    {
+      "id": "m2_Ringz_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 8.23289155960083e-07,
+      "rms_error": 2.1360625065564484e-07,
+      "rms_ratio": 1.0000084231955322,
+      "finite": true
+    },
+    {
+      "id": "m2_Resonz_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.0877556633204222e-08,
+      "rms_error": 2.17766618126254e-09,
+      "rms_ratio": 1.0000218461357375,
+      "finite": true
+    },
+    {
+      "id": "m2_BPF_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.0121660782024264e-08,
+      "rms_error": 2.0028145389118116e-09,
+      "rms_ratio": 1.0000016906356406,
+      "finite": true
+    },
+    {
+      "id": "m15_Pluck_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 8.253361821665284e-10,
+      "rms_ratio": 1.0000000411613166,
+      "finite": true
+    },
+    {
+      "id": "m13_MiRings6_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.999999979706887,
+      "finite": true
+    },
+    {
+      "id": "m13_MiRings5_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000183755862,
+      "finite": true
+    },
+    {
+      "id": "m13_MiRings4_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999896900783,
+      "finite": true
+    },
+    {
+      "id": "m13_MiRings3_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000427095554,
+      "finite": true
+    },
+    {
+      "id": "m13_MiRings2_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.999999991447082,
+      "finite": true
+    },
+    {
+      "id": "m13_MiRings1_live",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000055186413,
+      "finite": true
+    },
+    {
+      "id": "m2_Resonz_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.673470251262188e-10,
+      "rms_error": 5.342708675537039e-11,
+      "rms_ratio": 0.9999997017929207,
+      "finite": true
+    },
+    {
+      "id": "m2_RLPF_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.909211277961731e-08,
+      "rms_error": 4.870969215998501e-09,
+      "rms_ratio": 1.0000002966927746,
+      "finite": true
+    },
+    {
+      "id": "m2_LPF_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.346940502524376e-10,
+      "rms_error": 9.941198718889185e-11,
+      "rms_ratio": 0.9999995286365069,
+      "finite": true
+    },
+    {
+      "id": "m2_HPF_ar_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.9226717995479703e-09,
+      "rms_error": 3.448318738233137e-10,
+      "rms_ratio": 0.9999995295402967,
+      "finite": true
+    },
+    {
+      "id": "m2_BPF_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 6.984919309616089e-10,
+      "rms_error": 7.36101158901942e-11,
+      "rms_ratio": 0.9999999762163505,
+      "finite": true
+    },
+    {
+      "id": "m2_LPF_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 8.149072527885437e-10,
+      "rms_error": 6.873773724539063e-11,
+      "rms_ratio": 1.0000000547304273,
+      "finite": true
+    },
+    {
+      "id": "m2_HPF_kr_step",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4551915228366852e-10,
+      "rms_error": 1.7225012903124143e-11,
+      "rms_ratio": 1.0000002332271076,
+      "finite": true
+    },
+    {
+      "id": "m3_noise_reseed",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999832978594,
+      "finite": true
+    },
+    {
+      "id": "m3_noise_audio_reseed",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000229527273,
+      "finite": true
+    },
+    {
+      "id": "xline",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.3709068298339844e-06,
+      "rms_error": 1.8354144638672652e-07,
+      "rms_ratio": 1.000000296838946,
+      "finite": true
+    },
+    {
+      "id": "m14_Logistic_ar_stable",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002852798469,
+      "finite": true
+    },
+    {
+      "id": "klang",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 6.546080112457275e-05,
+      "rms_error": 2.44517004868376e-05,
+      "rms_ratio": 0.9997604108556011,
+      "finite": true
+    },
+    {
+      "id": "xline_control",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.980232238769531e-07,
+      "rms_error": 2.3458423959566052e-08,
+      "rms_ratio": 1.00000033520206,
+      "finite": true
+    },
+    {
+      "id": "unary_9",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1,
+      "finite": true
+    },
+    {
+      "id": "m9_VarSaw_ar_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000864715184,
+      "finite": true
+    },
+    {
+      "id": "m9_SyncSaw_ar_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000414231571,
+      "finite": true
+    },
+    {
+      "id": "m9_LFPar_ar_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999997345988036,
+      "finite": true
+    },
+    {
+      "id": "m9_LFCub_ar_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000104535505,
+      "finite": true
+    },
+    {
+      "id": "m8_Wrap_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.364418029785156e-07,
+      "rms_error": 2.3706223419715858e-07,
+      "rms_ratio": 0.9999994264002229,
+      "finite": true
+    },
+    {
+      "id": "m8_Stepper_ar_initialReset",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999998968110236,
+      "finite": true
+    },
+    {
+      "id": "m8_SetResetFF_ar_initialReset",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002864194444,
+      "finite": true
+    },
+    {
+      "id": "m8_PulseCount_ar_initialReset",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999940444999,
+      "finite": true
+    },
+    {
+      "id": "m8_MiMu_dc6",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999996795278236,
+      "finite": true
+    },
+    {
+      "id": "m8_Fold_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.0132789611816406e-06,
+      "rms_error": 3.968929932098184e-07,
+      "rms_ratio": 1.0000000293932103,
+      "finite": true
+    },
+    {
+      "id": "m8_ClipNoise_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002852798469,
+      "finite": true
+    },
+    {
+      "id": "m8_BrownNoise_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000046550438,
+      "finite": true
+    },
+    {
+      "id": "m6_TRand_kr_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999996481631774,
+      "finite": true
+    },
+    {
+      "id": "m6_TRand_ar_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999996481631774,
+      "finite": true
+    },
+    {
+      "id": "m6_TExpRand_kr_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999998132526741,
+      "finite": true
+    },
+    {
+      "id": "m6_TExpRand_ar_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999998132526741,
+      "finite": true
+    },
+    {
+      "id": "m6_SampleRate",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999997168805256,
+      "finite": true
+    },
+    {
+      "id": "m6_SampleDur",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002738302372,
+      "finite": true
+    },
+    {
+      "id": "m6_RadiansPerSample",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.7763568394002505e-15,
+      "rms_error": 1.2560739669470201e-15,
+      "rms_ratio": 0.9999996602326159,
+      "finite": true
+    },
+    {
+      "id": "m6_Latch_ar_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999998670889106,
+      "finite": true
+    },
+    {
+      "id": "m6_LPZ1_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 1.6754044480073265e-09,
+      "rms_ratio": 1.0000000115423717,
+      "finite": true
+    },
+    {
+      "id": "m6_HPZ1_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 1.3749104878094658e-09,
+      "rms_ratio": 1.0000000221570868,
+      "finite": true
+    },
+    {
+      "id": "m6_Gate_ar_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.725290298461914e-09,
+      "rms_error": 7.362751430292566e-11,
+      "rms_ratio": 0.999999992662079,
+      "finite": true
+    },
+    {
+      "id": "m6_Delay2_ar_initial",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.9802322387695312e-08,
+      "rms_error": 5.725929941586926e-09,
+      "rms_ratio": 1.0000000286923485,
+      "finite": true
+    },
+    {
+      "id": "m6_Delay1_ar_initial",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.9802322387695312e-08,
+      "rms_error": 5.7636754388979825e-09,
+      "rms_ratio": 1.0000000051856759,
+      "finite": true
+    },
+    {
+      "id": "m6_ControlRate",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999997158543393,
+      "finite": true
+    },
+    {
+      "id": "m6_ControlDur",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002792873368,
+      "finite": true
+    },
+    {
+      "id": "m6_BlockSize",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.999999831017099,
+      "finite": true
+    },
+    {
+      "id": "m2_TrigControl",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999503473755,
+      "finite": true
+    },
+    {
+      "id": "m2_LagControl_array",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 1.8162282648801038e-09,
+      "rms_ratio": 0.9999999671791941,
+      "finite": true
+    },
+    {
+      "id": "m15_Phasor_kr_0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 1.2720231890286562e-08,
+      "rms_ratio": 1.0000000229497723,
+      "finite": true
+    },
+    {
+      "id": "m14_Logistic_kr_stable",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002852798469,
+      "finite": true
+    },
+    {
+      "id": "m14_LFDClipNoise_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002852798469,
+      "finite": true
+    },
+    {
+      "id": "m14_LFClipNoise_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002852798469,
+      "finite": true
+    },
+    {
+      "id": "m14_Hasher_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000231718919,
+      "finite": true
+    },
+    {
+      "id": "m14_GrayNoise_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000251491776,
+      "finite": true
+    },
+    {
+      "id": "m14_Crackle_ar_2",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.051986449398100376,
+      "rms_error": 0.006892012317263179,
+      "rms_ratio": 0.99977600929249,
+      "finite": true
+    },
+    {
+      "id": "m9_VarSaw_kr_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000864715184,
+      "finite": true
+    },
+    {
+      "id": "m9_SyncSaw_kr_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.9802322387695312e-08,
+      "rms_error": 6.292665270117894e-09,
+      "rms_ratio": 1.0000000473636494,
+      "finite": true
+    },
+    {
+      "id": "m9_RHPF_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 6.109476089477539e-07,
+      "rms_error": 6.773877357638257e-08,
+      "rms_ratio": 0.9999999178242699,
+      "finite": true
+    },
+    {
+      "id": "m9_LFPar_kr_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999997345988036,
+      "finite": true
+    },
+    {
+      "id": "m9_LFDNoise3_ar_4",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 6.705522537231445e-08,
+      "rms_error": 2.9588313084150703e-09,
+      "rms_ratio": 0.9999999940404078,
+      "finite": true
+    },
+    {
+      "id": "m9_LFDNoise1_ar_4",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 1.20125733068488e-09,
+      "rms_ratio": 1.000000034396303,
+      "finite": true
+    },
+    {
+      "id": "m9_LFDNoise0_ar_4",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999963115374,
+      "finite": true
+    },
+    {
+      "id": "m9_LFCub_kr_3",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000104535505,
+      "finite": true
+    },
+    {
+      "id": "m9_BRF_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.736947059631348e-07,
+      "rms_error": 6.842871882531846e-08,
+      "rms_ratio": 0.9999998815778095,
+      "finite": true
+    },
+    {
+      "id": "m9_BPeakEQ_2_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.150213837623596e-07,
+      "rms_error": 7.722123830647806e-08,
+      "rms_ratio": 0.9999999992446639,
+      "finite": true
+    },
+    {
+      "id": "m9_BLowShelf_2_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.5331974029541016e-07,
+      "rms_error": 4.975280491482821e-08,
+      "rms_ratio": 0.9999999066592108,
+      "finite": true
+    },
+    {
+      "id": "m9_BHiShelf_2_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.384185791015625e-07,
+      "rms_error": 2.7033771573966683e-08,
+      "rms_ratio": 1.0000000396134816,
+      "finite": true
+    },
+    {
+      "id": "m8_Wrap_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.086162567138672e-07,
+      "rms_error": 2.9950556643066976e-08,
+      "rms_ratio": 0.9999999803176998,
+      "finite": true
+    },
+    {
+      "id": "m8_Trig_ar_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000221457836,
+      "finite": true
+    },
+    {
+      "id": "m8_Trig1_ar_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000221457836,
+      "finite": true
+    },
+    {
+      "id": "m8_ToggleFF_ar_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002734827917,
+      "finite": true
+    },
+    {
+      "id": "m8_Stepper_kr_initialReset",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-09,
+      "rms_error": 6.526335246727867e-10,
+      "rms_ratio": 0.9999998700814037,
+      "finite": true
+    },
+    {
+      "id": "m8_Slew_ar_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.8312206268310547e-07,
+      "rms_error": 4.042572966108158e-08,
+      "rms_ratio": 1.0000002574310398,
+      "finite": true
+    },
+    {
+      "id": "m8_SetResetFF_kr_initialReset",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002339224208,
+      "finite": true
+    },
+    {
+      "id": "m8_PulseDivider_ar_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1,
+      "finite": true
+    },
+    {
+      "id": "m8_PulseCount_kr_initialReset",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.9073486328125e-06,
+      "rms_error": 1.6454655453153599e-07,
+      "rms_ratio": 0.999999993937726,
+      "finite": true
+    },
+    {
+      "id": "m8_LinExp_ar_0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999877688501,
+      "finite": true
+    },
+    {
+      "id": "m8_Lag3_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.842877388000488e-07,
+      "rms_error": 1.368682219813456e-07,
+      "rms_ratio": 0.9999993630237307,
+      "finite": true
+    },
+    {
+      "id": "m8_Lag2_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.2782554626464844e-07,
+      "rms_error": 9.076907943272833e-08,
+      "rms_ratio": 0.9999994801059678,
+      "finite": true
+    },
+    {
+      "id": "m8_Fold_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.086162567138672e-07,
+      "rms_error": 3.762889603928077e-08,
+      "rms_ratio": 1.0000000108552995,
+      "finite": true
+    },
+    {
+      "id": "m8_ClipNoise_kr",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.4901161193847656e-08,
+      "rms_error": 2.836093240203297e-09,
+      "rms_ratio": 1.000000159567504,
+      "finite": true
+    },
+    {
+      "id": "m8_BrownNoise_kr",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.960464477539063e-08,
+      "rms_error": 1.0541807541414683e-08,
+      "rms_ratio": 0.9999999754036589,
+      "finite": true
+    },
+    {
+      "id": "m6_Latch_kr_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999998670889106,
+      "finite": true
+    },
+    {
+      "id": "m6_LPZ1_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 8.940696716308594e-08,
+      "rms_error": 1.3619961822946071e-08,
+      "rms_ratio": 0.9999999631551484,
+      "finite": true
+    },
+    {
+      "id": "m6_HPZ1_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.30385160446167e-08,
+      "rms_error": 2.393458439727528e-09,
+      "rms_ratio": 1.0000000021878666,
+      "finite": true
+    },
+    {
+      "id": "m6_Gate_kr_held1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.960464477539063e-08,
+      "rms_error": 7.527653495021858e-09,
+      "rms_ratio": 1.0000000113730654,
+      "finite": true
+    },
+    {
+      "id": "m6_Delay2_kr_initial",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.384185791015625e-07,
+      "rms_error": 3.853765662170403e-08,
+      "rms_ratio": 1.0000000191991658,
+      "finite": true
+    },
+    {
+      "id": "m6_Delay1_kr_initial",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.384185791015625e-07,
+      "rms_error": 4.349224073636911e-08,
+      "rms_ratio": 1.00000002867621,
+      "finite": true
+    },
+    {
+      "id": "m3_PinkNoise_kr",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.6391277313232422e-07,
+      "rms_error": 1.4298021407525345e-08,
+      "rms_ratio": 1.000000022210684,
+      "finite": true
+    },
+    {
+      "id": "m14_TWindex_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002554420513,
+      "finite": true
+    },
+    {
+      "id": "m14_LFDClipNoise_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000001635294502,
+      "finite": true
+    },
+    {
+      "id": "m14_LFClipNoise_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000001635294502,
+      "finite": true
+    },
+    {
+      "id": "m14_Hasher_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.2351741790771484e-08,
+      "rms_error": 2.621930471983554e-09,
+      "rms_ratio": 1.0000002415810534,
+      "finite": true
+    },
+    {
+      "id": "m14_GrayNoise_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 3.195857021546595e-09,
+      "rms_ratio": 0.9999999843356142,
+      "finite": true
+    },
+    {
+      "id": "m14_Crackle_kr_2",
+      "passed": false,
+      "comparison": "chaotic-divergence",
+      "peak_error": 0.021661814767867327,
+      "rms_error": 0.0054015538314686334,
+      "rms_ratio": 1.0576544012907703,
+      "finite": true
+    },
+    {
+      "id": "m14_CoinGate_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999371586961,
+      "finite": true
+    },
+    {
+      "id": "klank",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.5192351788282394e-06,
+      "rms_error": 2.085722575037202e-06,
+      "rms_ratio": 1.0000851826891064,
+      "finite": true
+    },
+    {
+      "id": "a2k",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.7881393432617188e-07,
+      "rms_error": 4.5557024115425904e-08,
+      "rms_ratio": 0.999999966479647,
+      "finite": true
+    },
+    {
+      "id": "m9_RHPF_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 7.450580596923828e-08,
+      "rms_error": 6.332154774514747e-09,
+      "rms_ratio": 1.000000092641864,
+      "finite": true
+    },
+    {
+      "id": "m9_LFDNoise3_kr_4",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.842877388000488e-08,
+      "rms_error": 7.28652790516248e-09,
+      "rms_ratio": 1.0000000219392768,
+      "finite": true
+    },
+    {
+      "id": "m9_LFDNoise1_kr_4",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 6.991223774696206e-09,
+      "rms_ratio": 0.9999999969717733,
+      "finite": true
+    },
+    {
+      "id": "m9_LFDNoise0_kr_4",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.21540641784668e-08,
+      "rms_error": 6.512478152293432e-09,
+      "rms_ratio": 0.9999999937646389,
+      "finite": true
+    },
+    {
+      "id": "m9_BRF_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.960464477539063e-08,
+      "rms_error": 1.000374029259914e-08,
+      "rms_ratio": 1.000000019727064,
+      "finite": true
+    },
+    {
+      "id": "m8_Trig_kr_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.280568540096283e-09,
+      "rms_error": 5.98223553711271e-11,
+      "rms_ratio": 1.0000002193252504,
+      "finite": true
+    },
+    {
+      "id": "m8_Trig1_kr_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.280568540096283e-09,
+      "rms_error": 5.98223553711271e-11,
+      "rms_ratio": 1.0000002193252504,
+      "finite": true
+    },
+    {
+      "id": "m8_ToggleFF_kr_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002734827917,
+      "finite": true
+    },
+    {
+      "id": "m8_Slew_kr_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 5.960464477539063e-08,
+      "rms_error": 6.812037359144442e-09,
+      "rms_ratio": 1.0000002785797206,
+      "finite": true
+    },
+    {
+      "id": "m8_PulseDivider_kr_1",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1,
+      "finite": true
+    },
+    {
+      "id": "m8_LinExp_kr_0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 1.538452727502728e-08,
+      "rms_ratio": 0.9999999928057945,
+      "finite": true
+    },
+    {
+      "id": "m8_Lag3_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 2.169301986689747e-08,
+      "rms_ratio": 1.0000000237342341,
+      "finite": true
+    },
+    {
+      "id": "m8_Lag2_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.043081283569336e-07,
+      "rms_error": 2.029610241928589e-08,
+      "rms_ratio": 1.0000000173442545,
+      "finite": true
+    },
+    {
+      "id": "m2_LeakDC_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 8.940696716308594e-08,
+      "rms_error": 5.570932344536018e-09,
+      "rms_ratio": 1.000000155249009,
+      "finite": true
+    },
+    {
+      "id": "m2_LagUD_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.6763806343078613e-06,
+      "rms_error": 1.3253288884383148e-06,
+      "rms_ratio": 0.9999959389605827,
+      "finite": true
+    },
+    {
+      "id": "m14_TWindex_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000002685397118,
+      "finite": true
+    },
+    {
+      "id": "m14_TIRand_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000047985747,
+      "finite": true
+    },
+    {
+      "id": "m14_CoinGate_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 0.9999999643905244,
+      "finite": true
+    },
+    {
+      "id": "sum4",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.384185791015625e-07,
+      "rms_error": 5.7036849488966813e-08,
+      "rms_ratio": 0.9999999910747909,
+      "finite": true
+    },
+    {
+      "id": "m9_Amplitude_ar_ar_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.341104507446289e-07,
+      "rms_error": 2.9848806789489204e-08,
+      "rms_ratio": 0.999999970372758,
+      "finite": true
+    },
+    {
+      "id": "m8_Balance2_ar_0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 3.7756824009416135e-09,
+      "rms_ratio": 1.0000000365615895,
+      "finite": true
+    },
+    {
+      "id": "m2_LeakDC_kr",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.7881393432617188e-07,
+      "rms_error": 2.414055736255934e-08,
+      "rms_ratio": 1.000000013573258,
+      "finite": true
+    },
+    {
+      "id": "m2_Lag_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 8.381903171539307e-08,
+      "rms_error": 6.631127185408097e-08,
+      "rms_ratio": 1.0000000645347227,
+      "finite": true
+    },
+    {
+      "id": "m2_LagUD_kr",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 4.470348358154297e-08,
+      "rms_error": 1.814287131538443e-08,
+      "rms_ratio": 0.9999999825286583,
+      "finite": true
+    },
+    {
+      "id": "m2_Clip_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.725290298461914e-09,
+      "rms_error": 1.3607215553118237e-10,
+      "rms_ratio": 1.0000003039427303,
+      "finite": true
+    },
+    {
+      "id": "m9_Amplitude_kr_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.1920928955078125e-07,
+      "rms_error": 1.3242587861639432e-08,
+      "rms_ratio": 0.9999999623484033,
+      "finite": true
+    },
+    {
+      "id": "m8_LinXFade2_ar_0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 1.862645149230957e-08,
+      "rms_error": 1.7730896269745e-09,
+      "rms_ratio": 0.9999999589920593,
+      "finite": true
+    },
+    {
+      "id": "m14_TIRand_kr_2",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.0000000791151937,
+      "finite": true
+    },
+    {
+      "id": "m8_LinXFade2_kr_0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 3.3527612686157227e-08,
+      "rms_error": 4.959205389027446e-09,
+      "rms_ratio": 0.999999935778882,
+      "finite": true
+    },
+    {
+      "id": "m8_Balance2_kr_0",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 2.9802322387695312e-08,
+      "rms_error": 5.445976769922493e-09,
+      "rms_ratio": 0.9999999747041302,
+      "finite": true
+    },
+    {
+      "id": "m12_scale_4_ar",
+      "passed": true,
+      "comparison": "waveform",
+      "peak_error": 0.0,
+      "rms_error": 0.0,
+      "rms_ratio": 1.000000497276683,
+      "finite": true
+    }
+  ],
+  "scope": "Independent SC NRT sparse waveform comparison over 11.89 s, with full-duration RMS; chaotic divergence remains separate from a waveform pass"
+}

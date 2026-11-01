@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "tests": 20,
+  "names": [
+    "test_bad_graphs_are_rejected_by_native_loader",
+    "test_binary_import_does_not_claim_source_pairing",
+    "test_bounds_and_invalid_encoding",
+    "test_compile_can_succeed_while_instrument_admission_fails",
+    "test_early_exit_does_not_reuse_or_replace_old_output",
+    "test_real_compile_preserves_source_and_matches_example",
+    "test_real_syntax_error",
+    "test_api_needs_session_token",
+    "test_cross_origin_and_rebinding_rejected_even_with_token",
+    "test_json_and_request_size_bounds",
+    "test_static_assets_and_no_directory_traversal",
+    "test_factory_and_invalid_slots_never_transfer",
+    "test_failed_save_and_readback_report_phase",
+    "test_occupied_requires_explicit_replace",
+    "test_read_active_keeps_selection_and_metadata",
+    "test_read_saved_slot_loads_and_stops_before_readback",
+    "test_save_and_full_readback",
+    "test_slot_change_during_staging_aborts_before_activation",
+    "test_stale_destination_never_transfers",
+    "test_unknown_artifact_never_transfers"
+  ],
+  "real_sclang": true,
+  "real_native_loader": true,
+  "usb_in_this_suite": "fake transport; see studio-device.json for actual browser/device test"
+}

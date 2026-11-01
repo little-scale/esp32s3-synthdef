@@ -1,0 +1,9 @@
+{
+  "case": "klang",
+  "strict_float_check_passed": false,
+  "max_float_error": 1.0679243132472038e-05,
+  "max_pcm_step_error": 1,
+  "pcm_limit": 1,
+  "pcm_check_passed": true,
+  "scope": "Captured raw stereo windows converted using float32 mono/gain operations and nearest-even S16 rounding; this does not erase the stricter float mismatch."
+}

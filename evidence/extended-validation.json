@@ -1,0 +1,62 @@
+{
+  "completed": true,
+  "functional_and_memory_checks_passed": true,
+  "all_strict_float_comparisons_passed": false,
+  "type_count": 154,
+  "observed_fixture_type_rate_pairs": 258,
+  "captured_type_rate_pairs_including_probes": 260,
+  "long_graph_runs": 338,
+  "long_graph_capture_grades": {
+    "waveform": 315,
+    "statistical-only": 22,
+    "failed": 1
+  },
+  "capture_duration_seconds": 11.888616780045352,
+  "virtual_stereo_frames_checked": 177209344,
+  "operators": {
+    "unary": 33,
+    "binary": 40,
+    "rates": [
+      "initial",
+      "control",
+      "audio"
+    ],
+    "initial_value_changes_rejected_after_prepare": 30,
+    "restart_changes_accepted": 6
+  },
+  "bug_fixed": "Gendy3 incorrectly rejected the allocated closing segment after discarding sub-sample breakpoints. Audio-rate and slow control-rate regressions now pass on ESP32.",
+  "current_build": "d816a0e97c8e55e87812ccd23594f5347b8f77c5287aca41008dbd65a27d5e58",
+  "old_sweep_build": "ebd6049798a6cbc668fd999e2c1a28931fa3b1e45c60f7dd5c8189845ea5697d",
+  "soak_rounds": 24,
+  "soak_seconds": 720,
+  "patch_activations": 60,
+  "fixed_image_soak_maximum_us": {
+    "filtered": 939,
+    "phase-fm": 918,
+    "additive": 952
+  },
+  "precision_exceptions": {
+    "klang": {
+      "case": "klang",
+      "strict_float_check_passed": false,
+      "max_float_error": 1.0679243132472038e-05,
+      "max_pcm_step_error": 1,
+      "pcm_limit": 1,
+      "pcm_check_passed": true,
+      "scope": "Captured raw stereo windows converted using float32 mono/gain operations and nearest-even S16 rounding; this does not erase the stricter float mismatch."
+    },
+    "stochastic": "Statistical-only grades remain distinct from waveform agreement; independent SC long-record statistics also pass."
+  },
+  "reference_fixtures_passed": 1444,
+  "fuzz_inputs": 1560000,
+  "library_packages_unchanged": true,
+  "final_slot": 1,
+  "final_state": "Mac Sine restored, original effect settings restored, Panic requested",
+  "limits": [
+    "Only representative fixture/rate combinations and selected parameter edges, not exhaustive domains",
+    "Some Rings graphs and dense operator banks exceed real-time budgets",
+    "Klang fails the stricter long float threshold but remains within one S16 output step",
+    "Statistical comparisons do not establish waveform or identical-state hardware equivalence",
+    "No external clock, latency, physical continuity or thermal measurement"
+  ]
+}

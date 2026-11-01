@@ -1,0 +1,486 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "reports": [
+    {
+      "name": "memory-voice",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "generic-touch-sine",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "missing-gate",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "scalar-interface",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "overlapping-scalar-alias",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-14",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-15",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-16",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-26",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-27",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-28",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-29",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-47",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-48",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-999",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-1",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-2",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-3",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-4",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-6",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-7",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-37",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-38",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-39",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-40",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-41",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-44",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-45",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-999",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "arena-over-budget",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "frequency-range",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "amplitude-range",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "nan-default",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unknown-ugen",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "demand-rate",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "node-limit",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "signal-limit",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "input-limit",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "truncated",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "file-limit",
+      "compatibility": false,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "memory-voice",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "generic-touch-sine",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "missing-gate",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "scalar-interface",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "overlapping-scalar-alias",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-14",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-15",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-16",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-26",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-27",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-28",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-29",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-47",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-48",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-binary-999",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-1",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-2",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-3",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-4",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-6",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-7",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-37",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-38",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-39",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-40",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-41",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-44",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-45",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unsupported-unary-999",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "arena-over-budget",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "frequency-range",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "amplitude-range",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "nan-default",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "unknown-ugen",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "demand-rate",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "node-limit",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "signal-limit",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "input-limit",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "truncated",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "name": "file-limit",
+      "compatibility": true,
+      "passed": true,
+      "error": ""
+    }
+  ]
+}

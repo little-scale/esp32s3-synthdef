@@ -1,0 +1,366 @@
+{
+  "passed": true,
+  "scope": "Byte-identical guarded 11.89-second native captures before/after redundant clear removal; DSP equations unchanged",
+  "results": [
+    {
+      "id": "m13_MiRings6_live",
+      "passed": true,
+      "baseline_sha256": "2cf5a29f5d9044c06116971141caf1977a33838971cc8bffb3953b1147a6046d",
+      "updated_sha256": "2cf5a29f5d9044c06116971141caf1977a33838971cc8bffb3953b1147a6046d",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.27403748,
+        "rms": 0.0175554175
+      }
+    },
+    {
+      "id": "m13_MiRings5_live",
+      "passed": true,
+      "baseline_sha256": "6aadb0a925f2c5ced2a5ca08755e1b863bd7cc089c7297955fa10b06956fd1f4",
+      "updated_sha256": "6aadb0a925f2c5ced2a5ca08755e1b863bd7cc089c7297955fa10b06956fd1f4",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.190521523,
+        "rms": 0.00737462146
+      }
+    },
+    {
+      "id": "m13_MiRings4_live",
+      "passed": true,
+      "baseline_sha256": "75b1dc2205a7e18311fd42090b880527309234ae0878cfa6088043e7e112a712",
+      "updated_sha256": "75b1dc2205a7e18311fd42090b880527309234ae0878cfa6088043e7e112a712",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.686977684,
+        "rms": 0.0400907882
+      }
+    },
+    {
+      "id": "m13_MiRings3_live",
+      "passed": true,
+      "baseline_sha256": "fdaa5c196486bf10c9c1d2e2008ccb8a6109bab0a9ca9ee8163cd42decad1cb0",
+      "updated_sha256": "fdaa5c196486bf10c9c1d2e2008ccb8a6109bab0a9ca9ee8163cd42decad1cb0",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.415543497,
+        "rms": 0.00751842605
+      }
+    },
+    {
+      "id": "m13_MiRings2_live",
+      "passed": true,
+      "baseline_sha256": "f49ac6cea99d0db4e86f70cf134be0ead3697c701856db99ff40416d0650a63e",
+      "updated_sha256": "f49ac6cea99d0db4e86f70cf134be0ead3697c701856db99ff40416d0650a63e",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.381430119,
+        "rms": 0.0361929759
+      }
+    },
+    {
+      "id": "m13_MiRings1_live",
+      "passed": true,
+      "baseline_sha256": "6758a096af13bd92fff029557d35b3916b52319f7ff31d20497c1ed6df8dec79",
+      "updated_sha256": "6758a096af13bd92fff029557d35b3916b52319f7ff31d20497c1ed6df8dec79",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.582521319,
+        "rms": 0.0121093011
+      }
+    },
+    {
+      "id": "m13_MiRings1_bypass",
+      "passed": true,
+      "baseline_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "updated_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      }
+    },
+    {
+      "id": "m13_MiRings1_forced",
+      "passed": true,
+      "baseline_sha256": "2a38cd34ba10124a581c3cdd85435d3c6d7707c9bf1f21b435ce30fc0c03836c",
+      "updated_sha256": "2a38cd34ba10124a581c3cdd85435d3c6d7707c9bf1f21b435ce30fc0c03836c",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.582521319,
+        "rms": 0.0112868501
+      }
+    },
+    {
+      "id": "m13_MiRings2_bypass",
+      "passed": true,
+      "baseline_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "updated_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      }
+    },
+    {
+      "id": "m13_MiRings2_forced",
+      "passed": true,
+      "baseline_sha256": "bb09b9cc61568e6368cd2bb46ff0510d0551b27d856cdb516b4b9c6fcdf0c5e0",
+      "updated_sha256": "bb09b9cc61568e6368cd2bb46ff0510d0551b27d856cdb516b4b9c6fcdf0c5e0",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.381430119,
+        "rms": 0.0458050184
+      }
+    },
+    {
+      "id": "m13_MiRings3_bypass",
+      "passed": true,
+      "baseline_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "updated_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      }
+    },
+    {
+      "id": "m13_MiRings3_forced",
+      "passed": true,
+      "baseline_sha256": "f287b520cb8b04fa40579c6cd9f558535e860262553c823e32bbfc3c1fdbd615",
+      "updated_sha256": "f287b520cb8b04fa40579c6cd9f558535e860262553c823e32bbfc3c1fdbd615",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.415543497,
+        "rms": 0.00750069646
+      }
+    },
+    {
+      "id": "m13_MiRings4_bypass",
+      "passed": true,
+      "baseline_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "updated_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      }
+    },
+    {
+      "id": "m13_MiRings4_forced",
+      "passed": true,
+      "baseline_sha256": "cc3f2c90cdfd047d8a7cef7af840bad0661d73cea2a1712f0ec707972d117a14",
+      "updated_sha256": "cc3f2c90cdfd047d8a7cef7af840bad0661d73cea2a1712f0ec707972d117a14",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.686977684,
+        "rms": 0.0323173739
+      }
+    },
+    {
+      "id": "m13_MiRings5_bypass",
+      "passed": true,
+      "baseline_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "updated_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      }
+    },
+    {
+      "id": "m13_MiRings5_forced",
+      "passed": true,
+      "baseline_sha256": "c42de0420162d0756e9da3c1ba9370baac4933695f7cecd212b53adcd697e7bc",
+      "updated_sha256": "c42de0420162d0756e9da3c1ba9370baac4933695f7cecd212b53adcd697e7bc",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.190521523,
+        "rms": 0.0079743946
+      }
+    },
+    {
+      "id": "m13_MiRings6_bypass",
+      "passed": true,
+      "baseline_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "updated_sha256": "1f1aec485f907bfc7211812ab0c4891072ed90f401ba9cf7747b7ce5e5a227a7",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.0500000007,
+        "rms": 0.035355106
+      }
+    },
+    {
+      "id": "m13_MiRings6_forced",
+      "passed": true,
+      "baseline_sha256": "cc116b2e518bddfda7c90142becae12ca0811aebe9ce511620ecedaa312bec5d",
+      "updated_sha256": "cc116b2e518bddfda7c90142becae12ca0811aebe9ce511620ecedaa312bec5d",
+      "summary": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 0,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.27403748,
+        "rms": 0.010821078
+      }
+    }
+  ]
+}

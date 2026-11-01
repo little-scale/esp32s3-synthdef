@@ -1,0 +1,1958 @@
+{
+  "passed": true,
+  "status": "complete",
+  "captures": [
+    {
+      "id": "m13_MiRings1_bypass",
+      "graph_sha256": "555adab9cd1dd8b1153dddc220e1eda5b7e62fa72f0ef13ac35f2928489edfa3",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "269",
+        "peak": "0.0500000007",
+        "rms": "0.035355106"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings1_forced",
+      "graph_sha256": "46d8829cdbafb7f45ca1f4909c56768779ac101cf258b767bd1f5c368fc79837",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "836",
+        "peak": "0.582521319",
+        "rms": "0.0112868501"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings1_live",
+      "graph_sha256": "6e3638f5a0adfc8845524c54b170a2fe95b148c77ca522a3c14f62baba7723a6",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "814",
+        "peak": "0.582521319",
+        "rms": "0.0121093011"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings2_bypass",
+      "graph_sha256": "3deb6aec21c97019a7aa1c50acabe443e3b019968707dd2868e1f98c171a7e5b",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "298",
+        "peak": "0.0500000007",
+        "rms": "0.035355106"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings2_forced",
+      "graph_sha256": "776dc11df7ab132a5a0107f6a0334c24fa2b6d2310449caaf8e1e1654d4d1db3",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1156",
+        "peak": "0.381430119",
+        "rms": "0.0458050184"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings2_live",
+      "graph_sha256": "9c184e1289ffa84caa4c1ad030894316dc82486ffab806410c6eaa20590b2474",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1143",
+        "peak": "0.381430119",
+        "rms": "0.0361929759"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings3_bypass",
+      "graph_sha256": "68c6f10d6813482c193721d11aca9eff4f547797a547d81c236831fc37c14988",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "269",
+        "peak": "0.0500000007",
+        "rms": "0.035355106"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings3_forced",
+      "graph_sha256": "69e5145a0e9f80213c088ae4eb5cb38a8f115194c2e0ad07ac50bec38276e8f9",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "505",
+        "peak": "0.415543497",
+        "rms": "0.00750069646"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings3_live",
+      "graph_sha256": "9d5861b4b2507c22138835c85f473d90dd33393031e45105914d9624b9423597",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "478",
+        "peak": "0.415543497",
+        "rms": "0.00751842605"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings4_bypass",
+      "graph_sha256": "3a6d34adc31840d1f02a1e326486699aa4203717ce1be5c7a1a34aae27bbdb9e",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "260",
+        "peak": "0.0500000007",
+        "rms": "0.035355106"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings4_forced",
+      "graph_sha256": "7b5ed3e51eb038bdda28ebfba4df22f2cd0d240f21ea332168f36cec65caefbd",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "802",
+        "peak": "0.686977684",
+        "rms": "0.0323173739"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings4_live",
+      "graph_sha256": "8d3f9f64b9ef577148e7a9e18570cec78545e9fe8e7b6f75cb15c270f2f1d303",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "752",
+        "peak": "0.686977684",
+        "rms": "0.0400907882"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings5_bypass",
+      "graph_sha256": "e0bc6818c7e422e773c78dd8fa67e2a65cf10608733f6a8a258c30f231d46e53",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "297",
+        "peak": "0.0500000007",
+        "rms": "0.035355106"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings5_forced",
+      "graph_sha256": "4910b5d827ee58b0b3d0d6059f149c7c9b05fe3fffa933897d78bdba26ca7bf4",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1181",
+        "peak": "0.190521523",
+        "rms": "0.0079743946"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings5_live",
+      "graph_sha256": "07accf14c09f1c31de9f929e879949f763705dac038e8fba7864d4b31a5a1725",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1162",
+        "peak": "0.190521523",
+        "rms": "0.00737462146"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings6_bypass",
+      "graph_sha256": "e4c1fee3ce8cd6db7120a6b6281d1b624c20420d167515b60e8149d7b920f2c6",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "SinOsc",
+          2
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "287",
+        "peak": "0.0500000007",
+        "rms": "0.035355106"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings6_forced",
+      "graph_sha256": "f71744f0ac41f37a948864c5a1de5b93ca354dea509094d55eaad2a46fa69677",
+      "type_rates": [
+        [
+          "Control",
+          1
+        ],
+        [
+          "DC",
+          2
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "0",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1204",
+        "peak": "0.27403748",
+        "rms": "0.010821078"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "m13_MiRings6_live",
+      "graph_sha256": "77c3852dc5464a44c0e2cbd31d206705604eb13136644d97c2205f9b8e22069d",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1185",
+        "peak": "0.27403748",
+        "rms": "0.0175554175"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "rings-1-long-release",
+      "graph_sha256": "5a04e2fe573dfbb1504bf1de4f82bcb762eb40704488d2e5ba9544057ac463d8",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "890",
+        "peak": "0.0470418595",
+        "rms": "0.0025254786"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "rings-2-long-release",
+      "graph_sha256": "e444c61836324fed784087b845bdf1632823e644e4ac864526ff2319e9f2d619",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1302",
+        "peak": "0.0500456616",
+        "rms": "0.00649517076"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "rings-3-long-release",
+      "graph_sha256": "df69b3d1a4ad24803602f78a7d42d8abb631fb259ca6b1adc8ef102250f5ac66",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "654",
+        "peak": "0.0315041095",
+        "rms": "0.000722236466"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "rings-4-long-release",
+      "graph_sha256": "91954810121429285febf2c2983958ea2134d4954aa333904ad7a8117292417b",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "862",
+        "peak": "0.0618811622",
+        "rms": "0.00506476825"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "rings-5-long-release",
+      "graph_sha256": "f6fcb292f722755a294679f28d6da38f44149bf18a8051a0fd2daa3464c4a76d",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1335",
+        "peak": "0.0185869057",
+        "rms": "0.00162600901"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    },
+    {
+      "id": "rings-6-long-release",
+      "graph_sha256": "5d4855179abe046b68bf8502beb8ef7c508943f5728b776eff3a7e0bd67b5eed",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "EnvGen",
+          2
+        ],
+        [
+          "Lag",
+          1
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "1",
+        "rejected": "0",
+        "initial_rejections": "0",
+        "initial_accepts": "0",
+        "restarts": "0",
+        "max_us": "1368",
+        "peak": "0.0243904218",
+        "rms": "0.00089632289"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 0.0,
+        "rms_error": 0.0,
+        "relative_rms_ratio": 1.0,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      }
+    }
+  ],
+  "exercises": [],
+  "saved_patch_writes": false,
+  "capture_blocks_per_graph": 8192,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "3afda820448ba4077e3fa6a3b24bde90a987d3d6d05bcebeb7411a4a5bb642ca",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "683571cba3eb1ec2058ccfd4b71939d3bc5fd2f1c7d906fde197c06a14c2cba4",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12452361,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "initial_library": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "initial_packages": {
+    "1": {
+      "graph": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448",
+      "source": "b968bdb3d0a301d9a689c8ff96f2919b981e6742c21a64283e11bc1b8ce964c8",
+      "metadata": "4d61632053696e650000000000000000000000000000000000000000000000005049544348000000000000004c4556454c0000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "2": {
+      "graph": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
+      "source": "6377946caa7fc7aaa26a33f9bada2dc32fcdc5c3c0cb8a5b033263fb8678a78f",
+      "metadata": "506861736520464d000000000000000000000000000000000000000000000000504954434800000000000000494e4445580000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "3": {
+      "graph": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
+      "source": "61125e17070ace98985eb5a2f27aaf746f61d92c807da1d6ba174047b36a6622",
+      "metadata": "4861726d6f6e6963204d697800000000000000000000000000000000000000005049544348000000000000004841524d4f4e49435300000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "4": {
+      "graph": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a",
+      "source": "67ccfb8e8af74ba2f8fe4c5b2614ebcd39ab760fb71e3df37378da130f914c23",
+      "metadata": "46696c746572656420546f6e65000000000000000000000000000000000000005049544348000000000000004355544f464600000000000041545441434b00000000000052454c45415345000000000001000000"
+    }
+  },
+  "final_packages": {
+    "1": {
+      "graph": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448",
+      "source": "b968bdb3d0a301d9a689c8ff96f2919b981e6742c21a64283e11bc1b8ce964c8",
+      "metadata": "4d61632053696e650000000000000000000000000000000000000000000000005049544348000000000000004c4556454c0000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "2": {
+      "graph": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
+      "source": "6377946caa7fc7aaa26a33f9bada2dc32fcdc5c3c0cb8a5b033263fb8678a78f",
+      "metadata": "506861736520464d000000000000000000000000000000000000000000000000504954434800000000000000494e4445580000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "3": {
+      "graph": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
+      "source": "61125e17070ace98985eb5a2f27aaf746f61d92c807da1d6ba174047b36a6622",
+      "metadata": "4861726d6f6e6963204d697800000000000000000000000000000000000000005049544348000000000000004841524d4f4e49435300000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "4": {
+      "graph": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a",
+      "source": "67ccfb8e8af74ba2f8fe4c5b2614ebcd39ab760fb71e3df37378da130f914c23",
+      "metadata": "46696c746572656420546f6e65000000000000000000000000000000000000005049544348000000000000004355544f464600000000000041545441434b00000000000052454c45415345000000000001000000"
+    }
+  },
+  "packages_unchanged": true,
+  "type_rates_covered": [
+    [
+      "BinaryOpUGen",
+      1
+    ],
+    [
+      "BinaryOpUGen",
+      2
+    ],
+    [
+      "Control",
+      0
+    ],
+    [
+      "Control",
+      1
+    ],
+    [
+      "DC",
+      2
+    ],
+    [
+      "EnvGen",
+      2
+    ],
+    [
+      "Lag",
+      1
+    ],
+    [
+      "MiRings1",
+      2
+    ],
+    [
+      "MiRings2",
+      2
+    ],
+    [
+      "MiRings3",
+      2
+    ],
+    [
+      "MiRings4",
+      2
+    ],
+    [
+      "MiRings5",
+      2
+    ],
+    [
+      "MiRings6",
+      2
+    ],
+    [
+      "MulAdd",
+      1
+    ],
+    [
+      "Out",
+      2
+    ],
+    [
+      "RandSeed",
+      0
+    ],
+    [
+      "SinOsc",
+      2
+    ],
+    [
+      "UnaryOpUGen",
+      1
+    ]
+  ],
+  "missing_fixture_type_rates": [],
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 1285,
+    "transfer": 1870690230,
+    "slot": 1,
+    "name": "Mac Sine",
+    "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+  },
+  "final_library": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "library_unchanged": true
+}

@@ -1,0 +1,81 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "native_ide": true,
+  "cmd_period_before_pattern": true,
+  "interval_seconds": 5,
+  "samples": [
+    {
+      "boot": 978478464,
+      "revision": 5,
+      "applied": 61,
+      "rejected": 1,
+      "late": 0,
+      "queued": 0,
+      "values": [
+        [
+          1000
+        ],
+        [
+          20
+        ]
+      ],
+      "host_time": 46412.93353425
+    },
+    {
+      "boot": 978478464,
+      "revision": 5,
+      "applied": 62,
+      "rejected": 1,
+      "late": 0,
+      "queued": 0,
+      "values": [
+        [
+          220
+        ],
+        [
+          10
+        ]
+      ],
+      "host_time": 46418.005736333
+    },
+    {
+      "boot": 978478464,
+      "revision": 5,
+      "applied": 63,
+      "rejected": 1,
+      "late": 0,
+      "queued": 0,
+      "values": [
+        [
+          220
+        ],
+        [
+          20
+        ]
+      ],
+      "host_time": 46423.063791083
+    }
+  ],
+  "restore": {
+    "freq": 220,
+    "dev": 0
+  },
+  "after": {
+    "boot": 978478464,
+    "revision": 5,
+    "applied": 68,
+    "rejected": 1,
+    "late": 0,
+    "queued": 0,
+    "values": [
+      [
+        220
+      ],
+      [
+        0
+      ]
+    ]
+  },
+  "passed": true,
+  "restored": true
+}

@@ -1,0 +1,23 @@
+{
+  "host_suite_passed": 60,
+  "focused_native_and_control_tests_passed": 9,
+  "device_id": "esp32-2884853ad390",
+  "firmware_changed": false,
+  "hardware": {
+    "rate_hz": 10,
+    "existing_patch": true,
+    "source_key_add_remove": true,
+    "named_player_reuse": true,
+    "stop_replay": true,
+    "completed_lifecycle_checks": true,
+    "warning_count": 0,
+    "before": {
+      "boot": 978478464,
+      "revision": 33,
+      "applied": 6836,
+      "rejected": 139,
+      "late": 0
+    },
+    "restoration": "Skipped because a concurrent upload changed the patch; old values were not applied to the new patch"
+  }
+}

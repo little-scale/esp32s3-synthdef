@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "build": "e252f8fc68f87d4ff3e7a963817aa9a062e76844afdb1f8fe6f7cc7509c7e245",
+  "title_shift_px": 8,
+  "battery_shift_px": -8,
+  "subtitle_unchanged": true,
+  "saved_library_and_fx_unchanged": true,
+  "selected_slot": 5,
+  "silent": true,
+  "new_output_errors": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "final_page": "slots",
+  "snapshots": [
+    "evidence/header-inset-code.png",
+    "evidence/header-inset-slots.png"
+  ]
+}

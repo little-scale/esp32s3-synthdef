@@ -130,6 +130,16 @@ int main(int argc, char **argv)
     /* Cached writes must never bypass the engine's scalar-control rule. */
     graph.node[graph.nodes]=graph.node[0];graph.node[graph.nodes].rate=0;++graph.nodes;
     assert(!instrument_init(&synth,&graph,&voice,&scratch,NULL,0,44100));--graph.nodes;
-    puts("PASS: four normalized controls, pre-start values, live changes and touch-patch release");
+    assert(instrument_init(&synth,&graph,&voice,&scratch,NULL,0,44100));synth.defer_note_render=1;
+    event(INST_NOTE_ON,30,0);instrument_render(&synth,pcm);
+    for(unsigned i=0;i<FM_BLOCK;++i)assert(pcm[i]==0);
+    assert(voice.active && voice.prepared && !voice.blocks && !synth.deferred_blocks);
+    instrument_render(&synth,pcm);assert(voice.blocks==1);
+    unsigned audible=0;for(unsigned i=0;i<FM_BLOCK;++i)audible+=pcm[i]!=0;assert(audible);
+    event(INST_NOTE_ON,31,0);instrument_panic(&synth);assert(!synth.deferred_blocks && !voice.active);
+    event(INST_NOTE_ON,32,0);event(INST_NOTE_OFF,32,0);
+    for(unsigned b=0;b<1000;++b) {instrument_render(&synth,pcm);for(unsigned i=0;i<FM_BLOCK;++i)assert(pcm[i]==0);}
+    assert(!voice.active && !synth.held);
+    puts("PASS: four normalized controls, live changes, touch-patch release and bounded one-block note preparation");
     return 0;
 }

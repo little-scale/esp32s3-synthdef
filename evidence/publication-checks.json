@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "date": "2026-11-02",
+  "hardware_changed": false,
+  "firmware_source_build": "8b4cc4a9955a1b9d15fcc6720709a4a564174a33c507adfa3b5a5ac8bbb89988",
+  "fresh_build": "evidence/publication-build.json",
+  "fresh_sdk_config_matches_measured": true,
+  "host_tests": 70,
+  "clean_staged_checkout_host_tests": 70,
+  "clean_checkout_prepare_adapter_remote_tests": true,
+  "readme_sc_snippets_compile_only": 7,
+  "broken_relative_documentation_links": 0,
+  "portable_suites": [
+    "test.py",
+    "test_touch.py",
+    "test_patches.py",
+    "test_catalog.py",
+    "test_source.py",
+    "test_control_buses.py",
+    "test_master_delay.py",
+    "test_remote_control.py",
+    "test_comb_kernels.py",
+    "test_miverb.py",
+    "test_saw.py",
+    "test_dynamic_banks.py"
+  ],
+  "private_files_excluded": true,
+  "new_raw_logs_kept_local": true,
+  "publication_includes_safe_ui_previews": true
+}

@@ -1,0 +1,42 @@
+{
+  "main": {
+    "after_reboot": {
+      "boot": 128765894,
+      "revision": 2,
+      "active": false,
+      "prepared": false
+    },
+    "binary_preserved": true,
+    "restored": true,
+    "source_sha256": "ab899f136a0748d22627e87fbdb609b1bc85f5c02a9c3d186bc6b9468954d289",
+    "graph_sha256": "1789a04acafb79b7d5cd8c047b19510fdb9fc36e56e1edb6b8d18498d85845cb"
+  },
+  "fx": {
+    "after_reboot": {
+      "boot": 128765894,
+      "revision": 2,
+      "active": false,
+      "prepared": false
+    },
+    "binary_preserved": true,
+    "restored": true,
+    "source_sha256": "523eccc446abfb3293aad076168808e4afdda99787bc460c438e680ba65f4b40",
+    "graph_sha256": "6432b028ea46230e2854f05a2cf6277e8dbe6a88113ff4cc497de042a8e77e1b"
+  },
+  "volume_restored_percent": 17,
+  "firmware_build": "748640b42f79205c4ab1abdb86aa36afbbedb3060cb9c8d27b52166f23c10ab3",
+  "literal_bytes_preserved": true,
+  "gate_one_upload_inactive": true,
+  "explicit_main_fx_lifecycle": true,
+  "initial_rate_creation_args": true,
+  "note_auto_creation": true,
+  "bypass_recovery": true,
+  "reboot_definition_only": true,
+  "host_and_native_tests_passed": 60,
+  "portable_instrument_regression": true,
+  "portable_storage_regression": true,
+  "portable_main_fx_lifecycle": true,
+  "portable_rendered_envelope_edges": 300,
+  "sc_ide_recompiled": true,
+  "recovery": "USB reset returned to ROM download mode; clearing volatile forced-download bit and watchdog reset restored normal boot"
+}

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "build_id": "17fd9d362ccb8dbc952f5ab38c3a8abd1e298f95d24793467685c94e56ab81c2",
+  "cause": "User was swiping the code/play body; previous implementation only handled title swipes.",
+  "change": "Quick horizontal flicks on the code body or play pad now share the existing next/previous patch loader.",
+  "flick": {
+    "max_duration_ms": 500,
+    "minimum_horizontal_pixels": 88,
+    "horizontal_to_vertical_range_ratio": 2,
+    "release_coordinates_used": false
+  },
+  "preserved": [
+    "vertical scrolling",
+    "slower horizontal source panning",
+    "held pad pitch/level control",
+    "immediate note on and correct release",
+    "header swipes",
+    "battery top right",
+    "Panic bottom right, including busy states"
+  ],
+  "native_tests": {
+    "test": "real LVGL host simulation",
+    "passed": true,
+    "details": "UI fixed heap: 65536 bytes, currently free 15392, largest free block 15312\nPASS: real LVGL controls, code/pad body flicks in both directions, held/slow/vertical drags, release-coordinate loss, header swipes, sparse/wrapped slots, busy/rejected requests and CODE retention",
+    "source_sha256": "c41cb344f55eafdf3b030d8d8bc8829fb28f62fbee24b25ffc20af9222f39337",
+    "hardware": false,
+    "dimensions": [
+      368,
+      448
+    ]
+  },
+  "hardware": {
+    "selection_checks_passed": true,
+    "physical_finger_tested": false,
+    "new_output_errors": {
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    "saved_patch_writes": false,
+    "final_status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 0,
+      "transfer": 1870690230,
+      "slot": 1,
+      "name": "Mac Sine",
+      "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+    }
+  },
+  "builds": [
+    "evidence/body-swipe-build.json",
+    "evidence/body-swipe-compact-build.json"
+  ],
+  "audio_dsp_changed": false
+}

@@ -1,0 +1,163 @@
+{
+  "connected": true,
+  "port": "192.168.0.224",
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "5fc3dc0bd681b33194c6d406acbffd09af78a079e3b0e6d7726961ca6d442adb",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "a7550a34a2c59c996e4168436986d7047e11d2b5112c6f7d1d5a11239214fc2f",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "continuous_blocks": true,
+    "master_slots": 2,
+    "atomic_install": true,
+    "global_volume": true,
+    "transports": [
+      "usb-serial-jtag",
+      "wifi-http"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12432783,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ],
+    "device_id": "esp32-2884853ad390",
+    "device_name": "AMOLED-3ad390",
+    "wifi_upload": true
+  },
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 1253,
+    "transfer": 1382480026,
+    "slot": 1,
+    "name": "SoundBlock",
+    "graph_sha256": "1004139e01892a92ae19c460f20d405aae6db08060159ac2e7a72396fa71af2c",
+    "continuous": true,
+    "seed": 3902740902
+  },
+  "slots": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "SoundBlock",
+      "generations": [
+        29,
+        30
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "Touch buses",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "Triggered harmonics",
+      "generations": [
+        5,
+        4
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "Comb cloud",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "Comb cloud KR",
+      "generations": [
+        1,
+        0
+      ]
+    }
+  ],
+  "audio": {},
+  "masters": [
+    {
+      "slot": 0,
+      "name": "Bypass",
+      "generations": [
+        0,
+        0
+      ],
+      "selected": false
+    },
+    {
+      "slot": 1,
+      "name": "Master FX",
+      "generations": [
+        1,
+        0
+      ],
+      "selected": true
+    }
+  ],
+  "connection": {
+    "transport": "wifi",
+    "device_id": "esp32-2884853ad390",
+    "device_name": "AMOLED-3ad390",
+    "address": "192.168.0.224"
+  }
+}

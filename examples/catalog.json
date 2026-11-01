@@ -10,7 +10,7 @@
       "RELEASE"
     ],
     "mapping": 1,
-    "status": "qualified"
+    "status": "candidate"
   },
   {
     "id": "additive",
@@ -23,7 +23,7 @@
       "RELEASE"
     ],
     "mapping": 1,
-    "status": "qualified"
+    "status": "candidate"
   },
   {
     "id": "filtered",
@@ -36,6 +36,6 @@
       "RELEASE"
     ],
     "mapping": 1,
-    "status": "qualified"
+    "status": "candidate"
   }
 ]

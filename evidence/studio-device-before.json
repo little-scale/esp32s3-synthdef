@@ -1,0 +1,143 @@
+{
+  "state": {
+    "connected": true,
+    "port": "/dev/cu.usbmodem3101",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "54c1db191d063fed7a7ee55cc5b54c289e91b13afbaa61825b9c88d406958f09",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "2d5e8a5a89c22b828416153c2e2f6a4d0e98f5fe522d16f52d57025be65a7946",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "transports": [
+        "usb-serial-jtag"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12448596,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ]
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 0,
+      "transfer": 2050711642,
+      "slot": 5,
+      "name": "Touch buses",
+      "graph_sha256": "4a7754df80d89b1227148d9eee9d716142ae919d678b4a5ad93da15c273cd4ff"
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "Mac Sine",
+        "generations": [
+          11,
+          12
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "",
+        "generations": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "package": {
+    "slot": 5,
+    "graph": "U0NnZgAAAAIAAQpUb3VjaEJ1c2VzAAAADDx1wo8AAAAAP4AAAELcAABEXAAAQAAAAMLGAAA8I9cKQKAAAMCAAAA99cKPPoAAAAAAAAEAAAAAAAAAAQVod0J1cwAAAAAAAAANB0NvbnRyb2wBAAAAAAAAAAEAAAECSW4BAAAAAQAAAAMAAAAAAAAAAAAAAQEBA0xhZwEAAAACAAAAAQAAAAAAAQAAAAD/////AAAAAAEEQ2xpcAEAAAADAAAAAQAAAAAAAgAAAAD/////AAAAAf////8AAAACAQZMaW5FeHABAAAABQAAAAEAAAAAAAMAAAAA/////wAAAAH/////AAAAAv////8AAAAD/////wAAAAQBBlNpbk9zYwIAAAACAAAAAQAAAAAABAAAAAD/////AAAAAQIDTGFnAQAAAAIAAAABAAAAAAABAAAAAf////8AAAAAAQxCaW5hcnlPcFVHZW4CAAAAAgAAAAEAAgAAAAUAAAAAAAAABgAAAAACBkVudkdlbgEAAAARAAAAAQAAAAAAAQAAAAL/////AAAAAv////8AAAAB/////wAAAAL/////AAAAAf////8AAAAB/////wAAAAX/////AAAAAv////8AAAAG/////wAAAAL/////AAAAB/////8AAAAI/////wAAAAn/////AAAAAf////8AAAAK/////wAAAAj/////AAAACQEMQmluYXJ5T3BVR2VuAgAAAAIAAAABAAIAAAAHAAAAAAAAAAgAAAAAAgxCaW5hcnlPcFVHZW4CAAAAAgAAAAEAAgAAAAkAAAAA/////wAAAAsCBFBhbjICAAAAAwAAAAIAAAAAAAoAAAAA/////wAAAAH/////AAAAAgICA091dAIAAAADAAAAAAAA/////wAAAAEAAAALAAAAAAAAAAsAAAABAAA=",
+    "source": "// Touch control bank, relative to hwBus:\n// 0 = X: left to right, normalized 0..1.\n// 1 = Y: bottom to top, normalized 0..1.\n// 2 = gate: 1 while held, 0 on release.\n// Use the right/bottom strips to scroll.\n\nSynthDef(\\TouchBuses, { |hwBus = 0|\n    var touch = In.kr(hwBus, 3);\n\n    // Horizontal position sets pitch.\n    var frequency = Lag.kr(touch[0], 0.015)\n        .linexp(0, 1, 110, 880);\n\n    // Vertical position sets level.\n    var level = Lag.kr(touch[1], 0.015);\n\n    // Finger-up releases the envelope.\n    var envelope = EnvGen.kr(\n        Env.asr(0.01, 1, 0.12),\n        touch[2]\n    );\n\n    var signal = SinOsc.ar(frequency)\n        * level\n        * envelope\n        * 0.25;\n\n    Out.ar(0, Pan2.ar(signal));\n});\n",
+    "name": "Touch buses",
+    "labels": [
+      "X",
+      "Y",
+      "ATTACK",
+      "RELEASE"
+    ],
+    "mapping": 1
+  },
+  "graph_sha256": "4a7754df80d89b1227148d9eee9d716142ae919d678b4a5ad93da15c273cd4ff",
+  "source_sha256": "7cb8d53dab148fb97710da6857d4bb4bbd6cbeff66a487ac3b5e77823747520a"
+}

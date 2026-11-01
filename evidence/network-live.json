@@ -1,0 +1,643 @@
+{
+  "passed": true,
+  "upload_transport": "wifi-http",
+  "checks": [
+    {
+      "check": "competing_writer_rejected",
+      "passed": true
+    },
+    {
+      "check": "readback_does_not_reacquire_completed_lease",
+      "passed": true
+    },
+    {
+      "check": "wrong_module_header_rejected",
+      "passed": true
+    },
+    {
+      "check": "wrong_pairing_key_rejected",
+      "passed": true
+    },
+    {
+      "check": "no_audio_faults_or_write_failures",
+      "passed": true
+    }
+  ],
+  "network": {
+    "protocol": 1,
+    "device_id": "esp32-2884853ad390",
+    "device_name": "AMOLED-3ad390",
+    "address": "192.168.0.224",
+    "port": 80,
+    "configured": true,
+    "online": true,
+    "reason": 0,
+    "stage": 10,
+    "internal_free": 15751,
+    "internal_largest": 10752,
+    "error": "ESP_OK"
+  },
+  "discovery": {
+    "device_id": "esp32-2884853ad390",
+    "device_name": "AMOLED-3ad390",
+    "address": "192.168.0.224",
+    "port": 80,
+    "online": true,
+    "paired": true
+  },
+  "original_volume": 100,
+  "original_active": false,
+  "original_selection": 0,
+  "compile": {
+    "nodes": 111,
+    "signals": 119,
+    "graph_bytes": 4710,
+    "source_bytes": 485,
+    "graph_sha256": "03847362dac56f04f1aae774751f1ab4524abab4852b8f28091081827efe266f",
+    "source_sha256": "7e9e4be736150804240693708e9898ffaa573b9bc9182127b99eafa2c3975365",
+    "continuous": true
+  },
+  "upload_seconds": 4.75267412500034,
+  "upload": {
+    "saved": true,
+    "verified": true,
+    "target": "sound",
+    "continuous": true,
+    "slot": 1,
+    "name": "SoundBlock",
+    "connected": true,
+    "port": "192.168.0.224",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "5fc3dc0bd681b33194c6d406acbffd09af78a079e3b0e6d7726961ca6d442adb",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "a7550a34a2c59c996e4168436986d7047e11d2b5112c6f7d1d5a11239214fc2f",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "global_volume": true,
+      "transports": [
+        "usb-serial-jtag",
+        "wifi-http"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12425253,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ],
+      "device_id": "esp32-2884853ad390",
+      "device_name": "AMOLED-3ad390",
+      "wifi_upload": true
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 5195,
+      "transfer": 2594806663,
+      "slot": 1,
+      "name": "SoundBlock",
+      "graph_sha256": "03847362dac56f04f1aae774751f1ab4524abab4852b8f28091081827efe266f",
+      "continuous": true,
+      "seed": 2666057328
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "SoundBlock",
+        "generations": [
+          21,
+          20
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Triggered harmonics",
+        "generations": [
+          5,
+          4
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "Comb cloud KR",
+        "generations": [
+          1,
+          0
+        ]
+      }
+    ],
+    "audio": {
+      "frame": 7683840,
+      "active": 1,
+      "render_max_us": 2370,
+      "combined_max_us": 2388,
+      "updated": 30690.973124083,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 5,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 756,
+      "peak_x10": 1645
+    },
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": true
+      }
+    ],
+    "connection": {
+      "transport": "wifi",
+      "device_id": "esp32-2884853ad390",
+      "device_name": "AMOLED-3ad390",
+      "address": "192.168.0.224"
+    }
+  },
+  "audio_samples": [
+    {
+      "frame": 8037120,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30698.835499291,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1329
+    },
+    {
+      "frame": 8125440,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30700.864994583,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1313
+    },
+    {
+      "frame": 8213760,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30702.8995555,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 953,
+      "peak_x10": 1390
+    },
+    {
+      "frame": 8302080,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30704.926481208,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1327
+    },
+    {
+      "frame": 8390400,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30706.955843333,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 948,
+      "peak_x10": 1319
+    },
+    {
+      "frame": 8434560,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30707.972733791,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1321
+    },
+    {
+      "frame": 8522880,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30710.001879041,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 948,
+      "peak_x10": 1278
+    },
+    {
+      "frame": 8611200,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30712.0276705,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1323
+    },
+    {
+      "frame": 8743680,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30714.818935,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 950,
+      "peak_x10": 1323
+    },
+    {
+      "frame": 8832000,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30716.854576583,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 951,
+      "peak_x10": 1360
+    },
+    {
+      "frame": 8920320,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30718.88422825,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1297
+    },
+    {
+      "frame": 9008640,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30720.9188705,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1255
+    }
+  ],
+  "after": {
+    "connected": true,
+    "port": "192.168.0.224",
+    "hello": {
+      "protocol": 1,
+      "model": "Waveshare AMOLED 1.8 V2",
+      "build": "5fc3dc0bd681b33194c6d406acbffd09af78a079e3b0e6d7726961ca6d442adb",
+      "engine": "00ac338904304e87845477808e598ef973f49b52",
+      "profile": "a7550a34a2c59c996e4168436986d7047e11d2b5112c6f7d1d5a11239214fc2f",
+      "rate": 44100,
+      "block": 64,
+      "voices": 1,
+      "effects": 1,
+      "continuous_blocks": true,
+      "master_slots": 2,
+      "atomic_install": true,
+      "global_volume": true,
+      "transports": [
+        "usb-serial-jtag",
+        "wifi-http"
+      ],
+      "graph_max": 65536,
+      "source_max": 65536,
+      "chunk": 256,
+      "slots": 8,
+      "storage": true,
+      "storage_total": 12462401,
+      "storage_free": 12425253,
+      "policy": "fm1-compat-v1",
+      "catalog": [
+        {
+          "id": "phase-fm",
+          "status": "candidate",
+          "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+        },
+        {
+          "id": "additive",
+          "status": "candidate",
+          "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+        },
+        {
+          "id": "filtered",
+          "status": "candidate",
+          "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+        }
+      ],
+      "device_id": "esp32-2884853ad390",
+      "device_name": "AMOLED-3ad390",
+      "wifi_upload": true
+    },
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 5195,
+      "transfer": 2594806663,
+      "slot": 1,
+      "name": "SoundBlock",
+      "graph_sha256": "03847362dac56f04f1aae774751f1ab4524abab4852b8f28091081827efe266f",
+      "continuous": true,
+      "seed": 2666057328
+    },
+    "slots": [
+      {
+        "slot": 0,
+        "name": "Factory Sine",
+        "generations": [
+          0,
+          0
+        ]
+      },
+      {
+        "slot": 1,
+        "name": "SoundBlock",
+        "generations": [
+          21,
+          20
+        ]
+      },
+      {
+        "slot": 2,
+        "name": "Phase FM",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 3,
+        "name": "Harmonic Mix",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 4,
+        "name": "Filtered Tone",
+        "generations": [
+          1,
+          0
+        ]
+      },
+      {
+        "slot": 5,
+        "name": "Touch buses",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 6,
+        "name": "Triggered harmonics",
+        "generations": [
+          5,
+          4
+        ]
+      },
+      {
+        "slot": 7,
+        "name": "Comb cloud",
+        "generations": [
+          1,
+          2
+        ]
+      },
+      {
+        "slot": 8,
+        "name": "Comb cloud KR",
+        "generations": [
+          1,
+          0
+        ]
+      }
+    ],
+    "audio": {
+      "frame": 9008640,
+      "active": 1,
+      "render_max_us": 2521,
+      "combined_max_us": 2537,
+      "updated": 30720.9188705,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 54,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 949,
+      "peak_x10": 1255
+    },
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": false
+      },
+      {
+        "slot": 1,
+        "name": "Master FX",
+        "generations": [
+          1,
+          0
+        ],
+        "selected": true
+      }
+    ],
+    "connection": {
+      "transport": "wifi",
+      "device_id": "esp32-2884853ad390",
+      "device_name": "AMOLED-3ad390",
+      "address": "192.168.0.224"
+    }
+  },
+  "restored_volume": {
+    "percent": 100
+  },
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 5195,
+    "transfer": 0,
+    "slot": 0,
+    "name": "Touch Sine",
+    "graph_sha256": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5",
+    "continuous": false,
+    "seed": 0
+  },
+  "steady_playback_summary": {
+    "seconds_observed": 22.029931972789115,
+    "mean_cpu_percent": 94.94166666666666,
+    "maximum_one_second_mean_cpu_percent": 95.3,
+    "maximum_recent_peak_cpu_percent": 139.0,
+    "steady_dma_event_increase": 0,
+    "transition_dma_events_at_first_sample": 54,
+    "write_failures": 0,
+    "faults": 0,
+    "nonfinite": 0,
+    "clipping": 0
+  }
+}

@@ -1,0 +1,403 @@
+{
+  "passed": true,
+  "jobs": [
+    {
+      "id": "m13_MiRings6_live",
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings6_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "graph": "build/host/long-trace/m13_MiRings6_live.scsyndef",
+      "samples": "build/host/long-trace/m13_MiRings6_live.f32",
+      "graph_sha256": "77c3852dc5464a44c0e2cbd31d206705604eb13136644d97c2205f9b8e22069d",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings6",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.27403748,
+        "rms": 0.0175554175
+      },
+      "baseline_capture_sha256": "2cf5a29f5d9044c06116971141caf1977a33838971cc8bffb3953b1147a6046d"
+    },
+    {
+      "id": "m13_MiRings5_live",
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings5_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "graph": "build/host/long-trace/m13_MiRings5_live.scsyndef",
+      "samples": "build/host/long-trace/m13_MiRings5_live.f32",
+      "graph_sha256": "07accf14c09f1c31de9f929e879949f763705dac038e8fba7864d4b31a5a1725",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings5",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.190521523,
+        "rms": 0.00737462146
+      },
+      "baseline_capture_sha256": "6aadb0a925f2c5ced2a5ca08755e1b863bd7cc089c7297955fa10b06956fd1f4"
+    },
+    {
+      "id": "m13_MiRings4_live",
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings4_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "graph": "build/host/long-trace/m13_MiRings4_live.scsyndef",
+      "samples": "build/host/long-trace/m13_MiRings4_live.f32",
+      "graph_sha256": "8d3f9f64b9ef577148e7a9e18570cec78545e9fe8e7b6f75cb15c270f2f1d303",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings4",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.686977684,
+        "rms": 0.0400907882
+      },
+      "baseline_capture_sha256": "75b1dc2205a7e18311fd42090b880527309234ae0878cfa6088043e7e112a712"
+    },
+    {
+      "id": "m13_MiRings3_live",
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings3_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "graph": "build/host/long-trace/m13_MiRings3_live.scsyndef",
+      "samples": "build/host/long-trace/m13_MiRings3_live.f32",
+      "graph_sha256": "9d5861b4b2507c22138835c85f473d90dd33393031e45105914d9624b9423597",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings3",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.415543497,
+        "rms": 0.00751842605
+      },
+      "baseline_capture_sha256": "fdaa5c196486bf10c9c1d2e2008ccb8a6109bab0a9ca9ee8163cd42decad1cb0"
+    },
+    {
+      "id": "m13_MiRings2_live",
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings2_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "graph": "build/host/long-trace/m13_MiRings2_live.scsyndef",
+      "samples": "build/host/long-trace/m13_MiRings2_live.f32",
+      "graph_sha256": "9c184e1289ffa84caa4c1ad030894316dc82486ffab806410c6eaa20590b2474",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings2",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.381430119,
+        "rms": 0.0361929759
+      },
+      "baseline_capture_sha256": "f49ac6cea99d0db4e86f70cf134be0ead3697c701856db99ff40416d0650a63e"
+    },
+    {
+      "id": "m13_MiRings1_live",
+      "source": "upstream/fm1-synthdef/synthdef-engine/fixtures/m13_MiRings1_live.scsyndef",
+      "events": [
+        [
+          0.25,
+          1
+        ]
+      ],
+      "graph": "build/host/long-trace/m13_MiRings1_live.scsyndef",
+      "samples": "build/host/long-trace/m13_MiRings1_live.f32",
+      "graph_sha256": "6e3638f5a0adfc8845524c54b170a2fe95b148c77ca522a3c14f62baba7723a6",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          1
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "MiRings1",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "RandSeed",
+          0
+        ]
+      ],
+      "host": {
+        "passed": true,
+        "blocks": 8192,
+        "faults": 0,
+        "nonfinite": 0,
+        "guards": 0,
+        "updates": 1,
+        "rejected": 0,
+        "initial_rejections": 0,
+        "initial_accepts": 0,
+        "restarts": 0,
+        "peak": 0.582521319,
+        "rms": 0.0121093011
+      },
+      "baseline_capture_sha256": "6758a096af13bd92fff029557d35b3916b52319f7ff31d20497c1ed6df8dec79"
+    }
+  ],
+  "expected_type_rates": [
+    [
+      "BinaryOpUGen",
+      1
+    ],
+    [
+      "Control",
+      0
+    ],
+    [
+      "Control",
+      1
+    ],
+    [
+      "MiRings1",
+      2
+    ],
+    [
+      "MiRings2",
+      2
+    ],
+    [
+      "MiRings3",
+      2
+    ],
+    [
+      "MiRings4",
+      2
+    ],
+    [
+      "MiRings5",
+      2
+    ],
+    [
+      "MiRings6",
+      2
+    ],
+    [
+      "MulAdd",
+      1
+    ],
+    [
+      "Out",
+      2
+    ],
+    [
+      "RandSeed",
+      0
+    ]
+  ]
+}

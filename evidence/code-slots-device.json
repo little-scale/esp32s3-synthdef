@@ -1,0 +1,279 @@
+{
+  "passed": true,
+  "physical_touch_tested": false,
+  "existing_slots_overwritten": false,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "1320eb6b191f502666ebb8e6e0b5ec9bed0167ab5dc0526e8011384c0306d522",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "2d5e8a5a89c22b828416153c2e2f6a4d0e98f5fe522d16f52d57025be65a7946",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12452361,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "initial_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 2712450858,
+    "slot": 2,
+    "name": "Phase FM",
+    "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+  },
+  "initial_library": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "initial_packages": {
+    "0": {
+      "graph": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5",
+      "source": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "metadata": "546f7563682053696e65000000000000000000000000000000000000000000005049544348000000000000004c4556454c0000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "1": {
+      "graph": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448",
+      "source": "b968bdb3d0a301d9a689c8ff96f2919b981e6742c21a64283e11bc1b8ce964c8",
+      "metadata": "4d61632053696e650000000000000000000000000000000000000000000000005049544348000000000000004c4556454c0000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "2": {
+      "graph": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
+      "source": "6377946caa7fc7aaa26a33f9bada2dc32fcdc5c3c0cb8a5b033263fb8678a78f",
+      "metadata": "506861736520464d000000000000000000000000000000000000000000000000504954434800000000000000494e4445580000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "3": {
+      "graph": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
+      "source": "61125e17070ace98985eb5a2f27aaf746f61d92c807da1d6ba174047b36a6622",
+      "metadata": "4861726d6f6e6963204d697800000000000000000000000000000000000000005049544348000000000000004841524d4f4e49435300000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "4": {
+      "graph": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a",
+      "source": "67ccfb8e8af74ba2f8fe4c5b2614ebcd39ab760fb71e3df37378da130f914c23",
+      "metadata": "46696c746572656420546f6e65000000000000000000000000000000000000005049544348000000000000004355544f464600000000000041545441434b00000000000052454c45415345000000000001000000"
+    }
+  },
+  "example_slot": 5,
+  "new_slot_written": true,
+  "bus_comparison": {
+    "passed": true,
+    "header": "BUSES_BEGIN passed=1 blocks=448 windows=4 max_us=443",
+    "windows": [
+      {
+        "block": 63,
+        "peak_error": 1.4901161193847656e-08,
+        "rms_error": 5.300773570224753e-09
+      },
+      {
+        "block": 127,
+        "peak_error": 9.313225746154785e-08,
+        "rms_error": 6.694582307356659e-08
+      },
+      {
+        "block": 255,
+        "peak_error": 8.585629984736443e-10,
+        "rms_error": 6.176960670698063e-10
+      },
+      {
+        "block": 447,
+        "peak_error": 0.0,
+        "rms_error": 0.0
+      }
+    ],
+    "peak_limit": 0.0001,
+    "rms_limit": 3e-05,
+    "muted": true
+  },
+  "code_snapshot": "evidence/code-slots-code.png",
+  "slots_snapshot": "evidence/code-slots-slots.png",
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 1185,
+    "transfer": 4195593037,
+    "slot": 5,
+    "name": "Touch buses",
+    "graph_sha256": "4a7754df80d89b1227148d9eee9d716142ae919d678b4a5ad93da15c273cd4ff"
+  },
+  "final_library": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "Touch buses",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "new_output_errors": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  }
+}

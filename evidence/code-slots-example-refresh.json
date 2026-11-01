@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "slot": 5,
+  "graph_unchanged": true,
+  "existing_original_slots_unchanged": true,
+  "source_lines": 29,
+  "source_sha256": "7cb8d53dab148fb97710da6857d4bb4bbd6cbeff66a487ac3b5e77823747520a",
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 1433,
+    "transfer": 2050711642,
+    "slot": 5,
+    "name": "Touch buses",
+    "graph_sha256": "4a7754df80d89b1227148d9eee9d716142ae919d678b4a5ad93da15c273cd4ff"
+  }
+}

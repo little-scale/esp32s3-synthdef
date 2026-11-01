@@ -1,43 +1,73 @@
 # Recorded evidence
 
-All results are from the initial local implementation session on 30 October
-2026. `STATUS.md` explains which results meet prototype checks and which release
-gates remain open.
+Reports cover development from 30 October through 2 November 2026. They retain
+the source/build IDs and test scope from their own runs. An old timing or board
+measurement does not automatically qualify a newer image or another graph.
+[STATUS.md](../STATUS.md) identifies the latest installed image and open limits.
 
-| Record | Meaning |
+The publication checks are summarized in `publication-checks.json`, including
+a fresh build (`publication-build.json`), clean-checkout tests, README syntax and
+relative documentation links.
+
+## Current workflow and compact controls
+
+| Record | Scope |
 | --- | --- |
-| `compatibility.json` | Compiled enum/loader reconciliation, upstream profile discrepancies and host structure sizes |
-| `upstream-tests.log` | Complete successful upstream `make test` output |
-| `reference-check.log`, `reference-results.json` | Filtered sine reference comparison and scale catalog check |
-| `host-adapter.json` | Portable adapter checks and actual sanitizers used |
-| `esp32-build.json`, `esp32-build.log` | Final cross-build identity, hashes, target sizes and verified flags |
-| `sdkconfig.esp32s3` | Exact normal-firmware configuration snapshot |
-| `board-rom.txt`, `board-check.log` | ROM identification and official board boot/PSRAM check |
-| `codec-tone*.log` | Vendor codec tests; low level inaudible, V2 level loud/distorted per user |
-| `offline-capture.log`, `target-numerical.json` | Full target float capture and passing numerical comparison |
-| `realtime-controls.log` | Initial 15-second note/pitch/amplitude/release/panic test |
-| `realtime-high-amplitude.log` | Longer note; user confirmed audible but quiet |
-| `realtime-final.log`, `realtime-summary.json` | Final 30-second control run, PCM peaks and one conservative timing-margin violation |
-| `m2-baseline/` | Archived M2 build, configuration, numeric and timing records |
-| `realtime-optimized.log`, `realtime-optimized-summary.json` | Optimized audio-only hardware run: 631 µs worst combined block, zero 70% violations |
-| `touch-reference.json` | Four-control patch versus SuperCollider, including live changes |
-| `ui-host.json`, `ui-*-preview.png` | Actual LVGL widget simulation and host layout previews |
-| `esp32-ui-build.json`, `sdkconfig.ui.esp32s3` | Corrected touchscreen image build/configuration, restored to the board |
-| `ui-boot.log` | Initial UI image booted; physical screen reported black |
-| `ui-screen-capture.log` | Failed snapshot while diagnosing the initial display integration; not a successful screen capture |
-| `ui-fixed-recovery-boot.log`, `ui-restored-boot.log` | Successful corrected UI startup, zero startup DMA-event overflows |
-| `ui-fixed-screen-capture.log`, `ui-device.png` | Complete actual device snapshot and decoded image |
-| `realtime-ui.log`, `realtime-ui-summary.json` | Audio with requested 25 Hz redraw stress: maximum 759 µs / 52.30%, zero margin violations or reported output/numerical failures |
-| `touch-target-capture.log`, `target-touch-numerical.json` | Passing 22,080-frame ESP32 comparison of the touch patch |
-| `board-state.json` | Final restored playable build identity and user confirmation |
+| `control-deltas-build.json` | Installed firmware `8b4cc4a9955a`; compiler/profile/IRAM checks and image/configuration hashes |
+| `control-deltas-device.json` | Muted physical SC→host→Wi-Fi note test, repeated pitch, interleaved set, baseline recovery and original-state restoration |
+| `control-deltas-host.json` | Native SC against modern/legacy HTTP simulators; exact transmitted payload sizes and other-writer semantics |
+| `remote-control-host.json` | Portable full/delta PCM identity, trigger/field/queue/stage cases, lifecycle and 300 actual EnvGen retriggers |
+| `connection-cleanup-host.json` | Native failed send/cancel, peer shutdown, refused connection and safe reconnect regressions |
+| `module-volume-host.json`, `module-volume-device.json` | Targeted/group/all module output scaling; native SC and physical checks kept separate |
+| `definition-lifecycle-build.json`, `definition-lifecycle-device.json` | Saved definitions versus instances, raw literal bytes, initial-rate creation and inactive reboot behaviour |
+| `ide-host.json`, `ide-device.json`, `ide-pattern-lifecycle.json`, `ide-cmd-period-device.json` | SC compilation/routing, large sources, patterns, cancellation, CmdPeriod and physical delivery scopes |
+| `note-join-build.json`, `note-join-device.json` | Gate-low block at adjacent release/attack boundaries and physical pattern test |
+| `main-fx-host.json`, `main-fx-build.json`, `main-fx-device.json` | Fixed Main + FX layout, concurrent upload simulation and physical node checks |
+| `network-host.json`, `network-device.json`, `network-live.json`, `network-master-live.json` | Pairing/identity/error handling and actual single-node LAN transfers |
+| `network-ui-build.json`, `network-ui-device.json` | RX activity, RSSI, Controls identity and preservation checks; physical visual confirmation is separately labelled |
+| `ui-host.json`, `ui-*-preview.png` | Real LVGL/widgets with simulated input; screenshots are host layout previews, not panel photographs |
 
-The capture build predates the final gain/control telemetry changes. Its exact
-binary/configuration/source build IDs are in `target-numerical.json`; the pinned
-DSP engine is unchanged. The original M2 build identity is archived under
-`m2-baseline/`. Latest compile records and every hardware log carry their own
-source build IDs; a new compile is not proof that it was flashed. Hardware outputs
-are mono; numerical capture is stereo float before sink conversion.
+The latest host bridge/network/control run passes 37 tests. The broader Studio/bridge/network/control publication
+suite passes 70 tests. Host simulators do not establish
+multi-board RF timing, maximum router capacity or sample-synchronized starts.
+The compact-control physical test is muted: it establishes protocol/state and
+queue behaviour, not a listening-quality certification.
 
-Recovery provenance is in `../recovery/backup.json`; the full original flash is
-kept locally beside it and excluded from Git. No firmware image or source was
-published. Raw logs are retained so reported counters can be independently checked.
+## DSP coverage and optimization
+
+| Records | Scope |
+| --- | --- |
+| `fm1-validation.json`, `fm1-fixed-reference.json`, `extended-validation.json` | Pinned UGen/operator coverage, SC references and explicit statistical/drift classifications |
+| `fm1-hardware-validation.json`, `fm1-extended-device.json` | Physical execution/numerical scopes; consult per-rate/parameter results |
+| `dynamic-banks-host.json`, `dynamic-banks-device.json` | DynKlank/DynKlang composite expansion and dynamic-rate traces |
+| `comb-kernel-equivalence.json`, `comb-kr-kernel-check.json`, `comb-ugen-profile-*.json` | Exact kernel comparisons, control-rate variants and source-specific profiles |
+| `miverb-clamp-host.json`, `miverb-clamp-device.json`, `miverb-optimization-analysis.json` | Clamp equivalence, target implementation and measured savings |
+| `saw-crossfade-host.json`, `saw-crossfade-device.json`, `saw-optimization-analysis.json` | Cached interpolation-scale equivalence and target profiles |
+| `rings-optimization.json`, `rings-target-oracle.json`, `rings-regression-device.json` | Internal Rings paths, allocation recovery and remaining moving-control overruns |
+| `gendy-boundary-regression.json` | Closing-segment boundary regression and fix |
+| `delay-host-reference.json`, `delay-device-functional.json`, `delay-device-final.json` | Delay interpolation, echo windows, long state and restoration |
+
+[UGEN_SUPPORT.md](../docs/UGEN_SUPPORT.md) is the readable rate/evidence ledger;
+[EXTENDED_TESTS.md](../docs/EXTENDED_TESTS.md) explains waveform, statistical and
+precision-drift grades. Hardware output is mono; some numerical capture compares
+stereo floats before sink conversion. Rendering-cost measurements and numerical
+agreement are separate claims.
+
+## History and local-only captures
+
+Earlier build, tone, display, library, memory and interaction reports remain as
+historical evidence. `m2-baseline/`, compact-profile configs and numbered-slot
+records predate Main/FX, Wi-Fi, source viewing or current optimizations. Failed
+experiments are labelled in their reports rather than counted as passing checks.
+
+New bulky raw trace logs, serial screen dumps and browser/network-setup captures
+are kept locally and ignored by Git. Summary JSON may refer to such local log
+paths; those paths are not promises that every raw capture is published. Selected
+safe UI previews/device snapshots remain in the public repository. Earlier
+already-published raw logs are retained for history.
+
+Build directories, private session/pairing descriptors, Wi-Fi credentials and
+complete device flash backups are excluded. The original backup's provenance is
+in `../recovery/backup.json`; no complete flash image containing NVS is shipped.
+Source examples, native tests and diagnostic scripts provide the reproducible
+inputs; build hashes distinguish their exact measured images.

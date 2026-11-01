@@ -1,0 +1,241 @@
+{
+  "status": "cross-compiled; physical runtime results are recorded separately",
+  "build_id": "1320eb6b191f502666ebb8e6e0b5ec9bed0167ab5dc0526e8011384c0306d522",
+  "firmware_fingerprint": "67e4cbd4fbdc1a629ec1b23b68a11f96ccd71617405b4f858c9baa43739086ac",
+  "touch_ui_enabled": true,
+  "quad_flash_enabled": true,
+  "pcm_conversion": "bounded nearest/even; no lrintf call in target instrument object",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "profile_sha256": "2d5e8a5a89c22b828416153c2e2f6a4d0e98f5fe522d16f52d57025be65a7946",
+  "idf_version": "v5.5",
+  "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+  "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+  "target": "esp32s3",
+  "board_revision": "V2 (user confirmed; not physically probed)",
+  "compiled_loader_types_checked_in_target_object": 154,
+  "engine_compile_options_verified": [
+    {
+      "source": "firmware/build-ui/esp-idf/synthdef_engine/target-profile/src/fm_load.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    },
+    {
+      "source": "firmware/build-ui/esp-idf/synthdef_engine/target-profile/src/fm_render.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    }
+  ],
+  "target_structure_sizes": {
+    "graph_bytes": 8076,
+    "scratch_bytes": 8192,
+    "voice_bytes": 6728
+  },
+  "engine_fixed_allocation_bytes": 45876,
+  "engine_fixed_internal_bytes": 45876,
+  "engine_fixed_psram_bytes": 0,
+  "synth_arena_psram_bytes": 0,
+  "synth_fast_arena_internal_bytes": 0,
+  "cache": {
+    "instruction_bytes": 16384,
+    "data_bytes": 32768,
+    "data_line_bytes": 32
+  },
+  "admission_policy": "catalog-voice-v2",
+  "fm1_compat_hardware_qualified": false,
+  "one_voice_without_effect_fixed_bytes": 31072,
+  "graph_buffers": 3,
+  "voice_instances": 2,
+  "shared_scratch_instances": 1,
+  "master_delay_arena_psram_bytes": 1048576,
+  "engine_profile": {
+    "profile": "compact",
+    "changes": {
+      "FM_NODES": {
+        "upstream": 160,
+        "target": 24
+      },
+      "FM_OUTPUTS": {
+        "upstream": 192,
+        "target": 32
+      },
+      "FM_INPUTS": {
+        "upstream": 1024,
+        "target": 256
+      },
+      "FM_DELAY_LIMIT": {
+        "upstream": "65536u",
+        "target": "262144u"
+      }
+    },
+    "upstream_header_sha256": "cd18ce36033a4075db21430c9f501157f74cc730ad5493d85ebfea9fe2bd0223",
+    "target_header_sha256": "d23de2c2f5b5777190226c1cd096d366bba57ec7b551aadd745a5fc3906401eb",
+    "control_bus_extension": "32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.",
+    "target_load_sha256": "63936c275f68a0f6ea7eba1dd33325fe8864b6fa6668d5a26d0b9583ba8b812b",
+    "target_render_sha256": "e09e06c33f076875a318e93efdeb60c08c606bffdfca83954e0bdb8fc8bea5dc",
+    "binding_extension": "fm_bind_delay_precleared: same checked layout; caller clears arena incrementally",
+    "target_delay_sha256": "0dc73a4d9b68c53baebb3f5e625b468a0a75d14a3c8f0f2e09bba08b392c839c",
+    "target_gendy_sha256": "d1b11544a84325f51714ba469222c05821bbbc6ff4d043af31acfb8cbfa1feb4",
+    "target_rings_sha256": "39b7c11c91b43d4c5bf7cd0899949dc1d12e7a4007c4e48455df82d256c45332",
+    "rings_startup": "Bound voices use rg_init_precleared after zeroed binding; standalone rg_init retains its original clear for independent oracle callers.",
+    "gendy_fix": "Allow the allocated zero-valued Gendy3 closing segment after discarded sub-sample breakpoints; keep bounds checks beyond it.",
+    "scope": "Checked capacities, control bus input, precleared binding, Gendy3 closing-segment fix and duplicate Rings clear removal; no precision reduction or changes to existing DSP equations."
+  },
+  "package_buffers_psram_bytes": 393216,
+  "diagnostics_enabled": true,
+  "internal_render_kernels": true,
+  "internal_rings_kernels": false,
+  "rings_hot_symbols": {
+    "rg_process": {
+      "address": 1107785704,
+      "bytes": 13434
+    },
+    "rings_render": {
+      "address": 1107829208,
+      "bytes": 2624
+    },
+    "rg_hermite": {
+      "address": 1107780124,
+      "bytes": 282
+    },
+    "rg_fx_write": {
+      "address": 1107776352,
+      "bytes": 129
+    }
+  },
+  "internal_audio_adapter": true,
+  "adapter_hot_symbols": {
+    "instrument_apply": {
+      "address": 1077426060,
+      "bytes": 1022
+    },
+    "instrument_apply_batch": {
+      "address": 1077427084,
+      "bytes": 268
+    },
+    "instrument_render": {
+      "address": 1077427620,
+      "bytes": 57
+    },
+    "instrument_pcm": {
+      "address": 1077427352,
+      "bytes": 268
+    },
+    "instrument_render_stereo": {
+      "address": 1077427680,
+      "bytes": 590
+    },
+    "master_delay_render": {
+      "address": 1077428272,
+      "bytes": 98
+    },
+    "master_delay_set": {
+      "address": 1077428372,
+      "bytes": 86
+    }
+  },
+  "hot_kernel_symbols": {
+    "render_graph": {
+      "address": 1077452092,
+      "bytes": 17958
+    },
+    "fast_arithmetic": {
+      "address": 1077445156,
+      "bytes": 3888
+    },
+    "fast_sine": {
+      "address": 1077450608,
+      "bytes": 967
+    },
+    "fast_envelope": {
+      "address": 1077449044,
+      "bytes": 750
+    },
+    "fast_pan": {
+      "address": 1077449796,
+      "bytes": 810
+    },
+    "binary": {
+      "address": 1077440380,
+      "bytes": 1268
+    },
+    "envelope": {
+      "address": 1077443476,
+      "bytes": 986
+    },
+    "envelope_init": {
+      "address": 1077444464,
+      "bytes": 691
+    },
+    "segment": {
+      "address": 1077470052,
+      "bytes": 1213
+    },
+    "sine_control_step": {
+      "address": 1077471268,
+      "bytes": 162
+    },
+    "fm_start": {
+      "address": 1077451964,
+      "bytes": 126
+    },
+    "fm_seed": {
+      "address": 1077451752,
+      "bytes": 36
+    },
+    "fm_set": {
+      "address": 1077451788,
+      "bytes": 175
+    },
+    "fm_prepare": {
+      "address": 1077451576,
+      "bytes": 47
+    },
+    "fm_render_input": {
+      "address": 1077451688,
+      "bytes": 62
+    },
+    "fm_render": {
+      "address": 1077451624,
+      "bytes": 62
+    },
+    "delay_render": {
+      "address": 1077441648,
+      "bytes": 1825
+    },
+    "unary": {
+      "address": 1077471432,
+      "bytes": 1034
+    }
+  },
+  "optional_wrapper_not_retained": [],
+  "sine_table_internal": false,
+  "sine_table_symbol": {
+    "address": 1007398864,
+    "bytes": 32772
+  },
+  "sine_table_sha256": "3264f07efa6217955d24e1756a7887972ef7fce7ad6709e99eec1dc9331232fd",
+  "console_patch_task_stack_bytes": 16384,
+  "audio_task_stack_bytes": 16384,
+  "event_queue_capacity": 16,
+  "dma_descriptors": 6,
+  "dma_frames_per_descriptor": 128,
+  "app_bytes": 883360,
+  "sha256": {
+    "firmware/build-ui/waveshare_synthdef.bin": "f124b4ccb91512c55ee18ba822ab38585d711bed9e464a905e6dd37efcaca43a",
+    "firmware/build-ui/bootloader/bootloader.bin": "cd0f54bc0c7e27ada911cd9a136ad665538c5e8f4b691a02907ed69cfaae35bb",
+    "firmware/build-ui/partition_table/partition-table.bin": "3d6618f869e029b89931eedaa807f28e696aeb86aacb08ae8a418ca6c846fa7f",
+    "firmware/build-ui/sdkconfig": "9eda386cf90c7eed0eabb1b7d33f2a6a3e9afee6ecfbe306989d237c3ce8ad79",
+    "firmware/sdkconfig.defaults": "f3e05b85fbc3930fefc7596fa4dafed1ccdf72f3ce9a73e3bfc3090b131d5cdd",
+    "firmware/partitions.csv": "11e1a6f2c0a677945771ab08b81761fe19c9ecd46829f2810b118aa16236f6e3",
+    "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+  },
+  "runtime_heap_and_clocks": "see runtime logs; actual clocks still require external measurement"
+}

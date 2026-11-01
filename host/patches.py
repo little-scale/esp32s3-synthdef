@@ -15,6 +15,7 @@ import subprocess
 import tempfile
 import time
 import zlib
+from source_input import expression
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -38,7 +39,8 @@ def decode(line):
     return int(request, 16), operation.decode('ascii'), b'' if payload == b'-' else bytes.fromhex(payload.decode('ascii'))
 
 
-def manifest(graph, source=b'', name='Uploaded Sine', labels=('PITCH', 'LEVEL', 'ATTACK', 'RELEASE'), mapping=1, transfer=None):
+def manifest(graph, source=b'', name='Uploaded Sine', labels=('PITCH', 'LEVEL', 'ATTACK', 'RELEASE'), mapping=1, transfer=None, definition=False):
+    if type(definition) is not bool:raise ValueError('Definition mode must be true or false')
     if not 0 < len(graph) <= 65536 or len(source) > 65536:
         raise ValueError('Graph/source exceeds the device limits')
     source.decode('utf-8')
@@ -54,7 +56,7 @@ def manifest(graph, source=b'', name='Uploaded Sine', labels=('PITCH', 'LEVEL', 
     tx = transfer or secrets.randbelow(0xffffffff) + 1
     data = struct.pack('<III', tx, len(graph), len(source))
     data += hashlib.sha256(graph).digest() + hashlib.sha256(source).digest()
-    data += field(name, 32) + b''.join(field(label, 12) for label in labels) + bytes([mapping, 0, 0, 0])
+    data += field(name, 32) + b''.join(field(label, 12) for label in labels) + bytes([mapping, int(definition), 0, 0])
     assert len(data) == 160
     return tx, data
 
@@ -113,14 +115,14 @@ class Device:
         result = self.request('HELLO')
         if result.get('protocol') != 1 or result.get('model') != 'Waveshare AMOLED 1.8 V2':
             raise RuntimeError('Unexpected connected device/protocol')
-        if result.get('policy') not in ('simple-voice-v1','catalog-voice-v2') or result.get('chunk') != 256:
+        if result.get('policy') not in ('simple-voice-v1','catalog-voice-v2','fm1-compat-v1') or result.get('chunk') != 256:
             raise RuntimeError('Unsupported device admission policy')
         return result
 
-    def upload(self, graph, source=b'', name='Uploaded Sine', labels=('PITCH', 'LEVEL', 'ATTACK', 'RELEASE'), mapping=1, activate=True):
-        tx, meta = manifest(graph, source, name, labels, mapping)
+    def upload(self, graph, source=b'', name='Uploaded Sine', labels=('PITCH', 'LEVEL', 'ATTACK', 'RELEASE'), mapping=1, activate=True, master=False, definition=False):
+        tx, meta = manifest(graph, source, name, labels, mapping, definition=definition)
         blob = graph + source
-        received = self.request('BEGIN', meta)['received']
+        received = self.request('FXBEGIN' if master else 'BEGIN', meta)['received']
         while received < len(blob):
             chunk = blob[received:received + 256]
             result = self.request('DATA', struct.pack('<II', tx, received) + chunk)
@@ -132,8 +134,9 @@ class Device:
             self.request('ACTIVATE', struct.pack('<I', tx))
         return self.request('STATUS')
 
-    def download(self):
-        info = self.request('INFO')
+    def download(self, master=False):
+        info_op,read_op=('FXINFO','FXREAD') if master else ('INFO','READ')
+        info = self.request(info_op)
         meta = bytes.fromhex(info['manifest'])
         _, graph_size, source_size = struct.unpack_from('<III', meta)
         total = graph_size + source_size
@@ -141,13 +144,13 @@ class Device:
             raise RuntimeError('Invalid active package size')
         blob = bytearray()
         while len(blob) < total:
-            result = self.request('READ', struct.pack('<IH', len(blob), min(256, total - len(blob))))
+            result = self.request(read_op, struct.pack('<IH', len(blob), min(256, total - len(blob))))
             chunk = bytes.fromhex(result['data'])
             if result['offset'] != len(blob) or not chunk:
                 raise RuntimeError('Unexpected read offset')
             blob.extend(chunk)
         graph, source = bytes(blob[:graph_size]), bytes(blob[graph_size:])
-        if self.request('INFO') != info or hashlib.sha256(graph).digest() != meta[12:44] or hashlib.sha256(source).digest() != meta[44:76]:
+        if self.request(info_op) != info or hashlib.sha256(graph).digest() != meta[12:44] or hashlib.sha256(source).digest() != meta[44:76]:
             raise RuntimeError('Active package changed or digest verification failed')
         source.decode('utf-8')
         return graph, source, info
@@ -164,21 +167,41 @@ class Device:
         return self.upload(graph,(ROOT/f'examples/{name}.scd').read_bytes(),entry['name'],entry['labels'],entry['mapping'])
 
 
-def compile_source(source, output, sclang):
-    # The source expression must return one SynthDef. SC runs on the Mac only.
+def compile_source(source, output, sclang, target='sound', definition=False):
+    # Source returns a SynthDef or a sound Function. SC runs on the host only.
     # Paths are passed through SC string literals, not shell interpolation.
     quote = lambda p: json.dumps(str(p))
-    with tempfile.TemporaryDirectory(prefix='synthdef-compile-') as folder:
+    source, output = source.resolve(), output.resolve()
+    raw = source.read_bytes()
+    raw.decode('utf-8')
+    if not raw.strip() or len(raw) > 65536 or b'\0' in raw:
+        raise ValueError('Source must be nonempty UTF-8, without NUL, at most 64 KiB')
+    input_kind, input_source = expression(raw.decode('utf-8'))
+    with tempfile.TemporaryDirectory(prefix='synthdef-compile-', dir=output.parent) as folder:
         script = Path(folder) / 'compile.scd'
-        script.write_text('try {\nvar def = thisProcess.interpreter.executeFile(' + quote(source.resolve()) + ');\n'
-                          'if(def.isKindOf(SynthDef).not) { Error("Source must return one SynthDef").throw };\n'
-                          'File.use(' + quote(output.resolve()) + ', "wb", { |f| f.write(def.asBytes) });\n'
+        compiled = Path(folder) / 'compiled.scsyndef'
+        input_path = source
+        if input_kind == 'sound_block':
+            input_path = Path(folder) / 'sound.scd'
+            input_path.write_text(input_source, encoding='utf-8')
+        script.write_text('try {\nvar autoPlay = '+('false' if target=='master' else 'true')+';\nvar definitionOnly = '+('true' if definition else 'false')+';\nvar def = thisProcess.interpreter.executeFile(' + quote(input_path) + ');\n'
+                          + (ROOT/'host/compile-sound-block.scd').read_text() + '\n'
+                          'if(def.isKindOf(SynthDef).not) { Error("Source must return one SynthDef or sound Function").throw };\n'
+                          'File.use(' + quote(compiled) + ', "wb", { |f| f.write(def.asBytes) });\n'
                           '0.exit;\n} { |err| err.reportError; 1.exit };\n')
-        result = subprocess.run([str(sclang), '-D', str(script)], text=True, capture_output=True, timeout=60)
-        if result.returncode or not output.exists() or not output.read_bytes().startswith(b'SCgf'):
-            raise RuntimeError('SuperCollider compilation failed:\n' + result.stdout + result.stderr)
+        try:
+            result = subprocess.run([str(sclang), '-D', str(script)], text=True, capture_output=True, timeout=60)
+        except subprocess.TimeoutExpired as error:
+            raise RuntimeError('SuperCollider compilation timed out after 60 seconds') from error
+        log = (result.stdout + result.stderr)[-16000:]
+        if result.returncode or not compiled.exists() or not compiled.read_bytes().startswith(b'SCgf'):
+            error_start = log.find('ERROR:')
+            raise RuntimeError('SuperCollider compilation failed:\n' + (log[error_start:] if error_start >= 0 else log))
+        if compiled.stat().st_size > 65536:
+            raise ValueError('Compiled SynthDef exceeds the 64 KiB device limit')
+        compiled.replace(output)
     return {'graph': str(output.resolve()), 'bytes': output.stat().st_size,
-            'sha256': hashlib.sha256(output.read_bytes()).hexdigest()}
+            'sha256': hashlib.sha256(output.read_bytes()).hexdigest(), 'compiler_log': log, 'input_kind': input_kind}
 
 
 def main():
@@ -188,14 +211,14 @@ def main():
     for name in ('hello', 'status', 'list', 'info', 'panic', 'abort'):
         sub.add_parser(name)
     for name in ('save', 'load'):
-        sub.add_parser(name).add_argument('slot', type=int, choices=range(0 if name == 'load' else 1, 9))
+        sub.add_parser(name).add_argument('slot', type=int, choices=range(0 if name == 'load' else 1, 2))
     upload = sub.add_parser('upload')
     upload.add_argument('graph', type=Path)
     upload.add_argument('--source', type=Path)
     upload.add_argument('--name', default='Uploaded Sine')
     upload.add_argument('--labels', nargs=4, default=['PITCH', 'LEVEL', 'ATTACK', 'RELEASE'])
     upload.add_argument('--mapping', type=int, choices=[0, 1], default=1)
-    upload.add_argument('--save', type=int, choices=range(1, 9))
+    upload.add_argument('--save', type=int, choices=(1,))
     compile_cmd = sub.add_parser('compile')
     compile_cmd.add_argument('source', type=Path)
     compile_cmd.add_argument('output', type=Path)
@@ -203,7 +226,9 @@ def main():
     sub.add_parser('download').add_argument('output', type=Path, help='New output file prefix; existing files are protected')
     install=sub.add_parser('install',help='Activate an exact qualified example from the local catalog')
     install.add_argument('entry',choices=[e['id'] for e in json.loads((ROOT/'examples/catalog.json').read_text())])
-    install.add_argument('--save',type=int,choices=range(1,9))
+    install.add_argument('--save',type=int,choices=(1,))
+    fx=sub.add_parser('fx',help='Query or change the shared delay')
+    fx.add_argument('--time',type=float);fx.add_argument('--feedback',type=float);fx.add_argument('--wet',type=float);fx.add_argument('--save',action='store_true')
     args = parser.parse_args()
     if args.command == 'compile':
         result = compile_source(args.source, args.output, args.sclang)
@@ -215,6 +240,11 @@ def main():
             hello = device.hello()
             if args.command == 'hello':
                 result = hello
+            elif args.command=='fx':
+                current=device.request('FX')
+                values=[args.time if args.time is not None else current['time'],args.feedback if args.feedback is not None else current['feedback'],args.wet if args.wet is not None else current['wet']]
+                result=device.request('FX',struct.pack('<fff',*values)) if any(v is not None for v in [args.time,args.feedback,args.wet]) else current
+                if args.save:result={'effect':result,'storage':device.request('FXSAVE')}
             elif args.command=='install':
                 result=device.install_catalog(args.entry)
                 if args.save:

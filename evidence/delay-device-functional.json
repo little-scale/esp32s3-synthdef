@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "status": "complete",
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "e9906a502a8a9b7aa92498bdf3d2687aae051cc3df739ae39b86ed357f7aa8a3",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "32a72c6115aba4dcf4d01cbce52dc29b27151fc040da16c6db8a6b1f28969d09",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12452361,
+    "policy": "catalog-voice-v2",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "original": {
+    "time": 0.35,
+    "feedback": 0.35,
+    "wet": 0.25,
+    "max_time": 5,
+    "arena_bytes": 1048576
+  },
+  "numerical": {
+    "passed": true,
+    "max_float_error": 0.0,
+    "limit": 1e-06,
+    "samples": 1024,
+    "times": [
+      0.02,
+      0.35,
+      1,
+      5
+    ],
+    "scope": "first/second echo windows and post-panic zeros from the actual parked audio owner"
+  },
+  "invalid_controls_retain_previous": true,
+  "tail_across_retrigger": {
+    "passed": true,
+    "tail_blocks": 318,
+    "resets_during_notes": 0
+  },
+  "panic_cleared_tail": true,
+  "saved_settings_readback": {
+    "time": 5.0,
+    "feedback": 0.75,
+    "wet": 0.5,
+    "max_time": 5,
+    "arena_bytes": 1048576
+  },
+  "restart_observed": true,
+  "final_effect": {
+    "time": 0.35,
+    "feedback": 0.35,
+    "wet": 0.25,
+    "max_time": 5,
+    "arena_bytes": 1048576
+  }
+}

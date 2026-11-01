@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-31",
+  "board": "Waveshare ESP32-S3-Touch-AMOLED-1.8 V2",
+  "port_last_observed": "/dev/cu.usbmodem101",
+  "build_id": "3793e0b3753c31eef80933b34ebc2d40e888d65d214be433494f1d689cedbdbb",
+  "application_sha256": "c686fbada7d12504041770e76b708ab53b823de2d13463c0de70afa648e2508c",
+  "flash_verified": true,
+  "saved_slot": 1,
+  "saved_name": "Mac Sine",
+  "last_verified_playback": "evidence/catalog-device-final.json",
+  "current_usb_state": "responding at final automated check",
+  "current_app_state": "Saved library and source identity verified; user subsequently auditioned slots 2\u20134, current selection not re-read",
+  "source_graph_metadata_readback_after_first_restart": "Historical M4 check passed; final-image save/reload/readback regression also passed",
+  "user_confirmed_M3": "screen and touch sound work, release on lift",
+  "user_confirmed_M4": "Reconnected; Mac Sine and library look right (factory slot 0, Mac Sine slot 1)",
+  "long_soak_and_external_audio": "pending",
+  "active_slot": 1,
+  "active_name": "Mac Sine",
+  "active_graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448",
+  "last_snapshot_note_active": false,
+  "usb_reset_reliability": "one earlier native USB lock-up recovered by physical reconnect; root cause remains unconfirmed",
+  "timing_acceptance": "All three new graphs passed three 30-second qualification rounds plus a final-image repeat; no 70% violations or reported output errors",
+  "physical_usb_reconnect_recovery": "passed; selected graph/source/metadata byte-identical",
+  "timing_summary": "evidence/optimization-summary.json",
+  "instrument_configuration": "internal engine and audio-adapter routines; immutable tables in flash; diagnostics enabled; one voice",
+  "previous_usb_failure": "bootloader loaded app, USB output ended at RNG disable",
+  "last_reset_observation": "Final optimized image booted; current build/capability identity and saved graph/source/metadata verified",
+  "library": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "new_catalog_slots": {
+    "phase-fm": 2,
+    "additive": 3,
+    "filtered": 4
+  },
+  "new_catalog_listening": "passed: user confirmed all three sound clean and stop",
+  "user_listening_confirmation": "All three sound clean and stop (31 October 2026)"
+}

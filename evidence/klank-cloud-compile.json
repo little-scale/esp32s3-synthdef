@@ -1,0 +1,34 @@
+{
+  "artifact": "4bef02a62471c9483a4ed90bbb30c02a",
+  "fm1_admitted": true,
+  "continuous": true,
+  "nodes": 4,
+  "signals": 3,
+  "inputs": 23,
+  "delay_samples": 0,
+  "touch_buses": false,
+  "ugens": [
+    "Dust",
+    "Klank",
+    "Out",
+    "Control"
+  ],
+  "controls": [
+    {
+      "default": 1,
+      "name": "__esp32_autoplay"
+    }
+  ],
+  "master_admitted": false,
+  "name": "SoundBlock",
+  "target": "sound",
+  "admitted": true,
+  "graph_bytes": 386,
+  "source_bytes": 180,
+  "graph_sha256": "9b415d006422e758149b94a398b98467cdf8d84996ed0d5b7eb1800a6ffcdedd",
+  "source_sha256": "d653ae239f98665caaa5c3eee3669031cd9d51e00440b09486b886437602606a",
+  "admission_error": "",
+  "source_pairing": "compiled_from_source",
+  "compiler_log": "compiling class library...\n\tFound 872 primitives.\n\tCompiling directory '/Applications/SuperCollider.app/Contents/Resources/SCClassLibrary'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/Extensions'\n\tCompiling directory '/Users/a1106632/Library/Application Support/SuperCollider/downloaded-quarks/Bjorklund'\n\tnumentries = 876526 / 13283824 = 0.066\n\t5672 method selectors, 2342 classes\n\tmethod table size 14073992 bytes, big table size 106270592\n\tNumber of Symbols 12957\n\tByte Code Size 400153\n\tcompiled 355 files in 0.18 seconds\ncompile done\nlocalhost : setting clientID to 0.\ninternal : setting clientID to 0.\nClass tree inited in 0.04 seconds\n\n\n*** Welcome to SuperCollider 3.14.1. *** For help type cmd-d.\ncleaning up OSC\n",
+  "input_kind": "sound_block"
+}

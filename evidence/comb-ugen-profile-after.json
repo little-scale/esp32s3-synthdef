@@ -1,0 +1,806 @@
+{
+  "status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 0,
+    "transfer": 2776480928,
+    "slot": 7,
+    "name": "Comb cloud",
+    "graph_sha256": "24cc211b4511310b91f18c53fa403c1d9c99e54ce29cd41ac9123be35dbd0e88",
+    "continuous": true
+  },
+  "header": {
+    "graph": "SoundBlock",
+    "blocks": "1024",
+    "ready": "2",
+    "matched": "1",
+    "normal_cycles": "167484805",
+    "measured_cycles": "170257850",
+    "audio_hash": "735e41d8"
+  },
+  "nodes": [
+    {
+      "index": 0,
+      "type": "Control",
+      "rate": 1,
+      "special": 0,
+      "cycles": 116561,
+      "calls": 1024
+    },
+    {
+      "index": 1,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 308950,
+      "calls": 1024
+    },
+    {
+      "index": 2,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 298712,
+      "calls": 1024
+    },
+    {
+      "index": 3,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 301654,
+      "calls": 1024
+    },
+    {
+      "index": 4,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 293916,
+      "calls": 1024
+    },
+    {
+      "index": 5,
+      "type": "Rand",
+      "rate": 0,
+      "special": 0,
+      "cycles": 60716,
+      "calls": 1024
+    },
+    {
+      "index": 6,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 302679,
+      "calls": 1024
+    },
+    {
+      "index": 7,
+      "type": "SinOsc",
+      "rate": 2,
+      "special": 0,
+      "cycles": 2887358,
+      "calls": 1024
+    },
+    {
+      "index": 8,
+      "type": "Rand",
+      "rate": 0,
+      "special": 0,
+      "cycles": 60552,
+      "calls": 1024
+    },
+    {
+      "index": 9,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 305591,
+      "calls": 1024
+    },
+    {
+      "index": 10,
+      "type": "SinOsc",
+      "rate": 2,
+      "special": 0,
+      "cycles": 2813035,
+      "calls": 1024
+    },
+    {
+      "index": 11,
+      "type": "Rand",
+      "rate": 0,
+      "special": 0,
+      "cycles": 62298,
+      "calls": 1024
+    },
+    {
+      "index": 12,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 304962,
+      "calls": 1024
+    },
+    {
+      "index": 13,
+      "type": "SinOsc",
+      "rate": 2,
+      "special": 0,
+      "cycles": 2608713,
+      "calls": 1024
+    },
+    {
+      "index": 14,
+      "type": "Rand",
+      "rate": 0,
+      "special": 0,
+      "cycles": 61723,
+      "calls": 1024
+    },
+    {
+      "index": 15,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 308618,
+      "calls": 1024
+    },
+    {
+      "index": 16,
+      "type": "SinOsc",
+      "rate": 2,
+      "special": 0,
+      "cycles": 2538379,
+      "calls": 1024
+    },
+    {
+      "index": 17,
+      "type": "Rand",
+      "rate": 0,
+      "special": 0,
+      "cycles": 60445,
+      "calls": 1024
+    },
+    {
+      "index": 18,
+      "type": "BinaryOpUGen",
+      "rate": 1,
+      "special": 2,
+      "cycles": 309620,
+      "calls": 1024
+    },
+    {
+      "index": 19,
+      "type": "SinOsc",
+      "rate": 2,
+      "special": 0,
+      "cycles": 2511077,
+      "calls": 1024
+    },
+    {
+      "index": 20,
+      "type": "SinOsc",
+      "rate": 1,
+      "special": 0,
+      "cycles": 286939,
+      "calls": 1024
+    },
+    {
+      "index": 21,
+      "type": "MulAdd",
+      "rate": 1,
+      "special": 0,
+      "cycles": 377114,
+      "calls": 1024
+    },
+    {
+      "index": 22,
+      "type": "Dust",
+      "rate": 2,
+      "special": 0,
+      "cycles": 5915513,
+      "calls": 1024
+    },
+    {
+      "index": 23,
+      "type": "Decay2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 11665581,
+      "calls": 1024
+    },
+    {
+      "index": 24,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1354235,
+      "calls": 1024
+    },
+    {
+      "index": 25,
+      "type": "Pan2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1970325,
+      "calls": 1024
+    },
+    {
+      "index": 26,
+      "type": "Dust",
+      "rate": 2,
+      "special": 0,
+      "cycles": 5900925,
+      "calls": 1024
+    },
+    {
+      "index": 27,
+      "type": "Decay2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 11679546,
+      "calls": 1024
+    },
+    {
+      "index": 28,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1344749,
+      "calls": 1024
+    },
+    {
+      "index": 29,
+      "type": "Pan2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1966038,
+      "calls": 1024
+    },
+    {
+      "index": 30,
+      "type": "Dust",
+      "rate": 2,
+      "special": 0,
+      "cycles": 5898695,
+      "calls": 1024
+    },
+    {
+      "index": 31,
+      "type": "Decay2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 11674455,
+      "calls": 1024
+    },
+    {
+      "index": 32,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1338894,
+      "calls": 1024
+    },
+    {
+      "index": 33,
+      "type": "Pan2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1948359,
+      "calls": 1024
+    },
+    {
+      "index": 34,
+      "type": "Dust",
+      "rate": 2,
+      "special": 0,
+      "cycles": 5912026,
+      "calls": 1024
+    },
+    {
+      "index": 35,
+      "type": "Decay2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 11662299,
+      "calls": 1024
+    },
+    {
+      "index": 36,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1340888,
+      "calls": 1024
+    },
+    {
+      "index": 37,
+      "type": "Pan2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1962061,
+      "calls": 1024
+    },
+    {
+      "index": 38,
+      "type": "Sum4",
+      "rate": 2,
+      "special": 0,
+      "cycles": 3936781,
+      "calls": 1024
+    },
+    {
+      "index": 39,
+      "type": "Sum4",
+      "rate": 2,
+      "special": 0,
+      "cycles": 3944326,
+      "calls": 1024
+    },
+    {
+      "index": 40,
+      "type": "Dust",
+      "rate": 2,
+      "special": 0,
+      "cycles": 5909719,
+      "calls": 1024
+    },
+    {
+      "index": 41,
+      "type": "Decay2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 11666979,
+      "calls": 1024
+    },
+    {
+      "index": 42,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1345315,
+      "calls": 1024
+    },
+    {
+      "index": 43,
+      "type": "Pan2",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1971149,
+      "calls": 1024
+    },
+    {
+      "index": 44,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1346918,
+      "calls": 1024
+    },
+    {
+      "index": 45,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1270199,
+      "calls": 1024
+    },
+    {
+      "index": 46,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1343876,
+      "calls": 1024
+    },
+    {
+      "index": 47,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1267418,
+      "calls": 1024
+    },
+    {
+      "index": 48,
+      "type": "SinOsc",
+      "rate": 1,
+      "special": 0,
+      "cycles": 296325,
+      "calls": 1024
+    },
+    {
+      "index": 49,
+      "type": "MulAdd",
+      "rate": 1,
+      "special": 0,
+      "cycles": 367906,
+      "calls": 1024
+    },
+    {
+      "index": 50,
+      "type": "CombC",
+      "rate": 2,
+      "special": 0,
+      "cycles": 13224166,
+      "calls": 1024
+    },
+    {
+      "index": 51,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1280784,
+      "calls": 1024
+    },
+    {
+      "index": 52,
+      "type": "CombC",
+      "rate": 2,
+      "special": 0,
+      "cycles": 13200198,
+      "calls": 1024
+    },
+    {
+      "index": 53,
+      "type": "BinaryOpUGen",
+      "rate": 2,
+      "special": 2,
+      "cycles": 1272813,
+      "calls": 1024
+    },
+    {
+      "index": 54,
+      "type": "Out",
+      "rate": 2,
+      "special": 0,
+      "cycles": 1337398,
+      "calls": 1024
+    },
+    {
+      "index": 55,
+      "type": "Control",
+      "rate": 0,
+      "special": 1,
+      "cycles": 107567,
+      "calls": 1024
+    }
+  ],
+  "node_cycle_total": 165804038,
+  "by_type": [
+    {
+      "type": "Decay2",
+      "cycles": 58348860,
+      "share_percent": 35.191458967965545,
+      "average_us_per_block_at_240mhz": 237.422119140625
+    },
+    {
+      "type": "Dust",
+      "cycles": 29536878,
+      "share_percent": 17.814329708906126,
+      "average_us_per_block_at_240mhz": 120.1858642578125
+    },
+    {
+      "type": "CombC",
+      "cycles": 26424364,
+      "share_percent": 15.937105222974123,
+      "average_us_per_block_at_240mhz": 107.52101236979166
+    },
+    {
+      "type": "BinaryOpUGen",
+      "cycles": 17240791,
+      "share_percent": 10.398293797886877,
+      "average_us_per_block_at_240mhz": 70.15295817057292
+    },
+    {
+      "type": "SinOsc",
+      "cycles": 13941826,
+      "share_percent": 8.408616682785494,
+      "average_us_per_block_at_240mhz": 56.729435221354166
+    },
+    {
+      "type": "Pan2",
+      "cycles": 9817932,
+      "share_percent": 5.9214070528246125,
+      "average_us_per_block_at_240mhz": 39.949267578125
+    },
+    {
+      "type": "Sum4",
+      "cycles": 7881107,
+      "share_percent": 4.75326602118098,
+      "average_us_per_block_at_240mhz": 32.06830647786458
+    },
+    {
+      "type": "Out",
+      "cycles": 1337398,
+      "share_percent": 0.8066136483358747,
+      "average_us_per_block_at_240mhz": 5.441886393229167
+    },
+    {
+      "type": "MulAdd",
+      "cycles": 745020,
+      "share_percent": 0.4493376693274503,
+      "average_us_per_block_at_240mhz": 3.031494140625
+    },
+    {
+      "type": "Rand",
+      "cycles": 305734,
+      "share_percent": 0.18439478536704879,
+      "average_us_per_block_at_240mhz": 1.2440348307291667
+    },
+    {
+      "type": "Control",
+      "cycles": 224128,
+      "share_percent": 0.13517644244587096,
+      "average_us_per_block_at_240mhz": 0.9119791666666667
+    }
+  ],
+  "normal_average_us_at_240mhz": 681.4974161783854,
+  "notes": "Per-node shares include probe overhead in a separate renderer. Normal DSP has no timing probes. Audio, voice-state and delay-memory digests match the normal renderer.",
+  "lines": [
+    "UGEN_PROFILE graph=SoundBlock blocks=1024 ready=2 matched=1 normal_cycles=167484805 measured_cycles=170257850 audio_hash=735e41d8",
+    "UGEN_NODE index=0 type=Control rate=1 special=0 cycles=116561 calls=1024",
+    "UGEN_NODE index=1 type=BinaryOpUGen rate=1 special=2 cycles=308950 calls=1024",
+    "UGEN_NODE index=2 type=BinaryOpUGen rate=1 special=2 cycles=298712 calls=1024",
+    "UGEN_NODE index=3 type=BinaryOpUGen rate=1 special=2 cycles=301654 calls=1024",
+    "UGEN_NODE index=4 type=BinaryOpUGen rate=1 special=2 cycles=293916 calls=1024",
+    "UGEN_NODE index=5 type=Rand rate=0 special=0 cycles=60716 calls=1024",
+    "UGEN_NODE index=6 type=BinaryOpUGen rate=1 special=2 cycles=302679 calls=1024",
+    "UGEN_NODE index=7 type=SinOsc rate=2 special=0 cycles=2887358 calls=1024",
+    "UGEN_NODE index=8 type=Rand rate=0 special=0 cycles=60552 calls=1024",
+    "UGEN_NODE index=9 type=BinaryOpUGen rate=1 special=2 cycles=305591 calls=1024",
+    "UGEN_NODE index=10 type=SinOsc rate=2 special=0 cycles=2813035 calls=1024",
+    "UGEN_NODE index=11 type=Rand rate=0 special=0 cycles=62298 calls=1024",
+    "UGEN_NODE index=12 type=BinaryOpUGen rate=1 special=2 cycles=304962 calls=1024",
+    "UGEN_NODE index=13 type=SinOsc rate=2 special=0 cycles=2608713 calls=1024",
+    "UGEN_NODE index=14 type=Rand rate=0 special=0 cycles=61723 calls=1024",
+    "UGEN_NODE index=15 type=BinaryOpUGen rate=1 special=2 cycles=308618 calls=1024",
+    "UGEN_NODE index=16 type=SinOsc rate=2 special=0 cycles=2538379 calls=1024",
+    "UGEN_NODE index=17 type=Rand rate=0 special=0 cycles=60445 calls=1024",
+    "UGEN_NODE index=18 type=BinaryOpUGen rate=1 special=2 cycles=309620 calls=1024",
+    "UGEN_NODE index=19 type=SinOsc rate=2 special=0 cycles=2511077 calls=1024",
+    "UGEN_NODE index=20 type=SinOsc rate=1 special=0 cycles=286939 calls=1024",
+    "UGEN_NODE index=21 type=MulAdd rate=1 special=0 cycles=377114 calls=1024",
+    "UGEN_NODE index=22 type=Dust rate=2 special=0 cycles=5915513 calls=1024",
+    "UGEN_NODE index=23 type=Decay2 rate=2 special=0 cycles=11665581 calls=1024",
+    "UGEN_NODE index=24 type=BinaryOpUGen rate=2 special=2 cycles=1354235 calls=1024",
+    "UGEN_NODE index=25 type=Pan2 rate=2 special=0 cycles=1970325 calls=1024",
+    "UGEN_NODE index=26 type=Dust rate=2 special=0 cycles=5900925 calls=1024",
+    "UGEN_NODE index=27 type=Decay2 rate=2 special=0 cycles=11679546 calls=1024",
+    "UGEN_NODE index=28 type=BinaryOpUGen rate=2 special=2 cycles=1344749 calls=1024",
+    "UGEN_NODE index=29 type=Pan2 rate=2 special=0 cycles=1966038 calls=1024",
+    "UGEN_NODE index=30 type=Dust rate=2 special=0 cycles=5898695 calls=1024",
+    "UGEN_NODE index=31 type=Decay2 rate=2 special=0 cycles=11674455 calls=1024",
+    "UGEN_NODE index=32 type=BinaryOpUGen rate=2 special=2 cycles=1338894 calls=1024",
+    "UGEN_NODE index=33 type=Pan2 rate=2 special=0 cycles=1948359 calls=1024",
+    "UGEN_NODE index=34 type=Dust rate=2 special=0 cycles=5912026 calls=1024",
+    "UGEN_NODE index=35 type=Decay2 rate=2 special=0 cycles=11662299 calls=1024",
+    "UGEN_NODE index=36 type=BinaryOpUGen rate=2 special=2 cycles=1340888 calls=1024",
+    "UGEN_NODE index=37 type=Pan2 rate=2 special=0 cycles=1962061 calls=1024",
+    "UGEN_NODE index=38 type=Sum4 rate=2 special=0 cycles=3936781 calls=1024",
+    "UGEN_NODE index=39 type=Sum4 rate=2 special=0 cycles=3944326 calls=1024",
+    "UGEN_NODE index=40 type=Dust rate=2 special=0 cycles=5909719 calls=1024",
+    "UGEN_NODE index=41 type=Decay2 rate=2 special=0 cycles=11666979 calls=1024",
+    "UGEN_NODE index=42 type=BinaryOpUGen rate=2 special=2 cycles=1345315 calls=1024",
+    "UGEN_NODE index=43 type=Pan2 rate=2 special=0 cycles=1971149 calls=1024",
+    "UGEN_NODE index=44 type=BinaryOpUGen rate=2 special=0 cycles=1346918 calls=1024",
+    "UGEN_NODE index=45 type=BinaryOpUGen rate=2 special=2 cycles=1270199 calls=1024",
+    "UGEN_NODE index=46 type=BinaryOpUGen rate=2 special=0 cycles=1343876 calls=1024",
+    "UGEN_NODE index=47 type=BinaryOpUGen rate=2 special=2 cycles=1267418 calls=1024",
+    "UGEN_NODE index=48 type=SinOsc rate=1 special=0 cycles=296325 calls=1024",
+    "UGEN_NODE index=49 type=MulAdd rate=1 special=0 cycles=367906 calls=1024",
+    "UGEN_NODE index=50 type=CombC rate=2 special=0 cycles=13224166 calls=1024",
+    "UGEN_NODE index=51 type=BinaryOpUGen rate=2 special=2 cycles=1280784 calls=1024",
+    "UGEN_NODE index=52 type=CombC rate=2 special=0 cycles=13200198 calls=1024",
+    "UGEN_NODE index=53 type=BinaryOpUGen rate=2 special=2 cycles=1272813 calls=1024",
+    "UGEN_NODE index=54 type=Out rate=2 special=0 cycles=1337398 calls=1024",
+    "UGEN_NODE index=55 type=Control rate=0 special=1 cycles=107567 calls=1024",
+    "UGEN_END"
+  ],
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "0e3cffb75dafc2be1da72f97e18351f9f8698973c5bb545fc547e284bcf2b447",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "69fa5bc284ea87f43b1009cf7420bad631ebcc928c005349c54cb7c26875cb25",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "continuous_blocks": true,
+    "master_slots": 2,
+    "atomic_install": true,
+    "global_volume": true,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12433536,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "volume": {
+    "percent": 30
+  },
+  "live": {
+    "samples": [
+      {
+        "average_x10": 498,
+        "peak_x10": 639
+      },
+      {
+        "average_x10": 497,
+        "peak_x10": 613
+      },
+      {
+        "average_x10": 498,
+        "peak_x10": 669
+      },
+      {
+        "average_x10": 498,
+        "peak_x10": 635
+      },
+      {
+        "average_x10": 497,
+        "peak_x10": 595
+      }
+    ],
+    "average_percent": 49.76,
+    "recent_peak_percent": 66.9,
+    "audio": {
+      "frame": 309120,
+      "active": 1,
+      "render_max_us": 1486,
+      "combined_max_us": 1502,
+      "updated": 21367.593209625,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "average_x10": 497,
+      "peak_x10": 595
+    }
+  },
+  "final_audio": {
+    "frame": 1368960,
+    "active": 1,
+    "render_max_us": 1514,
+    "combined_max_us": 1530,
+    "updated": 21393.375266583,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "average_x10": 498,
+    "peak_x10": 628
+  },
+  "panic_latched_through_master_reload": true,
+  "continuous_reload_started_without_touch": true,
+  "source_graph_readback_unchanged": true,
+  "final_volume": {
+    "percent": 30
+  },
+  "final_slots": [
+    {
+      "slot": 0,
+      "name": "Factory Sine",
+      "generations": [
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "name": "Mac Sine",
+      "generations": [
+        11,
+        12
+      ]
+    },
+    {
+      "slot": 2,
+      "name": "Phase FM",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 3,
+      "name": "Harmonic Mix",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 4,
+      "name": "Filtered Tone",
+      "generations": [
+        1,
+        0
+      ]
+    },
+    {
+      "slot": 5,
+      "name": "Touch buses",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 6,
+      "name": "Sound block",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 7,
+      "name": "Comb cloud",
+      "generations": [
+        1,
+        2
+      ]
+    },
+    {
+      "slot": 8,
+      "name": "",
+      "generations": [
+        0,
+        0
+      ]
+    }
+  ],
+  "final_masters": [
+    {
+      "slot": 0,
+      "name": "Bypass",
+      "generations": [
+        0,
+        0
+      ],
+      "selected": true
+    },
+    {
+      "slot": 1,
+      "name": "Master FX",
+      "generations": [
+        1,
+        0
+      ],
+      "selected": false
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "native_supercollider": true,
+  "hardware": false,
+  "modules": 2,
+  "alias_group_all": true,
+  "per_client_order": true,
+  "invalid_settings_rejected_before_sending": true,
+  "partial_failure_reported": true,
+  "normalized_volume": true,
+  "percent_resolution": 1
+}

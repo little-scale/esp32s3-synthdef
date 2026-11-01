@@ -1,0 +1,173 @@
+{
+  "passed": true,
+  "status": "complete",
+  "screens": [
+    {
+      "patch": "factory",
+      "png": "evidence/source-factory.png"
+    },
+    {
+      "patch": "mac-sine",
+      "png": "evidence/source-mac-sine.png"
+    },
+    {
+      "patch": "filtered",
+      "png": "evidence/source-filtered.png"
+    },
+    {
+      "patch": "colours",
+      "png": "evidence/source-colours.png"
+    }
+  ],
+  "audio": [
+    {
+      "patch": "mac-sine",
+      "seconds": 12,
+      "output_counter_baseline": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "scope": "Held note and release with code viewport scrolling/redrawing at 25 Hz; nominal DMA path; no physical continuity claim"
+    },
+    {
+      "patch": "filtered",
+      "seconds": 12,
+      "output_counter_baseline": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "scope": "Held note and release with code viewport scrolling/redrawing at 25 Hz; nominal DMA path; no physical continuity claim"
+    },
+    {
+      "patch": "phase-fm",
+      "seconds": 12,
+      "output_counter_baseline": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "scope": "Held note and release with code viewport scrolling/redrawing at 25 Hz; nominal DMA path; no physical continuity claim"
+    }
+  ],
+  "saved_patch_writes": false,
+  "hello": {
+    "protocol": 1,
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "cabbeb035d5b59516e85ee8fce5ebfd244e278d57b52ead097e717cb5841bafe",
+    "engine": "00ac338904304e87845477808e598ef973f49b52",
+    "profile": "910203396f326e96cacb30aad6f564b28d8876c936cac51661af88743f5912c2",
+    "rate": 44100,
+    "block": 64,
+    "voices": 1,
+    "effects": 1,
+    "transports": [
+      "usb-serial-jtag"
+    ],
+    "graph_max": 65536,
+    "source_max": 65536,
+    "chunk": 256,
+    "slots": 8,
+    "storage": true,
+    "storage_total": 12462401,
+    "storage_free": 12452361,
+    "policy": "fm1-compat-v1",
+    "catalog": [
+      {
+        "id": "phase-fm",
+        "status": "candidate",
+        "graph_sha256": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f"
+      },
+      {
+        "id": "additive",
+        "status": "candidate",
+        "graph_sha256": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904"
+      },
+      {
+        "id": "filtered",
+        "status": "candidate",
+        "graph_sha256": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a"
+      }
+    ]
+  },
+  "initial_packages": {
+    "1": {
+      "graph": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448",
+      "source": "b968bdb3d0a301d9a689c8ff96f2919b981e6742c21a64283e11bc1b8ce964c8",
+      "metadata": "4d61632053696e650000000000000000000000000000000000000000000000005049544348000000000000004c4556454c0000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "2": {
+      "graph": "4a698775f1845058f72771ce3c57a8823eb56952bc2ba7e2d3270ed304dd1b9f",
+      "source": "6377946caa7fc7aaa26a33f9bada2dc32fcdc5c3c0cb8a5b033263fb8678a78f",
+      "metadata": "506861736520464d000000000000000000000000000000000000000000000000504954434800000000000000494e4445580000000000000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "3": {
+      "graph": "6cc7106fa667cc746f027dcea7d816c4e1605c8927450582bcff4bb73e7ff904",
+      "source": "61125e17070ace98985eb5a2f27aaf746f61d92c807da1d6ba174047b36a6622",
+      "metadata": "4861726d6f6e6963204d697800000000000000000000000000000000000000005049544348000000000000004841524d4f4e49435300000041545441434b00000000000052454c45415345000000000001000000"
+    },
+    "4": {
+      "graph": "cadf684a1369123ab0bc38148da186c0a1215341895d0be0afffd9e826d2c27a",
+      "source": "67ccfb8e8af74ba2f8fe4c5b2614ebcd39ab760fb71e3df37378da130f914c23",
+      "metadata": "46696c746572656420546f6e65000000000000000000000000000000000000005049544348000000000000004355544f464600000000000041545441434b00000000000052454c45415345000000000001000000"
+    }
+  },
+  "packages_unchanged": true,
+  "final_status": {
+    "state": 3,
+    "reset_required": false,
+    "received": 1126,
+    "transfer": 1870690230,
+    "slot": 1,
+    "name": "Mac Sine",
+    "graph_sha256": "a0f113474615345c8bf1e0aafe6abd4dcb91432c0a04a50f9c8d8adc93807448"
+  },
+  "library_unchanged": true,
+  "minimum": {
+    "internal_min": 47871,
+    "internal_largest": 38912,
+    "stack_free_bytes": 12920,
+    "controls_stack_free_bytes": 11792
+  },
+  "observed_overall_combined_max_us": 586
+}

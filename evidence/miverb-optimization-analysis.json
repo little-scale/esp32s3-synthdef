@@ -1,0 +1,273 @@
+{
+  "analysis_only": true,
+  "production_firmware_changed": false,
+  "hardware_baseline": {
+    "miverb_us_per_block": 779.0592407226562,
+    "miverb_profile_share_percent": 65.11684662417068,
+    "dsp_us_per_block": 1194.592862955729,
+    "rate": 44100,
+    "block": 64
+  },
+  "assembly": {
+    "baseline": {
+      "functions": {
+        "mi_write": {
+          "instructions": 58,
+          "l8ui": 0,
+          "l16si": 0,
+          "s8i": 3,
+          "s16i": 0,
+          "fminmax_sites": 2
+        },
+        "mi_ap": {
+          "instructions": 43,
+          "l8ui": 2,
+          "l16si": 0,
+          "s8i": 0,
+          "s16i": 0,
+          "fminmax_sites": 0
+        },
+        "render_miverb": {
+          "instructions": 793,
+          "l8ui": 10,
+          "l16si": 29,
+          "s8i": 0,
+          "s16i": 0,
+          "fminmax_sites": 10
+        }
+      },
+      "clamp_calls_per_audio_sample": 20
+    },
+    "clamps": {
+      "functions": {
+        "mi_write": {
+          "instructions": 64,
+          "l8ui": 0,
+          "l16si": 0,
+          "s8i": 3,
+          "s16i": 0,
+          "fminmax_sites": 0
+        },
+        "mi_ap": {
+          "instructions": 43,
+          "l8ui": 2,
+          "l16si": 0,
+          "s8i": 0,
+          "s16i": 0,
+          "fminmax_sites": 0
+        },
+        "render_miverb": {
+          "instructions": 793,
+          "l8ui": 10,
+          "l16si": 29,
+          "s8i": 0,
+          "s16i": 0,
+          "fminmax_sites": 10
+        }
+      },
+      "clamp_calls_per_audio_sample": 0
+    },
+    "packed": {
+      "functions": {
+        "mi_write": {
+          "instructions": 54,
+          "l8ui": 0,
+          "l16si": 0,
+          "s8i": 1,
+          "s16i": 1,
+          "fminmax_sites": 2
+        },
+        "render_miverb": {
+          "instructions": 972,
+          "l8ui": 2,
+          "l16si": 41,
+          "s8i": 0,
+          "s16i": 0,
+          "fminmax_sites": 10
+        }
+      },
+      "clamp_calls_per_audio_sample": 20
+    },
+    "binding": {
+      "functions": {
+        "mi_write": {
+          "instructions": 58,
+          "l8ui": 0,
+          "l16si": 0,
+          "s8i": 3,
+          "s16i": 0,
+          "fminmax_sites": 2
+        },
+        "mi_ap": {
+          "instructions": 43,
+          "l8ui": 2,
+          "l16si": 0,
+          "s8i": 0,
+          "s16i": 0,
+          "fminmax_sites": 0
+        },
+        "render_miverb": {
+          "instructions": 781,
+          "l8ui": 8,
+          "l16si": 28,
+          "s8i": 0,
+          "s16i": 0,
+          "fminmax_sites": 10
+        }
+      },
+      "clamp_calls_per_audio_sample": 20
+    },
+    "inline": {
+      "functions": {
+        "render_miverb": {
+          "instructions": 1427,
+          "l8ui": 26,
+          "l16si": 29,
+          "s8i": 30,
+          "s16i": 0,
+          "fminmax_sites": 30
+        }
+      },
+      "clamp_calls_per_audio_sample": 20
+    },
+    "combined": {
+      "functions": {
+        "render_miverb": {
+          "instructions": 1300,
+          "l8ui": 0,
+          "l16si": 39,
+          "s8i": 10,
+          "s16i": 10,
+          "fminmax_sites": 10
+        }
+      },
+      "clamp_calls_per_audio_sample": 0
+    }
+  },
+  "equivalence": {
+    "hardware": false,
+    "firmware_changed": false,
+    "rates": [
+      8000,
+      44100,
+      48000,
+      192000
+    ],
+    "blocks_per_case": 4096,
+    "fixtures": [
+      "Stereo",
+      "Mono",
+      "Silence",
+      "User"
+    ],
+    "variants": {
+      "clamps": {
+        "passed": true,
+        "samples": 8388608,
+        "process_seconds": 0.817492
+      },
+      "packed": {
+        "passed": true,
+        "samples": 8388608,
+        "process_seconds": 0.729784
+      },
+      "binding": {
+        "passed": true,
+        "samples": 8388608,
+        "process_seconds": 0.759998
+      },
+      "inline": {
+        "passed": true,
+        "samples": 8388608,
+        "process_seconds": 0.636199
+      },
+      "combined": {
+        "passed": true,
+        "samples": 8388608,
+        "process_seconds": 0.620966
+      }
+    },
+    "passed": true
+  },
+  "host_benchmark": {
+    "platform": "macOS arm64 host, not ESP32",
+    "audio_seconds_per_run": 47.55446712018141,
+    "runs_per_variant": 5,
+    "variants": {
+      "baseline": {
+        "process_seconds": [
+          0.059991,
+          0.036988,
+          0.031675,
+          0.031635,
+          0.032038
+        ],
+        "median_seconds": 0.032038
+      },
+      "clamps": {
+        "process_seconds": [
+          0.062261,
+          0.033843,
+          0.033221,
+          0.033136,
+          0.032854
+        ],
+        "median_seconds": 0.033221
+      },
+      "packed": {
+        "process_seconds": [
+          0.057732,
+          0.028384,
+          0.028435,
+          0.028278,
+          0.028511
+        ],
+        "median_seconds": 0.028435
+      },
+      "binding": {
+        "process_seconds": [
+          0.059019,
+          0.030645,
+          0.030636,
+          0.030425,
+          0.030265
+        ],
+        "median_seconds": 0.030636
+      },
+      "inline": {
+        "process_seconds": [
+          0.061464,
+          0.031739,
+          0.031629,
+          0.031694,
+          0.031593
+        ],
+        "median_seconds": 0.031694
+      },
+      "combined": {
+        "process_seconds": [
+          0.056725,
+          0.029233,
+          0.029292,
+          0.029012,
+          0.029214
+        ],
+        "median_seconds": 0.029233
+      }
+    },
+    "caveat": "Host timing does not predict ESP32 speed; Xtensa has different math-library calls, cache, memory bus and register ABI."
+  },
+  "candidate_sha256": {
+    "baseline": "32dfdc758d98bd2dcf0383232274b7854cf2ddcd966e9672a0a74a46aecdf248",
+    "clamps": "79c6f7d805d07e857d40293efaf2b984f9de902dc80b90419943d0e1d9b7ad4e",
+    "packed": "be8415d429ce9ab946c533e431c1aca5c2407df77e53bc55bf2e7a2c2ac8ffe4",
+    "binding": "2a375395d4b73655623bee48585c26091417cea0ada36684a6d7d92ce1c3b70d",
+    "inline": "44ad7a9ffaf792b961fbb468d523ccf910c87568087d33eb0eb5528025677fd7",
+    "combined": "f048e130b2e9de61f93406e71744d48ee9af31a34a2589f2123f16545e17835a"
+  },
+  "code_and_literal_bytes": {
+    "baseline": 2304,
+    "combined": 3138
+  },
+  "target_candidate_cycles_measured": false
+}

@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "build_id": "cabbeb035d5b59516e85ee8fce5ebfd244e278d57b52ead097e717cb5841bafe",
+  "app_bytes": 908032,
+  "screens": [
+    {
+      "patch": "factory",
+      "png": "evidence/source-factory.png"
+    },
+    {
+      "patch": "mac-sine",
+      "png": "evidence/source-mac-sine.png"
+    },
+    {
+      "patch": "filtered",
+      "png": "evidence/source-filtered.png"
+    },
+    {
+      "patch": "colours",
+      "png": "evidence/source-colours.png"
+    }
+  ],
+  "audio_scrolling_checks": [
+    {
+      "patch": "mac-sine",
+      "seconds": 12,
+      "output_counter_baseline": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "scope": "Held note and release with code viewport scrolling/redrawing at 25 Hz; nominal DMA path; no physical continuity claim"
+    },
+    {
+      "patch": "filtered",
+      "seconds": 12,
+      "output_counter_baseline": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "scope": "Held note and release with code viewport scrolling/redrawing at 25 Hz; nominal DMA path; no physical continuity claim"
+    },
+    {
+      "patch": "phase-fm",
+      "seconds": 12,
+      "output_counter_baseline": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "output_counter_delta": {
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 0,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      "scope": "Held note and release with code viewport scrolling/redrawing at 25 Hz; nominal DMA path; no physical continuity claim"
+    }
+  ],
+  "source_limit_bytes": 65536,
+  "viewer": "read-only original source; fixed-cell DejaVu Sans Mono 14; viewport rendering",
+  "packages_unchanged": true,
+  "library_unchanged": true,
+  "existing_voice_operator_matrices": 7,
+  "master_delay": {
+    "passed": true,
+    "max_float_error": 0.0,
+    "limit": 1e-06,
+    "samples": 1024,
+    "times": [
+      0.02,
+      0.35,
+      1,
+      5
+    ]
+  },
+  "minimum": {
+    "internal_min": 47871,
+    "internal_largest": 38912,
+    "stack_free_bytes": 12920,
+    "controls_stack_free_bytes": 11792
+  },
+  "held_note_scroll_max_us": 586,
+  "host_widget_heap_free_bytes": 15752,
+  "font_source_sha256": "602ec86b8948cfcd956482fe64f94c36c867770149ef2f791d4613f443bcecb3"
+}

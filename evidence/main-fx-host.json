@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "studio_tests": 33,
+  "network_http_tests": 18,
+  "network_nodes": "two independent loopback HTTP modules",
+  "browser_logic": "tests/studio_browser_test.js; DOM adapter, not interactive browser/layout",
+  "native_lvgl": {
+    "test": "real LVGL host simulation",
+    "passed": true,
+    "details": "UI fixed heap: 65536 bytes, currently free 44408, largest free block 43960\nPASS: code-first play/controls screens, X/Y, release ownership, independent vertical/horizontal scroll strips, Main restart and FX bypass, busy/Panic, source ownership and 64 KiB limits",
+    "source_sha256": "4ba2b4019a9ecd528b82abffc9fbef5f90ccd68658d0a710408a9b5c410c556b",
+    "hardware": false,
+    "dimensions": [
+      368,
+      448
+    ]
+  },
+  "physical_results": "main-fx-device.json"
+}
