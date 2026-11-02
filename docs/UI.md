@@ -26,8 +26,8 @@ Main patch. There are two screens:
   CODE/CPU/PANIC area. Legacy numbered slots are hidden and inaccessible.
 
 The title is the active patch on Code, and the module name on Controls. Controls
-shows the permanent module ID beneath the name. A small green circle beside the
-battery lights for 140 ms after a valid upload/control frame (USB or Wi-Fi);
+shows the permanent module ID beneath the name. A small green circle directly
+above the Wi-Fi symbol lights for 140 ms after a valid upload/control frame (USB or Wi-Fi);
 background queries stay dark. Wi-Fi RSSI is shown in dBm beneath the battery,
 updated once per second; disconnected nodes show Wi-Fi off. Sampling and bounded
 display updates run outside the audio task. The receive cue acknowledges traffic,

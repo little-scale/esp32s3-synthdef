@@ -49,6 +49,9 @@ for line in subprocess.check_output([str(nm), '-S', str(obj)], text=True).splitl
 description = json.loads((BUILD/'project_description.json').read_text())
 idf_path = Path(description['idf_path'])
 generated = (ROOT/'firmware/main/generated.h').read_text()
+main_source = (ROOT/'firmware/main/main.c').read_text()
+task_stacks = {name:int(re.search(r'^#define '+name+r' (\d+)$',main_source,re.M)[1])
+               for name in ('CONTROL_STACK_BYTES','AUDIO_STACK_BYTES')}
 app = BUILD/'waveshare_synthdef.bin'
 build_id=re.search(r'#define BUILD_ID "(.*?)"', generated)[1]
 assert build_id.encode() in app.read_bytes(), 'Binary is stale relative to the generated source identity'
@@ -88,6 +91,7 @@ internal_sine='CONFIG_SYNTHDEF_INTERNAL_SINE=y' in config
 internal_adapter='CONFIG_SYNTHDEF_INTERNAL_ADAPTER=y' in config
 adapter_hot=['instrument_apply','instrument_apply_batch','instrument_render','instrument_pcm']
 adapter_hot+=['instrument_render_stereo','master_delay_render','master_delay_set']
+if 'CONFIG_SYNTHDEF_HEADLESS=y' in config:adapter_hot.append('instrument_pcm_stereo')
 assert all(name in symbols for name in adapter_hot)
 if internal_adapter:
     assert all(0x40370000<=symbols[name]['address']<0x403e0000 for name in adapter_hot),'Audio adapter escaped internal instruction RAM'
@@ -115,7 +119,9 @@ report = {
     'idf_version': subprocess.check_output(['git', '-C', str(idf_path), 'describe', '--tags', '--always'], text=True).strip(),
     'idf_commit': subprocess.check_output(['git', '-C', str(idf_path), 'rev-parse', 'HEAD'], text=True).strip(),
     'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
-    'target': 'esp32s3', 'board_revision': 'V2 (user confirmed; not physically probed)',
+    'target': 'esp32s3',
+    'board_revision': 'XIAO ESP32-S3 (headless profile)' if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 'V2 (user confirmed; not physically probed)',
+    'output_channels': 2 if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 1,
     'compiled_loader_types_checked_in_target_object': len(capabilities['compiled_types']),
     'engine_compile_options_verified': verified, 'target_structure_sizes': sizes,
     'engine_fixed_allocation_bytes': 3*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
@@ -145,13 +151,14 @@ report = {
     'sine_table_internal': internal_sine,
     'sine_table_symbol': symbols['fm_sine'],
     'sine_table_sha256': sine_hash,
-    'console_patch_task_stack_bytes': 16384,
-    'audio_task_stack_bytes': 16384, 'event_queue_capacity': 16,
+    'console_patch_task_stack_bytes': task_stacks['CONTROL_STACK_BYTES'],
+    'audio_task_stack_bytes': task_stacks['AUDIO_STACK_BYTES'], 'event_queue_capacity': 16,
     'dma_descriptors': 6, 'dma_frames_per_descriptor': 128,
     'app_bytes': app.stat().st_size,
     'sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in
                [app, BUILD/'bootloader/bootloader.bin', BUILD/'partition_table/partition-table.bin',
-                config_path, ROOT/'firmware/sdkconfig.defaults', ROOT/'firmware/partitions.csv',
+                config_path, ROOT/('host/xiao.defaults' if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 'firmware/sdkconfig.defaults'),
+                ROOT/'firmware'/re.search(r'^CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="([^"]+)"$',config,re.M)[1],
                 ROOT/'firmware/dependencies.lock']},
     'runtime_heap_and_clocks': 'see runtime logs; actual clocks still require external measurement',
 }

@@ -113,7 +113,7 @@ class Device:
 
     def hello(self):
         result = self.request('HELLO')
-        if result.get('protocol') != 1 or result.get('model') != 'Waveshare AMOLED 1.8 V2':
+        if result.get('protocol') != 1 or result.get('model') not in ('Waveshare AMOLED 1.8 V2', 'XIAO ESP32-S3'):
             raise RuntimeError('Unexpected connected device/protocol')
         if result.get('policy') not in ('simple-voice-v1','catalog-voice-v2','fm1-compat-v1') or result.get('chunk') != 256:
             raise RuntimeError('Unsupported device admission policy')

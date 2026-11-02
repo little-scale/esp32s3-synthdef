@@ -96,7 +96,7 @@ static unsigned received_pixels(void)
 {
     size_t bytes;lv_color_t *pixels=touch_ui_snapshot(&bytes);assert(pixels && bytes==368*448*2);
     unsigned green=0;lv_color_t expected=lv_color_hex(0x18B65A);
-    for(unsigned y=8;y<26;++y)for(unsigned x=240;x<258;++x)green+=pixels[y*368+x].full==expected.full;
+    for(unsigned y=8;y<26;++y)for(unsigned x=0;x<368;++x)green+=pixels[y*368+x].full==expected.full;
     free(pixels);return green;
 }
 int main(int argc,char **argv)
@@ -115,7 +115,9 @@ int main(int argc,char **argv)
     if(argc==8){
         const char showcase[]="SynthDef(\\touchSine, {\n    arg root = 110;\n    var xy = In.kr(0, 3);\n    var hz = xy[0].linexp(\n        0, 1, root, root * 8\n    );\n    var amp = Lag.kr(\n        xy[1] * xy[2], 0.02\n    );\n\n    Out.ar(0,\n        SinOsc.ar(hz) * amp * 0.2\n    );\n});\n";
         touch_ui_patch("Touch sine",labels,1,knobs,330,names,1,showcase,strlen(showcase));
+        touch_ui_connectivity("AMOLED-3ad390","esp32-2884853ad390",true,-63,true);
         input(0,0,false);save(argv[7]);
+        touch_ui_connectivity("AMOLED-3ad390","esp32-2884853ad390",true,-63,false);
     }
     char source[4096]="// Touch bus SynthDef\nSynthDef(\\touch, {\n    var xy = In.kr(0, 3);\n    var frequency = xy[0].linexp(0, 1, 55, 1760);\n    Out.ar(0, SinOsc.ar(frequency) * xy[1] * xy[2] * 0.2);\n});\n";
     for(unsigned k=0;k<40;++k)strcat(source,"// More original source text to test scrolling in both directions without triggering a note.\n");

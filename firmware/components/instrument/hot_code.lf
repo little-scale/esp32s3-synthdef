@@ -8,5 +8,6 @@ entries:
         instrument:instrument_render (noflash_text)
         instrument:instrument_render_stereo (noflash_text)
         instrument:instrument_pcm (noflash_text)
+        instrument:instrument_pcm_stereo (noflash_text)
         master_delay:master_delay_render (noflash_text)
         master_delay:master_delay_set (noflash_text)

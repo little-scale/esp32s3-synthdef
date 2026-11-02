@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "seconds": 60,
+  "note_rate_hz": 8,
+  "telemetry_samples": 238,
+  "cpu_average_percent_max": 52.8,
+  "cpu_peak_percent": 59.9,
+  "capture_peak": 639,
+  "capture_rms": 158.78696127294202,
+  "write_fail": 0,
+  "partial": 0,
+  "dma_event_overflow": 0,
+  "faults": 0,
+  "clips": 0,
+  "nonfinite": 0,
+  "overflow": 0,
+  "build": "7b9d394462c7d106050751420897b6f7db1e3013589ad93b9d48a5358f78f089"
+}

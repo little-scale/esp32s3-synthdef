@@ -238,6 +238,19 @@ void instrument_pcm(const float stereo[FM_BLOCK * 2], int16_t mono[FM_BLOCK],
     }
 }
 
+void instrument_pcm_stereo(const float stereo[FM_BLOCK*2],int16_t pcm[FM_BLOCK*2],float gain,uint64_t *nonfinite,uint64_t *clipped)
+{
+    for(unsigned i=0;i<FM_BLOCK*2;++i){
+        float x=stereo[i]*gain;
+        if(!isfinite(x)){x=0;++*nonfinite;}
+        if(x>1){x=1;++*clipped;}if(x< -1){x=-1;++*clipped;}
+        float scaled=x*32767.0f;int32_t q=(int32_t)scaled;float fraction=scaled-(float)q;
+        if(fraction>.5f || (fraction==.5f && (q&1)))++q;
+        else if(fraction< -.5f || (fraction== -.5f && (q&1)))--q;
+        pcm[i]=(int16_t)q;
+    }
+}
+
 void instrument_apply_batch(instrument *s, const inst_event *events, unsigned count)
 {
     s->reset_us=s->controls_us=s->prepare_us=0;

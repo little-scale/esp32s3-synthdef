@@ -20,3 +20,16 @@ void output_volume_pcm(output_volume *v,unsigned percent,const float stereo[FM_B
     }
     instrument_pcm(scaled,mono,gain,nonfinite,clipped);
 }
+void output_volume_pcm_stereo(output_volume *v,unsigned percent,const float stereo[FM_BLOCK*2],int16_t pcm[FM_BLOCK*2],float gain,uint64_t *nonfinite,uint64_t *clipped)
+{
+    if(percent>100)percent=100;
+    float target=percent*.01f;
+    if(target!=v->target){v->target=target;v->remaining=v->ramp_samples;v->step=(target-v->current)/v->remaining;}
+    if(!v->remaining){instrument_pcm_stereo(stereo,pcm,gain*v->current,nonfinite,clipped);return;}
+    float scaled[FM_BLOCK*2];
+    for(unsigned i=0;i<FM_BLOCK;++i){
+        if(v->remaining){v->current+=v->step;if(!--v->remaining)v->current=v->target;}
+        scaled[2*i]=stereo[2*i]*v->current;scaled[2*i+1]=stereo[2*i+1]*v->current;
+    }
+    instrument_pcm_stereo(scaled,pcm,gain,nonfinite,clipped);
+}

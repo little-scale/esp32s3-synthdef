@@ -43,7 +43,9 @@ class Problem(Exception):
 class AudioTelemetry:
     """Retain numeric audio diagnostics only, never package/source protocol data."""
     fields = {'frame','active','render_max_us','combined_max_us','write_fail','partial',
-              'overflow','dma_event_overflow','faults','clips','nonfinite','average_x10','peak_x10'}
+              'overflow','dma_event_overflow','faults','clips','nonfinite','average_x10','peak_x10',
+              'internal_free','internal_min','internal_largest','psram_free','stack_free_bytes',
+              'controls_stack_free_bytes'}
 
     def __init__(self):
         self.pending = b''
@@ -204,6 +206,7 @@ class Studio:
         self.device_info = None
         self.device_port = None
         self.device_lock, self.artifact_lock = threading.Lock(), threading.Lock()
+        self.capture_lock = threading.Lock()
         self.artifacts = OrderedDict()
         self.stop_reader = threading.Event()
         self.reader = None
@@ -412,6 +415,27 @@ class Studio:
         self.device, self.device_info, self.device_port = device, hello, port
         return self.state()
 
+    def capture_audio(self,payload):
+        seconds=payload.get('seconds',1)
+        if type(seconds) not in (int,float) or not 0<seconds<=1:raise Problem('Capture duration must be greater than zero and at most one second')
+        from capture import capture
+        studio=self
+        with exclusive(self.capture_lock,'A capture is already in progress',timeout=0):
+            with self.device_lock:
+                self.check_target(payload);owner=self.connected()
+            class Connection:
+                def call(self,function):
+                    with studio.device_lock:
+                        if studio.device is not owner:raise Problem('Device changed during capture; select the intended module again',409)
+                        studio.check_target(payload)
+                        return function()
+                def hello(self):return self.call(owner.hello)
+                def request(self,*args,**kwargs):return self.call(lambda:owner.request(*args,**kwargs))
+            try:pcm,info=capture(Connection(),seconds)
+            except (OSError,TimeoutError) as error:
+                raise Problem('Capture connection failed: '+str(error)+'. Check the module connection before retrying.',409) from error
+        return dict(rate=info['rate'],channels=2,frames=info['frames'],format='s16le',data=base64.b64encode(pcm).decode('ascii'))
+
     def read_active(self, slot=None,master=False):
         d=self.connected()
         previous=None
@@ -594,6 +618,8 @@ class Handler(BaseHTTPRequestHandler):
             raise Problem('Expected a JSON object')
         if path == '/api/compile':
             return self.reply(200, studio.compile(payload))
+        if path == '/api/capture':
+            return self.reply(200, studio.capture_audio(payload))
         with exclusive(studio.device_lock, 'The device is busy. Wait for the current operation.', timeout=.25):
             try:
                 if path == '/api/connect':

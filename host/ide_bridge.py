@@ -1,8 +1,8 @@
 """Loopback OSC/TCP adapter shared by SC Functions and custom pattern events.
 
-Bulk uploads reuse the Studio compiler and paired HTTP package protocol. Live
-transactions use the same authenticated transport with bounded device scheduling;
-this first release does not expose an unauthenticated LAN OSC listener.
+Uploads reuse the Studio compiler and package protocol. Shared USB and paired
+HTTP transactions use bounded device scheduling. No unauthenticated LAN OSC
+listener is exposed.
 """
 import base64
 from concurrent.futures import ThreadPoolExecutor
@@ -17,7 +17,7 @@ import threading
 import time
 from control_client import pairs,packet,schema,instance_packet,ControlDeltas
 from network import NetworkDevice,Pairings,discover,DEVICE_ID
-from patches import ROOT
+from patches import ROOT,Device
 
 MAX_MESSAGE=384*1024
 
@@ -65,6 +65,19 @@ class Node:
     def __init__(self,row,pairings):
         self.row=row;self.lock=threading.RLock();self.device=NetworkDevice(row,pairings.get(row['device_id']));self.schemas={};self.deltas=ControlDeltas();self.delta_enabled=None
 
+class SharedUSB(Device):
+    """Borrow Studio's serial connection; its device lock owns every transaction."""
+    def __init__(self,studio):self.studio=studio;self.owner=studio.device
+    def request(self,*args,**kwargs):
+        if self.studio.device is not self.owner:raise RuntimeError('USB module disconnected or changed; reconnect and restart the pattern')
+        return self.owner.request(*args,**kwargs)
+    def close(self):pass  # Only Studio may close its shared connection.
+
+class USBNode:
+    def __init__(self,row,studio):
+        self.row=row;self.lock=studio.device_lock;self.device=SharedUSB(studio)
+        self.schemas={};self.deltas=ControlDeltas();self.delta_enabled=None
+
 class Hub:
     def __init__(self,studio):
         self.studio=studio;self.pairings=studio.pairings;self.lock=threading.RLock()
@@ -73,12 +86,29 @@ class Hub:
         self.aliases=json.loads(self.alias_path.read_text()) if self.alias_path.exists() else {}
     def close(self):
         self.upload_pool.shutdown(wait=True,cancel_futures=True);self.pool.shutdown(wait=True,cancel_futures=True)
+    def usb_row(self):
+        device=getattr(self.studio,'device',None)
+        if device is None or isinstance(device,NetworkDevice):return None
+        with self.studio.device_lock:return self.usb_row_locked()
+    def usb_row_locked(self):
+        device=getattr(self.studio,'device',None);info=getattr(self.studio,'device_info',None)
+        if device is None or isinstance(device,NetworkDevice) or not isinstance(info,dict):return None
+        identity=info.get('device_id','')
+        if not DEVICE_ID.fullmatch(identity):return None
+        return dict(device_id=identity,device_name=info.get('device_name',info.get('model','USB module')),
+            address=self.studio.device_port,port=0,transport='usb',online=True,paired=True)
     def refresh(self):
-        self.rows=discover(self.pairings);return self.rows
+        self.rows=discover(self.pairings)
+        usb=self.usb_row()
+        if usb:self.rows=[row for row in self.rows if row['device_id']!=usb['device_id']]+[usb]
+        return self.rows
     def resolve(self,target,refresh=False):
+        usb=self.usb_row()
+        if usb and isinstance(target,str) and self.aliases.get(target,target) in (usb['device_id'],usb['device_name'],usb['address']):return [usb]
         if refresh:self.refresh()
         public=self.pairings.public();paired={r['device_id']:r for r in public}
-        rows={r['device_id']:r for r in self.rows if r.get('paired') and r.get('online')}
+        rows={r['device_id']:r for r in self.rows if r.get('paired') and r.get('online') and r.get('transport')!='usb'}
+        if usb:paired.setdefault(usb['device_id'],usb);rows[usb['device_id']]=usb
         targets=target if isinstance(target,list) else [target];ids=[]
         for value in targets:
             if not isinstance(value,str):raise ValueError('A module target must be an ID, alias, address or list')
@@ -87,18 +117,26 @@ class Hub:
                 ids.extend(rows);continue
             resolved=self.aliases.get(value,value)
             if resolved in paired:ids.append(resolved);continue
-            matches=[i for i,r in paired.items() if rows.get(i,r)['device_name']==resolved or rows.get(i,r)['address']==resolved]
+            matches=[i for i,r in paired.items() if resolved in (r['device_name'],r['address'],rows.get(i,r)['device_name'],rows.get(i,r)['address'])]
             if len(matches)!=1:raise ValueError('Unknown or ambiguous module: '+value)
             ids.extend(matches)
         ids=list(dict.fromkeys(ids))
         if not ids:raise ValueError('No paired online recipients')
         if len(ids)>64:raise ValueError('At most 64 modules per operation')
-        return [dict(rows.get(i,paired[i]),paired=True) for i in ids]
+        return [dict(rows[i] if i in rows else paired[i],paired=True) for i in ids]
     def node(self,row):
         with self.lock:
             node=self.nodes.get(row['device_id'])
-            if node is None or (node.row['address'],node.row['port'])!=(row['address'],row['port']):
-                node=Node(row,self.pairings);self.nodes[row['device_id']]=node
+            usb=row.get('transport')=='usb'
+            stale_usb=usb and (not isinstance(node,USBNode) or node.device.owner is not self.studio.device)
+            if node is None or stale_usb or isinstance(node,USBNode)!=usb or (node.row['address'],node.row['port'])!=(row['address'],row['port']):
+                if usb:
+                    with self.studio.device_lock:
+                        current=self.usb_row_locked()
+                        if current is None or current['device_id']!=row['device_id']:raise RuntimeError('USB module changed before dispatch; select the current module')
+                        node=USBNode(row,self.studio)
+                else:node=Node(row,self.pairings)
+                self.nodes[row['device_id']]=node
             return node
     @staticmethod
     def delta_mode(node,info):
@@ -270,11 +308,16 @@ class Hub:
         results=list(self.pool.map(send,rows))
         return dict(verified=all(r['verified'] for r in results),results=results)
     def dispatch(self,action,p,source,graph,client,sequence):
-        if action=='hello':return dict(time=time.monotonic(),modules=self.pairings.public(),aliases=self.aliases)
+        if action=='hello':
+            modules=self.pairings.public();usb=self.usb_row()
+            if usb:modules=[r for r in modules if r['device_id']!=usb['device_id']]+[usb]
+            return dict(time=time.monotonic(),modules=modules,aliases=self.aliases)
         if action=='scan':return dict(modules=self.refresh())
         if action=='alias':
             name,module=p.get('name'),p.get('module')
-            if not isinstance(name,str) or not 1<=len(name.encode('utf8'))<=63 or name=='all' or module not in {r['device_id'] for r in self.pairings.public()}:raise ValueError('Alias needs a paired permanent module ID; all is reserved')
+            available={r['device_id'] for r in self.pairings.public()};usb=self.usb_row()
+            if usb:available.add(usb['device_id'])
+            if not isinstance(name,str) or not 1<=len(name.encode('utf8'))<=63 or name=='all' or module not in available:raise ValueError('Alias needs a paired or USB-connected permanent module ID; all is reserved')
             import os
             with self.lock:
                 self.aliases[name]=module;self.alias_path.parent.mkdir(parents=True,exist_ok=True)
@@ -289,6 +332,13 @@ class Hub:
         if action in ('play','stop'):return self.instance(p,action=='play',client)
         if action=='control':return self.control(p,client,sequence)
         if action=='meta':return self.meta(p)
+        if action=='inputs':
+            results=[]
+            for row in self.resolve(p.get('target')):
+                node=self.node(row)
+                with node.lock:result=node.device.request('INPUTS',retries=0)
+                results.append(dict(device_id=row['device_id'],**result))
+            return dict(results=results)
         if action in ('bypass','restart','panic'):
             results=[]
             for row in self.resolve(p.get('target')):

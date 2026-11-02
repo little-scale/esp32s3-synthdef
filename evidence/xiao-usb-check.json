@@ -1,0 +1,83 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "build": "15fe3dc1805c2660771fea0537c932a652804c56d4903b76aa7ebf82d3e3274a",
+  "model": "XIAO ESP32-S3",
+  "storage_total": 4751681,
+  "xiao-stereo-440": {
+    "frames": 44100,
+    "channels": [
+      {
+        "peak": 6553,
+        "frequency_hz": 440.0,
+        "rms": 4633.942220413578
+      },
+      {
+        "peak": 6553,
+        "frequency_hz": 660.0,
+        "rms": 4633.954671630934
+      }
+    ]
+  },
+  "xiao-volume-50": {
+    "frames": 22050,
+    "channels": [
+      {
+        "peak": 3277,
+        "frequency_hz": 440.0,
+        "rms": 2316.981507329336
+      },
+      {
+        "peak": 3277,
+        "frequency_hz": 660.0,
+        "rms": 2316.9725819945056
+      }
+    ]
+  },
+  "xiao-set-330": {
+    "frames": 22050,
+    "channels": [
+      {
+        "peak": 6553,
+        "frequency_hz": 330.0,
+        "rms": 4633.935819380819
+      },
+      {
+        "peak": 6553,
+        "frequency_hz": 496.0,
+        "rms": 4633.967983906775
+      }
+    ]
+  },
+  "xiao-fx-swap": {
+    "frames": 22050,
+    "channels": [
+      {
+        "peak": 3277,
+        "frequency_hz": 494.0,
+        "rms": 2316.979870777323
+      },
+      {
+        "peak": 3277,
+        "frequency_hz": 330.0,
+        "rms": 2316.983883484417
+      }
+    ]
+  },
+  "xiao-fx-bypassed": {
+    "frames": 22050,
+    "channels": [
+      {
+        "peak": 6553,
+        "frequency_hz": 330.0,
+        "rms": 4633.947465989555
+      },
+      {
+        "peak": 6553,
+        "frequency_hz": 494.0,
+        "rms": 4633.9357317741415
+      }
+    ]
+  },
+  "passed": true,
+  "scope": "Actual XIAO DMA-fed post-volume stereo PCM; no physical DAC or logic-analyser measurement."
+}

@@ -1,4 +1,29 @@
 menu "SynthDef diagnostics"
+    config SYNTHDEF_HEADLESS
+        bool "Seeed XIAO ESP32-S3 headless stereo I2S target"
+        default n
+    config SYNTHDEF_I2S_BCLK
+        int "Headless I2S bit clock GPIO"
+        depends on SYNTHDEF_HEADLESS
+        default 7
+        range 0 48
+    config SYNTHDEF_I2S_WS
+        int "Headless I2S word select GPIO"
+        depends on SYNTHDEF_HEADLESS
+        default 8
+        range 0 48
+    config SYNTHDEF_I2S_DOUT
+        int "Headless I2S data output GPIO"
+        depends on SYNTHDEF_HEADLESS
+        default 9
+        range 0 48
+    config SYNTHDEF_ANALOG_INPUTS
+        bool "Enable XIAO D0/D1 analog inputs on control buses 8/9"
+        depends on SYNTHDEF_HEADLESS
+        default n
+        help
+            Enable only with connected 0..3.3 V controls. Unconnected inputs float.
+            The BOOT button is always available on control bus 10.
     config SYNTHDEF_DIAGNOSTICS
         bool "Enable explicit muted benchmark and automated UI exercise commands"
         default n
@@ -12,6 +37,7 @@ menu "SynthDef diagnostics"
             This experimental profile has no ESP32 real-time qualification.
     config SYNTHDEF_TOUCH_UI
         bool "Enable V2 touchscreen and four-control factory patch"
+        depends on !SYNTHDEF_HEADLESS
         default n
     config SYNTHDEF_OFFLINE_CAPTURE
         bool "Render the factory fixture offline, dump float output, and remain silent"

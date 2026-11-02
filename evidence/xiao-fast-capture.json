@@ -1,0 +1,45 @@
+{
+  "captures": [
+    {
+      "frames": 44100,
+      "bytes": 176400,
+      "peak": 4845,
+      "download_seconds": 4.928
+    },
+    {
+      "frames": 44100,
+      "bytes": 176400,
+      "peak": 4374,
+      "download_seconds": 4.938
+    },
+    {
+      "frames": 44100,
+      "bytes": 176400,
+      "peak": 3904,
+      "download_seconds": 4.916
+    }
+  ],
+  "pattern_hz": 8,
+  "seconds": 60,
+  "controls": {
+    "applied": 479,
+    "rejected": 0,
+    "late": 0
+  },
+  "write_fail": 0,
+  "partial": 0,
+  "dma_event_overflow": 0,
+  "faults": 0,
+  "clips": 0,
+  "nonfinite": 0,
+  "overflow": 0,
+  "passed": true,
+  "build": "e4d101e1934112da5b9f13a6c7938b918a6e3ce804d3878a15d77e6e8464c2e3",
+  "chunk_bytes": 1024,
+  "capture_ids": true,
+  "original_main_restored": true,
+  "original_fx_unchanged": true,
+  "baseline_mean_seconds": 11.068,
+  "mean_seconds": 4.927333333333333,
+  "speedup": 2.2462454336355027
+}

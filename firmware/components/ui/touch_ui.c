@@ -144,7 +144,7 @@ esp_err_t touch_ui_start(const touch_ui_actions *actions)
     subtitle=label(screen,"TOUCH CODE TO PLAY",12,28,220,MUTED);
     battery=label(screen,"? " LV_SYMBOL_BATTERY_EMPTY,262,12,86,INK);lv_obj_set_style_text_align(battery,LV_TEXT_ALIGN_RIGHT,0);
     wifi=label(screen,"Wi-Fi off",240,28,108,MUTED);lv_obj_set_style_text_align(wifi,LV_TEXT_ALIGN_RIGHT,0);
-    receive_dot=lv_obj_create(screen);lv_obj_set_pos(receive_dot,244,14);lv_obj_set_size(receive_dot,8,8);
+    receive_dot=lv_obj_create(screen);lv_obj_set_pos(receive_dot,268,14);lv_obj_set_size(receive_dot,8,8);
     lv_obj_set_style_pad_all(receive_dot,0,0);lv_obj_set_style_radius(receive_dot,LV_RADIUS_CIRCLE,0);
     lv_obj_set_style_bg_opa(receive_dot,LV_OPA_TRANSP,0);lv_obj_set_style_border_width(receive_dot,1,0);
     lv_obj_set_style_border_color(receive_dot,lv_color_hex(0x888888),0);
@@ -243,7 +243,15 @@ void touch_ui_connectivity(const char *name,const char *id,bool online,int rssi,
     char text[40];
     if(online && rssi>-127 && rssi<=0)snprintf(text,sizeof text,LV_SYMBOL_WIFI " %d dBm",rssi);
     else snprintf(text,sizeof text,online?LV_SYMBOL_WIFI " --":"Wi-Fi off");
-    if(strcmp(lv_label_get_text(wifi),text))lv_label_set_text(wifi,text);
+    if(strcmp(lv_label_get_text(wifi),text)){
+        lv_label_set_text(wifi,text);
+        if(online){
+            /* Right-aligned RSSI text can move the symbol as its width changes. */
+            lv_point_t symbol,next;lv_obj_update_layout(wifi);
+            lv_label_get_letter_pos(wifi,0,&symbol);lv_label_get_letter_pos(wifi,1,&next);
+            lv_obj_set_x(receive_dot,lv_obj_get_x(wifi)+(symbol.x+next.x-lv_obj_get_width(receive_dot))/2);
+        }
+    }
     if(wifi_online!=online)lv_obj_set_style_text_color(wifi,lv_color_hex(slots_open?(online?0xFFFFFF:0x888888):MUTED),0);
     wifi_online=online;
     if(name && name[0])snprintf(module_name,sizeof module_name,"%s",name);

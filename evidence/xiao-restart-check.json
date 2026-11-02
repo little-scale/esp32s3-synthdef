@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "device_id": "esp32-288485ba1e48",
+  "build": "7b9d394462c7d106050751420897b6f7db1e3013589ad93b9d48a5358f78f089",
+  "saved_main": "Standalone BOOT",
+  "graph_preserved": true,
+  "main_generations_preserved": true,
+  "automatic_start": true,
+  "active_after_reboot": 1,
+  "analog_enabled": false
+}

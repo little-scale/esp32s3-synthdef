@@ -2,7 +2,7 @@
   "test": "real LVGL host simulation",
   "passed": true,
   "details": "UI fixed heap: 65536 bytes, currently free 43688, largest free block 43152\nPASS: code-first play/controls screens, X/Y, release ownership, independent vertical/horizontal scroll strips, Main restart and FX bypass, busy/Panic, source ownership and 64 KiB limits",
-  "source_sha256": "ab7cf87b9cdc3d86881aabd7f54400fbd81e1807afca2f98a54607303dc486d2",
+  "source_sha256": "8728d269eb8ded08b4f0af4e1738a421a045b2786e01e58917e0523745e25664",
   "hardware": false,
   "dimensions": [
     368,

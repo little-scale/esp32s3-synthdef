@@ -4,6 +4,9 @@ Run compiled SuperCollider sounds on a **Waveshare ESP32-S3-Touch-AMOLED-1.8 V2*
 The computer compiles the code; the ESP32 makes the sound. Upload from the local
 browser tool or directly from the SuperCollider IDE over USB or Wi-Fi.
 
+For the **headless Seeed XIAO ESP32-S3**, use the separate
+[headless build and quickstart](docs/HEADLESS.md).
+
 Each module has **one Main definition, one master FX definition, and FX bypass**.
 Use continuous sound Functions, literal SynthDefs, named controls and routed
 SuperCollider patterns. The display shows the original source with syntax
@@ -23,7 +26,8 @@ these are layout renders, not live hardware captures.*
 
 Use the **V2 board with 16 MB flash, 8 MB PSRAM and a connected speaker**. For a
 board that does not yet run this firmware, follow [Build and flash](docs/BUILD.md)
-first. Other ESP32 boards and headless I2S builds are not supplied by this port.
+first. The XIAO uses its own 8 MB headless build; other boards require a suitable
+hardware adapter and build configuration.
 
 On the computer, install **SuperCollider** (tested with 3.14.1), Python 3.11+ and
 a C compiler (`cc`; on macOS, the Command Line Tools). Then:
@@ -153,7 +157,7 @@ addresses, explicit groups or `\all`. For example:
 ESP32.alias(\left, "esp32-001122334455");
 ESP32.module(\all, \volume, 0.5);
 // Sending a Function with .sendESP32(\all) compiles once and uploads the same definition
-// to all paired online recipients; it does not start instances.
+// to paired online modules and the connected USB module; it does not start instances.
 ```
 
 [The SC guide](docs/SUPERCOLLIDER.md) covers literal SynthDefs, initial arguments,
@@ -291,7 +295,15 @@ muted physical note tests. Typical four-argument note payloads shrink from 52 to
 
 ## Documentation
 
+The **XIAO ESP32-S3 headless target** now shares the same engine and Main/FX
+workflow. It provides stereo I²S, USB-based SC uploads and patterns, output
+capture alongside live USB patterns, an activity LED, and a BOOT-button control bus. Use its
+separate 8 MB build; see the [headless guide](docs/HEADLESS.md) and
+[SC examples](examples/xiao-headless.scd). Physical DAC output, externally driven
+ADC inputs and Wi-Fi operation on this XIAO remain to be verified.
+
 - [Build, flash and tests](docs/BUILD.md)
+- [XIAO headless build, stereo I²S, USB control and PCM capture](docs/HEADLESS.md)
 - [Browser compiler, USB/Wi-Fi pairing and Omni upload](docs/STUDIO.md)
 - [SuperCollider sending, instances, module settings and patterns](docs/SUPERCOLLIDER.md)
 - [Display and controls](docs/UI.md), [code viewer](docs/CODE_VIEW.md), [touch buses](docs/TOUCH_BUSES.md)

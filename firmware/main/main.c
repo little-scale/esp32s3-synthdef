@@ -15,15 +15,19 @@
 #include "esp_psram.h"
 #include "esp_timer.h"
 #include "esp_random.h"
-#include "bsp/esp-bsp.h"
 #include "board_audio.h"
+#ifdef CONFIG_SYNTHDEF_HEADLESS
+#include "headless_io.h"
+#endif
 #include "instrument.h"
 #include "remote_control.h"
 #include "master_delay.h"
 #include "output_volume.h"
 #include "nvs.h"
+#ifdef CONFIG_SYNTHDEF_TOUCH_UI
 #include "touch_ui.h"
 #include "touch_display.h"
+#endif
 #include "patch_service.h"
 #include "device_network.h"
 #include "generated.h"
@@ -195,7 +199,7 @@ static void audio_task(void *unused)
     audio_stats stats = {0};
     ESP_ERROR_CHECK(board_audio_start_dma());
     /* One internal PCM buffer reused only after the blocking driver copies it. */
-    int16_t mono[FM_BLOCK];
+    int16_t mono[FM_BLOCK*BOARD_AUDIO_CHANNELS];
     uint64_t next_snapshot = SAMPLE_RATE;
     unsigned parking=0;
     bool parked=false,keep_fx=false;
@@ -278,6 +282,10 @@ static void audio_task(void *unused)
             instrument_apply_batch(&synth, pending, count);
             if(synth.preparation_max_us>stats.prep_max_us)stats.prep_max_us=synth.preparation_max_us;
         }
+#ifdef CONFIG_SYNTHDEF_HEADLESS
+        float physical[3];headless_io_values(physical);
+        for(unsigned i=0;i<3;++i)synth.buses[8+i]=physical[i];
+#endif
         if(!parking)rc_tick(remote,&synth,audio_clock_us());
         int64_t render_begin = esp_timer_get_time();
         float dry[FM_BLOCK*2],effected[FM_BLOCK*2];
@@ -288,14 +296,18 @@ static void audio_task(void *unused)
         if(effect_us>stats.effect_max_us)stats.effect_max_us=effect_us;
         uint64_t pcm_begin=audio_clock_us();
         atomic_store_explicit(&observed_seed,synth.seed_active,memory_order_relaxed);
+#ifdef CONFIG_SYNTHDEF_HEADLESS
+        output_volume_pcm_stereo(&volume,atomic_load_explicit(&volume_percent,memory_order_relaxed),effected,mono,synth.master_gain,&synth.nonfinite,&synth.clipped);
+#else
         output_volume_pcm(&volume,atomic_load_explicit(&volume_percent,memory_order_relaxed),effected,mono,synth.master_gain,&synth.nonfinite,&synth.clipped);
+#endif
         synth.pcm_us=(uint32_t)(audio_clock_us()-pcm_begin);
         if(parking>=13) {
             unsigned block=14-parking;
-            for(unsigned i=0;i<FM_BLOCK;++i)mono[i]=(int16_t)((int32_t)mono[i]*(int32_t)(127-block*64-i)/128);
+            for(unsigned i=0;i<FM_BLOCK*BOARD_AUDIO_CHANNELS;++i)mono[i]=(int16_t)((int32_t)mono[i]*(int32_t)(127-block*64-i/BOARD_AUDIO_CHANNELS)/128);
         }
         stats.pcm_peak = 0;
-        for (unsigned i = 0; i < FM_BLOCK; ++i) {
+        for (unsigned i = 0; i < FM_BLOCK*BOARD_AUDIO_CHANNELS; ++i) {
             uint32_t magnitude = mono[i] < 0 ? -(int32_t)mono[i] : mono[i];
             if (magnitude > stats.pcm_peak) stats.pcm_peak = magnitude;
         }
@@ -584,6 +596,10 @@ static void console_task(void *unused)
     for (;;) {
         patches_tick();
         device_network_tick();
+#ifdef CONFIG_SYNTHDEF_HEADLESS
+        headless_io_poll();
+        device_network_status network;device_network_snapshot(&network);board_audio_activity(network.receiving);
+#endif
 #ifdef CONFIG_SYNTHDEF_TOUCH_UI
         static TickType_t battery_next;
         static TickType_t connectivity_next;
@@ -706,12 +722,12 @@ void app_main(void)
     const esp_app_desc_t *app = esp_app_get_description();
     uint32_t flash_bytes = 0;
     ESP_ERROR_CHECK(esp_flash_get_size(NULL, &flash_bytes));
-    ESP_LOGI(TAG, "V2 target (user-confirmed; display/touch not probed) IDF=%s compiler=%s", esp_get_idf_version(), __VERSION__);
+    ESP_LOGI(TAG, "Target=%s IDF=%s compiler=%s", BOARD_MODEL, esp_get_idf_version(), __VERSION__);
     ESP_LOGI(TAG, "build=%s engine=%s profile=%s", BUILD_ID, ENGINE_COMMIT, CAPABILITY_HASH);
     ESP_LOGI(TAG, "app=%s version=%s ELF=%02x%02x%02x%02x flash=%" PRIu32 " PSRAM=%u", app->project_name,
              app->version, app->app_elf_sha256[0], app->app_elf_sha256[1], app->app_elf_sha256[2], app->app_elf_sha256[3],
              flash_bytes, (unsigned)esp_psram_get_size());
-    ESP_LOGI(TAG, "requested_rate=%u block=%d mono S16 Philips slot=left MCLK=256fs DMA=6x128", SAMPLE_RATE, FM_BLOCK);
+    ESP_LOGI(TAG, "requested_rate=%u block=%d channels=%d S16 Philips DMA=6x128", SAMPLE_RATE, FM_BLOCK, BOARD_AUDIO_CHANNELS);
     ESP_LOGW(TAG, "Actual clocks, channel packing, continuity and latency require hardware measurement");
     ESP_LOGI(TAG, "graph=%u voice=%u scratch=%u baseline_patch=%s touch_patch=%s", (unsigned)sizeof(fm_graph),
              (unsigned)sizeof(fm_voice), (unsigned)sizeof(fm_scratch), PATCH_SHA256, TOUCH_PATCH_SHA256);
@@ -825,6 +841,9 @@ void app_main(void)
      * leave an already-running I2S channel without its producer. */
     if(!device_network_init(patches_exchange,service_pause))ESP_LOGE(TAG,"Network setup unavailable; USB retained");
     ESP_ERROR_CHECK(board_audio_init(SAMPLE_RATE));
+#ifdef CONFIG_SYNTHDEF_HEADLESS
+    ESP_ERROR_CHECK(headless_io_init());
+#endif
     ESP_LOGI(TAG, "Boots silent. Console: n note-on; o release; ! panic; +/- pitch; [/] amplitude");
     atomic_store(&audio_started,true);
     TaskHandle_t audio_handle=xTaskCreateStaticPinnedToCore(audio_task,"audio",AUDIO_STACK_BYTES,NULL,20,audio_stack,&audio_task_state,1);
@@ -874,13 +893,17 @@ void app_main(void)
 #endif
 #ifdef CONFIG_SYNTHDEF_TOUCH_UI
         touch_ui_status(s.active,s.write_failures || s.partial_writes || s.current_fault,s.base_frequency);
+#endif
         uint64_t cpu_divisor=(uint64_t)s.cpu_blocks*FM_BLOCK*1000;
         uint32_t cpu_average=cpu_divisor?(uint32_t)((s.cpu_busy_us*SAMPLE_RATE+cpu_divisor/2)/cpu_divisor):UINT32_MAX;
         uint32_t cpu_peak=(uint32_t)(((uint64_t)s.cpu_peak_us*SAMPLE_RATE+FM_BLOCK*500)/(FM_BLOCK*1000));
+#ifdef CONFIG_SYNTHDEF_TOUCH_UI
         touch_ui_cpu(cpu_average,cpu_peak);
+#endif
         ESP_LOGI(TAG,"CPU average_x10=%lu peak_x10=%lu busy_us=%llu blocks=%lu peak_us=%lu",
             (unsigned long)cpu_average,(unsigned long)cpu_peak,(unsigned long long)s.cpu_busy_us,
             (unsigned long)s.cpu_blocks,(unsigned long)s.cpu_peak_us);
+#ifdef CONFIG_SYNTHDEF_TOUCH_UI
         if (!s.active && atomic_exchange_explicit(&snapshot_requested,false,memory_order_relaxed)) {
             size_t bytes=0; unsigned char *pixels=touch_ui_snapshot(&bytes);
             if (pixels) {

@@ -4,8 +4,8 @@
   "native_supercollider": true,
   "modules": 2,
   "events": [
-    43,
-    15
+    44,
+    14
   ],
   "max_native_packet_bytes": 8276,
   "largest_source_bytes": 65485,

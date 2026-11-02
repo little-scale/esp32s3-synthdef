@@ -30,5 +30,20 @@ int main(void)
     instrument_pcm(audio,reference,.5f,&nref,&cref);assert(!memcmp(actual,reference,sizeof actual));
     audio[0]=NAN;audio[1]=INFINITY;
     output_volume_pcm(&v,50,audio,actual,1,&nonfinite,&clipped);assert(!actual[0] && nonfinite==1);
-    puts("PASS: unity output is bit-exact, half volume scales correctly, mute ramps monotonically in 20 ms, changes reverse from the current gain, nonfinite output stays protected.");
+    int16_t stereo[FM_BLOCK*2];
+    output_volume_init(&v,100,44100);nonfinite=clipped=0;
+    for(unsigned i=0;i<FM_BLOCK;++i){audio[2*i]=.25f;audio[2*i+1]=-.75f;}
+    output_volume_pcm_stereo(&v,100,audio,stereo,1,&nonfinite,&clipped);
+    for(unsigned i=0;i<FM_BLOCK;++i){assert(stereo[2*i]==8192);assert(stereo[2*i+1]==-24575);}
+    assert(!nonfinite && !clipped);
+    audio[1]=NAN;output_volume_pcm_stereo(&v,100,audio,stereo,1,&nonfinite,&clipped);
+    assert(stereo[0]==8192 && !stereo[1] && nonfinite==1);
+    for(unsigned i=0;i<FM_BLOCK*2;++i)audio[i]=.5f;
+    previous=32767;
+    for(unsigned b=0;b<16;++b){
+        output_volume_pcm_stereo(&v,0,audio,stereo,1,&nonfinite,&clipped);
+        for(unsigned i=0;i<FM_BLOCK;++i){assert(stereo[2*i]==stereo[2*i+1] && stereo[2*i]<=previous && stereo[2*i]>=0);previous=stereo[2*i];}
+    }
+    assert(!v.remaining && !v.current && !previous);
+    puts("PASS: mono output stays bit-exact; stereo preserves channel separation; both formats ramp smoothly, saturate and protect nonfinite output.");
 }

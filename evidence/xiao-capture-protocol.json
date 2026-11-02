@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "build": "e4d101e1934112da5b9f13a6c7938b918a6e3ce804d3878a15d77e6e8464c2e3",
+  "device_id": "esp32-288485ba1e48",
+  "chunk_bytes": 1024,
+  "legacy_reads": true,
+  "invalid_reads_rejected": 7,
+  "replaced_recording_rejected": true,
+  "read_benchmark": [
+    {
+      "chunk_bytes": 256,
+      "requests": 690,
+      "seconds": 8.968
+    },
+    {
+      "chunk_bytes": 1024,
+      "requests": 173,
+      "seconds": 3.453
+    }
+  ],
+  "identical_pcm": true,
+  "pcm_sha256": "fd6f479534cdd14635e88dfedf25c3859c01062b645f2a85570f20451b4a95bc"
+}

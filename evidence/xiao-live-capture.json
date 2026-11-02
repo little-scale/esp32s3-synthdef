@@ -1,0 +1,40 @@
+{
+  "captures": [
+    {
+      "frames": 44100,
+      "bytes": 176400,
+      "peak": 4380,
+      "download_seconds": 11.06
+    },
+    {
+      "frames": 44100,
+      "bytes": 176400,
+      "peak": 3828,
+      "download_seconds": 11.084
+    },
+    {
+      "frames": 44100,
+      "bytes": 176400,
+      "peak": 4636,
+      "download_seconds": 11.06
+    }
+  ],
+  "pattern_hz": 8,
+  "seconds": 60,
+  "controls": {
+    "applied": 479,
+    "rejected": 0,
+    "late": 0
+  },
+  "write_fail": 0,
+  "partial": 0,
+  "dma_event_overflow": 0,
+  "faults": 0,
+  "clips": 0,
+  "nonfinite": 0,
+  "overflow": 0,
+  "passed": true,
+  "build": "7b9d394462c7d106050751420897b6f7db1e3013589ad93b9d48a5358f78f089",
+  "original_main_restored": true,
+  "original_main": "Standalone BOOT"
+}

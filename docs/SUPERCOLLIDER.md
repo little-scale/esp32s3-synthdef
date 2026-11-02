@@ -5,6 +5,12 @@ updates, and pattern routing through the existing local Studio service. The
 browser does not need to stay open. Saved Main/FX continue running without the
 computer; live patterns require SuperCollider and Studio.
 
+Studio's connected USB device can also be targeted by permanent ID or alias;
+Wi-Fi pairing is not required for USB. Both transports use the same deployment,
+instance, named-control and pattern API. The USB connection is shared with
+Studio's reader and serialized per transaction. See the [XIAO headless guide](HEADLESS.md)
+for stereo output, physical input buses and capture without a DAC.
+
 ## Install and start
 
 ```sh

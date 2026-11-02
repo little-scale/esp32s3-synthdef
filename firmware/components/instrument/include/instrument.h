@@ -58,5 +58,6 @@ void instrument_panic(instrument *);
 void instrument_render(instrument *, int16_t mono[FM_BLOCK]);
 /* Render the voice before master effects, preserving start fade and lifecycle. */
 void instrument_render_stereo(instrument *,float stereo[FM_BLOCK*2]);
+void instrument_pcm_stereo(const float stereo[FM_BLOCK*2],int16_t pcm[FM_BLOCK*2],float gain,uint64_t *,uint64_t *);
 void instrument_pcm(const float stereo[FM_BLOCK * 2], int16_t mono[FM_BLOCK],
                     float gain, uint64_t *nonfinite, uint64_t *clipped);

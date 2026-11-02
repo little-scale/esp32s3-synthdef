@@ -100,7 +100,7 @@ static esp_err_t exchange_http(httpd_req_t *req)
     unsigned char payload[PATCH_FRAME_PAYLOAD];size_t bytes=sizeof payload;uint32_t request;char op[16],error[160];
     if(!patch_frame_decode(net->request,&request,op,payload,&bytes,error))return httpd_resp_send_err(req,HTTPD_400_BAD_REQUEST,"Invalid protocol frame");
     if(!strncmp(op,"NET",3))return httpd_resp_send_err(req,HTTPD_403_FORBIDDEN,"Network setup is USB only");
-    bool read=!strcmp(op,"HELLO") || !strcmp(op,"STATUS") || !strcmp(op,"LIST") || !strcmp(op,"FXLIST") || !strcmp(op,"INFO") || !strcmp(op,"FXINFO") || !strcmp(op,"READ") || !strcmp(op,"FXREAD");
+    bool read=!strcmp(op,"HELLO") || !strcmp(op,"STATUS") || !strcmp(op,"LIST") || !strcmp(op,"FXLIST") || !strcmp(op,"INFO") || !strcmp(op,"FXINFO") || !strcmp(op,"READ") || !strcmp(op,"FXREAD") || !strcmp(op,"CAPINFO") || !strcmp(op,"CAPREAD") || !strcmp(op,"INPUTS");
     int64_t now=esp_timer_get_time();
     if(net->lease_until>now && strcmp(client,net->lease) && !read)return unavailable(req,"Another uploader owns this transfer");
     if(net->lease_until>now && !strcmp(client,net->lease))net->lease_until=now+30000000;
@@ -176,7 +176,11 @@ int device_network_init(network_exchange_fn exchange,int (*pause)(bool))
     net->exchange=exchange;net->pause=pause;atomic_store(&net->rssi,-127);net->done=xSemaphoreCreateBinary();if(!net->done)return 0;
     uint8_t mac[6];if(esp_read_mac(mac,ESP_MAC_WIFI_STA)!=ESP_OK)return 0;
     snprintf(net->id,sizeof net->id,"esp32-%02x%02x%02x%02x%02x%02x",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5]);
+    #ifdef CONFIG_SYNTHDEF_HEADLESS
+    snprintf(net->name,sizeof net->name,"XIAO-%02x%02x%02x",mac[3],mac[4],mac[5]);
+#else
     snprintf(net->name,sizeof net->name,"AMOLED-%02x%02x%02x",mac[3],mac[4],mac[5]);
+#endif
     if(nvs_open("synthnet",NVS_READWRITE,&net->store)!=ESP_OK)return 0;
     size_t n=sizeof net->name;nvs_get_str(net->store,"name",net->name,&n);n=sizeof net->ssid;nvs_get_str(net->store,"ssid",net->ssid,&n);
     n=sizeof net->password;nvs_get_str(net->store,"password",net->password,&n);n=sizeof net->key;

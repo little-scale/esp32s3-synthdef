@@ -89,6 +89,16 @@ class NetworkTests(unittest.TestCase):
         app=self.app(self.b);self.a.calls.clear();self.b.calls.clear();result=self.upload(app,self.b)
         self.assertTrue(result['saved'] and result['verified']);self.assertEqual(self.a.calls,[])
         self.assertEqual(self.b.blob,GRAPH+SOURCE);self.assertIn('INSTALL',self.b.calls);self.assertNotIn('PANIC',self.b.calls)
+    def test_xiao_model_uses_same_checked_protocol(self):
+        original=self.b.operation
+        def operation(op,data):
+            result=original(op,data)
+            if op=='HELLO':result['model']='XIAO ESP32-S3'
+            return result
+        self.b.operation=operation
+        app=self.app(self.b)
+        try:self.assertEqual(app.device_info['model'],'XIAO ESP32-S3')
+        finally:app.close()
     def test_wrong_target_and_missing_target_never_transfer(self):
         app=self.app(self.a);self.a.calls.clear()
         for target in (None,self.b.device_id):
