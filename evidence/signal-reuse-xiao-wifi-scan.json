@@ -1,0 +1,21 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "antenna_attached_user_confirmed": true,
+  "networks_seen": 10,
+  "configured": false,
+  "online": false,
+  "scope": "USB Wi-Fi scan only; no association, upload or active-network timing qualification",
+  "diagnostics": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "internal_free": 99115,
+    "internal_largest": 63488,
+    "psram_free": 5173788
+  }
+}

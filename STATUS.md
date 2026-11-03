@@ -1,4 +1,44 @@
-# Project status — 2 November 2026
+# Project status — 3 November 2026
+
+Current source build **`33f68d0b61fb`** has separately verified AMOLED V2
+(16 MB flash, mono onboard audio) and XIAO ESP32-S3 headless (8 MB flash,
+stereo I²S) images. Physical installation/startup records are under
+`evidence/amoled-8d50*-install.json` and `evidence/current-xiao-install.json`.
+Firmware updates preserve saved Main/FX and settings. Fresh volume defaults to
+20%; saved preferences take precedence.
+
+Signal storage now uses loader-planned audio-buffer reuse and independent
+scalar values. Each Main/FX graph admits up to 256 nodes, 512 logical outputs,
+2,048 input references and 192 simultaneously live audio buffers. Blocks remain
+64 float32 frames. Host numerical/boundary/fuzz tests and physical capacity/load
+records are separate: maximum accepted graph sizes are not a real-time promise.
+See [signal-buffer design and evidence](docs/SIGNAL_BUFFERS.md).
+
+The AMOLED's fixed 64 KiB LVGL pool is now in PSRAM, leaving internal RAM for
+Wi-Fi and audio. Managed definitions can be triggered by touch without losing
+SC control ownership; autonomous blocks remain independent of touch. The XIAO
+PCM5102A temporary DAC passed left/right and Comb Cloud/MiVerb listening checks.
+Standard commissioning installs the autonomous eight-saw test at 20% with
+separate master FX bypassed; BOOT gating is an optional example.
+
+Studio now has a live 0–100% output slider for the connected USB/Wi-Fi module.
+Dragging coalesces writes; release saves the level across reboots. Browser
+identity/error/coalescing checks, 34 Studio tests and XIAO command/save readbacks
+passed. Existing global-volume firmware needs no update for the browser slider.
+
+A stale retained SC pattern player was diagnosed in the real IDE: `isPlaying`
+was true while `wasStopped` was also true and the device received no events.
+`playESP32` now clears that state and starts a fresh remote stream. The fix was
+loaded into the IDE, the user's pattern restarted and non-silent PCM confirmed;
+the user confirmed hearing the pattern. Native tests cover the injected observed
+state, cached-player replay, live-player reuse and existing lifecycle/cleanup.
+See `evidence/xiao-sc-ide-player-recovery.json` and
+`evidence/sc-player-restart-host.json`. This host-side fix requires no firmware
+change.
+
+## Earlier publication baseline — 2 November 2026
+
+The following descriptions and test counts retain the scope of that earlier run.
 
 The board runs **FM1 compatibility firmware `8b4cc4a9955a`**
 (1,674,528 bytes), configured for 240 MHz, with internal Rings code

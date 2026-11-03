@@ -62,6 +62,12 @@ assert profile_manifest['profile']==('fm1' if compat else 'compact')
 if 'CONFIG_SYNTHDEF_TOUCH_UI=y' in config:
     assert int(re.search(r'CONFIG_LV_MEM_SIZE_KILOBYTES=(\d+)', config)[1]) >= 64, 'Expanded library needs a 64 KiB LVGL heap'
     assert 'CONFIG_LV_THEME_DEFAULT_TRANSITION_TIME=0' in config
+    lv_entry=next(e for e in entries if e['file'].endswith('/src/misc/lv_mem.c'))
+    lv_args=shlex.split(lv_entry['command'])
+    assert '-DLV_MEM_POOL_ALLOC=synthdef_lvgl_pool_alloc' in lv_args, 'UI heap must leave internal RAM available for Wi-Fi'
+    lv_obj=next((BUILD/'esp-idf/lvgl__lvgl').rglob('lv_mem.c.obj'))
+    lv_symbols=subprocess.check_output([str(nm),'-S',str(lv_obj)],text=True)
+    assert 'heap_caps_malloc' in lv_symbols and 'work_mem_int' not in lv_symbols, 'LVGL fixed pool placement was not applied'
 capabilities = json.loads((ROOT/'docs/capabilities.json').read_text())
 loader_obj = next((BUILD/'esp-idf/synthdef_engine').rglob('fm_load.c.obj'))
 strings = set(subprocess.check_output(['strings', '-n', '2', str(loader_obj)], text=True).splitlines())
@@ -112,6 +118,7 @@ report = {
     'build_id': build_id,
     'firmware_fingerprint':qualification_fingerprint(),
     'touch_ui_enabled': 'CONFIG_SYNTHDEF_TOUCH_UI=y' in config,
+    'lvgl_pool_storage': 'PSRAM; fixed pool retained across LVGL reinitialization' if 'CONFIG_SYNTHDEF_TOUCH_UI=y' in config else 'not linked',
     'quad_flash_enabled': 'CONFIG_ESPTOOLPY_FLASHMODE_QIO=y' in config,
     'pcm_conversion': 'bounded nearest/even; no lrintf call in target instrument object',
     'engine_commit': capabilities['engine_commit'],
@@ -124,10 +131,10 @@ report = {
     'output_channels': 2 if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 1,
     'compiled_loader_types_checked_in_target_object': len(capabilities['compiled_types']),
     'engine_compile_options_verified': verified, 'target_structure_sizes': sizes,
-    'engine_fixed_allocation_bytes': 3*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
-    'engine_fixed_internal_bytes':sizes['voice_bytes'] if compat else 3*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
+    'engine_fixed_allocation_bytes': 4*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
+    'engine_fixed_internal_bytes':sizes['voice_bytes'] if compat else 4*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
     'master_voice_storage':'PSRAM' if compat else 'internal',
-    'engine_fixed_psram_bytes':3*sizes['graph_bytes']+sizes['scratch_bytes']+sizes['voice_bytes'] if compat else 0,
+    'engine_fixed_psram_bytes':4*sizes['graph_bytes']+sizes['scratch_bytes']+sizes['voice_bytes'] if compat else 0,
     'synth_arena_psram_bytes':1048576 if compat else 0,
     'synth_fast_arena_internal_bytes':int(re.search(r'CONFIG_SYNTHDEF_INTERNAL_VOICE_ARENA_SAMPLES=(\d+)',config)[1])*4 if 'CONFIG_SYNTHDEF_INTERNAL_VOICE_ARENA_SAMPLES=' in config else 0,
     'cache':{key:int(re.search(r'^CONFIG_'+option+r'=(\w+)$',config,re.M)[1],0) for key,option in (
@@ -136,7 +143,7 @@ report = {
     'admission_policy':'fm1-compat-v1' if compat else 'catalog-voice-v2',
     'fm1_compat_hardware_qualified':False,
     'one_voice_without_effect_fixed_bytes':2*sizes['graph_bytes']+sizes['voice_bytes']+sizes['scratch_bytes'],
-    'graph_buffers': 3, 'voice_instances':2,'shared_scratch_instances':1,
+    'graph_buffers': 4, 'voice_instances':2,'shared_scratch_instances':1,
     'master_delay_arena_psram_bytes':1048576,
     'engine_profile':json.loads((profile.parent/'profile.json').read_text()),
     'package_buffers_psram_bytes': 3*131072,

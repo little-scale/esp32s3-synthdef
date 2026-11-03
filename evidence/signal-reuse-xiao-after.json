@@ -1,0 +1,143 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "soak_seconds": 180,
+  "tests": {
+    "comb": {
+      "graph_sha256": "064d5b9a7edec7e1e96f823267623bec658814e9105d1fcc3ae9a7b9c02fc8b0",
+      "nodes": 6,
+      "delay_samples": 65536,
+      "channels": [
+        {
+          "echoes": 7,
+          "period_frames": 4410.0,
+          "feedback": 0.5006361323155216
+        },
+        {
+          "echoes": 5,
+          "period_frames": 6615.0,
+          "feedback": 0.3541870316063864
+        }
+      ]
+    },
+    "long_delay": {
+      "graph_sha256": "3a24d241efa7de687d174d86abd8ca58480be75c69aa4f50937fba2e8da547e9",
+      "nodes": 6,
+      "delay_samples": 262144,
+      "peak": 2475,
+      "rms": [
+        152.55996382523915,
+        152.55996382523915
+      ]
+    },
+    "oversized_delay_rejected": "Master FX arena budget exceeded",
+    "reverb": {
+      "graph_sha256": "1b4b02f3bf0561aa32f73745e10540254d6a8fe608544f1d61df900b0b741858",
+      "nodes": 4,
+      "delay_samples": 16384,
+      "tail": {
+        "peak": 923,
+        "rms": [
+          218.1241570554634,
+          213.19322259098706
+        ]
+      },
+      "tail_after_main_stop": {
+        "peak": 14,
+        "rms": [
+          2.582814299405867,
+          2.3485026831169917
+        ]
+      },
+      "panic_silence": true
+    },
+    "soak": {
+      "graph_sha256": "f6e27eccdfa355124b081b90574da1a5a91ed00abf920735c76208549d4ae43b",
+      "nodes": 55,
+      "delay_samples": 8192,
+      "events": 1440,
+      "control_deltas": {
+        "applied": 1440,
+        "rejected": 0,
+        "late": 0
+      },
+      "elapsed_seconds": 180.06473416698282,
+      "captures": [
+        {
+          "peak": 6302,
+          "rms": [
+            1802.0373122368687,
+            1485.908705456826
+          ]
+        },
+        {
+          "peak": 1212,
+          "rms": [
+            318.9182557922187,
+            315.32418066422474
+          ]
+        },
+        {
+          "peak": 5737,
+          "rms": [
+            1486.0506021360254,
+            1320.8452083073134
+          ]
+        },
+        {
+          "peak": 1377,
+          "rms": [
+            338.7493747766402,
+            372.67695013375555
+          ]
+        }
+      ],
+      "average_cpu_max_percent": 70.2,
+      "peak_cpu_max_percent": 84.7,
+      "memory": {
+        "internal_free": {
+          "min": 141055,
+          "max": 141055
+        },
+        "internal_largest": {
+          "min": 65536,
+          "max": 65536
+        },
+        "psram_free": {
+          "min": 5204128,
+          "max": 5204128
+        },
+        "stack_free_bytes": {
+          "min": 12664,
+          "max": 12664
+        },
+        "controls_stack_free_bytes": {
+          "min": 2836,
+          "max": 2836
+        }
+      }
+    },
+    "stale_stream": {
+      "rejected": true,
+      "replacement_unchanged": true,
+      "new_stream_recovered": true
+    }
+  },
+  "diagnostic_deltas": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "restored": {
+    "main_package_verified": true,
+    "fx_package_verified": true,
+    "fx_selected": 0,
+    "volume": 1.0,
+    "instances_restored": true
+  },
+  "passed": true
+}

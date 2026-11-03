@@ -103,11 +103,11 @@ class Qualification:
         return self.client.http('read-active', dict(target=target, device_id=self.target,
                            **({'slot': 1} if stored and target == 'master' else {})))
 
-    def save(self):
+    def save(self, headless=True):
         state = self.client.http('refresh', {})
         hello = state.get('hello') or {}
-        require(hello.get('device_id') == self.target and hello.get('headless') is True,
-                'Connect the exact USB headless module in Studio first')
+        require(hello.get('device_id') == self.target and (not headless or hello.get('headless') is True),
+                'Connect the exact USB module in Studio first (headless target required by default)')
         require(state.get('connection') == 'usb' or state.get('port', '').startswith('/dev/cu.'),
                 'Qualification requires the shared USB connection')
         for key in ('slots', 'masters'):

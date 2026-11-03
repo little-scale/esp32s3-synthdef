@@ -100,6 +100,21 @@ def slot_number(value):
     return value
 
 
+def check_graph_limits(info, hello):
+    """Reject an expanded graph before transfer to an older/smaller firmware."""
+    limits=hello.get('graph_limits')
+    if limits is None:
+        if hello.get('policy')!='fm1-compat-v1':return
+        limits=dict(nodes=160,signals=192,inputs=1024)
+    if not isinstance(limits,dict):raise Problem('Device reported invalid graph limits')
+    for key in ('nodes','signals','inputs','audio_buffers'):
+        maximum=limits.get(key)
+        if maximum is None:continue
+        if type(maximum) is not int or maximum<0:raise Problem('Device reported invalid graph limits')
+        if info.get(key,0)>maximum:
+            raise Problem(f'This graph needs {info[key]} {key}; connected firmware allows {maximum}. Update the firmware or simplify the graph.')
+
+
 class Compiler:
     def __init__(self, sclang):
         self.sclang = Path(sclang)
@@ -293,9 +308,33 @@ class Studio:
         state=dict(connected=True, port=self.device_port, hello=self.device_info,
                     status=d.request('STATUS'), slots=d.request('LIST'), audio=self.telemetry.snapshot())
         if self.device_info.get('master_slots')==2:state['masters']=d.request('FXLIST')
+        if self.device_info.get('global_volume'):state['volume_percent']=self.volume_value(d.request('VOLUME'))
         state['connection']=dict(transport='wifi' if isinstance(d,NetworkDevice) else 'usb',
             device_id=self.device_info.get('device_id'),device_name=self.device_info.get('device_name'),address=self.device_port)
         return state
+
+    @staticmethod
+    def volume_value(reply):
+        percent=reply.get('percent')
+        if type(percent) is not int or not 0<=percent<=100:
+            raise Problem('The module did not confirm its output volume',409)
+        return percent
+
+    def volume(self,payload):
+        self.check_target(payload)
+        if not payload.get('device_id') or payload['device_id']!=self.device_info.get('device_id'):
+            raise Problem('Choose the connected module before changing volume',409)
+        if not self.device_info.get('global_volume'):
+            raise Problem('This firmware does not support module volume',409)
+        percent=payload.get('percent');save=payload.get('save',False)
+        if type(percent) is not int or not 0<=percent<=100 or type(save) is not bool:
+            raise Problem('Volume must be a whole percentage from 0 to 100')
+        d=self.connected();actual=self.volume_value(d.request('VOLUME',bytes([percent])))
+        if actual!=percent:raise Problem('The module did not confirm the requested volume',409)
+        if save:
+            if self.volume_value(d.request('VOLSAVE'))!=percent:
+                raise Problem('The module did not confirm the saved volume',409)
+        return dict(device_id=self.device_info['device_id'],percent=actual,saved=save)
 
     def check_target(self,payload):
         if not self.device or not self.device_info:raise Problem('Connect the device first',409)
@@ -481,6 +520,7 @@ class Studio:
             raise Problem('Invalid legacy mapping')
         _, expected_meta = manifest(artifact.graph, artifact.source, name, labels, mapping, transfer=1, definition=artifact.info.get('definition',False))
         d = self.connected()
+        check_graph_limits(artifact.info,self.device_info)
         if master and self.device_info.get('master_slots')!=2:raise Problem('Update firmware to use the master slots')
         if master and not artifact.info.get('master_admitted'):raise Problem(artifact.info['admission_error'])
         if not master and self.device_info['policy'] == 'fm1-compat-v1' and not artifact.info['fm1_admitted']:
@@ -647,6 +687,8 @@ class Handler(BaseHTTPRequestHandler):
                 elif path == '/api/panic':
                     studio.check_target(payload)
                     result = studio.connected().request('PANIC')
+                elif path == '/api/volume':
+                    result = studio.volume(payload)
                 elif path == '/api/read-active':
                     studio.check_target(payload)
                     result = studio.read_active(payload.get('slot'),payload.get('target')=='master')

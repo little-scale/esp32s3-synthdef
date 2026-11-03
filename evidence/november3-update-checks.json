@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scope": "3 November project update; earlier DSP/build records retain their own measured scope",
+  "studio_tests": 34,
+  "auxiliary_tests": 10,
+  "native_sc_restart_and_cleanup_tests": 4,
+  "native_sc_lifecycle_suite_passed": true,
+  "browser_logic_passed": true,
+  "relative_documentation_links_checked": 146,
+  "json_files_parsed": 51,
+  "sensitive_json_field_matches": 0,
+  "physical_ide_pattern_recovery": "evidence/xiao-sc-ide-player-recovery.json",
+  "firmware_records": [
+    "evidence/current-headless-build.json",
+    "evidence/default20-amoled-build.json"
+  ],
+  "firmware_source_check_passed": true
+}

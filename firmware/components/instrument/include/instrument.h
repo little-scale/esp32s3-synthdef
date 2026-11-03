@@ -23,6 +23,8 @@ typedef struct {
     float knob[4];
     float buses[FM_CONTROL_BUSES];
     unsigned bus_mode,gate_low_blocks,continuous,suspended_continuous,suspended_restart;
+    unsigned managed_definition;
+    uint32_t touch_note_id;
     float rendered_gate;
     unsigned knob_mask;
     int16_t control_index[7]; /* freq, amp, gate, knob1..4; graph stays immutable */

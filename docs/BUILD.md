@@ -61,6 +61,10 @@ not retroactively change the scope of old hardware measurements.
 
 ## Flash without erasing saved packages
 
+For every newly installed module, follow the
+[standard post-flash listening check](COMMISSIONING.md): the saved eight-saw
+sound block starts independently of touch, with separate master FX bypassed.
+
 Close Studio's USB connection and any serial monitor. Stop ESP32 patterns before
 restarting firmware. Identify the actual port (`/dev/cu.usbmodem...` on macOS,
 `/dev/ttyACM...` on Linux, or the appropriate COM port). Do not copy a previously

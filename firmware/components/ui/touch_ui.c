@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "touch_ui.h"
+#include "output_volume.h"
 #include "touch_display.h"
 #include "sc_code_view.h"
 #include "bsp/esp-bsp.h"
@@ -164,9 +165,10 @@ esp_err_t touch_ui_start(const touch_ui_actions *actions)
         lv_obj_set_style_radius(volume_panel,0,0);lv_obj_set_style_pad_all(volume_panel,0,0);
         lv_obj_clear_flag(volume_panel,LV_OBJ_FLAG_SCROLLABLE|LV_OBJ_FLAG_CLICKABLE);
         label(volume_panel,"VOLUME",20,2,150,0xFFFFFF);
-        volume_label=label(volume_panel,"100%",274,2,70,0xFFFFFF);lv_obj_set_style_text_align(volume_label,LV_TEXT_ALIGN_RIGHT,0);
+        char default_level[16];snprintf(default_level,sizeof default_level,"%u%%",OUTPUT_VOLUME_DEFAULT_PERCENT);
+        volume_label=label(volume_panel,default_level,274,2,70,0xFFFFFF);lv_obj_set_style_text_align(volume_label,LV_TEXT_ALIGN_RIGHT,0);
         volume_slider=lv_slider_create(volume_panel);lv_obj_set_pos(volume_slider,28,36);lv_obj_set_size(volume_slider,312,8);
-        lv_slider_set_range(volume_slider,0,100);lv_slider_set_value(volume_slider,100,LV_ANIM_OFF);
+        lv_slider_set_range(volume_slider,0,100);lv_slider_set_value(volume_slider,OUTPUT_VOLUME_DEFAULT_PERCENT,LV_ANIM_OFF);
         lv_obj_set_ext_click_area(volume_slider,14);
         lv_obj_set_style_bg_color(volume_slider,lv_color_hex(0x444444),LV_PART_MAIN);
         lv_obj_set_style_bg_color(volume_slider,lv_color_hex(0xFFFFFF),LV_PART_INDICATOR);

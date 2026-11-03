@@ -4,6 +4,7 @@ const token = location.hash.slice(1) || sessionStorage.getItem('studio-token') |
 if (location.hash) { sessionStorage.setItem('studio-token', token); history.replaceState(null, '', location.pathname); }
 let config, device = null, artifact = null, binary = null, busy = false;
 let networkDevices = [], broadcast = null;
+let volumeSending = false, volumeTimer = null, volumePending = null, volumeEpoch = 0;
 let editorTarget = 'sound';
 const drafts = {};
 const encoder = new TextEncoder();
@@ -50,40 +51,43 @@ function renderBroadcast() {
   $('broadcast-status').textContent=broadcast?`${broadcast.recipients.filter(row=>row.ready).length} ready · ${broadcast.target==='master'?'FX':'Main'}. This replaces the listed patches.`:'Find modules, then review the broadcast recipients.';
 }
 function controls() {
+  const locked = busy || volumeSending || volumeTimer !== null;
   const entry = destination();
-  $('compile').disabled = busy || (!binary && !config?.compiler_ready);
+  $('compile').disabled = locked || (!binary && !config?.compiler_ready);
   $('compile').textContent = binary ? 'Check compiled file' : 'Compile';
   const wifi=$('transport').value==='wifi';
   const candidate=networkDevices.find(row=>row.device_id===$('network-device').value);
-  $('connect').disabled = busy || (!device && (wifi ? !candidate?.online || !candidate?.paired : !$('port').value));
+  $('connect').disabled = locked || (!device && (wifi ? !candidate?.online || !candidate?.paired : !$('port').value));
   $('connect').textContent = device ? 'Disconnect' : 'Connect';
-  $('port').disabled = busy || !!device;
-  $('transport').disabled=busy || !!device; $('network-device').disabled=busy || !!device || omni();
+  $('port').disabled = locked || !!device;
+  $('transport').disabled=locked || !!device; $('network-device').disabled=locked || !!device || omni();
   $('usb-panel').hidden=wifi; $('wifi-panel').hidden=!wifi;
   $('wifi-setup').hidden=!device || device.connection?.transport==='wifi' || !device.hello.wifi_upload;
-  for(const id of ['network-address','network-scan','module-name','wifi-ssid','wifi-password','wifi-save','wifi-pair','wifi-status','wifi-nearby','wifi-networks','wifi-mode','broadcast-review'])$(id).disabled=busy;
-  $('slots-field').disabled = busy || !device;
-  for (const id of ['example', 'open-file', 'source-mode', 'ports-refresh', 'file', 'read-active', 'slots-refresh', 'panic', 'patch-name', 'mapping', 'target']) $(id).disabled = busy;
-  for (let i = 0; i < 4; i++) $('label-' + i).disabled = busy;
-  $('source').readOnly = busy;
+  for(const id of ['network-address','network-scan','module-name','wifi-ssid','wifi-password','wifi-save','wifi-pair','wifi-status','wifi-nearby','wifi-networks','wifi-mode','broadcast-review'])$(id).disabled=locked;
+  $('slots-field').disabled = locked || !device;
+  for (const id of ['example', 'open-file', 'source-mode', 'ports-refresh', 'file', 'read-active', 'slots-refresh', 'panic', 'patch-name', 'mapping', 'target']) $(id).disabled = locked;
+  for (let i = 0; i < 4; i++) $('label-' + i).disabled = locked;
+  $('source').readOnly = locked;
   const ready=broadcast?.recipients.some(row=>row.ready);
-  $('upload').disabled=busy || !artifact || !$('patch-name').value.trim() || !artifact.admitted ||
+  $('upload').disabled=locked || !artifact || !$('patch-name').value.trim() || !artifact.admitted ||
     (omni()? !ready || broadcast.target!==$('target').value : !device || !entry);
   $('upload').textContent=omni()?'Broadcast '+(isMaster()?'FX':'Main')+' over Wi-Fi':'Upload '+(isMaster()?'FX':'Main');
   $('destination').textContent=omni()?'Sends the same compiled graph and source to every reviewed recipient.':entry?
     `${entry.name?'Replaces “'+entry.name+'”.':'Saves '+(isMaster()?'FX':'Main')+'.'} Module: ${device.hello.device_name} · ${device.hello.device_id}.`:
     'Compile Main or FX, then connect to a module.';
   $('read-active').textContent=isMaster()?'Read FX':'Read Main';
-  $('read-active').disabled=busy || !entry?.name;
-  $('main-load').disabled=busy || !device?.slots?.find(row=>row.slot===1)?.name;
-  $('master-load').disabled=busy || !device || !device.masters?.find(row=>row.slot===1)?.name;
+  $('read-active').disabled=locked || !entry?.name;
+  $('main-load').disabled=locked || !device?.slots?.find(row=>row.slot===1)?.name;
+  $('master-load').disabled=locked || !device || !device.masters?.find(row=>row.slot===1)?.name;
   $('master-load').textContent=bypassed()?'Enable FX':'Bypass FX';
   $('master-load').setAttribute('aria-pressed',String(bypassed()));
   $('fx-status').textContent=device?(bypassed()?'FX bypassed · Main goes straight to output.':'FX enabled · Main passes through FX.'):'FX state appears after connecting.';
   renderBroadcast();
+  $('volume-control').hidden = !device?.hello.global_volume;
+  $('volume').disabled = busy || !device?.hello.global_volume || !Number.isInteger(device?.volume_percent);
 }
 async function task(action) {
-  if (busy) return;
+  if (busy || volumeSending || volumeTimer !== null) return;
   busy = true; controls(); message();
   try { await action(); }
   catch (error) { message(error.message); }
@@ -103,7 +107,14 @@ function sourceMode() {
   invalidate();
 }
 function renderDevice(result) {
+  const nextId = result?.connected ? result.hello.device_id : null;
+  if (nextId !== device?.hello.device_id) {
+    volumeEpoch++; volumePending = null; clearTimeout(volumeTimer); volumeTimer = null;
+  }
   device = result?.connected ? result : null;
+  if (!volumeSending && !volumePending && Number.isInteger(device?.volume_percent)) {
+    showVolume(device.volume_percent, 'Drag to adjust this module only. Release to save across restarts.');
+  }
   if(device?.connection?.transport==='wifi'){
     const current={device_id:device.hello.device_id,device_name:device.hello.device_name,address:device.port,port:80,paired:true,online:true};
     const row=networkDevices.find(entry=>entry.device_id===current.device_id);
@@ -116,6 +127,7 @@ function renderDevice(result) {
   $('device-status').textContent = device ? `${device.hello.device_name || device.hello.model} · ${device.hello.device_id || device.port} · ${device.connection?.transport==='wifi'?'Wi-Fi':'USB'} ${device.port}` : 'Choose USB or a paired Wi-Fi module, then connect.';
   if(device){
     $('transport').value=device.connection?.transport==='wifi'?'wifi':'usb';
+    if(device.connection?.transport!=='wifi')$('port').value=device.port;
     $('setup-identity').textContent=`Configuring only ${device.hello.device_name} · ${device.hello.device_id}`;
     if($('module-name').dataset.deviceId!==device.hello.device_id){$('module-name').value=device.hello.device_name || '';$('module-name').dataset.deviceId=device.hello.device_id || '';}
   }
@@ -132,6 +144,56 @@ function renderDevice(result) {
   }
   controls();
 }
+function showVolume(percent, status) {
+  $('volume').value = String(percent);
+  $('volume-value').textContent = `${percent}%`;
+  $('volume').setAttribute('aria-valuetext', `${percent} percent`);
+  $('volume-status').textContent = status;
+}
+async function sendVolume() {
+  clearTimeout(volumeTimer); volumeTimer = null;
+  if (volumeSending || !volumePending) return;
+  volumeSending = true; controls();
+  try {
+    while (volumePending) {
+      const request = volumePending; volumePending = null;
+      if (request.epoch !== volumeEpoch) break;
+      try {
+        const result = await api('volume', {device_id: request.id, percent: request.percent, save: request.save});
+        if (request.epoch !== volumeEpoch || device?.hello.device_id !== request.id) break;
+        if (result.device_id !== request.id || result.percent !== request.percent || (request.save && !result.saved)) {
+          throw new Error('The module did not confirm its volume. Refresh before retrying.');
+        }
+        device.volume_percent = result.percent;
+        if (!volumePending) showVolume(result.percent, result.saved ? 'Saved on this module.' : 'Live level applied. Release to save.');
+      } catch (error) {
+        if (request.epoch === volumeEpoch) {
+          volumePending = null;
+          showVolume(device.volume_percent, 'Volume not confirmed. Refresh before retrying.');
+          message(error.message);
+        }
+        break;
+      }
+      if (volumePending) await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  } finally {
+    volumeSending = false;
+    if (volumePending) volumeTimer = setTimeout(sendVolume, 0);
+    controls();
+  }
+}
+function queueVolume(save) {
+  if (busy || !device?.hello.global_volume) return;
+  const percent = Number($('volume').value);
+  if (!Number.isInteger(percent) || percent < 0 || percent > 100) return;
+  volumePending = {id: device.hello.device_id, epoch: volumeEpoch, percent, save};
+  showVolume(percent, save ? 'Saving volume…' : 'Adjusting volume…');
+  clearTimeout(volumeTimer); volumeTimer = null;
+  if (!volumeSending) volumeTimer = setTimeout(sendVolume, save ? 0 : 100);
+  controls();
+}
+$('volume').addEventListener('input', () => queueVolume(false));
+$('volume').addEventListener('change', () => queueVolume(true));
 async function ports() {
   config = await api('config');
   const previous = $('port').value; $('port').replaceChildren();
@@ -139,7 +201,8 @@ async function ports() {
     const option = document.createElement('option'); option.value = port.port; option.textContent = `${port.name} · ${port.port}`; $('port').append(option);
   }
   if (!config.ports.length) { const option = document.createElement('option'); option.value = ''; option.textContent = 'No USB devices found'; $('port').append(option); }
-  if (config.ports.some(p => p.port === previous)) $('port').value = previous;
+  const selected=device && device.connection?.transport!=='wifi'?device.port:previous;
+  if (config.ports.some(p => p.port === selected)) $('port').value = selected;
   if (!config.serial_ready) $('device-status').textContent = 'USB support needs pyserial. Launch with sh host/studio.sh.';
   controls();
 }

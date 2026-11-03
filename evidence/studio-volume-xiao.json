@@ -1,0 +1,26 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "scope": "Confirmed volume commands and persistence acknowledgement; current SC-managed Main remains inactive. No analogue gain measurement.",
+  "tests": [
+    {
+      "device_id": "esp32-288485ba1e48",
+      "percent": 10,
+      "saved": false
+    },
+    {
+      "device_id": "esp32-288485ba1e48",
+      "percent": 0,
+      "saved": false
+    },
+    {
+      "device_id": "esp32-288485ba1e48",
+      "percent": 20,
+      "saved": true
+    }
+  ],
+  "passed": true,
+  "main_unchanged": true,
+  "fx_unchanged": true,
+  "final_volume_percent": 20,
+  "previous_pcm_check": "Interrupted when Main was replaced from another session; no positive-signal assertion is claimed."
+}

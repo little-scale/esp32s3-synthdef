@@ -1,0 +1,56 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "image_sha256": "708c31d3c47251768ee068012fe1815396f7e7692a634bde22670db3dac41ce7",
+  "app_bytes": 1669920,
+  "write_offset": "0x10000",
+  "partition_table_matches": true,
+  "backup_bytes": 16777216,
+  "backup_sha256": "a89f202ba76f84bd92d102dda9371a7b8b29f5b449d3cb5502524b5fb57d9748",
+  "bootloader_nvs_and_storage_written": false,
+  "flash_verified": true,
+  "preserved_flash_regions_verified": true,
+  "post_restart": {
+    "device_id": "esp32-2884853ad390",
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+    "graph_limits": {
+      "nodes": 256,
+      "signals": 512,
+      "inputs": 2048,
+      "audio_buffers": 192
+    },
+    "main_name": "MiRings1",
+    "main_graph_sha256": "641772ad1fed4e0f9a69528cf8ddc9313636b91a14def9175463619b365616ec",
+    "fx_name": "MasterFX",
+    "fx_graph_sha256": "6432b028ea46230e2854f05a2cf6277e8dbe6a88113ff4cc497de042a8e77e1b",
+    "volume": 0.12,
+    "fx_selected": 1,
+    "diagnostics": {
+      "average_x10": 26,
+      "peak_x10": 63,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "internal_free": 24851,
+      "internal_largest": 16384,
+      "psram_free": 5380324
+    },
+    "main_active": false,
+    "network": {
+      "configured": true,
+      "online": false,
+      "rssi": -127,
+      "stage": 4,
+      "error": "ESP_ERR_NO_MEM"
+    }
+  },
+  "post_restart_verified": true,
+  "startup_fault_counters_clear": true,
+  "wifi_startup_failed": true,
+  "superseded_by": "3e502895350ec52850f53257b8e5afe781a5fbb038ae577d3874104359d257c1"
+}

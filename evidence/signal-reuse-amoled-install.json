@@ -1,0 +1,57 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "build": "3e502895350ec52850f53257b8e5afe781a5fbb038ae577d3874104359d257c1",
+  "image_sha256": "ba099823453a4aeadb13f4eeec35b7de15c7756bd042137d74e4091b3b221775",
+  "app_bytes": 1670160,
+  "write_offset": "0x10000",
+  "flash_verified": true,
+  "bootloader_nvs_and_storage_written": false,
+  "lvgl_pool_storage": "PSRAM; fixed 64 KiB",
+  "full_private_pre_update_backup_available": true,
+  "initial_install_record": "signal-reuse-amoled-initial-install.json",
+  "post_restart": {
+    "device_id": "esp32-2884853ad390",
+    "model": "Waveshare AMOLED 1.8 V2",
+    "build": "3e502895350ec52850f53257b8e5afe781a5fbb038ae577d3874104359d257c1",
+    "graph_limits": {
+      "nodes": 256,
+      "signals": 512,
+      "inputs": 2048,
+      "audio_buffers": 192
+    },
+    "main_name": "MiRings1",
+    "main_graph_sha256": "641772ad1fed4e0f9a69528cf8ddc9313636b91a14def9175463619b365616ec",
+    "fx_name": "MasterFX",
+    "fx_graph_sha256": "6432b028ea46230e2854f05a2cf6277e8dbe6a88113ff4cc497de042a8e77e1b",
+    "volume": 0.12,
+    "fx_selected": 1,
+    "diagnostics": {
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "internal_free": 57963,
+      "internal_largest": 51200,
+      "psram_free": 5284616
+    },
+    "network": {
+      "configured": true,
+      "online": false,
+      "rssi": -127,
+      "stage": 9,
+      "reason": 201,
+      "error": "ESP_OK"
+    }
+  },
+  "startup_fault_counters_clear": true,
+  "saved_packages_and_settings_verified": true,
+  "post_restart_verified": true,
+  "user_interface_confirmation": {
+    "code_screen_correct": true,
+    "controls_page_accessible": true,
+    "basis": "User confirmed screen and controls look correct after update"
+  }
+}

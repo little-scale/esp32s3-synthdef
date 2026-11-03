@@ -1,0 +1,57 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "build": "33f68d0b61fb7cfd7b2dd7254e13db27765608ac1b566fd70e0b329254039e9f",
+  "image_sha256": "31794b494919ed174f2380e9cea663576b08f2d41046d458adce465564d11895",
+  "pre_update_backup_sha256": "388632210ca1c36332964e22698f2cc4223a64a1811cecffcf47e16aad30a8a8",
+  "flash_verified": true,
+  "application_only": true,
+  "written_regions": [
+    "application at 0x10000"
+  ],
+  "full_chip_erase": false,
+  "startup_verified": true,
+  "device_name": "XIAO-ba1e48",
+  "model": "XIAO ESP32-S3",
+  "graph_limits": {
+    "nodes": 256,
+    "signals": 512,
+    "inputs": 2048,
+    "audio_buffers": 192
+  },
+  "saved_slots_preserved": true,
+  "main_graph_sha256": "aca38d0bd670733b65b021d04fc53a320738f8f7cd9469824a7d0cfb54c422e6",
+  "fx_bypassed": true,
+  "volume": 0.2,
+  "pcm_capture": {
+    "format": "s16le",
+    "channels": 2,
+    "rate": 44100,
+    "frames": 8820,
+    "bytes": 35280
+  },
+  "diagnostic_deltas": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "startup_counters": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "wifi": {
+    "configured": false,
+    "online": false,
+    "error": "ESP_OK"
+  },
+  "analogue_listening": "Not requested for this firmware-only update",
+  "passed": true
+}

@@ -1,0 +1,408 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "listening": "User confirmed clean sound including the reverb tail",
+  "scope": "Comb Cloud KR dry and through separate MiVerb, USB PCM/telemetry plus user-confirmed clean analogue playback. No instrumented analogue fidelity measurement; Wi-Fi unconfigured.",
+  "tests": {
+    "dry": {
+      "peak": 1078,
+      "rms": [
+        201.50152377000194,
+        250.0326609957704
+      ]
+    },
+    "miverb": {
+      "peak": 501,
+      "rms": [
+        182.82274564870372,
+        117.84819071339945
+      ]
+    },
+    "fx_tail_after_main_stop": {
+      "peak": 547,
+      "rms": [
+        174.52211874708829,
+        162.36794585530066
+      ]
+    }
+  },
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "main": {
+    "graph_sha256": "f6e27eccdfa355124b081b90574da1a5a91ed00abf920735c76208549d4ae43b",
+    "nodes": 55,
+    "delay_samples": 8192
+  },
+  "fx": {
+    "graph_sha256": "1b4b02f3bf0561aa32f73745e10540254d6a8fe608544f1d61df900b0b741858",
+    "nodes": 4,
+    "delay_samples": 16384
+  },
+  "cpu_samples": [
+    {
+      "phase": "dry",
+      "elapsed_seconds": 0.0,
+      "average_percent": 3.6,
+      "peak_percent": 10.5
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 0.51,
+      "average_percent": 3.6,
+      "peak_percent": 10.5
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 1.01,
+      "average_percent": 23.2,
+      "peak_percent": 69.3
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 1.52,
+      "average_percent": 23.2,
+      "peak_percent": 69.3
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 2.02,
+      "average_percent": 32.1,
+      "peak_percent": 36.5
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 2.52,
+      "average_percent": 32.1,
+      "peak_percent": 36.5
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 5.35,
+      "average_percent": 33.6,
+      "peak_percent": 37.3
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 5.86,
+      "average_percent": 33.1,
+      "peak_percent": 37.8
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 6.37,
+      "average_percent": 33.1,
+      "peak_percent": 37.8
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 6.87,
+      "average_percent": 33.1,
+      "peak_percent": 37.8
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 7.38,
+      "average_percent": 32.1,
+      "peak_percent": 34.1
+    },
+    {
+      "phase": "dry",
+      "elapsed_seconds": 7.88,
+      "average_percent": 32.1,
+      "peak_percent": 34.1
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 0.03,
+      "average_percent": 32.1,
+      "peak_percent": 33.8
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 0.53,
+      "average_percent": 40.7,
+      "peak_percent": 126.3
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 1.04,
+      "average_percent": 40.7,
+      "peak_percent": 126.3
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 1.54,
+      "average_percent": 67.4,
+      "peak_percent": 75.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 2.04,
+      "average_percent": 67.4,
+      "peak_percent": 75.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 2.55,
+      "average_percent": 67.4,
+      "peak_percent": 75.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 5.37,
+      "average_percent": 70.0,
+      "peak_percent": 80.4
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 5.89,
+      "average_percent": 70.0,
+      "peak_percent": 80.4
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 6.4,
+      "average_percent": 67.8,
+      "peak_percent": 80.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 6.91,
+      "average_percent": 67.8,
+      "peak_percent": 80.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 7.41,
+      "average_percent": 67.3,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 7.92,
+      "average_percent": 67.3,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 8.43,
+      "average_percent": 67.3,
+      "peak_percent": 75.5
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 8.94,
+      "average_percent": 67.3,
+      "peak_percent": 75.5
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 9.44,
+      "average_percent": 67.4,
+      "peak_percent": 80.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 9.94,
+      "average_percent": 67.4,
+      "peak_percent": 80.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 10.45,
+      "average_percent": 67.3,
+      "peak_percent": 76.3
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 10.95,
+      "average_percent": 67.3,
+      "peak_percent": 76.3
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 11.46,
+      "average_percent": 67.3,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 11.97,
+      "average_percent": 67.3,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 12.49,
+      "average_percent": 67.3,
+      "peak_percent": 75.5
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 13.0,
+      "average_percent": 67.3,
+      "peak_percent": 75.5
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 13.5,
+      "average_percent": 67.3,
+      "peak_percent": 80.8
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 14.0,
+      "average_percent": 67.3,
+      "peak_percent": 80.8
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 14.51,
+      "average_percent": 67.3,
+      "peak_percent": 75.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 15.01,
+      "average_percent": 67.3,
+      "peak_percent": 75.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 15.52,
+      "average_percent": 67.3,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 16.04,
+      "average_percent": 67.3,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 16.54,
+      "average_percent": 67.3,
+      "peak_percent": 80.0
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 17.05,
+      "average_percent": 67.3,
+      "peak_percent": 80.0
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 17.55,
+      "average_percent": 67.3,
+      "peak_percent": 74.3
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 18.06,
+      "average_percent": 67.3,
+      "peak_percent": 74.3
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 18.57,
+      "average_percent": 67.3,
+      "peak_percent": 74.1
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 19.07,
+      "average_percent": 67.3,
+      "peak_percent": 74.1
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 19.58,
+      "average_percent": 67.3,
+      "peak_percent": 73.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 20.1,
+      "average_percent": 67.3,
+      "peak_percent": 73.9
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 20.61,
+      "average_percent": 67.4,
+      "peak_percent": 79.2
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 21.11,
+      "average_percent": 67.4,
+      "peak_percent": 79.2
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 21.62,
+      "average_percent": 67.4,
+      "peak_percent": 77.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 22.13,
+      "average_percent": 67.4,
+      "peak_percent": 77.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 22.63,
+      "average_percent": 67.4,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 23.14,
+      "average_percent": 67.4,
+      "peak_percent": 75.7
+    },
+    {
+      "phase": "miverb",
+      "elapsed_seconds": 23.64,
+      "average_percent": 67.4,
+      "peak_percent": 74.5
+    }
+  ],
+  "panic_silence": true,
+  "controls_sent": 6,
+  "cpu_peak_policy": "Record transient CPU peaks without stopping; user authorised. Audio fault counters remain checked.",
+  "average_cpu_max_percent": 70.0,
+  "peak_cpu_max_percent": 126.3,
+  "memory": {
+    "internal_free": {
+      "min": 141055,
+      "max": 141055
+    },
+    "internal_largest": {
+      "min": 65536,
+      "max": 65536
+    },
+    "psram_free": {
+      "min": 5204128,
+      "max": 5204128
+    }
+  },
+  "diagnostic_deltas": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "restored": {
+    "main_package_verified": true,
+    "fx_package_verified": true,
+    "fx_selected": 0,
+    "volume": 1.0,
+    "instances_restored": true
+  },
+  "pcm_passed": true,
+  "analogue_listening_passed": true
+}

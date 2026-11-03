@@ -1,6 +1,6 @@
 # Recorded evidence
 
-Reports cover development from 30 October through 2 November 2026. They retain
+Reports cover development from 30 October through 3 November 2026. They retain
 the source/build IDs and test scope from their own runs. An old timing or board
 measurement does not automatically qualify a newer image or another graph.
 [STATUS.md](../STATUS.md) identifies the latest installed image and open limits.
@@ -10,6 +10,22 @@ a fresh build (`publication-build.json`), clean-checkout tests, README syntax an
 relative documentation links.
 
 ## Current workflow and compact controls
+
+The 3 November update adds the following scoped records:
+
+| Records | Scope |
+| --- | --- |
+| `signal-reuse*.json` | Buffer lifetime/aliasing comparisons, inventory, fuzz/boundary checks and separate physical XIAO/AMOLED admission and timing records; see [signal buffers](../docs/SIGNAL_BUFFERS.md) for limits and failed overload fixtures |
+| `current-headless-build.json`, `default20-amoled-build.json` | Current source build `33f68d0b61fb`, separately compiled for XIAO stereo and AMOLED mono hardware |
+| `current-xiao-install.json`, `amoled-8d50*-install.json` | Matched physical identities, image verification and startup scopes; private full-flash backups remain excluded |
+| `current-xiao-autoplay-check.json`, `amoled-*-audio-check.json` | Standard autonomous listening block, separate FX bypass, timing and reported faults; listening confirmation is recorded separately |
+| `managed-touch-*.json` | Managed definition touch/remote gate ownership, startup and physical press/release scopes; aborted tool attempts are retained as such |
+| `studio-volume-host.json`, `studio-volume-xiao.json` | Browser gesture coalescing/identity guards, HTTP tests and physical volume/save acknowledgements; not an analogue gain-ratio measurement |
+| `xiao-sc-ide-player-recovery.json`, `sc-player-restart-host.json` | Stale retained-player diagnosis, actual IDE note/PCM recovery and isolated native restart regressions |
+| `xiao-pcm5102a-*.json` | Temporary external DAC listening tests, channel checks and source-specific load; the initial CPU-percentage guard is retained separately |
+
+Earlier counts and installed-image descriptions below describe their own runs,
+not an automatically repeated qualification of the latest source.
 
 | Record | Scope |
 | --- | --- |

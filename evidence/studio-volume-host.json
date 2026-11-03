@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "host_tests": {
+    "command": "python host/test_studio.py",
+    "count": 34,
+    "passed": true
+  },
+  "browser_logic": {
+    "command": "node tests/studio_browser_test.js",
+    "passed": true,
+    "coverage": [
+      "rapid gesture coalescing",
+      "in-flight changes",
+      "release save",
+      "mute and full scale",
+      "failed replies",
+      "module identity changes",
+      "disconnect",
+      "unsupported firmware"
+    ]
+  },
+  "hardware": "evidence/studio-volume-xiao.json",
+  "analogue_listening": "Standard autonomous block confirmed audible by user; no instrumented volume-ratio measurement."
+}

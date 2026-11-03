@@ -1,0 +1,75 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "build": "b29f4796f4c67816a97e1beb60f488aa23db76f74212ee0666ba430ce1ba053e",
+  "scope": "Physical code-area touch observed through named gate and audio telemetry",
+  "user_confirmation": "User confirmed each press plays a MiRings1 strike",
+  "gate_transitions": [
+    {
+      "seconds": 0.02,
+      "gate": 0,
+      "active": false
+    },
+    {
+      "seconds": 90.92,
+      "gate": 1,
+      "active": true
+    },
+    {
+      "seconds": 91.15,
+      "gate": 0,
+      "active": true
+    },
+    {
+      "seconds": 91.39,
+      "gate": 1,
+      "active": true
+    },
+    {
+      "seconds": 91.51,
+      "gate": 0,
+      "active": true
+    },
+    {
+      "seconds": 92.2,
+      "gate": 1,
+      "active": true
+    },
+    {
+      "seconds": 92.32,
+      "gate": 0,
+      "active": true
+    },
+    {
+      "seconds": 92.67,
+      "gate": 1,
+      "active": true
+    },
+    {
+      "seconds": 92.78,
+      "gate": 0,
+      "active": true
+    }
+  ],
+  "diagnostic_deltas": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "rising_gate_edges": 4,
+  "released": true,
+  "physical_touch_confirmed": true,
+  "restored": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.51,
+    "instances_restored": true,
+    "final_volume": 0.51,
+    "main_name": "Module audio check",
+    "main_active": true,
+    "fx_bypassed": true
+  }
+}

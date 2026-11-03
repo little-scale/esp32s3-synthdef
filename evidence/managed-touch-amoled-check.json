@@ -1,0 +1,39 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "user_confirmation": "pending",
+  "gate_transitions": [
+    {
+      "seconds": 0.01,
+      "gate": 0,
+      "active": false
+    }
+  ],
+  "build": "b29f4796f4c67816a97e1beb60f488aa23db76f74212ee0666ba430ce1ba053e",
+  "initial_main_active": false,
+  "initial_faults": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "diagnostic_deltas": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "touch_gate_observed": false,
+  "audio_fault_free": true,
+  "restored": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.26,
+    "instances_restored": true
+  }
+}

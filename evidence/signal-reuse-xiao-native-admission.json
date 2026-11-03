@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "device_id": "esp32-288485ba1e48",
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "limits": {
+    "nodes": 256,
+    "signals": 512,
+    "inputs": 2048,
+    "audio_buffers": 192
+  },
+  "native_193_buffer_rejected": "Graph exceeds 192 simultaneously live audio buffers",
+  "active_package_unchanged": true,
+  "stored_generations_unchanged": true
+}

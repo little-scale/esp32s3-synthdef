@@ -1,0 +1,10 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "physical_touch_tested": false,
+  "scope": "Onboard UI exercise posts normal local note events; numeric PCM/output counters, no physical finger simulation",
+  "error": "{'error': 'Connect the device first'}",
+  "restore_error": "{'error': 'That USB port is no longer available; refresh the port list'}",
+  "mutation_started": false,
+  "previous_attempt_restored_main_before_disconnect": true,
+  "completed": false
+}

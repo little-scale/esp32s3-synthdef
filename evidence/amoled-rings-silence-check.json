@@ -1,0 +1,10 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "initial_gate": 0,
+  "initial_volume": 1.0,
+  "listening": "User heard all three short MiRings1 notes",
+  "notes_queued": 3,
+  "restored": true,
+  "speaker_path_confirmed": true,
+  "diagnosis": "Running MiRings1 instance had gate=0; named note events produced audible strikes. CPU activity alone does not imply nonzero sound."
+}

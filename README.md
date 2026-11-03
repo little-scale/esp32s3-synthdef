@@ -29,12 +29,15 @@ board that does not yet run this firmware, follow [Build and flash](docs/BUILD.m
 first. The XIAO uses its own 8 MB headless build; other boards require a suitable
 hardware adapter and build configuration.
 
+After installing each new module, use the [standard audio check](docs/COMMISSIONING.md)
+to verify autonomous sound with the separate master FX slot bypassed.
+
 On the computer, install **SuperCollider** (tested with 3.14.1), Python 3.11+ and
 a C compiler (`cc`; on macOS, the Command Line Tools). Then:
 
 ```sh
-git clone https://github.com/little-scale/synthdefs-for-esp32-s3-touch-amoled-1.8.git
-cd synthdefs-for-esp32-s3-touch-amoled-1.8
+git clone https://github.com/little-scale/esp32s3-synthdef.git
+cd esp32s3-synthdef
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -r host/requirements.txt
@@ -59,6 +62,10 @@ complete session URL. If `sclang` is elsewhere, use
 The browser's sound-block workflow starts this sound without touch input. Use
 **Panic** to stop it and **Restart Main** to start it again. The code display is a
 viewer; editing and compilation happen on the host.
+
+Studio's **Output volume** slider adjusts the connected module from 0–100%;
+release it to save the level across reboots. Fresh firmware defaults to 20%.
+The same slider works with the headless XIAO over USB or paired Wi-Fi.
 
 ### 3. Pair Wi-Fi and identify your module
 
@@ -175,11 +182,19 @@ Main/FX lifecycle, named Pbindef players, FX patterns and connection recovery.
 | Code | Compiled SC SynthDef graphs, not the full SC language executing on the board |
 | Coverage | 154 native UGen types, 33 unary and 40 binary operators in the pinned FM1 profile |
 | Composites | DynKlank, DynKlang, Splay and similar classes expand on the host into supported UGens |
-| Limits | 160 nodes, 192 signals, 1,024 input references; graph and original source up to 64 KiB each |
+| Limits | 256 nodes, 512 logical signals, 2,048 input references; at most 192 simultaneously live audio buffers; graph and original source up to 64 KiB each |
 | Delay memory | Separate 1 MiB PSRAM arenas for Main and FX; admission checks actual rounded allocations |
 | Live events | Named scalar/array control values, scheduled notes and cancellation; 16 queued events |
 | Wi-Fi | Paired authenticated HTTP; discovery by UDP; targeted and concurrent Omni uploads |
 | Control compression | Unchanged float32 values omitted per node/stream/stage; every note retained |
+
+The signal-buffer planner reuses temporary audio buffers and stores each scalar
+output in one float. The expanded profile retains 64-frame blocks and the existing
+delay budgets. Expanded-profile XIAO checks include a 193-node/200-output
+rendering graph and a three-minute Main/FX control soak. Dense graphs can still
+exceed the audio deadline; AMOLED timing qualification remains pending. Earlier
+board results retain their original build identities. See
+[signal storage and expanded graph limits](docs/SIGNAL_BUFFERS.md).
 
 Supported does not mean every graph fits the audio deadline. Software comparisons,
 physical numerical traces, CPU measurements and listening checks are distinguished
@@ -192,7 +207,8 @@ SynthDefs keep authored outputs and must follow the documented bus routing.
 The CPU indicator measures **audio processing time against the block budget**,
 not combined utilisation of both cores. The receive dot signals valid incoming
 control/upload frames; it is not a playback acknowledgement. Module volume is
-linear, 0–1 in SC and 0–100% on screen; remote changes are live, while releasing
+linear, 0–1 in SC and 0–100% on screen, defaulting to 20% when no level is saved;
+remote changes are live, while releasing
 the physical slider saves its value. See [UI](docs/UI.md).
 
 ## Supported UGens and operators

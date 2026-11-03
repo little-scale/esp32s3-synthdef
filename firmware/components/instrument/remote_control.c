@@ -122,6 +122,12 @@ int rc_instance(remote_control *r,instrument *synth,master_delay *master,int sta
 }
 void rc_tick(remote_control *r,instrument *synth,uint64_t now)
 {
+    /* A local touch has taken the monophonic gate. Expiry/cancellation of the
+     * previous network note must not release that newer local note. Future
+     * queued network events are retained and may take ownership in turn. */
+    if(synth->managed_definition && synth->held && synth->note_id){
+        r->stage[0].owner=0;r->stage[0].release=0;r->stage[0].retrigger=0;
+    }
     unsigned gate_was_high=0;
     for(unsigned k=0;k<2;++k){rc_stage *s=&r->stage[k];if(!s->voice)continue;
         if(s->gate>=0 && s->voice->control[s->gate]>0)gate_was_high|=1u<<k;
@@ -144,8 +150,16 @@ void rc_tick(remote_control *r,instrument *synth,uint64_t now)
             else if(was_high){s->voice->control[s->gate]=0;s->retrigger=1;}
             else{s->voice->control[s->gate]=1;s->retrigger=0;}
             synth->held=1;
+            synth->note_id=0;synth->gate_low_blocks=0;
             s->owner=e.stream;s->owner_sequence=e.sequence;s->release=(e.at?e.at:now)+e.duration;
-        }else apply_values(s,&e);
+        }else {
+            apply_values(s,&e);
+            if(!e.stage && synth->managed_definition){
+                for(unsigned i=0;i<e.count;++i)if((int)e.index[i]==s->gate){
+                    synth->note_id=0;synth->gate_low_blocks=0;synth->held=e.value[i]>0;
+                }
+            }
+        }
         ++r->applied;
     }
 }

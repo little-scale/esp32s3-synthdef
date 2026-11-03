@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
-from engine_profile import generate, LIMITS
+from engine_profile import generate, LIMITS, PROFILES
 
 ROOT = Path(__file__).resolve().parents[1]
 UPSTREAM_ENGINE = ROOT / 'upstream/fm1-synthdef/synthdef-engine'
@@ -25,6 +25,7 @@ def firmware_sources():
 def qualification_fingerprint():
     provenance=json.loads((ROOT/'upstream/SOURCES.json').read_text())
     return digest((provenance['commit']+digest((ROOT/'host/engine_profile.py').read_bytes())+
+                   digest((ROOT/'host/signal_buffers.py').read_bytes())+
                    digest((ROOT/'examples/master-delay.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scd').read_bytes())+
@@ -91,11 +92,15 @@ def main():
         'engine_target_limits':{k:int(str(new).rstrip('u')) for k,(_,new) in LIMITS.items()},
         'engine_target_header_sha256':digest((ENGINE/'src/fm_synth.h').read_bytes()),
         'engine_profile_generator_sha256':digest((ROOT/'host/engine_profile.py').read_bytes()),
+        'signal_planner_sha256':digest((ROOT/'host/signal_buffers.py').read_bytes()),
         'master_delay':{'kind':'embedded persistent mono SynthDef bus','max_seconds':5.0,
                         'arena_samples':262144,'arena_bytes':1048576,'storage':'PSRAM','graph_sha256':digest(effect)},
         'parser': 'fm_load remains authoritative for rates, selectors and graph layouts',
         'optional_fm1_profile':{'config':'CONFIG_SYNTHDEF_FM1_COMPAT','policy':'fm1-compat-v1',
-            'nodes_max':160,'signals_max':192,'inputs_max':1024,'synth_arena_samples':262144,
+            'nodes_max':PROFILES['fm1']['FM_NODES'][1],'signals_max':PROFILES['fm1']['FM_OUTPUTS'][1],
+            'inputs_max':PROFILES['fm1']['FM_INPUTS'][1],'audio_buffers_max':192,
+            'signal_storage':'Loader-planned audio reuse and one float per scalar output',
+            'synth_arena_samples':262144,
             'synth_arena_bytes':1048576,'required_live_controls':['freq','amp','gate'],
             'control_buses':{'count':32,'touch':{'x':0,'y':1,'gate':2},'reader':'In.kr','bus_patches_require_legacy_controls':False},
             'types':names,'qualification':'host emulation only; ESP32 deadlines unmeasured',

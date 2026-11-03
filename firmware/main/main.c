@@ -56,9 +56,9 @@ static master_delay delay_bus;
 static atomic_uint effect_words[3],effect_dirty;
 static atomic_bool effect_clear_needed,effect_save_requested;
 static bool effect_maintenance_fault;
-static atomic_uint volume_percent=100;
+static atomic_uint volume_percent=OUTPUT_VOLUME_DEFAULT_PERCENT;
 static atomic_bool volume_save_requested;
-static unsigned saved_volume=100;
+static unsigned saved_volume=OUTPUT_VOLUME_DEFAULT_PERCENT;
 static atomic_uint observed_seed;
 static QueueHandle_t events, telemetry;
 static atomic_bool panic_requested;
@@ -533,7 +533,8 @@ static void service_display(const patch_meta *meta,const fm_graph *graph,const c
     }
     if(slot==0 && !source_bytes){source=(const char *)touch_patch_source;source_bytes=sizeof touch_patch_source;}
     touch_ui_patch(meta->name,meta->label,meta->mapping,knobs,controller_frequency,names,slot,source,source_bytes);
-    touch_ui_playback(synth.continuous);
+    /* Persistent SynthDef instances still wait for touch/SC notes. */
+    touch_ui_playback(synth.continuous && !synth.managed_definition);
 #else
     (void)meta;(void)names;(void)slot;(void)source;(void)source_bytes;
 #endif

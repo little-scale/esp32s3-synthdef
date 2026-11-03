@@ -2,29 +2,57 @@
 
 ## Current FM1/cache instrument
 
-The current image is recorded in `evidence/control-deltas-build.json`. Target
-structure sizes and fixed placements are separate from runtime free-heap values:
+The expanded signal-reuse builds are recorded in
+`evidence/signal-reuse-amoled-build.json` and `evidence/signal-reuse-xiao-build.json`.
+The installed AMOLED revision additionally moves its LVGL pool to PSRAM; see
+[that build](../evidence/signal-reuse-amoled-psram-ui-build.json) and
+[installation checks](../evidence/signal-reuse-amoled-install.json).
+They have host correctness and cross-build evidence. The XIAO build additionally
+passed the [expanded-graph USB/capture checks](../evidence/signal-reuse-xiao-capacity.json)
+and [three-minute Main/FX qualification](../evidence/signal-reuse-xiao-after.json).
+AMOLED timing checks remain pending. These results qualify the tested workloads,
+not every graph within the admission limits. Target structure sizes and fixed
+placements are separate from runtime free-heap values:
 
 | Allocation | Bytes | Placement |
 | --- | ---: | --- |
-| Three graph buffers | 40,860 | PSRAM |
-| Main voice | 35,752 | Internal, with the documented allocation fallback |
-| FX voice | 35,752 | PSRAM |
-| Shared DSP scratch | 49,152 | PSRAM, reused serially |
+| Four graph buffers | 86,880 | PSRAM; active and staging for Main/FX |
+| Main voice | 57,896 | Internal, with the documented allocation fallback |
+| FX voice | 57,896 | PSRAM |
+| Shared DSP scratch | 51,200 | PSRAM; 192 audio vectors plus scalar bank |
 | Main delay/state arena | 1,048,576 | PSRAM |
 | FX delay/state arena | 1,048,576 | PSRAM |
 | Remote-control state | 24,968 | Preallocated PSRAM, including 17 KiB of Main/FX stream baselines |
 | Control status snapshot | 512 | Staging/mailbox state; serialization outside the audio owner |
 | Package buffers | 393,216 | Preallocated PSRAM |
-| Audio / console stacks | 16,384 each | Internal, reserved before display/network startup |
+| Audio / console stacks | 16,384 / 8,192 | Internal, reserved before display/network startup |
 | UI task stack | 10,240 | Core 0 |
-| LVGL fixed heap | 65,536 | Internal |
+| LVGL fixed heap | 65,536 | PSRAM in the installed AMOLED revision; same TLSF pool size |
 | UI draw buffer | 14,720 | Internal DMA memory |
 
 A source-view model may use up to 393,221 PSRAM bytes; an old and replacement
 model can coexist briefly. Network storage also prefers PSRAM. Large free PSRAM
 does not imply sufficient internal/DMA memory; Wi-Fi startup and cache/IRAM
 placement have separate constraints. Both renderers use preallocated buffers.
+
+The first expanded AMOLED image booted with 24,851 free internal bytes and a
+16,384-byte largest free block; Wi-Fi initialization failed with `ESP_ERR_NO_MEM`.
+The corrected image uses LVGL's pool-allocation hook to allocate its fixed 64 KiB
+heap in PSRAM, retaining it across LVGL deinitialization/reinitialization. The
+audio voice, audio/control stacks and DMA draw buffer retain their placement.
+After correction, Wi-Fi initializes successfully; one startup reading showed
+57,963 internal bytes free and a 51,200-byte largest block, with no audio faults.
+The saved network was not found, so association/load testing remains pending.
+`host/test_ui_pool.py` covers repeated initialization, allocation failure and
+changed-size rejection. The build recorder checks the LVGL compile hook and
+object symbols to reject a silent return to the internal static pool.
+
+Logical graph limits are now 256 nodes, 512 output signals and 2,048 input
+references, with a maximum of 192 simultaneously live audio vectors. The
+workspace is reserved once; a particular graph may touch far fewer vectors.
+See [the lifetime planner and edge-case tests](SIGNAL_BUFFERS.md). Larger voice
+state also increases the amount initialized on note creation, so physical
+qualification must include rapid retriggering as well as steady playback.
 
 The 1 MiB arenas provide delay memory per stage, not one combined unrestricted
 pool. A mono five-second float32 delay at 44.1 kHz rounds to 262,144 samples and

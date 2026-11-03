@@ -296,7 +296,7 @@ count. Twelve SC NRT comparisons and four muted board traces pass. See
 | Profile | Graph capacity | Synth arena | Upload policy | Qualification |
 | --- | --- | --- | --- | --- |
 | Compact (default) | 24 nodes, 32 signals, 256 references | None | Existing sine family and exact catalog graphs | Earlier graphs have board evidence; current changed source requires renewed qualification |
-| FM1 compatibility (optional) | 160 nodes, 192 signals, 1,024 references | 262,144 floats / 1 MiB PSRAM | Entire pinned FM1 type/operator set, subject to loader validation | Long captures cover the full type/rate set; precision grades and CPU limitations are reported separately |
+| FM1 compatibility (optional) | 256 nodes, 512 logical signals, 2,048 references; 192 live audio buffers | 262,144 floats / 1 MiB PSRAM | Entire pinned FM1 type/operator set, subject to loader validation | Expanded capacities and buffer reuse have host evidence; earlier physical captures retain their recorded build identities |
 
 The compact loader accepted 1,443 of the 1,444 original fixtures; the large
 `m5_addy` graph needs 125 nodes, 136 signals and 338 input references. Loader

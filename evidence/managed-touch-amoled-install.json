@@ -1,0 +1,22 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "build": "b29f4796f4c67816a97e1beb60f488aa23db76f74212ee0666ba430ce1ba053e",
+  "app_sha256": "4e53b0684531786dac4292746932d8f6dcfb81993bde79a13f3fef925c7d53e8",
+  "app_bytes": 1670704,
+  "flash_verified": true,
+  "write_offset": "0x10000",
+  "saved_regions_written": false,
+  "post_restart_verified": true,
+  "temporary_mirings_definition_booted_inactive": true,
+  "standard_audio_check_restored_before_disconnect": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.26,
+    "instances_restored": true
+  },
+  "physical_touch_confirmed": true,
+  "hardware_status": "User-confirmed physical touch produced four observed gate rise/release pairs with zero audio fault deltas. Standard automatic audio check restored with master FX bypass and 51% runtime volume.",
+  "final_main": "Module audio check",
+  "final_fx_bypassed": true,
+  "final_runtime_volume": 0.51
+}

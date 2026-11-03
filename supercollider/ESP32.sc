@@ -241,6 +241,10 @@ ESP32Stage {
 ESP32Player : EventStreamPlayer {
     var remoteStream, cancelled=true, failed=false;
     play { |argClock,doReset=false,quant|
+        // A clock/stop-era reset can leave a retained stream non-nil even
+        // though it is no longer scheduled. Clear it before super.play's
+        // "already playing" guard, and give the replay a fresh remote stream.
+        if(this.isPlaying and:{this.wasStopped}){this.stop;doReset=true};
         if(this.isPlaying.not){
             remoteStream=UniqueID.next;cancelled=false;failed=false;
             this.event[\esp32Stream]=remoteStream;
@@ -305,7 +309,7 @@ ESP32Player : EventStreamPlayer {
             reset=player.streamHasEnded or:{player.wasStopped};
         };
         playQuant=quant ? this.quant;
-        if(player.isPlaying.not){player.play(clock ? this.clock,reset,playQuant)};
+        if(player.isPlaying.not or:{player.wasStopped}){player.play(clock ? this.clock,reset,playQuant)};
         ^player
     }
 }

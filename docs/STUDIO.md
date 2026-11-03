@@ -33,7 +33,8 @@ first, then reconnect and restart them afterward.
 ## Main + FX destinations
 
 Each device has one writable **Main** patch and one writable **FX** patch.
-Main feeds FX/bypass, then the global output scale and the mono speaker sink.
+Main feeds FX/bypass, then the global output scale and the board's audio output
+(mono onboard audio on AMOLED; stereo I²S on XIAO).
 The normal UI has no numbered library. Protected FX Bypass passes Main through
 without deleting the saved FX; a factory Main remains a recovery fallback.
 Legacy sound files 2–8 remain on storage but are not selectable or writable here.
@@ -53,6 +54,22 @@ The SC extension deliberately separates saving and instantiation:
 `.sendESP32` saves silently, `.playESP32` saves and creates, and `ESP32.play`
 creates a saved definition. SC-managed definitions boot inactive. See
 [SUPERCOLLIDER.md](SUPERCOLLIDER.md); browser autoplay is not the SC API default.
+
+## Output volume
+
+After connecting, **Output volume** shows the module's confirmed level from
+0–100%. Drag for live, smoothed changes; release to save the final level across
+restarts. It scales the combined Main/FX output without recompiling, reloading
+or restarting either graph. Zero mutes the output. The slider controls only the
+currently connected module, including when Omni upload mode is selected.
+It works over USB or paired Wi-Fi, on both AMOLED and headless XIAO firmware.
+Use **Refresh** to read changes made from SC or the device's physical slider.
+
+Drag updates are coalesced, with one volume request in flight at a time; only
+the release is saved to flash. Every write names the exact module ID, and stale
+requests are rejected if Studio's selected device has changed. A missing reply
+reports an unconfirmed level rather than silently retrying a write. Existing
+firmware with `global_volume` support needs no firmware update for this control.
 
 ## First USB upload
 

@@ -25,6 +25,31 @@ Main patch. There are two screens:
   without loading. Loading Main returns to code. The footer retains its light
   CODE/CPU/PANIC area. Legacy numbered slots are hidden and inaccessible.
 
+Playback depends on the saved package type:
+
+- **Autonomous `{ ... }.play` blocks:** start on load/reboot. Touch updates X/Y
+  but does not restart or stop their audio. The subtitle says **PLAYS AUTOMATICALLY**.
+- **Managed SynthDefs:** upload and boot without constructing a voice. Touching
+  code starts an inactive instance or triggers the existing one through its
+  exposed `gate` argument, if present. Release lowers that gate; the SynthDef's
+  envelope/doneAction or natural resonator tail determines when sound ends.
+  Without a gate or self-ending envelope, the authored sound may keep running.
+  The subtitle says **TOUCH CODE TO PLAY**. SC instance and note commands remain
+  available, sharing the same monophonic instance.
+
+The managed-touch fix preserves an active voice's state and controls across
+presses, delivers a low block for retriggering, and rejects stale touch releases.
+Taking the gate with touch clears the preceding remote note's pending release;
+a later SC note or explicit gate set takes ownership back. An old finger release
+cannot end that newer remote note. Rapid same-block taps on autonomous blocks
+are ignored without silencing them. CPU usage indicates DSP activity; a gated
+Rings voice can consume CPU while its trigger is zero and its tail is silent.
+
+The managed-touch update was [physically confirmed on the AMOLED](../evidence/managed-touch-amoled-physical.json):
+four press/release pairs changed MiRings1's gate and produced a strike on each
+press according to the user, with no new audio fault counters. The autonomous
+standard listening block was restored afterward with separate master FX bypassed.
+
 The title is the active patch on Code, and the module name on Controls. Controls
 shows the permanent module ID beneath the name. A small green circle directly
 above the Wi-Fi symbol lights for 140 ms after a valid upload/control frame (USB or Wi-Fi);
@@ -135,7 +160,8 @@ percentage use the existing black background; the code screen and footer remain
 unchanged. The list starts at y=114 and is 294 pixels tall. Its scrolling cannot
 move the volume row. Dragging volume never sends notes, X/Y or library actions.
 
-The range is 0–100%, default 100%. This is a scale on the existing final output,
+The range is 0–100%, default 20% on a module without a saved volume. Existing
+saved levels are retained across firmware updates. This is a scale on the existing final output,
 after master FX and before PCM quantization. It does not change synth arguments,
 feedback levels or the codec setting. Zero keeps the DSP running silently.
 A 20 ms linear gain ramp avoids abrupt changes; stable 100% is bit-exact with the

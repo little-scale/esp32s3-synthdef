@@ -284,6 +284,35 @@ class UploadTests(unittest.TestCase):
 
 
 class HTTPTests(unittest.TestCase):
+    def test_volume_endpoint_guards_identity_bounds_and_save(self):
+        class VolumeDevice(FakeDevice):
+            percent=20
+            saved=20
+            def request(self,op,payload=b''):
+                if op in ('VOLUME','VOLSAVE'):
+                    self.calls.append((op,payload))
+                    if payload:self.percent=payload[0]
+                    if op=='VOLSAVE':self.saved=self.percent
+                    return dict(percent=self.percent)
+                return super().request(op,payload)
+        app=self.server.studio;d=VolumeDevice();auth={'X-Studio-Token':self.server.token,'Content-Type':'application/json'}
+        with app.device_lock:
+            app.device=d;app.device_info=dict(device_id='test-node',global_volume=True);app.device_port='fake'
+        try:
+            for body in ({'percent':50},{'device_id':'another-node','percent':50},
+                         *[dict(device_id='test-node',percent=x) for x in (-1,101,True,20.5,'20',None)],
+                         dict(device_id='test-node',percent=20,save='yes')):
+                self.assertIn(self.request('POST','/api/volume',body,auth)[0],(400,409))
+            self.assertEqual(d.calls,[])
+            for percent,save in ((0,False),(100,False),(37,True)):
+                status,raw,_=self.request('POST','/api/volume',dict(device_id='test-node',percent=percent,save=save),auth)
+                self.assertEqual(status,200,raw);self.assertEqual(json.loads(raw),dict(device_id='test-node',percent=percent,saved=save))
+            self.assertEqual(d.saved,37);self.assertEqual([op for op,_ in d.calls].count('VOLSAVE'),1)
+            self.assertEqual(app.state()['volume_percent'],37)
+            with self.assertRaises(Problem):app.volume_value(dict(percent=True))
+        finally:
+            with app.device_lock:app.disconnect()
+
     def test_audio_telemetry_retains_only_numeric_diagnostics(self):
         telemetry = AudioTelemetry()
         telemetry.write(b'I (1) synthdef: CPU average_x10=123 peak_x10=456\n')

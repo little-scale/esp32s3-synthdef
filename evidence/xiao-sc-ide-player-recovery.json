@@ -1,0 +1,16 @@
+{
+  "applied_before": 56,
+  "applied_after": 69,
+  "active": true,
+  "peak_s16": 2631,
+  "rejected_delta": 0,
+  "late_delta": 0,
+  "updated_extension_loaded_in_ide": true,
+  "after_reload": {
+    "applied_delta": 9,
+    "pcm_peak_s16": 2718,
+    "rejected_delta": 0,
+    "late_delta": 0
+  },
+  "user_listening_confirmed": true
+}

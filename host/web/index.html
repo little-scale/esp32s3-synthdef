@@ -45,6 +45,11 @@
       <button id="connect" class="secondary wide">Connect</button>
       <p id="device-status" class="hint" role="status">Choose USB or a paired Wi-Fi module, then connect.</p>
       <div id="connected-tools" class="connected-tools" hidden><button id="read-active" class="quiet">Read Main</button><button id="slots-refresh" class="quiet">Refresh</button><button id="panic" class="panic">Panic</button></div>
+      <div id="volume-control" class="volume-control" hidden>
+        <div class="volume-heading"><label for="volume">Output volume</label><output id="volume-value" for="volume">—</output></div>
+        <input id="volume" type="range" min="0" max="100" step="1" value="20" aria-describedby="volume-status" disabled>
+        <p id="volume-status" class="hint" role="status">Connect to adjust this module’s output.</p>
+      </div>
       <details id="wifi-setup" hidden><summary>Wi-Fi setup · this USB module</summary>
         <p id="setup-identity" class="hint"></p>
         <label for="module-name">Module name</label><input id="module-name" type="text" maxlength="31" placeholder="AMOLED-left">

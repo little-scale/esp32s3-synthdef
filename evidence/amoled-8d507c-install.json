@@ -1,0 +1,73 @@
+{
+  "device_id": "esp32-2884858d507c",
+  "build": "33f68d0b61fb7cfd7b2dd7254e13db27765608ac1b566fd70e0b329254039e9f",
+  "board": "Waveshare AMOLED 1.8 V2 (user confirmed)",
+  "first_install_bundle": true,
+  "flash_size_bytes": 16777216,
+  "pre_install_backup_bytes": 16777216,
+  "pre_install_backup_sha256": "bd2fcae058c838046aa38859008ca2df1685e8b67cc4e20aa336a65ef8bf27c0",
+  "previous_app_project": "arduino-lib-builder",
+  "default_volume_percent": 20,
+  "flash_verified": true,
+  "written_regions": [
+    "bootloader at 0x0",
+    "partition table at 0x8000",
+    "headed application at 0x10000"
+  ],
+  "full_chip_erase": false,
+  "post_restart": {
+    "device_id": "esp32-2884858d507c",
+    "model": "Waveshare AMOLED 1.8 V2",
+    "name": "AMOLED-8d507c",
+    "build": "33f68d0b61fb7cfd7b2dd7254e13db27765608ac1b566fd70e0b329254039e9f",
+    "startup_volume_percent": 20,
+    "graph_limits": {
+      "nodes": 256,
+      "signals": 512,
+      "inputs": 2048,
+      "audio_buffers": 192
+    },
+    "main": "Touch Sine",
+    "metrics": {
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "internal_free": 100155,
+      "internal_largest": 63488,
+      "psram_free": 5316636
+    },
+    "wifi": {
+      "configured": false,
+      "online": false,
+      "error": "ESP_OK"
+    }
+  },
+  "startup_verified": true,
+  "user_confirmation": {
+    "clean_standard_test": true,
+    "volume_slider_percent": 20
+  },
+  "first_handshake_required_retry": true,
+  "handshake_recovery": "Passive startup log inspection followed by successful read-only reconnect; no additional flash write required.",
+  "standard_audio_check": {
+    "saved_and_verified": true,
+    "fx_bypassed": true,
+    "main_active": true,
+    "average_cpu_max_percent": 92.2,
+    "peak_cpu_max_percent": 130.7,
+    "diagnostic_deltas": {
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0
+    }
+  },
+  "passed": true
+}

@@ -1,0 +1,217 @@
+{
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "device_id": "esp32-288485ba1e48",
+  "tests": {
+    "nodes_256_admission": {
+      "nodes": 256,
+      "signals": 255,
+      "inputs": 257,
+      "audio_buffers": 2,
+      "scalar_values": 0,
+      "signal_workspace_bytes": 512,
+      "graph_sha256": "02ca7c6229f54f7bd67ba79b07e88be6661f9b4c56a6cf648d45354b40cbb4ab"
+    },
+    "nodes_256_render": {
+      "nodes": 256,
+      "signals": 255,
+      "inputs": 258,
+      "audio_buffers": 1,
+      "scalar_values": 254,
+      "signal_workspace_bytes": 1272,
+      "graph_sha256": "537a92de3fc75ec5faad02739c3dd0d6bb6047a538d69097379a4b1773eeb2d7",
+      "peak": 0,
+      "rms": [
+        0.0,
+        0.0
+      ],
+      "average_cpu_max_percent": 41.4,
+      "peak_cpu_max_percent": 42.4,
+      "memory": {
+        "internal_free": 141055,
+        "internal_largest": 65536,
+        "psram_free": 5204128,
+        "stack_free_bytes": 12664,
+        "controls_stack_free_bytes": 2836
+      }
+    },
+    "outputs_512": {
+      "nodes": 8,
+      "signals": 512,
+      "inputs": 0,
+      "audio_buffers": 0,
+      "scalar_values": 512,
+      "signal_workspace_bytes": 2048,
+      "graph_sha256": "2ad362e4384beeef4ce108ddb3db18705dbb0eeb63af1db30a3e13d350c7b227",
+      "peak": 0,
+      "rms": [
+        0.0,
+        0.0
+      ],
+      "average_cpu_max_percent": 9.1,
+      "peak_cpu_max_percent": 10.2,
+      "memory": {
+        "internal_free": 141055,
+        "internal_largest": 65536,
+        "psram_free": 5204128,
+        "stack_free_bytes": 12664,
+        "controls_stack_free_bytes": 2836
+      }
+    },
+    "inputs_2048": {
+      "nodes": 3,
+      "signals": 2,
+      "inputs": 2048,
+      "audio_buffers": 1,
+      "scalar_values": 1,
+      "signal_workspace_bytes": 260,
+      "graph_sha256": "c1f5852a33d724c451db590d1eb1cd0080b99859831c539544a754c490dacfbd",
+      "peak": 0,
+      "rms": [
+        0.0,
+        0.0
+      ],
+      "average_cpu_max_percent": 7.2,
+      "peak_cpu_max_percent": 7.8,
+      "memory": {
+        "internal_free": 141055,
+        "internal_largest": 65536,
+        "psram_free": 5204128,
+        "stack_free_bytes": 12664,
+        "controls_stack_free_bytes": 2836
+      }
+    },
+    "live_192": {
+      "nodes": 161,
+      "signals": 255,
+      "inputs": 542,
+      "audio_buffers": 192,
+      "scalar_values": 0,
+      "signal_workspace_bytes": 49152,
+      "graph_sha256": "e76576dd7c97c2cbf0f87765d65ce00bf5c38c657968adb95e5d9c96ddf7d30a",
+      "playback_qualified": false,
+      "scope": "Memory admission only; this deliberately wide fixture can exceed the audio CPU budget."
+    },
+    "dense_16": {
+      "nodes": 45,
+      "signals": 60,
+      "inputs": 127,
+      "audio_buffers": 15,
+      "scalar_values": 0,
+      "signal_workspace_bytes": 3840,
+      "graph_sha256": "ab43c502cb3d584992a4b6d23e1e6dfa5d4cf022855e367ba7b7d70fbca04b71",
+      "peak": 3288,
+      "rms": [
+        698.8117693482214,
+        698.8550903940061
+      ],
+      "average_cpu_max_percent": 34.8,
+      "peak_cpu_max_percent": 45.1,
+      "memory": {
+        "internal_free": 141055,
+        "internal_largest": 65536,
+        "psram_free": 5204128,
+        "stack_free_bytes": 12664,
+        "controls_stack_free_bytes": 2836
+      },
+      "playback_qualified": true
+    },
+    "dense_32": {
+      "nodes": 89,
+      "signals": 120,
+      "inputs": 251,
+      "audio_buffers": 17,
+      "scalar_values": 0,
+      "signal_workspace_bytes": 4352,
+      "graph_sha256": "7c73124eda27197d0f0cec9c5ef4f13fd9abe7e520bec63c72b3a530c56da2ae",
+      "peak": 4681,
+      "rms": [
+        699.7743407569753,
+        699.7485581448884
+      ],
+      "average_cpu_max_percent": 66.0,
+      "peak_cpu_max_percent": 79.5,
+      "memory": {
+        "internal_free": 141055,
+        "internal_largest": 65536,
+        "psram_free": 5204128,
+        "stack_free_bytes": 12664,
+        "controls_stack_free_bytes": 2836
+      },
+      "playback_qualified": true
+    },
+    "dense_48": {
+      "nodes": 131,
+      "signals": 178,
+      "inputs": 373,
+      "audio_buffers": 19,
+      "scalar_values": 0,
+      "signal_workspace_bytes": 4864,
+      "graph_sha256": "caff77fc7e2ff2735f882c754c7cd65f33ad3ce363dece553482ed199a8aaa3c",
+      "playback_qualified": false,
+      "scope": "Playback skipped: lower-density measurement projects beyond the 70% test budget."
+    },
+    "dense_64": {
+      "nodes": 173,
+      "signals": 236,
+      "inputs": 495,
+      "audio_buffers": 21,
+      "scalar_values": 0,
+      "signal_workspace_bytes": 5376,
+      "graph_sha256": "99b7dc436c34d43179162ff042dec5ce45c5cbcbc6ba27b196d52bb46498ac0c",
+      "playback_qualified": false,
+      "scope": "Playback skipped: lower-density measurement projects beyond the 70% test budget."
+    },
+    "expanded_modulation": {
+      "nodes": 193,
+      "signals": 200,
+      "inputs": 411,
+      "audio_buffers": 11,
+      "scalar_values": 168,
+      "signal_workspace_bytes": 3488,
+      "graph_sha256": "63f5b2ba93af91e91eb930bf42c08acc6d185ec0601a9a2e7feafa01c05c8c71",
+      "peak": 1829,
+      "rms": [
+        520.2427594865554,
+        519.993348814955
+      ],
+      "average_cpu_max_percent": 44.6,
+      "peak_cpu_max_percent": 52.6,
+      "memory": {
+        "internal_free": 141055,
+        "internal_largest": 65536,
+        "psram_free": 5204128,
+        "stack_free_bytes": 12664,
+        "controls_stack_free_bytes": 2836
+      }
+    },
+    "main_fx": {
+      "frequencies_hz": [
+        660.0,
+        330.0
+      ],
+      "peak": 393,
+      "rms": [
+        278.031711840782,
+        278.03238086103613
+      ],
+      "panic_silence": true
+    }
+  },
+  "diagnostic_deltas": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "restored": {
+    "main_package_verified": true,
+    "fx_package_verified": true,
+    "fx_selected": 0,
+    "volume": 1.0,
+    "instances_restored": true
+  },
+  "passed": true
+}

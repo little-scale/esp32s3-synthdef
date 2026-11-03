@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "hardware": false,
+  "graph_sha256": "a247230924826fbaa46198558cc0c324ef4469c1cd5fede76492dd280c3ee8a8",
+  "blocks": 512,
+  "reference": {
+    "loaded": true,
+    "prepared": true,
+    "nodes": 173,
+    "outputs": 236,
+    "inputs": 495,
+    "scratch_bytes": 131072,
+    "trace_sha256": "09e02e0c7e8a1c2e15f5cac089447ea52974f67606c30a28f4c9b72b10db3aa1"
+  },
+  "planned": {
+    "loaded": true,
+    "prepared": true,
+    "nodes": 173,
+    "outputs": 236,
+    "inputs": 495,
+    "scratch_bytes": 51200,
+    "audio_buffers": 21,
+    "scalar_values": 0,
+    "used_sample_bytes": 5376,
+    "trace_sha256": "09e02e0c7e8a1c2e15f5cac089447ea52974f67606c30a28f4c9b72b10db3aa1"
+  }
+}

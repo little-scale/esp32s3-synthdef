@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "native_supercollider": true,
+  "hardware": false,
+  "stale_state_regression": {
+    "before_fix": "Failed: stale named player did not receive a fresh stream",
+    "after_fix": "Passed: named and cached players restart with fresh remote streams; already-live replay remains single",
+    "scope": "Injects the exact retained stream and stale stop-era fields observed in the IDE; does not claim to reproduce every cause of that state."
+  },
+  "related_tests": {
+    "count": 4,
+    "passed": true,
+    "scope": [
+      "stale named and cached players",
+      "failed runs and late replies",
+      "CmdPeriod pending jobs/reconnect",
+      "failed send/cancel and old connection callbacks"
+    ]
+  },
+  "lifecycle_suite": {
+    "passed": true,
+    "scope": "Actual sclang, two emulated HTTP modules, deployment/defaults, Pbindef edits/reuse, note/set routes, stop and CmdPeriod"
+  },
+  "physical_recovery": "evidence/xiao-sc-ide-player-recovery.json"
+}

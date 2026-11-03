@@ -5,10 +5,11 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from signal_buffers import prepare as prepare_signals
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'upstream/fm1-synthdef/synthdef-engine/src'
 LIMITS={'FM_NODES':(160,24),'FM_OUTPUTS':(192,32),'FM_INPUTS':(1024,256),'FM_DELAY_LIMIT':('65536u','262144u')}
-PROFILES={'compact':LIMITS,'fm1':{**LIMITS,'FM_NODES':(160,160),'FM_OUTPUTS':(192,192),'FM_INPUTS':(1024,1024)}}
+PROFILES={'compact':LIMITS,'fm1':{**LIMITS,'FM_NODES':(160,256),'FM_OUTPUTS':(192,512),'FM_INPUTS':(1024,2048)}}
 
 def profile_renderer(render, delay):
     """Separate diagnostic translation unit: zero timing overhead in normal DSP."""
@@ -40,7 +41,7 @@ static __attribute__((noinline)) void ugen_end(unsigned i){
     assert render.count(loop)==1
     return prefix+render.replace(loop,'for(ni=0;ni<g->nodes && !v->fault;ugen_end(ni),ni++) {\n  ugen_begin();')
 
-def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True):
+def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True):
     output.mkdir(parents=True,exist_ok=True)
     source=(SOURCE/'fm_synth.h').read_text();header=source
     limits=PROFILES[profile]
@@ -192,13 +193,25 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         bandlimited=bandlimited.replace(before,'''/* Avoid software division in the sample loop. A one-sample pass
    * has j == 0, so it also produces the original zero fraction. */
   float out,blip,t=(float)j*(1.0f/FM_BLOCK);''')
+    files={path.name:path.read_text() for path in SOURCE.iterdir() if path.suffix in ('.c','.h','.inc')}
+    files.update({'fm_render.c':render,'fm_delay.inc':delay,'fm_gendy.inc':gendy,'fm_rings.inc':rings,
+                  'fm_fast.inc':fast,'fm_extensions.inc':extensions,'fm_miverb.inc':miverb,'fm_bandlimited.inc':bandlimited})
+    if reuse_buffers:
+        header,load,files=prepare_signals(header,load,files,min(int(limits['FM_OUTPUTS'][1]),192))
+    render=files['fm_render.c'];delay=files['fm_delay.inc']
+    gendy=files['fm_gendy.inc'];rings=files['fm_rings.inc'];fast=files['fm_fast.inc']
+    extensions=files['fm_extensions.inc'];miverb=files['fm_miverb.inc'];bandlimited=files['fm_bandlimited.inc']
     for path in SOURCE.iterdir():
         if path.suffix not in ('.c','.h','.inc'):continue
-        data=header.encode() if path.name=='fm_synth.h' else load.encode() if path.name=='fm_load.c' else render.encode() if path.name=='fm_render.c' else delay.encode() if path.name=='fm_delay.inc' else gendy.encode() if path.name=='fm_gendy.inc' else rings.encode() if path.name=='fm_rings.inc' else fast.encode() if path.name=='fm_fast.inc' else extensions.encode() if path.name=='fm_extensions.inc' else miverb.encode() if path.name=='fm_miverb.inc' else bandlimited.encode() if path.name=='fm_bandlimited.inc' else path.read_bytes()
+        data=header.encode() if path.name=='fm_synth.h' else load.encode() if path.name=='fm_load.c' else files[path.name].encode()
         destination=output/path.name
         if not destination.exists() or destination.read_bytes()!=data:destination.write_bytes(data)
     (output/'fm_profile_render.inc').write_text(profile_renderer(render,delay))
     manifest={'profile':profile,'changes':{name:{'upstream':old,'target':new} for name,(old,new) in limits.items()},
+              'signal_reuse':reuse_buffers,
+              'signal_planner_sha256':hashlib.sha256((ROOT/'host/signal_buffers.py').read_bytes()).hexdigest(),
+              'audio_buffers_max':min(int(limits['FM_OUTPUTS'][1]),192) if reuse_buffers else int(limits['FM_OUTPUTS'][1]),
+              'signal_storage':'Loader-planned conservative audio lifetimes, independent scalar values; persistent logical IDs unchanged.' if reuse_buffers else 'Dedicated full vector for every logical output; comparison oracle.',
               'upstream_header_sha256':hashlib.sha256(source.encode()).hexdigest(),
               'target_header_sha256':hashlib.sha256(header.encode()).hexdigest(),
               'control_bus_extension':'32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.',

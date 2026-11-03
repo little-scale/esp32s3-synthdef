@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "default_percent": 20,
+  "checks": [
+    "20% initial mono/stereo scaling",
+    "100% mono bit-exactness",
+    "stereo separation",
+    "smooth volume ramps and interruption",
+    "saturation and nonfinite handling",
+    "10 qualification-helper/allocator unit tests"
+  ],
+  "details": "PASS: mono output stays bit-exact; stereo preserves channel separation; both formats ramp smoothly, saturate and protect nonfinite output.",
+  "source_sha256": "82181c5a207dc20844b88c4a1ec734f1dd5983e07e7a3c504d265245c83fa407"
+}

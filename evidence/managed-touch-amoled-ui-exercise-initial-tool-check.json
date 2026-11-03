@@ -1,0 +1,13 @@
+{
+  "device_id": "esp32-2884853ad390",
+  "physical_touch_tested": false,
+  "scope": "Onboard UI exercise posts normal local note events; numeric PCM/output counters, no physical finger simulation",
+  "build": "b29f4796f4c67816a97e1beb60f488aa23db76f74212ee0666ba430ce1ba053e",
+  "error": "'name'",
+  "restored": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.26,
+    "instances_restored": true
+  }
+}

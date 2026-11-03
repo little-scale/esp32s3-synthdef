@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "hardware": false,
+  "checks": {
+    "managed_touch_and_remote_notes": "PASS: managed touch starts/retriggers/releases without resetting a live voice, preserves controls, handles Panic and quick taps, and transfers gate ownership between touch and SC notes/sets.\nPASS: delta/full PCM identity with interleaved future events, trigger replay, field removal, baseline recovery, queue rollback and stage invalidation; definition silence, explicit instance creation/free and stale creation rejection; atomic controls, scheduling, release ownership, cancellation, revisions, Panic and queue bounds; 300 rendered EnvGen retriggers; state=24968 bytes, snapshot=512 bytes",
+    "autonomous_block_and_same_block_taps": ".\n----------------------------------------------------------------------\nRan 1 test in 3.093s\n\nOK",
+    "legacy_voice_graphs": 1445,
+    "control_buses_reference": true,
+    "ui_pool_and_qualification_helpers": "10 unit tests passed",
+    "studio_browser": "Main/FX drafts, recipient selection, bypass and connected USB port selection passed"
+  },
+  "source_sha256": {
+    "firmware/components/instrument/instrument.c": "67fab435bcaff1ba2d0c2c708bc0cbc5540df44e20a0b3e51b50e2ab27567bf4",
+    "firmware/components/instrument/include/instrument.h": "b194db53e4575f477d9f2321cb6940a30e18f02796aebaf532a88ae662d25a18",
+    "firmware/components/instrument/remote_control.c": "7163e0c4f0df541ec69e8d54412258b22fd379f9d75818eb3b4f48f9e7e2b5f2",
+    "firmware/main/main.c": "587141a4eec13ff6dbbd4a6a35bb37c11b8d52f4ad60a42de26e0f798be30ee9"
+  }
+}

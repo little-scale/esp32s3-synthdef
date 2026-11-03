@@ -19,10 +19,10 @@ class Element {
   }
   const get=id=>{assert(elements.has(id),'Missing HTML element '+id);return elements.get(id);};
   const entries=[1,2].map(i=>({device_id:'esp32-'+String(i).padStart(12,'0'),device_name:'Node '+i,address:'192.168.0.'+i,paired:true,online:true,port:80}));
-  let state={connected:true,port:entries[0].address,hello:{...entries[0],wifi_upload:true,policy:'fm1-compat-v1'},
+  let state={connected:true,volume_percent:20,port:entries[0].address,hello:{...entries[0],wifi_upload:true,global_volume:true,policy:'fm1-compat-v1'},
     connection:{transport:'wifi'},status:{slot:1,continuous:true},slots:[{slot:0,name:'Factory'},{slot:1,name:'Main'}],
     masters:[{slot:0,name:'Bypass',selected:true},{slot:1,name:'FX',selected:false}]};
-  let calls=[],failRefresh=false,partial=false;
+  let calls=[],failRefresh=false,partial=false,holdVolume=null,failVolume=false;
   const storage=new Map([['synthdef-studio-source','{ SinOsc.ar(123) }.play']]);
   const context={TextEncoder,Event:class{constructor(type){this.type=type;}},setTimeout,clearTimeout,
     document:{getElementById:get,createElement:tag=>new Element(tag)},
@@ -31,7 +31,7 @@ class Element {
     fetch:async(path,options={})=>{
       const body=options.body?JSON.parse(options.body):null;calls.push({path,body});let result;
       switch(path){
-        case '/api/config':result={ports:[],serial_ready:true,compiler_ready:true,connected:false,paired_devices:entries,example:'{0}.play',master_example:'{In.ar(0,2)}.play'};break;
+        case '/api/config':result={ports:[{port:'/dev/cu.usbmodem101',name:'XIAO'},{port:'/dev/cu.usbmodem1101',name:'AMOLED'}],serial_ready:true,compiler_ready:true,connected:false,paired_devices:entries,example:'{0}.play',master_example:'{In.ar(0,2)}.play'};break;
         case '/api/network/scan':result={devices:entries};break;
         case '/api/network/broadcast-prepare':result={plan:'reviewed',target:body.target,recipients:entries.map(row=>({...row,ready:true,expected:{slot:1,name:'Existing'}}))};break;
         case '/api/compile':result={artifact:'compiled-once',name:'Main',admitted:true,input_kind:'sound_block',target:body.target,nodes:1,graph_bytes:100,source_bytes:100,delay_samples:0,ugens:['SinOsc'],controls:[],compiler_log:''};break;
@@ -40,6 +40,10 @@ class Element {
         case '/api/refresh':if(failRefresh)return {ok:false,json:async()=>({error:'Disconnected'})};result=state;break;
         case '/api/master-load':state.masters.forEach(row=>row.selected=row.slot===body.slot);result=state;break;
         case '/api/main-load':result=state;break;
+        case '/api/volume':
+          if(holdVolume)await holdVolume;
+          if(failVolume)return {ok:false,json:async()=>({error:'Volume link failed'})};
+          result={device_id:body.device_id,percent:body.percent,saved:body.save};break;
         default:throw Error('Unexpected API request '+path);
       }
       return {ok:true,json:async()=>result};
@@ -66,5 +70,42 @@ class Element {
   // A selected-node refresh failure must not hide the per-node broadcast report.
   get('wifi-mode').value='omni';await event('wifi-mode','change');await event('broadcast-review');partial=true;failRefresh=true;
   await event('upload');assert.match(get('message').textContent,/Node 1.*saved and verified/);assert.match(get('message').textContent,/Node 2.*Node unreachable/);assert.match(get('message').textContent,/Connection refresh: Disconnected/);
-  console.log('PASS: Main/FX drafts, Wi-Fi Omni without a single connection, one compilation, recipient review, per-node failures, bypass and Main restart.');
+  // A connection made by the host must select its actual USB port, even when
+  // another board is first in the dropdown or the port list is refreshed.
+  failRefresh=false;state={...state,port:'/dev/cu.usbmodem1101',connection:{transport:'usb'}};
+  get('port').value='/dev/cu.usbmodem101';await event('slots-refresh');
+  assert.equal(get('port').value,'/dev/cu.usbmodem1101');
+  get('port').value='/dev/cu.usbmodem101';await event('ports-refresh');
+  assert.equal(get('port').value,'/dev/cu.usbmodem1101');
+  assert.equal(get('volume-value').textContent,'20%');assert.equal(get('volume').disabled,false);
+  const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+  const volumeCalls=()=>calls.filter(row=>row.path==='/api/volume');
+  // Rapid pointer movement sends only the latest level, then saves on release.
+  for(const level of [0,10,25,37]){get('volume').value=String(level);await event('volume','input');}
+  await event('volume','change');await delay(160);
+  assert.equal(volumeCalls().length,1);assert.equal(volumeCalls()[0].body.percent,37);assert.equal(volumeCalls()[0].body.save,true);
+  assert.equal(get('volume-value').textContent,'37%');assert.match(get('volume-status').textContent,/Saved/);
+  // Keep one request in flight; new inputs collapse into one final saved level.
+  let release;holdVolume=new Promise(resolve=>{release=resolve;});
+  get('volume').value='0';await event('volume','change');await delay(20);
+  for(const level of [60,75,100]){get('volume').value=String(level);await event('volume','input');}
+  await event('volume','change');assert.equal(volumeCalls().length,2);
+  holdVolume=null;release();await delay(250);
+  assert.equal(volumeCalls().length,3);assert.equal(volumeCalls()[2].body.percent,100);assert.equal(volumeCalls()[2].body.save,true);
+  assert.equal(get('volume-value').textContent,'100%');assert.equal(get('volume').disabled,false);
+  failVolume=true;get('volume').value='15';await event('volume','change');await delay(30);
+  assert.equal(get('volume-value').textContent,'100%');assert.match(get('volume-status').textContent,/not confirmed/);assert.match(get('message').textContent,/Volume link failed/);failVolume=false;
+  // An old response cannot overwrite a different module selected by the host.
+  holdVolume=new Promise(resolve=>{release=resolve;});get('volume').value='30';await event('volume','change');await delay(20);
+  context.nextState={...state,volume_percent:42,hello:{...state.hello,...entries[1]}};
+  vm.runInContext('renderDevice(nextState)',context);
+  get('volume').value='45';await event('volume','change');holdVolume=null;release();await delay(150);
+  assert.equal(volumeCalls().at(-1).body.device_id,entries[1].device_id);assert.equal(get('volume-value').textContent,'45%');
+  // Pending gestures are discarded on disconnect; unsupported firmware hides it.
+  const count=volumeCalls().length;get('volume').value='55';await event('volume','input');
+  vm.runInContext('renderDevice(null)',context);await delay(150);assert.equal(volumeCalls().length,count);assert.equal(get('volume').disabled,true);
+  context.nextState={...state,hello:{...state.hello,global_volume:false}};vm.runInContext('renderDevice(nextState)',context);
+  assert.equal(get('volume-control').hidden,true);
+  console.log('PASS: Main/FX drafts, Wi-Fi Omni without a single connection, one compilation, recipient review, per-node failures, bypass, Main restart and connected USB port selection.');
+  console.log('PASS: module volume, rapid gesture coalescing, in-flight changes, release save, mute/full level, failed replies, target changes and disconnect.');
 })().catch(error=>{console.error(error);process.exitCode=1;});

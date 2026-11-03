@@ -7,11 +7,20 @@ The initial physical target has 8 MB flash and 8 MB octal PSRAM.
 
 ## What is working
 
+The standard commissioning Main is the autonomous
+[module audio check](../examples/module-audio-check.scd), at 20% output volume
+with the separate FX slot bypassed. It plays without BOOT, touch or host input
+and starts again on reboot. The older **Standalone BOOT** example is an optional
+GPIO demonstration, not the standard headless listening setup. Firmware-only
+updates preserve the saved Main; commissioning explicitly installs this block.
+
 - USB upload with saved graph/source readback; Main and FX survive restart.
 - SuperCollider Function/SynthDef deployment, aliases, sets and scheduled notes
   through Studio's existing USB connection. Wi-Fi pairing is not required for USB.
 - Stereo, 44.1 kHz, signed 16-bit Philips I²S, with six 128-frame DMA buffers.
 - Separate left/right output, final volume ramp, FX routing and bypass.
+- Studio's **Output volume** slider controls this module over USB or Wi-Fi;
+  releasing it saves the level for reboot, without replacing Main or FX.
 - Up to one second of actual post-volume PCM capture, downloadable as stereo WAV.
 - Onboard activity LED on GPIO21, active low; queries do not flash it.
 - BOOT button on control bus 10, debounced outside the audio task.
@@ -26,6 +35,14 @@ peak; this measures the audio task with Wi-Fi unconfigured, not whole-chip load.
 These verify rendering and the buffers copied to the I²S driver. No external DAC,
 logic analyser or physical audio output was connected. Wi-Fi firmware support is
 included, but real-network operation on this XIAO has not yet been tested.
+
+On 3 November 2026, with the supplied antenna attached, the expanded signal-reuse
+build [successfully scanned 10 nearby networks](../evidence/signal-reuse-xiao-wifi-scan.json).
+No Wi-Fi credentials were configured and no association or network upload was
+tested. After the scan, internal free RAM was 99,115 bytes, with a 63,488-byte
+largest free block; all audio fault counters remained zero while the restored
+BOOT patch was idle. This is radio startup/scan evidence, not loaded-network DSP
+qualification.
 
 ## DSP qualification without external audio hardware
 
@@ -70,6 +87,31 @@ unrelated patch introduced by another session. Backups remain available if the
 USB connection is interrupted. Control metadata is prepared after each upload,
 as it is when starting a new SuperCollider pattern.
 
+## Checking SuperCollider control
+
+Target the XIAO's own ID, name or alias; AMOLED IDs in an older example still
+target those AMOLED modules. For the tested XIAO:
+
+```supercollider
+ESP32.set("esp32-288485ba1e48", \freq, 440);
+ESP32.info("XIAO-ba1e48").onDone(_.postln);
+```
+
+Use `\esp32Set` patterns for an already running autonomous sound with no `gate`
+control. `\esp32Note` requires a writable control-rate `gate` and handles the
+note's gate-on/release, including creating an inactive saved definition. For an
+ADSR definition saved with `.sendESP32`, explicit
+`ESP32.play("XIAO-ba1e48", [\freq, 440, \gate, 1])` creates and opens the gate;
+`ESP32.set("XIAO-ba1e48", \gate, 0)` releases it. A parameter update alone does
+not create an inactive definition. Saved definitions boot inactive by design.
+
+Check **Bypass FX** when Main already contains an expensive reverb. Separate FX
+can add enough load to overrun audio even though uploads and control messages
+still succeed. On this XIAO, the eight-saw/MiVerb Main plus a second master FX
+reached about 135% audio load and accumulated DMA overruns; bypassing the master
+reduced the observed Main load to about 92%. These are workload observations,
+not a general headless/AMOLED performance comparison.
+
 ## I²S wiring
 
 | Signal | XIAO label | ESP32 GPIO |
@@ -85,6 +127,103 @@ Power wiring and analogue output still depend on the eventual DAC board.
 GPIO assignments are build settings: `SYNTHDEF_I2S_BCLK`, `SYNTHDEF_I2S_WS`,
 `SYNTHDEF_I2S_DOUT`. USB GPIO19/20 are left available for native USB.
 Pin aliases follow the [Espressif XIAO variant definition](https://github.com/espressif/arduino-esp32/blob/master/variants/XIAO_ESP32S3/pins_arduino.h).
+
+### Temporary PCM5102A test DAC
+
+Project decision, 3 November 2026: the temporary PCM5102A breakout is now wired
+and has passed a basic stereo listening test. The final I²S solution will change.
+The user confirmed clean left-only 440 Hz, right-only 660 Hz and simultaneous
+stereo tones. Internal PCM matched both pitches and channel separation, with
+zero audio fault-counter increases; Panic produced silent PCM. The test used
+25% module volume and a 0.1-amplitude sine per enabled channel. Original saved
+Main and settings were restored. See [the listening record](../evidence/xiao-pcm5102a-listening.json).
+Analogue level, noise/distortion and clock accuracy remain unmeasured; this is
+user listening confirmation, not instrumented DAC qualification.
+
+A subsequent [Comb Cloud KR + separate MiVerb listening test](../evidence/xiao-pcm5102a-cloud.json)
+also passed: eight seconds dry, then 24 seconds with MiVerb at 35% wet and six
+frequency changes. The user confirmed clean sound including the effect tail
+after Main stopped. Maximum sampled average audio load was 33.6% dry and 70.0%
+with FX. The first second after starting FX included a 126.3% peak window; that
+individual-block timing exceeds the nominal block period, even though buffering
+allowed playback without reported DMA overruns or write failures. There were
+no new clipping, nonfinite, queue-overflow or DSP fault counts, and sampled free
+memory remained constant. Panic produced silent PCM; original Main/FX packages,
+bypass, volume and instance activity were restored. Wi-Fi remained unconfigured.
+
+The [initial attempt](../evidence/xiao-pcm5102a-cloud-startup-guard.json) stopped
+on a conservative 95% CPU peak guard. At the user's request, the repeat logged
+brief timing peaks without stopping on percentage alone, while still checking
+actual audio faults. This qualifies the heard fixture, not arbitrary workloads
+or strict per-block deadline compliance.
+
+The existing XIAO adapter already sends 44.1 kHz stereo, 16-bit Philips I²S,
+with 16-bit slots (32 BCLK cycles per stereo frame). Its nominal BCLK is
+1.4112 MHz. The PCM5102A supports this format and BCLK-derived internal clock,
+so no firmware format change or external MCLK is needed. See the
+[TI datasheet](https://www.ti.com/lit/ds/symlink/pcm5102a.pdf), sections 7 and
+9.3.5.3 / Table 11.
+
+| XIAO connection | PCM5102A breakout signal |
+| --- | --- |
+| D8 / GPIO7 | BCK / BCLK |
+| D9 / GPIO8 | RCK on this unit; also labelled LCK / LRCK / WS |
+| D10 / GPIO9 | DIN |
+| GND | GND |
+
+For three-wire operation, verify the breakout holds SCK at ground. Select
+I²S with FMT low, disable de-emphasis with DEMP low, and ensure XSMT (sometimes
+labelled XMT) is high for playback. Check the board's existing straps before
+adding connections. Confirm its exact power input from its documentation:
+a breakout's VIN and regulator are board-specific, and must not be inferred
+from the chip supply rating. Connect line outputs to an amplifier, mixer or
+audio-interface line input; these are not speaker outputs.
+
+The later bench check should start at low module and listening levels, confirm
+left/right independently, then test volume, Panic, FX bypass and reboot/patch
+changes for glitches. Compare recorded analogue output against USB PCM capture.
+Keep the DAC-specific power, straps and any future mute/control support within
+the board adapter. The DSP, SynthDef format and network API remain independent
+of the chosen converter; GPIO settings already support changing its wiring.
+
+The user's supplied purple GY module photo and `pcm5102a_dac_schematic.pdf`
+(macsbug, 2021-02-19) identify the actual test breakout. Its schematic specifies
+5 V VIN feeding separate onboard analogue/digital 3.3 V regulators. For this
+module, with the XIAO powered by USB, connect XIAO 5V to DAC VIN, GND to GND,
+D8/GPIO7 to BCK, D9/GPIO8 to RCK (LRCK), and D10/GPIO9 to DIN. Ground DAC SCK using
+a short wire to DAC GND, or the component-side SCK-to-ground solder jumper
+shown in the supplied PDF. No XIAO MCLK signal is needed. Leave A3V3 and the
+FLT/DEMP/XSMT/FMT header pins unconnected when using the configuration jumpers.
+
+Required electrical settings for the three-pad selectors:
+
+| Selector | Position in user's photo | Bridge | Function |
+| --- | --- | --- | --- |
+| H1L | Upper left | Centre to verified ground outer pad | FLT low: normal-latency filter |
+| H2L | Lower left | Centre to verified ground outer pad | DEMP low: de-emphasis off |
+| H3L | Upper right | Centre to verified 3.3 V outer pad | XSMT high: unmuted |
+| H4L | Lower right | Centre to verified ground outer pad | FMT low: Philips I²S |
+
+Correction, 3 November 2026: previous top/bottom pad instructions were too
+confident. With the digital header at the top in both images, the PDF example
+shows upper/centre bridges for H1/H2/H4 and a lower/centre bridge for H3; its H/L
+lettering is reversed relative to the user's actual board photo. Do not infer
+this unit's rail assignments from the PDF's physical bridge positions or silk
+alone. With all power disconnected and temporary configuration wires removed,
+measure each outer pad to GND. The ground outer pad should read approximately
+zero ohms; the other outer pad is the high selection in the documented selector
+topology. If both or neither outer pad reads as ground, resolve the wiring before
+soldering. Select ground for H1/H2/H4 and the 3.3 V side for H3.
+
+The PDF lists those electrical states as purchase defaults, but the user reported
+all selectors open before rework on this unit. Retain a correct existing bridge if present;
+remove an opposite-side bridge before changing sides. Never bridge all three
+pads, since that connects the supply to ground. Use the jack or LROUT/ROUT plus
+AGND for line-level audio. A [first listening test](../evidence/xiao-pcm5102a-first-listening.json)
+produced no audible output despite correct internal PCM. After the jumper-setting
+discussion and reconnection, the repeat test produced clean sound on both
+channels according to the user. The final physical solder/wire arrangement was
+not independently inspected or measured.
 
 ## Build and flash
 

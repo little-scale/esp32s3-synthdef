@@ -9,6 +9,60 @@ static fm_graph g;static fm_voice voice;static fm_scratch scratch;static instrum
 static fm_graph fx_graph;static fm_voice fx_voice;static master_delay fx;
 static int index_of(const char *name){for(unsigned i=0;i<g.names;++i)if(!strcmp(g.control_name[i].name,name))return g.control_name[i].index;return -1;}
 static rc_event message(unsigned stream,unsigned sequence,unsigned kind,uint64_t at){rc_event e={0};e.boot=rc.boot;e.revision=rc.stage[0].revision;e.stream=stream;e.sequence=sequence;e.kind=kind;e.at=at;e.duration=20000;return e;}
+static void test_managed_touch(void)
+{
+    int freq=index_of("freq"),gate=index_of("gate"),amp=index_of("amp");
+    unsigned env=0;while(env<g.nodes && g.node[env].type!=FM_EnvGen)++env;assert(env<g.nodes);
+    float output[FM_BLOCK*2];
+    assert(instrument_init_definition(&synth,&g,&voice,&scratch,NULL,0,44100,1));
+    assert(synth.managed_definition && !voice.active); /* gate default is 1. */
+    voice.control[freq]=666;voice.control[amp]=.2f;
+    inst_event on={INST_NOTE_ON,20,0},off={INST_NOTE_OFF,20,0};
+    assert(instrument_apply(&synth,&on) && voice.active && voice.control[gate]==1);
+    assert(voice.control[freq]==666 && voice.control[amp]==.2f);
+    double energy=0;
+    for(unsigned b=0;b<30;++b){instrument_render_stereo(&synth,output);for(unsigned i=0;i<FM_BLOCK*2;++i)energy+=fabsf(output[i]);}
+    assert(energy>1 && voice.state[env].env.previous_gate==1);
+    unsigned blocks=voice.blocks;on.note_id=21;assert(instrument_apply(&synth,&on));
+    assert(instrument_apply(&synth,&off) && voice.control[gate]==1); /* stale finger release */
+    instrument_render_stereo(&synth,output);assert(voice.state[env].env.previous_gate==0);
+    instrument_render_stereo(&synth,output);assert(voice.state[env].env.previous_gate==1 && voice.blocks==blocks+2);
+    off.note_id=21;assert(instrument_apply(&synth,&off) && voice.control[gate]==0 && synth.buses[2]==0);
+    for(unsigned b=0;b<200;++b)instrument_render_stereo(&synth,output);
+    assert(!voice.active);on.note_id=22;assert(instrument_apply(&synth,&on) && voice.active && voice.control[freq]==666);
+    instrument_panic(&synth);instrument_render_stereo(&synth,output);
+    for(unsigned i=0;i<FM_BLOCK*2;++i)assert(output[i]==0);
+
+    assert(instrument_init_definition(&synth,&g,&voice,&scratch,NULL,0,44100,1));
+    rc_init(&rc,910);rc_bind(&rc,0,&g,&voice);
+    rc_event e=message(50,1,1,0);assert(rc_enqueue(&rc,&e,1000));rc_tick(&rc,&synth,1000);
+    instrument_render_stereo(&synth,output);assert(voice.control[gate]==1);
+    on.note_id=30;assert(instrument_apply(&synth,&on));rc_tick(&rc,&synth,1500);
+    assert(!rc.stage[0].owner && !rc.stage[0].release);
+    instrument_render_stereo(&synth,output);instrument_render_stereo(&synth,output);
+    e=message(50,2,2,0);assert(rc_enqueue(&rc,&e,50000));rc_tick(&rc,&synth,50000);
+    assert(voice.control[gate]==1); /* Old SC cancellation/release cannot cut touch. */
+    e=message(51,1,1,60000);assert(rc_enqueue(&rc,&e,50000));rc_tick(&rc,&synth,60000);
+    assert(!synth.note_id && voice.control[gate]==0);instrument_render_stereo(&synth,output);
+    off.note_id=30;assert(instrument_apply(&synth,&off) && synth.buses[2]==0);
+    rc_tick(&rc,&synth,61500);instrument_render_stereo(&synth,output);
+    assert(voice.control[gate]==1 && voice.state[env].env.previous_gate==1);
+    rc_tick(&rc,&synth,80000);assert(voice.control[gate]==0);
+    on.note_id=40;assert(instrument_apply(&synth,&on));rc_tick(&rc,&synth,81000);
+    instrument_render_stereo(&synth,output);instrument_render_stereo(&synth,output);
+    e=message(52,1,0,0);e.count=1;e.index[0]=gate;e.value[0]=.5f;
+    assert(rc_enqueue(&rc,&e,82000));rc_tick(&rc,&synth,82000);
+    off.note_id=40;assert(instrument_apply(&synth,&off));instrument_render_stereo(&synth,output);
+    assert(voice.control[gate]==.5f && synth.buses[2]==0); /* explicit SC set owns gate */
+
+    assert(instrument_init_definition(&synth,&g,&voice,&scratch,NULL,0,44100,1));
+    inst_event tap[]={{INST_NOTE_ON,41,0},{INST_NOTE_OFF,41,0}};
+    instrument_apply_batch(&synth,tap,2);assert(!voice.active && !synth.held);
+    synth.defer_note_render=1;on.note_id=42;off.note_id=42;
+    assert(instrument_apply(&synth,&on) && voice.active);
+    assert(instrument_apply(&synth,&off) && !voice.active); /* release before deferred first block */
+    puts("PASS: managed touch starts/retriggers/releases without resetting a live voice, preserves controls, handles Panic and quick taps, and transfers gate ownership between touch and SC notes/sets.");
+}
 static void test_deltas(void)
 {
     static remote_control reduced;static instrument other;static fm_voice other_voice;static fm_scratch other_scratch;
@@ -126,6 +180,7 @@ int main(int argc,char **argv){
     e=message(40,2,1,100000);assert(rc_enqueue(&rc,&e,0));
     e=message(40,3,0,0);assert(rc_instance(&rc,&synth,NULL,0,&e));assert(!voice.active && !voice.prepared && !rc.count);
     assert(rc_snapshot(&rc,0,0,&status));assert(!status.active && !status.prepared);
+    test_managed_touch();
     f=fopen(argv[2],"rb");assert(f);size=fread(data,1,sizeof data,f);fclose(f);assert(fm_load(&fx_graph,data,size,error,sizeof error));
     assert(master_effect_define(&fx,&fx_graph,&fx_voice,NULL,0,44100,&scratch));assert(!fx_voice.active && !fx_voice.prepared);
     rc_bind(&rc,1,&fx_graph,&fx_voice);float input[FM_BLOCK*2];for(unsigned i=0;i<FM_BLOCK*2;++i)input[i]=1;

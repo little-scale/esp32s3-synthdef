@@ -1,0 +1,30 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "graph_limits": {
+    "nodes": 256,
+    "signals": 512,
+    "inputs": 2048,
+    "audio_buffers": 192
+  },
+  "main_package_preserved": true,
+  "fx_package_preserved": true,
+  "main_active": true,
+  "fx_bypassed": true,
+  "volume": 1.0,
+  "diagnostics": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "internal_free": 141451,
+    "internal_largest": 65536,
+    "psram_free": 5204128
+  },
+  "passed": true,
+  "released_button_silence": true,
+  "capture_frames": 8820
+}

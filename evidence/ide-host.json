@@ -4,10 +4,10 @@
   "native_supercollider": true,
   "modules": 2,
   "events": [
-    44,
-    14
+    42,
+    16
   ],
-  "max_native_packet_bytes": 8276,
+  "max_native_packet_bytes": 8268,
   "largest_source_bytes": 65485,
   "source_preserved": true,
   "literal_synthdef_bytes_preserved": true,

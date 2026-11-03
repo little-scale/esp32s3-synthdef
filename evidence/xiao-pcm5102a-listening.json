@@ -1,0 +1,64 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "scope": "Internal PCM numerically verified; analogue stereo output confirmed by user listening. No electrical waveform, noise, distortion or full-scale measurement.",
+  "listening": "User confirmed both channels clean after the repeated left/right/stereo test",
+  "tests": {
+    "left_440": {
+      "peak": 619,
+      "rms": [
+        437.4804701050734,
+        0.0
+      ],
+      "frequencies_hz": [
+        440.0,
+        null
+      ]
+    },
+    "right_660": {
+      "peak": 623,
+      "rms": [
+        0.0,
+        440.4682122314782
+      ],
+      "frequencies_hz": [
+        null,
+        660.0
+      ]
+    },
+    "both": {
+      "peak": 627,
+      "rms": [
+        443.47668768155876,
+        443.4693960302328
+      ],
+      "frequencies_hz": [
+        440.0,
+        660.0
+      ]
+    }
+  },
+  "build": "0916d722b9e292b8f2a8d5d2590c495398a06c6a776872660e9e30656f3a0ac7",
+  "graph": {
+    "graph_sha256": "6c6d6ad4faf583c283c1a8703c1e47d9efb778e3c91e084bdebac3b7fbb14cdf",
+    "nodes": 13,
+    "delay_samples": 0
+  },
+  "panic_silence": true,
+  "diagnostic_deltas": {
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0
+  },
+  "restored": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 1.0,
+    "instances_restored": true
+  },
+  "pcm_passed": true,
+  "analogue_stereo_listening_passed": true
+}

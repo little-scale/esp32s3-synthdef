@@ -25,7 +25,12 @@ int main(int argc,char **argv)
         printf(",\"nodes\":%u,\"signals\":%u,\"inputs\":%u,\"delay_samples\":%u,\"touch_buses\":",
                graph.nodes,graph.outputs,graph.inputs,fm_delay_required(&graph,44100));
         int touch=0;for(unsigned n=0;n<graph.nodes;++n)if(graph.node[n].type==FM_In && graph.node[n].rate==1)touch=1;
-        printf("%s,\"ugens\":[",touch?"true":"false");
+        printf("%s",touch?"true":"false");
+#ifdef FM_SIGNAL_REUSE
+        printf(",\"audio_buffers\":%u,\"scalar_values\":%u,\"signal_workspace_bytes\":%u",
+               graph.audio_buffers,graph.scalar_values,(graph.audio_buffers*FM_BLOCK+graph.scalar_values)*4u);
+#endif
+        printf(",\"ugens\":[");
         for(unsigned n=0;n<graph.nodes;++n)printf("%s\"%s\"",n?",":"",fm_type_name(graph.node[n].type));
         printf("],\"controls\":[");
         for(unsigned n=0;n<graph.names;++n){

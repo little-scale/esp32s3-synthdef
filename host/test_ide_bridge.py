@@ -66,6 +66,62 @@ class ControlModule(Module):
         return result
 
 class IDETests(unittest.TestCase):
+    def test_native_stale_named_and_cached_players_restart_after_clock_clear(self):
+        with tempfile.TemporaryDirectory() as folder:
+            folder=Path(folder);app=Studio(SCLANG);bridge=Bridge(app,'test-stale-player',config=folder/'connection.json')
+            original=bridge.hub.dispatch;events=[]
+            def dispatch(action,p,*args):
+                if action=='count':return dict(count=len(events))
+                if action=='control':
+                    if p.get('kind')!='cancel':events.append(p.copy())
+                    return dict(queued=True,results=[])
+                return original(action,p,*args)
+            bridge.hub.dispatch=dispatch
+            script=folder/'stale-player.scd'
+            script.write_text(r'''
+Routine({
+    var proxy,player,oldStream,count,makeStale;
+    try {
+        ESP32.connect(%CONFIG%).wait;
+        makeStale={
+            var retained=player.slotAt(\stream);
+            // Inject the exact native state observed in the long-running IDE:
+            // its clock has no scheduled work, but the retained player still
+            // has a stream and an older CmdPeriod era.
+            player.clock.clear;
+            player.slotPut(\stream,retained);
+            player.slotPut(\era,CmdPeriod.era-1);
+        };
+        proxy=Pbindef(\staleESP32,\type,\esp32Set,\module,\all,\freq,440,\dur,0.03).quant_(0);
+        player=proxy.playESP32(SystemClock);0.15.wait;
+        oldStream=player.event[\esp32Stream];
+        makeStale.value;
+        if(player.isPlaying.not or:{player.wasStopped.not}){Error("Did not reproduce stale player state").throw};
+        count=ESP32.request(\count,()).wait["count"];
+        if(proxy.playESP32(SystemClock) !== player){Error("Named proxy replaced its player").throw};
+        if(player.event[\esp32Stream]==oldStream){Error("Stale named player did not receive a fresh stream").throw};
+        0.15.wait;
+        if(ESP32.request(\count,()).wait["count"]<=count){Error("Stale named player did not resume events").throw};
+        oldStream=player.event[\esp32Stream];proxy.playESP32(SystemClock);
+        if(player.event[\esp32Stream]!=oldStream){Error("Repeated play duplicated a live stream").throw};
+        // The same recovery is needed when users keep and replay the player.
+        makeStale.value;
+        count=ESP32.request(\count,()).wait["count"];player.play;0.15.wait;
+        if(player.event[\esp32Stream]==oldStream){Error("Cached player kept its stale stream").throw};
+        if(ESP32.request(\count,()).wait["count"]<=count){Error("Cached player did not resume events").throw};
+        player.stop;ESP32.disconnect;
+        "PASS: stale named and cached ESP32 players restart with fresh streams; live replay stays single".postln;0.exit;
+    } {|error|error.reportError;1.exit};
+}).play(SystemClock);
+'''.replace('%CONFIG%',json.dumps(str(folder/'connection.json'))))
+            try:
+                run=subprocess.run([SCLANG,'-l',str(LANGUAGE),'-D',str(script)],capture_output=True,text=True,timeout=8)
+                (ROOT/'build/host/stale-player-native.log').write_text(run.stdout+run.stderr)
+                self.assertEqual(run.returncode,0,run.stdout+run.stderr)
+                self.assertNotIn('WARNING:',run.stdout+run.stderr)
+                self.assertNotIn('ERROR:',run.stdout+run.stderr)
+            finally:bridge.server_close();app.close()
+
     def test_native_note_deltas_mixed_firmware_and_other_writer(self):
         a,b=ControlModule(41),ControlModule(42);a.supports_deltas=True
         with tempfile.TemporaryDirectory() as folder:

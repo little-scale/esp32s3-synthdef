@@ -5,7 +5,7 @@ updates, and pattern routing through the existing local Studio service. The
 browser does not need to stay open. Saved Main/FX continue running without the
 computer; live patterns require SuperCollider and Studio.
 
-Studio's connected USB device can also be targeted by permanent ID or alias;
+Studio's connected USB device can also be targeted by permanent ID, displayed name or alias;
 Wi-Fi pairing is not required for USB. Both transports use the same deployment,
 instance, named-control and pattern API. The USB connection is shared with
 Studio's reader and serialized per transaction. See the [XIAO headless guide](HEADLESS.md)
@@ -35,6 +35,17 @@ Alias registrations persist on this computer. A target may be a permanent ID
 String, a unique paired module name, an alias Symbol, a saved/discovered IPv4
 address, a list of targets, or `\all`. `\all` is reserved. IP use still verifies
 the paired identity; names shared by multiple modules need an alias or ID.
+
+For example, the displayed name `AMOLED-8d507c` can be used directly:
+
+```supercollider
+ESP32.set("AMOLED-8d507c", \freq, 330);
+ESP32.module("AMOLED-8d507c", \volume, 0.2);
+```
+
+That module's permanent ID is `esp32-2884858d507c`; it stays unchanged if its
+display name is edited. An unplugged USB module needs paired, online Wi-Fi to
+remain reachable. The same target forms work in a pattern's `\module` key.
 
 ## Module settings
 
@@ -81,6 +92,16 @@ are name/value pairs, e.g. `ESP32.set(target, \slide, 5)` with both commas.
 
 After updating the extension, **Language → Recompile Class Library** loads the
 fix; doing so resets language-side patterns, which must then be restarted.
+
+A retained `ESP32Player` can have a non-nil stream after a clock/stop-era reset,
+while `wasStopped` is true and no events are scheduled. In that state an older
+`playESP32` returned the existing player without restarting it, so uploading
+worked but the pattern was silent. The extension now clears that stale state,
+resets the stream and assigns a new remote stream ID before replay. Repeated
+play calls on an actually running player still reuse it without doubling notes.
+Before loading this fix, `p.stop; p = Pbindef(\yourPattern).playESP32;` recovers
+the retained player. This is a host-side fix shared by AMOLED and headless XIAO;
+no firmware update is required.
 
 ## Compact control messages
 

@@ -330,6 +330,9 @@ static void process_line(const char *line)
         snprintf(s->reply,sizeof s->reply,"{\"protocol\":1,\"model\":\"%s\",\"build\":\"%s\",\"engine\":\"%s\",\"profile\":\"%s\",\"rate\":44100,\"block\":64,\"voices\":1,\"effects\":1,\"continuous_blocks\":true,\"master_slots\":2,\"atomic_install\":true,\"global_volume\":true,\"remote_controls\":1,\"control_deltas\":1,\"definition_lifecycle\":1,\"transports\":[\"usb-serial-jtag\",\"wifi-http\"],\"graph_max\":65536,\"source_max\":65536,\"chunk\":256,\"slots\":1,\"main_slot\":1,\"fx_slot\":1,\"fx_bypass_slot\":0,\"storage\":%s,\"storage_total\":%u,\"storage_free\":%u,\"policy\":\"%s\",\"catalog\":%s}",BOARD_MODEL,s->hooks.build_id,s->hooks.engine_commit,s->hooks.profile_hash,s->mounted?"true":"false",(unsigned)total,(unsigned)(total-used),PATCH_POLICY,PATCH_CATALOG_JSON);
         /* Identity is also carried by USB so pairing never relies on an IP. */
         size_t end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"device_id\":\"%s\",\"device_name\":\"%s\",\"wifi_upload\":true}",device_network_id(),device_network_name());
+#ifdef FM_SIGNAL_REUSE
+        end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"graph_limits\":{\"nodes\":%u,\"signals\":%u,\"inputs\":%u,\"audio_buffers\":%u},\"signal_reuse\":1}",FM_NODES,FM_OUTPUTS,FM_INPUTS,FM_AUDIO_BUFFERS);
+#endif
 #ifdef CONFIG_SYNTHDEF_HEADLESS
         end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"input_buses\":[8,9,10]}",BOARD_CAPTURE_CHUNK_BYTES);
 #endif

@@ -47,6 +47,7 @@ int instrument_init_definition(instrument *s, fm_graph *g, fm_voice *v, fm_scrat
     s->arena_needed=need;
     s->bus_mode=bus_mode;s->buses[0]=s->buses[1]=.5f;
     s->continuous=(unsigned)continuous;
+    s->managed_definition=managed!=0;
     memcpy(s->control_index,indices,sizeof indices);
     s->frequency = 440.0f; s->amplitude = 0.5f; s->master_gain = 0.8f;
     for(unsigned i=0;i<g->names;++i) {
@@ -71,6 +72,7 @@ void instrument_panic(instrument *s)
 {
     s->voice->active = 0;
     s->held = 0;
+    s->note_id=0;s->touch_note_id=0;
     s->buses[2]=0;s->rendered_gate=0;s->gate_low_blocks=0;
     s->release_frames = 0;
     s->deferred_blocks=0;
@@ -135,9 +137,12 @@ int instrument_resume(instrument *s)
 int instrument_apply(instrument *s, const inst_event *e)
 {
     if (!e) return 0;
-    if(s->continuous && (e->type==INST_NOTE_ON || e->type==INST_NOTE_OFF))return 1;
+    if(s->continuous && !s->managed_definition && (e->type==INST_NOTE_ON || e->type==INST_NOTE_OFF))return 1;
     switch (e->type) {
     case INST_NOTE_OFF:
+        if(s->managed_definition && e->note_id==s->touch_note_id){
+            s->buses[2]=0;s->touch_note_id=0;
+        }
         if (s->held && e->note_id == s->note_id) {
             if(s->defer_note_render && !s->voice->blocks) {instrument_panic(s);return 1;}
             if(s->control_index[2]>=0)s->voice->control[s->control_index[2]]=0;
@@ -173,6 +178,22 @@ int instrument_apply(instrument *s, const inst_event *e)
     }
     case INST_NOTE_ON: {
         uint64_t begin = s->clock_us ? s->clock_us() : 0;
+        if(s->managed_definition){
+            /* A managed definition has persistent instance lifetime, but is
+             * still playable. Preserve an existing voice and its parameter
+             * bank; only a genuinely inactive instance needs construction. */
+            if(!s->voice->active){
+                float controls[FM_CONTROLS];memcpy(controls,s->voice->control,sizeof controls);
+                if(s->control_index[2]>=0)controls[s->control_index[2]]=1;
+                if(!start_controls(s,1,controls))break;
+            }else if(s->rendered_gate>0 || (s->control_index[2]>=0 && s->voice->control[s->control_index[2]]>0)){
+                s->gate_low_blocks=1;
+            }
+            s->buses[2]=1;s->note_id=e->note_id;s->touch_note_id=e->note_id;
+            s->held=1;s->release_frames=0;
+            if(s->control_index[2]>=0)s->voice->control[s->control_index[2]]=1;
+            return 1;
+        }
         if(s->bus_mode && s->voice->active){
             /* Preserve oscillator/effect state across ordinary touch gates.
              * If a release/retrigger fits in one block, deliver a low block
@@ -263,6 +284,8 @@ void instrument_apply_batch(instrument *s, const inst_event *events, unsigned co
     for (int kind = INST_NOTE_OFF; kind <= INST_NOTE_ON; ++kind) {
         for (unsigned i = 0; i < count; ++i) {
             if ((int)events[i].type != kind) continue;
+            if(s->continuous && !s->managed_definition &&
+               (kind==INST_NOTE_ON || kind==INST_NOTE_OFF))continue;
             int cancelled = 0;
             if (kind == INST_NOTE_ON) {
                 if (i != newest) continue;
@@ -308,13 +331,14 @@ void instrument_render_stereo(instrument *s,float stereo[FM_BLOCK*2])
     }
     if (s->voice->active) {
         float desired_gate=s->buses[2];
+        unsigned restore_touch_gate=s->gate_low_blocks && s->managed_definition && s->held && s->note_id;
         if(s->gate_low_blocks){
             s->buses[2]=0;--s->gate_low_blocks;
             if(s->control_index[2]>=0)s->voice->control[s->control_index[2]]=0;
         }
         fm_render(s->graph, s->voice, s->scratch, stereo);
         s->rendered_gate=s->buses[2];s->buses[2]=desired_gate;
-        if(s->bus_mode && !s->continuous && s->control_index[2]>=0)s->voice->control[s->control_index[2]]=desired_gate;
+        if(((s->bus_mode && !s->continuous) || restore_touch_gate) && s->control_index[2]>=0)s->voice->control[s->control_index[2]]=desired_gate;
         if (s->voice->fault) {
             ++s->faults; instrument_panic(s); memset(stereo, 0, FM_BLOCK*2*sizeof(float));
         } else {

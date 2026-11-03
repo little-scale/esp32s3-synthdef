@@ -1,0 +1,71 @@
+{
+  "device_id": "esp32-2884858d5054",
+  "build": "33f68d0b61fb7cfd7b2dd7254e13db27765608ac1b566fd70e0b329254039e9f",
+  "board": "Waveshare AMOLED 1.8 V2 (user confirmed)",
+  "first_install_bundle": true,
+  "flash_size_bytes": 16777216,
+  "pre_install_backup_bytes": 16777216,
+  "pre_install_backup_sha256": "3f151e89811b2cd94be9fd6369130dc48228379312512768e0d30a819693403c",
+  "previous_app_project": "arduino-lib-builder",
+  "default_volume_percent": 20,
+  "flash_verified": true,
+  "written_regions": [
+    "bootloader at 0x0",
+    "partition table at 0x8000",
+    "headed application at 0x10000"
+  ],
+  "full_chip_erase": false,
+  "post_restart": {
+    "device_id": "esp32-2884858d5054",
+    "model": "Waveshare AMOLED 1.8 V2",
+    "name": "AMOLED-8d5054",
+    "build": "33f68d0b61fb7cfd7b2dd7254e13db27765608ac1b566fd70e0b329254039e9f",
+    "startup_volume_percent": 20,
+    "graph_limits": {
+      "nodes": 256,
+      "signals": 512,
+      "inputs": 2048,
+      "audio_buffers": 192
+    },
+    "main": "Touch Sine",
+    "metrics": {
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "internal_free": 100191,
+      "internal_largest": 63488,
+      "psram_free": 5316636
+    },
+    "wifi": {
+      "configured": false,
+      "online": false,
+      "error": "ESP_OK"
+    }
+  },
+  "startup_verified": true,
+  "user_confirmation": {
+    "clean_standard_test": true,
+    "volume_slider_percent": 20
+  },
+  "standard_audio_check": {
+    "saved_and_verified": true,
+    "fx_bypassed": true,
+    "main_active": true,
+    "average_cpu_max_percent": 93.1,
+    "peak_cpu_max_percent": 134.1,
+    "diagnostic_deltas": {
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0
+    }
+  },
+  "passed": true
+}

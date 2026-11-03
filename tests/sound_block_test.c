@@ -25,6 +25,9 @@ int main(int argc,char **argv)
     assert(peak>.001f && voice.active);unsigned blocks=voice.blocks;
     assert(instrument_apply(&synth,&off));assert(instrument_apply(&synth,&on));
     assert(voice.blocks==blocks && voice.active);
+    inst_event tap[]={{INST_NOTE_ON,2,0},{INST_NOTE_OFF,2,0}};
+    instrument_apply_batch(&synth,tap,2);
+    assert(voice.blocks==blocks && voice.active); /* A same-block tap is ignored too. */
     for(unsigned b=0;b<300;++b){
         instrument_render_stereo(&synth,out);assert(!voice.fault);
         for(unsigned i=0;i<FM_BLOCK*2;++i){assert(isfinite(out[i]));if(b>=200 && fabsf(out[i])>tail)tail=fabsf(out[i]);}

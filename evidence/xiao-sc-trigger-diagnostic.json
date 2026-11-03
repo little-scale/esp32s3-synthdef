@@ -1,0 +1,116 @@
+{
+  "device_id": "esp32-288485ba1e48",
+  "before": {
+    "main": {
+      "state": 3,
+      "reset_required": false,
+      "received": 2182,
+      "transfer": 0,
+      "slot": 1,
+      "name": "SoundBlock",
+      "graph_sha256": "5336148b006e103646d9e4eed9c97e75c7b51ca33a56f63da14d24df121a65d0",
+      "continuous": false,
+      "seed": 1563262098
+    },
+    "masters": [
+      {
+        "slot": 0,
+        "name": "Bypass",
+        "generations": [
+          0,
+          0
+        ],
+        "selected": true
+      },
+      {
+        "slot": 1,
+        "name": "MasterFX",
+        "generations": [
+          17,
+          18
+        ],
+        "selected": false
+      }
+    ],
+    "audio": {
+      "frame": 8876160,
+      "active": 1,
+      "render_max_us": 2945,
+      "combined_max_us": 2953,
+      "updated": 153397.674971083,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2266,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "stack_free_bytes": 12696,
+      "internal_free": 98231,
+      "internal_min": 97899,
+      "internal_largest": 63488,
+      "psram_free": 5172796,
+      "controls_stack_free_bytes": 2844,
+      "average_x10": 920,
+      "peak_x10": 1122
+    }
+  },
+  "pcm_peak_s16": 4192,
+  "after_audio": {
+    "frame": 9229440,
+    "active": 1,
+    "render_max_us": 2945,
+    "combined_max_us": 2953,
+    "updated": 153405.522092833,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 2266,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "stack_free_bytes": 12696,
+    "internal_free": 98231,
+    "internal_min": 97899,
+    "internal_largest": 63488,
+    "psram_free": 5172796,
+    "controls_stack_free_bytes": 2844,
+    "average_x10": 923,
+    "peak_x10": 1059
+  },
+  "after": {
+    "state": 3,
+    "reset_required": false,
+    "received": 2182,
+    "transfer": 0,
+    "slot": 1,
+    "name": "SoundBlock",
+    "graph_sha256": "5336148b006e103646d9e4eed9c97e75c7b51ca33a56f63da14d24df121a65d0",
+    "continuous": false,
+    "seed": 1563262098
+  },
+  "passed": true,
+  "bypass_observation": {
+    "seconds": 8,
+    "diagnostic_deltas": {
+      "dma_event_overflow": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    "average_cpu_percent": 42.7,
+    "peak_cpu_percent": 51.7
+  },
+  "native_supercollider": {
+    "passed": true,
+    "checks": [
+      "set frequency to 440 and confirm readback",
+      "restore original frequency",
+      "resolve xiao alias, displayed name and permanent ID"
+    ],
+    "log": "build/host/xiao-native-control-check.log"
+  }
+}
