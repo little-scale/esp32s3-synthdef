@@ -196,6 +196,13 @@ exceed the audio deadline; AMOLED timing qualification remains pending. Earlier
 board results retain their original build identities. See
 [signal storage and expanded graph limits](docs/SIGNAL_BUFFERS.md).
 
+The shared DSP now has exact filter/Lag/unary block kernels. On the tested XIAO,
+the filter, Lag and cached-control unary fixtures took about 59%, 60% and 64%
+less rendering time; the complete eight-saw/Resonz/MiVerb fixture improved by
+about 11%. These are fixture-specific measurements, not universal speedups.
+Main replacement uses approximately 5 ms output fades with silence during
+loading. See [implementation, comparisons and transition checks](docs/DSP_OPTIMIZATIONS.md).
+
 Supported does not mean every graph fits the audio deadline. Software comparisons,
 physical numerical traces, CPU measurements and listening checks are distinguished
 in the [support ledger](docs/UGEN_SUPPORT.md) and [extended tests](docs/EXTENDED_TESTS.md).
@@ -208,8 +215,8 @@ The CPU indicator measures **audio processing time against the block budget**,
 not combined utilisation of both cores. The receive dot signals valid incoming
 control/upload frames; it is not a playback acknowledgement. Module volume is
 linear, 0–1 in SC and 0–100% on screen, defaulting to 20% when no level is saved;
-remote changes are live, while releasing
-the physical slider saves its value. See [UI](docs/UI.md).
+SC changes are live, while releasing the physical or Studio slider saves its
+value. See [UI](docs/UI.md) and [Studio](docs/STUDIO.md).
 
 ## Supported UGens and operators
 

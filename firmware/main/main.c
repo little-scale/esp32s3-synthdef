@@ -23,6 +23,7 @@
 #include "remote_control.h"
 #include "master_delay.h"
 #include "output_volume.h"
+#include "audio_transition.h"
 #include "nvs.h"
 #ifdef CONFIG_SYNTHDEF_TOUCH_UI
 #include "touch_ui.h"
@@ -203,6 +204,10 @@ static void audio_task(void *unused)
     uint64_t next_snapshot = SAMPLE_RATE;
     unsigned parking=0;
     bool parked=false,keep_fx=false;
+    bool fade_up_pending=false;
+    audio_transition transition;audio_transition_init(&transition,SAMPLE_RATE);
+    const unsigned fade_blocks=(transition.frames+FM_BLOCK-1)/FM_BLOCK;
+    const unsigned drain_blocks=12; /* Six 128-frame DMA buffers, 64-frame renders. */
     output_volume volume;output_volume_init(&volume,atomic_load(&volume_percent),SAMPLE_RATE);
     uint64_t faults_base=0,clips_base=0,nonfinite_base=0,rejected_base=0;
     uint64_t window_busy_us=0;
@@ -242,14 +247,14 @@ static void audio_task(void *unused)
             else if(command.kind==AUDIO_STOP) {instrument_panic(&synth);rc_clear(remote);ok=1;}
             else if(command.kind==AUDIO_RESUME) {
                 if(atomic_load_explicit(&panic_requested,memory_order_relaxed))instrument_panic(&synth);
-                ok=instrument_resume(&synth) && board_audio_start_dma()==ESP_OK;if(ok)parked=false;
+                ok=instrument_resume(&synth) && board_audio_start_dma()==ESP_OK;if(ok){parked=false;fade_up_pending=true;}
             }
             else ok=0;
             xQueueOverwrite(audio_ack,&ok);
             continue;
         }
         if(xQueueReceive(audio_commands,&command,0)==pdTRUE) {
-            if(command.kind==AUDIO_PARK || command.kind==AUDIO_PARK_KEEP_FX) {keep_fx=command.kind==AUDIO_PARK_KEEP_FX;parking=14;xQueueReset(events);atomic_store(&control_dirty,0);}
+            if(command.kind==AUDIO_PARK || command.kind==AUDIO_PARK_KEEP_FX) {keep_fx=command.kind==AUDIO_PARK_KEEP_FX;parking=fade_blocks+drain_blocks;fade_up_pending=false;audio_transition_to(&transition,0);xQueueReset(events);atomic_store(&control_dirty,0);}
             else if(command.kind==AUDIO_REMOTE){process_remote();int ok=1;xQueueOverwrite(audio_ack,&ok);}
             else {int ok=0;xQueueOverwrite(audio_ack,&ok);}
         }
@@ -262,8 +267,8 @@ static void audio_task(void *unused)
         }
         unsigned queued = uxQueueMessagesWaiting(events);
         if (queued > stats.queue_high) stats.queue_high = queued;
-        if(parking) { /* Fade two blocks, then drain a DMA queue of silence. */
-            if(parking==12) {instrument_suspend(&synth);if(!keep_fx)master_delay_panic(&delay_bus);}
+        if(parking) { /* Fade completely, then drain an entire DMA queue at zero. */
+            if(parking==drain_blocks) {instrument_suspend(&synth);if(!keep_fx)master_delay_panic(&delay_bus);}
         } else if (atomic_exchange_explicit(&panic_requested, false, memory_order_relaxed)) {
             xQueueReset(events);
             instrument_panic(&synth);rc_clear(remote);
@@ -289,12 +294,17 @@ static void audio_task(void *unused)
         if(!parking)rc_tick(remote,&synth,audio_clock_us());
         int64_t render_begin = esp_timer_get_time();
         float dry[FM_BLOCK*2],effected[FM_BLOCK*2];
+        uint64_t prior_blocks=synth.voice->blocks;
         instrument_render_stereo(&synth,dry);
         uint64_t effect_begin=audio_clock_us();
         master_delay_render(&delay_bus,synth.scratch,dry,effected);
         uint32_t effect_us=(uint32_t)(audio_clock_us()-effect_begin);
         if(effect_us>stats.effect_max_us)stats.effect_max_us=effect_us;
         uint64_t pcm_begin=audio_clock_us();
+        if(fade_up_pending && !parking && (synth.voice->blocks!=prior_blocks || effected[0]!=0 || effected[1]!=0)){
+            audio_transition_to(&transition,1);fade_up_pending=false;
+        }
+        audio_transition_apply(&transition,effected);
         atomic_store_explicit(&observed_seed,synth.seed_active,memory_order_relaxed);
 #ifdef CONFIG_SYNTHDEF_HEADLESS
         output_volume_pcm_stereo(&volume,atomic_load_explicit(&volume_percent,memory_order_relaxed),effected,mono,synth.master_gain,&synth.nonfinite,&synth.clipped);
@@ -302,10 +312,6 @@ static void audio_task(void *unused)
         output_volume_pcm(&volume,atomic_load_explicit(&volume_percent,memory_order_relaxed),effected,mono,synth.master_gain,&synth.nonfinite,&synth.clipped);
 #endif
         synth.pcm_us=(uint32_t)(audio_clock_us()-pcm_begin);
-        if(parking>=13) {
-            unsigned block=14-parking;
-            for(unsigned i=0;i<FM_BLOCK*BOARD_AUDIO_CHANNELS;++i)mono[i]=(int16_t)((int32_t)mono[i]*(int32_t)(127-block*64-i/BOARD_AUDIO_CHANNELS)/128);
-        }
         stats.pcm_peak = 0;
         for (unsigned i = 0; i < FM_BLOCK*BOARD_AUDIO_CHANNELS; ++i) {
             uint32_t magnitude = mono[i] < 0 ? -(int32_t)mono[i] : mono[i];
@@ -352,7 +358,7 @@ static void audio_task(void *unused)
             vTaskDelete(NULL);
         }
         if(parking && !--parking) {
-            /* Already suspended at parking==12. A second Panic here would
+            /* Already suspended before the drain. A second Panic here would
              * discard the continuous program's saved resume state. */
             parked=true;
             int ok=board_audio_stop_dma()==ESP_OK;

@@ -6,6 +6,7 @@ import re
 import subprocess
 from engine_profile import ROOT,generate
 from patches import compile_source
+from signal_buffers import addresses
 
 BUILD=ROOT/'build/host/miverb-test'
 FIXTURES={
@@ -17,8 +18,8 @@ FIXTURES={
 
 def main():
  BUILD.mkdir(parents=True,exist_ok=True)
- target=generate(BUILD/'target','fm1');reference=generate(BUILD/'reference','fm1',optimize_miverb=False)
- assert (reference/'fm_miverb.inc').read_bytes()==(ROOT/'upstream/fm1-synthdef/synthdef-engine/src/fm_miverb.inc').read_bytes()
+ target=generate(BUILD/'target','fm1',optimize_miverb_packed=True);reference=generate(BUILD/'reference','fm1',optimize_miverb=False)
+ assert (reference/'fm_miverb.inc').read_text()==addresses((ROOT/'upstream/fm1-synthdef/synthdef-engine/src/fm_miverb.inc').read_text())
  paths=[]
  for name,source in FIXTURES.items():
   path=BUILD/(name+'.scsyndef');path.with_suffix('.scd').write_text(source)
@@ -39,6 +40,7 @@ def main():
   compared_state='Full voice, random state, complete delay arena and audio output',sanitizers=['undefined','bounds','float-cast-overflow'],
   graphs={p.stem:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
   target_sha256=hashlib.sha256((target/'fm_miverb.inc').read_bytes()).hexdigest(),reference_sha256=hashlib.sha256((reference/'fm_miverb.inc').read_bytes()).hexdigest())
- (ROOT/'evidence/miverb-clamp-host.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+ report['packed_word_transfers']=True
+ (ROOT/'evidence/miverb-packed-host.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 
 if __name__=='__main__':main()

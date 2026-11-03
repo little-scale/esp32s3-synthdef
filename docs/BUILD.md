@@ -7,6 +7,10 @@ AMOLED UI, the full pinned 154-type engine profile, internal rendering/Rings cod
 The older compact/catalog builds remain useful historical configurations; they
 are not the configuration used by the README quickstart.
 
+The shared [DSP block kernels and replacement fades](DSP_OPTIMIZATIONS.md) apply
+to both board profiles. Hardware-specific timing and listening records remain
+separate; cross-building the AMOLED image is not a physical panel/speaker test.
+
 ## Toolchain
 
 The physical V2 board is the Waveshare ESP32-S3-Touch-AMOLED-1.8 with 16 MB flash

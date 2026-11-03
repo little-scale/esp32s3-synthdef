@@ -1,0 +1,878 @@
+{
+  "passed": true,
+  "hardware": true,
+  "phase": "before",
+  "runs": 3,
+  "fixtures": {
+    "filters": {
+      "graph_sha256": "31c360880ff4b8c9780bc6bdf8870a894a0787b7e1c4fad9eed286f0edbe1999",
+      "nodes": 18,
+      "median_us": 672.8812622070312,
+      "runs": [
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "165386292",
+            "measured_cycles": "165092395",
+            "audio_hash": "f69921d5"
+          },
+          "by_type": [
+            {
+              "type": "RHPF",
+              "cycles": 20018057,
+              "share_percent": 12.310182104636286,
+              "average_us_per_block_at_240mhz": 81.45368245442708
+            },
+            {
+              "type": "BRF",
+              "cycles": 19854010,
+              "share_percent": 12.209300763169466,
+              "average_us_per_block_at_240mhz": 80.78617350260417
+            },
+            {
+              "type": "Ringz",
+              "cycles": 18481193,
+              "share_percent": 11.365081603121093,
+              "average_us_per_block_at_240mhz": 75.20016682942709
+            },
+            {
+              "type": "Resonz",
+              "cycles": 18434443,
+              "share_percent": 11.33633250857152,
+              "average_us_per_block_at_240mhz": 75.00994059244792
+            },
+            {
+              "type": "HPF",
+              "cycles": 17821797,
+              "share_percent": 10.959583465161511,
+              "average_us_per_block_at_240mhz": 72.51707763671875
+            },
+            {
+              "type": "BPF",
+              "cycles": 17547433,
+              "share_percent": 10.790862254958322,
+              "average_us_per_block_at_240mhz": 71.40068766276042
+            },
+            {
+              "type": "LPF",
+              "cycles": 17423998,
+              "share_percent": 10.714955421039038,
+              "average_us_per_block_at_240mhz": 70.89842936197917
+            },
+            {
+              "type": "RLPF",
+              "cycles": 16485052,
+              "share_percent": 10.137546921981421,
+              "average_us_per_block_at_240mhz": 67.07784830729166
+            },
+            {
+              "type": "Sum4",
+              "cycles": 7709434,
+              "share_percent": 4.740946459672612,
+              "average_us_per_block_at_240mhz": 31.369767252604166
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 4191449,
+              "share_percent": 2.5775478845072555,
+              "average_us_per_block_at_240mhz": 17.055049641927084
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2670114,
+              "share_percent": 1.6419970020136727,
+              "average_us_per_block_at_240mhz": 10.8647216796875
+            },
+            {
+              "type": "Out",
+              "cycles": 1339654,
+              "share_percent": 0.8238254440580532,
+              "average_us_per_block_at_240mhz": 5.451066080729166
+            },
+            {
+              "type": "MulAdd",
+              "cycles": 528059,
+              "share_percent": 0.3247319383690502,
+              "average_us_per_block_at_240mhz": 2.1486775716145834
+            },
+            {
+              "type": "Control",
+              "cycles": 109124,
+              "share_percent": 0.06710622874069797,
+              "average_us_per_block_at_240mhz": 0.44402669270833334
+            }
+          ],
+          "normal_average_us_at_240mhz": 672.958544921875
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "165349217",
+            "measured_cycles": "165286483",
+            "audio_hash": "6a49523d"
+          },
+          "by_type": [
+            {
+              "type": "RHPF",
+              "cycles": 20021916,
+              "share_percent": 12.2992860450113,
+              "average_us_per_block_at_240mhz": 81.469384765625
+            },
+            {
+              "type": "BRF",
+              "cycles": 19861522,
+              "share_percent": 12.200757428374233,
+              "average_us_per_block_at_240mhz": 80.81673990885416
+            },
+            {
+              "type": "Ringz",
+              "cycles": 18520525,
+              "share_percent": 11.376994823012089,
+              "average_us_per_block_at_240mhz": 75.36020914713542
+            },
+            {
+              "type": "Resonz",
+              "cycles": 18460403,
+              "share_percent": 11.34006240977061,
+              "average_us_per_block_at_240mhz": 75.11557210286459
+            },
+            {
+              "type": "HPF",
+              "cycles": 17824896,
+              "share_percent": 10.949676076284495,
+              "average_us_per_block_at_240mhz": 72.5296875
+            },
+            {
+              "type": "BPF",
+              "cycles": 17552179,
+              "share_percent": 10.782148433458635,
+              "average_us_per_block_at_240mhz": 71.41999918619791
+            },
+            {
+              "type": "LPF",
+              "cycles": 17445715,
+              "share_percent": 10.716748539187973,
+              "average_us_per_block_at_240mhz": 70.98679606119792
+            },
+            {
+              "type": "RLPF",
+              "cycles": 16503631,
+              "share_percent": 10.13803466413084,
+              "average_us_per_block_at_240mhz": 67.15344645182292
+            },
+            {
+              "type": "Sum4",
+              "cycles": 7725658,
+              "share_percent": 4.7458034299979035,
+              "average_us_per_block_at_240mhz": 31.435782877604165
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 4202886,
+              "share_percent": 2.581795724673571,
+              "average_us_per_block_at_240mhz": 17.1015869140625
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2682446,
+              "share_percent": 1.647802870329512,
+              "average_us_per_block_at_240mhz": 10.914900716145834
+            },
+            {
+              "type": "Out",
+              "cycles": 1343609,
+              "share_percent": 0.8253671338772767,
+              "average_us_per_block_at_240mhz": 5.467159016927083
+            },
+            {
+              "type": "MulAdd",
+              "cycles": 533783,
+              "share_percent": 0.32789817932331083,
+              "average_us_per_block_at_240mhz": 2.1719685872395833
+            },
+            {
+              "type": "Control",
+              "cycles": 110085,
+              "share_percent": 0.06762424256824716,
+              "average_us_per_block_at_240mhz": 0.44793701171875
+            }
+          ],
+          "normal_average_us_at_240mhz": 672.807686360677
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "165367299",
+            "measured_cycles": "165365311",
+            "audio_hash": "6a49523d"
+          },
+          "by_type": [
+            {
+              "type": "RHPF",
+              "cycles": 20046483,
+              "share_percent": 12.308995424431856,
+              "average_us_per_block_at_240mhz": 81.56934814453125
+            },
+            {
+              "type": "BRF",
+              "cycles": 19886705,
+              "share_percent": 12.210888107007404,
+              "average_us_per_block_at_240mhz": 80.91920979817708
+            },
+            {
+              "type": "Ringz",
+              "cycles": 18515056,
+              "share_percent": 11.368664497762504,
+              "average_us_per_block_at_240mhz": 75.33795572916667
+            },
+            {
+              "type": "Resonz",
+              "cycles": 18471265,
+              "share_percent": 11.341775830127823,
+              "average_us_per_block_at_240mhz": 75.15976969401042
+            },
+            {
+              "type": "HPF",
+              "cycles": 17820252,
+              "share_percent": 10.942039076391735,
+              "average_us_per_block_at_240mhz": 72.510791015625
+            },
+            {
+              "type": "BPF",
+              "cycles": 17583365,
+              "share_percent": 10.79658508333433,
+              "average_us_per_block_at_240mhz": 71.54689534505208
+            },
+            {
+              "type": "LPF",
+              "cycles": 17435601,
+              "share_percent": 10.705854634512173,
+              "average_us_per_block_at_240mhz": 70.94564208984374
+            },
+            {
+              "type": "RLPF",
+              "cycles": 16511524,
+              "share_percent": 10.138450388848597,
+              "average_us_per_block_at_240mhz": 67.18556315104166
+            },
+            {
+              "type": "Sum4",
+              "cycles": 7717246,
+              "share_percent": 4.738564151288535,
+              "average_us_per_block_at_240mhz": 31.401554361979166
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 4200097,
+              "share_percent": 2.578954859821045,
+              "average_us_per_block_at_240mhz": 17.090238444010417
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2684361,
+              "share_percent": 1.648258563186536,
+              "average_us_per_block_at_240mhz": 10.92269287109375
+            },
+            {
+              "type": "Out",
+              "cycles": 1344545,
+              "share_percent": 0.8255811382446852,
+              "average_us_per_block_at_240mhz": 5.470967610677083
+            },
+            {
+              "type": "MulAdd",
+              "cycles": 533332,
+              "share_percent": 0.32747794950880366,
+              "average_us_per_block_at_240mhz": 2.1701334635416667
+            },
+            {
+              "type": "Control",
+              "cycles": 110599,
+              "share_percent": 0.06791029553397167,
+              "average_us_per_block_at_240mhz": 0.45002848307291665
+            }
+          ],
+          "normal_average_us_at_240mhz": 672.8812622070312
+        }
+      ]
+    },
+    "lag": {
+      "graph_sha256": "00378bacd8143dbb2f930d4eb226408d6823e98e8113d5d7c4623803506dfe8f",
+      "nodes": 54,
+      "median_us": 1311.8469401041666,
+      "runs": [
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "322399504",
+            "measured_cycles": "324114123",
+            "audio_hash": "16f1d389"
+          },
+          "by_type": [
+            {
+              "type": "LagUD",
+              "cycles": 147147766,
+              "share_percent": 46.02613641734003,
+              "average_us_per_block_at_240mhz": 598.7457926432292
+            },
+            {
+              "type": "Lag",
+              "cycles": 143506872,
+              "share_percent": 44.8873064610288,
+              "average_us_per_block_at_240mhz": 583.93095703125
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 25049232,
+              "share_percent": 7.835112965164548,
+              "average_us_per_block_at_240mhz": 101.9255859375
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2393764,
+              "share_percent": 0.7487419714881538,
+              "average_us_per_block_at_240mhz": 9.740250651041666
+            },
+            {
+              "type": "Out",
+              "cycles": 1373070,
+              "share_percent": 0.42948057485668567,
+              "average_us_per_block_at_240mhz": 5.5870361328125
+            },
+            {
+              "type": "Control",
+              "cycles": 234093,
+              "share_percent": 0.07322161012178995,
+              "average_us_per_block_at_240mhz": 0.95252685546875
+            }
+          ],
+          "normal_average_us_at_240mhz": 1311.8469401041666
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "321746111",
+            "measured_cycles": "322742896",
+            "audio_hash": "4c635171"
+          },
+          "by_type": [
+            {
+              "type": "LagUD",
+              "cycles": 146576424,
+              "share_percent": 46.03760528646217,
+              "average_us_per_block_at_240mhz": 596.42099609375
+            },
+            {
+              "type": "Lag",
+              "cycles": 143009281,
+              "share_percent": 44.917215547424966,
+              "average_us_per_block_at_240mhz": 581.9062540690104
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 24924680,
+              "share_percent": 7.8284934808573166,
+              "average_us_per_block_at_240mhz": 101.41878255208333
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2305668,
+              "share_percent": 0.724178080000278,
+              "average_us_per_block_at_240mhz": 9.381787109375
+            },
+            {
+              "type": "Out",
+              "cycles": 1340709,
+              "share_percent": 0.4210979505544999,
+              "average_us_per_block_at_240mhz": 5.45535888671875
+            },
+            {
+              "type": "Control",
+              "cycles": 227357,
+              "share_percent": 0.07140965470077357,
+              "average_us_per_block_at_240mhz": 0.9251180013020833
+            }
+          ],
+          "normal_average_us_at_240mhz": 1309.1882771809896
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "322440881",
+            "measured_cycles": "323512393",
+            "audio_hash": "b594b4b9"
+          },
+          "by_type": [
+            {
+              "type": "LagUD",
+              "cycles": 146933801,
+              "share_percent": 46.038924297231404,
+              "average_us_per_block_at_240mhz": 597.875166829427
+            },
+            {
+              "type": "Lag",
+              "cycles": 143384281,
+              "share_percent": 44.92674941671151,
+              "average_us_per_block_at_240mhz": 583.4321329752604
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 24944443,
+              "share_percent": 7.815868881753108,
+              "average_us_per_block_at_240mhz": 101.49919840494792
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2314564,
+              "share_percent": 0.72522480227063,
+              "average_us_per_block_at_240mhz": 9.417985026041666
+            },
+            {
+              "type": "Out",
+              "cycles": 1345398,
+              "share_percent": 0.42155498768895616,
+              "average_us_per_block_at_240mhz": 5.4744384765625
+            },
+            {
+              "type": "Control",
+              "cycles": 228760,
+              "share_percent": 0.07167761434439891,
+              "average_us_per_block_at_240mhz": 0.9308268229166666
+            }
+          ],
+          "normal_average_us_at_240mhz": 1312.0153035481771
+        }
+      ]
+    },
+    "unary": {
+      "graph_sha256": "4a586a11e6771d7284d9654bb20b91dd1e7aee4fc697122ffd554e9626c8c89a",
+      "nodes": 86,
+      "median_us": 364.6334676106771,
+      "runs": [
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "89600713",
+            "measured_cycles": "93162427",
+            "audio_hash": "698040bd"
+          },
+          "by_type": [
+            {
+              "type": "UnaryOpUGen",
+              "cycles": 81865244,
+              "share_percent": 93.90785921151794,
+              "average_us_per_block_at_240mhz": 333.11053059895835
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2346411,
+              "share_percent": 2.691574874440697,
+              "average_us_per_block_at_240mhz": 9.54757080078125
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 1391046,
+              "share_percent": 1.5956729075985554,
+              "average_us_per_block_at_240mhz": 5.6601806640625
+            },
+            {
+              "type": "Out",
+              "cycles": 1343320,
+              "share_percent": 1.5409262743541847,
+              "average_us_per_block_at_240mhz": 5.465983072916667
+            },
+            {
+              "type": "Control",
+              "cycles": 230116,
+              "share_percent": 0.2639667320886219,
+              "average_us_per_block_at_240mhz": 0.9363444010416667
+            }
+          ],
+          "normal_average_us_at_240mhz": 364.5862345377604
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "89634667",
+            "measured_cycles": "93722142",
+            "audio_hash": "7b8e3409"
+          },
+          "by_type": [
+            {
+              "type": "UnaryOpUGen",
+              "cycles": 82273992,
+              "share_percent": 93.80191319711437,
+              "average_us_per_block_at_240mhz": 334.77373046875
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2408449,
+              "share_percent": 2.7459117826405812,
+              "average_us_per_block_at_240mhz": 9.800004069010416
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 1433318,
+              "share_percent": 1.634149107774685,
+              "average_us_per_block_at_240mhz": 5.832185872395834
+            },
+            {
+              "type": "Out",
+              "cycles": 1352400,
+              "share_percent": 1.54189318305811,
+              "average_us_per_block_at_240mhz": 5.5029296875
+            },
+            {
+              "type": "Control",
+              "cycles": 242197,
+              "share_percent": 0.27613272941224865,
+              "average_us_per_block_at_240mhz": 0.9855021158854167
+            }
+          ],
+          "normal_average_us_at_240mhz": 364.7243937174479
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "89612321",
+            "measured_cycles": "93485170",
+            "audio_hash": "7b8e3409"
+          },
+          "by_type": [
+            {
+              "type": "UnaryOpUGen",
+              "cycles": 82071590,
+              "share_percent": 93.82113433578364,
+              "average_us_per_block_at_240mhz": 333.9501546223958
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 2403824,
+              "share_percent": 2.7479605844553614,
+              "average_us_per_block_at_240mhz": 9.781184895833333
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 1414327,
+              "share_percent": 1.6168050778804928,
+              "average_us_per_block_at_240mhz": 5.754911295572916
+            },
+            {
+              "type": "Out",
+              "cycles": 1348784,
+              "share_percent": 1.5418788018357583,
+              "average_us_per_block_at_240mhz": 5.488216145833333
+            },
+            {
+              "type": "Control",
+              "cycles": 238130,
+              "share_percent": 0.27222120004474337,
+              "average_us_per_block_at_240mhz": 0.9689534505208334
+            }
+          ],
+          "normal_average_us_at_240mhz": 364.6334676106771
+        }
+      ]
+    },
+    "saw_resonz_miverb": {
+      "graph_sha256": "9098343a03cf51c5b5d957214b362f14fcec3416019bcd9f43fad0b3d1ea49b2",
+      "nodes": 48,
+      "median_us": 1287.9752644856771,
+      "runs": [
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "316532801",
+            "measured_cycles": "318123148",
+            "audio_hash": "3721531c"
+          },
+          "by_type": [
+            {
+              "type": "MiVerb",
+              "cycles": 113512342,
+              "share_percent": 36.15113325668152,
+              "average_us_per_block_at_240mhz": 461.8829020182292
+            },
+            {
+              "type": "Saw",
+              "cycles": 106062265,
+              "share_percent": 33.77845094166472,
+              "average_us_per_block_at_240mhz": 431.56846110026044
+            },
+            {
+              "type": "Resonz",
+              "cycles": 36995908,
+              "share_percent": 11.782366362064222,
+              "average_us_per_block_at_240mhz": 150.53673502604167
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 21051454,
+              "share_percent": 6.7044156202935286,
+              "average_us_per_block_at_240mhz": 85.65858561197916
+            },
+            {
+              "type": "Pan2",
+              "cycles": 16122331,
+              "share_percent": 5.1346005740003795,
+              "average_us_per_block_at_240mhz": 65.60193277994792
+            },
+            {
+              "type": "Sum4",
+              "cycles": 15390938,
+              "share_percent": 4.901668318880455,
+              "average_us_per_block_at_240mhz": 62.62588704427083
+            },
+            {
+              "type": "Lag",
+              "cycles": 1632383,
+              "share_percent": 0.519877348305804,
+              "average_us_per_block_at_240mhz": 6.642183430989584
+            },
+            {
+              "type": "Out",
+              "cycles": 1362260,
+              "share_percent": 0.4338492354447851,
+              "average_us_per_block_at_240mhz": 5.543050130208333
+            },
+            {
+              "type": "MulAdd",
+              "cycles": 562688,
+              "share_percent": 0.1792034990339254,
+              "average_us_per_block_at_240mhz": 2.2895833333333333
+            },
+            {
+              "type": "LFNoise2",
+              "cycles": 540657,
+              "share_percent": 0.1721871199975564,
+              "average_us_per_block_at_240mhz": 2.19993896484375
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 417295,
+              "share_percent": 0.13289909173353956,
+              "average_us_per_block_at_240mhz": 1.6979777018229167
+            },
+            {
+              "type": "Control",
+              "cycles": 343348,
+              "share_percent": 0.10934863189956107,
+              "average_us_per_block_at_240mhz": 1.3970865885416666
+            }
+          ],
+          "normal_average_us_at_240mhz": 1287.9752644856771
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "316802530",
+            "measured_cycles": "318695837",
+            "audio_hash": "f805320c"
+          },
+          "by_type": [
+            {
+              "type": "MiVerb",
+              "cycles": 113544572,
+              "share_percent": 36.09724793251911,
+              "average_us_per_block_at_240mhz": 462.01404622395836
+            },
+            {
+              "type": "Saw",
+              "cycles": 106497181,
+              "share_percent": 33.85679367104721,
+              "average_us_per_block_at_240mhz": 433.3381388346354
+            },
+            {
+              "type": "Resonz",
+              "cycles": 36984283,
+              "share_percent": 11.757768861530886,
+              "average_us_per_block_at_240mhz": 150.48943277994792
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 21081966,
+              "share_percent": 6.702222221657045,
+              "average_us_per_block_at_240mhz": 85.7827392578125
+            },
+            {
+              "type": "Pan2",
+              "cycles": 16144452,
+              "share_percent": 5.132524402651798,
+              "average_us_per_block_at_240mhz": 65.691943359375
+            },
+            {
+              "type": "Sum4",
+              "cycles": 15389558,
+              "share_percent": 4.892534102800466,
+              "average_us_per_block_at_240mhz": 62.62027180989583
+            },
+            {
+              "type": "Lag",
+              "cycles": 1659579,
+              "share_percent": 0.5276010431093274,
+              "average_us_per_block_at_240mhz": 6.75284423828125
+            },
+            {
+              "type": "Out",
+              "cycles": 1371527,
+              "share_percent": 0.4360256883538576,
+              "average_us_per_block_at_240mhz": 5.580757649739583
+            },
+            {
+              "type": "MulAdd",
+              "cycles": 563245,
+              "share_percent": 0.17906267163305462,
+              "average_us_per_block_at_240mhz": 2.2918497721354165
+            },
+            {
+              "type": "LFNoise2",
+              "cycles": 551260,
+              "share_percent": 0.17525248935088228,
+              "average_us_per_block_at_240mhz": 2.2430826822916665
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 419606,
+              "share_percent": 0.13339802642413073,
+              "average_us_per_block_at_240mhz": 1.7073811848958333
+            },
+            {
+              "type": "Control",
+              "cycles": 344651,
+              "share_percent": 0.10956888892223439,
+              "average_us_per_block_at_240mhz": 1.4023885091145833
+            }
+          ],
+          "normal_average_us_at_240mhz": 1289.0727945963542
+        },
+        {
+          "header": {
+            "graph": "SoundBlock",
+            "blocks": "1024",
+            "ready": "2",
+            "matched": "1",
+            "normal_cycles": "314773407",
+            "measured_cycles": "316677510",
+            "audio_hash": "e64ddf8b"
+          },
+          "by_type": [
+            {
+              "type": "MiVerb",
+              "cycles": 113477897,
+              "share_percent": 36.306257028728716,
+              "average_us_per_block_at_240mhz": 461.7427449544271
+            },
+            {
+              "type": "Saw",
+              "cycles": 104685458,
+              "share_percent": 33.49319335128483,
+              "average_us_per_block_at_240mhz": 425.9662190755208
+            },
+            {
+              "type": "Resonz",
+              "cycles": 36972360,
+              "share_percent": 11.828982036199424,
+              "average_us_per_block_at_240mhz": 150.44091796875
+            },
+            {
+              "type": "BinaryOpUGen",
+              "cycles": 21031124,
+              "share_percent": 6.728723511214392,
+              "average_us_per_block_at_240mhz": 85.57586263020833
+            },
+            {
+              "type": "Pan2",
+              "cycles": 16124407,
+              "share_percent": 5.158862478547981,
+              "average_us_per_block_at_240mhz": 65.61038004557291
+            },
+            {
+              "type": "Sum4",
+              "cycles": 15379258,
+              "share_percent": 4.9204585969647665,
+              "average_us_per_block_at_240mhz": 62.57836100260417
+            },
+            {
+              "type": "Lag",
+              "cycles": 1661681,
+              "share_percent": 0.5316402496052157,
+              "average_us_per_block_at_240mhz": 6.761397298177084
+            },
+            {
+              "type": "Out",
+              "cycles": 1365094,
+              "share_percent": 0.4367498424153507,
+              "average_us_per_block_at_240mhz": 5.554581705729166
+            },
+            {
+              "type": "MulAdd",
+              "cycles": 562234,
+              "share_percent": 0.179881832973079,
+              "average_us_per_block_at_240mhz": 2.287736002604167
+            },
+            {
+              "type": "LFNoise2",
+              "cycles": 545609,
+              "share_percent": 0.17456281015841918,
+              "average_us_per_block_at_240mhz": 2.2200887044270834
+            },
+            {
+              "type": "SinOsc",
+              "cycles": 413336,
+              "share_percent": 0.13224322490948712,
+              "average_us_per_block_at_240mhz": 1.6818684895833333
+            },
+            {
+              "type": "Control",
+              "cycles": 338953,
+              "share_percent": 0.10844503699833884,
+              "average_us_per_block_at_240mhz": 1.3792032877604166
+            }
+          ],
+          "normal_average_us_at_240mhz": 1280.8162719726563
+        }
+      ]
+    }
+  },
+  "device_id": "esp32-288485ba1e48",
+  "build": "33f68d0b61fb7cfd7b2dd7254e13db27765608ac1b566fd70e0b329254039e9f",
+  "restoration": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.25,
+    "instances_restored": true
+  }
+}

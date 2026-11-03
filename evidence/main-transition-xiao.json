@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "device_id": "esp32-288485ba1e48",
+  "hardware": true,
+  "scope": "Post-volume PCM during real Main upload; not analogue pop measurement",
+  "build": "abda3b98c08bce87bee5917c17cb6f4fc9213427ebc910b36a764fe869fdd5e8",
+  "positive_peak": 524,
+  "negative_peak": -524,
+  "down_frames": 220,
+  "zero_gap_frames": 1898,
+  "up_frames": 215,
+  "max_adjacent_step_s16": 5,
+  "diagnostic_deltas": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "restoration": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.25,
+    "instances_restored": true
+  }
+}

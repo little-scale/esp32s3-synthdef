@@ -50,6 +50,12 @@ without touch, and retains that behaviour after reboot. **Panic** stops Main;
 **Restart Main** reloads it, including new initial-rate random values. A named
 SynthDef's envelope/routing still determines how it responds to touch or controls.
 
+Updated firmware fades the complete output down for about 5 ms before parking
+for replacement and fades it up after loading. Output remains zero during the
+DMA drain and load, including preserved FX. Loading/storage may make the silent
+gap longer than the ramps. User volume and definition/instance semantics do not
+change. See [DSP and transitions](DSP_OPTIMIZATIONS.md).
+
 The SC extension deliberately separates saving and instantiation:
 `.sendESP32` saves silently, `.playESP32` saves and creates, and `ESP32.play`
 creates a saved definition. SC-managed definitions boot inactive. See

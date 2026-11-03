@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "device_id": "esp32-288485ba1e48",
+  "before_build": "33f68d0b61fb7cfd7b2dd7254e13db27765608ac1b566fd70e0b329254039e9f",
+  "after_build": "cd9fc38336ae119b7129523edeedf773fc5bfd5cdb032273321b9a49378d3210",
+  "configured_cpu_mhz": 240,
+  "block_frames": 64,
+  "runs_per_fixture": 3,
+  "timed_blocks_per_run": 1024,
+  "warm_blocks": 128,
+  "fixtures": {
+    "filters": {
+      "before_us": 672.8812622070312,
+      "after_us": 277.64406331380206,
+      "time_reduction_percent": 58.73803018334356
+    },
+    "lag": {
+      "before_us": 1311.8469401041666,
+      "after_us": 527.2728474934896,
+      "time_reduction_percent": 59.806831774778416
+    },
+    "unary": {
+      "before_us": 364.6334676106771,
+      "after_us": 132.98990885416666,
+      "time_reduction_percent": 63.52778319400967
+    },
+    "saw_resonz_miverb": {
+      "before_us": 1287.9752644856771,
+      "after_us": 1150.1773681640625,
+      "time_reduction_percent": 10.698799900993517
+    }
+  },
+  "experimental_packed_miverb": {
+    "enabled_in_final": false,
+    "reason": "Target regression despite numerical equivalence",
+    "before_node_us": 462.0,
+    "experimental_node_us": 687.0,
+    "record": "evidence/dsp-kernels-xiao-packed.json"
+  },
+  "scope": "Muted rendering cost on one XIAO; identical graph hashes; no universal workload or worst-case RF/display timing claim. Phase and stochastic state can differ across installations.",
+  "saved_setup_restored": true
+}

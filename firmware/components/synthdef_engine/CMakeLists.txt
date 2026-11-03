@@ -2,7 +2,7 @@ set(ORIGINAL_ENGINE "${CMAKE_CURRENT_LIST_DIR}/../../../upstream/fm1-synthdef/sy
 set(PROFILE_SCRIPT "${CMAKE_CURRENT_LIST_DIR}/../../../host/engine_profile.py")
 set(ENGINE "${CMAKE_CURRENT_BINARY_DIR}/target-profile/src")
 file(GLOB ENGINE_INPUTS "${ORIGINAL_ENGINE}/*.c" "${ORIGINAL_ENGINE}/*.h" "${ORIGINAL_ENGINE}/*.inc")
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${ENGINE_INPUTS} "${PROFILE_SCRIPT}" "${CMAKE_CURRENT_LIST_DIR}/../../../host/signal_buffers.py")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${ENGINE_INPUTS} "${PROFILE_SCRIPT}" "${CMAKE_CURRENT_LIST_DIR}/../../../host/signal_buffers.py" "${CMAKE_CURRENT_LIST_DIR}/../../../host/dsp_kernels.py")
 set(ENGINE_PROFILE compact)
 if(CONFIG_SYNTHDEF_FM1_COMPAT)
     set(ENGINE_PROFILE fm1)

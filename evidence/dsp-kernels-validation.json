@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "build": "cd9fc38336ae119b7129523edeedf773fc5bfd5cdb032273321b9a49378d3210",
+  "shared_dsp": true,
+  "amoled_cross_build_verified": true,
+  "amoled_physical_tested_this_revision": false,
+  "host_tests": {
+    "kernel_graphs": 100,
+    "four_rate_samples": 26214400,
+    "inventory_graphs": 1500,
+    "inventory_samples": 6144000,
+    "shared_scratch_graphs": 56,
+    "output_volume": true,
+    "remote_controls_and_300_env_retriggers": true,
+    "control_bus_reference": true,
+    "four_rate_transition_ramps": true,
+    "qualification_cleanup_unit_tests": 2
+  },
+  "hardware_timing": "evidence/dsp-kernels-xiao-final.json",
+  "hardware_transitions": "evidence/main-transition-xiao-final.json",
+  "experimental_packed_miverb_enabled": false,
+  "user_listening": "Switching sounds cleaner",
+  "saved_setup_restored_before_user_resumed_uploads": true,
+  "usb_recovery": "evidence/dsp-kernels-usb-recovery.json",
+  "xiao_flashed_and_running": true,
+  "studio_tests": 34,
+  "studio_compiler_upload_regression_passed": true
+}

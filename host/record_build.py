@@ -79,7 +79,7 @@ symbols={}
 for line in subprocess.check_output([str(nm),'-S',str(BUILD/'waveshare_synthdef.elf')],text=True).splitlines():
     match=re.match(r'([0-9a-f]+) ([0-9a-f]+) \w (\S+)$',line)
     if match:symbols[match[3]]={'address':int(match[1],16),'bytes':int(match[2],16)}
-hot=['render_graph','fast_arithmetic','fast_sine','fast_envelope','fast_pan','binary',
+hot=['render_graph','fast_arithmetic','fast_sine','fast_envelope','fast_pan','fast_filter','fast_lag','fast_unary','binary',
      'envelope','envelope_init','segment','sine_control_step','fm_start','fm_seed','fm_set',
      'fm_prepare','fm_render_input','fm_render','delay_render','unary']
 internal_kernels='CONFIG_SYNTHDEF_INTERNAL_KERNELS=y' in config

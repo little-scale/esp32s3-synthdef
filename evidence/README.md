@@ -15,6 +15,11 @@ The 3 November update adds the following scoped records:
 
 | Records | Scope |
 | --- | --- |
+| `dsp-kernels-summary.json`, `dsp-kernels-xiao-before.json`, `dsp-kernels-xiao-final.json` | Three-run physical rendering-cost comparison; exact graph hashes, restored packages/settings and configured 240 MHz conversion |
+| `dsp-kernels-host.json`, `dsp-kernels-inventory.json`, `dsp-kernels-reuse.json` | Four-rate exact kernel comparisons, wider 1,500-graph check and shared-scratch/lifetime regression |
+| `dsp-kernels-xiao-packed.json`, `miverb-packed-host.json` | Numerically equivalent packed MiVerb experiment; target timing regressed, so disabled by default |
+| `main-transition-xiao-final.json` | Actual upload/restart PCM fades, zero hold through preserved FX, inactive definition-only behavior and saved-state restoration; analogue listening separate |
+| `dsp-kernels-xiao-final-interrupted.json`, `dsp-kernels-usb-recovery.json` | Failed USB handoff, physical reconnect and private-backup restoration; not counted as a successful timing run |
 | `signal-reuse*.json` | Buffer lifetime/aliasing comparisons, inventory, fuzz/boundary checks and separate physical XIAO/AMOLED admission and timing records; see [signal buffers](../docs/SIGNAL_BUFFERS.md) for limits and failed overload fixtures |
 | `current-headless-build.json`, `default20-amoled-build.json` | Current source build `33f68d0b61fb`, separately compiled for XIAO stereo and AMOLED mono hardware |
 | `current-xiao-install.json`, `amoled-8d50*-install.json` | Matched physical identities, image verification and startup scopes; private full-flash backups remain excluded |

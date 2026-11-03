@@ -174,8 +174,9 @@
     "FM_DELAY_LIMIT": 262144
   },
   "engine_target_header_sha256": "0b6a5883a91e4cfeef9c876f6dad75c1f826e869488be335d40277044e22856d",
-  "engine_profile_generator_sha256": "259ca0a80f6b451a9b22242fc92b76afca98f88cd8453fef86e03d59949f3496",
+  "engine_profile_generator_sha256": "3f265f67c60948febd34dab0ae93ac2d8097be91bae39e8ffe074c96492841bd",
   "signal_planner_sha256": "f94e23434874846afc8f72f59d62345df9c80e1ab1cb937d613d00587735ec4d",
+  "dsp_kernels_sha256": "f320e9cffc95115e60458411d8e4a2929da3616f6a2ac77b59e71c734697c108",
   "master_delay": {
     "kind": "embedded persistent mono SynthDef bus",
     "max_seconds": 5.0,
@@ -573,5 +574,5 @@
     "touch-sine": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5"
   },
   "factory_source_sha256": "b26eb2d4188682b6f7c35c86d76f8d4d7dc934d2e9c3a4313e9b22291c3f81f2",
-  "profile_sha256": "70be6046942be3b46d2f9ee09933482e7e3d245a9f57e1a5eb9ecfd43dbdb17f"
+  "profile_sha256": "81e9b3806da1294a06d68177ff83ffe1704ac28096088c9bc61e1c50f47e4dba"
 }

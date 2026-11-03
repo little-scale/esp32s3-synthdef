@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "device_id": "esp32-288485ba1e48",
+  "build": "cd9fc38336ae119b7129523edeedf773fc5bfd5cdb032273321b9a49378d3210",
+  "restoration": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.25,
+    "instances_restored": true
+  },
+  "recovery": "Physical reconnect after USB stopped acknowledging HELLO; no additional firmware write."
+}

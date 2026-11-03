@@ -1,11 +1,34 @@
 # Project status — 3 November 2026
 
-Current source build **`33f68d0b61fb`** has separately verified AMOLED V2
+Current source build **`cd9fc38336ae`** has separately audited AMOLED V2
 (16 MB flash, mono onboard audio) and XIAO ESP32-S3 headless (8 MB flash,
-stereo I²S) images. Physical installation/startup records are under
+stereo I²S) images. It is installed and physically checked on XIAO-ba1e48;
+the AMOLED image is cross-built but has not been flashed/listened to on this
+revision. Records are `evidence/dsp-kernels-*-build.json`,
+`evidence/dsp-kernels-xiao-final.json` and `evidence/main-transition-xiao-final.json`.
+Earlier `33f68d0b61fb` installations are retained under
 `evidence/amoled-8d50*-install.json` and `evidence/current-xiao-install.json`.
 Firmware updates preserve saved Main/FX and settings. Fresh volume defaults to
 20%; saved preferences take precedence.
+
+Dedicated filter, Lag and unary kernels preserve float32 equations and sample
+order. The four-rate differential test matched 26.2 million samples across 100
+graphs; a wider 1,500-graph run matched another 6.1 million. Only otherwise-unused
+new cache fields are normalized when comparing persistent voice state. Measured
+XIAO rendering time decreased by 59% in the filter fixture, 60% in Lag, 64% in
+cached-control unary math and 10.7% in the eight-saw/Resonz/MiVerb fixture. A
+bit-exact packed MiVerb memory experiment was slower on the chip and is disabled.
+See [DSP changes](docs/DSP_OPTIMIZATIONS.md).
+
+Maintenance now fades output down/up for about 5 ms and holds it at zero through
+the DMA drain/load, including preserved FX. Physical PCM capture confirmed 220
+falling and 215 rising quantized frames, no new audio faults, preserved-FX zero
+hold and inactive definition-only uploads. Saved Main/FX, instances, bypass and
+25% user volume were restored. One final timing attempt lost USB acknowledgements;
+a physical reconnect restored the original setup and a fresh run completed.
+The failed run and recovery remain separate evidence. The user subsequently
+confirmed that switching sounds cleaner; this listening result is separate
+from digital PCM verification and an instrumented analogue measurement.
 
 Signal storage now uses loader-planned audio-buffer reuse and independent
 scalar values. Each Main/FX graph admits up to 256 nodes, 512 logical outputs,

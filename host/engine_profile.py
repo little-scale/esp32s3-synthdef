@@ -6,6 +6,7 @@ import json
 import re
 from pathlib import Path
 from signal_buffers import prepare as prepare_signals
+from dsp_kernels import prepare as prepare_dsp,packed_miverb
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'upstream/fm1-synthdef/synthdef-engine/src'
 LIMITS={'FM_NODES':(160,24),'FM_OUTPUTS':(192,32),'FM_INPUTS':(1024,256),'FM_DELAY_LIMIT':('65536u','262144u')}
@@ -41,7 +42,7 @@ static __attribute__((noinline)) void ugen_end(unsigned i){
     assert render.count(loop)==1
     return prefix+render.replace(loop,'for(ni=0;ni<g->nodes && !v->fault;ugen_end(ni),ni++) {\n  ugen_begin();')
 
-def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True):
+def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True, optimize_filters=True, optimize_lag=True, optimize_unary=True, optimize_miverb_packed=False):
     output.mkdir(parents=True,exist_ok=True)
     source=(SOURCE/'fm_synth.h').read_text();header=source
     limits=PROFILES[profile]
@@ -185,6 +186,7 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
  if(x < -1.0f)x=-1.0f;
  else if(x > 32767.0f/32768.0f)x=32767.0f/32768.0f;''')
     bandlimited=(SOURCE/'fm_bandlimited.inc').read_text()
+    if optimize_miverb and optimize_miverb_packed:miverb=packed_miverb(miverb)
     if optimize_saw:
         before='float out,blip,t=(float)j/count;'
         assert bandlimited.count(before)==1
@@ -193,7 +195,9 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         bandlimited=bandlimited.replace(before,'''/* Avoid software division in the sample loop. A one-sample pass
    * has j == 0, so it also produces the original zero fraction. */
   float out,blip,t=(float)j*(1.0f/FM_BLOCK);''')
+    render,dsp=prepare_dsp(render,optimize_filters,optimize_lag,optimize_unary)
     files={path.name:path.read_text() for path in SOURCE.iterdir() if path.suffix in ('.c','.h','.inc')}
+    files['fm_dsp_kernels.inc']=dsp
     files.update({'fm_render.c':render,'fm_delay.inc':delay,'fm_gendy.inc':gendy,'fm_rings.inc':rings,
                   'fm_fast.inc':fast,'fm_extensions.inc':extensions,'fm_miverb.inc':miverb,'fm_bandlimited.inc':bandlimited})
     if reuse_buffers:
@@ -206,8 +210,12 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         data=header.encode() if path.name=='fm_synth.h' else load.encode() if path.name=='fm_load.c' else files[path.name].encode()
         destination=output/path.name
         if not destination.exists() or destination.read_bytes()!=data:destination.write_bytes(data)
+    (output/'fm_dsp_kernels.inc').write_text(files['fm_dsp_kernels.inc'])
     (output/'fm_profile_render.inc').write_text(profile_renderer(render,delay))
     manifest={'profile':profile,'changes':{name:{'upstream':old,'target':new} for name,(old,new) in limits.items()},
+              'block_kernels':{'filters':optimize_filters,'lag':optimize_lag,'unary':optimize_unary},
+              'miverb_packed_words':optimize_miverb and optimize_miverb_packed,
+              'dsp_kernels_sha256':hashlib.sha256((ROOT/'host/dsp_kernels.py').read_bytes()).hexdigest(),
               'signal_reuse':reuse_buffers,
               'signal_planner_sha256':hashlib.sha256((ROOT/'host/signal_buffers.py').read_bytes()).hexdigest(),
               'audio_buffers_max':min(int(limits['FM_OUTPUTS'][1]),192) if reuse_buffers else int(limits['FM_OUTPUTS'][1]),

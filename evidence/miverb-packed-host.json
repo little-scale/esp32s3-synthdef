@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "samples": 8388608,
+  "clamp_probes": 400000,
+  "process_seconds": 0.791987,
+  "hardware": false,
+  "audio_playback": false,
+  "rates": [
+    8000,
+    44100,
+    48000,
+    192000
+  ],
+  "blocks_per_case": 4096,
+  "compared_state": "Full voice, random state, complete delay arena and audio output",
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "graphs": {
+    "Stereo": "f0c27ff0b1baf5c20e894b1bf2c06c6e5d1c174abfff093522bd793c6b6cc3e7",
+    "Mono": "e644268d2a522c592d2028dac8d7ff5d343eb9cebe9e340efa7680b2a6ae928b",
+    "Silence": "9bf6fcde35dd36e1bb50ae78f7fa4607d4b265a5e1d37e9a36542797bccc4c9e",
+    "SawResonz": "2605aceb6b7e4ab969c605e6747aa12efb3c2e5f2b96171bea42016084dac674"
+  },
+  "target_sha256": "148635a90246bafdb7d131d192ceafb3ccfce0fc89bc5301039f3489e8d9b20e",
+  "reference_sha256": "058baa373d81f575aa79499d69fbb325b1f03987a50af290f9cd87b134de03d2",
+  "packed_word_transfers": true
+}

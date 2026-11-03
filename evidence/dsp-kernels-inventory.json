@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "graphs": 1500,
+  "blocks": 48000,
+  "samples": 6144000,
+  "matching_fault_blocks": 384,
+  "hardware": false,
+  "rate": 44100,
+  "blocks_per_graph": 32,
+  "kernel_source_sha256": "f320e9cffc95115e60458411d8e4a2929da3616f6a2ac77b59e71c734697c108",
+  "comparison": "Production block kernels versus original general loops; full state except documented cache fields, audio, RNG and arenas",
+  "packed_miverb_enabled": false
+}
