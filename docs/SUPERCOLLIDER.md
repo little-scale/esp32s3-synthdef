@@ -158,6 +158,27 @@ legacy saved packages retain their old startup behaviour.
 
 For upload-and-play in one call, use `Function.playESP32(target, args:)` or
 `SynthDef.playESP32(target, args:)`. Both return a job that completes after creation.
+
+**Function `.playESP32` saves an autonomous block.** It starts on upload and
+again after power-up, independently of SC or touch. Its `args:` are saved as
+initial defaults too. A Main Function receives the reserved scalar autoplay
+marker; an FX Function is saved as an active processor. Upload activation creates
+the instance once, without an additional restart. Later `.set` values remain
+runtime changes. The SC IDE needs **Language → Recompile Class Library** once
+after installing this extension update.
+
+| Call | Plays now | Plays after power-up |
+| --- | --- | --- |
+| `Function.playESP32(...)` | Yes | Yes, using saved initial defaults |
+| `Function.sendESP32(...)` | No | No; saved definition |
+| `SynthDef.playESP32(...)` | Yes | No; saved definition, runtime instance |
+| `SynthDef.sendESP32(...)` | No | No; saved definition |
+
+Calling `ESP32.play` on an existing saved definition creates a runtime instance;
+it does not convert its boot policy. Existing packages are not automatically
+rewritten by updating the extension: resend a Function with `.playESP32` to make
+it autonomous. Browser Function uploads already use autonomous mode.
+
 A `\esp32Note` event can create Main on its first note and then reuse the one
 persistent voice; this is still not a polyphonic scsynth server.
 

@@ -1,0 +1,18 @@
+{
+  "hardware": false,
+  "device_access": false,
+  "before_fix_failed": true,
+  "before_fix_error": "Mismatch build/host/dsp-all-candidates/signed-zero-floor-atan2.scsyndef rate=44100 block=0 audio=128 voice_offset=57912 fault=0/0",
+  "graph_sha256": "271ce3093754f4819a5a5f7c0b18ea8a7a06be8890442985eeb9714115427c81",
+  "cause": "The pinned discontinuous-operator path accumulates +0 into held scalar inputs after sample zero, changing negative zero to positive zero. A per-block scalar result or unchanging scalar load must not erase that sequence.",
+  "resolution": "Fall back to the pinned accumulation path for discontinuous selectors with a held negative-zero input. Add composed floor/ceil/threshold/clip-to-atan2 regressions and full raw scratch comparisons.",
+  "after_fix_passed": true,
+  "after_fix_result": {
+    "passed": true,
+    "graphs": 1,
+    "blocks": 32,
+    "samples": 4096,
+    "matching_fault_blocks": 0
+  },
+  "all_four_rates_composed_cases_record": "evidence/dsp-all-host.json"
+}

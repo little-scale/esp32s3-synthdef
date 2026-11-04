@@ -1,0 +1,10 @@
+{
+  "available": false,
+  "hardware": false,
+  "device_access": false,
+  "dsp_tests_executed": false,
+  "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+  "elapsed_seconds": 5.028716375003569,
+  "detail": "Even an empty C program times out before main under this AddressSanitizer runtime.",
+  "scope": "Optional local memory-checker startup probe; not a DSP failure or a passing sanitizer run."
+}

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "firmware_update": false,
+  "hardware_controls_written_by_reset": false,
+  "host_suite_tests": 37,
+  "focused_additional_case_passed": true,
+  "browser_logic_passed": true,
+  "live_ui": {
+    "device_id": "esp32-288485ba1e48",
+    "before_percent": 117.1,
+    "cleared_to_dash": true,
+    "waited_for_complete_window": true,
+    "fresh_peak_percent": 103.2,
+    "preview": "evidence/studio-peak-reset-preview.jpg"
+  },
+  "scope": "Host retains every received CPU-window peak, skips the first post-reset window, and rejects stale in-flight UI responses. Reset changes host measurement only.",
+  "source_sha256": {
+    "host/studio.py": "9da20cfbda5551621ae6916bde09a286c0dbf194968dd01448a032889a055c3c",
+    "host/web/app.js": "c78dd58119f88069a48d4a5e18fadf462568b72c3848f2ecd87a81355c52bfbd",
+    "host/web/index.html": "c96212adbe8f0ee73ca09cce5eb5624b56188c42712ce41460503bd182e11262",
+    "host/web/style.css": "88ea2ec3f32ec6be4f7b13410051cff97a6c15cd5bd69ffccca261bf430a24f2",
+    "host/test_studio.py": "a9a71a190e9e4ed0089072238913dbb89503df0234f2dadab089f2336820b7ec",
+    "tests/studio_browser_test.js": "ec3a6b3ec2be8b0eaa41d1cc748988a3784eb93a0f624997da138d489080d980"
+  }
+}

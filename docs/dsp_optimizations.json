@@ -1,0 +1,2032 @@
+{
+  "schema_version": 1,
+  "reviewed": "2026-11-04",
+  "groups": {
+    "sine-cache": {
+      "title": "SinOsc phase-step cache",
+      "status": "project",
+      "scope": "Cache the exact integer phase step for unchanged initial/control-rate frequency. Audio-rate frequency retains sample-by-sample calculation.",
+      "implementation": [
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/comb-kernel-equivalence.json"
+      ],
+      "hardware_evidence": [
+        "evidence/comb-ugen-profile-after.json",
+        "evidence/dsp-kernels-xiao-final.json"
+      ],
+      "qualification": "Kernel equivalence is measured separately from whole-patch timings; no isolated universal SinOsc speed-up is claimed."
+    },
+    "bandlimited-crossfade": {
+      "title": "Saw/Pulse crossfade fraction",
+      "status": "project",
+      "scope": "Replace per-sample division by the power-of-two block size with exact reciprocal multiplication; preserve the bandlimited oscillator.",
+      "implementation": [
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/saw-crossfade-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/saw-crossfade-device.json"
+      ],
+      "qualification": "The historical target timing isolates Saw in a two-Saw patch. Pulse shares the changed routine and has host coverage; no separate Pulse speed-up measurement is claimed. Blip was a regression case, not a changed loop."
+    },
+    "dust-rng": {
+      "title": "Dust/Dust2 random-state locality",
+      "status": "project",
+      "scope": "Keep Taus88 state words local during each block, then commit once; preserve random word order.",
+      "implementation": [
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/comb-kernel-equivalence.json"
+      ],
+      "hardware_evidence": [
+        "evidence/comb-ugen-profile-after.json"
+      ],
+      "qualification": "Hardware evidence is the recorded Comb Cloud workload; not separate timing certification of every Dust2/rate combination."
+    },
+    "decay-coefficients": {
+      "title": "Decay/Decay2 interpolation and coefficient reuse",
+      "status": "project",
+      "scope": "Use exact power-of-two block interpolation; independently cache Decay2 attack and decay coefficients. Retain compensated recurrences.",
+      "implementation": [
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/comb-kernel-equivalence.json",
+        "evidence/comb-kr-kernel-check.json"
+      ],
+      "hardware_evidence": [
+        "evidence/comb-ugen-profile-after.json",
+        "evidence/comb-kr-live.json"
+      ],
+      "qualification": "Hardware measurements cover recorded cloud patches, including the KR variant, not an isolated speed-up for every Decay layout."
+    },
+    "filter-blocks": {
+      "title": "Eight filter block kernels",
+      "status": "project",
+      "scope": "Resonz, Ringz, LPF, HPF, RLPF, RHPF, BPF and BRF bind inputs once per block and share each existing three-sample group coefficient calculation. Preserve constructor/control rules and arithmetic order.",
+      "implementation": [
+        "host/dsp_kernels.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-kernels-host.json",
+        "evidence/dsp-kernels-inventory.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-kernels-xiao-final.json",
+        "evidence/dsp-kernels-summary.json"
+      ],
+      "qualification": "Latest XIAO filter fixture contains all eight types. Its aggregate saving is not the saving for each individual type or all rates."
+    },
+    "lag-blocks": {
+      "title": "Lag/LagUD/LeakDC block kernels",
+      "status": "project",
+      "scope": "Bind inputs once. Lag/LagUD cache unchanged smoothing-time coefficients independently; LeakDC uses the streamlined recurrence loop without that exponential time cache.",
+      "implementation": [
+        "host/dsp_kernels.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-kernels-host.json",
+        "evidence/dsp-kernels-inventory.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-kernels-xiao-final.json",
+        "evidence/dsp-kernels-summary.json"
+      ],
+      "qualification": "Latest physical Lag fixture contains Lag and LagUD. LeakDC has historical broad-sweep hardware evidence and current host equivalence, but no dedicated current-build hardware timing in this fixture."
+    },
+    "miverb-clamp": {
+      "title": "MiVerb ordered delay-write clamp",
+      "status": "project",
+      "scope": "Replace fminf/fmaxf calls after the finite-value guard with ordered comparisons; retain Q1.15 delay storage, saturation, quantisation and float processing.",
+      "implementation": [
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/miverb-clamp-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/miverb-clamp-device.json",
+        "evidence/dsp-kernels-xiao-final.json"
+      ],
+      "qualification": "Historical isolated-node and whole-patch timings are retained. Latest full-patch measurements include MiVerb but do not isolate a new clamp change."
+    },
+    "rings-placement": {
+      "title": "MiRings1\u20136 memory placement and startup",
+      "status": "project",
+      "scope": "Keep selected hot Rings functions in instruction RAM and remove duplicate arena clearing at initialisation. Production retains the selected PSRAM arena; internal-arena experiments are not claimed enabled.",
+      "implementation": [
+        "host/engine_profile.py",
+        "firmware/components/synthdef_engine/hot_data.lf"
+      ],
+      "host_evidence": [
+        "evidence/rings-clear-identity.json",
+        "evidence/rings-target-oracle.json"
+      ],
+      "hardware_evidence": [
+        "evidence/rings-optimization.json",
+        "evidence/rings-regression-device.json"
+      ],
+      "qualification": "Placement/startup optimisation, not a changed resonator algorithm. Model and moving-control costs differ; historical overruns remain documented."
+    },
+    "unary-blocks": {
+      "title": "UnaryOpUGen cache and block dispatch",
+      "status": "project",
+      "scope": "All 33 supported selectors cache bitwise-unchanged scalar input/results, distinguishing signed zero. Twelve common audio selectors dispatch once per block; other audio selectors retain the original per-sample unary evaluator. No transcendental approximation.",
+      "implementation": [
+        "host/dsp_kernels.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-kernels-host.json",
+        "evidence/dsp-kernels-inventory.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-kernels-xiao-final.json",
+        "evidence/dsp-kernels-summary.json"
+      ],
+      "qualification": "Latest hardware unary fixture measures repeated control-rate pitch math, not every selector/path. All selectors/rates have older broad-sweep hardware evidence; current all-selector differential checks are host-side."
+    },
+    "inherited-envelope": {
+      "title": "EnvGen block renderer",
+      "status": "inherited",
+      "scope": "Existing FM1 fast_envelope path with bound inputs and segment processing. No newly isolated project-specific envelope algorithm speed-up claimed.",
+      "implementation": [
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c"
+      ],
+      "host_evidence": [
+        "evidence/fm1-fixed-reference.json"
+      ],
+      "hardware_evidence": [
+        "evidence/extended-validation.json"
+      ],
+      "qualification": "Historical hardware tests include envelope/rate fixtures; not a current per-UGen before/after performance claim."
+    },
+    "inherited-pan": {
+      "title": "Pan2 cached block gains",
+      "status": "inherited",
+      "scope": "Existing FM1 fast_pan path when position input is not audio rate; audio-rate position retains the general path.",
+      "implementation": [
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_fast.inc",
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c"
+      ],
+      "host_evidence": [
+        "evidence/fm1-fixed-reference.json"
+      ],
+      "hardware_evidence": [
+        "evidence/extended-validation.json"
+      ],
+      "qualification": "Path depends on input rate. Latest eight-Saw fixture also uses Pan2; no new isolated panner speed-up is claimed."
+    },
+    "inherited-arithmetic": {
+      "title": "BinaryOpUGen/MulAdd/Sum3/Sum4 block arithmetic",
+      "status": "inherited",
+      "scope": "Existing FM1 bound-input arithmetic paths. Addition, subtraction, multiplication and floating division have direct common-rate loops; other binary selectors preserve the original evaluator and control-ramp semantics.",
+      "implementation": [
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_fast.inc",
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c"
+      ],
+      "host_evidence": [
+        "evidence/fm1-fixed-reference.json"
+      ],
+      "hardware_evidence": [
+        "evidence/extended-validation.json"
+      ],
+      "qualification": "All 40 binary selectors have historical initial/control/audio hardware captures. This records an inherited block framework, not a dedicated new optimisation of every selector."
+    },
+    "inherited-initial-cache": {
+      "title": "Existing initial-rate result caching",
+      "status": "inherited",
+      "scope": "SampleRate, SampleDur, ControlRate, ControlDur, BlockSize, RadiansPerSample, Rand, ExpRand, MaxLocalBufs, LocalBuf and SetBuf use initial-rate construction and per-voice cached result restoration. Their math/RNG/declaration handling does not run per audio sample. No new arithmetic optimisation or measured speed-up is claimed; removing construction or reseeding would change semantics.",
+      "implementation": [
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c",
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_load.c"
+      ],
+      "host_evidence": [
+        "evidence/fm1-fixed-reference.json",
+        "evidence/dsp-binding-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/extended-validation.json"
+      ],
+      "qualification": "Reviewed on 4 November 2026. Metadata/table setup and per-instance random generation remain necessary. Historical hardware coverage is separate from this computer-only review."
+    },
+    "inherited-control-bank": {
+      "title": "Existing batched control and trigger banks",
+      "status": "inherited",
+      "scope": "Control, TrigControl and LagControl have the existing one-pass output-bank renderer. LagControl computes its coefficient at initialisation and retains smoothing state; TrigControl clears triggers per control calculation. No new project speed-up is claimed.",
+      "implementation": [
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c"
+      ],
+      "host_evidence": [
+        "evidence/fm1-fixed-reference.json",
+        "evidence/dsp-binding-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/extended-validation.json"
+      ],
+      "qualification": "Reviewed on 4 November 2026. Preserve trigger clearing, per-channel smoothing and initial/control-rate behavior. These paths are already batched outside the generic sample switch."
+    },
+    "inherited-bus-blocks": {
+      "title": "Existing bounded audio/control bus block loops",
+      "status": "inherited",
+      "scope": "In.ar and Out.ar already validate the bus once per node and copy/deinterleave or accumulate complete channel blocks using stable pointers. In.kr is the project control-snapshot extension and reads once per control calculation. Required sample checks, interleaving and ordered mixing remain unchanged; no new performance change is claimed.",
+      "implementation": [
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_render.c",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/control-buses-host.json",
+        "evidence/dsp-binding-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/extended-validation.json"
+      ],
+      "qualification": "Reviewed on 4 November 2026. The ledger records the existing batched paths, not an additional measured speed-up; general audio-bus expansion or dropping finite checks would change the supported contract."
+    },
+    "inherited-freeverb": {
+      "title": "Existing generated FreeVerb block kernels",
+      "status": "inherited",
+      "scope": "FreeVerb/FreeVerb2 already bind audio pointers and block-held mix/room/damping once, keep recurrence state local across the block and use generated unrolled comb/allpass loops. Their sample loop does not repeatedly decode graph inputs. No new algorithm or timing saving is claimed.",
+      "implementation": [
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_freeverb.inc",
+        "upstream/fm1-synthdef/synthdef-engine/src/fm_reverb.inc"
+      ],
+      "host_evidence": [
+        "evidence/fm1-fixed-reference.json",
+        "evidence/dsp-binding-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/extended-validation.json"
+      ],
+      "qualification": "Reviewed on 4 November 2026. A further redesign would need dependency/cache profiling and memory-layout analysis; the existing efficient block implementation is retained in this computer-only pass."
+    }
+  },
+  "ugens": {
+    "A2K": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "AllpassC": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "AllpassL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "AllpassN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Amplitude": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "BHiShelf": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "BLowShelf": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "BPF": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "BPeakEQ": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "BRF": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "Balance2": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "BinaryOpUGen": {
+      "status": "inherited",
+      "group": "inherited-arithmetic"
+    },
+    "Blip": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "BlockSize": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "BrownNoise": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Clip": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "ClipNoise": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "CoinGate": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "CombC": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "CombL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "CombN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Control": {
+      "status": "inherited",
+      "group": "inherited-control-bank"
+    },
+    "ControlDur": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "ControlRate": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "Crackle": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "CuspL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "CuspN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "DC": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Decay": {
+      "status": "project",
+      "group": "decay-coefficients"
+    },
+    "Decay2": {
+      "status": "project",
+      "group": "decay-coefficients"
+    },
+    "DegreeToKey": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Delay1": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Delay2": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "DelayC": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "DelayL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "DelayN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Dust": {
+      "status": "project",
+      "group": "dust-rng"
+    },
+    "Dust2": {
+      "status": "project",
+      "group": "dust-rng"
+    },
+    "EnvGen": {
+      "status": "inherited",
+      "group": "inherited-envelope"
+    },
+    "ExpRand": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "FBSineC": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "FBSineL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "FBSineN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Fold": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Formant": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Formlet": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "FreeVerb": {
+      "status": "inherited",
+      "group": "inherited-freeverb"
+    },
+    "FreeVerb2": {
+      "status": "inherited",
+      "group": "inherited-freeverb"
+    },
+    "FreqShift": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Gate": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Gendy1": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Gendy2": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Gendy3": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "GrayNoise": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "HPF": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "HPZ1": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Hasher": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "HenonC": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "HenonL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "HenonN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Impulse": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "In": {
+      "status": "inherited",
+      "group": "inherited-bus-blocks"
+    },
+    "K2A": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Klang": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Klank": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFClipNoise": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFCub": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFDClipNoise": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFDNoise0": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFDNoise1": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFDNoise3": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFNoise0": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFNoise1": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFNoise2": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFPar": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFPulse": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFSaw": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LFTri": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LPF": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "LPZ1": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Lag": {
+      "status": "project",
+      "group": "lag-blocks"
+    },
+    "Lag2": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Lag3": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LagControl": {
+      "status": "inherited",
+      "group": "inherited-control-bank"
+    },
+    "LagUD": {
+      "status": "project",
+      "group": "lag-blocks"
+    },
+    "Latch": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LatoocarfianC": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LatoocarfianL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LatoocarfianN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LeakDC": {
+      "status": "project",
+      "group": "lag-blocks"
+    },
+    "Limiter": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LinExp": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LinXFade2": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Line": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LocalBuf": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "Logistic": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "LorenzL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "MaxLocalBufs": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "MiMu": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "MiRings1": {
+      "status": "project",
+      "group": "rings-placement"
+    },
+    "MiRings2": {
+      "status": "project",
+      "group": "rings-placement"
+    },
+    "MiRings3": {
+      "status": "project",
+      "group": "rings-placement"
+    },
+    "MiRings4": {
+      "status": "project",
+      "group": "rings-placement"
+    },
+    "MiRings5": {
+      "status": "project",
+      "group": "rings-placement"
+    },
+    "MiRings6": {
+      "status": "project",
+      "group": "rings-placement"
+    },
+    "MiVerb": {
+      "status": "project",
+      "group": "miverb-clamp"
+    },
+    "MoogFF": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "MulAdd": {
+      "status": "inherited",
+      "group": "inherited-arithmetic"
+    },
+    "OnePole": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "OneZero": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Out": {
+      "status": "inherited",
+      "group": "inherited-bus-blocks"
+    },
+    "Pan2": {
+      "status": "inherited",
+      "group": "inherited-pan"
+    },
+    "Phasor": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "PinkNoise": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Pluck": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Pulse": {
+      "status": "project",
+      "group": "bandlimited-crossfade"
+    },
+    "PulseCount": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "PulseDivider": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "RHPF": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "RLPF": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "RadiansPerSample": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "Rand": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "RandSeed": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Resonz": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "Ringz": {
+      "status": "project",
+      "group": "filter-blocks"
+    },
+    "SampleDur": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "SampleRate": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "Saw": {
+      "status": "project",
+      "group": "bandlimited-crossfade"
+    },
+    "Select": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "SetBuf": {
+      "status": "inherited",
+      "group": "inherited-initial-cache"
+    },
+    "SetResetFF": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "SinOsc": {
+      "status": "project",
+      "group": "sine-cache"
+    },
+    "SinOscFB": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Slew": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "StandardL": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "StandardN": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Stepper": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Sum3": {
+      "status": "inherited",
+      "group": "inherited-arithmetic"
+    },
+    "Sum4": {
+      "status": "inherited",
+      "group": "inherited-arithmetic"
+    },
+    "SyncSaw": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "TExpRand": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "TIRand": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "TRand": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "TWindex": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "ToggleFF": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Trig": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Trig1": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "TrigControl": {
+      "status": "inherited",
+      "group": "inherited-control-bank"
+    },
+    "UnaryOpUGen": {
+      "status": "project",
+      "group": "unary-blocks"
+    },
+    "VarSaw": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "WhiteNoise": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "Wrap": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "XFade2": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "XLine": {
+      "status": "not_recorded",
+      "group": null
+    }
+  },
+  "unary": {
+    "0": {
+      "name": "neg",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "5": {
+      "name": "abs",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "8": {
+      "name": "ceil",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "9": {
+      "name": "floor",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "10": {
+      "name": "frac",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "11": {
+      "name": "sign",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "12": {
+      "name": "squared",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "13": {
+      "name": "cubed",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "14": {
+      "name": "sqrt",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "15": {
+      "name": "exp",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "16": {
+      "name": "reciprocal",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "17": {
+      "name": "midicps",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "18": {
+      "name": "cpsmidi",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "19": {
+      "name": "midiratio",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "20": {
+      "name": "ratiomidi",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "21": {
+      "name": "dbamp",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "22": {
+      "name": "ampdb",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "23": {
+      "name": "octcps",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "24": {
+      "name": "cpsoct",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "25": {
+      "name": "log",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "26": {
+      "name": "log2",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "27": {
+      "name": "log10",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "28": {
+      "name": "sin",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "29": {
+      "name": "cos",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "30": {
+      "name": "tan",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "31": {
+      "name": "asin",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "32": {
+      "name": "acos",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "33": {
+      "name": "atan",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "34": {
+      "name": "sinh",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "35": {
+      "name": "cosh",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "36": {
+      "name": "tanh",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; original audio evaluator"
+    },
+    "42": {
+      "name": "distort",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    },
+    "43": {
+      "name": "softclip",
+      "status": "project",
+      "group": "unary-blocks",
+      "scope": "Scalar cache; dedicated audio block loop"
+    }
+  },
+  "binary": {
+    "0": {
+      "name": "+",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Direct common-rate arithmetic path when applicable; preserve ramps"
+    },
+    "1": {
+      "name": "-",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Direct common-rate arithmetic path when applicable; preserve ramps"
+    },
+    "2": {
+      "name": "*",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Direct common-rate arithmetic path when applicable; preserve ramps"
+    },
+    "3": {
+      "name": "div (floor integer division)",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "4": {
+      "name": "/",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Direct common-rate arithmetic path when applicable; preserve ramps"
+    },
+    "5": {
+      "name": "mod",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "6": {
+      "name": "==",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "7": {
+      "name": "!=",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "8": {
+      "name": "<",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "9": {
+      "name": ">",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "10": {
+      "name": "<=",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "11": {
+      "name": ">=",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "12": {
+      "name": "min",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "13": {
+      "name": "max",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "17": {
+      "name": "lcm",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "18": {
+      "name": "gcd",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "19": {
+      "name": "round",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "20": {
+      "name": "roundUp",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "21": {
+      "name": "trunc (floor quantization)",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "22": {
+      "name": "atan2",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "23": {
+      "name": "hypot",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "24": {
+      "name": "hypotApx",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "25": {
+      "name": "pow (signed)",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "30": {
+      "name": "ring1",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "31": {
+      "name": "ring2",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "32": {
+      "name": "ring3",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "33": {
+      "name": "ring4",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "34": {
+      "name": "difsqr",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "35": {
+      "name": "sumsqr",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "36": {
+      "name": "sqrsum",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "37": {
+      "name": "sqrdif",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "38": {
+      "name": "absdif",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "39": {
+      "name": "thresh",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "40": {
+      "name": "amclip",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "41": {
+      "name": "scaleneg",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "42": {
+      "name": "clip2",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "43": {
+      "name": "excess",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "44": {
+      "name": "fold2",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "45": {
+      "name": "wrap2",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    },
+    "46": {
+      "name": "firstArg",
+      "status": "inherited",
+      "group": "inherited-arithmetic",
+      "scope": "Inherited bound-input framework; original selector evaluator"
+    }
+  },
+  "shared": [
+    {
+      "title": "Loader-planned signal-buffer reuse",
+      "status": "enabled",
+      "scope": "Independent scalar storage and conservative audio-buffer lifetime reuse improve graph memory/capacity. This is not a per-UGen algorithm speed-up.",
+      "implementation": [
+        "host/signal_buffers.py"
+      ],
+      "host_evidence": [
+        "evidence/signal-reuse.json",
+        "evidence/dsp-kernels-reuse.json"
+      ],
+      "hardware_evidence": [
+        "evidence/signal-reuse-xiao-capacity.json",
+        "evidence/signal-reuse-amoled-install.json"
+      ]
+    },
+    {
+      "title": "Hot kernel/code and cache placement",
+      "status": "enabled in production board profiles",
+      "scope": "Selected shared rendering, arithmetic, envelope, panning, filter, Lag, unary and delay routines use internal instruction RAM; lookup/cache configuration is profile-specific. Do not classify all consumers as individually rewritten.",
+      "implementation": [
+        "firmware/components/synthdef_engine/hot_data.lf",
+        "docs/timing.defaults"
+      ],
+      "host_evidence": [
+        "evidence/dsp-kernels-amoled-build.json",
+        "evidence/dsp-kernels-xiao-build.json"
+      ],
+      "hardware_evidence": [
+        "evidence/timing-summary.json",
+        "evidence/dsp-kernels-xiao-final.json"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "title": "MiVerb packed halfword delay access",
+      "status": "disabled by default",
+      "scope": "Host output/state checks passed, but measured XIAO rendering regressed. Production uses the ordered-clamp optimisation with existing byte-wise memory access.",
+      "implementation": [
+        "host/dsp_kernels.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/miverb-packed-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-kernels-xiao-packed.json",
+        "evidence/dsp-kernels-summary.json"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-smoothing",
+      "title": "Lag2/Lag3/OnePole/OneZero/LPZ1/HPZ1 block loops",
+      "status": "experimental; disabled by default",
+      "scope": "Bind inputs and choose the recurrence once per block. Lag2/3 cache the time coefficient in otherwise-unused freq state and retain multiply-then-scale interpolation order. Preserve OnePole constructor behavior, OneZero/LPZ1/HPZ1 initial history and coefficient-domain faults. Opt in with candidate_smooth=True; selected-layout hardware evidence is linked below.",
+      "ugens": [
+        "Lag2",
+        "Lag3",
+        "OnePole",
+        "OneZero",
+        "LPZ1",
+        "HPZ1"
+      ],
+      "unary": [],
+      "binary": [],
+      "implementation": [
+        "host/dsp_candidates.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-operators-final-host.json",
+        "evidence/dsp-all-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-qa-xiao-summary.json",
+        "evidence/dsp-seeded-xiao-summary.json"
+      ],
+      "metrics_record": "evidence/dsp-operators-final-host.json",
+      "metrics_fixtures": [
+        "Lag2",
+        "Lag3",
+        "OnePole",
+        "OneZero",
+        "LPZ1",
+        "HPZ1"
+      ],
+      "hardware_coverage": {
+        "device_id": "esp32-288485ba1e48",
+        "native_types": [
+          "HPZ1",
+          "LPZ1",
+          "Lag2",
+          "Lag3",
+          "OnePole",
+          "OneZero"
+        ],
+        "binary_selectors": [],
+        "unary_selectors": [],
+        "scope": "Selected-layout 50-case replay plus fixed-seed XIAO profiling where applicable; normal/instrumented state checks and cross-image audio/RNG equality. Hardware timings are scoped whole-graph results, not full-rate/type qualification or a production promotion."
+      },
+      "hardware_metrics_record": "evidence/dsp-seeded-xiao-smooth.json",
+      "hardware_metrics_scope": "Each graph contains eight copies of the named smoothing UGen plus shared excitation/mixing."
+    },
+    {
+      "id": "candidate-binary",
+      "title": "Forty binary selectors: shared scalar path and complete audio specialisation coverage",
+      "status": "experimental; disabled by default",
+      "scope": "All 40 selectors use one shared scalar/scalar evaluation per block when applicable. The four inherited arithmetic audio loops plus 36 candidate loops move dispatch out of the sample loop. Changing-control ramps retain their pinned path. Held negative-zero inputs in discontinuous selectors deliberately fall back to preserve the -0 to +0 transient observed by downstream atan2. Exact composed regression and whole raw-scratch checks pass. Selected musical hardware timing is linked below.",
+      "ugens": [
+        "BinaryOpUGen"
+      ],
+      "unary": [],
+      "binary": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46"
+      ],
+      "implementation": [
+        "host/dsp_candidates.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-operators-final-host.json",
+        "evidence/dsp-all-host.json",
+        "evidence/dsp-signed-zero-regression.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-qa-xiao-summary.json",
+        "evidence/dsp-seeded-xiao-summary.json"
+      ],
+      "metrics_record": "evidence/dsp-operators-final-host.json",
+      "metrics_fixtures": [
+        "Binary_3",
+        "Binary_5",
+        "Binary_6",
+        "Binary_7",
+        "Binary_8",
+        "Binary_9",
+        "Binary_10",
+        "Binary_11",
+        "Binary_12",
+        "Binary_13",
+        "Binary_17",
+        "Binary_18",
+        "Binary_19",
+        "Binary_20",
+        "Binary_21",
+        "Binary_22",
+        "Binary_23",
+        "Binary_24",
+        "Binary_25",
+        "Binary_30",
+        "Binary_31",
+        "Binary_32",
+        "Binary_33",
+        "Binary_34",
+        "Binary_35",
+        "Binary_36",
+        "Binary_37",
+        "Binary_38",
+        "Binary_39",
+        "Binary_40",
+        "Binary_41",
+        "Binary_42",
+        "Binary_43",
+        "Binary_44",
+        "Binary_45",
+        "Binary_46"
+      ],
+      "hardware_coverage": {
+        "device_id": "esp32-288485ba1e48",
+        "native_types": [
+          "BinaryOpUGen"
+        ],
+        "binary_selectors": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "39",
+          "42",
+          "43",
+          "44",
+          "45"
+        ],
+        "unary_selectors": [],
+        "scope": "Selected-layout 50-case replay plus fixed-seed XIAO profiling where applicable; normal/instrumented state checks and cross-image audio/RNG equality. Hardware timings are scoped whole-graph results, not full-rate/type qualification or a production promotion."
+      },
+      "hardware_metrics_record": "evidence/dsp-seeded-xiao-binary.json",
+      "hardware_metrics_scope": "These are musical regressions exercising selectors 0, 2 and 4, not isolated measurements of all 40 selectors."
+    },
+    {
+      "id": "candidate-noise",
+      "title": "WhiteNoise/PinkNoise/LFNoise0\u20132 block rendering",
+      "status": "experimental; disabled by default",
+      "scope": "Keep the same Taus88 state local throughout each node and commit before its successor. Hoist type dispatch and frequency decoding. LFNoise reuses exact segment length within each block; PinkNoise uses guarded ctz with the original zero-word mapping. Shared-sequence, interleaved RandSeed, constructor/history and 200,000 private index probes pass. Desktop bank timings and offline Xtensa object cost are recorded; opt in with candidate_noise=True.",
+      "ugens": [
+        "WhiteNoise",
+        "PinkNoise",
+        "LFNoise0",
+        "LFNoise1",
+        "LFNoise2"
+      ],
+      "unary": [],
+      "binary": [],
+      "implementation": [
+        "host/dsp_candidates.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-operators-final-host.json",
+        "evidence/dsp-all-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-qa-xiao-summary.json",
+        "evidence/dsp-seeded-xiao-summary.json"
+      ],
+      "metrics_record": "evidence/dsp-operators-final-host.json",
+      "metrics_fixtures": [
+        "WhiteNoise",
+        "PinkNoise",
+        "LFNoise0",
+        "LFNoise1",
+        "LFNoise2"
+      ],
+      "hardware_coverage": {
+        "device_id": "esp32-288485ba1e48",
+        "native_types": [
+          "LFNoise0",
+          "LFNoise1",
+          "LFNoise2",
+          "PinkNoise",
+          "WhiteNoise"
+        ],
+        "binary_selectors": [],
+        "unary_selectors": [],
+        "scope": "Selected-layout 50-case replay plus fixed-seed XIAO profiling where applicable; normal/instrumented state checks and cross-image audio/RNG equality. Hardware timings are scoped whole-graph results, not full-rate/type qualification or a production promotion."
+      }
+    },
+    {
+      "id": "candidate-binding",
+      "title": "Block-bound input references across ten renderer entry points",
+      "status": "experimental; disabled by default",
+      "scope": "Hoist graph-reference decoding and input-rate lookup into per-call local pointers, without changing sample indices, parameters, equations or state. Seventy-two types share the touched renderers; not all benefit. All timing rows below are retained, including native regressions. Binding-only and combined variants each pass 2,176 graphs with complete state and arena identity. Target code/stack cost is recorded; selected-layout target timing, including regressions, is linked below. Opt in with candidate_binding=True.",
+      "ugens": [
+        "AllpassC",
+        "AllpassL",
+        "AllpassN",
+        "Amplitude",
+        "BHiShelf",
+        "BLowShelf",
+        "BPeakEQ",
+        "Balance2",
+        "Blip",
+        "BrownNoise",
+        "ClipNoise",
+        "CoinGate",
+        "CombC",
+        "CombL",
+        "CombN",
+        "Crackle",
+        "DelayC",
+        "DelayL",
+        "DelayN",
+        "Fold",
+        "Formlet",
+        "FreqShift",
+        "Gate",
+        "GrayNoise",
+        "HPZ1",
+        "Hasher",
+        "Impulse",
+        "LFClipNoise",
+        "LFCub",
+        "LFDClipNoise",
+        "LFDNoise0",
+        "LFDNoise1",
+        "LFDNoise3",
+        "LFPar",
+        "LPZ1",
+        "Lag2",
+        "Lag3",
+        "Latch",
+        "Limiter",
+        "LinExp",
+        "LinXFade2",
+        "Logistic",
+        "MiMu",
+        "MiRings1",
+        "MiRings2",
+        "MiRings3",
+        "MiRings4",
+        "MiRings5",
+        "MiRings6",
+        "MiVerb",
+        "MoogFF",
+        "OnePole",
+        "OneZero",
+        "Phasor",
+        "Pluck",
+        "PulseCount",
+        "PulseDivider",
+        "SetResetFF",
+        "SinOscFB",
+        "Slew",
+        "Stepper",
+        "SyncSaw",
+        "TExpRand",
+        "TIRand",
+        "TRand",
+        "TWindex",
+        "ToggleFF",
+        "Trig",
+        "Trig1",
+        "VarSaw",
+        "Wrap",
+        "XFade2"
+      ],
+      "unary": [],
+      "binary": [],
+      "implementation": [
+        "host/dsp_binding.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-binding-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-qa-xiao-summary.json",
+        "evidence/dsp-seeded-xiao-summary.json"
+      ],
+      "metrics_record": "evidence/dsp-binding-host.json",
+      "metrics_kind": "per-type",
+      "metrics_fixtures": [
+        "AllpassC",
+        "AllpassL",
+        "AllpassN",
+        "Amplitude",
+        "BHiShelf",
+        "BLowShelf",
+        "BPeakEQ",
+        "Balance2",
+        "Blip",
+        "BrownNoise",
+        "ClipNoise",
+        "CoinGate",
+        "CombC",
+        "CombL",
+        "CombN",
+        "Crackle",
+        "DelayC",
+        "DelayL",
+        "DelayN",
+        "Fold",
+        "Formlet",
+        "FreqShift",
+        "Gate",
+        "GrayNoise",
+        "HPZ1",
+        "Hasher",
+        "Impulse",
+        "LFClipNoise",
+        "LFCub",
+        "LFDClipNoise",
+        "LFDNoise0",
+        "LFDNoise1",
+        "LFDNoise3",
+        "LFPar",
+        "LPZ1",
+        "Lag2",
+        "Lag3",
+        "Latch",
+        "Limiter",
+        "LinExp",
+        "LinXFade2",
+        "Logistic",
+        "MiMu",
+        "MiRings1",
+        "MiRings2",
+        "MiRings3",
+        "MiRings4",
+        "MiRings5",
+        "MiRings6",
+        "MiVerb",
+        "MoogFF",
+        "OnePole",
+        "OneZero",
+        "Phasor",
+        "Pluck",
+        "PulseCount",
+        "PulseDivider",
+        "SetResetFF",
+        "SinOscFB",
+        "Slew",
+        "Stepper",
+        "SyncSaw",
+        "TExpRand",
+        "TIRand",
+        "TRand",
+        "TWindex",
+        "ToggleFF",
+        "Trig",
+        "Trig1",
+        "VarSaw",
+        "Wrap",
+        "XFade2"
+      ],
+      "hardware_coverage": {
+        "device_id": "esp32-288485ba1e48",
+        "native_types": [
+          "AllpassC",
+          "AllpassL",
+          "AllpassN",
+          "Amplitude",
+          "BPeakEQ",
+          "Blip",
+          "CombC",
+          "CombL",
+          "CombN",
+          "DelayC",
+          "DelayL",
+          "DelayN",
+          "Formlet",
+          "FreqShift",
+          "GrayNoise",
+          "Impulse",
+          "Lag3",
+          "Latch",
+          "MiRings1",
+          "MiVerb",
+          "OneZero",
+          "Pluck",
+          "SinOscFB",
+          "TExpRand",
+          "TIRand",
+          "TRand",
+          "XFade2"
+        ],
+        "binary_selectors": [],
+        "unary_selectors": [],
+        "scope": "Selected-layout 50-case replay plus fixed-seed XIAO profiling where applicable; normal/instrumented state checks and cross-image audio/RNG equality. Hardware timings are scoped whole-graph results, not full-rate/type qualification or a production promotion."
+      },
+      "hardware_metrics_record": "evidence/dsp-seeded-xiao-binding-delay.json",
+      "hardware_metrics_scope": "Narrowed to delay_render and render_miverb; these graphs exercise modulated delay time or reverb parameters."
+    },
+    {
+      "id": "candidate-routing",
+      "title": "Converters, short delays, selectors and seed control",
+      "status": "experimental; disabled by default",
+      "scope": "Dedicated A2K/K2A/DC, Delay1/2, Select, Clip, DegreeToKey and RandSeed loops retain exact constructor history, legal initial-rate result caching, interpolation order, sign behavior, trigger/seed ordering and faults. A held Select selector resolves the chosen source once per block; a held DegreeToKey input computes its key once. No new persistent fields. Opt in with candidate_routing=True.",
+      "ugens": [
+        "A2K",
+        "K2A",
+        "DC",
+        "Delay1",
+        "Delay2",
+        "Select",
+        "Clip",
+        "DegreeToKey",
+        "RandSeed"
+      ],
+      "unary": [],
+      "binary": [],
+      "implementation": [
+        "host/dsp_routing.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-routing-host.json",
+        "evidence/dsp-all-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-qa-xiao-summary.json",
+        "evidence/dsp-seeded-xiao-summary.json"
+      ],
+      "metrics_record": "evidence/dsp-routing-host.json",
+      "metrics_kind": "per-type",
+      "metrics_fixtures": [
+        "A2K",
+        "Clip",
+        "DC",
+        "DegreeToKey",
+        "Delay1",
+        "Delay2",
+        "K2A",
+        "RandSeed",
+        "Select"
+      ],
+      "hardware_coverage": {
+        "device_id": "esp32-288485ba1e48",
+        "native_types": [
+          "DC",
+          "K2A",
+          "RandSeed",
+          "Select"
+        ],
+        "binary_selectors": [],
+        "unary_selectors": [],
+        "scope": "Selected-layout 50-case replay plus fixed-seed XIAO profiling where applicable; normal/instrumented state checks and cross-image audio/RNG equality. Hardware timings are scoped whole-graph results, not full-rate/type qualification or a production promotion."
+      }
+    },
+    {
+      "id": "candidate-chaos",
+      "title": "Fourteen exact chaos cycle-period caches",
+      "status": "experimental; disabled by default",
+      "scope": "Cache the unchanged held frequency period and, for interpolating variants, the original reciprocal slope. A compile-time check puts freq/b1/b2 cache fields beyond the complete overlaid chaos_state. No recurrence, interpolation, reset or nonlinear math changes. Code shrinks in the measured Xtensa object; native effects vary by model. All four-rate dynamic frequency probes and full state comparisons pass. The initially rejected timing harness and its corrected cache normalization are retained separately. Opt in with candidate_chaos=True.",
+      "ugens": [
+        "HenonN",
+        "HenonL",
+        "HenonC",
+        "CuspN",
+        "CuspL",
+        "LatoocarfianN",
+        "LatoocarfianL",
+        "LatoocarfianC",
+        "LorenzL",
+        "FBSineN",
+        "FBSineL",
+        "FBSineC",
+        "StandardN",
+        "StandardL"
+      ],
+      "unary": [],
+      "binary": [],
+      "implementation": [
+        "host/dsp_chaos_cache.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-chaos-host.json",
+        "evidence/dsp-all-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-qa-xiao-summary.json",
+        "evidence/dsp-seeded-xiao-summary.json"
+      ],
+      "metrics_record": "evidence/dsp-chaos-host.json",
+      "metrics_kind": "per-type",
+      "metrics_fixtures": [
+        "CuspL",
+        "CuspN",
+        "FBSineC",
+        "FBSineL",
+        "FBSineN",
+        "HenonC",
+        "HenonL",
+        "HenonN",
+        "LatoocarfianC",
+        "LatoocarfianL",
+        "LatoocarfianN",
+        "LorenzL",
+        "StandardL",
+        "StandardN"
+      ],
+      "hardware_coverage": {
+        "device_id": "esp32-288485ba1e48",
+        "native_types": [
+          "HenonN",
+          "LatoocarfianL"
+        ],
+        "binary_selectors": [],
+        "unary_selectors": [],
+        "scope": "Selected-layout 50-case replay plus fixed-seed XIAO profiling where applicable; normal/instrumented state checks and cross-image audio/RNG equality. Hardware timings are scoped whole-graph results, not full-rate/type qualification or a production promotion."
+      }
+    },
+    {
+      "id": "candidate-core",
+      "title": "Oscillator, ramp, partial-bank and Gendy candidates",
+      "status": "experimental; disabled by default",
+      "scope": "Dedicated LFSaw/LFTri/LFPulse and Klang/Klank loops retain compensated phase, partial order and constructor resets. Line caches only invariant compensated span terms; XLine caches its held ratio, retaining per-sample pow and precise timing. Formant caches integer increments/width. Gendy1\u20133 cache independent distribution constants. SinOscFB caches exact phase steps and bit-keyed feedback targets; Blip caches effective crossfade frequency and harmonic scales, including the descending-frequency transition. Only documented otherwise-unused cache fields are normalized in comparisons. Native regressions and negligible gains are retained; timings vary between runs and fixtures, so no universal speed claim is made. Opt in with candidate_core=True. BPeakEQ/BLowShelf/BHiShelf and Formlet calculate each unchanged three-sample coefficient group once, retaining the exact division and final one-sample group. Amplitude caches attack/release coefficients independently and preserves audio-input/control-output stepping.",
+      "ugens": [
+        "LFSaw",
+        "LFTri",
+        "LFPulse",
+        "Klang",
+        "Klank",
+        "Line",
+        "XLine",
+        "Formant",
+        "Gendy1",
+        "Gendy2",
+        "Gendy3",
+        "SinOscFB",
+        "Blip",
+        "BPeakEQ",
+        "BLowShelf",
+        "BHiShelf",
+        "Amplitude",
+        "Formlet"
+      ],
+      "unary": [],
+      "binary": [],
+      "implementation": [
+        "host/dsp_core.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-core-host.json",
+        "evidence/dsp-all-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-qa-xiao-summary.json",
+        "evidence/dsp-seeded-xiao-summary.json"
+      ],
+      "metrics_record": "evidence/dsp-core-host.json",
+      "metrics_kind": "per-type",
+      "metrics_fixtures": [
+        "Amplitude",
+        "BHiShelf",
+        "BLowShelf",
+        "BPeakEQ",
+        "Blip",
+        "Formant",
+        "Formlet",
+        "Gendy1",
+        "Gendy2",
+        "Gendy3",
+        "Klang",
+        "Klank",
+        "LFPulse",
+        "LFSaw",
+        "LFTri",
+        "Line",
+        "SinOscFB",
+        "XLine"
+      ],
+      "hardware_coverage": {
+        "device_id": "esp32-288485ba1e48",
+        "native_types": [
+          "Amplitude",
+          "BPeakEQ",
+          "Blip",
+          "Formant",
+          "Formlet",
+          "Gendy1",
+          "Gendy2",
+          "Gendy3",
+          "Klang",
+          "Klank",
+          "LFPulse",
+          "Line",
+          "SinOscFB",
+          "XLine"
+        ],
+        "binary_selectors": [],
+        "unary_selectors": [],
+        "scope": "Selected-layout 50-case replay plus fixed-seed XIAO profiling where applicable; normal/instrumented state checks and cross-image audio/RNG equality. Hardware timings are scoped whole-graph results, not full-rate/type qualification or a production promotion."
+      },
+      "hardware_metrics_record": "evidence/dsp-seeded-xiao-core.json",
+      "hardware_metrics_scope": "Klang/Klank graphs contain 16 partials; other rows are individual named UGens with their supporting nodes."
+    }
+  ]
+}

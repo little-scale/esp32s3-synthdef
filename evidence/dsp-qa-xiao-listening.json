@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-288485ba1e48",
+  "listening": {
+    "user_confirmed": true,
+    "result": "Clean, including the reverb tail",
+    "output": "XIAO ESP32-S3 to PCM5102A",
+    "volume": 0.25
+  },
+  "tests": {
+    "eight_saw": {
+      "graph_sha256": "9098343a03cf51c5b5d957214b362f14fcec3416019bcd9f43fad0b3d1ea49b2",
+      "pcm": {
+        "peak": 2579,
+        "rms": [
+          715.1959344621597,
+          778.4254627115768
+        ]
+      }
+    },
+    "comb_kr": {
+      "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0",
+      "pcm": {
+        "peak": 695,
+        "rms": [
+          245.2709958513148,
+          61.406753231249965
+        ]
+      }
+    },
+    "triggered_harmonics": {
+      "graph_sha256": "4064dea2e2a4ac3060c46c0465e12847e5972038b97451dde457c084c228eda6",
+      "pcm": {
+        "peak": 0,
+        "rms": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "reverb": {
+      "tail": {
+        "peak": 231,
+        "rms": [
+          54.52536990905079,
+          53.291646122870524
+        ]
+      },
+      "after_main_stop": {
+        "peak": 3,
+        "rms": [
+          0.6783667193308437,
+          0.6029030299244345
+        ]
+      },
+      "panic": {
+        "peak": 0,
+        "rms": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "build": "7afd20139b45f01f5a4dca1bac7f3fe397fddfa3816bac5e4eea41920fe979bd",
+  "volume": 0.25,
+  "restoration": {
+    "main_package_verified": true,
+    "fx_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.25,
+    "instances_restored": true
+  }
+}

@@ -13,4 +13,7 @@ void diagnostic_control_buses(instrument *);
 void diagnostic_control_buses_report(void);
 
 int diagnostic_ugen_profile(instrument *);
+int diagnostic_ugen_profile_seeded(instrument *);
 void diagnostic_ugen_report(void);
+int diagnostic_dsp_qa(instrument *);
+void diagnostic_dsp_qa_report(void);

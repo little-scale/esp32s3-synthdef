@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 int main(void)
 {
@@ -43,6 +44,14 @@ int main(void)
     output_volume_pcm_stereo(&v,100,audio,stereo,1,&nonfinite,&clipped);
     for(unsigned i=0;i<FM_BLOCK;++i){assert(stereo[2*i]==8192);assert(stereo[2*i+1]==-24575);}
     assert(!nonfinite && !clipped);
+    /* All UI percentages match the linear amplitude underlying the dB readout. */
+    for(unsigned percent=0;percent<=100;++percent){
+        output_volume_init(&v,percent,44100);
+        output_volume_pcm_stereo(&v,percent,audio,stereo,1,&nonfinite,&clipped);
+        int left=(int)lrintf(.25f*(percent*.01f)*32767.f);
+        int right=(int)lrintf(-.75f*(percent*.01f)*32767.f);
+        for(unsigned i=0;i<FM_BLOCK;++i){assert(abs(stereo[2*i]-left)<=1);assert(abs(stereo[2*i+1]-right)<=1);}
+    }
     audio[1]=NAN;output_volume_pcm_stereo(&v,100,audio,stereo,1,&nonfinite,&clipped);
     assert(stereo[0]==8192 && !stereo[1] && nonfinite==1);
     for(unsigned i=0;i<FM_BLOCK*2;++i)audio[i]=.5f;

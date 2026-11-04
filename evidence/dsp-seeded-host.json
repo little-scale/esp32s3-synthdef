@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "hardware": false,
+  "date": "2026-11-04",
+  "native_diagnostic_test": {
+    "passed": true,
+    "hardware": false,
+    "fixtures": [
+      {
+        "fixture": "random",
+        "deterministic": true,
+        "allocation_failures_restored": 2,
+        "voice_scratch_arena_restored": true,
+        "canaries_intact": true
+      },
+      {
+        "fixture": "delay",
+        "deterministic": true,
+        "allocation_failures_restored": 3,
+        "voice_scratch_arena_restored": true,
+        "canaries_intact": true
+      },
+      {
+        "fixture": "bus",
+        "deterministic": true,
+        "allocation_failures_restored": 2,
+        "voice_scratch_arena_restored": true,
+        "canaries_intact": true
+      }
+    ]
+  },
+  "protocol_tests": 3,
+  "studio_tests": 38,
+  "combined_suite_passed": true,
+  "scope": "Actual diagnostic with native renderers and CommonCrypto SHA adapter; target clocks/allocator mocked. Target timing is recorded separately.",
+  "source_sha256": {
+    "firmware/main/ugen_profile.c": "c7815f829e5fdc0624d26e4a8912d6eb43ca5304cabdeca8c7a436abdaa3a6fd",
+    "firmware/main/main.c": "7843152a3dbe3a38488b849f77cbcd7ca21e446856d08a451d505d2d11eb516b",
+    "firmware/main/diagnostics.h": "491cf0395a88dc13bb9b612225c0780dfee9e33c996195007aa64e0c66cc178f",
+    "firmware/main/CMakeLists.txt": "ff0d21f0754be62058f5d13d9d06f15d6b39ff77c954be295292a2bc70aee256",
+    "host/profile_ugens.py": "6f97dc1a2b48024c6ec847e226fd26c171c714278665a0246d27fa94336d6842",
+    "host/qualify_seeded_dsp.py": "73051e5c401ec6ddb74191acdfcaf5d602249c341e3bfc36babbf4d006063df4",
+    "host/qualify_dsp_kernels.py": "5ea4c00b7b4f2212db31b10e60f5683af2752740852a3a7bfeda7a16f12eda51",
+    "host/test_profile_ugens.py": "fa157537423065dac4070071a9a97fa63f3d9fad81b47e694f10d7ad9ead0841",
+    "host/test_seeded_profile.py": "fa6c9bd29da351ca6c8ece575d3eaeb94b905188dba8f8495209287a4ded25e9",
+    "host/studio.py": "7885720cbe967cab02ec85ee548b6893227f32900acdd46ec35d2548dbf74c77",
+    "host/test_studio.py": "55bcc1c57543e1068955afbdbe9f0f3260289298acd7b4d46c50ef779edf9b7b",
+    "host/seeded_fixtures.py": "fb00f12c35e4e26c46c424c4cccc4563a7991ad195330c335461fd4cfd7f0214",
+    "host/summarize_seeded_dsp.py": "84e976e2e2b432127dd581bdaa2392c3b1db9aa35f2841322c343ccfe8eb8f00",
+    "host/document_optimizations.py": "63fa5a8be01b07919f3f9d9099f9f1b66f28028586088684c2c72031851466f6",
+    "tests/seeded_profile_test.c": "98e1e7a69d1725ea6899762382a55de5cfbf71baa5e97db6fe9400ac83b5e6d8"
+  },
+  "amoled_cross_build_audited": "evidence/dsp-seeded-amoled-build.json",
+  "xiao_cross_builds_audited": [
+    "evidence/dsp-seeded-xiao-baseline-build.json",
+    "evidence/dsp-seeded-xiao-binary-build.json",
+    "evidence/dsp-seeded-xiao-binding-build.json",
+    "evidence/dsp-seeded-xiao-all-build.json"
+  ],
+  "combined_suite_tests": 41,
+  "targeted_graphs_compiled": 24,
+  "hardware_targeted_metadata": "evidence/dsp-seeded-targeted-plan.json"
+}

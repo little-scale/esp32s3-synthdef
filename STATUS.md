@@ -1,6 +1,113 @@
-# Project status — 3 November 2026
+# Project status — 4 November 2026
 
-Current source build **`cd9fc38336ae`** has separately audited AMOLED V2
+The [fixed-seed follow-up](docs/DSP_SEEDED_PROFILING.md) completed on XIAO-ba1e48:
+28 pinned graphs, 14 timing records and 240 normal/instrumented pairs passed.
+The six eight-UGen smoothing graphs used 53–63% less DSP time; 16-partial Klang
+and Klank graphs used 30% and 26% less. Narrow delay/reverb binding saved 7.6–8.8%
+in the nine delay graphs and 3.4% in modulated MiVerb. Other core results were
+mixed, including a Formant regression. Whole-graph figures are scoped to these
+layouts; no candidate was promoted. See `evidence/dsp-seeded-xiao-summary.json`.
+
+The XIAO is restored to standard build **`d627eccb77a7`**, all experimental
+switches off. Original Main/FX packages, active instance settings, FX bypass and
+saved **15% volume** were verified, with nonzero PCM after restoration. Studio
+is running on its existing local address. The earlier interrupted USB attempt
+is retained separately, and fixed profiling now borrows Studio's existing USB
+connection. The optimisation register links the target results and regressions.
+
+Studio output volume now displays percentage and gain in dB relative to 100%
+volume (0.0 dB); mute displays −∞ dB. Browser tests and the live 20% / −14.0 dB
+readout passed without changing device volume or firmware. This is a gain
+readout, not measured signal-level dBFS. Extended checks cover all 101 levels,
+native audio scaling under sanitizers and all 37 Studio host tests. A live keyboard
+check stepped 15% → 14% → 15%, saved and refreshed the restored setting.
+See `evidence/studio-volume-db.json`.
+
+Function `.playESP32` now saves autonomous Main/FX blocks, including their initial
+arguments; Main blocks restart automatically at boot. Function `.sendESP32` and
+literal SynthDefs keep definition/instance semantics. Native SC simulator and
+existing end-to-end pattern regressions pass. The current XIAO Function was
+backed up and resent via the new path, then observed active/prepared with PCM
+after a new boot without a play command. The user also confirmed automatic
+playback after unplugging and reconnecting power without BOOT; see
+`evidence/function-autoplay-xiao.json`. Recompile the
+SC IDE Class Library once to load the extension change.
+
+Studio now retains **Peak since reset** from every received CPU report and has
+a **Reset peak** button. It clears the host measurement, excludes a potentially
+straddling report and waits for a fresh full window. Host/browser tests and live
+XIAO UI checks pass; no firmware update or audio-control command is used by reset.
+See `evidence/studio-peak-reset.json` and `docs/STUDIO.md`.
+
+The [first hardware session](docs/DSP_HARDWARE_RESULTS.md) completed on XIAO-ba1e48
+with PCM5102A. All 50 selected replay cases matched baseline for both all-candidate
+and delay/reverb-only variants. Three-run timing was mixed: the narrow variant
+used 7.34% less DSP time in Comb Cloud KR and 1.37% less in eight-Saw, but 1.90%
+more in triggered harmonics. Stochastic start states were not fixed across images,
+so small differences need a controlled follow-up. No candidate was promoted.
+Listening was confirmed clean, including the reverb tail.
+
+At the end of the first qualification, the XIAO was on standard headless build
+**`7afd20139b45`**, all new candidates
+off and the large replay pack excluded. Final stereo/gate capture passed, and
+saved Main/FX, instance states, 25% volume and FX bypass were restored at the end
+of qualification. The user subsequently set volume to 100%; the autoplay update
+above preserved that setting and the separate FX bypass. The
+[timeboxed plan](docs/DSP_HARDWARE_TEST_PLAN.md) retains the unrun broader sweep,
+soak and AMOLED checks. This session covers selected layouts of 42 native types
+and 16 binary selectors, not the full supported inventory.
+
+Studio now has a computer-tested **Audio resources** panel: average/peak audio
+deadline usage and free internal/PSRAM from cached USB diagnostics. Polling reads
+the host cache only; no device request or firmware change is added. Per-field
+ages, unavailable Wi-Fi-only data and module identity guards prevent stale
+readings being presented as live. After hardware qualification, Studio was
+restarted with its session token and SC bridge port retained, reopened in Chrome
+and connected to XIAO-ba1e48; the live resource panel was observed in the browser.
+See [Studio](docs/STUDIO.md#audio-resources) and `evidence/studio-resources-host.json`.
+
+The computer-only optimisation review covers all 154 native UGens, 33 unary
+and 40 binary selectors. The register records enabled project work, existing
+FM1 block/initial-rate paths and experimental candidates, with desktop timings
+including regressions. No supported entry remains unreviewed. This does not
+claim that every candidate is faster or ready for the board.
+
+All seven candidate switches remain **disabled by default**. Their combined
+renderer matches production across 2,451 graphs plus 896 edge graphs at four
+rates: 254,959,616 output samples, recursive state, RNG and arenas, with raw
+scratch checked too. A composed negative-zero floor→atan2 test found a scalar
+optimisation regression; the final implementation retains the pinned accumulation
+path for those inputs. The corrected operator measurements supersede the initial
+prototype records. Undefined/bounds/float-cast sanitizer checks pass. The optional
+AddressSanitizer runtime stalls before main on this Mac; it is recorded as
+unavailable, not a passing check.
+
+The combined unlinked Xtensa object grows by 11,035 text bytes; public graph,
+voice and scratch structures do not grow. Candidate functions' stack costs are
+recorded separately from whole-call-stack qualification. Default compact/FM1
+compiled DSP sources remain unchanged from `368d267`. No ESP32 or audio device
+was accessed, flashed or tested during this pass. See the
+[review and remaining hardware work](docs/DSP_OPTIMIZATIONS.md#complete-computer-only-review--4-november-2026).
+
+Default source build **`eaf9cd626f8a`** cross-builds and passes the existing
+compile/profile/instruction-placement audit for AMOLED and XIAO. All candidate
+switches remain off in these images; neither was flashed. Their application
+sizes are 1,680,384 and 1,337,728 bytes respectively. Records are
+`evidence/dsp-review-amoled-default-build.json` and
+`evidence/dsp-review-xiao-default-build.json`; installed firmware below remains
+a separate baseline.
+
+The [optimisation register](docs/OPTIMIZATION_REGISTER.md) now covers all 154
+native types, 33 unary and 40 binary selectors. It distinguishes enabled project
+changes, inherited FM1 paths and host-only candidates, with separate
+implementation, host and hardware evidence. The packed MiVerb experiment remains
+explicitly disabled. `python3 host/document_optimizations.py --check` validates
+inventory coverage, record/link consistency and the generated page; it does not
+perform a new hardware qualification.
+
+## Installed baseline — 3 November 2026
+
+The previous board-tested source build **`cd9fc38336ae`** has separately audited AMOLED V2
 (16 MB flash, mono onboard audio) and XIAO ESP32-S3 headless (8 MB flash,
 stereo I²S) images. It is installed and physically checked on XIAO-ba1e48;
 the AMOLED image is cross-built but has not been flashed/listened to on this

@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "firmware_update": false,
+  "volume_changed_during_live_check": true,
+  "scope": "Percentage plus output-gain dB readout; not signal-level dBFS metering.",
+  "formula": "20 * log10(percent / 100)",
+  "mute": "\u2212\u221e dB",
+  "browser_tests_passed": true,
+  "live_readout": "20% \u00b7 \u221214.0 dB",
+  "preview": "evidence/studio-volume-db-preview.jpg",
+  "source_sha256": {
+    "host/web/app.js": "0f9e6c21abf977d1e515fb5c9591889a1fe67a151ae59fb4dda2a53adba468bc",
+    "host/web/index.html": "696ddd14490715c08060ee6727a7c84bfc240b251ca2a8ec861f4d5d9c933c0a",
+    "tests/studio_browser_test.js": "a0e2e4cd246fb3f1d49e59bfd3183e0c1d319f17dceee1cd1857cdffa7649354",
+    "tests/output_volume_test.c": "d4d8bd95aff28160f3b6fb5656f3fe3d34d8be097712e5114d5d6852b22df970"
+  },
+  "extended_tests": {
+    "browser_all_percentages": 101,
+    "db_monotonic_and_inverse_gain_checked": true,
+    "native_stereo_all_percentages": 101,
+    "native_audio_sanitizers_passed": true,
+    "studio_host_tests": 37,
+    "live_keyboard": {
+      "before_percent": 15,
+      "lowered_percent": 14,
+      "lowered_readout": "14% \u00b7 \u221217.1 dB",
+      "restored_percent": 15,
+      "restored_readout": "15% \u00b7 \u221216.5 dB",
+      "saved_and_refreshed_from_module": true
+    },
+    "preview": "evidence/studio-volume-db-tested.jpg"
+  },
+  "saved_volume_restored_after_live_check": true
+}

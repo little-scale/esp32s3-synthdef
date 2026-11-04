@@ -23,9 +23,9 @@ FIXTURES={
 }
 
 
-def run(target,phase,runs,output):
+def run(target,phase,runs,output,fixed=False,plan=None):
  client=StudioClient();q=Qualification(client,target,ROOT/'build/host/private'/f'dsp-kernels-{phase}-{time.time_ns()}.json')
- report=dict(passed=False,hardware=True,phase=phase,runs=runs,fixtures={})
+ report=dict(passed=False,hardware=True,phase=phase,runs=runs,fixed_seed=fixed,fixtures={})
  try:
   state=client.http('config')
   if not state['connected']:
@@ -35,24 +35,29 @@ def run(target,phase,runs,output):
    client.http('connect',dict(port=ports[0].device))
   hello=q.save();report.update(device_id=target,build=hello['build'])
   q.rpc('meta',args=['volume',0]);q.rpc('bypass',bypassed=True)
-  for name,source in FIXTURES.items():
-   artifact=q.compile(source,definition=False);q.install(artifact)
+  for name,item in (plan.items() if plan else FIXTURES.items()):
+   source=item['source'] if plan else item
+   artifact=q.compile(source,graph=item['graph'] if plan else None,definition=False);q.install(artifact)
+   if plan and artifact['graph_sha256']!=item['graph_sha256']:raise RuntimeError('Pinned graph changed')
    samples=[]
    state=client.http('refresh',{});port=state['port']
    if state['hello']['device_id']!=target:raise RuntimeError('Module changed during timing')
-   client.http('disconnect',{})
    d=None
    try:
-    d=Device(port)
-    if d.hello()['device_id']!=target:raise RuntimeError('Direct USB identity mismatch')
+    if not fixed:client.http('disconnect',{})
+    if not fixed:
+     d=Device(port)
+     if d.hello()['device_id']!=target:raise RuntimeError('Direct USB identity mismatch')
     for trial in range(runs):
-     result=collect(d)
-     samples.append({k:result[k] for k in ('header','by_type','normal_average_us_at_240mhz')})
+     result=client.http('diagnostics/ugen-profile',dict(device_id=target,fixed=True)) if fixed else collect(d)
+     samples.append({k:result[k] for k in ('header','setup','by_type','normal_average_us_at_240mhz')})
+     if fixed and len(samples)>1 and any(samples[0]['setup'][k]!=result['setup'][k] for k in ('warm_sha256','audio_sha256','rng')):
+      raise RuntimeError('Fixed-seed trials did not reproduce output/RNG')
    finally:
     if d is not None:d.close()
     # Reattach even after a failed diagnostic so the outer restoration can
     # inspect the current graph before deciding whether it owns the slot.
-    client.http('connect',dict(port=port))
+    if not fixed:client.http('connect',dict(port=port))
    report['fixtures'][name]=dict(graph_sha256=artifact['graph_sha256'],nodes=artifact['nodes'],
       median_us=statistics.median(s['normal_average_us_at_240mhz'] for s in samples),runs=samples)
    print(name,report['fixtures'][name]['median_us'],'us/block',flush=True)

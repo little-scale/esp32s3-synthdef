@@ -1,5 +1,9 @@
 # UGen and operator support — 1 November 2026
 
+For implementation tuning status, see the separate
+[optimisation register](OPTIMIZATION_REGISTER.md). Supported/tested status does
+not imply an individual optimisation or a measured speed-up.
+
 All **154 UGen types, 33 unary operators and 40 binary operators** in the pinned
 FM1 engine now have successful computer-side execution coverage. They are no
 longer merely inferred from compiled source. The renderer already contained this

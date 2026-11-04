@@ -1,0 +1,1157 @@
+{
+  "passed": true,
+  "reviewed": "2026-11-04",
+  "hardware": false,
+  "device_access": false,
+  "audio_playback": false,
+  "production_candidates_enabled": false,
+  "baseline_commit": "368d26701cc0ebb92ab91cdbe88dedd8913f982d",
+  "native_ugen_count": 154,
+  "unary_count": 33,
+  "binary_count": 40,
+  "native_baseline_statuses": {
+    "not_recorded": 104,
+    "project": 26,
+    "inherited": 24
+  },
+  "native_types_with_candidates": 112,
+  "unreviewed_native_types": [],
+  "combined_comparison": {
+    "graphs": 2451,
+    "samples": 20078592,
+    "four_rate_edge_graphs": 896,
+    "four_rate_edge_samples": 234881024,
+    "total_output_samples": 254959616,
+    "sanitizers": [
+      "undefined",
+      "bounds",
+      "float-cast-overflow"
+    ],
+    "scope": "Bit-identical output and recursive voice/RNG/flags/arena fields; only caller-owned pointers and documented otherwise-unused candidate cache fields normalized; constructor scratch compared too.",
+    "record": "evidence/dsp-all-host.json"
+  },
+  "optional_address_sanitizer": {
+    "available": false,
+    "hardware": false,
+    "device_access": false,
+    "dsp_tests_executed": false,
+    "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+    "elapsed_seconds": 5.028716375003569,
+    "detail": "Even an empty C program times out before main under this AddressSanitizer runtime.",
+    "scope": "Optional local memory-checker startup probe; not a DSP failure or a passing sanitizer run."
+  },
+  "production_source_audit": {
+    "compact": {
+      "compiled_sources_identical": true,
+      "source_sha256": {
+        "fm_bandlimited.inc": "cb6ea2d8d6c13fa96bbdef0528dc160f8ce479ee0d8d3a60e82465a461956c53",
+        "fm_chaos.inc": "cf719b254f8767fe64083d8ec988e527e558a47769fbc7124659c76ad6055ef9",
+        "fm_delay.inc": "dd6f057e775686e76351a42780794d5f0cf843595ddf070079202bbfc939b8c4",
+        "fm_dsp_kernels.inc": "d41477c8b6e657db999d90b1d60f724097cfec32636a745fa8fa2b859e89ead0",
+        "fm_expansion.inc": "93256242e7c5e32d5f22c72d25980a7c0c3fb0146a64b885ab4e9a8d8a82446e",
+        "fm_extensions.inc": "76c27921c89340346bf8adb8fbfed0d45caf79537d1c269daee8f8458b8bf15b",
+        "fm_fast.inc": "f0dcad57f455413e876294dda8db5c39e57436c7e9559d43ec78a432cb370ab1",
+        "fm_filters.inc": "9f52af685a2002640d98c21169ab82c594bc151bb4996f4f4be7151a5634f895",
+        "fm_formants.inc": "dd7f9aa5e8581f1da9e07285ab44c3421c7c11ab3c751fb364d2a34c5a625758",
+        "fm_freeverb.inc": "748e7fbdc7e08822aaf577164d5e17c659eec214d34223a27f24010a0f9728bb",
+        "fm_gendy.inc": "e1052d1546253d08a998cf949a7a8f0d0f12585023bdbd38ebd37ffd5d11a474",
+        "fm_load.c": "edb1a3ee91e0c8cf21f70556c145640255b32a014a15e4732cb94bf86e1438ba",
+        "fm_miverb.inc": "ffb43ca006ff78982df96aaff670329f6fbc5dda18ec7f2a8c9f7e91acfd1427",
+        "fm_modulation.inc": "6eb7225b5dd5f50d0f1e5f450243f3ac6773223254586494b107f20da54fccd5",
+        "fm_noise.inc": "40f45b5a156ac9e1b64751f06a0dbdfacadf45347541f2dab3c588bef4a60b5d",
+        "fm_profile_render.inc": "46ce13360e57e2c922ae58ddb2904284d5e9cd1059154c096d962b87511ea013",
+        "fm_render.c": "24a973c9426980af00dbf216480243a598554568e1867fffc18b6291a721d9bd",
+        "fm_reverb.inc": "abdd12fd59d336ecc8d6c64472d1219320dc231e95a282a621bcf3c786b6af33",
+        "fm_rings.inc": "a248b820af7a52d49d8a52bed472a9c9e4a56959517988b287f67a4eb02af45f",
+        "fm_rings_state.inc": "62a8f46b5db73dbebf5f58429a94fabea7be10baecfdfb2e92507e039c91a304",
+        "fm_rings_tables.inc": "6cc34f7c003317c52e4f64d77b5ac0715fec804eac37dc851bd1c7ad7e3d9612",
+        "fm_stochastic.inc": "b0ad321eaf14437746590d8a632bb18cc872af767dd6706fb2ee21882cf20854",
+        "fm_synth.h": "0b6a5883a91e4cfeef9c876f6dad75c1f826e869488be335d40277044e22856d",
+        "fm_tables.inc": "62e9c48491adaf0827426059d8fe7f5b06fcf02d5d2ae005ef111b4fb9214a10",
+        "fm_utilities.inc": "7751c2aabb17cd5505d29a59c6b5e46872f990a62d3e4f15c91e15a5b3078eae"
+      },
+      "candidate_flags": {
+        "smooth": false,
+        "binary": false,
+        "noise": false,
+        "binding": false,
+        "routing": false,
+        "chaos": false,
+        "core": false,
+        "production_default": false
+      }
+    },
+    "fm1": {
+      "compiled_sources_identical": true,
+      "source_sha256": {
+        "fm_bandlimited.inc": "cb6ea2d8d6c13fa96bbdef0528dc160f8ce479ee0d8d3a60e82465a461956c53",
+        "fm_chaos.inc": "cf719b254f8767fe64083d8ec988e527e558a47769fbc7124659c76ad6055ef9",
+        "fm_delay.inc": "dd6f057e775686e76351a42780794d5f0cf843595ddf070079202bbfc939b8c4",
+        "fm_dsp_kernels.inc": "d41477c8b6e657db999d90b1d60f724097cfec32636a745fa8fa2b859e89ead0",
+        "fm_expansion.inc": "93256242e7c5e32d5f22c72d25980a7c0c3fb0146a64b885ab4e9a8d8a82446e",
+        "fm_extensions.inc": "76c27921c89340346bf8adb8fbfed0d45caf79537d1c269daee8f8458b8bf15b",
+        "fm_fast.inc": "f0dcad57f455413e876294dda8db5c39e57436c7e9559d43ec78a432cb370ab1",
+        "fm_filters.inc": "9f52af685a2002640d98c21169ab82c594bc151bb4996f4f4be7151a5634f895",
+        "fm_formants.inc": "dd7f9aa5e8581f1da9e07285ab44c3421c7c11ab3c751fb364d2a34c5a625758",
+        "fm_freeverb.inc": "748e7fbdc7e08822aaf577164d5e17c659eec214d34223a27f24010a0f9728bb",
+        "fm_gendy.inc": "e1052d1546253d08a998cf949a7a8f0d0f12585023bdbd38ebd37ffd5d11a474",
+        "fm_load.c": "edb1a3ee91e0c8cf21f70556c145640255b32a014a15e4732cb94bf86e1438ba",
+        "fm_miverb.inc": "ffb43ca006ff78982df96aaff670329f6fbc5dda18ec7f2a8c9f7e91acfd1427",
+        "fm_modulation.inc": "6eb7225b5dd5f50d0f1e5f450243f3ac6773223254586494b107f20da54fccd5",
+        "fm_noise.inc": "40f45b5a156ac9e1b64751f06a0dbdfacadf45347541f2dab3c588bef4a60b5d",
+        "fm_profile_render.inc": "46ce13360e57e2c922ae58ddb2904284d5e9cd1059154c096d962b87511ea013",
+        "fm_render.c": "24a973c9426980af00dbf216480243a598554568e1867fffc18b6291a721d9bd",
+        "fm_reverb.inc": "abdd12fd59d336ecc8d6c64472d1219320dc231e95a282a621bcf3c786b6af33",
+        "fm_rings.inc": "a248b820af7a52d49d8a52bed472a9c9e4a56959517988b287f67a4eb02af45f",
+        "fm_rings_state.inc": "62a8f46b5db73dbebf5f58429a94fabea7be10baecfdfb2e92507e039c91a304",
+        "fm_rings_tables.inc": "6cc34f7c003317c52e4f64d77b5ac0715fec804eac37dc851bd1c7ad7e3d9612",
+        "fm_stochastic.inc": "b0ad321eaf14437746590d8a632bb18cc872af767dd6706fb2ee21882cf20854",
+        "fm_synth.h": "736b91da539763d74be484b76cb0b314ffb824fac513cb1a00f0cf681ddba950",
+        "fm_tables.inc": "62e9c48491adaf0827426059d8fe7f5b06fcf02d5d2ae005ef111b4fb9214a10",
+        "fm_utilities.inc": "7751c2aabb17cd5505d29a59c6b5e46872f990a62d3e4f15c91e15a5b3078eae"
+      },
+      "candidate_flags": {
+        "smooth": false,
+        "binary": false,
+        "noise": false,
+        "binding": false,
+        "routing": false,
+        "chaos": false,
+        "core": false,
+        "production_default": false
+      }
+    }
+  },
+  "default_firmware_cross_builds": {
+    "amoled": {
+      "record": "evidence/dsp-review-amoled-default-build.json",
+      "status": "cross-compiled; physical runtime results are recorded separately",
+      "build_id": "eaf9cd626f8a7ebcfd918588961a569c56a6ab82345864657b81a8bd18bbb905",
+      "app_bytes": 1680384,
+      "candidate_flags": {
+        "smooth": false,
+        "binary": false,
+        "noise": false,
+        "binding": false,
+        "routing": false,
+        "chaos": false,
+        "core": false,
+        "production_default": false
+      },
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      }
+    },
+    "xiao": {
+      "record": "evidence/dsp-review-xiao-default-build.json",
+      "status": "cross-compiled; physical runtime results are recorded separately",
+      "build_id": "eaf9cd626f8a7ebcfd918588961a569c56a6ab82345864657b81a8bd18bbb905",
+      "app_bytes": 1337728,
+      "candidate_flags": {
+        "smooth": false,
+        "binary": false,
+        "noise": false,
+        "binding": false,
+        "routing": false,
+        "chaos": false,
+        "core": false,
+        "production_default": false
+      },
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      }
+    }
+  },
+  "unlinked_xtensa_text_bytes": {
+    "before": 174711,
+    "all_candidates": 185746,
+    "increase": 11035
+  },
+  "native_results": {
+    "candidate-smoothing": {
+      "Lag2": {
+        "less_native_time_percent": 7.979168267774561,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Lag3": {
+        "less_native_time_percent": 8.133765711003472,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "OnePole": {
+        "less_native_time_percent": 26.656922056654075,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "OneZero": {
+        "less_native_time_percent": 58.42917024935511,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LPZ1": {
+        "less_native_time_percent": 42.29335860925012,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "HPZ1": {
+        "less_native_time_percent": 46.36799484307643,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      }
+    },
+    "candidate-binary": {
+      "Binary_3": {
+        "less_native_time_percent": 38.92087686606227,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_5": {
+        "less_native_time_percent": 34.83416427650196,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_6": {
+        "less_native_time_percent": 52.48306431379108,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_7": {
+        "less_native_time_percent": 49.21855260783252,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_8": {
+        "less_native_time_percent": 48.83420631456424,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_9": {
+        "less_native_time_percent": 50.861234089651354,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_10": {
+        "less_native_time_percent": 46.90990320178704,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_11": {
+        "less_native_time_percent": 51.35172224509401,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_12": {
+        "less_native_time_percent": 48.01520578989692,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_13": {
+        "less_native_time_percent": 47.25742369179204,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_17": {
+        "less_native_time_percent": 5.246919907340974,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_18": {
+        "less_native_time_percent": 6.4114338193089315,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_19": {
+        "less_native_time_percent": 44.603537276804595,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_20": {
+        "less_native_time_percent": 39.92544850254319,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_21": {
+        "less_native_time_percent": 43.5737743971957,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_22": {
+        "less_native_time_percent": 20.855368520502793,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_23": {
+        "less_native_time_percent": 22.41672331747111,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_24": {
+        "less_native_time_percent": 48.76191964983586,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_25": {
+        "less_native_time_percent": 29.199520450039184,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_30": {
+        "less_native_time_percent": 50.17481622976822,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_31": {
+        "less_native_time_percent": 44.656263800971594,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_32": {
+        "less_native_time_percent": 48.38663183496982,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_33": {
+        "less_native_time_percent": 43.18001235984815,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_34": {
+        "less_native_time_percent": 43.65504079036,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_35": {
+        "less_native_time_percent": 44.538580160897766,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_36": {
+        "less_native_time_percent": 46.52748346201329,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_37": {
+        "less_native_time_percent": 54.09138027270552,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_38": {
+        "less_native_time_percent": 55.18178186176588,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_39": {
+        "less_native_time_percent": 43.15740482174439,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_40": {
+        "less_native_time_percent": 43.070753876314384,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_41": {
+        "less_native_time_percent": 50.17823943782087,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_42": {
+        "less_native_time_percent": 46.55279051153314,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_43": {
+        "less_native_time_percent": 43.499820981023994,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_44": {
+        "less_native_time_percent": 24.118508146639506,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_45": {
+        "less_native_time_percent": 36.09785095383064,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Binary_46": {
+        "less_native_time_percent": 54.73956304663432,
+        "trials": 3,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      }
+    },
+    "candidate-noise": {
+      "WhiteNoise": {
+        "less_native_time_percent": 32.34448371012248,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "PinkNoise": {
+        "less_native_time_percent": 21.232267695595773,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFNoise0": {
+        "less_native_time_percent": 69.6445968590468,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFNoise1": {
+        "less_native_time_percent": 64.0854143252652,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFNoise2": {
+        "less_native_time_percent": 49.50931357971289,
+        "trials": 5,
+        "source_report": "evidence/dsp-operators-final-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      }
+    },
+    "candidate-binding": {
+      "AllpassC": {
+        "less_native_time_percent": -3.4006182942353025,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "AllpassL": {
+        "less_native_time_percent": 9.736036725325171,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "AllpassN": {
+        "less_native_time_percent": 1.075731497418253,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Amplitude": {
+        "less_native_time_percent": 0.6702299143123813,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "BHiShelf": {
+        "less_native_time_percent": -0.9187664877649437,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "BLowShelf": {
+        "less_native_time_percent": 1.297655271165199,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "BPeakEQ": {
+        "less_native_time_percent": 0.8187967248130978,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Balance2": {
+        "less_native_time_percent": 15.967389142970767,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Blip": {
+        "less_native_time_percent": 2.2719204827831074,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "BrownNoise": {
+        "less_native_time_percent": -1.1356843992827104,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "ClipNoise": {
+        "less_native_time_percent": 2.9122807017543884,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "CoinGate": {
+        "less_native_time_percent": 5.3561307387115065,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "CombC": {
+        "less_native_time_percent": -0.9968725566849024,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "CombL": {
+        "less_native_time_percent": 0.6075070514211411,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "CombN": {
+        "less_native_time_percent": 0.9783071033602542,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Crackle": {
+        "less_native_time_percent": -0.0850051003060237,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "DelayC": {
+        "less_native_time_percent": -5.000000000000004,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "DelayL": {
+        "less_native_time_percent": 2.4719567926879793,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "DelayN": {
+        "less_native_time_percent": 4.841301727601444,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Fold": {
+        "less_native_time_percent": 9.19988848620017,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Formlet": {
+        "less_native_time_percent": 0.1653509707702172,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "FreqShift": {
+        "less_native_time_percent": 1.6152376541423097,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Gate": {
+        "less_native_time_percent": 16.09507640067912,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "GrayNoise": {
+        "less_native_time_percent": -2.9601905410003404,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "HPZ1": {
+        "less_native_time_percent": 10.48586329947845,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Hasher": {
+        "less_native_time_percent": 3.615929635963855,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Impulse": {
+        "less_native_time_percent": 3.499781945050151,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFClipNoise": {
+        "less_native_time_percent": 9.022556390977455,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFCub": {
+        "less_native_time_percent": -0.6397050851133068,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFDClipNoise": {
+        "less_native_time_percent": 4.298212248003042,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFDNoise0": {
+        "less_native_time_percent": 15.889212827988331,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFDNoise1": {
+        "less_native_time_percent": 6.365217391304345,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFDNoise3": {
+        "less_native_time_percent": 4.030534351145043,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFPar": {
+        "less_native_time_percent": 1.5596624292276484,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LPZ1": {
+        "less_native_time_percent": 8.679977814753192,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Lag2": {
+        "less_native_time_percent": 1.9018001315710742,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Lag3": {
+        "less_native_time_percent": 0.589092675816838,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Latch": {
+        "less_native_time_percent": 16.51006711409395,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Limiter": {
+        "less_native_time_percent": 0.874908168035804,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LinExp": {
+        "less_native_time_percent": 6.445868945868948,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LinXFade2": {
+        "less_native_time_percent": 13.626460685284203,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Logistic": {
+        "less_native_time_percent": 4.973926995587641,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiMu": {
+        "less_native_time_percent": 6.626098715348205,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiRings1": {
+        "less_native_time_percent": 1.4077151610806693,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiRings2": {
+        "less_native_time_percent": -0.2747888071172877,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiRings3": {
+        "less_native_time_percent": -0.5268754833720024,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiRings4": {
+        "less_native_time_percent": 1.2358925449054148,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiRings5": {
+        "less_native_time_percent": 0.021526053700327008,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiRings6": {
+        "less_native_time_percent": -0.1254824419643752,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MiVerb": {
+        "less_native_time_percent": 1.4147795524313667,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "MoogFF": {
+        "less_native_time_percent": -2.181106084138018,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "OnePole": {
+        "less_native_time_percent": 0.5068790731354134,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "OneZero": {
+        "less_native_time_percent": -0.1925854597977894,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Phasor": {
+        "less_native_time_percent": 0.2246349681766957,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Pluck": {
+        "less_native_time_percent": 1.7277856135401892,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "PulseCount": {
+        "less_native_time_percent": 7.726289217454019,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "PulseDivider": {
+        "less_native_time_percent": 11.916708479678883,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "SetResetFF": {
+        "less_native_time_percent": 7.373400111296613,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "SinOscFB": {
+        "less_native_time_percent": -9.920098340504001,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Slew": {
+        "less_native_time_percent": -0.5362637362637424,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Stepper": {
+        "less_native_time_percent": 7.521290900941279,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "SyncSaw": {
+        "less_native_time_percent": 0.8472553699284013,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "TExpRand": {
+        "less_native_time_percent": 4.518285887954621,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "TIRand": {
+        "less_native_time_percent": 5.2829152169932225,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "TRand": {
+        "less_native_time_percent": 2.2374022374022418,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "TWindex": {
+        "less_native_time_percent": 2.8248067721751924,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "ToggleFF": {
+        "less_native_time_percent": 5.702598652550539,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Trig": {
+        "less_native_time_percent": 8.288243974422038,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Trig1": {
+        "less_native_time_percent": 9.685002350728722,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "VarSaw": {
+        "less_native_time_percent": 1.9349929340145788,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Wrap": {
+        "less_native_time_percent": 6.779661016949157,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "XFade2": {
+        "less_native_time_percent": 14.235807860262007,
+        "trials": 3,
+        "source_report": "evidence/dsp-binding-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      }
+    },
+    "candidate-routing": {
+      "A2K": {
+        "less_native_time_percent": 47.37410849362438,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Clip": {
+        "less_native_time_percent": 41.944229279628196,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "DC": {
+        "less_native_time_percent": 51.31099781500363,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "DegreeToKey": {
+        "less_native_time_percent": 59.289900034470875,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Delay1": {
+        "less_native_time_percent": 28.303322343393354,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Delay2": {
+        "less_native_time_percent": 2.2171831695641298,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "K2A": {
+        "less_native_time_percent": 49.842569269521405,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "RandSeed": {
+        "less_native_time_percent": 0.7813468932159284,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Select": {
+        "less_native_time_percent": 39.14949583516002,
+        "trials": 3,
+        "source_report": "evidence/dsp-routing-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      }
+    },
+    "candidate-chaos": {
+      "CuspL": {
+        "less_native_time_percent": 26.556213017751475,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "CuspN": {
+        "less_native_time_percent": 1.4255765199161496,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "FBSineC": {
+        "less_native_time_percent": 17.71877539962069,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "FBSineL": {
+        "less_native_time_percent": 23.510257245197007,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "FBSineN": {
+        "less_native_time_percent": 1.563981042654028,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "HenonC": {
+        "less_native_time_percent": 1.9483938915218602,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "HenonL": {
+        "less_native_time_percent": -0.19175455417064224,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "HenonN": {
+        "less_native_time_percent": -0.5223447475333876,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LatoocarfianC": {
+        "less_native_time_percent": 5.572380375529972,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LatoocarfianL": {
+        "less_native_time_percent": 13.46029696578439,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LatoocarfianN": {
+        "less_native_time_percent": -1.429108687476499,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LorenzL": {
+        "less_native_time_percent": 6.944957517547112,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "StandardL": {
+        "less_native_time_percent": 19.105803943349077,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "StandardN": {
+        "less_native_time_percent": -0.7521489971346718,
+        "trials": 3,
+        "source_report": "evidence/dsp-chaos-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      }
+    },
+    "candidate-core": {
+      "Amplitude": {
+        "less_native_time_percent": 11.282015099132147,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "BHiShelf": {
+        "less_native_time_percent": 4.620952027465897,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "BLowShelf": {
+        "less_native_time_percent": 1.7991432651118466,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "BPeakEQ": {
+        "less_native_time_percent": 2.221378393772544,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Blip": {
+        "less_native_time_percent": 6.388012618296535,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Formant": {
+        "less_native_time_percent": 7.98668885191347,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Formlet": {
+        "less_native_time_percent": 1.6503382318637683,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Gendy1": {
+        "less_native_time_percent": 1.8656716417910557,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Gendy2": {
+        "less_native_time_percent": 2.7137042062415184,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Gendy3": {
+        "less_native_time_percent": 1.6854613798957252,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Klang": {
+        "less_native_time_percent": -0.9040590405903881,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Klank": {
+        "less_native_time_percent": 2.968704299502778,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFPulse": {
+        "less_native_time_percent": 4.01088499763369,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFSaw": {
+        "less_native_time_percent": 5.713619402985081,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "LFTri": {
+        "less_native_time_percent": 4.911180773249757,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "Line": {
+        "less_native_time_percent": 27.083333333333325,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "SinOscFB": {
+        "less_native_time_percent": -0.2988792029887888,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      },
+      "XLine": {
+        "less_native_time_percent": 32.392936878425004,
+        "trials": 3,
+        "source_report": "evidence/dsp-core-host.json",
+        "scope": "Desktop whole-graph measurement; not isolated node cost or ESP32 performance."
+      }
+    }
+  },
+  "cautions": [
+    "Some native fixtures regress; all candidates remain off by default.",
+    "Cached-field normalization excludes only documented previously-unused fields; recursive state, RNG, arena and raw scratch remain checked.",
+    "Earlier prototype operator reports predate the signed-zero fix; final full comparisons and corrected operator measurements supersede them.",
+    "Old measurements retain their own source/build scope; current combined correctness does not turn desktop timings into hardware evidence.",
+    "Firmware flash/IRAM placement, whole-call-stack headroom and board timing are future hardware qualification work, excluded from this goal."
+  ]
+}

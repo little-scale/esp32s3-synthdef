@@ -73,7 +73,7 @@ static atomic_uint profile_epoch;
 static QueueHandle_t audio_commands,audio_ack;
 static float controller_frequency=440.0f,controller_amplitude=0.5f;
 typedef struct { unsigned kind; fm_graph *graph; } audio_command;
-enum { AUDIO_PARK=1,AUDIO_ACTIVATE,AUDIO_RESUME,AUDIO_BENCH,AUDIO_DELAY_TEST,AUDIO_TRACE,AUDIO_BUS_TEST,AUDIO_STOP,AUDIO_MASTER_ACTIVATE,AUDIO_PARK_KEEP_FX,AUDIO_UGEN_PROFILE,AUDIO_REMOTE,AUDIO_DEFINE,AUDIO_DEFINE_PLAY,AUDIO_MASTER_DEFINE,AUDIO_MASTER_DEFINE_PLAY,AUDIO_INSTANCE };
+enum { AUDIO_PARK=1,AUDIO_ACTIVATE,AUDIO_RESUME,AUDIO_BENCH,AUDIO_DELAY_TEST,AUDIO_TRACE,AUDIO_BUS_TEST,AUDIO_STOP,AUDIO_MASTER_ACTIVATE,AUDIO_PARK_KEEP_FX,AUDIO_UGEN_PROFILE,AUDIO_REMOTE,AUDIO_DEFINE,AUDIO_DEFINE_PLAY,AUDIO_MASTER_DEFINE,AUDIO_MASTER_DEFINE_PLAY,AUDIO_INSTANCE,AUDIO_DSP_QA,AUDIO_UGEN_SEEDED };
 #ifdef CONFIG_SYNTHDEF_TOUCH_UI
 static atomic_bool snapshot_requested;
 #endif
@@ -237,6 +237,10 @@ static void audio_task(void *unused)
             else if(command.kind==AUDIO_TRACE)diagnostic_trace(&synth);
             else if(command.kind==AUDIO_BUS_TEST)diagnostic_control_buses(&synth);
             else if(command.kind==AUDIO_UGEN_PROFILE)ok=diagnostic_ugen_profile(&synth);
+            else if(command.kind==AUDIO_UGEN_SEEDED)ok=diagnostic_ugen_profile_seeded(&synth);
+#ifdef SYNTHDEF_DSP_QA
+            else if(command.kind==AUDIO_DSP_QA)ok=diagnostic_dsp_qa(&synth);
+#endif
 #endif
             else if(command.kind==AUDIO_MASTER_ACTIVATE) {faults_base+=delay_bus.faults;ok=initialize_master(command.graph);}
             else if(command.kind==AUDIO_DEFINE || command.kind==AUDIO_DEFINE_PLAY)
@@ -451,7 +455,7 @@ static int audio_call(unsigned kind,fm_graph *graph)
     audio_command command={kind,graph};int ok=0;
     xQueueReset(audio_ack);
     if(xQueueSend(audio_commands,&command,pdMS_TO_TICKS(100))!=pdTRUE)return 0;
-    return xQueueReceive(audio_ack,&ok,pdMS_TO_TICKS(kind==AUDIO_TRACE?60000:(kind==AUDIO_BENCH || kind==AUDIO_DELAY_TEST || kind==AUDIO_UGEN_PROFILE?15000:1000)))==pdTRUE && ok;
+    return xQueueReceive(audio_ack,&ok,pdMS_TO_TICKS(kind==AUDIO_DSP_QA?180000:kind==AUDIO_TRACE?60000:(kind==AUDIO_BENCH || kind==AUDIO_DELAY_TEST || kind==AUDIO_UGEN_PROFILE || kind==AUDIO_UGEN_SEEDED?15000:1000)))==pdTRUE && ok;
 }
 static int remote_protocol(const char *op,const unsigned char *payload,size_t bytes,char *reply,size_t size)
 {
@@ -652,9 +656,19 @@ static void console_task(void *unused)
         case ']': controller_amplitude = fminf(controller_amplitude + 0.05f, 1.0f); send_event(INST_AMP, 0, controller_amplitude); break;
         case '[': controller_amplitude = fmaxf(controller_amplitude - 0.05f, 0.0f); send_event(INST_AMP, 0, controller_amplitude); break;
 #ifdef CONFIG_SYNTHDEF_DIAGNOSTICS
+#ifdef SYNTHDEF_DSP_QA
+        case 'q': {
+            service_busy(true,"DSP QA");
+            if(service_pause(true) && audio_call(AUDIO_DSP_QA,NULL) && service_pause(false)){
+                service_busy(false,"READY");diagnostic_dsp_qa_report();
+            }else {board_audio_mute();service_busy(true,"RESET REQUIRED");}
+            break;
+        }
+#endif
+        case 'J':
         case 'j': {
             service_busy(true,"PROFILING UGens");
-            if(service_pause(true) && audio_call(AUDIO_UGEN_PROFILE,NULL) && service_pause(false)){
+            if(service_pause(true) && audio_call(c=='J'?AUDIO_UGEN_SEEDED:AUDIO_UGEN_PROFILE,NULL) && service_pause(false)){
                 service_busy(false,"READY");diagnostic_ugen_report();
             }else {board_audio_mute();service_busy(true,"RESET REQUIRED");}
             break;

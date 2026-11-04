@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-288485ba1e48",
+  "build": "7afd20139b45f01f5a4dca1bac7f3fe397fddfa3816bac5e4eea41920fe979bd",
+  "candidate_flags": {
+    "smooth": false,
+    "binary": false,
+    "noise": false,
+    "binding": false,
+    "routing": false,
+    "chaos": false,
+    "core": false,
+    "production_default": false
+  },
+  "tests": {
+    "stereo": {
+      "frequencies": [
+        330.0,
+        660.0
+      ],
+      "peak": 197,
+      "rms": [
+        139.02615919418628,
+        139.02305229815227
+      ]
+    },
+    "gate_release": {
+      "peak": 0,
+      "rms": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "restoration": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.25,
+    "instances_restored": true
+  }
+}

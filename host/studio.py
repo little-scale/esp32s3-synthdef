@@ -50,6 +50,11 @@ class AudioTelemetry:
     def __init__(self):
         self.pending = b''
         self.values = {}
+        self.seen = {}
+        self.peak = None
+        self.peak_skip = 0
+        self.peak_windows = 0
+        self.peak_generation = 0
         self.lock = threading.Lock()
 
     def write(self, data):
@@ -61,15 +66,33 @@ class AudioTelemetry:
             values = {key:int(value) for key,value in re.findall(r'\b([a-z_][a-z_0-9]*)=(\d+)',line.decode(errors='replace')) if key in self.fields}
             if values:
                 with self.lock:
-                    self.values.update(values); self.values['updated'] = time.monotonic()
+                    now = time.monotonic()
+                    self.values.update(values); self.values['updated'] = now
+                    self.seen.update({key:now for key in values})
+                    peak=values.get('peak_x10')
+                    if peak is not None and peak<0xffffffff:
+                        if self.peak_skip:self.peak_skip-=1
+                        else:
+                            self.peak=peak if self.peak is None else max(self.peak,peak)
+                            self.peak_windows+=1
         if len(self.pending)>8192:self.pending=b''
 
     def flush(self):
         pass
 
+    def reset_peak(self):
+        with self.lock:
+            self.peak=None;self.peak_windows=0;self.peak_generation+=1
+            # The first received reporting window may straddle the click.
+            # Skip it; the following complete window starts the new reading.
+            self.peak_skip=1
+
     def snapshot(self):
         with self.lock:
-            return dict(self.values)
+            now = time.monotonic()
+            return dict(self.values, ages={key:max(0, now-stamp) for key,stamp in self.seen.items()},
+                        peak_tracking=True,peak_since_reset_x10=self.peak,peak_windows=self.peak_windows,
+                        peak_waiting=self.peak is None,peak_generation=self.peak_generation)
 
 
 @contextmanager
@@ -303,10 +326,27 @@ class Studio:
             raise Problem('Connect the device first', 409)
         return self.device
 
+    def audio_snapshot(self):
+        """Cached diagnostics only; caller holds device_lock, no device requests."""
+        if not self.device:
+            return dict(connected=False, device_id=None, source=None)
+        usb = self.usb_monitor is not None or not isinstance(self.device, NetworkDevice)
+        values = self.telemetry.snapshot() if usb else {}
+        return dict(values, connected=True, device_id=self.device_info.get('device_id'),
+                    source='usb' if usb else None)
+
+    def reset_audio_peak(self,payload):
+        if not self.device_info or payload.get('device_id')!=self.device_info.get('device_id'):
+            raise Problem('Choose the connected module before resetting its peak',409)
+        if self.audio_snapshot().get('source')!='usb':
+            raise Problem('Peak measurement needs the module’s USB diagnostics',409)
+        self.telemetry.reset_peak()
+        return self.audio_snapshot()
+
     def state(self):
         d = self.connected()
         state=dict(connected=True, port=self.device_port, hello=self.device_info,
-                    status=d.request('STATUS'), slots=d.request('LIST'), audio=self.telemetry.snapshot())
+                    status=d.request('STATUS'), slots=d.request('LIST'), audio=self.audio_snapshot())
         if self.device_info.get('master_slots')==2:state['masters']=d.request('FXLIST')
         if self.device_info.get('global_volume'):state['volume_percent']=self.volume_value(d.request('VOLUME'))
         state['connection']=dict(transport='wifi' if isinstance(d,NetworkDevice) else 'usb',
@@ -342,6 +382,22 @@ class Studio:
             raise Problem('Selected module changed. Reconnect and choose its destination again.',409)
         if payload.get('device_id') and payload['device_id']!=self.device_info.get('device_id'):
             raise Problem('The request targets a different module',409)
+
+    def profile_ugens(self,payload):
+        """Explicit muted maintenance, borrowing USB without closing/reopening it."""
+        self.check_target(payload)
+        if payload.get('device_id')!=self.device_info.get('device_id'):
+            raise Problem('Name the exact module for profiling',409)
+        if isinstance(self.device,NetworkDevice):raise Problem('Use USB for UGen profiling',409)
+        fixed=payload.get('fixed',True)
+        if type(fixed) is not bool:raise Problem('Fixed profiling mode must be true or false')
+        if self.volume_value(self.device.request('VOLUME'))!=0:
+            raise Problem('Mute the module before UGen profiling',409)
+        from profile_ugens import collect
+        try:result=collect(self.device,fixed=fixed)
+        except (AssertionError,KeyError,ValueError) as error:
+            raise Problem('Profiler output failed validation; check the diagnostic firmware and result before retrying',409) from error
+        return dict(device_id=self.device_info['device_id'],**result)
 
     def network_scan(self,payload):
         self.network_devices=discover(self.pairings,payload.get('address') or None)
@@ -634,7 +690,8 @@ class Handler(BaseHTTPRequestHandler):
             if path == '/api/config':
                 return self.reply(200, studio.config())
             if path == '/api/audio':
-                return self.reply(200, studio.telemetry.snapshot())
+                with exclusive(studio.device_lock, 'The device is busy. Wait for the current operation.'):
+                    return self.reply(200, studio.audio_snapshot())
             if path.startswith('/api/artifact/'):
                 token, _, extension = path.removeprefix('/api/artifact/').partition('.')
                 artifact = studio.artifact(token)
@@ -689,6 +746,10 @@ class Handler(BaseHTTPRequestHandler):
                     result = studio.connected().request('PANIC')
                 elif path == '/api/volume':
                     result = studio.volume(payload)
+                elif path == '/api/audio/reset-peak':
+                    result = studio.reset_audio_peak(payload)
+                elif path == '/api/diagnostics/ugen-profile':
+                    result = studio.profile_ugens(payload)
                 elif path == '/api/read-active':
                     studio.check_target(payload)
                     result = studio.read_active(payload.get('slot'),payload.get('target')=='master')

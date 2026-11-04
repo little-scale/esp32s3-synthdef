@@ -133,7 +133,7 @@ ESP32 {
     }
     *omni { ^ESP32Target(\all) }
     *now { ^Main.elapsedTime+offset }
-    *deploy { |function,target,args,stage=\main,name,source|
+    *deploy { |function,target,args,stage=\main,name,source,definitionOnly=true|
         var definition,original=source;
         if(target.isNil){Error("Choose a module, alias, address, group or \\all").throw};
         if(function.isKindOf(SynthDef)){
@@ -145,6 +145,7 @@ ESP32 {
             original=original ? function.def.sourceCode;
             definition=SynthDef(if(stage==\fx){\MasterFX}{\SoundBlock},{
                 var signal=SynthDef.wrap(function).asArray;
+                var mode=if(stage==\main and:{definitionOnly.not}){NamedControl.ir(\__esp32_autoplay,1)}{nil};
                 if(UGen.buildSynthDef.children.any{|u|u.isKindOf(AbstractOut)}){Error("Return audio from the Function; use a literal SynthDef for authored Out.ar routing.").throw};
                 if(signal.size<1 or:{signal.size>2}){Error("Return mono or stereo audio").throw};
                 signal=signal.collect{|channel|if(channel.isNumber){DC.ar(channel)}{if(channel.rate==\audio){channel}{K2A.ar(channel)}}};
@@ -152,13 +153,15 @@ ESP32 {
             });
         };
         if(original.isNil){Error("Original source unavailable: supply source: when sending this definition.").throw};
-        ^this.request(\deploy,(target:target,args:args ? [],stage:stage,name:name,definition:true),original,definition.asBytes)
+        ^this.request(\deploy,(target:target,args:args ? [],stage:stage,name:name,definition:definitionOnly),original,definition.asBytes)
     }
     *playObject { |object,target,args,stage=\main,name,source|
-        var combined=ESP32Job(0,120);
-        this.deploy(object,target,nil,stage,name,source).onDone({
-            try {this.playStage(target,stage,args).onDone({|r|combined.finish(true,r)}).onError({|e|combined.finish(false,e)})}
-            {|error|combined.finish(false,error.errorString)}
+        var combined=ESP32Job(0,120),autonomous=object.isKindOf(Function);
+        this.deploy(object,target,if(autonomous){args}{nil},stage,name,source,autonomous.not).onDone({|report|
+            if(autonomous){combined.finish(true,report)}{
+                try {this.playStage(target,stage,args).onDone({|r|combined.finish(true,r)}).onError({|e|combined.finish(false,e)})}
+                {|error|combined.finish(false,error.errorString)}
+            }
         }).onError({|error|combined.finish(false,error)});
         ^combined
     }

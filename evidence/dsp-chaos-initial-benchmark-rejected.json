@@ -1,0 +1,817 @@
+{
+  "passed": true,
+  "hardware": false,
+  "device_access": false,
+  "audio_playback": false,
+  "production_enabled": false,
+  "comparison": "Bit-identical output and all voice/RNG/flags/arena fields; only caller-owned pointers normalized. Only new chaos freq/b1/b2 fields outside chaos_state normalized.",
+  "reports": {
+    "chaos-only": {
+      "passed": true,
+      "graphs": 2190,
+      "blocks": 140160,
+      "samples": 17940480,
+      "matching_fault_blocks": 3289,
+      "profile": {},
+      "four_rate_dynamic": {
+        "passed": true,
+        "graphs": 14,
+        "blocks": 28672,
+        "samples": 3670016,
+        "matching_fault_blocks": 0
+      }
+    },
+    "combined": {
+      "passed": true,
+      "graphs": 2190,
+      "blocks": 140160,
+      "samples": 17940480,
+      "matching_fault_blocks": 3289,
+      "profile": {
+        "delay_render": {
+          "bound_slots": 3,
+          "sample_call_sites": 2,
+          "rate_call_sites": 2
+        },
+        "extensions": {
+          "bound_slots": 3,
+          "sample_call_sites": 4,
+          "rate_call_sites": 2
+        },
+        "utilities": {
+          "bound_slots": 6,
+          "sample_call_sites": 1,
+          "rate_call_sites": 4
+        },
+        "modulation": {
+          "bound_slots": 2,
+          "sample_call_sites": 2,
+          "rate_call_sites": 2
+        },
+        "formlet_render": {
+          "bound_slots": 1,
+          "sample_call_sites": 1,
+          "rate_call_sites": 0
+        },
+        "render_miverb": {
+          "bound_slots": 8,
+          "sample_call_sites": 2,
+          "rate_call_sites": 0
+        },
+        "rings_render": {
+          "bound_slots": 1,
+          "sample_call_sites": 1,
+          "rate_call_sites": 2
+        },
+        "stochastic_render": {
+          "bound_slots": 3,
+          "sample_call_sites": 3,
+          "rate_call_sites": 0
+        },
+        "expansion_shift": {
+          "bound_slots": 3,
+          "sample_call_sites": 3,
+          "rate_call_sites": 4
+        },
+        "expansion_render": {
+          "bound_slots": 6,
+          "sample_call_sites": 7,
+          "rate_call_sites": 3
+        }
+      },
+      "four_rate_dynamic": {
+        "passed": true,
+        "graphs": 14,
+        "blocks": 28672,
+        "samples": 3670016,
+        "matching_fault_blocks": 0
+      }
+    }
+  },
+  "xtensa_objects": {
+    "chaos-only": {
+      "reference": {
+        "text_bytes": 174711,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:100:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:12:13:chaos_HenonN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:91:13:chaos_HenonL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:181:13:chaos_HenonC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:600:13:chaos_LorenzL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:9:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:388:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:443:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:515:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:714:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:766:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:835:13:chaos_FBSineC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:921:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:977:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_fast.inc:74:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:279:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_chaos.inc:324:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_formants.inc:34:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:24:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:46:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:55:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_utilities.inc:29:39:utilities\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_modulation.inc:11:39:modulation\t352\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:118:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_stochastic.inc:19:13:chaos_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_fast.inc:112:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:167:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:174:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:208:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_miverb.inc:45:39:render_miverb\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_rings.inc:194:39:rings_render\t1680\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_extensions.inc:82:39:extensions\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_bandlimited.inc:23:13:bandlimited\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_fast.inc:84:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:245:13:render_graph\t1024\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:79:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:84:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:85:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:95:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:528:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:531:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/reference/src/fm_render.c:537:6:fm_render\t32\tstatic"
+        ]
+      },
+      "target": {
+        "text_bytes": 173358,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:100:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:14:13:chaos_HenonN_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:88:13:chaos_HenonL_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:172:13:chaos_HenonC_next\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:553:13:chaos_LorenzL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:11:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:360:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:410:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:474:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:659:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:706:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:767:13:chaos_FBSineC_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:847:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:898:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_fast.inc:74:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:264:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_chaos.inc:304:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_formants.inc:34:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:24:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:46:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:55:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_utilities.inc:29:39:utilities\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_modulation.inc:11:39:modulation\t352\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:118:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_stochastic.inc:19:13:chaos_render\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_fast.inc:112:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:167:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:174:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:208:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_miverb.inc:45:39:render_miverb\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_rings.inc:194:39:rings_render\t1680\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_extensions.inc:82:39:extensions\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_bandlimited.inc:23:13:bandlimited\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_fast.inc:84:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:245:13:render_graph\t1024\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:79:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:84:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:85:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:95:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:528:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:531:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/chaos-only/target/src/fm_render.c:537:6:fm_render\t32\tstatic"
+        ]
+      }
+    },
+    "combined": {
+      "reference": {
+        "text_bytes": 184270,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:116:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:124:14:quotient_error\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_filters.inc:25:14:filter_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:12:13:chaos_HenonN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:91:13:chaos_HenonL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:181:13:chaos_HenonC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:600:13:chaos_LorenzL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:9:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:388:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:443:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:515:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:714:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:766:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:835:13:chaos_FBSineC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:921:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:977:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_fast.inc:119:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:37:17:phase_word\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:279:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_chaos.inc:324:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_formants.inc:34:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:40:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:62:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:71:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:253:14:candidate_degree\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_fast.inc:129:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_utilities.inc:29:39:utilities\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_dsp_candidates.inc:4:39:candidate_smooth\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_modulation.inc:11:39:modulation\t384\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:134:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_dsp_candidates.inc:65:39:candidate_noise\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_stochastic.inc:19:13:chaos_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_fast.inc:157:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:259:39:candidate_routing\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:183:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:190:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:225:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_bandlimited.inc:23:13:bandlimited\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_miverb.inc:45:39:render_miverb\t176\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_rings.inc:194:39:rings_render\t1696\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_extensions.inc:82:39:extensions\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:332:13:render_graph\t1040\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:95:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:100:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:101:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:111:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:618:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:621:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/reference/src/fm_render.c:627:6:fm_render\t32\tstatic"
+        ]
+      },
+      "target": {
+        "text_bytes": 182960,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:116:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:124:14:quotient_error\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_filters.inc:25:14:filter_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:14:13:chaos_HenonN_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:88:13:chaos_HenonL_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:172:13:chaos_HenonC_next\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:553:13:chaos_LorenzL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:11:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:360:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:410:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:474:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:659:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:706:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:767:13:chaos_FBSineC_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:847:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:898:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_fast.inc:119:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:37:17:phase_word\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:264:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_chaos.inc:304:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_formants.inc:34:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:40:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:62:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:71:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:253:14:candidate_degree\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_fast.inc:129:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_utilities.inc:29:39:utilities\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_dsp_candidates.inc:4:39:candidate_smooth\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_modulation.inc:11:39:modulation\t384\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:134:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_dsp_candidates.inc:65:39:candidate_noise\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_stochastic.inc:19:13:chaos_render\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_fast.inc:157:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:259:39:candidate_routing\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:183:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:190:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:225:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_bandlimited.inc:23:13:bandlimited\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_miverb.inc:45:39:render_miverb\t176\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_rings.inc:194:39:rings_render\t1696\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_extensions.inc:82:39:extensions\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:332:13:render_graph\t1040\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:95:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:100:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:101:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:111:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:618:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:621:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/combined/target/src/fm_render.c:627:6:fm_render\t32\tstatic"
+        ]
+      }
+    }
+  },
+  "source_sha256": {
+    "host/dsp_binding.py": "997b81ac5f14a8e1b81556f455c53f1f4d30f5a2249ce82c48c1663b9698f62f",
+    "host/dsp_routing.py": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
+    "host/dsp_chaos_cache.py": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
+    "host/routing_fixtures.py": "27419b0fd50989af0981a74ffd1137b42753230215fba4a574ff94cb76f6ac6e",
+    "host/engine_profile.py": "2550f52541980af45f484b1b7b56e269c3cf8b5331168b27870b777519e34ea5",
+    "host/test_dsp_binding.py": "c805f348b429858f589794a6f0cc9ecac1f3977b4d82d4725f7f5ff19e18c4e3",
+    "host/test_dsp_candidates.py": "5cf2accab0008dcfea5146de9dd561f082eabe3fd56bd944d77df178060aeafb",
+    "tests/dsp_kernels_test.c": "3173ce7cd2346ed15c4dc5b3c8259e0c5b3dc9bdfa42425bc627d7737538c32a",
+    "tests/dsp_candidates_test.c": "8370ecb857332615a840cf262c8f15677bc3a6750365c1d2b9a1e2619465bc99"
+  },
+  "native_per_type": {
+    "scope": "Three native steady-state whole-graph trials per type; results are representative-graph costs, not isolated node costs or ESP32 predictions. Both final voice/RNG/arena state and final audio block must match after 1,024 warm and 16,384 timed blocks.",
+    "measurements": {
+      "CuspL": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_CuspL_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_CuspL_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_CuspL_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_CuspL_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_CuspL_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_CuspL_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "CuspN": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_CuspN_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_CuspN_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_CuspN_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_CuspN_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_CuspN_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_CuspN_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "FBSineC": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m15_FBSineC_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineC_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_FBSineC_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineC_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_FBSineC_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineC_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "FBSineL": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m15_FBSineL_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineL_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_FBSineL_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineL_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_FBSineL_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineL_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "FBSineN": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m15_FBSineN_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineN_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_FBSineN_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineN_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_FBSineN_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_FBSineN_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "HenonC": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_HenonC_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonC_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_HenonC_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonC_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_HenonC_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonC_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "HenonL": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_HenonL_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonL_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_HenonL_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonL_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_HenonL_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonL_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "HenonN": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_HenonN_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonN_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_HenonN_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonN_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_HenonN_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_HenonN_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "LatoocarfianC": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_LatoocarfianC_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianC_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LatoocarfianC_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianC_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LatoocarfianC_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianC_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "LatoocarfianL": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_LatoocarfianL_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianL_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LatoocarfianL_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianL_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LatoocarfianL_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianL_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "LatoocarfianN": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_LatoocarfianN_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianN_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LatoocarfianN_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianN_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LatoocarfianN_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LatoocarfianN_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "LorenzL": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m14_LorenzL_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LorenzL_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LorenzL_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LorenzL_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m14_LorenzL_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m14_LorenzL_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "StandardL": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m15_StandardL_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_StandardL_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_StandardL_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_StandardL_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_StandardL_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_StandardL_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      },
+      "StandardN": {
+        "timing_unavailable": true,
+        "failed_attempts": [
+          {
+            "fixture": "m15_StandardN_chaotic.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_StandardN_chaotic.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_StandardN_stable.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_StandardN_stable.scsyndef rate=44100 block=16384 audio=0 state_offset=4664 fault=0/0\n"
+          },
+          {
+            "fixture": "m15_StandardN_live.scsyndef",
+            "error": "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-chaos-cache/timing/throughput/compare failed:\n\nMismatch /Users/a1106632/Documents/WaveShareAmoled18-synthdef/upstream/fm1-synthdef/synthdef-engine/fixtures/m15_StandardN_live.scsyndef rate=44100 block=16384 audio=0 state_offset=4868 fault=0/0\n"
+          }
+        ]
+      }
+    }
+  }
+}

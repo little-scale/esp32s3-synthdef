@@ -45,8 +45,19 @@
       <button id="connect" class="secondary wide">Connect</button>
       <p id="device-status" class="hint" role="status">Choose USB or a paired Wi-Fi module, then connect.</p>
       <div id="connected-tools" class="connected-tools" hidden><button id="read-active" class="quiet">Read Main</button><button id="slots-refresh" class="quiet">Refresh</button><button id="panic" class="panic">Panic</button></div>
+      <section id="audio-resources" class="audio-resources" aria-labelledby="audio-title" hidden>
+        <div class="resource-heading"><h3 id="audio-title">Audio resources</h3><button id="cpu-peak-reset" class="quiet" type="button" aria-label="Reset CPU peak measurement" disabled>Reset peak</button></div>
+        <dl class="resource-grid">
+          <div><dt>CPU average</dt><dd id="cpu-average">—</dd></div>
+          <div><dt>Peak since reset</dt><dd id="cpu-peak">—</dd></div>
+          <div><dt>Internal RAM free</dt><dd id="ram-free">—</dd></div>
+          <div><dt>PSRAM free</dt><dd id="psram-free">—</dd></div>
+        </dl>
+        <p class="hint">Main + active FX and audio preparation. 100% uses the audio block deadline; this is not total dual-core CPU usage.</p>
+        <p id="audio-status" class="hint" role="status">Waiting for diagnostics…</p>
+      </section>
       <div id="volume-control" class="volume-control" hidden>
-        <div class="volume-heading"><label for="volume">Output volume</label><output id="volume-value" for="volume">—</output></div>
+        <div class="volume-heading"><label for="volume">Output volume</label><output id="volume-value" for="volume" title="Output gain relative to 100% volume; not a measured signal level in dBFS.">—</output></div>
         <input id="volume" type="range" min="0" max="100" step="1" value="20" aria-describedby="volume-status" disabled>
         <p id="volume-status" class="hint" role="status">Connect to adjust this module’s output.</p>
       </div>

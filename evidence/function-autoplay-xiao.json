@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "hardware": true,
+  "device_id": "esp32-288485ba1e48",
+  "firmware_changed": false,
+  "observed_new_boot": true,
+  "cold_power_user_confirmation": "Reconnected; playing automatically",
+  "host_play_sent_after_boot": false,
+  "definition": false,
+  "continuous": true,
+  "active": true,
+  "prepared": true,
+  "graph_sha256": "96f35f4740d7763d706ff11a557e6afe692134a6e0320ece25880bfae8ced3d2",
+  "source_sha256": "eccd69035ca7fac04a1fcc43211b722e9f2d5e1c632e00e603696644aa8a4793",
+  "volume_percent": 100,
+  "controls": [
+    {
+      "index": 0,
+      "count": 1,
+      "rate": 1,
+      "trigger": false,
+      "writable": true,
+      "values": [
+        880
+      ],
+      "name": "freq"
+    },
+    {
+      "index": 1,
+      "count": 1,
+      "rate": 1,
+      "trigger": false,
+      "writable": true,
+      "values": [
+        50
+      ],
+      "name": "dev"
+    },
+    {
+      "index": 2,
+      "count": 1,
+      "rate": 1,
+      "trigger": false,
+      "writable": true,
+      "values": [
+        1
+      ],
+      "name": "slide"
+    },
+    {
+      "index": 3,
+      "count": 1,
+      "rate": 0,
+      "trigger": false,
+      "writable": false,
+      "values": [
+        1
+      ],
+      "name": "__esp32_autoplay"
+    }
+  ],
+  "pcm_after_boot": {
+    "peak": 24968,
+    "rms": [
+      10300.734474506453,
+      10716.976397572333
+    ]
+  },
+  "original_package_private_backup": true,
+  "scope": "Current Function converted through native SC .playESP32, saved and active with PCM after an observed new boot. User confirmed automatic playback after unplugging and reconnecting power without BOOT. Literal SynthDef behavior tested separately on simulated modules."
+}

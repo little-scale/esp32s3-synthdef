@@ -1,6 +1,6 @@
 # Recorded evidence
 
-Reports cover development from 30 October through 3 November 2026. They retain
+Reports cover development from 30 October through 4 November 2026. They retain
 the source/build IDs and test scope from their own runs. An old timing or board
 measurement does not automatically qualify a newer image or another graph.
 [STATUS.md](../STATUS.md) identifies the latest installed image and open limits.
@@ -11,10 +11,37 @@ relative documentation links.
 
 ## Current workflow and compact controls
 
+The 4 November computer-only review adds these records. No ESP32 connection or
+write occurred. All candidate switches remain disabled; native timing gains and
+regressions retain their fixture/compiler scope.
+
+| Records | Scope |
+| --- | --- |
+| `studio-volume-db.json`, `studio-volume-db-preview.jpg` | Percentage and output-gain dB formatting, browser regressions and live readout; no volume write or firmware change |
+| `dsp-seeded-host.json`, `dsp-seeded-xiao-*.json` | Deterministic profiler tests, audited images, 28-graph / 240-pair XIAO qualification and verified restoration; the interrupted USB attempt is retained separately |
+| `function-autoplay-host.json`, `function-autoplay-xiao.json` | Native SC Function autoplay/default persistence/single activation with literal-definition compatibility; current XIAO block active with PCM after an observed new boot, physical confirmation tracked separately |
+| `studio-peak-reset.json`, `studio-peak-reset-preview.jpg` | Host peak accumulation/reset, whole-window waiting, cache/identity races, fake-device HTTP tests and live XIAO UI reset observation; no firmware reset or audio-control mutation |
+| `dsp-qa-xiao-summary.json`, `dsp-qa-pack.json` | First bounded physical session: 50-case replay identity/coverage, mixed timing results, clean listening and final standard firmware/restoration; not the full inventory |
+| `dsp-qa-xiao-{baseline,all,selected}.json` | Baseline plus full/narrow candidate float/state/scratch/arena digest streams; both comparisons match, including the expected fault-domain case |
+| `dsp-qa-xiao-*-timing.json` | Three 1,024-block normal/probed trials for four matching graph hashes; live stochastic snapshots differ across images, so smaller differences need fixed-seed confirmation |
+| `dsp-qa-xiao-*-build.json` | Per-image configuration/profile/compile/IRAM audits; `restored-build` is the final standard image, while `final-build` is a compiled-only narrow non-QA image |
+| `dsp-qa-xiao-listening.json`, `dsp-qa-xiao-final-smoke.json` | User-confirmed clean PCM5102A sequence/tail; separate final standard-image 330/660 Hz stereo and gate-release checks, original saved setup restored |
+| `studio-resources-host.json` | Cached CPU/RAM panel; simulated USB/Wi-Fi/disconnect identity checks, field-age expiry and browser rendering logic; no module accessed or firmware changed |
+| `studio-resources-xiao.json` | Read-only live Chrome observation of the connected XIAO's new resource panel after Studio restart; current-user-state readings, not candidate timing evidence |
+| `dsp-review-summary.json` | Complete 154/33/40 review, all results references, source-default audit against `368d267`, unlinked code costs and known limits |
+| `dsp-review-amoled-default-build.json`, `dsp-review-xiao-default-build.json` | Default build `eaf9cd626f8a`, candidates disabled; both images cross-built and audited for compile settings, loader inventory, table bytes and configured instruction placement; neither flashed |
+| `dsp-operators-final-host.json` | Corrected scalar/shared paths and 36 audio binary specialisations, signed-zero compositions, independent switches, four rates and native bank timing |
+| `dsp-binding-host.json`, `dsp-routing-host.json`, `dsp-chaos-host.json`, `dsp-core-host.json` | Individual and cumulative numerical/state/arena comparisons, per-type native measurements, Xtensa object/stack costs; regressions retained |
+| `dsp-all-host.json` | All seven candidates versus production; 2,451 graphs plus 896 four-rate edge graphs, 254,959,616 samples, constructor/raw scratch and recursive state/RNG/arena identity |
+| `dsp-signed-zero-regression.json` | Reproduced audible floor→atan2 difference and corrected fallback witness; initial operator records are superseded |
+| `dsp-address-runtime.json`, `dsp-address-runtime-investigation.json` | Optional AddressSanitizer initialization failure before main, also reproduced with an empty C program; sampled startup stack and stopped-probe scope retained; not a passing DSP run |
+| `dsp-chaos-initial-benchmark-rejected.json`, `dsp-core-initial-host.json` | Initial harness/cache comparison rejection and earlier prototype scope; not current performance guarantees |
+
 The 3 November update adds the following scoped records:
 
 | Records | Scope |
 | --- | --- |
+| `dsp-candidates-host.json`, `dsp-candidates-defaults.json` | Computer-only six-UGen/twenty-binary candidate comparisons, independent switches, wider graph regression, native throughput and offline Xtensa object size; production switches remain off, no board access or hardware timing |
 | `dsp-kernels-summary.json`, `dsp-kernels-xiao-before.json`, `dsp-kernels-xiao-final.json` | Three-run physical rendering-cost comparison; exact graph hashes, restored packages/settings and configured 240 MHz conversion |
 | `dsp-kernels-host.json`, `dsp-kernels-inventory.json`, `dsp-kernels-reuse.json` | Four-rate exact kernel comparisons, wider 1,500-graph check and shared-scratch/lifetime regression |
 | `dsp-kernels-xiao-packed.json`, `miverb-packed-host.json` | Numerically equivalent packed MiVerb experiment; target timing regressed, so disabled by default |

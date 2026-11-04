@@ -66,6 +66,58 @@ class ControlModule(Module):
         return result
 
 class IDETests(unittest.TestCase):
+    def test_function_play_is_autonomous_and_definition_lifecycle_is_preserved(self):
+        m=ControlModule(71)
+        with tempfile.TemporaryDirectory() as folder:
+            folder=Path(folder);app=Studio(SCLANG);app.pairings=Pairings(folder/'pairs.json');app.pairings.save(m.pairing())
+            bridge=Bridge(app,'test-autonomous-functions',config=folder/'connection.json')
+            bridge.hub.refresh=lambda:[dict(m.info(),paired=True,online=True)]
+            bridge.hub.rows=bridge.hub.refresh();original=bridge.hub.dispatch;snapshots={};operations=[]
+            operation=m.operation
+            def observe(op,data):operations.append(op);return operation(op,data)
+            m.operation=observe
+            def dispatch(action,p,*args):
+                if action=='snapshot':
+                    stage=int(p.get('stage')=='fx')
+                    snapshots[p['name']]=dict(flags=m.meta[157],graph=m.graphs[stage],running=m.running[stage],starts=operations.count('START'))
+                    return dict(saved=True)
+                return original(action,p,*args)
+            bridge.hub.dispatch=dispatch
+            script=folder/'autonomous-functions.scd'
+            script.write_text(r'''
+Routine({
+    try {
+        ESP32.connect(%CONFIG%).wait;
+        {arg freq=220;SinOsc.ar(freq,0,0.01)!2}.playESP32(\all,args:[\freq,660]).wait;
+        ESP32.request(\snapshot,(name:"function_play")).wait;
+        {arg freq=220;SinOsc.ar(freq,0,0.01)!2}.sendESP32(\all).wait;
+        ESP32.request(\snapshot,(name:"function_send")).wait;
+        SynthDef(\literal,{arg gate=1;Out.ar(0,SinOsc.ar(220,0,0.01)!2)}).playESP32(\all).wait;
+        ESP32.request(\snapshot,(name:"literal_play")).wait;
+        SynthDef(\literal,{arg gate=1;Out.ar(0,SinOsc.ar(220,0,0.01)!2)}).sendESP32(\all).wait;
+        ESP32.request(\snapshot,(name:"literal_send")).wait;
+        {arg wet=0.5;In.ar(0,2)*wet}.playESP32(\all,args:[\wet,0.3],stage:\fx).wait;
+        ESP32.request(\snapshot,(name:"fx_function_play",stage:\fx)).wait;
+        ESP32.disconnect;"PASS: autonomous Function play, persisted args, single start and literal definition lifecycle".postln;0.exit;
+    } {|error|error.reportError;1.exit};
+}).play(SystemClock);
+'''.replace('%CONFIG%',json.dumps(str(folder/'connection.json'))))
+            try:
+                run=subprocess.run([SCLANG,'-l',str(LANGUAGE),'-D',str(script)],capture_output=True,text=True,timeout=40)
+                self.assertEqual(run.returncode,0,run.stdout+run.stderr)
+                fn=snapshots['function_play'];self.assertEqual(fn['flags']&1,0);self.assertTrue(fn['running']);self.assertEqual(fn['starts'],0)
+                names=dict(fn['graph']['names']);self.assertEqual(fn['graph']['controls'][names['freq']],660)
+                self.assertEqual(fn['graph']['controls'][names['__esp32_autoplay']],1)
+                for key in ('function_send','literal_play','literal_send'):
+                    self.assertEqual(snapshots[key]['flags']&1,1,key)
+                    self.assertNotIn('__esp32_autoplay',dict(snapshots[key]['graph']['names']))
+                self.assertFalse(snapshots['function_send']['running']);self.assertTrue(snapshots['literal_play']['running'])
+                self.assertFalse(snapshots['literal_send']['running']);self.assertEqual(snapshots['literal_play']['starts'],1)
+                fx=snapshots['fx_function_play'];self.assertEqual(fx['flags']&1,0);self.assertTrue(fx['running'])
+                self.assertEqual(fx['starts'],1)  # No second start for either Function.
+                self.assertAlmostEqual(fx['graph']['controls'][dict(fx['graph']['names'])['wet']],.3,places=6)
+            finally:bridge.server_close();app.close();m.close()
+
     def test_native_stale_named_and_cached_players_restart_after_clock_clear(self):
         with tempfile.TemporaryDirectory() as folder:
             folder=Path(folder);app=Studio(SCLANG);bridge=Bridge(app,'test-stale-player',config=folder/'connection.json')

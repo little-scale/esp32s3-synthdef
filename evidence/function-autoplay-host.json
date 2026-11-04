@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "hardware": false,
+  "native_supercollider": true,
+  "host_audio_playback": false,
+  "simulated_module": true,
+  "tests": [
+    "Function play stores autoplay marker with saved initial args and one activation",
+    "Function send stays a silent definition",
+    "Literal SynthDef play creates runtime instance with definition-only storage",
+    "Literal SynthDef send stays silent",
+    "FX Function play stores an active processor without duplicate activation",
+    "Existing deploy/routes/pattern cleanup regression"
+  ],
+  "source_sha256": {
+    "supercollider/ESP32.sc": "a216b8db2e9dace70ada4d8ddc277e9f1dfc7690c44af35ba125ab656a6d614d",
+    "host/ide_bridge.py": "44ecd4a885e44728c73a8f98fef2dbe859543aafd25bab0f55030b72299f959a",
+    "host/test_ide_bridge.py": "607461152e28162a232a0f5a8f99e9af412cf8870704dd13eaa50d322a926105"
+  }
+}

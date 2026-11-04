@@ -8,9 +8,9 @@ import re
 import time
 from patches import Device
 
-def collect(device,timeout=30):
+def collect(device,timeout=30,fixed=False):
     before=device.request('STATUS')
-    device.link.write(b'j')
+    device.link.write(b'J' if fixed else b'j')
     lines=[];until=time.monotonic()+timeout
     while time.monotonic()<until:
         for raw in device.lines():
@@ -19,13 +19,25 @@ def collect(device,timeout=30):
             if line=='UGEN_END':
                 header=dict(re.findall(r'(\w+)=([^ ]+)',lines[0]))
                 assert header['matched']=='1' and header['ready']=='2',lines
+                setups=[dict(re.findall(r'(\w+)=([^ ]+)',line)) for line in lines if line.startswith('UGEN_SETUP ')]
+                assert len(setups)<=1,'Duplicate profiler setup'
+                setup=setups[0] if setups else None
+                if fixed:
+                    assert setup and setup['mode']=='fixed' and setup['seed']=='12345','Fixed-seed profiler required'
+                    assert setup['warm_blocks']=='128' and setup['frames']=='64' and setup['rate']=='44100' and setup['cpu_mhz']=='240',setup
+                    assert all(re.fullmatch('[0-9a-f]{64}',setup[k]) for k in ('warm_sha256','audio_sha256')),setup
+                    assert re.fullmatch('[0-9a-f]{8}:[0-9a-f]{8}:[0-9a-f]{8}',setup['rng']),setup
+                    assert all(int(setup[k])>0 for k in ('normal_wall_us','measured_wall_us')),setup
                 nodes=[];group=defaultdict(int)
-                for line in lines[1:-1]:
+                for line in (line for line in lines if line.startswith('UGEN_NODE ')):
                     node=dict(re.findall(r'(\w+)=([^ ]+)',line))
                     node={k:v if k=='type' else int(v) for k,v in node.items()};nodes.append(node)
                     group[node['type']]+=node['cycles']
+                assert [node['index'] for node in nodes]==list(range(len(nodes))),'Missing/duplicate/reordered nodes'
+                if setup:assert len(nodes)==int(setup['nodes']),'Incomplete profiler nodes'
+                assert nodes and all(node['calls']==int(header['blocks']) for node in nodes),'Incomplete profiler calls'
                 total=sum(group.values());blocks=int(header['blocks'])
-                return {'status':before,'header':header,'nodes':nodes,'node_cycle_total':total,
+                return {'status':before,'header':header,'setup':setup,'nodes':nodes,'node_cycle_total':total,
                         'by_type':[{'type':name,'cycles':cycles,'share_percent':100*cycles/total,
                                     'average_us_per_block_at_240mhz':cycles/blocks/240}
                                    for name,cycles in sorted(group.items(),key=lambda x:-x[1])],

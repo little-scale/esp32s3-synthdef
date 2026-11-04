@@ -32,7 +32,8 @@ for entry in engine:
 compiler = shlex.split(engine[0]['command'])[0]
 profile=BUILD/'esp-idf/synthdef_engine/target-profile/src'
 profile_manifest=json.loads((profile.parent/'profile.json').read_text())
-expected_profile=generate(ROOT/'build/host/verified-profile'/profile_manifest['profile']/'src',profile_manifest['profile'])
+candidate_flags={('candidate_'+name):value for name,value in profile_manifest.get('candidate_kernels',{}).items() if name!='production_default'}
+expected_profile=generate(ROOT/'build/host/verified-profile'/profile_manifest['profile']/'src',profile_manifest['profile'],binding_families=profile_manifest.get('candidate_binding_families'),**candidate_flags)
 for source in expected_profile.iterdir():
     assert (profile/source.name).read_bytes()==source.read_bytes(),'Target engine copy differs from audited profile: '+source.name
 probe = ROOT/'build/host/target_sizes.c'

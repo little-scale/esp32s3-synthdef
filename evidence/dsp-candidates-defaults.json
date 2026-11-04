@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "hardware": false,
+  "device_access": false,
+  "baseline_commit": "368d26701cc0ebb92ab91cdbe88dedd8913f982d",
+  "profiles": {
+    "compact": {
+      "unchanged_compiled_source_files": {
+        "fm_bandlimited.inc": "cb6ea2d8d6c13fa96bbdef0528dc160f8ce479ee0d8d3a60e82465a461956c53",
+        "fm_chaos.inc": "cf719b254f8767fe64083d8ec988e527e558a47769fbc7124659c76ad6055ef9",
+        "fm_delay.inc": "dd6f057e775686e76351a42780794d5f0cf843595ddf070079202bbfc939b8c4",
+        "fm_dsp_kernels.inc": "d41477c8b6e657db999d90b1d60f724097cfec32636a745fa8fa2b859e89ead0",
+        "fm_expansion.inc": "93256242e7c5e32d5f22c72d25980a7c0c3fb0146a64b885ab4e9a8d8a82446e",
+        "fm_extensions.inc": "76c27921c89340346bf8adb8fbfed0d45caf79537d1c269daee8f8458b8bf15b",
+        "fm_fast.inc": "f0dcad57f455413e876294dda8db5c39e57436c7e9559d43ec78a432cb370ab1",
+        "fm_filters.inc": "9f52af685a2002640d98c21169ab82c594bc151bb4996f4f4be7151a5634f895",
+        "fm_formants.inc": "dd7f9aa5e8581f1da9e07285ab44c3421c7c11ab3c751fb364d2a34c5a625758",
+        "fm_freeverb.inc": "748e7fbdc7e08822aaf577164d5e17c659eec214d34223a27f24010a0f9728bb",
+        "fm_gendy.inc": "e1052d1546253d08a998cf949a7a8f0d0f12585023bdbd38ebd37ffd5d11a474",
+        "fm_load.c": "edb1a3ee91e0c8cf21f70556c145640255b32a014a15e4732cb94bf86e1438ba",
+        "fm_miverb.inc": "ffb43ca006ff78982df96aaff670329f6fbc5dda18ec7f2a8c9f7e91acfd1427",
+        "fm_modulation.inc": "6eb7225b5dd5f50d0f1e5f450243f3ac6773223254586494b107f20da54fccd5",
+        "fm_noise.inc": "40f45b5a156ac9e1b64751f06a0dbdfacadf45347541f2dab3c588bef4a60b5d",
+        "fm_profile_render.inc": "46ce13360e57e2c922ae58ddb2904284d5e9cd1059154c096d962b87511ea013",
+        "fm_render.c": "24a973c9426980af00dbf216480243a598554568e1867fffc18b6291a721d9bd",
+        "fm_reverb.inc": "abdd12fd59d336ecc8d6c64472d1219320dc231e95a282a621bcf3c786b6af33",
+        "fm_rings.inc": "a248b820af7a52d49d8a52bed472a9c9e4a56959517988b287f67a4eb02af45f",
+        "fm_rings_state.inc": "62a8f46b5db73dbebf5f58429a94fabea7be10baecfdfb2e92507e039c91a304",
+        "fm_rings_tables.inc": "6cc34f7c003317c52e4f64d77b5ac0715fec804eac37dc851bd1c7ad7e3d9612",
+        "fm_stochastic.inc": "b0ad321eaf14437746590d8a632bb18cc872af767dd6706fb2ee21882cf20854",
+        "fm_synth.h": "0b6a5883a91e4cfeef9c876f6dad75c1f826e869488be335d40277044e22856d",
+        "fm_tables.inc": "62e9c48491adaf0827426059d8fe7f5b06fcf02d5d2ae005ef111b4fb9214a10",
+        "fm_utilities.inc": "7751c2aabb17cd5505d29a59c6b5e46872f990a62d3e4f15c91e15a5b3078eae"
+      },
+      "candidate_kernels": {
+        "smooth": false,
+        "binary": false,
+        "production_default": false
+      },
+      "extra_candidate_include_empty": true
+    },
+    "fm1": {
+      "unchanged_compiled_source_files": {
+        "fm_bandlimited.inc": "cb6ea2d8d6c13fa96bbdef0528dc160f8ce479ee0d8d3a60e82465a461956c53",
+        "fm_chaos.inc": "cf719b254f8767fe64083d8ec988e527e558a47769fbc7124659c76ad6055ef9",
+        "fm_delay.inc": "dd6f057e775686e76351a42780794d5f0cf843595ddf070079202bbfc939b8c4",
+        "fm_dsp_kernels.inc": "d41477c8b6e657db999d90b1d60f724097cfec32636a745fa8fa2b859e89ead0",
+        "fm_expansion.inc": "93256242e7c5e32d5f22c72d25980a7c0c3fb0146a64b885ab4e9a8d8a82446e",
+        "fm_extensions.inc": "76c27921c89340346bf8adb8fbfed0d45caf79537d1c269daee8f8458b8bf15b",
+        "fm_fast.inc": "f0dcad57f455413e876294dda8db5c39e57436c7e9559d43ec78a432cb370ab1",
+        "fm_filters.inc": "9f52af685a2002640d98c21169ab82c594bc151bb4996f4f4be7151a5634f895",
+        "fm_formants.inc": "dd7f9aa5e8581f1da9e07285ab44c3421c7c11ab3c751fb364d2a34c5a625758",
+        "fm_freeverb.inc": "748e7fbdc7e08822aaf577164d5e17c659eec214d34223a27f24010a0f9728bb",
+        "fm_gendy.inc": "e1052d1546253d08a998cf949a7a8f0d0f12585023bdbd38ebd37ffd5d11a474",
+        "fm_load.c": "edb1a3ee91e0c8cf21f70556c145640255b32a014a15e4732cb94bf86e1438ba",
+        "fm_miverb.inc": "ffb43ca006ff78982df96aaff670329f6fbc5dda18ec7f2a8c9f7e91acfd1427",
+        "fm_modulation.inc": "6eb7225b5dd5f50d0f1e5f450243f3ac6773223254586494b107f20da54fccd5",
+        "fm_noise.inc": "40f45b5a156ac9e1b64751f06a0dbdfacadf45347541f2dab3c588bef4a60b5d",
+        "fm_profile_render.inc": "46ce13360e57e2c922ae58ddb2904284d5e9cd1059154c096d962b87511ea013",
+        "fm_render.c": "24a973c9426980af00dbf216480243a598554568e1867fffc18b6291a721d9bd",
+        "fm_reverb.inc": "abdd12fd59d336ecc8d6c64472d1219320dc231e95a282a621bcf3c786b6af33",
+        "fm_rings.inc": "a248b820af7a52d49d8a52bed472a9c9e4a56959517988b287f67a4eb02af45f",
+        "fm_rings_state.inc": "62a8f46b5db73dbebf5f58429a94fabea7be10baecfdfb2e92507e039c91a304",
+        "fm_rings_tables.inc": "6cc34f7c003317c52e4f64d77b5ac0715fec804eac37dc851bd1c7ad7e3d9612",
+        "fm_stochastic.inc": "b0ad321eaf14437746590d8a632bb18cc872af767dd6706fb2ee21882cf20854",
+        "fm_synth.h": "736b91da539763d74be484b76cb0b314ffb824fac513cb1a00f0cf681ddba950",
+        "fm_tables.inc": "62e9c48491adaf0827426059d8fe7f5b06fcf02d5d2ae005ef111b4fb9214a10",
+        "fm_utilities.inc": "7751c2aabb17cd5505d29a59c6b5e46872f990a62d3e4f15c91e15a5b3078eae"
+      },
+      "candidate_kernels": {
+        "smooth": false,
+        "binary": false,
+        "production_default": false
+      },
+      "extra_candidate_include_empty": true
+    }
+  }
+}

@@ -7,6 +7,11 @@ import re
 from pathlib import Path
 from signal_buffers import prepare as prepare_signals
 from dsp_kernels import prepare as prepare_dsp,packed_miverb
+from dsp_candidates import prepare as prepare_candidates
+from dsp_binding import prepare as prepare_binding
+from dsp_routing import prepare as prepare_routing
+from dsp_chaos_cache import prepare as prepare_chaos
+from dsp_core import prepare as prepare_core
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'upstream/fm1-synthdef/synthdef-engine/src'
 LIMITS={'FM_NODES':(160,24),'FM_OUTPUTS':(192,32),'FM_INPUTS':(1024,256),'FM_DELAY_LIMIT':('65536u','262144u')}
@@ -42,7 +47,8 @@ static __attribute__((noinline)) void ugen_end(unsigned i){
     assert render.count(loop)==1
     return prefix+render.replace(loop,'for(ni=0;ni<g->nodes && !v->fault;ugen_end(ni),ni++) {\n  ugen_begin();')
 
-def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True, optimize_filters=True, optimize_lag=True, optimize_unary=True, optimize_miverb_packed=False):
+def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True, optimize_filters=True, optimize_lag=True, optimize_unary=True, optimize_miverb_packed=False, candidate_smooth=False, candidate_binary=False, candidate_noise=False, candidate_binding=False, candidate_routing=False, candidate_chaos=False, candidate_core=False, binding_families=None):
+    if binding_families is not None and not candidate_binding:raise ValueError('Binding families require candidate_binding')
     output.mkdir(parents=True,exist_ok=True)
     source=(SOURCE/'fm_synth.h').read_text();header=source
     limits=PROFILES[profile]
@@ -196,10 +202,18 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
    * has j == 0, so it also produces the original zero fraction. */
   float out,blip,t=(float)j*(1.0f/FM_BLOCK);''')
     render,dsp=prepare_dsp(render,optimize_filters,optimize_lag,optimize_unary)
+    render,fast,candidates=prepare_candidates(render,fast,candidate_smooth,candidate_binary,candidate_noise)
+    if candidate_routing:render=prepare_routing(render)
     files={path.name:path.read_text() for path in SOURCE.iterdir() if path.suffix in ('.c','.h','.inc')}
     files['fm_dsp_kernels.inc']=dsp
+    files['fm_dsp_candidates.inc']=candidates
     files.update({'fm_render.c':render,'fm_delay.inc':delay,'fm_gendy.inc':gendy,'fm_rings.inc':rings,
                   'fm_fast.inc':fast,'fm_extensions.inc':extensions,'fm_miverb.inc':miverb,'fm_bandlimited.inc':bandlimited})
+    binding_counts={}
+    if candidate_binding:
+        files,binding_counts=prepare_binding(files,binding_families)
+    if candidate_chaos:files=prepare_chaos(files)
+    if candidate_core:files=prepare_core(files)
     if reuse_buffers:
         header,load,files=prepare_signals(header,load,files,min(int(limits['FM_OUTPUTS'][1]),192))
     render=files['fm_render.c'];delay=files['fm_delay.inc']
@@ -211,8 +225,17 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         destination=output/path.name
         if not destination.exists() or destination.read_bytes()!=data:destination.write_bytes(data)
     (output/'fm_dsp_kernels.inc').write_text(files['fm_dsp_kernels.inc'])
+    (output/'fm_dsp_candidates.inc').write_text(files['fm_dsp_candidates.inc'])
     (output/'fm_profile_render.inc').write_text(profile_renderer(render,delay))
     manifest={'profile':profile,'changes':{name:{'upstream':old,'target':new} for name,(old,new) in limits.items()},
+              'candidate_kernels':{'smooth':candidate_smooth,'binary':candidate_binary,'noise':candidate_noise,'binding':candidate_binding,'routing':candidate_routing,'chaos':candidate_chaos,'core':candidate_core,'production_default':False},
+              'candidate_core_source_sha256':hashlib.sha256((ROOT/'host/dsp_core.py').read_bytes()).hexdigest(),
+              'candidate_chaos_source_sha256':hashlib.sha256((ROOT/'host/dsp_chaos_cache.py').read_bytes()).hexdigest(),
+              'candidate_routing_source_sha256':hashlib.sha256((ROOT/'host/dsp_routing.py').read_bytes()).hexdigest(),
+              'candidate_binding_sites':binding_counts,
+              'candidate_binding_families':sorted(binding_families) if binding_families is not None else None,
+              'candidate_binding_source_sha256':hashlib.sha256((ROOT/'host/dsp_binding.py').read_bytes()).hexdigest(),
+              'candidate_source_sha256':hashlib.sha256((ROOT/'host/dsp_candidates.py').read_bytes()).hexdigest(),
               'block_kernels':{'filters':optimize_filters,'lag':optimize_lag,'unary':optimize_unary},
               'miverb_packed_words':optimize_miverb and optimize_miverb_packed,
               'dsp_kernels_sha256':hashlib.sha256((ROOT/'host/dsp_kernels.py').read_bytes()).hexdigest(),
@@ -249,4 +272,12 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--profile',choices=PROFILES,default='compact')
-    args=parser.parse_args();generate(args.output,args.profile)
+    parser.add_argument('--candidate-smooth',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--candidate-binary',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--candidate-noise',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--candidate-binding',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--candidate-routing',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--candidate-chaos',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--candidate-core',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--binding-families',help='Optional comma-separated binding entry points')
+    args=parser.parse_args();generate(args.output,args.profile,candidate_smooth=args.candidate_smooth,candidate_binary=args.candidate_binary,candidate_noise=args.candidate_noise,candidate_binding=args.candidate_binding,candidate_routing=args.candidate_routing,candidate_chaos=args.candidate_chaos,candidate_core=args.candidate_core,binding_families=args.binding_families.split(',') if args.binding_families else None)

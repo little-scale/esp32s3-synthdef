@@ -1,0 +1,313 @@
+{
+  "status": "cross-compiled; physical runtime results are recorded separately",
+  "build_id": "7afd20139b45f01f5a4dca1bac7f3fe397fddfa3816bac5e4eea41920fe979bd",
+  "firmware_fingerprint": "3be639fbb7c26d1cf29ec2e4f14a5dafbe891714ce9fa94e54a8b339c1691a2a",
+  "touch_ui_enabled": false,
+  "lvgl_pool_storage": "not linked",
+  "quad_flash_enabled": true,
+  "pcm_conversion": "bounded nearest/even; no lrintf call in target instrument object",
+  "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
+  "profile_sha256": "55e39126350e5d04af093b126f56b74e9bf23b0167e5812cc4fc9593a76cbad9",
+  "idf_version": "v5.5",
+  "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+  "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+  "target": "esp32s3",
+  "board_revision": "XIAO ESP32-S3 (headless profile)",
+  "output_channels": 2,
+  "compiled_loader_types_checked_in_target_object": 154,
+  "engine_compile_options_verified": [
+    {
+      "source": "firmware/build-xiao/esp-idf/synthdef_engine/target-profile/src/fm_load.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    },
+    {
+      "source": "firmware/build-xiao/esp-idf/synthdef_engine/target-profile/src/fm_render.c",
+      "math": [
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ],
+      "language": "c99",
+      "fm1_platform_includes": false
+    }
+  ],
+  "target_structure_sizes": {
+    "graph_bytes": 21720,
+    "scratch_bytes": 51200,
+    "voice_bytes": 57896
+  },
+  "engine_fixed_allocation_bytes": 253872,
+  "engine_fixed_internal_bytes": 57896,
+  "master_voice_storage": "PSRAM",
+  "engine_fixed_psram_bytes": 195976,
+  "synth_arena_psram_bytes": 1048576,
+  "synth_fast_arena_internal_bytes": 0,
+  "cache": {
+    "instruction_bytes": 32768,
+    "data_bytes": 65536,
+    "data_line_bytes": 64
+  },
+  "admission_policy": "fm1-compat-v1",
+  "fm1_compat_hardware_qualified": false,
+  "one_voice_without_effect_fixed_bytes": 152536,
+  "graph_buffers": 4,
+  "voice_instances": 2,
+  "shared_scratch_instances": 1,
+  "master_delay_arena_psram_bytes": 1048576,
+  "engine_profile": {
+    "profile": "fm1",
+    "changes": {
+      "FM_NODES": {
+        "upstream": 160,
+        "target": 256
+      },
+      "FM_OUTPUTS": {
+        "upstream": 192,
+        "target": 512
+      },
+      "FM_INPUTS": {
+        "upstream": 1024,
+        "target": 2048
+      },
+      "FM_DELAY_LIMIT": {
+        "upstream": "65536u",
+        "target": "262144u"
+      }
+    },
+    "candidate_kernels": {
+      "smooth": false,
+      "binary": false,
+      "noise": false,
+      "binding": true,
+      "routing": false,
+      "chaos": false,
+      "core": false,
+      "production_default": false
+    },
+    "candidate_core_source_sha256": "cef78c2b54df18553b6f7dc19b68a345331d4a44ea88279834d25ec79c26e0d6",
+    "candidate_chaos_source_sha256": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
+    "candidate_routing_source_sha256": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
+    "candidate_binding_sites": {
+      "delay_render": {
+        "bound_slots": 3,
+        "sample_call_sites": 2,
+        "rate_call_sites": 2
+      },
+      "render_miverb": {
+        "bound_slots": 8,
+        "sample_call_sites": 2,
+        "rate_call_sites": 0
+      }
+    },
+    "candidate_binding_families": [
+      "delay_render",
+      "render_miverb"
+    ],
+    "candidate_binding_source_sha256": "124a4433514d2fe4927ef297016c80f2e209530beb9774e676149f51df618e78",
+    "candidate_source_sha256": "574097f225b2dc9b9e5c7c5e2a876bd119f049b71cabfd07c6826a1bb0c5e5c5",
+    "block_kernels": {
+      "filters": true,
+      "lag": true,
+      "unary": true
+    },
+    "miverb_packed_words": false,
+    "dsp_kernels_sha256": "f320e9cffc95115e60458411d8e4a2929da3616f6a2ac77b59e71c734697c108",
+    "signal_reuse": true,
+    "signal_planner_sha256": "f94e23434874846afc8f72f59d62345df9c80e1ab1cb937d613d00587735ec4d",
+    "audio_buffers_max": 192,
+    "signal_storage": "Loader-planned conservative audio lifetimes, independent scalar values; persistent logical IDs unchanged.",
+    "upstream_header_sha256": "cd18ce36033a4075db21430c9f501157f74cc730ad5493d85ebfea9fe2bd0223",
+    "target_header_sha256": "736b91da539763d74be484b76cb0b314ffb824fac513cb1a00f0cf681ddba950",
+    "control_bus_extension": "32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.",
+    "target_load_sha256": "edb1a3ee91e0c8cf21f70556c145640255b32a014a15e4732cb94bf86e1438ba",
+    "dynamic_banks": "DynKlank/DynKlang expand to Ringz/SinOsc; mixed-rate parameter inputs accepted with the existing SC sampling semantics; Ringz excitation rate remains checked.",
+    "target_render_sha256": "7f3e157c70f628e25e7018c587a49b2af8bc255c06f76bdaecc8bcecdbf6814d",
+    "binding_extension": "fm_bind_delay_precleared: same checked layout; caller clears arena incrementally",
+    "target_delay_sha256": "24ec22e6265ac3c74b062ea4192d2346fa4ae1b5ee29e15643c12ba02a645af7",
+    "target_gendy_sha256": "e1052d1546253d08a998cf949a7a8f0d0f12585023bdbd38ebd37ffd5d11a474",
+    "target_rings_sha256": "a248b820af7a52d49d8a52bed472a9c9e4a56959517988b287f67a4eb02af45f",
+    "target_fast_sha256": "f0dcad57f455413e876294dda8db5c39e57436c7e9559d43ec78a432cb370ab1",
+    "target_extensions_sha256": "76c27921c89340346bf8adb8fbfed0d45caf79537d1c269daee8f8458b8bf15b",
+    "target_miverb_sha256": "cec7c0a7cbedf24f68fc83739ba881ded37bbbfd1323240c2111483c0b4e28bd",
+    "miverb_optimized": true,
+    "target_bandlimited_sha256": "cb6ea2d8d6c13fa96bbdef0528dc160f8ce479ee0d8d3a60e82465a461956c53",
+    "saw_crossfade_optimized": true,
+    "saw_crossfade_optimization": "Exact j/64 reciprocal multiplication; constructor/control one-sample fraction remains zero.",
+    "miverb_optimization": "Finite ordered Q1.15 write clamp; identical quantisation, fault handling and accumulator scaling.",
+    "kernel_optimized": true,
+    "kernel_optimization": "Exact cached sine increments; power-of-two Decay2 ramp division; independent coefficient caches; identical block-local Dust/Dust2 RNG.",
+    "rings_startup": "Bound voices use rg_init_precleared after zeroed binding; standalone rg_init retains its original clear for independent oracle callers.",
+    "gendy_fix": "Allow the allocated zero-valued Gendy3 closing segment after discarded sub-sample breakpoints; keep bounds checks beyond it.",
+    "scope": "Checked capacities, control bus input, precleared binding, Gendy3 closing-segment fix and duplicate Rings clear removal and bit-preserving hot-kernel optimizations; no precision reduction or changes to existing DSP equations."
+  },
+  "package_buffers_psram_bytes": 393216,
+  "diagnostics_enabled": true,
+  "internal_render_kernels": true,
+  "internal_rings_kernels": true,
+  "rings_hot_symbols": {
+    "rg_process": {
+      "address": 1077496876,
+      "bytes": 13490
+    },
+    "rings_render": {
+      "address": 1077510368,
+      "bytes": 2962
+    },
+    "rg_hermite": {
+      "address": 1077496592,
+      "bytes": 282
+    },
+    "rg_fx_write": {
+      "address": 1077496456,
+      "bytes": 135
+    }
+  },
+  "internal_audio_adapter": true,
+  "adapter_hot_symbols": {
+    "instrument_apply": {
+      "address": 1077445040,
+      "bytes": 1471
+    },
+    "instrument_apply_batch": {
+      "address": 1077446512,
+      "bytes": 333
+    },
+    "instrument_render": {
+      "address": 1077447356,
+      "bytes": 57
+    },
+    "instrument_pcm": {
+      "address": 1077446848,
+      "bytes": 268
+    },
+    "instrument_render_stereo": {
+      "address": 1077447416,
+      "bytes": 719
+    },
+    "master_delay_render": {
+      "address": 1077448136,
+      "bytes": 108
+    },
+    "master_delay_set": {
+      "address": 1077448244,
+      "bytes": 90
+    },
+    "instrument_pcm_stereo": {
+      "address": 1077447116,
+      "bytes": 240
+    }
+  },
+  "hot_kernel_symbols": {
+    "render_graph": {
+      "address": 1077477792,
+      "bytes": 18664
+    },
+    "fast_arithmetic": {
+      "address": 1077464312,
+      "bytes": 3977
+    },
+    "fast_sine": {
+      "address": 1077474936,
+      "bytes": 1043
+    },
+    "fast_envelope": {
+      "address": 1077468292,
+      "bytes": 614
+    },
+    "fast_pan": {
+      "address": 1077474096,
+      "bytes": 838
+    },
+    "fast_filter": {
+      "address": 1077468908,
+      "bytes": 4241
+    },
+    "fast_lag": {
+      "address": 1077473152,
+      "bytes": 944
+    },
+    "fast_unary": {
+      "address": 1077475980,
+      "bytes": 1252
+    },
+    "binary": {
+      "address": 1077460020,
+      "bytes": 1272
+    },
+    "envelope": {
+      "address": 1077463036,
+      "bytes": 986
+    },
+    "envelope_init": {
+      "address": 1077464024,
+      "bytes": 286
+    },
+    "segment": {
+      "address": 1077513332,
+      "bytes": 873
+    },
+    "sine_control_step": {
+      "address": 1077514208,
+      "bytes": 162
+    },
+    "fm_start": {
+      "address": 1077477648,
+      "bytes": 143
+    },
+    "fm_seed": {
+      "address": 1077477420,
+      "bytes": 48
+    },
+    "fm_set": {
+      "address": 1077477468,
+      "bytes": 180
+    },
+    "fm_prepare": {
+      "address": 1077477232,
+      "bytes": 51
+    },
+    "fm_render_input": {
+      "address": 1077477352,
+      "bytes": 66
+    },
+    "fm_render": {
+      "address": 1077477284,
+      "bytes": 66
+    },
+    "delay_render": {
+      "address": 1077461292,
+      "bytes": 1741
+    },
+    "unary": {
+      "address": 1077514372,
+      "bytes": 1034
+    }
+  },
+  "optional_wrapper_not_retained": [],
+  "sine_table_internal": false,
+  "sine_table_symbol": {
+    "address": 1007701524,
+    "bytes": 32772
+  },
+  "sine_table_sha256": "3264f07efa6217955d24e1756a7887972ef7fce7ad6709e99eec1dc9331232fd",
+  "console_patch_task_stack_bytes": 8192,
+  "audio_task_stack_bytes": 16384,
+  "event_queue_capacity": 16,
+  "dma_descriptors": 6,
+  "dma_frames_per_descriptor": 128,
+  "app_bytes": 1338144,
+  "sha256": {
+    "firmware/build-xiao/waveshare_synthdef.bin": "c49e55f6b8ca634aa5bd1e9f69c6b49080ca3df00c513d9a3c0323a1333e1688",
+    "firmware/build-xiao/bootloader/bootloader.bin": "8d6b17522ada51a81b7fa919d710cbc74615ecf3de2bb7ad6841de533dd01992",
+    "firmware/build-xiao/partition_table/partition-table.bin": "77534a67bc8a38ec085b2bdfd1a3c6ba1c1569a74c70ac0e34b43e9896dcbb08",
+    "build/host/xiao-sdkconfig": "7419f9c491f22c3675b9e441c35f4caf095c57c4dcb7791a4547508cb7b369a1",
+    "host/xiao.defaults": "694daab30b59525be3b75a9069da3bdf810124a142d1ca2603bb027522809005",
+    "firmware/partitions-xiao.csv": "a59da30f21cd4f3a910fc1a88a16669303309f4f27573612afcd81b18e5c1315",
+    "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+  },
+  "runtime_heap_and_clocks": "see runtime logs; actual clocks still require external measurement"
+}

@@ -1,0 +1,12 @@
+{
+  "passed": false,
+  "hardware": true,
+  "phase": "fixed-binary",
+  "runs": 3,
+  "fixed_seed": true,
+  "fixtures": {},
+  "device_id": "esp32-288485ba1e48",
+  "build": "d627eccb77a7e84ae7b201ebac4b293d6f531e202438dbdf83b54cbb9e2fca5c",
+  "error": "{'error': 'Device connection failed: HELLO: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation. Reconnect and inspect the device before retrying.'}",
+  "restoration_error": "{'error': 'Connect the device first'}"
+}

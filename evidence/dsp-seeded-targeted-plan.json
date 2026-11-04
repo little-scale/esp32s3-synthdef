@@ -1,0 +1,549 @@
+{
+  "date": "2026-11-04",
+  "hardware": false,
+  "compiled_only": true,
+  "suites": {
+    "musical": {
+      "eight_saw": {
+        "graph_sha256": "9098343a03cf51c5b5d957214b362f14fcec3416019bcd9f43fad0b3d1ea49b2",
+        "source_sha256": "00e4f251cc640d9c5fa5a9b688063df80d0f7b017bed44dbb927bcb2f3d14a90",
+        "nodes": 48,
+        "types": {
+          "Control": 2,
+          "Lag": 2,
+          "BinaryOpUGen": 17,
+          "LFNoise2": 1,
+          "Saw": 8,
+          "Pan2": 8,
+          "Sum4": 4,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "Resonz": 2,
+          "MiVerb": 1,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2,
+          4
+        ],
+        "unary_selectors": []
+      },
+      "comb_kr": {
+        "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0",
+        "source_sha256": "66c59c58d621bf6b8bfeb1f3e898e71218ccf44350a74cc2a927a7f54f12b1fb",
+        "nodes": 56,
+        "types": {
+          "Control": 2,
+          "BinaryOpUGen": 20,
+          "Rand": 5,
+          "SinOsc": 7,
+          "MulAdd": 2,
+          "Dust": 5,
+          "Decay2": 5,
+          "Pan2": 5,
+          "Sum4": 2,
+          "CombC": 2,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      },
+      "triggered_harmonics": {
+        "graph_sha256": "4064dea2e2a4ac3060c46c0465e12847e5972038b97451dde457c084c228eda6",
+        "source_sha256": "97ea312d501133096cf8019f5fcbbffb17d8a5174d270ffb4491c1789ababb6a",
+        "nodes": 61,
+        "types": {
+          "Control": 2,
+          "Dust": 1,
+          "TIRand": 1,
+          "Select": 1,
+          "BinaryOpUGen": 26,
+          "SinOsc": 5,
+          "TExpRand": 5,
+          "Sum4": 3,
+          "UnaryOpUGen": 1,
+          "TRand": 5,
+          "Decay": 5,
+          "Pan2": 5,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": [
+          16
+        ]
+      },
+      "filters": {
+        "graph_sha256": "31c360880ff4b8c9780bc6bdf8870a894a0787b7e1c4fad9eed286f0edbe1999",
+        "source_sha256": "28dc6eec47e5298f5b2c8e92a3f052251c958ec094283c4c2f66289c8faec4af",
+        "nodes": 18,
+        "types": {
+          "SinOsc": 2,
+          "BinaryOpUGen": 3,
+          "MulAdd": 1,
+          "Resonz": 1,
+          "Ringz": 1,
+          "LPF": 1,
+          "HPF": 1,
+          "Sum4": 2,
+          "RLPF": 1,
+          "RHPF": 1,
+          "BPF": 1,
+          "BRF": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      }
+    },
+    "smooth": {
+      "Lag2": {
+        "graph_sha256": "a7511442dd348d5c3112dfa333220bc5edae2dbecf2e1876e77f868851e3a121",
+        "source_sha256": "10082d5ac225446e336478343f58f4b589f2d3208c5cc2ccffd7dd71838910b5",
+        "nodes": 17,
+        "types": {
+          "Control": 2,
+          "SinOsc": 1,
+          "BinaryOpUGen": 3,
+          "Lag2": 8,
+          "Sum4": 2,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      },
+      "Lag3": {
+        "graph_sha256": "f5d74e10765b448d11322645fedfe6639082e7ca8f7c6395afa9d276f93be871",
+        "source_sha256": "9810db0dfb00ad410f848802d97c81a92d975fdf9a350c101ff20798f43d1f85",
+        "nodes": 17,
+        "types": {
+          "Control": 2,
+          "SinOsc": 1,
+          "BinaryOpUGen": 3,
+          "Lag3": 8,
+          "Sum4": 2,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      },
+      "OnePole": {
+        "graph_sha256": "9d8c821025bfe812314849767408ef84234ea4355c244fdd2e86d5660799c451",
+        "source_sha256": "327f8f08307f7dd48629579adcc471aaa98500d3102da993df420c7fa42179c4",
+        "nodes": 17,
+        "types": {
+          "Control": 2,
+          "SinOsc": 1,
+          "BinaryOpUGen": 3,
+          "OnePole": 8,
+          "Sum4": 2,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      },
+      "OneZero": {
+        "graph_sha256": "9f14dcd978a4c5b4e3c0532ccf827a23bcb64e9adccd84d8fee720ea4e14ae63",
+        "source_sha256": "f5f68788e01c64538bb6cb283696b202af9c4baa4a1e6a8406fe3d16587cf2f0",
+        "nodes": 17,
+        "types": {
+          "Control": 2,
+          "SinOsc": 1,
+          "BinaryOpUGen": 3,
+          "OneZero": 8,
+          "Sum4": 2,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      },
+      "LPZ1": {
+        "graph_sha256": "686908ba8faf1420043baa3d23a1e5a380f0437960bc944a887ca2ea7506d12f",
+        "source_sha256": "ac2f8983ca80a9dea58592544118a693f92816ad18c1c794f1671da08f856b8d",
+        "nodes": 17,
+        "types": {
+          "Control": 2,
+          "SinOsc": 1,
+          "BinaryOpUGen": 3,
+          "LPZ1": 8,
+          "Sum4": 2,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      },
+      "HPZ1": {
+        "graph_sha256": "22e917209d7b269ee529ca266635f56140531828bd78bac434f24c61770cdccc",
+        "source_sha256": "b051ca912a97eabe1ea65d66abb57c3922298d5aa5cd50461f8620cc7308aa14",
+        "nodes": 17,
+        "types": {
+          "Control": 2,
+          "SinOsc": 1,
+          "BinaryOpUGen": 3,
+          "HPZ1": 8,
+          "Sum4": 2,
+          "Out": 1
+        },
+        "binary_selectors": [
+          0,
+          2
+        ],
+        "unary_selectors": []
+      }
+    },
+    "core": {
+      "Klang": {
+        "graph_sha256": "efb8f5fc4fa65de6e7e540b4c9492faefabffc0db091894a2b3dec8ef533c81f",
+        "source_sha256": "942769da7ba1f23beb499d5a1274d8fac763ede3f304a995bef213851c854b15",
+        "nodes": 20,
+        "types": {
+          "Rand": 16,
+          "Klang": 1,
+          "BinaryOpUGen": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "Klank": {
+        "graph_sha256": "0b168959297e94aae17f07448fd695a71399d61eee1ca5f83d89788b2a9800a8",
+        "source_sha256": "bc7e0ca41c000b807dccfc34ce19aa55652bb6eb8573c954e3c3b732c1972da5",
+        "nodes": 21,
+        "types": {
+          "Rand": 16,
+          "Dust": 1,
+          "BinaryOpUGen": 1,
+          "Klank": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "SinOscFB": {
+        "graph_sha256": "fafcbb91780870d3df065662ab95973b1ea3c7acbf1c9255b07c303a3bf1e995",
+        "source_sha256": "ab0dc84cf1d081e6dc9bdf9d7a38c410d5f0fc449e226d1ec6cc02515065ac2e",
+        "nodes": 4,
+        "types": {
+          "SinOscFB": 1,
+          "BinaryOpUGen": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "Blip": {
+        "graph_sha256": "b401d912a3c60920544232f532a303f370323e7c2c1699ea0258498fefb88cf7",
+        "source_sha256": "8b21761c8f60c5d07cfc7555d17d8ee84e58f9dd960f5fe86c01fa4447fc9c0a",
+        "nodes": 6,
+        "types": {
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "Blip": 1,
+          "BinaryOpUGen": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "Formant": {
+        "graph_sha256": "dcc941e815e0d42e0082d285d611c432740aaa0702fd36e968c7be2310b584bf",
+        "source_sha256": "16521e18904974153c3e59db4d8fcaf23d85a94f612ac17160c38fbe483fae36",
+        "nodes": 4,
+        "types": {
+          "Formant": 1,
+          "BinaryOpUGen": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "Gendy1": {
+        "graph_sha256": "5ca40f2272592d56e558664894f82ef03af564101d46a4e5c22689a95e167711",
+        "source_sha256": "0bec0b358a2b6d8271b4f1b55711e2727c185923969e6ec6f16810a50714150f",
+        "nodes": 4,
+        "types": {
+          "Gendy1": 1,
+          "BinaryOpUGen": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "Gendy2": {
+        "graph_sha256": "8dff0c452820edebe9c88785c03509e9de916a165f00c332a0091a39cadbd78d",
+        "source_sha256": "1f57dfb91c9f7baee4b1c6571e58ce68bd519b26bddfda8bc8a1c5bdee0b6f58",
+        "nodes": 4,
+        "types": {
+          "Gendy2": 1,
+          "BinaryOpUGen": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "Gendy3": {
+        "graph_sha256": "1e4acc38e438527a5e58fb5a15eb87a3565af05407bca9c9f48f891f4e4843a8",
+        "source_sha256": "07bbeb6c55a0f8d7617e1193022a33f9f9434d43f9a702c6fb8a4013caafea56",
+        "nodes": 4,
+        "types": {
+          "Gendy3": 1,
+          "BinaryOpUGen": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      }
+    },
+    "delay": {
+      "DelayN": {
+        "graph_sha256": "7849cfd511da094349aebd5c80cf3152701c2612d3bf895536f0b718d5eab358",
+        "source_sha256": "e1b68862ba0f4dbfa5492b85c436a4722b40489f16a7a04bf228d37baf9c4e44",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "DelayN": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "DelayL": {
+        "graph_sha256": "2ea2d0c15b4f258b9d8146eeb72d65b845dfed661bfc52e4d52b45d589053fae",
+        "source_sha256": "7c71ba085092a7c02d9000cf9c8457015961c45e85eb4343fe53dc2c3ebc3ce5",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "DelayL": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "DelayC": {
+        "graph_sha256": "251b08fd462f829e200afacffee87521faf1a2cd021f8075f7e3422c4f4c7b2c",
+        "source_sha256": "620aab97c740e3c398eb54c9b2113c7575ecd5ba7ac45f916f46016a22fab9fa",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "DelayC": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "CombN": {
+        "graph_sha256": "345eeb373ba7aaee0744032f7cf24a8446693569cfa1590a59bc8c2adbfcb5fc",
+        "source_sha256": "41ea3cc659f81a78c11856445fc146b16cab88b04bcb41066917eb85f6ca2f57",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "CombN": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "CombL": {
+        "graph_sha256": "a99fd8cfdf9b4fd4126b55d7f4815b185386fec733627b0acc964f42318c6642",
+        "source_sha256": "89ab21e867e8fab6546b73c784219e53a91abcb6afb26b222ec3b8cdda07a2c2",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "CombL": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "CombC": {
+        "graph_sha256": "b539e6abd2d379670bc9a224b0154d980d139781b70db27612c436ca14a2bb41",
+        "source_sha256": "23c7ce1f55d53a898356b2abfc7bdba756ae57c1e0fd25006ec9a1ab686f11f5",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "CombC": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "AllpassN": {
+        "graph_sha256": "d8c0683a553f2f05c25eb71fcf1c86a2458f2c6aab24c0a220caa9a87249e855",
+        "source_sha256": "8e7aebfdcbd1ee7739b67f4ab883c545b3656ed6b50bb6bee9ac6610cb004d00",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "AllpassN": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "AllpassL": {
+        "graph_sha256": "85fd561115cb62e1667c9bdb8ce215a8c95a7b195925adbed84175ae41995a3f",
+        "source_sha256": "6218d10df7d9ea17c333a5b0ace175a20a568af3d01bf568b33bd87cb6f9a92a",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "AllpassL": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "AllpassC": {
+        "graph_sha256": "60a68bf1ccbed5f9d0185d57ebd45db51c688efb522ce603cdf9cbab4db5f2b9",
+        "source_sha256": "0452bd3f280df1eb04bdf9f5f26bb3db261450fbc60be8c8539110953ae03ec2",
+        "nodes": 11,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 3,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "AllpassC": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      },
+      "MiVerb_modulated": {
+        "graph_sha256": "5dc07b0cb9c38cc15bb9900b90089932de505768e6c2a797bd6dd2a685b52092",
+        "source_sha256": "6d2340cb8ccf02a83f932e6b102be050a964e011a3f72d17da34892c4a0b923c",
+        "nodes": 12,
+        "types": {
+          "Dust": 1,
+          "Decay2": 1,
+          "WhiteNoise": 1,
+          "BinaryOpUGen": 4,
+          "SinOsc": 1,
+          "MulAdd": 1,
+          "MiVerb": 1,
+          "Out": 1,
+          "Control": 1
+        },
+        "binary_selectors": [
+          2
+        ],
+        "unary_selectors": []
+      }
+    }
+  }
+}

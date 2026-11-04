@@ -27,6 +27,11 @@ def qualification_fingerprint():
     return digest((provenance['commit']+digest((ROOT/'host/engine_profile.py').read_bytes())+
                    digest((ROOT/'host/signal_buffers.py').read_bytes())+
                    digest((ROOT/'host/dsp_kernels.py').read_bytes())+
+                   digest((ROOT/'host/dsp_candidates.py').read_bytes())+
+                   digest((ROOT/'host/dsp_binding.py').read_bytes())+
+                   digest((ROOT/'host/dsp_routing.py').read_bytes())+
+                   digest((ROOT/'host/dsp_chaos_cache.py').read_bytes())+
+                   digest((ROOT/'host/dsp_core.py').read_bytes())+
                    digest((ROOT/'examples/master-delay.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scd').read_bytes())+
@@ -95,6 +100,11 @@ def main():
         'engine_profile_generator_sha256':digest((ROOT/'host/engine_profile.py').read_bytes()),
         'signal_planner_sha256':digest((ROOT/'host/signal_buffers.py').read_bytes()),
         'dsp_kernels_sha256':digest((ROOT/'host/dsp_kernels.py').read_bytes()),
+        'dsp_candidates_sha256':digest((ROOT/'host/dsp_candidates.py').read_bytes()),
+        'dsp_binding_sha256':digest((ROOT/'host/dsp_binding.py').read_bytes()),
+        'dsp_routing_sha256':digest((ROOT/'host/dsp_routing.py').read_bytes()),
+        'dsp_chaos_cache_sha256':digest((ROOT/'host/dsp_chaos_cache.py').read_bytes()),
+        'dsp_core_sha256':digest((ROOT/'host/dsp_core.py').read_bytes()),
         'master_delay':{'kind':'embedded persistent mono SynthDef bus','max_seconds':5.0,
                         'arena_samples':262144,'arena_bytes':1048576,'storage':'PSRAM','graph_sha256':digest(effect)},
         'parser': 'fm_load remains authoritative for rates, selectors and graph layouts',

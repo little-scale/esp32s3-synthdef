@@ -170,14 +170,16 @@ class Hub:
                     expected=next(r for r in d.request('FXLIST' if target=='master' else 'LIST') if r['slot']==1)
                     name=p.get('name') or info['name'];name=''.join(c if 32<=ord(c)<127 and c not in '\\"' else '_' for c in name)[:31] or 'Main'
                     result=worker.upload(dict(artifact='ide',slot=1,expected=expected,replace=True,name=name,device_id=row['device_id']))
-                    if hello.get('remote_controls') and info.get('continuous') and target=='sound' and not definition:
+                    if hello.get('remote_controls') and not definition and (info.get('continuous') or target=='master'):
                         until=time.monotonic()+5
-                        while not d.request('RCINFO',bytes([0,0]),timeout=2,retries=0)['prepared']:
+                        while not d.request('RCINFO',bytes([int(target=='master'),0]),timeout=2,retries=0)['prepared']:
                             if time.monotonic()>until:raise RuntimeError('Main saved but constructor is not ready')
                             time.sleep(.01)
                     if hello.get('remote_controls'):
                         cached=schema(d,int(target=='master'));cached['_synced']=time.monotonic();node.schemas[int(target=='master')]=cached
-                    return dict(device_id=row['device_id'],device_name=row['device_name'],verified=result['verified'])
+                    reply=dict(device_id=row['device_id'],device_name=row['device_name'],verified=result['verified'])
+                    if not definition and hello.get('remote_controls'):reply['active']=cached['active']
+                    return reply
             except Exception as e:return dict(device_id=row['device_id'],device_name=row['device_name'],verified=False,error=str(e))
             finally:
                 if worker:worker.close()

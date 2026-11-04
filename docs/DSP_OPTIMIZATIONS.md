@@ -1,9 +1,125 @@
 # Exact DSP block kernels and upload transitions
 
+The [optimisation register](OPTIMIZATION_REGISTER.md) is the complete per-UGen
+and operator checklist, including inherited paths and disabled experiments.
+Its editable JSON and generation/check command keep coverage explicit as the
+supported inventory changes. This page describes the latest implementation.
+
 The AMOLED and headless XIAO builds use the same generated DSP implementation.
 `host/engine_profile.py` applies audited transformations to the pinned engine;
 the vendored upstream files remain unchanged. These changes retain float32
 arithmetic, 64-frame blocks, UGen execution order and the SynthDef file format.
+
+The [hardware qualification plan](DSP_HARDWARE_TEST_PLAN.md) prioritizes a
+30-minute, two-image session before optional family attribution and broader
+coverage. Its prepared fixtures are not hardware results.
+The [first XIAO hardware session](DSP_HARDWARE_RESULTS.md) subsequently matched
+the 50-case pack for full and narrowed candidates. Target timing was mixed;
+no new candidate is enabled by default.
+The later [fixed-seed follow-up](DSP_SEEDED_PROFILING.md) records 28 target graphs
+and 240 paired runs, with substantial smoothing/bank/delay gains alongside
+regressions. The register now includes those hardware timing tables.
+
+## Complete computer-only review — 4 November 2026
+
+All **154 native UGen types, 33 unary and 40 binary selectors** now have a
+recorded review. The [register](OPTIMIZATION_REGISTER.md) links every enabled
+implementation, existing FM1 path and host-only experiment to source and evidence.
+Its per-fixture tables retain both faster and slower results. Desktop graph
+measurements are not isolated node timings or ESP32 predictions.
+
+The existing production paths cover 26 project-tuned and 24 inherited/reviewed
+native types. New candidates cover all 104 types without an enabled individual
+optimisation, plus some already-tuned types. Several candidates regress on the
+desktop or show negligible gains. They remain experiments; no claim is made
+that all 154 types became faster.
+
+| Opt-in switch | Work and recorded outcome |
+| --- | --- |
+| `candidate_smooth` | Lag2/Lag3 coefficient reuse; OnePole/OneZero/LPZ1/HPZ1 bound block loops. Exact history, coefficients and constructor behavior retained. |
+| `candidate_binary` | All 40 unchanged scalar selectors share one evaluation path. Four existing arithmetic audio loops plus 36 candidate audio loops move dispatch outside the sample loop. Changing controls retain pinned interpolation. |
+| `candidate_noise` | WhiteNoise/PinkNoise/LFNoise0–2 keep exact local RNG state; hoist decoding/type dispatch. LFNoise reuses the exact length within a block; PinkNoise's guarded trailing-zero operation passes 200,000 private probes. |
+| `candidate_binding` | Ten entry points serving 72 types bind graph references/rates once. Each type has a selected whole-graph native measurement, including slowdowns; extra pointer slots and stack use are recorded. |
+| `candidate_routing` | A2K/K2A/DC, Delay1/2, Select, Clip, DegreeToKey and RandSeed use dedicated loops; held selectors/keys/seeds resolve once. Legal initial-rate DC/Select, signed-zero interpolation and seed ordering are covered. |
+| `candidate_chaos` | Fourteen chaos models cache exact held-frequency period/slope outside the overlaid chaotic state. Recurrences/reset/interpolation remain unchanged; the offline object is 1,353 bytes smaller in the isolated comparison. |
+| `candidate_core` | LFSaw/LFTri/LFPulse and Klang/Klank block loops; exact Line span/XLine ratio caches; Formant integer increments; independent Gendy constants; SinOscFB steps/feedback; Blip effective-frequency/harmonic scales. Three-sample coefficient groups are reused in BPeakEQ/BLowShelf/BHiShelf/Formlet, and Amplitude caches attack/release coefficients independently. Results vary by fixture; Klang is slightly slower in the final native run, while Line/XLine and Amplitude show larger gains. |
+
+All switches default to **false** in both compact and FM1 profiles. An audit
+compares every existing generated C/header/include against commit `368d267`;
+production DSP source is byte-identical. New provenance/profile metadata changes
+future build identities; it is not an identical-firmware-binary claim.
+No board connection, audio playback or firmware write was used.
+
+Both default firmware variants were cross-built and audited on the computer:
+AMOLED **1,680,384 bytes**, XIAO **1,337,728 bytes**, source build
+`eaf9cd626f8a`. Their compile settings, current loader inventory, pinned sine
+table and configured instruction placement pass the existing build audit.
+The build logs retain warnings from the unchanged engine and managed UI code;
+this is not a warning-free-build claim. These builds keep all candidates off
+and do not qualify candidate firmware or change the installed board baseline.
+See `evidence/dsp-review-{amoled,xiao}-default-build.json`.
+
+The final comparison enables all seven switches together against production:
+
+- **2,451 graphs**, 64 blocks each at 44.1 kHz: **20,078,592 output samples**.
+- **896 generated edge graphs**, 512 blocks at 8 / 44.1 / 48 / 192 kHz:
+  **234,881,024 output samples**.
+- All **254,959,616** compared stereo float samples match bit-for-bit, alongside
+  recursive voice/partial state, RNG, fault flags and delay arenas. Raw scratch
+  is compared after construction and rendering. Only documented new,
+  otherwise-unused per-node cache fields and caller-owned pointers are normalized.
+- Undefined-behavior, bounds and float-to-integer sanitizers pass. Deliberately
+  invalid domains must match faults; that is separate from fault-free playback.
+- Offline Xtensa compilation/stack reports cover independent and combined
+  contexts. All candidates together grow the unlinked object's text from
+  **174,711 to 185,746 bytes** (**11,035 bytes**). Public graph/voice/scratch
+  structures remain unchanged. This is not final firmware flash/IRAM usage or
+  a whole-call-stack guarantee.
+
+The composition checks found a real signed-zero edge. The pinned discontinuous
+binary path adds positive zero to held inputs between samples; held `-0.0` may
+become `+0.0` after the first sample. A naive scalar fill loses that behavior,
+which is audible through a subsequent `atan2` with a negative second argument.
+The final candidate falls back to the pinned path in those cases. Twenty-four
+composed selector/operand regressions and full scratch comparisons pass. The
+before/after witness is in `evidence/dsp-signed-zero-regression.json`.
+Initial operator prototype reports predate this fix and are historical; use
+`dsp-operators-final-host.json` and `dsp-all-host.json` for the corrected scope.
+
+An optional AddressSanitizer pass could not start: even an empty instrumented C
+program stalls before main. Sampling the two-block probe showed recursive ASan
+initialisation through dyld/malloc and a spin lock. The stalled probe was stopped;
+no DSP executed in that attempt. `dsp-address-runtime.json` records this as
+**unavailable**, not passed. The successful three-sanitizer comparisons above
+remain separate. The initial chaos timing harness also rejected its new cache
+fields before its normalization was corrected; that initial unavailable timing
+record is retained as `dsp-chaos-initial-benchmark-rejected.json`.
+
+Per-type/selector desktop timings and source hashes are in the register and
+`evidence/dsp-{operators-final,binding,routing,chaos,core}-host.json`. The summary
+and unchanged-default-source audit are in `evidence/dsp-review-summary.json`.
+Broader suites include current local example/kernel fixtures when present, so a fresh workspace may report a different graph count; the pinned set and generated edge cases remain required. Native timing tables describe their own fixtures/source revisions; later combined
+correctness does not make them hardware qualifications. Hardware measurement,
+IRAM placement, call-stack margins and listening tests remain a later phase.
+
+Reproduce the computer-only review without opening a device:
+
+```sh
+python3 host/test_dsp_candidates.py --benchmark --inventory --variants \
+  --all-operator-benchmarks --build-dir build/host/dsp-operators-final \
+  --output evidence/dsp-operators-final-host.json
+python3 host/test_dsp_binding.py --benchmark
+python3 host/test_dsp_binding.py --routing --benchmark
+python3 host/test_dsp_binding.py --chaos --benchmark
+python3 host/test_dsp_binding.py --core --benchmark
+python3 host/test_dsp_binding.py --all
+python3 host/document_optimizations.py --check
+python3 host/summarize_dsp_review.py
+```
+
+The optional `python3 host/test_dsp_binding.py --all --address` first probes the
+local ASan runtime and exits with an unavailable record if it cannot initialize.
+None of these commands use USB, Wi-Fi, a DAC or a sound server.
 
 ## Filters
 
@@ -35,6 +151,81 @@ block. No lookup approximation replaces exponential, pitch, log or trig math.
 Caches reuse fields otherwise unused by those node types. Graph, voice and
 scratch allocations do not grow. Reconstruction clears the caches with the
 voice. They belong to the voice, not recycled scratch or a global singleton.
+
+## Computer-only next batch — 3 November 2026
+
+This section retains the initial six-UGen/twenty-operator prototype scope. The
+complete review and signed-zero correction above supersede it for current use.
+
+`host/dsp_candidates.py` contains two independently selectable candidates.
+Both are **disabled in production defaults** and have **no hardware measurements**
+for this revision. No board connection, flash, network request or playback was
+used for this work.
+
+| Candidate | Applicable path |
+| --- | --- |
+| Lag2, Lag3 | Bound input/block recurrence, unchanged-time coefficient cache, exact power-of-two interpolation scaling after the original product |
+| OnePole, OneZero | Bound input and dedicated recurrence; preserve constructor history and OnePole's special constructor equation |
+| LPZ1, HPZ1 | Bound input and dedicated two-point recurrence; preserve initial sample history |
+| Binary selectors 6–13 | `==`, `!=`, `<`, `>`, `<=`, `>=`, `min`, `max` |
+| Binary selectors 30–38 | `ring1`–`ring4`, `difsqr`, `sumsqr`, `sqrsum`, `sqrdif`, `absdif` |
+| Binary selectors 40, 41, 46 | `amclip`, `scaleneg`, `firstArg` |
+
+The twenty binary specialisations apply when neither input has a changing
+control ramp. Dispatch is outside the sample loop; scalar/scalar expressions
+run once per block. Changing-control paths, including discontinuous operators'
+accumulated ramps, remain untouched. Min/max retain `fminf`/`fmaxf`; no approximate
+math, reassociation or reduced precision is introduced. Lag2/3 use only an
+otherwise-unused `freq` field for the time cache; structure sizes do not grow.
+
+The offline differential suite covers **610 graphs**, four sample rates and
+**159,907,840 bit-identical output samples** per variant. The combined candidate,
+smooth-only and binary-only variants each pass. It compares recursive voice/RNG
+state, constructor scratch and fault behavior, including signed zeros,
+subnormals, legal lower-rate audio inputs, negative coefficients, endpoints,
+changing times, repeated prepare, reconstruction and poisoned shared scratch.
+Only caller-owned control-bank pointers and the new otherwise-unused Lag2/3
+time-cache field are normalized. Deliberately invalid domains must produce the
+same faults; matching fault counts are not claims of fault-free valid playback.
+Undefined-behavior, bounds and float-to-integer sanitizers are enabled.
+
+A broader **1,555-graph** pass compares another **6,369,280 samples**, full
+recursive state and delay arenas at 44.1 kHz, 32 blocks per graph. This covers
+all pinned fixtures plus the current local example/kernel fixture set. It is
+short regression coverage, not a long-soak test.
+
+Desktop bank throughput trials favor these candidates, but are not predictions
+for the ESP32. Offline Xtensa compilation succeeds with strict floating-point
+flags and no double-arithmetic helper references. The candidate smoothing
+function has no direct software-division helper references. The combined
+renderer object text grows from **174,711 to 179,141 bytes**: **4,430 bytes** extra,
+including roughly 3.1 KiB in the existing hot arithmetic function. This is an
+unlinked object comparison, not final firmware flash/IRAM usage. Actual target
+cycles, cache/IRAM fit and normal whole-patch timing must justify promotion.
+
+The default compact and FM1 profiles' compiled DSP source files remain
+byte-identical to commit `368d267` with both switches off. Profile/provenance
+metadata records the new candidate source and disabled flags; this does not
+promise an identical future firmware build ID. Historical device records remain
+unchanged. See `evidence/dsp-candidates-host.json` and
+`evidence/dsp-candidates-defaults.json`.
+
+Reproduce silently:
+
+```sh
+python3 host/test_dsp_candidates.py --benchmark --inventory --variants
+python3 host/document_optimizations.py --check
+```
+
+To generate an opt-in comparison source tree, without building/flashing firmware:
+
+```sh
+python3 host/engine_profile.py --profile fm1 \
+  --output build/host/candidate-source/src --candidate-smooth --candidate-binary
+```
+
+The [register](OPTIMIZATION_REGISTER.md#host-only-candidates) keeps these as
+host-only candidates separately from enabled production optimisations.
 
 ## MiVerb packed memory
 

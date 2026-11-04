@@ -5,6 +5,7 @@ if (location.hash) { sessionStorage.setItem('studio-token', token); history.repl
 let config, device = null, artifact = null, binary = null, busy = false;
 let networkDevices = [], broadcast = null;
 let volumeSending = false, volumeTimer = null, volumePending = null, volumeEpoch = 0;
+let audioEpoch = 0, audioPolling = false, audioLatest = null;
 let editorTarget = 'sound';
 const drafts = {};
 const encoder = new TextEncoder();
@@ -52,6 +53,7 @@ function renderBroadcast() {
 }
 function controls() {
   const locked = busy || volumeSending || volumeTimer !== null;
+  $('cpu-peak-reset').disabled = locked || !canResetPeak();
   const entry = destination();
   $('compile').disabled = locked || (!binary && !config?.compiler_ready);
   $('compile').textContent = binary ? 'Check compiled file' : 'Compile';
@@ -107,11 +109,13 @@ function sourceMode() {
   invalidate();
 }
 function renderDevice(result) {
+  audioEpoch++;
   const nextId = result?.connected ? result.hello.device_id : null;
   if (nextId !== device?.hello.device_id) {
     volumeEpoch++; volumePending = null; clearTimeout(volumeTimer); volumeTimer = null;
   }
   device = result?.connected ? result : null;
+  renderAudio(device?.audio);
   if (!volumeSending && !volumePending && Number.isInteger(device?.volume_percent)) {
     showVolume(device.volume_percent, 'Drag to adjust this module only. Release to save across restarts.');
   }
@@ -144,10 +148,64 @@ function renderDevice(result) {
   }
   controls();
 }
+function canResetPeak() {
+  const audio=audioLatest?.data;
+  return !!device && audio?.connected && audio.device_id===device.hello.device_id && audio.source==='usb' && audio.peak_tracking===true;
+}
+function renderAudio(audio, receivedAt = Date.now()) {
+  audioLatest = {data: audio, receivedAt};
+  $('audio-resources').hidden = !device;
+  const matches = !!device && audio?.connected && audio.device_id === device.hello.device_id;
+  const fresh = key => matches && audio.source === 'usb' && Number.isFinite(audio.ages?.[key]) &&
+    audio.ages[key] >= 0 && audio.ages[key] + (Date.now() - receivedAt) / 1000 <= 5 &&
+    Number.isInteger(audio[key]) && audio[key] >= 0 && audio[key] < 0xffffffff;
+  for (const [id, key, cpu] of [['cpu-average','average_x10',true],
+    ['ram-free','internal_free',false],['psram-free','psram_free',false]]) {
+    $(id).textContent = fresh(key) ? cpu ? `${(audio[key] / 10).toFixed(1)}%` : `${(audio[key] / 1024).toFixed(1)} KiB` : '—';
+  }
+  const peak=audio?.peak_since_reset_x10;
+  const peakReady=fresh('peak_x10') && Number.isInteger(peak) && peak>=0 && peak<0xffffffff;
+  $('cpu-peak').textContent=peakReady?`${(peak/10).toFixed(1)}%`:'—';
+  $('cpu-peak-reset').disabled=busy || volumeSending || volumeTimer!==null || !canResetPeak();
+  $('audio-resources').classList.toggle('overloaded', peakReady && peak>=1000);
+  $('audio-status').textContent = !device ? '' : matches && audio.source === 'usb' ?
+    fresh('average_x10') && fresh('peak_x10') ? audio.peak_waiting ?
+      'Waiting for a full CPU window… start your test when the peak appears.' :
+      'Live USB diagnostics · peak retained until reset. RAM is free memory for the whole module.' :
+      'Diagnostics paused or not received yet. Stale values are hidden.' :
+    device.connection?.transport === 'wifi' ? 'Live diagnostics currently need a USB log connection. Wi-Fi control still works.' :
+      'Waiting for USB diagnostics. Restart Studio if it is running an older version.';
+}
+async function pollAudio() {
+  if (audioLatest) renderAudio(audioLatest.data, audioLatest.receivedAt);
+  if (!device || busy || volumeSending || audioPolling || document.hidden) return;
+  const epoch = audioEpoch;
+  audioPolling = true;
+  try {
+    const audio = await api('audio');
+    if (epoch === audioEpoch) {
+      if(audio.connected===false)renderDevice(null);
+      else renderAudio(audio);
+    }
+  } catch (_) {
+    if (epoch === audioEpoch) {
+      renderAudio(null);
+      $('audio-status').textContent = 'Diagnostics unavailable or Studio is busy. Waiting for the next update…';
+    }
+  } finally { audioPolling = false; }
+}
+setInterval(pollAudio, 2000);
+$('cpu-peak-reset').addEventListener('click',()=>task(async()=>{
+  if(!canResetPeak())return;
+  const epoch=++audioEpoch,id=device.hello.device_id;
+  const audio=await api('audio/reset-peak',{device_id:id});
+  if(epoch===audioEpoch && device?.hello.device_id===id)renderAudio(audio);
+}));
 function showVolume(percent, status) {
+  const db = percent === 0 ? '−∞' : (20 * Math.log10(percent / 100)).toFixed(1).replace('-', '−');
   $('volume').value = String(percent);
-  $('volume-value').textContent = `${percent}%`;
-  $('volume').setAttribute('aria-valuetext', `${percent} percent`);
+  $('volume-value').textContent = `${percent}% · ${db} dB`;
+  $('volume').setAttribute('aria-valuetext', `${percent} percent, ${percent === 0 ? 'muted' : `${db} decibels relative to full volume`}`);
   $('volume-status').textContent = status;
 }
 async function sendVolume() {

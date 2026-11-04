@@ -1,0 +1,33 @@
+{
+  "hardware": false,
+  "device_access": false,
+  "status": "unavailable-before-main",
+  "passed": false,
+  "dsp_tests_executed": false,
+  "initial_full_attempt_timeout_seconds": 120,
+  "small_probe_blocks_requested": 2,
+  "observed_stack_phase": "dyld/libSystem malloc initialisation before main",
+  "observed_stack": [
+    "__asan::InitializeShadowMemory",
+    "__sanitizer::MemoryRangeIsAvailable",
+    "__sanitizer::get_dyld_hdr",
+    "dyld_shared_cache_iterate_text_swift",
+    "_Block_copy",
+    "__sanitizer_mz_malloc",
+    "__asan::AsanInitFromRtl",
+    "__sanitizer::StaticSpinMutex::LockSlow"
+  ],
+  "local_sample_sha256": "cd2a50531bf3488d54bed3458ef14ebe07d524804e8506ed6dd5d9a64b580793",
+  "small_probe_stopped": true,
+  "empty_program_probe": {
+    "available": false,
+    "hardware": false,
+    "device_access": false,
+    "dsp_tests_executed": false,
+    "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+    "elapsed_seconds": 5.028716375003569,
+    "detail": "Even an empty C program times out before main under this AddressSanitizer runtime.",
+    "scope": "Optional local memory-checker startup probe; not a DSP failure or a passing sanitizer run."
+  },
+  "scope": "Local Apple Clang 17/macOS runtime initialization deadlock was observed by sampling the stalled two-block process. This is not evidence of an engine failure or a passing AddressSanitizer test. The unrelated completed undefined/bounds/float-cast suite remains valid."
+}

@@ -66,6 +66,9 @@ viewer; editing and compilation happen on the host.
 Studio's **Output volume** slider adjusts the connected module from 0–100%;
 release it to save the level across reboots. Fresh firmware defaults to 20%.
 The same slider works with the headless XIAO over USB or paired Wi-Fi.
+The **Audio resources** panel shows live average/peak audio CPU load and free
+RAM from USB diagnostics. Wi-Fi-only readings are currently unavailable;
+missing or stale readings show a dash. See [Studio](docs/STUDIO.md#audio-resources).
 
 ### 3. Pair Wi-Fi and identify your module
 
@@ -111,8 +114,11 @@ ESP32.stop(~node);
 
 **`.sendESP32(target)` saves a definition silently.** Start that definition with
 `ESP32.play(target, args)`, or use `.playESP32(target)` to upload and start in one
-step. Newly saved definitions also boot inactive. Browser sound-block uploads
-retain their automatic-start behaviour. These are separate workflows.
+step. **Function `.playESP32` blocks also restart automatically after power-up**,
+with their initial `args:` saved. Literal SynthDefs keep definition/instance
+semantics: their saved definition boots inactive. Browser Function uploads also
+start automatically. Recompile the SC Class Library once after this extension
+update; existing packages need resending to change their boot behavior.
 
 ### 5. Add master FX or route a pattern
 
@@ -225,6 +231,28 @@ These are the complete native names/selectors in the current **FM1/cache build**
 layouts and numerical/CPU qualifications are detailed in the
 [support ledger](docs/UGEN_SUPPORT.md); inclusion is not a guarantee that every
 graph meets the audio deadline.
+
+The [optimisation register](docs/OPTIMIZATION_REGISTER.md) tracks every native
+UGen and operator separately: enabled project changes, inherited FM1 fast paths,
+items with no enabled individual optimisation, and disabled experiments. Each
+record links the implementation and scoped host/hardware evidence. Update its
+JSON source and run `python3 host/document_optimizations.py`; use `--check` to
+check inventory coverage and ensure the page is current.
+
+The [complete computer-only review](docs/DSP_OPTIMIZATIONS.md#complete-computer-only-review--4-november-2026)
+now covers every supported UGen/operator. Per-fixture desktop gains, regressions,
+equivalence checks and code/stack costs are recorded. All seven new candidate
+switches remain off; selected ESP32 qualifications are recorded separately and
+production DSP defaults are unchanged.
+The [hardware test plan](docs/DSP_HARDWARE_TEST_PLAN.md) starts with a bounded
+30-minute baseline/candidate session, with extended coverage kept optional.
+The [first XIAO results](docs/DSP_HARDWARE_RESULTS.md) record matching selected
+replays, mixed target timings and clean PCM5102A listening. Experimental flags
+remain disabled in the standard firmware. The subsequent
+[fixed-seed XIAO comparisons](docs/DSP_SEEDED_PROFILING.md) cover 28 graphs,
+including all six smoothing candidates, partial banks, oscillator/Gendy caches
+and nine delay types. They retain both target gains and regressions; current
+production settings remain unchanged.
 
 ### UGens (154)
 

@@ -1,0 +1,622 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "hardware": true,
+  "device_id": "esp32-288485ba1e48",
+  "graph_count": 28,
+  "timing_records": 14,
+  "normal_instrumented_pairs": 240,
+  "normal_output_floats": 31457280,
+  "paired_output_floats": 62914560,
+  "normal_warmup_floats": 3932160,
+  "rate": 44100,
+  "block_frames": 64,
+  "seed": 12345,
+  "cpu_mhz_sdk": 240,
+  "cycle_wall_mhz_range": [
+    233.8143688967065,
+    239.83534587127053
+  ],
+  "external_clock_measurement": false,
+  "native_types": [
+    "AllpassC",
+    "AllpassL",
+    "AllpassN",
+    "BPF",
+    "BRF",
+    "BinaryOpUGen",
+    "Blip",
+    "CombC",
+    "CombL",
+    "CombN",
+    "Control",
+    "Decay",
+    "Decay2",
+    "DelayC",
+    "DelayL",
+    "DelayN",
+    "Dust",
+    "Formant",
+    "Gendy1",
+    "Gendy2",
+    "Gendy3",
+    "HPF",
+    "HPZ1",
+    "Klang",
+    "Klank",
+    "LFNoise2",
+    "LPF",
+    "LPZ1",
+    "Lag",
+    "Lag2",
+    "Lag3",
+    "MiVerb",
+    "MulAdd",
+    "OnePole",
+    "OneZero",
+    "Out",
+    "Pan2",
+    "RHPF",
+    "RLPF",
+    "Rand",
+    "Resonz",
+    "Ringz",
+    "Saw",
+    "Select",
+    "SinOsc",
+    "SinOscFB",
+    "Sum4",
+    "TExpRand",
+    "TIRand",
+    "TRand",
+    "UnaryOpUGen",
+    "WhiteNoise"
+  ],
+  "binary_selectors": [
+    0,
+    2,
+    4
+  ],
+  "unary_selectors": [
+    16
+  ],
+  "records": {
+    "baseline": {
+      "file": "evidence/dsp-seeded-xiao-baseline.json",
+      "comparison": {}
+    },
+    "baseline-repeat": {
+      "file": "evidence/dsp-seeded-xiao-baseline-repeat.json",
+      "comparison": {
+        "eight_saw": {
+          "baseline_us": 1180.001806640625,
+          "candidate_us": 1176.1933959960938,
+          "less_time_percent": 0.3227461706498125
+        },
+        "comb_kr": {
+          "baseline_us": 410.7770141601562,
+          "candidate_us": 410.05584716796875,
+          "less_time_percent": 0.17556167149759272
+        },
+        "triggered_harmonics": {
+          "baseline_us": 311.7280517578125,
+          "candidate_us": 310.5924072265625,
+          "less_time_percent": 0.36430617162819257
+        },
+        "filters": {
+          "baseline_us": 277.7391886393229,
+          "candidate_us": 277.6561726888021,
+          "less_time_percent": 0.02988989451848667
+        }
+      }
+    },
+    "binary": {
+      "file": "evidence/dsp-seeded-xiao-binary.json",
+      "comparison": {
+        "eight_saw": {
+          "baseline_us": 1180.001806640625,
+          "candidate_us": 1180.739363606771,
+          "less_time_percent": -0.06250473194151507
+        },
+        "comb_kr": {
+          "baseline_us": 410.7770141601562,
+          "candidate_us": 409.4774495442708,
+          "less_time_percent": 0.3163674137274697
+        },
+        "triggered_harmonics": {
+          "baseline_us": 311.7280517578125,
+          "candidate_us": 310.9564453125,
+          "less_time_percent": 0.24752550851983024
+        },
+        "filters": {
+          "baseline_us": 277.7391886393229,
+          "candidate_us": 279.037060546875,
+          "less_time_percent": -0.46729880428848514
+        }
+      }
+    },
+    "binding": {
+      "file": "evidence/dsp-seeded-xiao-binding.json",
+      "comparison": {
+        "eight_saw": {
+          "baseline_us": 1180.001806640625,
+          "candidate_us": 1159.595458984375,
+          "less_time_percent": 1.7293488485704445
+        },
+        "comb_kr": {
+          "baseline_us": 410.7770141601562,
+          "candidate_us": 385.7344482421875,
+          "less_time_percent": 6.096389295094529
+        },
+        "triggered_harmonics": {
+          "baseline_us": 311.7280517578125,
+          "candidate_us": 310.6308349609375,
+          "less_time_percent": 0.3519788452428063
+        },
+        "filters": {
+          "baseline_us": 277.7391886393229,
+          "candidate_us": 277.66094970703125,
+          "less_time_percent": 0.028169929016841344
+        }
+      }
+    },
+    "all": {
+      "file": "evidence/dsp-seeded-xiao-all.json",
+      "comparison": {
+        "eight_saw": {
+          "baseline_us": 1180.001806640625,
+          "candidate_us": 1172.83447265625,
+          "less_time_percent": 0.6074002551555324
+        },
+        "comb_kr": {
+          "baseline_us": 410.7770141601562,
+          "candidate_us": 391.2931274414062,
+          "less_time_percent": 4.743178427007477
+        },
+        "triggered_harmonics": {
+          "baseline_us": 311.7280517578125,
+          "candidate_us": 319.81568603515626,
+          "less_time_percent": -2.5944518729508426
+        },
+        "filters": {
+          "baseline_us": 277.7391886393229,
+          "candidate_us": 280.0061767578125,
+          "less_time_percent": -0.816229113938105
+        }
+      }
+    },
+    "binding-full": {
+      "file": "evidence/dsp-seeded-xiao-binding-full.json",
+      "comparison": {
+        "eight_saw": {
+          "baseline_us": 1180.001806640625,
+          "candidate_us": 1158.4071899414062,
+          "less_time_percent": 1.8300494607459195
+        },
+        "comb_kr": {
+          "baseline_us": 410.7770141601562,
+          "candidate_us": 385.3041625976563,
+          "less_time_percent": 6.201138497142988
+        },
+        "triggered_harmonics": {
+          "baseline_us": 311.7280517578125,
+          "candidate_us": 311.6001953125,
+          "less_time_percent": 0.0410153801018498
+        },
+        "filters": {
+          "baseline_us": 277.7391886393229,
+          "candidate_us": 277.89142252604165,
+          "less_time_percent": -0.05481181372515298
+        }
+      }
+    },
+    "smooth-baseline": {
+      "file": "evidence/dsp-seeded-xiao-smooth-baseline.json",
+      "comparison": {}
+    },
+    "core-baseline": {
+      "file": "evidence/dsp-seeded-xiao-core-baseline.json",
+      "comparison": {}
+    },
+    "delay-baseline": {
+      "file": "evidence/dsp-seeded-xiao-delay-baseline.json",
+      "comparison": {}
+    },
+    "core": {
+      "file": "evidence/dsp-seeded-xiao-core.json",
+      "comparison": {
+        "Klang": {
+          "baseline_us": 147.86142578125,
+          "candidate_us": 104.05299479166666,
+          "less_time_percent": 29.628032299914832
+        },
+        "Klank": {
+          "baseline_us": 197.92413330078125,
+          "candidate_us": 146.86648763020833,
+          "less_time_percent": 25.79657408072702
+        },
+        "SinOscFB": {
+          "baseline_us": 31.37568359375,
+          "candidate_us": 31.703629557291666,
+          "less_time_percent": -1.045223325769995
+        },
+        "Blip": {
+          "baseline_us": 59.098681640625,
+          "candidate_us": 58.507381184895834,
+          "less_time_percent": 1.0005307044323342
+        },
+        "Formant": {
+          "baseline_us": 36.11513671875,
+          "candidate_us": 37.73860270182292,
+          "less_time_percent": -4.495250829910491
+        },
+        "Gendy1": {
+          "baseline_us": 89.94745686848958,
+          "candidate_us": 88.47613525390625,
+          "less_time_percent": 1.6357567693487174
+        },
+        "Gendy2": {
+          "baseline_us": 101.411328125,
+          "candidate_us": 100.02375895182291,
+          "less_time_percent": 1.3682585553625337
+        },
+        "Gendy3": {
+          "baseline_us": 91.27303059895833,
+          "candidate_us": 90.12669270833334,
+          "less_time_percent": 1.2559437142630303
+        }
+      }
+    },
+    "core-musical": {
+      "file": "evidence/dsp-seeded-xiao-core-musical.json",
+      "comparison": {
+        "eight_saw": {
+          "baseline_us": 1180.001806640625,
+          "candidate_us": 1181.500626627604,
+          "less_time_percent": -0.12701844849254407
+        },
+        "comb_kr": {
+          "baseline_us": 410.7770141601562,
+          "candidate_us": 413.28993326822916,
+          "less_time_percent": -0.6117477418279282
+        },
+        "triggered_harmonics": {
+          "baseline_us": 311.7280517578125,
+          "candidate_us": 315.0203491210938,
+          "less_time_percent": -1.056144079660526
+        },
+        "filters": {
+          "baseline_us": 277.7391886393229,
+          "candidate_us": 278.3573282877604,
+          "less_time_percent": -0.22256119183823309
+        }
+      }
+    },
+    "smooth": {
+      "file": "evidence/dsp-seeded-xiao-smooth.json",
+      "comparison": {
+        "Lag2": {
+          "baseline_us": 509.0980509440104,
+          "candidate_us": 186.22573649088542,
+          "less_time_percent": 63.42045777909172
+        },
+        "Lag3": {
+          "baseline_us": 549.6535522460938,
+          "candidate_us": 211.85779215494793,
+          "less_time_percent": 61.45612244490801
+        },
+        "OnePole": {
+          "baseline_us": 443.9494222005208,
+          "candidate_us": 179.32723388671874,
+          "less_time_percent": 59.60638196174492
+        },
+        "OneZero": {
+          "baseline_us": 443.8858194986979,
+          "candidate_us": 166.00992431640626,
+          "less_time_percent": 62.60075969448869
+        },
+        "LPZ1": {
+          "baseline_us": 270.06517333984374,
+          "candidate_us": 127.54554036458333,
+          "less_time_percent": 52.77231092508067
+        },
+        "HPZ1": {
+          "baseline_us": 269.8313802083333,
+          "candidate_us": 127.3900390625,
+          "less_time_percent": 52.78901995603928
+        }
+      }
+    },
+    "smooth-musical": {
+      "file": "evidence/dsp-seeded-xiao-smooth-musical.json",
+      "comparison": {
+        "eight_saw": {
+          "baseline_us": 1180.001806640625,
+          "candidate_us": 1178.4452840169272,
+          "less_time_percent": 0.1319084949648719
+        },
+        "comb_kr": {
+          "baseline_us": 410.7770141601562,
+          "candidate_us": 410.32859293619794,
+          "less_time_percent": 0.10916414709208899
+        },
+        "triggered_harmonics": {
+          "baseline_us": 311.7280517578125,
+          "candidate_us": 312.17035319010415,
+          "less_time_percent": -0.14188695236041493
+        },
+        "filters": {
+          "baseline_us": 277.7391886393229,
+          "candidate_us": 277.6560831705729,
+          "less_time_percent": 0.02992212555855689
+        }
+      }
+    },
+    "binding-delay": {
+      "file": "evidence/dsp-seeded-xiao-binding-delay.json",
+      "comparison": {
+        "DelayN": {
+          "baseline_us": 145.77615152994792,
+          "candidate_us": 133.32409261067707,
+          "less_time_percent": 8.541904000472078
+        },
+        "DelayL": {
+          "baseline_us": 146.1376180013021,
+          "candidate_us": 134.06787923177083,
+          "less_time_percent": 8.259159369508618
+        },
+        "DelayC": {
+          "baseline_us": 158.12220865885416,
+          "candidate_us": 146.12598876953126,
+          "less_time_percent": 7.586676148196569
+        },
+        "CombN": {
+          "baseline_us": 148.2501017252604,
+          "candidate_us": 135.65130208333332,
+          "less_time_percent": 8.498341313300006
+        },
+        "CombL": {
+          "baseline_us": 148.50897216796875,
+          "candidate_us": 136.28756510416667,
+          "less_time_percent": 8.229406537121031
+        },
+        "CombC": {
+          "baseline_us": 160.63243001302084,
+          "candidate_us": 148.31147054036458,
+          "less_time_percent": 7.670281444199977
+        },
+        "AllpassN": {
+          "baseline_us": 150.32280680338542,
+          "candidate_us": 137.0874471028646,
+          "less_time_percent": 8.804625180949433
+        },
+        "AllpassL": {
+          "baseline_us": 150.60294596354166,
+          "candidate_us": 138.14206136067708,
+          "less_time_percent": 8.273997910957965
+        },
+        "AllpassC": {
+          "baseline_us": 163.77542317708333,
+          "candidate_us": 150.66940511067708,
+          "less_time_percent": 8.002432729015318
+        },
+        "MiVerb_modulated": {
+          "baseline_us": 555.4001546223958,
+          "candidate_us": 536.7950480143229,
+          "less_time_percent": 3.3498562168608137
+        }
+      }
+    }
+  },
+  "restoration": {
+    "passed": true,
+    "device_id": "esp32-288485ba1e48",
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.15,
+    "instances_restored": true,
+    "saved_volume_percent": 15,
+    "fx_package_verified": true
+  },
+  "final_audio": {
+    "passed": true,
+    "device_id": "esp32-288485ba1e48",
+    "build": "d627eccb77a7e84ae7b201ebac4b293d6f531e202438dbdf83b54cbb9e2fca5c",
+    "volume_percent": 15,
+    "fx_bypassed": true,
+    "main_active": true,
+    "main_prepared": true,
+    "continuous": false,
+    "pcm": {
+      "peak": 58,
+      "rms": [
+        11.98249857537415,
+        11.971826968658464
+      ]
+    },
+    "settled_pcm": {
+      "peak": 1468,
+      "rms": [
+        235.84054079032322,
+        233.47850896744194
+      ]
+    },
+    "original_controls_verified": true,
+    "graph_sha256": "69a3cf7843e47923157aef936e8e74532714a0492c6c86a5a5661b10b32382ce",
+    "cached_diagnostics": {
+      "average_x10": 541,
+      "peak_x10": 568,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0
+    },
+    "settled_20s_counter_deltas": {
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    "settled_20s_samples": [
+      {
+        "frame": 24508800,
+        "average_x10": 542,
+        "peak_x10": 630,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 24597120,
+        "average_x10": 542,
+        "peak_x10": 608,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 24685440,
+        "average_x10": 541,
+        "peak_x10": 564,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 24773760,
+        "average_x10": 541,
+        "peak_x10": 564,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 24862080,
+        "average_x10": 542,
+        "peak_x10": 611,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 24950400,
+        "average_x10": 541,
+        "peak_x10": 581,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 25038720,
+        "average_x10": 541,
+        "peak_x10": 560,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 25127040,
+        "average_x10": 542,
+        "peak_x10": 596,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 25215360,
+        "average_x10": 542,
+        "peak_x10": 578,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 25303680,
+        "average_x10": 541,
+        "peak_x10": 580,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      },
+      {
+        "frame": 25392000,
+        "average_x10": 541,
+        "peak_x10": 560,
+        "write_fail": 0,
+        "partial": 0,
+        "dma_event_overflow": 2,
+        "faults": 0,
+        "clips": 0,
+        "nonfinite": 0,
+        "overflow": 0
+      }
+    ],
+    "dma_observation": "Two cumulative DMA queue notifications were present before this check; no increase over the settled 20-second interval. Their exact earlier timing was not isolated.",
+    "expected_continuous": false,
+    "original_definition_mode": true,
+    "original_instance_mode_preserved": true
+  },
+  "production_candidates_promoted": false,
+  "record_sha256": {
+    "evidence/dsp-seeded-xiao-baseline.json": "8dc43959d1d60c0f73722856a1e77b77aba6f32800af0de5141d4ee6184ffc0b",
+    "evidence/dsp-seeded-xiao-baseline-repeat.json": "b7e476a17ece2ed0c11c4f7cba45d891a48dac7652d78169a8c345508500aea0",
+    "evidence/dsp-seeded-xiao-binary.json": "69de73bad6df2a525d9fc46aa1f1c5b994493688476a14ffe158b11f97ea326a",
+    "evidence/dsp-seeded-xiao-binding.json": "50da9c530bcec1f7183390ad2ee472d391dfa2325fd588b40fea042382694985",
+    "evidence/dsp-seeded-xiao-all.json": "b76a792ce460de6e5b66833e675210bf8c56dbf317a522f0701bc71d51c2a5c9",
+    "evidence/dsp-seeded-xiao-binding-full.json": "f93b6a9b22110ce876b82a7abd38378d21f5a5adb5e0e3899608ab4d02d7e2dc",
+    "evidence/dsp-seeded-xiao-smooth-baseline.json": "99e3240cb10e42b486d8ffa7eb6c868c74fca5db741453ceabdfb93f8c29c148",
+    "evidence/dsp-seeded-xiao-core-baseline.json": "1d02b3dca383ec86f254353802b58908517b8e827a58f9545a974ba4638e62a6",
+    "evidence/dsp-seeded-xiao-delay-baseline.json": "5e4e74ffcf3cae5bb794d176e125506a3a0a914990abb45be203f157becc72ec",
+    "evidence/dsp-seeded-xiao-core.json": "e16305a3667f6ce6e321b1ceaa0795e93326a98c135bc5308592d98e5019edb2",
+    "evidence/dsp-seeded-xiao-core-musical.json": "19cebb87c1169070bd9beb6fd1bb39483c4891c1b1b27cd7a38b9dd5a92cbdd5",
+    "evidence/dsp-seeded-xiao-smooth.json": "f8dc7f57fdb3694e97bfe41395ceba9f92d46aebbd1e9a02d7efc4feecd01b9a",
+    "evidence/dsp-seeded-xiao-smooth-musical.json": "fb4d1b5c6f122afae67d6c278acf2b5074e49953fabbd6ae731cdc8e4910177f",
+    "evidence/dsp-seeded-xiao-binding-delay.json": "9e69f32ffbcc997783b723807985380235d0bd3386848b5bb3734aebc1523caa"
+  },
+  "scope": "Selected XIAO layouts only. Each normal/instrumented pair checks audio, voice, scratch and arena. Cross-image comparisons check warm/measured audio SHA-256 and RNG, not normalized whole-voice state. Timing is normal DSP, not the full audio-task CPU meter; no isolated universal UGen speedup is claimed."
+}

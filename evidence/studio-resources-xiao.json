@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "hardware": true,
+  "device_id": "esp32-288485ba1e48",
+  "scope": "Read-only Chrome UI observation after restarting Studio with its session/bridge port retained; not an isolated DSP benchmark.",
+  "connection": "USB",
+  "panel": "Audio resources",
+  "live_diagnostics_visible": true,
+  "observed": {
+    "cpu_average_percent": 85.0,
+    "cpu_peak_percent": 109.6,
+    "internal_free_kib": 90.0,
+    "psram_free_kib": 5052.5
+  },
+  "notes": [
+    "Values belong to the module state at UI observation, after qualification; subsequent user edits are outside the test records.",
+    "The new panel was visible and live; these observations do not measure a candidate speed-up."
+  ]
+}

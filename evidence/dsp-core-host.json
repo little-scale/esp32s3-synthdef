@@ -1,0 +1,1117 @@
+{
+  "passed": true,
+  "hardware": false,
+  "device_access": false,
+  "audio_playback": false,
+  "production_enabled": false,
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "comparison": "Bit-identical output and recursive voice/RNG/flags/arena fields; only caller-owned pointers and documented new core invariant-cache fields normalized.",
+  "reports": {
+    "core-only": {
+      "passed": true,
+      "graphs": 2394,
+      "blocks": 153216,
+      "samples": 19611648,
+      "matching_fault_blocks": 3989,
+      "profile": {},
+      "four_rate_edges": {
+        "passed": true,
+        "graphs": 194,
+        "blocks": 397312,
+        "samples": 50855936,
+        "matching_fault_blocks": 21432
+      }
+    },
+    "combined": {
+      "passed": true,
+      "graphs": 2394,
+      "blocks": 153216,
+      "samples": 19611648,
+      "matching_fault_blocks": 3989,
+      "profile": {
+        "delay_render": {
+          "bound_slots": 3,
+          "sample_call_sites": 2,
+          "rate_call_sites": 2
+        },
+        "extensions": {
+          "bound_slots": 3,
+          "sample_call_sites": 4,
+          "rate_call_sites": 2
+        },
+        "utilities": {
+          "bound_slots": 6,
+          "sample_call_sites": 1,
+          "rate_call_sites": 4
+        },
+        "modulation": {
+          "bound_slots": 2,
+          "sample_call_sites": 2,
+          "rate_call_sites": 2
+        },
+        "formlet_render": {
+          "bound_slots": 1,
+          "sample_call_sites": 1,
+          "rate_call_sites": 0
+        },
+        "render_miverb": {
+          "bound_slots": 8,
+          "sample_call_sites": 2,
+          "rate_call_sites": 0
+        },
+        "rings_render": {
+          "bound_slots": 1,
+          "sample_call_sites": 1,
+          "rate_call_sites": 2
+        },
+        "stochastic_render": {
+          "bound_slots": 3,
+          "sample_call_sites": 3,
+          "rate_call_sites": 0
+        },
+        "expansion_shift": {
+          "bound_slots": 3,
+          "sample_call_sites": 3,
+          "rate_call_sites": 4
+        },
+        "expansion_render": {
+          "bound_slots": 6,
+          "sample_call_sites": 7,
+          "rate_call_sites": 3
+        }
+      },
+      "four_rate_edges": {
+        "passed": true,
+        "graphs": 194,
+        "blocks": 397312,
+        "samples": 50855936,
+        "matching_fault_blocks": 21432
+      }
+    }
+  },
+  "xtensa_objects": {
+    "core-only": {
+      "reference": {
+        "text_bytes": 174711,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:100:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:12:13:chaos_HenonN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:91:13:chaos_HenonL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:181:13:chaos_HenonC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:600:13:chaos_LorenzL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:9:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:388:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:443:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:515:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:714:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:766:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:835:13:chaos_FBSineC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:921:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:977:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_fast.inc:74:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:279:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_chaos.inc:324:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_formants.inc:34:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:24:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:46:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:55:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_utilities.inc:29:39:utilities\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_modulation.inc:11:39:modulation\t352\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:118:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_stochastic.inc:19:13:chaos_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_fast.inc:112:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:167:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:174:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:208:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_miverb.inc:45:39:render_miverb\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_rings.inc:194:39:rings_render\t1680\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_extensions.inc:82:39:extensions\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_bandlimited.inc:23:13:bandlimited\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_fast.inc:84:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:245:13:render_graph\t1024\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:79:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:84:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:85:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:95:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:528:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:531:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/reference/src/fm_render.c:537:6:fm_render\t32\tstatic"
+        ]
+      },
+      "target": {
+        "text_bytes": 177295,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:100:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:108:14:quotient_error\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_filters.inc:25:14:filter_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_filters.inc:52:12:lf_le\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:12:13:chaos_HenonN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:91:13:chaos_HenonL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:181:13:chaos_HenonC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:600:13:chaos_LorenzL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:9:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:388:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:443:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:515:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:714:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:766:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:835:13:chaos_FBSineC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:921:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:977:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_fast.inc:74:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:279:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_chaos.inc:324:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_formants.inc:35:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:24:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:46:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:55:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_utilities.inc:29:39:utilities\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:256:39:candidate_bank\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:51:13:delay_render\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_modulation.inc:11:39:modulation\t368\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:118:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_stochastic.inc:19:13:chaos_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_extensions.inc:82:39:extensions\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:282:39:candidate_line\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_fast.inc:112:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:237:39:candidate_lf\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:167:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:174:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:208:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_miverb.inc:45:39:render_miverb\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_rings.inc:194:39:rings_render\t1680\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_fast.inc:84:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:317:13:render_graph\t1024\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:79:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:84:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:85:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:95:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:603:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:606:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/core-only/target/src/fm_render.c:612:6:fm_render\t32\tstatic"
+        ]
+      }
+    },
+    "combined": {
+      "reference": {
+        "text_bytes": 183028,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:116:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:124:14:quotient_error\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_filters.inc:25:14:filter_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:14:13:chaos_HenonN_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:88:13:chaos_HenonL_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:172:13:chaos_HenonC_next\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:553:13:chaos_LorenzL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:11:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:360:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:410:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:474:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:659:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:706:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:767:13:chaos_FBSineC_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:847:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:898:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_fast.inc:124:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:37:17:phase_word\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:264:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_chaos.inc:304:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_formants.inc:34:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:40:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:62:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:71:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:253:14:candidate_degree\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_fast.inc:134:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_utilities.inc:29:39:utilities\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_dsp_candidates.inc:4:39:candidate_smooth\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_modulation.inc:11:39:modulation\t384\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:134:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_dsp_candidates.inc:65:39:candidate_noise\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_stochastic.inc:19:13:chaos_render\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_fast.inc:162:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:259:39:candidate_routing\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:183:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:190:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:225:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_bandlimited.inc:23:13:bandlimited\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_miverb.inc:45:39:render_miverb\t176\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_rings.inc:194:39:rings_render\t1696\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_extensions.inc:82:39:extensions\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:332:13:render_graph\t1040\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:95:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:100:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:101:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:111:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:618:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:621:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/reference/src/fm_render.c:627:6:fm_render\t32\tstatic"
+        ]
+      },
+      "target": {
+        "text_bytes": 185746,
+        "stack_usage": [
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_synth.h:35:19:fm_uses_memory\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_noise.inc:4:13:random_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_noise.inc:10:17:random_word\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_noise.inc:17:14:random_bipolar\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_noise.inc:18:14:random_uniform\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:116:14:product_error\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:124:14:quotient_error\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_filters.inc:5:12:is_filter\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_filters.inc:46:13:lf_advance\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_filters.inc:25:14:filter_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_filters.inc:51:12:lf_ge\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_filters.inc:52:12:lf_le\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_bandlimited.inc:6:14:table_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings_state.inc:26:17:rings_words\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:47:14:delay_cubic\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_utilities.inc:28:12:bounded_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_gendy.inc:54:13:gendy_pair_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_gendy.inc:58:43:gendy_reciprocal_floor\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_miverb.inc:9:14:mi_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_miverb.inc:15:13:mi_write\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_miverb.inc:24:13:mi_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_miverb.inc:28:13:mi_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:7:14:rg_table\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:8:14:rg_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:18:14:rg_svf_tick\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:20:13:rg_cos_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:24:17:rg_string_index\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:14:13:chaos_HenonN_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:88:13:chaos_HenonL_next\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:172:13:chaos_HenonC_next\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:553:13:chaos_LorenzL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_stochastic.inc:11:14:stochastic_integer\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_expansion.inc:5:14:expansion_sine\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_expansion.inc:9:14:expansion_radians\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_expansion.inc:10:13:phasor_add\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:5:17:delay_length\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:6:14:rg_clamp\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:144:13:rg_fx_write\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_utilities.inc:5:14:bounded_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_utilities.inc:9:14:bounded_fold\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:11:14:chaos_mod2pi\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_expansion.inc:11:13:phasor_wrap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:360:13:chaos_LatoocarfianN_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:410:13:chaos_LatoocarfianL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:474:13:chaos_LatoocarfianC_next\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:659:13:chaos_FBSineN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:706:13:chaos_FBSineL_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:767:13:chaos_FBSineC_next\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:847:13:chaos_StandardN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:898:13:chaos_StandardL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_fast.inc:124:17:sine_control_step\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:264:13:chaos_CuspN_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_chaos.inc:304:13:chaos_CuspL_next\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_formants.inc:35:13:formlet_coeff\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_gendy.inc:26:14:gendy_constant\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_gendy.inc:36:14:gendy_distribution_ready\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:40:14:unary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:62:14:integer_gcd\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:71:14:binary\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_fast.inc:10:14:bound_value\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_miverb.inc:41:14:mi_clip\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:26:14:rg_hermite\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:70:14:rg_sine_fm$part$0\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:43:14:delay_feedback\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_filters.inc:43:14:lag_coeff\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_gendy.inc:48:14:gendy_mirror.constprop\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:253:14:candidate_degree\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_extensions.inc:17:14:decay_tick.isra\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_fast.inc:5:23:bind_input.isra\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_dsp_kernels.inc:74:39:fast_unary\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:18:12:input_rate.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:12:14:input.isra\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_freeverb.inc:7:39:render_freeverb.isra\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_freeverb.inc:225:39:render_freeverb2.isra\t336\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_utilities.inc:29:39:utilities\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_dsp_candidates.inc:4:39:candidate_smooth\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_dsp_kernels.inc:47:39:fast_lag\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:343:39:candidate_bank\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:51:13:delay_render\t160\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_modulation.inc:11:39:modulation\t384\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_gendy.inc:70:13:gendy_render\t192\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:134:13:segment\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_fast.inc:19:39:fast_arithmetic\t144\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_dsp_candidates.inc:65:39:candidate_noise\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_stochastic.inc:19:13:chaos_render\t208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_extensions.inc:82:39:extensions\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:369:39:candidate_line\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_fast.inc:162:39:fast_pan\t96\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:324:39:candidate_lf\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:259:39:candidate_routing\t128\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:183:13:envelope_init\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:190:14:envelope\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:225:39:fast_envelope\t80\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_extensions.inc:66:39:fast_dust\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:138:14:rg_fx_read\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:154:13:rg_fx_interpolate\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:150:13:rg_fx_ap\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_bandlimited.inc:11:14:blip_ratio\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_bandlimited.inc:20:14:saw_blip\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_extensions.inc:34:39:fast_decay\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_miverb.inc:45:39:render_miverb\t176\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_reverb.inc:4:39:reverb_render\t64\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:169:39:rg_process\t2208\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_rings.inc:194:39:rings_render\t1696\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_dsp_kernels.inc:7:39:fast_filter\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_fast.inc:134:39:fast_sine\t112\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:404:13:render_graph\t1040\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:95:5:fm_start\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:100:5:fm_seed\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:101:5:fm_set\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:111:5:fm_bind_control_buses\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:21:10:fm_delay_required\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:31:12:fm_bind_delay_mode\t48\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:41:5:fm_bind_delay\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_delay.inc:42:5:fm_bind_delay_precleared\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:693:6:fm_prepare\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:696:6:fm_render_input\t32\tstatic",
+          "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-core/combined/target/src/fm_render.c:702:6:fm_render\t32\tstatic"
+        ]
+      }
+    }
+  },
+  "source_sha256": {
+    "host/dsp_binding.py": "997b81ac5f14a8e1b81556f455c53f1f4d30f5a2249ce82c48c1663b9698f62f",
+    "host/dsp_routing.py": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
+    "host/dsp_chaos_cache.py": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
+    "host/dsp_core.py": "cef78c2b54df18553b6f7dc19b68a345331d4a44ea88279834d25ec79c26e0d6",
+    "host/core_fixtures.py": "39d9efb88b22ba6552f64756206f26b5f91c668907891dd9be3ba79e01937dd1",
+    "host/routing_fixtures.py": "27419b0fd50989af0981a74ffd1137b42753230215fba4a574ff94cb76f6ac6e",
+    "host/engine_profile.py": "094c7b147e392020bcdf0beafafd852093e3f270e7470c28b89227e5718bdb7a",
+    "host/test_dsp_binding.py": "d85f47fa993321485853ce0dce9e886f6204fe8f8879449ec9d5a03caacacd17",
+    "host/test_dsp_candidates.py": "674806b4e814f345cd68d535ef18f12d8bf88051138d7f70e7530d26ec35cb2d",
+    "tests/dsp_kernels_test.c": "d83c1c67fbd9c29b60399f66b011485e115a09a5b0698981bbbecec7c6607e00",
+    "tests/dsp_candidates_test.c": "2478979f3314d96a0b7a7ed4f93ad05426b63772617cc7387a945e8a8968b082"
+  },
+  "native_per_type": {
+    "scope": "Three native steady-state whole-graph trials per type; results are representative-graph costs, not isolated node costs or ESP32 predictions. Both final voice/RNG/arena state and final audio block must match after 1,024 warm and 16,384 timed blocks.",
+    "measurements": {
+      "Amplitude": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m9_Amplitude_ar_ar_0.scsyndef",
+        "graph_sha256": "05415eb8cf46254a0893216f34ed11d61d9ea5dadaaa2e7dde1292285b35a456",
+        "graph_nodes": 7,
+        "trials": [
+          {
+            "reference_seconds": 0.022897,
+            "candidate_seconds": 0.016033,
+            "iterations": 16384,
+            "sink": 1449.03821
+          },
+          {
+            "reference_seconds": 0.014173,
+            "candidate_seconds": 0.012574,
+            "iterations": 16384,
+            "sink": 1449.03821
+          },
+          {
+            "reference_seconds": 0.012452,
+            "candidate_seconds": 0.011168,
+            "iterations": 16384,
+            "sink": 1449.03821
+          }
+        ],
+        "median_reference_seconds": 0.014173,
+        "median_candidate_seconds": 0.012574,
+        "less_native_time_percent": 11.282015099132147,
+        "prior_failed_attempts": []
+      },
+      "BHiShelf": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m9_BHiShelf_0_0.scsyndef",
+        "graph_sha256": "2ad0f69230efa46f85b7a5e8572c5456dcea6be7068addb6a24d373e98772b27",
+        "graph_nodes": 5,
+        "trials": [
+          {
+            "reference_seconds": 0.01089,
+            "candidate_seconds": 0.010611,
+            "iterations": 16384,
+            "sink": -0.192211539
+          },
+          {
+            "reference_seconds": 0.010777,
+            "candidate_seconds": 0.010279,
+            "iterations": 16384,
+            "sink": -0.192211539
+          },
+          {
+            "reference_seconds": 0.010555,
+            "candidate_seconds": 0.010263,
+            "iterations": 16384,
+            "sink": -0.192211539
+          }
+        ],
+        "median_reference_seconds": 0.010777,
+        "median_candidate_seconds": 0.010279,
+        "less_native_time_percent": 4.620952027465897,
+        "prior_failed_attempts": []
+      },
+      "BLowShelf": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m9_BLowShelf_0_0.scsyndef",
+        "graph_sha256": "38730256318b104d80b98a26e84cd7d357a221a598d8aa331c175dcd34f48e88",
+        "graph_nodes": 5,
+        "trials": [
+          {
+            "reference_seconds": 0.010505,
+            "candidate_seconds": 0.010316,
+            "iterations": 16384,
+            "sink": -0.11948368
+          },
+          {
+            "reference_seconds": 0.010508,
+            "candidate_seconds": 0.010234,
+            "iterations": 16384,
+            "sink": -0.11948368
+          },
+          {
+            "reference_seconds": 0.010448,
+            "candidate_seconds": 0.010717,
+            "iterations": 16384,
+            "sink": -0.11948368
+          }
+        ],
+        "median_reference_seconds": 0.010505,
+        "median_candidate_seconds": 0.010316,
+        "less_native_time_percent": 1.7991432651118466,
+        "prior_failed_attempts": []
+      },
+      "BPeakEQ": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m9_BPeakEQ_0_0.scsyndef",
+        "graph_sha256": "9d766d6e3f9f2e5e9098e774aec5c77ba06c7fc11698f48f15e2188c242b3296",
+        "graph_nodes": 5,
+        "trials": [
+          {
+            "reference_seconds": 0.010534,
+            "candidate_seconds": 0.0103,
+            "iterations": 16384,
+            "sink": -0.182795241
+          },
+          {
+            "reference_seconds": 0.010494,
+            "candidate_seconds": 0.010337,
+            "iterations": 16384,
+            "sink": -0.182795241
+          },
+          {
+            "reference_seconds": 0.0107,
+            "candidate_seconds": 0.010291,
+            "iterations": 16384,
+            "sink": -0.182795241
+          }
+        ],
+        "median_reference_seconds": 0.010534,
+        "median_candidate_seconds": 0.0103,
+        "less_native_time_percent": 2.221378393772544,
+        "prior_failed_attempts": []
+      },
+      "Blip": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m15_Blip_ar_0.scsyndef",
+        "graph_sha256": "1bf1d2fd3062335dcf1cdf10d6e572c5461fe574890fd8325697fe364b506e65",
+        "graph_nodes": 3,
+        "trials": [
+          {
+            "reference_seconds": 0.002529,
+            "candidate_seconds": 0.002374,
+            "iterations": 16384,
+            "sink": 0.0223129168
+          },
+          {
+            "reference_seconds": 0.002536,
+            "candidate_seconds": 0.002346,
+            "iterations": 16384,
+            "sink": 0.0223129168
+          },
+          {
+            "reference_seconds": 0.002633,
+            "candidate_seconds": 0.002388,
+            "iterations": 16384,
+            "sink": 0.0223129168
+          }
+        ],
+        "median_reference_seconds": 0.002536,
+        "median_candidate_seconds": 0.002374,
+        "less_native_time_percent": 6.388012618296535,
+        "prior_failed_attempts": []
+      },
+      "Formant": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m11_Formant_0.scsyndef",
+        "graph_sha256": "4e158c3e2e4a267b3aff343ef4c57f8bd5ab85fd48792ee96c2e45ad2713997d",
+        "graph_nodes": 3,
+        "trials": [
+          {
+            "reference_seconds": 0.001733,
+            "candidate_seconds": 0.001659,
+            "iterations": 16384,
+            "sink": -0.172916517
+          },
+          {
+            "reference_seconds": 0.001831,
+            "candidate_seconds": 0.0016,
+            "iterations": 16384,
+            "sink": -0.172916517
+          },
+          {
+            "reference_seconds": 0.001803,
+            "candidate_seconds": 0.00189,
+            "iterations": 16384,
+            "sink": -0.172916517
+          }
+        ],
+        "median_reference_seconds": 0.001803,
+        "median_candidate_seconds": 0.001659,
+        "less_native_time_percent": 7.98668885191347,
+        "prior_failed_attempts": []
+      },
+      "Formlet": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m11_Formlet_ar_0_0.scsyndef",
+        "graph_sha256": "299df080a9df7fb820f572d7d796727727226d82b6c27e68642197b52ac23bba",
+        "graph_nodes": 5,
+        "trials": [
+          {
+            "reference_seconds": 0.017996,
+            "candidate_seconds": 0.016979,
+            "iterations": 16384,
+            "sink": -0.0608142652
+          },
+          {
+            "reference_seconds": 0.017148,
+            "candidate_seconds": 0.016865,
+            "iterations": 16384,
+            "sink": -0.0608142652
+          },
+          {
+            "reference_seconds": 0.016942,
+            "candidate_seconds": 0.016829,
+            "iterations": 16384,
+            "sink": -0.0608142652
+          }
+        ],
+        "median_reference_seconds": 0.017148,
+        "median_candidate_seconds": 0.016865,
+        "less_native_time_percent": 1.6503382318637683,
+        "prior_failed_attempts": []
+      },
+      "Gendy1": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m10_Gendy1_ar_cp1.scsyndef",
+        "graph_sha256": "971aa103b1979053ff8f10768b24ae3c2f3bd4ec8ffc88755be359349cacf005",
+        "graph_nodes": 4,
+        "trials": [
+          {
+            "reference_seconds": 0.00804,
+            "candidate_seconds": 0.007908,
+            "iterations": 16384,
+            "sink": -230.422256
+          },
+          {
+            "reference_seconds": 0.007929,
+            "candidate_seconds": 0.00788,
+            "iterations": 16384,
+            "sink": -230.422256
+          },
+          {
+            "reference_seconds": 0.008185,
+            "candidate_seconds": 0.00789,
+            "iterations": 16384,
+            "sink": -230.422256
+          }
+        ],
+        "median_reference_seconds": 0.00804,
+        "median_candidate_seconds": 0.00789,
+        "less_native_time_percent": 1.8656716417910557,
+        "prior_failed_attempts": []
+      },
+      "Gendy2": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m10_Gendy2_ar_cp1.scsyndef",
+        "graph_sha256": "dc22088c494cb4edd63c7a8003f6a3c00e8ea761b9bf96018db1867eeb800f29",
+        "graph_nodes": 4,
+        "trials": [
+          {
+            "reference_seconds": 0.008106,
+            "candidate_seconds": 0.007884,
+            "iterations": 16384,
+            "sink": 1301.28259
+          },
+          {
+            "reference_seconds": 0.008107,
+            "candidate_seconds": 0.007894,
+            "iterations": 16384,
+            "sink": 1301.28259
+          },
+          {
+            "reference_seconds": 0.008207,
+            "candidate_seconds": 0.007887,
+            "iterations": 16384,
+            "sink": 1301.28259
+          }
+        ],
+        "median_reference_seconds": 0.008107,
+        "median_candidate_seconds": 0.007887,
+        "less_native_time_percent": 2.7137042062415184,
+        "prior_failed_attempts": []
+      },
+      "Gendy3": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m10_Gendy3_ar_cp1.scsyndef",
+        "graph_sha256": "f2ee13009b661f198f258887025f984743960d2e6b4699d2d8956b2e6dcc6844",
+        "graph_nodes": 4,
+        "trials": [
+          {
+            "reference_seconds": 0.008286,
+            "candidate_seconds": 0.008104,
+            "iterations": 16384,
+            "sink": 0
+          },
+          {
+            "reference_seconds": 0.008083,
+            "candidate_seconds": 0.008114,
+            "iterations": 16384,
+            "sink": 0
+          },
+          {
+            "reference_seconds": 0.008247,
+            "candidate_seconds": 0.008108,
+            "iterations": 16384,
+            "sink": 0
+          }
+        ],
+        "median_reference_seconds": 0.008247,
+        "median_candidate_seconds": 0.008108,
+        "less_native_time_percent": 1.6854613798957252,
+        "prior_failed_attempts": []
+      },
+      "Klang": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/klang.scsyndef",
+        "graph_sha256": "2fc29ac388d1d1d26f9b49240479087609f962a80026639814e6538ab971a025",
+        "graph_nodes": 3,
+        "trials": [
+          {
+            "reference_seconds": 0.005333,
+            "candidate_seconds": 0.005382,
+            "iterations": 16384,
+            "sink": -0.0107880458
+          },
+          {
+            "reference_seconds": 0.005532,
+            "candidate_seconds": 0.005469,
+            "iterations": 16384,
+            "sink": -0.0107880458
+          },
+          {
+            "reference_seconds": 0.00542,
+            "candidate_seconds": 0.005473,
+            "iterations": 16384,
+            "sink": -0.0107880458
+          }
+        ],
+        "median_reference_seconds": 0.00542,
+        "median_candidate_seconds": 0.005469,
+        "less_native_time_percent": -0.9040590405903881,
+        "prior_failed_attempts": []
+      },
+      "Klank": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/klank.scsyndef",
+        "graph_sha256": "1576e10e6671a133951dd6b1e162cd4d5f3f7fb82b8327789dd0922625d04170",
+        "graph_nodes": 5,
+        "trials": [
+          {
+            "reference_seconds": 0.006931,
+            "candidate_seconds": 0.00676,
+            "iterations": 16384,
+            "sink": -0.000702796504
+          },
+          {
+            "reference_seconds": 0.006788,
+            "candidate_seconds": 0.006572,
+            "iterations": 16384,
+            "sink": -0.000702796504
+          },
+          {
+            "reference_seconds": 0.006838,
+            "candidate_seconds": 0.006635,
+            "iterations": 16384,
+            "sink": -0.000702796504
+          }
+        ],
+        "median_reference_seconds": 0.006838,
+        "median_candidate_seconds": 0.006635,
+        "less_native_time_percent": 2.968704299502778,
+        "prior_failed_attempts": []
+      },
+      "LFPulse": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m2_LFPulse_ar.scsyndef",
+        "graph_sha256": "09865ff88f731e7f2476ccb635dfbfe0ff1c2044bc5488e1f2b25f2086ec8042",
+        "graph_nodes": 3,
+        "trials": [
+          {
+            "reference_seconds": 0.008416,
+            "candidate_seconds": 0.008113,
+            "iterations": 16384,
+            "sink": 11563.0605
+          },
+          {
+            "reference_seconds": 0.008452,
+            "candidate_seconds": 0.008111,
+            "iterations": 16384,
+            "sink": 11563.0605
+          },
+          {
+            "reference_seconds": 0.008573,
+            "candidate_seconds": 0.008115,
+            "iterations": 16384,
+            "sink": 11563.0605
+          }
+        ],
+        "median_reference_seconds": 0.008452,
+        "median_candidate_seconds": 0.008113,
+        "less_native_time_percent": 4.01088499763369,
+        "prior_failed_attempts": []
+      },
+      "LFSaw": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m2_LFSaw_ar.scsyndef",
+        "graph_sha256": "23b41365089e91488d4ad19b0a1e29d49f37890e41cccc8cdde4541ca8ac76d6",
+        "graph_nodes": 3,
+        "trials": [
+          {
+            "reference_seconds": 0.008467,
+            "candidate_seconds": 0.008102,
+            "iterations": 16384,
+            "sink": -45.4589767
+          },
+          {
+            "reference_seconds": 0.008576,
+            "candidate_seconds": 0.008017,
+            "iterations": 16384,
+            "sink": -45.4589767
+          },
+          {
+            "reference_seconds": 0.008631,
+            "candidate_seconds": 0.008086,
+            "iterations": 16384,
+            "sink": -45.4589767
+          }
+        ],
+        "median_reference_seconds": 0.008576,
+        "median_candidate_seconds": 0.008086,
+        "less_native_time_percent": 5.713619402985081,
+        "prior_failed_attempts": []
+      },
+      "LFTri": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m2_LFTri_ar.scsyndef",
+        "graph_sha256": "c52d79088230b26277e056a13aaede2bd8c88d99c7f9eaeb7f993db455066e7b",
+        "graph_nodes": 3,
+        "trials": [
+          {
+            "reference_seconds": 0.008613,
+            "candidate_seconds": 0.008205,
+            "iterations": 16384,
+            "sink": -31.534668
+          },
+          {
+            "reference_seconds": 0.008495,
+            "candidate_seconds": 0.008178,
+            "iterations": 16384,
+            "sink": -31.534668
+          },
+          {
+            "reference_seconds": 0.008618,
+            "candidate_seconds": 0.00819,
+            "iterations": 16384,
+            "sink": -31.534668
+          }
+        ],
+        "median_reference_seconds": 0.008613,
+        "median_candidate_seconds": 0.00819,
+        "less_native_time_percent": 4.911180773249757,
+        "prior_failed_attempts": []
+      },
+      "Line": {
+        "fixture": "build/host/dsp-core/core_Line_2_1000_0.scsyndef",
+        "graph_sha256": "a2c734cc833da6f5709454846351f8daaad4693d166d765128d62415a6776693",
+        "graph_nodes": 2,
+        "trials": [
+          {
+            "reference_seconds": 0.004352,
+            "candidate_seconds": 0.003354,
+            "iterations": 16384,
+            "sink": 3671.23315
+          },
+          {
+            "reference_seconds": 0.004416,
+            "candidate_seconds": 0.003216,
+            "iterations": 16384,
+            "sink": 3671.23315
+          },
+          {
+            "reference_seconds": 0.004545,
+            "candidate_seconds": 0.00322,
+            "iterations": 16384,
+            "sink": 3671.23315
+          }
+        ],
+        "median_reference_seconds": 0.004416,
+        "median_candidate_seconds": 0.00322,
+        "less_native_time_percent": 27.083333333333325,
+        "prior_failed_attempts": []
+      },
+      "SinOscFB": {
+        "fixture": "upstream/fm1-synthdef/synthdef-engine/fixtures/m15_SinOscFB_ar_0.scsyndef",
+        "graph_sha256": "34b1be2e8d790cc6360ffd15e14130d74cd596f8b94a17aaf34bff90ee49b356",
+        "graph_nodes": 3,
+        "trials": [
+          {
+            "reference_seconds": 0.008045,
+            "candidate_seconds": 0.008304,
+            "iterations": 16384,
+            "sink": -0.00921818987
+          },
+          {
+            "reference_seconds": 0.00803,
+            "candidate_seconds": 0.00798,
+            "iterations": 16384,
+            "sink": -0.00921818987
+          },
+          {
+            "reference_seconds": 0.008009,
+            "candidate_seconds": 0.008054,
+            "iterations": 16384,
+            "sink": -0.00921818987
+          }
+        ],
+        "median_reference_seconds": 0.00803,
+        "median_candidate_seconds": 0.008054,
+        "less_native_time_percent": -0.2988792029887888,
+        "prior_failed_attempts": []
+      },
+      "XLine": {
+        "fixture": "build/host/dsp-core/core_XLine_2_1000_0.scsyndef",
+        "graph_sha256": "e2bb2334fb503be42c1936d09b8fee394cad7bd6f2cb34f5717758750ae06688",
+        "graph_nodes": 2,
+        "trials": [
+          {
+            "reference_seconds": 0.004927,
+            "candidate_seconds": 0.003331,
+            "iterations": 16384,
+            "sink": 3379.7019
+          },
+          {
+            "reference_seconds": 0.004917,
+            "candidate_seconds": 0.003328,
+            "iterations": 16384,
+            "sink": 3379.7019
+          },
+          {
+            "reference_seconds": 0.005084,
+            "candidate_seconds": 0.00335,
+            "iterations": 16384,
+            "sink": 3379.7019
+          }
+        ],
+        "median_reference_seconds": 0.004927,
+        "median_candidate_seconds": 0.003331,
+        "less_native_time_percent": 32.392936878425004,
+        "prior_failed_attempts": []
+      }
+    }
+  }
+}

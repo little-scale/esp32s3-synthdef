@@ -1,0 +1,183 @@
+{
+  "passed": true,
+  "device_id": "esp32-288485ba1e48",
+  "build": "d627eccb77a7e84ae7b201ebac4b293d6f531e202438dbdf83b54cbb9e2fca5c",
+  "volume_percent": 15,
+  "fx_bypassed": true,
+  "main_active": true,
+  "main_prepared": true,
+  "continuous": false,
+  "pcm": {
+    "peak": 58,
+    "rms": [
+      11.98249857537415,
+      11.971826968658464
+    ]
+  },
+  "settled_pcm": {
+    "peak": 1468,
+    "rms": [
+      235.84054079032322,
+      233.47850896744194
+    ]
+  },
+  "original_controls_verified": true,
+  "graph_sha256": "69a3cf7843e47923157aef936e8e74532714a0492c6c86a5a5661b10b32382ce",
+  "cached_diagnostics": {
+    "average_x10": 541,
+    "peak_x10": 568,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 2,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0
+  },
+  "settled_20s_counter_deltas": {
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0
+  },
+  "settled_20s_samples": [
+    {
+      "frame": 24508800,
+      "average_x10": 542,
+      "peak_x10": 630,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 24597120,
+      "average_x10": 542,
+      "peak_x10": 608,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 24685440,
+      "average_x10": 541,
+      "peak_x10": 564,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 24773760,
+      "average_x10": 541,
+      "peak_x10": 564,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 24862080,
+      "average_x10": 542,
+      "peak_x10": 611,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 24950400,
+      "average_x10": 541,
+      "peak_x10": 581,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 25038720,
+      "average_x10": 541,
+      "peak_x10": 560,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 25127040,
+      "average_x10": 542,
+      "peak_x10": 596,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 25215360,
+      "average_x10": 542,
+      "peak_x10": 578,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 25303680,
+      "average_x10": 541,
+      "peak_x10": 580,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    },
+    {
+      "frame": 25392000,
+      "average_x10": 541,
+      "peak_x10": 560,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 2,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0
+    }
+  ],
+  "dma_observation": "Two cumulative DMA queue notifications were present before this check; no increase over the settled 20-second interval. Their exact earlier timing was not isolated.",
+  "expected_continuous": false,
+  "original_definition_mode": true,
+  "original_instance_mode_preserved": true
+}

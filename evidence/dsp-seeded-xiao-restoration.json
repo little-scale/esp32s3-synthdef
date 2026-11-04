@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "device_id": "esp32-288485ba1e48",
+  "main_package_verified": true,
+  "fx_selected": 0,
+  "volume": 0.15,
+  "instances_restored": true,
+  "saved_volume_percent": 15,
+  "fx_package_verified": true
+}

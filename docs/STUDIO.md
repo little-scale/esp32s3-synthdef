@@ -56,10 +56,43 @@ DMA drain and load, including preserved FX. Loading/storage may make the silent
 gap longer than the ramps. User volume and definition/instance semantics do not
 change. See [DSP and transitions](DSP_OPTIMIZATIONS.md).
 
-The SC extension deliberately separates saving and instantiation:
-`.sendESP32` saves silently, `.playESP32` saves and creates, and `ESP32.play`
-creates a saved definition. SC-managed definitions boot inactive. See
+The SC extension separates definitions from autonomous blocks:
+`.sendESP32` saves silently and `ESP32.play` creates a saved definition.
+Function `.playESP32` saves a block that also starts after power-up; literal
+SynthDef `.playESP32` creates a runtime instance of a saved definition that boots
+inactive. See
 [SUPERCOLLIDER.md](SUPERCOLLIDER.md); browser autoplay is not the SC API default.
+
+## Audio resources
+
+The connected module's **Audio resources** panel shows average and peak audio
+CPU load, free internal RAM and free PSRAM. Studio refreshes its cached
+diagnostics every two seconds; it sends no new device commands for this panel.
+It works with the existing USB logs on AMOLED and XIAO. Wi-Fi control can also
+use a retained USB log connection to the same module; Wi-Fi-only diagnostics are
+currently unavailable and are labelled accordingly. No firmware update is needed.
+
+CPU is the combined Main/active FX, controls/preparation and output conversion
+time as a percentage of the audio block deadline. It is not total dual-core
+processor usage. **Peak since reset** retains the highest received CPU-window
+peak from connection or the last **Reset peak** click. Studio processes every
+received report, including reports between browser refreshes; overloads above
+100% remain visible. RAM values
+describe free memory for the entire module, not the patch's individual allocation.
+The compiler's graph details separately report graph size and synth arena needs.
+
+**Reset peak** changes Studio's measurement only. It clears the retained peak
+and excludes the first report that could contain a pre-click spike. Wait for the
+new peak value to appear before starting a test you want to measure; this takes
+a few seconds. The selected module's open Studio tabs share the measurement.
+Connecting another module starts a new measurement. No device command, sound
+restart, patch reload, volume change or firmware update is used by the reset.
+
+Values older than five seconds are hidden independently, so fresh memory logs
+cannot make an old CPU reading look live. Missing diagnostics show a dash,
+not zero. Switching modules or disconnecting discards the previous display.
+After updating Studio's host code, restart Studio and refresh the browser to
+load the new backend and panel; restarting interrupts existing SC connections.
 
 ## Output volume
 
@@ -70,6 +103,11 @@ or restarting either graph. Zero mutes the output. The slider controls only the
 currently connected module, including when Omni upload mode is selected.
 It works over USB or paired Wi-Fi, on both AMOLED and headless XIAO firmware.
 Use **Refresh** to read changes made from SC or the device's physical slider.
+
+The readout also shows output gain in dB, calculated as `20 * log10(percent / 100)`:
+100% is 0.0 dB, 50% is −6.0 dB, 20% is −14.0 dB and mute is −∞ dB. This is the
+slider's gain relative to full volume; actual signal level in dBFS depends on the
+patch's audio and is not measured by this readout.
 
 Drag updates are coalesced, with one volume request in flight at a time; only
 the release is saved to flash. Every write names the exact module ID, and stale

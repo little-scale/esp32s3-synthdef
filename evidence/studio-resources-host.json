@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "hardware": false,
+  "device_access": false,
+  "firmware_changed": false,
+  "running_studio_restarted": false,
+  "scope": "Computer-only cached diagnostics and browser logic; not a board CPU reading or visual panel photograph.",
+  "source_sha256": {
+    "host/studio.py": "8933c3b8c17c01a8106f5872efb8689cac516a709b5b05addaf49892cdb03150",
+    "host/web/app.js": "d2f99973e5cec5f16a540c0547b3adea98bd73aa6a515ba55850a82bb50eeee5",
+    "host/web/index.html": "5c2e7262c6ab11ad2588670d1da6c6382d70f24f9933a667d61887b547059954",
+    "host/web/style.css": "18756ebd3df0fea21b97578b6ac5fb04a1d841cd32a1c5644b57ea2d310754f8",
+    "host/test_studio.py": "ea47b53f13f27512206cb532e623163cdc89ea8de69f38974471c5fa4ae12dba",
+    "tests/studio_browser_test.js": "996a218e3a972cb1462cb33e8cd126bd06f6fd5ddb231258e0a48b7ea45ef2b9"
+  },
+  "host_tests": {
+    "command": "python3 -m unittest discover -s host -p test_studio.py",
+    "tests": 36,
+    "passed": true,
+    "devices": "simulated",
+    "audio_playback": false
+  },
+  "browser_tests": {
+    "command": "node tests/studio_browser_test.js",
+    "passed": true,
+    "scope": "DOM adapter, not layout or RF emulation",
+    "checks": [
+      "average and peak x10 conversion",
+      "zero versus missing sentinel",
+      "overload above 100 percent",
+      "free RAM units",
+      "independent field freshness",
+      "local expiry during suspended polling",
+      "Wi-Fi-only unavailable",
+      "in-flight response rejected after module switch",
+      "disconnect hides panel"
+    ]
+  },
+  "cached_api": {
+    "path": "/api/audio",
+    "poll_seconds": 2,
+    "stale_seconds": 5,
+    "device_commands": 0,
+    "identity_guard": true,
+    "usb_logs": true,
+    "wifi_only": false
+  },
+  "initial_restricted_run": {
+    "passed": false,
+    "reason": "SuperCollider Qt runtime could not detect NEON CPU features under restricted process permissions; normal-permission computer-only rerun passed."
+  },
+  "limitations": [
+    "No current patch CPU percentage was read from a device.",
+    "New host backend needs Studio restart; existing session left untouched.",
+    "RAM is module-wide free memory, not per-patch allocation.",
+    "CPU is audio deadline utilization, not total dual-core utilization."
+  ]
+}

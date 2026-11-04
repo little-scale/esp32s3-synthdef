@@ -14,11 +14,13 @@ import subprocess
 import tempfile
 import threading
 import unittest
+from unittest.mock import patch
 
 from patches import ROOT, compile_source, manifest
 from studio import Artifact, AudioTelemetry, Compiler, Problem, Server, Studio, text_bytes
 from source_input import expression
 from engine_profile import generate
+from network import NetworkDevice
 
 SCLANG = '/Applications/SuperCollider.app/Contents/MacOS/sclang'
 SOURCE = (ROOT/'examples/touch-buses.scd').read_bytes()
@@ -284,6 +286,37 @@ class UploadTests(unittest.TestCase):
 
 
 class HTTPTests(unittest.TestCase):
+    def test_muted_profile_borrows_current_usb_and_guards_identity(self):
+        class ProfileDevice:
+            percent=0
+            def request(self,op,*args,**kwargs):
+                self_test.assertEqual(op,'VOLUME');return dict(percent=self.percent)
+            def close(self):pass
+        self_test=self;app=self.server.studio;d=ProfileDevice()
+        auth={'X-Studio-Token':self.server.token,'Content-Type':'application/json'}
+        with app.device_lock:app.device=d;app.device_info=dict(device_id='test-profile')
+        try:
+            with patch('profile_ugens.collect',return_value={'header':{'matched':'1'}}) as collect:
+                for body in ({},{'device_id':'wrong'},{'device_id':'test-profile','fixed':'yes'}):
+                    self.assertIn(self.request('POST','/api/diagnostics/ugen-profile',body,auth)[0],(400,409))
+                collect.assert_not_called()
+                d.percent=20
+                self.assertEqual(self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)[0],409)
+                collect.assert_not_called();d.percent=0
+                status,raw,_=self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)
+                self.assertEqual(status,200,raw);collect.assert_called_once_with(d,fixed=True)
+                self.assertIs(app.device,d)
+                collect.side_effect=AssertionError('Mismatch')
+                self.assertEqual(self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)[0],409)
+                self.assertIs(app.device,d)
+                class ProfileNetwork(NetworkDevice):
+                    def __init__(self):self.device_id='test-profile'
+                    def close(self):pass
+                with app.device_lock:app.device=ProfileNetwork()
+                self.assertEqual(self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)[0],409)
+        finally:
+            with app.device_lock:app.disconnect()
+
     def test_volume_endpoint_guards_identity_bounds_and_save(self):
         class VolumeDevice(FakeDevice):
             percent=20
@@ -321,6 +354,75 @@ class HTTPTests(unittest.TestCase):
         values = telemetry.snapshot()
         self.assertEqual(values['average_x10'], 123); self.assertEqual(values['active'], 1)
         self.assertNotIn('graph_sha256', values)
+
+    def test_audio_ages_are_per_field_and_do_not_refresh_cpu_from_other_logs(self):
+        telemetry = AudioTelemetry()
+        with patch('studio.time.monotonic', return_value=10):
+            telemetry.write(b'I (1) synthdef: CPU average_x10=0 peak_x10=1200\n')
+        with patch('studio.time.monotonic', return_value=20):
+            telemetry.write(b'I (2) synthdef: internal_free=1024 psram_free=2097152\n')
+            values = telemetry.snapshot()
+        self.assertEqual(values['ages']['average_x10'],10)
+        self.assertEqual(values['ages']['internal_free'],0)
+        self.assertEqual(values['average_x10'],0)
+        self.assertEqual(values['peak_x10'],1200)
+
+    def test_peak_tracks_every_report_and_reset_excludes_the_straddling_window(self):
+        telemetry=AudioTelemetry()
+        def report(peak):telemetry.write(('I (1) synthdef: CPU average_x10=100 peak_x10='+str(peak)+'\n').encode())
+        report(400);report(900);report(200)
+        self.assertEqual(telemetry.snapshot()['peak_since_reset_x10'],900)
+        telemetry.reset_peak()
+        self.assertIsNone(telemetry.snapshot()['peak_since_reset_x10'])
+        telemetry.write(b'I (2) synthdef: internal_free=4096\n')
+        report(1200)  # Could contain a pre-reset spike; exclude this window.
+        self.assertTrue(telemetry.snapshot()['peak_waiting'])
+        report(300);report(100)
+        self.assertEqual(telemetry.snapshot()['peak_since_reset_x10'],300)
+        self.assertEqual(telemetry.snapshot()['peak_windows'],2)
+        telemetry.reset_peak();report(4294967295);report(500);report(0)
+        self.assertEqual(telemetry.snapshot()['peak_since_reset_x10'],0)
+
+    def test_cached_audio_endpoint_does_not_request_a_device(self):
+        class CachedDevice:
+            def request(self,*args,**kwargs):
+                raise AssertionError('Cached diagnostics must never request the module')
+            def close(self):pass
+        class CachedNetworkDevice(NetworkDevice):
+            def __init__(self):pass
+            def request(self,*args,**kwargs):
+                raise AssertionError('Wi-Fi diagnostics must not poll the module')
+            def close(self):pass
+        app=self.server.studio
+        auth={'X-Studio-Token':self.server.token}
+        try:
+            with app.device_lock:
+                app.device=CachedDevice();app.device_info=dict(device_id='cached-node')
+                app.telemetry=AudioTelemetry()
+                app.telemetry.write(b'I (1) synthdef: CPU average_x10=123 peak_x10=456\n')
+            status,raw,_=self.request(path='/api/audio',headers=auth)
+            result=json.loads(raw)
+            self.assertEqual(status,200);self.assertEqual(result['device_id'],'cached-node')
+            self.assertEqual(result['source'],'usb');self.assertEqual(result['average_x10'],123)
+            for body in ({},{'device_id':'wrong-node'}):
+                self.assertEqual(self.request('POST','/api/audio/reset-peak',body,{**auth,'Content-Type':'application/json'})[0],409)
+            status,raw,_=self.request('POST','/api/audio/reset-peak',{'device_id':'cached-node'},{**auth,'Content-Type':'application/json'})
+            self.assertEqual(status,200);reset=json.loads(raw)
+            self.assertIsNone(reset['peak_since_reset_x10']);self.assertTrue(reset['peak_waiting'])
+            with app.device_lock:app.device=CachedNetworkDevice()
+            _,raw,_=self.request(path='/api/audio',headers=auth)
+            result=json.loads(raw)
+            self.assertIsNone(result['source']);self.assertNotIn('average_x10',result)
+            self.assertEqual(self.request('POST','/api/audio/reset-peak',{'device_id':'cached-node'},{**auth,'Content-Type':'application/json'})[0],409)
+            with app.device_lock:app.usb_monitor=CachedDevice()
+            _,raw,_=self.request(path='/api/audio',headers=auth)
+            self.assertEqual(json.loads(raw)['source'],'usb')
+            with app.device_lock:app.disconnect()
+            _,raw,_=self.request(path='/api/audio',headers=auth)
+            result=json.loads(raw)
+            self.assertFalse(result['connected']);self.assertNotIn('average_x10',result)
+        finally:
+            with app.device_lock:app.disconnect()
 
     @classmethod
     def setUpClass(cls):
