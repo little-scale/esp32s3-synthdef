@@ -539,7 +539,8 @@ Routine({
             for m in (a,b):app.pairings.save(m.pairing())
             bridge=Bridge(app,'test-private-token',config=folder/'connection.json')
             bridge.hub.alias_path=folder/'aliases.json'
-            bridge.hub.refresh=lambda:[dict(m.info(),paired=True,online=True) for m in (a,b)]
+            offline = dict(device_id='esp32-000000000023', device_name='Offline', paired=True, online=False)
+            bridge.hub.refresh=lambda:[dict(m.info(),paired=True,online=True) for m in (a,b)]+[offline]
             # Explicit IDs resolve saved addresses too; all uses this frozen discovery fixture.
             bridge.hub.rows=bridge.hub.refresh()
             original_dispatch=bridge.hub.dispatch
@@ -588,7 +589,9 @@ Routine({
         ESP32.set(\\left,\\freq,660.0,\\dev,5.0).wait;
         ESP32.module(\\right).main.set(\\freq,330.0).wait;
         CmdPeriod.run;
-        ESP32.scan.wait;
+        if(ESP32.scan.wait["modules"].size != 3){Error("Scan fixture lost an offline row").throw};
+        ~found = ESP32.discovered.wait;
+        if(~found.size != 2 or:{~found.any{|row|row["online"].not}}){Error("Discovered list included an offline module").throw};
         ~pattern=Pbind(\\type,\\esp32Set,\\module,Pseq([\\left,\\right],inf),\\freq,Pseq([220,330,440],inf),\\dur,0.08).playESP32;
         0.5.wait;~pattern.stop;0.1.wait;~pattern.play;0.15.wait;~pattern.stop;0.1.wait;
         ~pattern=Pbind(\\type,\\esp32Note,\\module,Prand([\\left,\\right],inf),\\midinote,Pseq([60,64,67],inf),\\amp,0.12,\\dur,0.08).playESP32;

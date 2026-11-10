@@ -44,21 +44,45 @@
       </div>
       <button id="connect" class="secondary wide">Connect</button>
       <p id="device-status" class="hint" role="status">Choose USB or a paired Wi-Fi module, then connect.</p>
+      <details class="firmware-panel">
+        <summary>Install firmware</summary>
+        <p class="hint">Plug the board in by USB and choose its exact model.</p>
+        <label for="firmware-board">Board model</label>
+        <select id="firmware-board"><option value="">Choose a board…</option></select>
+        <label for="firmware-port">Firmware USB port</label>
+        <div class="connect-row">
+          <select id="firmware-port"><option value="">Looking for devices…</option></select>
+          <button id="firmware-refresh" class="quiet" aria-label="Refresh firmware USB ports">Refresh</button>
+        </div>
+        <button id="firmware-review" class="secondary wide" disabled>Review firmware</button>
+        <div id="firmware-confirmation" class="firmware-confirmation" hidden>
+          <p id="firmware-selection" class="hint"></p>
+          <p class="hint">Flashing replaces the board’s firmware and restarts it. Keep USB connected until verification finishes.</p>
+          <button id="firmware-flash" class="primary wide" disabled>Flash firmware</button>
+        </div>
+        <p id="firmware-status" class="hint" role="status"></p>
+        <details id="firmware-details" hidden>
+          <summary>Flash log</summary>
+          <pre id="firmware-log"></pre>
+        </details>
+      </details>
       <div id="connected-tools" class="connected-tools" hidden><button id="read-active" class="quiet">Read Main</button><button id="slots-refresh" class="quiet">Refresh</button><button id="panic" class="panic">Panic</button></div>
-      <section id="audio-resources" class="audio-resources" aria-labelledby="audio-title" hidden>
-        <div class="resource-heading"><h3 id="audio-title">Audio resources</h3><button id="cpu-peak-reset" class="quiet" type="button" aria-label="Reset CPU peak measurement" disabled>Reset peak</button></div>
+      <section id="audio-resources" class="audio-resources" aria-labelledby="audio-title">
+        <div class="resource-heading"><h3 id="audio-title">CPU and resources</h3><button id="cpu-peak-reset" class="quiet" type="button" aria-label="Reset CPU peak measurement" disabled>Reset peak</button></div>
         <dl class="resource-grid">
-          <div><dt>CPU average</dt><dd id="cpu-average">—</dd></div>
-          <div><dt>Peak since reset</dt><dd id="cpu-peak">—</dd></div>
+          <div><dt>Current CPU average</dt><dd id="cpu-average">—</dd></div>
+          <div><dt>CPU peak since reset</dt><dd id="cpu-peak">—</dd></div>
+          <div><dt>Program RAM</dt><dd id="program-ram">—</dd><dd id="program-ram-detail" class="resource-detail"></dd></div>
+          <div><dt>Program flash</dt><dd id="program-flash">—</dd><dd id="program-flash-detail" class="resource-detail"></dd></div>
           <div><dt>Internal RAM free</dt><dd id="ram-free">—</dd></div>
           <div><dt>PSRAM free</dt><dd id="psram-free">—</dd></div>
         </dl>
-        <p class="hint">Main + active FX and audio preparation. 100% uses the audio block deadline; this is not total dual-core CPU usage.</p>
-        <p id="audio-status" class="hint" role="status">Waiting for diagnostics…</p>
+        <p id="program-status" class="hint" hidden></p>
+        <p id="audio-status" class="hint" role="status">Connect a module to see live usage.</p>
       </section>
-      <div id="volume-control" class="volume-control" hidden>
+      <div id="volume-control" class="volume-control">
         <div class="volume-heading"><label for="volume">Output volume</label><output id="volume-value" for="volume" title="Output gain relative to 100% volume; not a measured signal level in dBFS.">—</output></div>
-        <input id="volume" type="range" min="0" max="100" step="1" value="20" aria-describedby="volume-status" disabled>
+        <input id="volume" type="range" min="0" max="100" step="1" value="0" aria-describedby="volume-status" disabled>
         <p id="volume-status" class="hint" role="status">Connect to adjust this module’s output.</p>
       </div>
       <details id="wifi-setup" hidden><summary>Wi-Fi setup · this USB module</summary>

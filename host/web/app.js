@@ -4,6 +4,7 @@ const token = location.hash.slice(1) || sessionStorage.getItem('studio-token') |
 if (location.hash) { sessionStorage.setItem('studio-token', token); history.replaceState(null, '', location.pathname); }
 let config, device = null, artifact = null, binary = null, busy = false;
 let networkDevices = [], broadcast = null;
+let firmwarePlan = null;
 let volumeSending = false, volumeTimer = null, volumePending = null, volumeEpoch = 0;
 let audioEpoch = 0, audioPolling = false, audioLatest = null;
 let editorTarget = 'sound';
@@ -53,6 +54,11 @@ function renderBroadcast() {
 }
 function controls() {
   const locked = busy || volumeSending || volumeTimer !== null;
+  $('firmware-board').disabled = locked;
+  $('firmware-port').disabled = locked;
+  $('firmware-refresh').disabled = locked;
+  $('firmware-review').disabled = locked || !$('firmware-board').value || !$('firmware-port').value;
+  $('firmware-flash').disabled = locked || !firmwarePlan;
   $('cpu-peak-reset').disabled = locked || !canResetPeak();
   const entry = destination();
   $('compile').disabled = locked || (!binary && !config?.compiler_ready);
@@ -85,7 +91,6 @@ function controls() {
   $('master-load').setAttribute('aria-pressed',String(bypassed()));
   $('fx-status').textContent=device?(bypassed()?'FX bypassed · Main goes straight to output.':'FX enabled · Main passes through FX.'):'FX state appears after connecting.';
   renderBroadcast();
-  $('volume-control').hidden = !device?.hello.global_volume;
   $('volume').disabled = busy || !device?.hello.global_volume || !Number.isInteger(device?.volume_percent);
 }
 async function task(action) {
@@ -116,7 +121,14 @@ function renderDevice(result) {
   }
   device = result?.connected ? result : null;
   renderAudio(device?.audio);
-  if (!volumeSending && !volumePending && Number.isInteger(device?.volume_percent)) {
+  renderProgram();
+  if (!device?.hello.global_volume || !Number.isInteger(device.volume_percent)) {
+    $('volume-value').textContent = '—';
+    $('volume').value = '0';
+    $('volume').setAttribute('aria-valuetext', 'Volume unavailable');
+    $('volume-status').textContent = !device ? 'Connect a module to adjust its output.' :
+      'The module has not reported an adjustable volume.';
+  } else if (!volumeSending && !volumePending) {
     showVolume(device.volume_percent, 'Drag to adjust this module only. Release to save across restarts.');
   }
   if(device?.connection?.transport==='wifi'){
@@ -152,9 +164,26 @@ function canResetPeak() {
   const audio=audioLatest?.data;
   return !!device && audio?.connected && audio.device_id===device.hello.device_id && audio.source==='usb' && audio.peak_tracking===true;
 }
+function renderProgram() {
+  const program = device?.hello.program;
+  const isBytes = value => Number.isSafeInteger(value) && value >= 0;
+  const hasRam = isBytes(program?.iram_bytes) && isBytes(program?.dram_bytes) &&
+    program.iram_bytes + program.dram_bytes > 0;
+  const hasFlash = isBytes(program?.app_bytes) && isBytes(program?.partition_bytes) &&
+    program.app_bytes > 0 && program.app_bytes <= program.partition_bytes;
+  const kib = bytes => `${(bytes / 1024).toFixed(1)} KiB`;
+  const mib = bytes => (bytes / 1048576).toFixed(2);
+  $('program-ram').textContent = hasRam ? kib(program.iram_bytes + program.dram_bytes) : '—';
+  $('program-ram-detail').textContent = hasRam ? `IRAM ${kib(program.iram_bytes)} · static DRAM ${kib(program.dram_bytes)}` : '';
+  $('program-flash').textContent = hasFlash ? `${mib(program.app_bytes)} / ${mib(program.partition_bytes)} MiB` : '—';
+  $('program-flash-detail').textContent = hasFlash ? `${(100 * program.app_bytes / program.partition_bytes).toFixed(1)}% of app partition` : '';
+  const status = $('program-status');
+  status.textContent = !device ? '' : !program ? 'Install current firmware to see program RAM and flash.' :
+    !hasFlash ? 'Program flash size unavailable on this module.' : '';
+  status.hidden = !status.textContent;
+}
 function renderAudio(audio, receivedAt = Date.now()) {
   audioLatest = {data: audio, receivedAt};
-  $('audio-resources').hidden = !device;
   const matches = !!device && audio?.connected && audio.device_id === device.hello.device_id;
   const fresh = key => matches && audio.source === 'usb' && Number.isFinite(audio.ages?.[key]) &&
     audio.ages[key] >= 0 && audio.ages[key] + (Date.now() - receivedAt) / 1000 <= 5 &&
@@ -168,10 +197,10 @@ function renderAudio(audio, receivedAt = Date.now()) {
   $('cpu-peak').textContent=peakReady?`${(peak/10).toFixed(1)}%`:'—';
   $('cpu-peak-reset').disabled=busy || volumeSending || volumeTimer!==null || !canResetPeak();
   $('audio-resources').classList.toggle('overloaded', peakReady && peak>=1000);
-  $('audio-status').textContent = !device ? '' : matches && audio.source === 'usb' ?
+  $('audio-status').textContent = !device ? 'Connect a module to see live usage.' : matches && audio.source === 'usb' ?
     fresh('average_x10') && fresh('peak_x10') ? audio.peak_waiting ?
       'Waiting for a full CPU window… start your test when the peak appears.' :
-      'Live USB diagnostics · peak retained until reset. RAM is free memory for the whole module.' :
+      'Live USB diagnostics. 100% CPU is the audio block deadline.' :
       'Diagnostics paused or not received yet. Stale values are hidden.' :
     device.connection?.transport === 'wifi' ? 'Live diagnostics currently need a USB log connection. Wi-Fi control still works.' :
       'Waiting for USB diagnostics. Restart Studio if it is running an older version.';
@@ -252,6 +281,27 @@ function queueVolume(save) {
 }
 $('volume').addEventListener('input', () => queueVolume(false));
 $('volume').addEventListener('change', () => queueVolume(true));
+function clearFirmwareReview() {
+  firmwarePlan = null;
+  $('firmware-confirmation').hidden = true;
+}
+function firmwareOptions() {
+  clearFirmwareReview();
+  const board = $('firmware-board');
+  const previousBoard = board.value;
+  board.replaceChildren(new Option('Choose a board…', ''));
+  for (const target of config.firmware_targets || []) board.add(new Option(target.label, target.id));
+  if ([...board.options].some(option => option.value === previousBoard)) board.value = previousBoard;
+
+  const port = $('firmware-port');
+  const previousPort = port.value;
+  const usb = config.ports.filter(row => row.esp32);
+  port.replaceChildren(new Option(usb.length ? 'Choose a USB port…' : 'No Espressif USB port found', ''));
+  for (const row of usb) port.add(new Option(`${row.name} · ${row.port}`, row.port));
+  if (usb.some(row => row.port === previousPort)) port.value = previousPort;
+  else if (usb.length === 1) port.value = usb[0].port;
+  if (!config.firmware_targets) $('firmware-status').textContent = 'Restart Studio to enable firmware flashing.';
+}
 async function ports() {
   config = await api('config');
   const previous = $('port').value; $('port').replaceChildren();
@@ -262,6 +312,7 @@ async function ports() {
   const selected=device && device.connection?.transport!=='wifi'?device.port:previous;
   if (config.ports.some(p => p.port === selected)) $('port').value = selected;
   if (!config.serial_ready) $('device-status').textContent = 'USB support needs pyserial. Launch with sh host/studio.sh.';
+  firmwareOptions();
   controls();
 }
 function nameDefault(name) { return name.replace(/[^\x20-\x7e]|["\\]/g, '_').slice(0, 31) || 'My SynthDef'; }
@@ -312,6 +363,48 @@ $('compile').addEventListener('click', () => task(async () => {
   catch (error) { $('compile-status').textContent = 'Compile/check failed'; throw error; }
 }));
 $('ports-refresh').addEventListener('click', () => task(ports));
+$('firmware-refresh').addEventListener('click', () => task(ports));
+for (const id of ['firmware-board', 'firmware-port']) {
+  $(id).addEventListener('change', () => {
+    clearFirmwareReview();
+    $('firmware-status').textContent = '';
+    $('firmware-details').hidden = true;
+    controls();
+  });
+}
+$('firmware-review').addEventListener('click', () => task(async () => {
+  clearFirmwareReview();
+  $('firmware-details').hidden = true;
+  $('firmware-status').textContent = 'Checking the local build…';
+  try {
+    firmwarePlan = await api('firmware/review', {board: $('firmware-board').value, port: $('firmware-port').value});
+    $('firmware-selection').textContent = `${firmwarePlan.board} · ${firmwarePlan.port} · ${firmwarePlan.folder} · SHA-256 ${firmwarePlan.app_sha256.slice(0, 12)}`;
+    $('firmware-confirmation').hidden = false;
+    $('firmware-status').textContent = '';
+  } catch (error) {
+    $('firmware-status').textContent = error.message;
+  }
+}));
+$('firmware-flash').addEventListener('click', () => task(async () => {
+  if (!firmwarePlan) return;
+  const plan = firmwarePlan.plan;
+  clearFirmwareReview();
+  $('firmware-status').textContent = 'Flashing and verifying firmware. Keep USB connected.';
+  try {
+    const result = await api('firmware/flash', {plan});
+    $('firmware-status').textContent = `Firmware verified for ${result.board}. Refresh USB ports if needed, then Connect.`;
+    $('firmware-log').textContent = result.log;
+    $('firmware-details').open = false;
+  } catch (error) {
+    $('firmware-status').textContent = 'Firmware flashing failed. See the flash log for details.';
+    $('firmware-log').textContent = error.message;
+    $('firmware-details').open = true;
+  } finally {
+    $('firmware-details').hidden = false;
+    await ports();
+    if (!config.connected && device) renderDevice(null);
+  }
+}));
 $('transport').addEventListener('change',()=>{broadcast=null;controls();});
 $('wifi-mode').addEventListener('change',()=>{broadcast=null;controls();});
 $('network-device').addEventListener('change',controls);

@@ -3,6 +3,11 @@
 #include "patch_format.h"
 #include <stdbool.h>
 typedef struct {
+    unsigned iram_bytes, dram_bytes;
+    unsigned app_bytes, partition_bytes;
+} patch_program_usage;
+
+typedef struct {
     int (*pause)(bool);
     int (*activate)(fm_graph *);
     int (*define)(fm_graph *,bool start);
@@ -19,6 +24,7 @@ typedef struct {
     uint32_t (*seed)(void);
     int (*remote)(const char *,const unsigned char *,size_t,char *,size_t);
     const char *build_id,*engine_commit,*profile_hash;
+    patch_program_usage program;
 } patch_hooks;
 int patches_init(fm_graph *first,fm_graph *spare,const void *factory,size_t bytes,const patch_hooks *hooks);
 void patches_restore(bool factory_only);

@@ -6,6 +6,8 @@ class Element {
   constructor(tag='div'){this.tagName=tag;this.value='';this.textContent='';this.children=[];this.hidden=false;this.disabled=false;this.dataset={};this.events={};this.attributes={};this.classList={toggle(){}};}
   append(...children){this.children.push(...children);if(this.tagName==='select' && !this.value)this.value=children[0]?.value || '';}
   replaceChildren(...children){this.children=[];if(this.tagName==='select')this.value='';this.append(...children);}
+  get options(){return this.children;}
+  add(option){this.children.push(option);}
   addEventListener(type,action){this.events[type]=action;}
   dispatchEvent(event){return this.events[event.type]?.(event);}
   setAttribute(key,value){this.attributes[key]=value;}
@@ -25,7 +27,7 @@ class Element {
   let calls=[],failRefresh=false,partial=false,holdVolume=null,failVolume=false,holdAudio=null;
   let audioReply={};
   const storage=new Map([['synthdef-studio-source','{ SinOsc.ar(123) }.play']]);
-  const context={TextEncoder,Event:class{constructor(type){this.type=type;}},setTimeout,clearTimeout,setInterval(){},
+  const context={TextEncoder,Event:class{constructor(type){this.type=type;}},Option:class{constructor(text,value){this.textContent=text;this.value=value;}},setTimeout,clearTimeout,setInterval(){},
     document:{getElementById:get,createElement:tag=>new Element(tag)},
     localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)},
     sessionStorage:{getItem:()=> 'token',setItem(){}},location:{hash:'',pathname:'/'},history:{replaceState(){}},
@@ -125,22 +127,26 @@ class Element {
   vm.runInContext('renderDevice(nextState)',context);
   get('volume').value='45';await event('volume','change');holdVolume=null;release();await delay(150);
   assert.equal(volumeCalls().at(-1).body.device_id,entries[1].device_id);assert.equal(get('volume-value').textContent,'45% · −6.9 dB');
-  // Pending gestures are discarded on disconnect; unsupported firmware hides it.
+  // Pending gestures are discarded on disconnect; unsupported firmware disables it.
   const count=volumeCalls().length;get('volume').value='55';await event('volume','input');
   vm.runInContext('renderDevice(null)',context);await delay(150);assert.equal(volumeCalls().length,count);assert.equal(get('volume').disabled,true);
   context.nextState={...state,hello:{...state.hello,global_volume:false}};vm.runInContext('renderDevice(nextState)',context);
-  assert.equal(get('volume-control').hidden,true);
+  assert.equal(get('volume').disabled,true);assert.equal(get('volume-value').textContent,'—');
   // Cached CPU/RAM, overloads, zero, stale independent fields and unsupported Wi-Fi.
   const live={connected:true,device_id:entries[0].device_id,source:'usb',average_x10:573,peak_x10:1050,
     peak_tracking:true,peak_since_reset_x10:1050,peak_waiting:false,peak_generation:0,
     internal_free:32768,psram_free:4194304,ages:{average_x10:0,peak_x10:0,internal_free:0,psram_free:0}};
-  context.nextState={...state,audio:live};vm.runInContext('renderDevice(nextState)',context);
+  const program={iram_bytes:65536,dram_bytes:32768,app_bytes:1572864,partition_bytes:3145728};
+  context.nextState={...state,hello:{...state.hello,program},audio:live};vm.runInContext('renderDevice(nextState)',context);
   assert.equal(get('cpu-average').textContent,'57.3%');assert.equal(get('cpu-peak').textContent,'105.0%');
   assert.equal(get('ram-free').textContent,'32.0 KiB');assert.equal(get('psram-free').textContent,'4096.0 KiB');
+  assert.equal(get('program-ram').textContent,'96.0 KiB');assert.equal(get('program-flash').textContent,'1.50 / 3.00 MiB');
+  assert.equal(get('program-flash-detail').textContent,'50.0% of app partition');
   context.audio={...live,average_x10:0,peak_x10:0};vm.runInContext('renderAudio(audio)',context);
   assert.equal(get('cpu-average').textContent,'0.0%');
   context.audio={...live,ages:{...live.ages,average_x10:6,peak_x10:6}};vm.runInContext('renderAudio(audio)',context);
   assert.equal(get('cpu-average').textContent,'—');assert.equal(get('ram-free').textContent,'32.0 KiB');
+  assert.equal(get('program-flash').textContent,'1.50 / 3.00 MiB');
   // Cached values also expire locally while operations suspend polling.
   context.audio=live;vm.runInContext('renderAudio(audio, Date.now()-6000)',context);
   assert.equal(get('cpu-peak').textContent,'—');
@@ -158,16 +164,19 @@ class Element {
   audioReply=live;holdAudio=new Promise(resolve=>{release=resolve;});
   const oldPeakPoll=vm.runInContext('pollAudio()',context);await idle();await event('cpu-peak-reset');
   holdAudio=null;release();await oldPeakPoll;assert.equal(get('cpu-peak').textContent,'—');
-  context.audio={...live,source:null};context.nextState={...state,connection:{transport:'wifi'}};
+  context.audio={...live,source:null};context.nextState={...state,hello:{...state.hello,program},connection:{transport:'wifi'}};
   vm.runInContext('renderDevice(nextState);renderAudio(audio)',context);
   assert.match(get('audio-status').textContent,/need a USB/);assert.equal(get('cpu-average').textContent,'—');
+  assert.equal(get('program-ram').textContent,'96.0 KiB');
   // An in-flight cached response cannot overwrite a newly selected module.
   audioReply=live;holdAudio=new Promise(resolve=>{release=resolve;});
   const polling=vm.runInContext('pollAudio()',context);await idle();
   context.nextState={...state,hello:{...state.hello,...entries[1]}};
   vm.runInContext('renderDevice(nextState)',context);holdAudio=null;release();await polling;
   assert.equal(get('cpu-average').textContent,'—');
-  vm.runInContext('renderDevice(null)',context);assert.equal(get('audio-resources').hidden,true);
+  assert.equal(get('program-flash').textContent,'—');assert.match(get('program-status').textContent,/Install current firmware/);
+  vm.runInContext('renderDevice(null)',context);assert.equal(get('audio-resources').hidden,false);
+  assert.equal(get('program-status').hidden,true);assert.equal(get('volume-value').textContent,'—');
   const resetCount=calls.filter(row=>row.path==='/api/audio/reset-peak').length;
   await event('cpu-peak-reset');assert.equal(calls.filter(row=>row.path==='/api/audio/reset-peak').length,resetCount);
   context.nextState={...state,audio:live};vm.runInContext('renderDevice(nextState)',context);

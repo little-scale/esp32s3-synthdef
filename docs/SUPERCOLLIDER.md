@@ -31,6 +31,10 @@ ESP32.scan.onDone(_.postln);
 ESP32.alias(\amoled, "esp32-2884853ad390");
 ```
 
+For an array of currently reachable modules, use `ESP32.discovered.onDone(_.postln);`.
+It includes modules found on Wi-Fi and Studio's connected USB module. Offline
+pairings are omitted. Each row includes the device name and permanent ID.
+
 Alias registrations persist on this computer. A target may be a permanent ID
 String, a unique paired module name, an alias Symbol, a saved/discovered IPv4
 address, a list of targets, or `\all`. `\all` is reserved. IP use still verifies
@@ -46,6 +50,8 @@ ESP32.module("AMOLED-8d507c", \volume, 0.2);
 That module's permanent ID is `esp32-2884858d507c`; it stays unchanged if its
 display name is edited. An unplugged USB module needs paired, online Wi-Fi to
 remain reachable. The same target forms work in a pattern's `\module` key.
+You can also store a target in an environment variable such as `~esp = \amoled;`
+and pass `~esp` to `ESP32.set` or use it as the `\module` value in a pattern.
 
 ## Module settings
 

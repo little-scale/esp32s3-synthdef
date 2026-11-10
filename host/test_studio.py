@@ -13,9 +13,11 @@ import struct
 import subprocess
 import tempfile
 import threading
+from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, Mock, patch
 
+import firmware_upload
 from patches import ROOT, compile_source, manifest
 from studio import Artifact, AudioTelemetry, Compiler, Problem, Server, Studio, text_bytes
 from source_input import expression
@@ -286,6 +288,51 @@ class UploadTests(unittest.TestCase):
 
 
 class HTTPTests(unittest.TestCase):
+    def test_firmware_review_guards_port_build_and_single_write(self):
+        app = self.server.studio
+        port = dict(port='/dev/fake-usb', name='Test ESP32', esp32=True,
+                    usb_id=(0x303A, 0x1001, '12:34:56:78:9a:bc', 'test-location'))
+        image = firmware_upload.Image(firmware_upload.TARGETS['xiao'], 'dio', '80m',
+                                      (b'boot', b'partitions', b'app'))
+        auth = {'X-Studio-Token': self.server.token, 'Content-Type': 'application/json'}
+        selection = dict(board='xiao', port=port['port'])
+
+        def review():
+            status, body, _ = self.request('POST', '/api/firmware/review', selection, auth)
+            self.assertEqual(status, 200, body)
+            self.assertEqual(json.loads(body)['app_sha256'], image.app_hash)
+            return {'plan': json.loads(body)['plan']}
+
+        def flash(plan, headers=auth):
+            return self.request('POST', '/api/firmware/flash', plan, headers)
+
+        with (patch.object(app, 'ports', return_value=([port], True)) as ports,
+              patch('firmware_upload.load_image', return_value=image) as load,
+              patch('firmware_upload.programmer_python', return_value='test-python'),
+              patch('firmware_upload.write_image', return_value='Hash of data verified.') as write):
+            self.assertEqual(flash({}, {'Content-Type': 'application/json'})[0], 403)
+            self.assertEqual(flash({})[0], 409)
+            plan = review()
+            ports.return_value = ([dict(port, usb_id=(0x303A, 0x1001, 'different', 'test-location'))], True)
+            self.assertEqual(flash(plan)[0], 409)
+            ports.return_value = ([port], True)
+
+            plan = review()
+            load.return_value = firmware_upload.Image(image.target, 'dio', '80m',
+                                                      (b'boot', b'partitions', b'new-app'))
+            self.assertEqual(flash(plan)[0], 409)
+            write.assert_not_called()
+            load.return_value = image
+
+            plan = review()
+            with app.device_lock:
+                self.assertEqual(flash(plan)[0], 409)
+            status, body, _ = flash(plan)
+            self.assertEqual(status, 200, body)
+            write.assert_called_once_with('test-python', image, port['port'], port['usb_id'][2])
+            self.assertEqual(flash(plan)[0], 409)
+            self.assertEqual(write.call_count, 1)
+
     def test_muted_profile_borrows_current_usb_and_guards_identity(self):
         class ProfileDevice:
             percent=0
@@ -458,6 +505,35 @@ class HTTPTests(unittest.TestCase):
         headers = dict(auth, **{'Content-Type': 'application/json'})
         self.assertEqual(self.request('POST', '/api/compile', [], headers)[0], 400)
         self.assertEqual(self.request('POST', '/api/compile', headers=dict(headers, **{'Content-Length': '524289'}))[0], 413)
+
+
+class FirmwareProgrammerTests(unittest.TestCase):
+    def test_rom_checks_precede_write_and_reuse_connection(self):
+        chip = MagicMock()
+        chip.CHIP_NAME = 'ESP32-S3'
+        chip.secure_download_mode = False
+        chip.IS_STUB = False
+        chip.__enter__.return_value = chip
+        chip.read_mac.return_value = bytes.fromhex('123456789abc')
+        flash_size = Mock(return_value='16MB')
+        esptool = SimpleNamespace(detect_chip=Mock(return_value=chip),
+                                  cmds=SimpleNamespace(detect_flash_size=flash_size),
+                                  main=Mock(), FatalError=RuntimeError)
+        args = SimpleNamespace(port='/dev/fake-usb', mac='123456789abc', flash_size='8MB',
+                               mode='dio', frequency='80m', images=['boot', 'partitions', 'app'])
+        with self.assertRaisesRegex(ValueError, 'selected build requires 8MB'):
+            firmware_upload.flash(args, esptool)
+        esptool.main.assert_not_called()
+        flash_size.return_value = '8MB'
+        args.mac = 'abcdef012345'
+        with self.assertRaisesRegex(ValueError, 'MAC does not match'):
+            firmware_upload.flash(args, esptool)
+        esptool.main.assert_not_called()
+        args.mac = '123456789abc'
+        firmware_upload.flash(args, esptool)
+        command = esptool.main.call_args.args[0]
+        self.assertEqual(command[-6:], ['0x0', 'boot', '0x8000', 'partitions', '0x10000', 'app'])
+        self.assertIs(esptool.main.call_args.kwargs['esp'], chip)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-set(APP_REQUIRES instrument board_audio patches esp_timer esp_psram esp_app_format spi_flash mbedtls)
+set(APP_REQUIRES instrument board_audio patches esp_timer esp_psram esp_app_format app_update bootloader_support spi_flash mbedtls)
 if(NOT "$ENV{SYNTHDEF_BOARD}" STREQUAL "xiao")
     list(APPEND APP_REQUIRES ui)
 else()

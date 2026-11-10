@@ -127,6 +127,14 @@ ESP32 {
     }
     *alias { |name,module| aliases[name.asString]=module.asString;^this.request(\alias,(name:name,module:module)) }
     *scan {^this.request(\scan,())}
+    *discovered {
+        var scan = this.scan;
+        var result = ESP32Job(0, (scan.deadline - Main.elapsedTime).max(0));
+        scan.onDone({ |report|
+            result.finish(true, report["modules"].select { |row| row["online"] === true });
+        }).onError({ |error| result.finish(false, error) });
+        ^result
+    }
     *module { |target ... args|
         if(args.isEmpty){^ESP32Target(target)};
         ^this.request(\meta,(target:target,args:args))

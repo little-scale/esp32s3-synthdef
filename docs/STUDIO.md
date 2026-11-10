@@ -30,6 +30,34 @@ service and releases USB. Use the browser's Disconnect button before another
 tool accesses the board. Restarting Studio disconnects SC clients; stop patterns
 first, then reconnect and restart them afterward.
 
+## Install firmware on a USB board
+
+Build the desired image once on the host. Studio uses `firmware/build-xiao` for
+the [XIAO ESP32-S3 headless build](HEADLESS.md#build-and-flash) and
+`firmware/build-instrument` for the [Waveshare AMOLED 1.8 V2 build](BUILD.md#build-the-current-instrument).
+The programmer uses esptool 4.9–4.x from the Studio Python environment or the
+installed ESP-IDF 5.5 Python environment.
+
+1. Plug in the board with a USB data cable and open **Install firmware**.
+2. Choose the exact board model and its USB port. Use **Refresh** if the port
+   has just appeared. A fresh board can be flashed before using **Connect**.
+3. Click **Review firmware**. Check the board, USB port and local build, then
+   click **Flash firmware**. Studio releases its connection to that port and
+   esptool checks the chip and flash size before writing the bootloader,
+   partition table and application. Leave the board plugged in until verification.
+4. After verification, refresh the USB ports if needed and **Connect** to the
+   board. Use the [standard audio check](COMMISSIONING.md) to commission it.
+
+On 11 November 2026, Studio verified a physical XIAO USB flash and connected to
+the XIAO afterward. The [headless guide](HEADLESS.md#ns4168-i2s-dac-and-speaker-amplifier)
+records the user-confirmed hardware test with the NS4168 DAC and speaker amp.
+
+The flash log includes errors and verification output. If esptool cannot enter
+download mode, hold **BOOT** while reconnecting USB, release it, and refresh and
+review again. The installer writes the three build images without a full-chip
+erase. On an existing installation, keep the same partition layout to retain
+saved patches and settings.
+
 ## Main + FX destinations
 
 Each device has one writable **Main** patch and one writable **FX** patch.
@@ -63,23 +91,26 @@ SynthDef `.playESP32` creates a runtime instance of a saved definition that boot
 inactive. See
 [SUPERCOLLIDER.md](SUPERCOLLIDER.md); browser autoplay is not the SC API default.
 
-## Audio resources
+## CPU and resources
 
-The connected module's **Audio resources** panel shows average and peak audio
-CPU load, free internal RAM and free PSRAM. Studio refreshes its cached
-diagnostics every two seconds; it sends no new device commands for this panel.
-It works with the existing USB logs on AMOLED and XIAO. Wi-Fi control can also
-use a retained USB log connection to the same module; Wi-Fi-only diagnostics are
-currently unavailable and are labelled accordingly. No firmware update is needed.
+The **CPU and resources** panel shows the selected module's current average audio
+CPU load, its peak since reset, free internal RAM, and free PSRAM. Studio reads
+cached USB diagnostics every two seconds. A module controlled over Wi-Fi can
+also show live values when Studio retains its USB log connection.
 
 CPU is the combined Main/active FX, controls/preparation and output conversion
-time as a percentage of the audio block deadline. It is not total dual-core
-processor usage. **Peak since reset** retains the highest received CPU-window
-peak from connection or the last **Reset peak** click. Studio processes every
-received report, including reports between browser refreshes; overloads above
-100% remain visible. RAM values
-describe free memory for the entire module, not the patch's individual allocation.
-The compiler's graph details separately report graph size and synth arena needs.
+time as a percentage of the audio block deadline. **CPU peak since reset**
+retains the highest reported peak from connection or the last **Reset peak**
+click. Studio processes reports between browser refreshes and displays peaks
+above 100%. Free RAM values describe the whole module's live heap.
+
+**Program RAM** shows internal instruction RAM (IRAM) and static data RAM
+(DRAM) reserved by the linked firmware. **Program flash** shows the running
+application image in MiB, the application partition capacity, and the percentage
+used. These figures come from the connected firmware over USB or Wi-Fi. Install
+the current build to add them to an older module. Firmware reads the image
+metadata once before audio starts, and Studio displays the figures for the
+selected connection.
 
 **Reset peak** changes Studio's measurement only. It clears the retained peak
 and excludes the first report that could contain a pre-click spike. Wait for the
@@ -96,7 +127,7 @@ load the new backend and panel; restarting interrupts existing SC connections.
 
 ## Output volume
 
-After connecting, **Output volume** shows the module's confirmed level from
+The **Output volume** slider activates after connection and shows the confirmed level from
 0–100%. Drag for live, smoothed changes; release to save the final level across
 restarts. It scales the combined Main/FX output without recompiling, reloading
 or restarting either graph. Zero mutes the output. The slider controls only the

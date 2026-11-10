@@ -5,7 +5,8 @@ The computer compiles the code; the ESP32 makes the sound. Upload from the local
 browser tool or directly from the SuperCollider IDE over USB or Wi-Fi.
 
 For the **headless Seeed XIAO ESP32-S3**, use the separate
-[headless build and quickstart](docs/HEADLESS.md).
+[headless build and quickstart](docs/HEADLESS.md). Headless audio has been tested
+on hardware with the [NS4168 I²S speaker amp](docs/HEADLESS.md#ns4168-i2s-dac-and-speaker-amplifier).
 
 Each module has **one Main definition, one master FX definition, and FX bypass**.
 Use continuous sound Functions, literal SynthDefs, named controls and routed
@@ -47,6 +48,9 @@ sh host/studio.sh
 Keep Studio running. It opens a local browser page; the terminal also prints its
 complete session URL. If `sclang` is elsewhere, use
 `python host/studio.py --sclang /path/to/sclang` instead.
+
+With the matching local firmware build available, use **Install firmware** in
+Studio to flash a fresh XIAO or AMOLED V2 over USB. [Firmware installation](docs/STUDIO.md#install-firmware-on-a-usb-board)
 
 ### 2. Hear your first sound from the browser
 

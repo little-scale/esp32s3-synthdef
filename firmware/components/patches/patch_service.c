@@ -336,6 +336,15 @@ static void process_line(const char *line)
 #ifdef CONFIG_SYNTHDEF_HEADLESS
         end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"input_buses\":[8,9,10]}",BOARD_CAPTURE_CHUNK_BYTES);
 #endif
+        const patch_program_usage *program = &s->hooks.program;
+        end = strlen(s->reply);
+        if (end && s->reply[end - 1] == '}') {
+            snprintf(s->reply + end - 1, sizeof s->reply - end + 1,
+                     ",\"program\":{\"iram_bytes\":%u,\"dram_bytes\":%u,"
+                     "\"app_bytes\":%u,\"partition_bytes\":%u}}",
+                     program->iram_bytes, program->dram_bytes,
+                     program->app_bytes, program->partition_bytes);
+        }
 
 #ifdef CONFIG_SYNTHDEF_HEADLESS
     } else if(!strcmp(op,"INPUTS") && !length) {

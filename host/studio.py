@@ -27,6 +27,7 @@ from urllib.parse import urlsplit
 import webbrowser
 
 from engine_profile import generate
+import firmware_upload
 from patches import Device, ROOT, compile_source, manifest
 from network import NetworkDevice, Pairings, discover
 
@@ -251,6 +252,7 @@ class Studio:
         self.telemetry = AudioTelemetry()
         self.pairings = Pairings()
         self.network_devices = []
+        self.firmware_plan = None
 
     def start_reader(self):
         def drain():
@@ -288,15 +290,62 @@ class Studio:
         except ImportError:
             return [], False
         ports = sorted(list_ports.comports(), key=lambda p: (p.vid != 0x303A, p.device))
-        return [dict(port=p.device, name=p.description, esp32=p.vid == 0x303A) for p in ports], True
+        return [dict(port=p.device, name=p.description, esp32=p.vid == 0x303A,
+                     usb_id=(p.vid, p.pid, p.serial_number, p.location)) for p in ports], True
 
     def config(self):
         ports, serial_ready = self.ports()
-        return dict(ports=ports, serial_ready=serial_ready,
+        return dict(ports=[{key: row[key] for key in ('port', 'name', 'esp32')} for row in ports],
+            serial_ready=serial_ready,
             compiler_ready=self.compiler.sclang.is_file(),
             connected=self.device is not None,
+            firmware_targets=[dict(id=key, label=target.label) for key, target in firmware_upload.TARGETS.items()],
             paired_devices=self.pairings.public(),
             example=(ROOT/'examples/main-patch.scd').read_text(),master_example=(ROOT/'examples/master-fx.scd').read_text())
+
+    def firmware_port(self, path):
+        ports, _ = self.ports()
+        row = next((port for port in ports if port['esp32'] and port['port'] == path), None)
+        if row is None:
+            raise Problem('Choose a detected Espressif USB port. Reconnect the board and refresh the ports if needed.', 409)
+        return row
+
+    def review_firmware(self, payload):
+        self.firmware_plan = None
+        board = payload.get('board')
+        row = self.firmware_port(payload.get('port'))
+        image = firmware_upload.load_image(board)
+        python = firmware_upload.programmer_python()
+        plan = secrets.token_urlsafe(24)
+        self.firmware_plan = (plan, board, row, image.signature, python, time.monotonic() + 180)
+        return dict(plan=plan, board=image.target.label, port=row['port'],
+                    folder='firmware/' + image.target.folder, app_sha256=image.app_hash)
+
+    def flash_firmware(self, payload):
+        token = payload.get('plan')
+        if not self.firmware_plan or not isinstance(token, str) or token != self.firmware_plan[0]:
+            raise Problem('Review the firmware and USB port before flashing.', 409)
+        _, board, previous, signature, python, expiry = self.firmware_plan
+        self.firmware_plan = None
+        if time.monotonic() >= expiry:
+            raise Problem('The firmware review has expired. Review again before flashing.', 409)
+        row = self.firmware_port(previous['port'])
+        if row['usb_id'] != previous['usb_id']:
+            raise Problem('The USB device changed. Review the new port before flashing.', 409)
+        image = firmware_upload.load_image(board)
+        if image.signature != signature:
+            raise Problem('The local build changed. Review the new firmware before flashing.', 409)
+        port = row['port']
+        if (self.device_port == port or
+                self.usb_monitor and self.usb_monitor.link.port == port):
+            self.disconnect()
+        try:
+            log = firmware_upload.write_image(python, image, port, row['usb_id'][2])
+        except subprocess.TimeoutExpired as error:
+            raise Problem('Flashing timed out. Reconnect the board in download mode and review the firmware again.', 409) from error
+        except OSError as error:
+            raise Problem(f'Could not start the firmware programmer. {error}', 409) from error
+        return dict(board=image.target.label, port=port, log=log)
 
     def compile(self, payload):
         graph, source, info = self.compiler.compile(payload)
@@ -721,6 +770,10 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 if path == '/api/connect':
                     result = studio.connect(payload.get('port'))
+                elif path == '/api/firmware/review':
+                    result = studio.review_firmware(payload)
+                elif path == '/api/firmware/flash':
+                    result = studio.flash_firmware(payload)
                 elif path == '/api/network/scan':
                     result = studio.network_scan(payload)
                 elif path == '/api/network/connect':

@@ -7,6 +7,14 @@
 @media(min-width:1400px){textarea{font-size:13px}}@media(max-width:950px){body{padding:24px 20px}main{grid-template-columns:minmax(0,1fr) 310px;gap:14px}.composer,.device{padding:18px}.panel-heading{align-items:flex-start}.composer .panel-heading{flex-direction:column}h1{font-size:27px}}@media(max-width:720px){body{padding:22px 14px}.masthead p{display:none}main{grid-template-columns:1fr}.composer .panel-heading{flex-direction:row;align-items:center}textarea{height:400px;min-height:300px;font-size:12px}.page-footer{flex-direction:column;gap:5px}.file-actions{justify-content:flex-end}h2{font-size:18px}}
 
 /* USB and LAN device setup. */
+.firmware-panel #firmware-board { margin-bottom: 10px; }
+.firmware-panel label { display: block; margin-bottom: 4px; }
+.firmware-confirmation { border: 1px solid var(--line); border-radius: 6px; margin-top: 10px; padding: 10px; }
+.firmware-confirmation p:first-child { margin-top: 0; }
+#firmware-status:empty { display: none; }
+.resource-grid .resource-detail { font-size: 10px; font-weight: 400; color: var(--muted); line-height: 1.4; }
+.resource-detail:empty { display: none; }
+#program-flash { font-size: 16px; }
 #wifi-setup input,#wifi-setup button{margin-bottom:10px}input[type=password]{width:100%;border:1px solid var(--line);border-radius:6px;padding:10px 9px;background:#fff;color:var(--ink);min-width:0;margin-top:7px}#transport{margin-bottom:15px}#network-device{margin-bottom:4px}.device .hint{overflow-wrap:anywhere}
 
 .stages{display:grid;grid-template-columns:1fr 1fr;gap:8px}.playback-controls{display:flex;gap:8px}.playback-controls button{flex:1}#master-load[aria-pressed=true]{background:#eff4ff;border-color:var(--blue)}#wifi-mode{margin-bottom:14px}#broadcast-panel{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}#broadcast-nodes{font-size:11px;line-height:1.6;overflow-wrap:anywhere}#broadcast-nodes p{border-bottom:1px solid var(--line);padding-bottom:8px}

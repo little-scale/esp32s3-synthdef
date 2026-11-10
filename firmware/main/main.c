@@ -11,7 +11,9 @@
 #include "esp_chip_info.h"
 #include "esp_flash.h"
 #include "esp_heap_caps.h"
+#include "esp_image_format.h"
 #include "esp_log.h"
+#include "esp_ota_ops.h"
 #include "esp_psram.h"
 #include "esp_timer.h"
 #include "esp_random.h"
@@ -738,6 +740,33 @@ static void console_task(void *unused)
     }
 }
 
+static patch_program_usage program_usage(void)
+{
+    extern const char _iram_start[], _iram_end[];
+    extern const char _data_start[], _data_end[];
+    extern const char _bss_start[], _bss_end[];
+    extern const char _noinit_start[], _noinit_end[];
+    patch_program_usage usage = {
+        .iram_bytes = (uintptr_t)_iram_end - (uintptr_t)_iram_start,
+        .dram_bytes = ((uintptr_t)_data_end - (uintptr_t)_data_start) +
+                      ((uintptr_t)_bss_end - (uintptr_t)_bss_start) +
+                      ((uintptr_t)_noinit_end - (uintptr_t)_noinit_start),
+    };
+    /* Read the running image once before starting audio. The partition size
+     * is the application budget, separate from patch storage. */
+    const esp_partition_t *partition = esp_ota_get_running_partition();
+    if (partition) {
+        esp_partition_pos_t position = {.offset = partition->address, .size = partition->size};
+        esp_image_metadata_t metadata = {0};
+        if (esp_image_get_metadata(&position, &metadata) == ESP_OK &&
+            metadata.image_len > 0 && metadata.image_len <= partition->size) {
+            usage.app_bytes = metadata.image_len;
+            usage.partition_bytes = partition->size;
+        }
+    }
+    return usage;
+}
+
 void app_main(void)
 {
     const esp_app_desc_t *app = esp_app_get_description();
@@ -828,7 +857,8 @@ void app_main(void)
     patch_hooks hooks={.remote=remote_protocol,.pause=service_pause,.activate=service_activate,.define=service_define,.master_define=service_master_define,.instance=service_instance,.stop=service_stop,.display=service_display,.busy=service_busy,
         .master_activate=service_master_activate,.master_display=service_master_display,
         .effect=effect_protocol,.effect_save=effect_save_now,.volume=volume_protocol,.seed=service_seed,
-        .build_id=BUILD_ID,.engine_commit=ENGINE_COMMIT,.profile_hash=CAPABILITY_HASH};
+        .build_id=BUILD_ID,.engine_commit=ENGINE_COMMIT,.profile_hash=CAPABILITY_HASH,
+        .program=program_usage()};
     if(!patches_init(graph,spare,touch_patch,sizeof touch_patch,&hooks)) {ESP_LOGE(TAG,"Patch service allocation failed");return;}
     if(!patches_master_init(effect_graph,effect_spare,master_bypass_patch,sizeof master_bypass_patch,(const char *)master_bypass_source,sizeof master_bypass_source)) {ESP_LOGE(TAG,"Master slot allocation failed");return;}
     nvs_handle_t effect_store;

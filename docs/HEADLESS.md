@@ -128,6 +128,26 @@ GPIO assignments are build settings: `SYNTHDEF_I2S_BCLK`, `SYNTHDEF_I2S_WS`,
 `SYNTHDEF_I2S_DOUT`. USB GPIO19/20 are left available for native USB.
 Pin aliases follow the [Espressif XIAO variant definition](https://github.com/espressif/arduino-esp32/blob/master/variants/XIAO_ESP32S3/pins_arduino.h).
 
+### NS4168 I2S DAC and speaker amplifier
+
+On 11 November 2026, the user confirmed hardware testing with a Seeed XIAO
+ESP32-S3 and the NS4168 I²S DAC/amp breakout. The amplifier plays one channel of
+the XIAO's existing 44.1 kHz, 16-bit Philips I²S stream. For a listening test,
+send the same signal to both I²S channels.
+
+| Breakout label | XIAO connection |
+| --- | --- |
+| `G` | `GND` |
+| `V` | `3V3` |
+| `BCL` | `D8` / GPIO7 |
+| `LRC` | `D9` / GPIO8 |
+| `DIN` | `D10` / GPIO9 |
+
+Connect a passive 4 Ω speaker across the amplifier's `+` and `−` terminals and
+keep both leads isolated from ground. Powering the amp at 3.3 V keeps its I²S
+input thresholds within the XIAO's logic range. Begin at low output volume
+when sharing the XIAO's regulated supply. [NS4168 datasheet](https://pdf.data.kynix.com/r/datasheets/04aba3168248e67c38dd0a24fbd44cbd.pdf)
+
 ### Temporary PCM5102A test DAC
 
 Project decision, 3 November 2026: the temporary PCM5102A breakout is now wired
