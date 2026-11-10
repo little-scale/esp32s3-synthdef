@@ -1,4 +1,37 @@
-# Project status — 4 November 2026
+# Project status — 11 November 2026
+
+## Published on main
+
+- Studio can install and verify the bootloader, partition table and application
+  on a fresh XIAO ESP32-S3 or Waveshare AMOLED 1.8 V2 over USB. A physical XIAO
+  flash completed in Studio, followed by a successful USB connection.
+  [Firmware installation](docs/STUDIO.md#install-firmware-on-a-usb-board)
+- Studio displays the current average audio CPU load, the peak since reset,
+  free internal RAM and PSRAM, and output volume in percent and dB gain.
+  Updated firmware also reports linked program RAM and application flash usage.
+  The live CPU and volume readouts were checked on the XIAO. Both firmware
+  builds passed their audits, and the browser checks and 41 host and native
+  SuperCollider tests passed. Hardware verification of the new program-memory
+  fields is pending. [CPU and resources](docs/STUDIO.md#cpu-and-resources)
+- SuperCollider's `ESP32.discovered.onDone(_.postln);` lists reachable modules,
+  including the connected USB module. Module IDs and aliases can be stored in
+  SuperCollider environment variables for later commands or patterns.
+  [SuperCollider setup](docs/SUPERCOLLIDER.md#install-and-start)
+- The user confirmed hardware testing on a XIAO with the NS4168 I²S DAC and
+  speaker amplifier. [NS4168 test and wiring](docs/HEADLESS.md#ns4168-i2s-dac-and-speaker-amplifier)
+
+## In progress
+
+- **Named groups** have passed the local browser checks and 48 host tests with
+  simulated modules. Studio groups modules by permanent ID, and SuperCollider
+  addresses the same groups with `ESP32.group`. Publication and a multi-module
+  hardware check are pending. Activation requires a Studio restart and a
+  SuperCollider class library recompile.
+- **Selective DSP optimisations** for smoothing, Klang/Klank, delays and MiVerb
+  passed offline comparisons. The combined build still needs a same-board
+  hardware comparison.
+
+## DSP qualification and standalone controls — 4 November 2026
 
 The [fixed-seed follow-up](docs/DSP_SEEDED_PROFILING.md) completed on XIAO-ba1e48:
 28 pinned graphs, 14 timing records and 240 normal/instrumented pairs passed.
@@ -8,10 +41,10 @@ in the nine delay graphs and 3.4% in modulated MiVerb. Other core results were
 mixed, including a Formant regression. Whole-graph figures are scoped to these
 layouts; no candidate was promoted. See `evidence/dsp-seeded-xiao-summary.json`.
 
-The XIAO is restored to standard build **`d627eccb77a7`**, all experimental
+After that session, the XIAO was restored to standard build **`d627eccb77a7`**, all experimental
 switches off. Original Main/FX packages, active instance settings, FX bypass and
 saved **15% volume** were verified, with nonzero PCM after restoration. Studio
-is running on its existing local address. The earlier interrupted USB attempt
+was running on its existing local address. The earlier interrupted USB attempt
 is retained separately, and fixed profiling now borrows Studio's existing USB
 connection. The optimisation register links the target results and regressions.
 
@@ -64,7 +97,7 @@ ages, unavailable Wi-Fi-only data and module identity guards prevent stale
 readings being presented as live. After hardware qualification, Studio was
 restarted with its session token and SC bridge port retained, reopened in Chrome
 and connected to XIAO-ba1e48; the live resource panel was observed in the browser.
-See [Studio](docs/STUDIO.md#audio-resources) and `evidence/studio-resources-host.json`.
+See [Studio](docs/STUDIO.md#cpu-and-resources) and `evidence/studio-resources-host.json`.
 
 The computer-only optimisation review covers all 154 native UGens, 33 unary
 and 40 binary selectors. The register records enabled project work, existing
