@@ -70,7 +70,8 @@ def prepare(files, families=None):
     render = files['fm_render.c']
     anchor = 'static uint32_t phase_word('
     assert render.count(anchor) == 1
-    files['fm_render.c'] = render.replace(anchor, HELPERS+'\n'+anchor)
+    if HELPERS not in render:
+        files['fm_render.c'] = render.replace(anchor, HELPERS+'\n'+anchor)
     counts = {}
     for filename, functions in FUNCTIONS.items():
         text = files[filename]

@@ -87,6 +87,11 @@ states. Recreated oscillators restart and old reverb tails are lost; do not clai
 phase/tail restoration. On an interrupted test, record the last complete case and
 restore or explicitly report incomplete restoration before starting more tests.
 
+The original candidate plan below uses the legacy reference. With the new
+selective board-build option, explicitly set `SYNTHDEF_QUALIFIED_KERNELS=OFF` for
+both images when reproducing that plan. The proposed selected-default comparison
+has its own [short combined-image check](QUALIFIED_DSP_UPDATE.md#short-hardware-check-when-the-board-is-available).
+
 ## Q1 — establish an identical comparison
 
 The two initial variants are:

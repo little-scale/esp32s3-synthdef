@@ -37,7 +37,7 @@ remain outstanding. See [current status](../STATUS.md).
 
 | Category | Project optimisation enabled | Inherited FM1 fast path | No enabled individual optimisation | Experimental candidate available |
 | --- | ---: | ---: | ---: | ---: |
-| Native UGen types | 26 | 24 | 104 | 112 |
+| Native UGen types | 43 | 24 | 87 | 112 |
 | Unary selectors | 33 | 0 | 0 | 0 |
 | Binary selectors | 0 | 40 | 0 | 40 |
 
@@ -140,15 +140,15 @@ Qualification: Latest physical Lag fixture contains Lag and LagUD. LeakDC has hi
 
 **MiVerb ordered delay-write clamp — Project optimisation enabled**
 
-Replace fminf/fmaxf calls after the finite-value guard with ordered comparisons; retain Q1.15 delay storage, saturation, quantisation and float processing.
+Replace fminf/fmaxf calls after the finite-value guard with ordered comparisons; retain Q1.15 delay storage, saturation, quantisation and float processing. The proposed qualified-kernel board default also binds MiVerb graph inputs once per block; its arithmetic is unchanged.
 
-Implementation: [host/engine_profile.py](../host/engine_profile.py)
+Implementation: [host/engine_profile.py](../host/engine_profile.py), [host/qualified_kernels.py](../host/qualified_kernels.py)
 
-Host verification: [evidence/miverb-clamp-host.json](../evidence/miverb-clamp-host.json)
+Host verification: [evidence/miverb-clamp-host.json](../evidence/miverb-clamp-host.json), [evidence/qualified-kernels-review.json](../evidence/qualified-kernels-review.json)
 
 Hardware evidence: [evidence/miverb-clamp-device.json](../evidence/miverb-clamp-device.json), [evidence/dsp-kernels-xiao-final.json](../evidence/dsp-kernels-xiao-final.json)
 
-Qualification: Historical isolated-node and whole-patch timings are retained. Latest full-patch measurements include MiVerb but do not isolate a new clamp change.
+Qualification: Historical isolated-node and whole-patch timings are retained. Latest full-patch measurements include MiVerb but do not isolate a new clamp change. The new combined default still awaits target validation; the measured input-binding variant is recorded separately.
 
 ### rings-placement
 
@@ -276,14 +276,56 @@ Hardware evidence: [evidence/extended-validation.json](../evidence/extended-vali
 
 Qualification: Reviewed on 4 November 2026. A further redesign would need dependency/cache profiling and memory-layout analysis; the existing efficient block implementation is retained in this computer-only pass.
 
+### qualified-smoothing
+
+**Six additional smoothing block kernels — Project optimisation enabled**
+
+Reuse the measured Lag2/Lag3/OnePole/OneZero/LPZ1/HPZ1 arithmetic bodies. Bind excitation and held coefficients once; preserve constructor histories, coefficient interpolation, faults and cache ownership. Dispatch after existing fast exits.
+
+Implementation: [host/qualified_kernels.py](../host/qualified_kernels.py), [host/engine_profile.py](../host/engine_profile.py)
+
+Host verification: [evidence/qualified-kernels-host.json](../evidence/qualified-kernels-host.json), [evidence/qualified-kernels-review.json](../evidence/qualified-kernels-review.json)
+
+Hardware evidence: [evidence/dsp-seeded-xiao-smooth.json](../evidence/dsp-seeded-xiao-smooth.json)
+
+Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed.
+
+### qualified-banks
+
+**Klang/Klank partial-bank block loops — Project optimisation enabled**
+
+Separate the fixed-bank sample loops and bind Klank excitation once. Preserve partial order, initial parameters and constructor reset behavior; insert dispatch at the old bank fallback.
+
+Implementation: [host/qualified_kernels.py](../host/qualified_kernels.py), [host/engine_profile.py](../host/engine_profile.py)
+
+Host verification: [evidence/qualified-kernels-host.json](../evidence/qualified-kernels-host.json), [evidence/qualified-kernels-review.json](../evidence/qualified-kernels-review.json)
+
+Hardware evidence: [evidence/dsp-seeded-xiao-core.json](../evidence/dsp-seeded-xiao-core.json)
+
+Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed.
+
+### qualified-delay-binding
+
+**Delay and MiVerb input-reference binding — Project optimisation enabled**
+
+Bind graph references once per block only in delay_render and render_miverb. Preserve all read indexing, interpolation, arithmetic and finite-value guards. MiVerb keeps its existing ordered-clamp primary entry too.
+
+Implementation: [host/qualified_kernels.py](../host/qualified_kernels.py), [host/engine_profile.py](../host/engine_profile.py)
+
+Host verification: [evidence/qualified-kernels-host.json](../evidence/qualified-kernels-host.json), [evidence/qualified-kernels-review.json](../evidence/qualified-kernels-review.json)
+
+Hardware evidence: [evidence/dsp-seeded-xiao-binding-delay.json](../evidence/dsp-seeded-xiao-binding-delay.json), [evidence/dsp-seeded-xiao-binding.json](../evidence/dsp-seeded-xiao-binding.json)
+
+Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed.
+
 ## Native UGen checklist
 
 | UGen | Status | Work |
 | --- | --- | --- |
 | A2K | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
-| AllpassC | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| AllpassL | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| AllpassN | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
+| AllpassC | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
+| AllpassL | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
+| AllpassN | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
 | Amplitude | No enabled individual optimisation | —; [experimental candidate](#candidate-binding), [experimental candidate](#candidate-core) |
 | BHiShelf | No enabled individual optimisation | —; [experimental candidate](#candidate-binding), [experimental candidate](#candidate-core) |
 | BLowShelf | No enabled individual optimisation | —; [experimental candidate](#candidate-binding), [experimental candidate](#candidate-core) |
@@ -298,9 +340,9 @@ Qualification: Reviewed on 4 November 2026. A further redesign would need depend
 | Clip | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
 | ClipNoise | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | CoinGate | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| CombC | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| CombL | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| CombN | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
+| CombC | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
+| CombL | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
+| CombN | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
 | Control | Inherited FM1 fast path | [inherited-control-bank](#inherited-control-bank) |
 | ControlDur | Inherited FM1 fast path | [inherited-initial-cache](#inherited-initial-cache) |
 | ControlRate | Inherited FM1 fast path | [inherited-initial-cache](#inherited-initial-cache) |
@@ -313,9 +355,9 @@ Qualification: Reviewed on 4 November 2026. A further redesign would need depend
 | DegreeToKey | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
 | Delay1 | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
 | Delay2 | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
-| DelayC | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| DelayL | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| DelayN | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
+| DelayC | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
+| DelayL | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
+| DelayN | Project optimisation enabled | [qualified-delay-binding](#qualified-delay-binding); [experimental candidate](#candidate-binding) |
 | Dust | Project optimisation enabled | [dust-rng](#dust-rng) |
 | Dust2 | Project optimisation enabled | [dust-rng](#dust-rng) |
 | EnvGen | Inherited FM1 fast path | [inherited-envelope](#inherited-envelope) |
@@ -335,7 +377,7 @@ Qualification: Reviewed on 4 November 2026. A further redesign would need depend
 | Gendy3 | No enabled individual optimisation | —; [experimental candidate](#candidate-core) |
 | GrayNoise | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | HPF | Project optimisation enabled | [filter-blocks](#filter-blocks) |
-| HPZ1 | No enabled individual optimisation | —; [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
+| HPZ1 | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
 | Hasher | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | HenonC | No enabled individual optimisation | —; [experimental candidate](#candidate-chaos) |
 | HenonL | No enabled individual optimisation | —; [experimental candidate](#candidate-chaos) |
@@ -343,8 +385,8 @@ Qualification: Reviewed on 4 November 2026. A further redesign would need depend
 | Impulse | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | In | Inherited FM1 fast path | [inherited-bus-blocks](#inherited-bus-blocks) |
 | K2A | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
-| Klang | No enabled individual optimisation | —; [experimental candidate](#candidate-core) |
-| Klank | No enabled individual optimisation | —; [experimental candidate](#candidate-core) |
+| Klang | Project optimisation enabled | [qualified-banks](#qualified-banks); [experimental candidate](#candidate-core) |
+| Klank | Project optimisation enabled | [qualified-banks](#qualified-banks); [experimental candidate](#candidate-core) |
 | LFClipNoise | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | LFCub | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | LFDClipNoise | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
@@ -359,10 +401,10 @@ Qualification: Reviewed on 4 November 2026. A further redesign would need depend
 | LFSaw | No enabled individual optimisation | —; [experimental candidate](#candidate-core) |
 | LFTri | No enabled individual optimisation | —; [experimental candidate](#candidate-core) |
 | LPF | Project optimisation enabled | [filter-blocks](#filter-blocks) |
-| LPZ1 | No enabled individual optimisation | —; [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
+| LPZ1 | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
 | Lag | Project optimisation enabled | [lag-blocks](#lag-blocks) |
-| Lag2 | No enabled individual optimisation | —; [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
-| Lag3 | No enabled individual optimisation | —; [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
+| Lag2 | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
+| Lag3 | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
 | LagControl | Inherited FM1 fast path | [inherited-control-bank](#inherited-control-bank) |
 | LagUD | Project optimisation enabled | [lag-blocks](#lag-blocks) |
 | Latch | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
@@ -388,8 +430,8 @@ Qualification: Reviewed on 4 November 2026. A further redesign would need depend
 | MiVerb | Project optimisation enabled | [miverb-clamp](#miverb-clamp); [experimental candidate](#candidate-binding) |
 | MoogFF | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | MulAdd | Inherited FM1 fast path | [inherited-arithmetic](#inherited-arithmetic) |
-| OnePole | No enabled individual optimisation | —; [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
-| OneZero | No enabled individual optimisation | —; [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
+| OnePole | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
+| OneZero | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
 | Out | Inherited FM1 fast path | [inherited-bus-blocks](#inherited-bus-blocks) |
 | Pan2 | Inherited FM1 fast path | [inherited-pan](#inherited-pan) |
 | Phasor | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
@@ -524,7 +566,7 @@ Qualification: Reviewed on 4 November 2026. A further redesign would need depend
 
 ### candidate-smoothing
 
-**Lag2/Lag3/OnePole/OneZero/LPZ1/HPZ1 block loops (experimental; disabled by default).** Bind inputs and choose the recurrence once per block. Lag2/3 cache the time coefficient in otherwise-unused freq state and retain multiply-then-scale interpolation order. Preserve OnePole constructor behavior, OneZero/LPZ1/HPZ1 initial history and coefficient-domain faults. Opt in with candidate_smooth=True; selected-layout hardware evidence is linked below.
+**Lag2/Lag3/OnePole/OneZero/LPZ1/HPZ1 block loops (experimental; disabled by default).** Bind inputs and choose the recurrence once per block. Lag2/3 cache the time coefficient in otherwise-unused freq state and retain multiply-then-scale interpolation order. Preserve OnePole constructor behavior, OneZero/LPZ1/HPZ1 initial history and coefficient-domain faults. Opt in with candidate_smooth=True; selected-layout hardware evidence is linked below. Selected bodies are now reused by the separate SYNTHDEF_QUALIFIED_KERNELS board-build option; this broad experimental flag remains off.
 
 Implementation: [host/dsp_candidates.py](../host/dsp_candidates.py), [host/engine_profile.py](../host/engine_profile.py)
 
@@ -648,7 +690,7 @@ Negative percentages mean the candidate was slower in that fixture.
 
 ### candidate-binding
 
-**Block-bound input references across ten renderer entry points (experimental; disabled by default).** Hoist graph-reference decoding and input-rate lookup into per-call local pointers, without changing sample indices, parameters, equations or state. Seventy-two types share the touched renderers; not all benefit. All timing rows below are retained, including native regressions. Binding-only and combined variants each pass 2,176 graphs with complete state and arena identity. Target code/stack cost is recorded; selected-layout target timing, including regressions, is linked below. Opt in with candidate_binding=True.
+**Block-bound input references across ten renderer entry points (experimental; disabled by default).** Hoist graph-reference decoding and input-rate lookup into per-call local pointers, without changing sample indices, parameters, equations or state. Seventy-two types share the touched renderers; not all benefit. All timing rows below are retained, including native regressions. Binding-only and combined variants each pass 2,176 graphs with complete state and arena identity. Target code/stack cost is recorded; selected-layout target timing, including regressions, is linked below. Opt in with candidate_binding=True. Selected bodies are now reused by the separate SYNTHDEF_QUALIFIED_KERNELS board-build option; this broad experimental flag remains off.
 
 Implementation: [host/dsp_binding.py](../host/dsp_binding.py), [host/engine_profile.py](../host/engine_profile.py)
 
@@ -815,7 +857,7 @@ Negative percentages mean the candidate was slower in that fixture.
 
 ### candidate-core
 
-**Oscillator, ramp, partial-bank and Gendy candidates (experimental; disabled by default).** Dedicated LFSaw/LFTri/LFPulse and Klang/Klank loops retain compensated phase, partial order and constructor resets. Line caches only invariant compensated span terms; XLine caches its held ratio, retaining per-sample pow and precise timing. Formant caches integer increments/width. Gendy1–3 cache independent distribution constants. SinOscFB caches exact phase steps and bit-keyed feedback targets; Blip caches effective crossfade frequency and harmonic scales, including the descending-frequency transition. Only documented otherwise-unused cache fields are normalized in comparisons. Native regressions and negligible gains are retained; timings vary between runs and fixtures, so no universal speed claim is made. Opt in with candidate_core=True. BPeakEQ/BLowShelf/BHiShelf and Formlet calculate each unchanged three-sample coefficient group once, retaining the exact division and final one-sample group. Amplitude caches attack/release coefficients independently and preserves audio-input/control-output stepping.
+**Oscillator, ramp, partial-bank and Gendy candidates (experimental; disabled by default).** Dedicated LFSaw/LFTri/LFPulse and Klang/Klank loops retain compensated phase, partial order and constructor resets. Line caches only invariant compensated span terms; XLine caches its held ratio, retaining per-sample pow and precise timing. Formant caches integer increments/width. Gendy1–3 cache independent distribution constants. SinOscFB caches exact phase steps and bit-keyed feedback targets; Blip caches effective crossfade frequency and harmonic scales, including the descending-frequency transition. Only documented otherwise-unused cache fields are normalized in comparisons. Native regressions and negligible gains are retained; timings vary between runs and fixtures, so no universal speed claim is made. Opt in with candidate_core=True. BPeakEQ/BLowShelf/BHiShelf and Formlet calculate each unchanged three-sample coefficient group once, retaining the exact division and final one-sample group. Amplitude caches attack/release coefficients independently and preserves audio-input/control-output stepping. Selected bodies are now reused by the separate SYNTHDEF_QUALIFIED_KERNELS board-build option; this broad experimental flag remains off.
 
 Implementation: [host/dsp_core.py](../host/dsp_core.py), [host/engine_profile.py](../host/engine_profile.py)
 

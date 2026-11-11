@@ -174,14 +174,15 @@
     "FM_DELAY_LIMIT": 262144
   },
   "engine_target_header_sha256": "0b6a5883a91e4cfeef9c876f6dad75c1f826e869488be335d40277044e22856d",
-  "engine_profile_generator_sha256": "f36350b540888f6d92f8188f2bd13432b0b99da38217f62711103312cc90be3d",
+  "engine_profile_generator_sha256": "946aa0acde0039a159174782ad24a5fef73aa566a20dc50596dd3eff0cb69c2e",
   "signal_planner_sha256": "f94e23434874846afc8f72f59d62345df9c80e1ab1cb937d613d00587735ec4d",
   "dsp_kernels_sha256": "f320e9cffc95115e60458411d8e4a2929da3616f6a2ac77b59e71c734697c108",
   "dsp_candidates_sha256": "574097f225b2dc9b9e5c7c5e2a876bd119f049b71cabfd07c6826a1bb0c5e5c5",
-  "dsp_binding_sha256": "124a4433514d2fe4927ef297016c80f2e209530beb9774e676149f51df618e78",
+  "dsp_binding_sha256": "bf8807ced259b15509abff068c437c56865d191e67763edd581759b0149c9281",
   "dsp_routing_sha256": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
   "dsp_chaos_cache_sha256": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
   "dsp_core_sha256": "cef78c2b54df18553b6f7dc19b68a345331d4a44ea88279834d25ec79c26e0d6",
+  "qualified_kernels_sha256": "ae282d0a407e127ea4367df2706d9109824c8c4b0357e2f3bdef6c34753d2eac",
   "master_delay": {
     "kind": "embedded persistent mono SynthDef bus",
     "max_seconds": 5.0,
@@ -579,5 +580,5 @@
     "touch-sine": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5"
   },
   "factory_source_sha256": "b26eb2d4188682b6f7c35c86d76f8d4d7dc934d2e9c3a4313e9b22291c3f81f2",
-  "profile_sha256": "55e39126350e5d04af093b126f56b74e9bf23b0167e5812cc4fc9593a76cbad9"
+  "profile_sha256": "36575d56a0984b86292df5c8d6cb16d1b50973ab82b6c7ace92b1f240a678ab0"
 }

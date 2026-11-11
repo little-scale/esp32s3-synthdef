@@ -47,6 +47,15 @@ build audits. Release firmware build identity is `d1bf9ef3a7df`.
 
 ## DSP qualification and standalone controls — 4 November 2026
 
+A [selective production update](docs/QUALIFIED_DSP_UPDATE.md) is prepared on
+`codex/qualified-dsp-defaults`, using the measured smoothing, Klang/Klank and
+delay/MiVerb binding bodies. Native regression covers 369,393,664 samples plus
+217 interleaved shared-scratch cases. Both board profiles and the XIAO rollback
+configuration cross-built and passed audits. New image build **`49e3918de282`**
+adds about 3.6 KiB of flash with unchanged graph/voice/scratch storage. No board
+was accessed or flashed for this preparation; the combined-image hardware
+check remains pending. The connected XIAO was last restored to `d627eccb77a7`.
+
 The [fixed-seed follow-up](docs/DSP_SEEDED_PROFILING.md) completed on XIAO-ba1e48:
 28 pinned graphs, 14 timing records and 240 normal/instrumented pairs passed.
 The six eight-UGen smoothing graphs used 53–63% less DSP time; 16-partial Klang

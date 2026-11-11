@@ -20,6 +20,19 @@ The later [fixed-seed follow-up](DSP_SEEDED_PROFILING.md) records 28 target grap
 and 240 paired runs, with substantial smoothing/bank/delay gains alongside
 regressions. The register now includes those hardware timing tables.
 
+## Proposed selective board defaults
+
+The [selective update](QUALIFIED_DSP_UPDATE.md) reuses the measured smoothing,
+partial-bank and delay/reverb binding bodies without enabling unrelated core
+caches. Both board builds now select these paths through
+`SYNTHDEF_QUALIFIED_KERNELS`; the standalone Python generator keeps its legacy
+reference unless explicitly requested. The new combined image is prepared and
+cross-built, with hardware timing still pending. All broad experimental flags
+remain off, and the connected board has not been changed.
+
+The review below is the pre-selection baseline audit. Its unchanged-source and
+historical timing claims retain that original scope.
+
 ## Complete computer-only review — 4 November 2026
 
 All **154 native UGen types, 33 unary and 40 binary selectors** now have a

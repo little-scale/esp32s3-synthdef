@@ -45,6 +45,10 @@ is required; normal resource-panel polling and CPU peak reset remain cached-only
 
 ## Reproduction
 
+To reproduce the historical image comparisons on newer checkouts, set
+`SYNTHDEF_QUALIFIED_KERNELS=OFF` in every compared build. The proposed combined
+image has a separate validation plan.
+
 Prepare graph bytes once, silently on the computer:
 
 ```sh

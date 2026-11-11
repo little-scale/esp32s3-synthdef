@@ -266,11 +266,17 @@ record links the implementation and scoped host/hardware evidence. Update its
 JSON source and run `python3 host/document_optimizations.py`; use `--check` to
 check inventory coverage and ensure the page is current.
 
+The [proposed selective update](docs/QUALIFIED_DSP_UPDATE.md) now enables the
+measured smoothing, Klang/Klank and delay/MiVerb binding paths in board builds
+through `SYNTHDEF_QUALIFIED_KERNELS`. Native equality and both cross-builds pass;
+the combined image still needs its same-board hardware check. Existing deployed
+modules are unchanged. Set this option to `OFF` for the legacy reference.
+
 The [complete computer-only review](docs/DSP_OPTIMIZATIONS.md#complete-computer-only-review--4-november-2026)
 now covers every supported UGen/operator. Per-fixture desktop gains, regressions,
 equivalence checks and code/stack costs are recorded. All seven new candidate
 switches remain off; selected ESP32 qualifications are recorded separately and
-production DSP defaults are unchanged.
+the broad experiments remain separate from the selective update.
 The [hardware test plan](docs/DSP_HARDWARE_TEST_PLAN.md) starts with a bounded
 30-minute baseline/candidate session, with extended coverage kept optional.
 The [first XIAO results](docs/DSP_HARDWARE_RESULTS.md) record matching selected
@@ -279,7 +285,7 @@ remain disabled in the standard firmware. The subsequent
 [fixed-seed XIAO comparisons](docs/DSP_SEEDED_PROFILING.md) cover 28 graphs,
 including all six smoothing candidates, partial banks, oscillator/Gendy caches
 and nine delay types. They retain both target gains and regressions; current
-production settings remain unchanged.
+combined-image performance is still pending validation.
 
 ### UGens (154)
 

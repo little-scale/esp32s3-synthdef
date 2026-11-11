@@ -9,20 +9,20 @@
   "plan_document": "docs/DSP_HARDWARE_TEST_PLAN.md",
   "scope": "Inventory and raw fixtures only. Build wiring, block-exact target replay and the new hardware runner are not implemented by this generator.",
   "source_sha256": {
-    "docs/dsp_optimizations.json": "5641336cf697b8653dd37d8d516dda18abc130677de603059bae332493cd109a",
+    "docs/dsp_optimizations.json": "5a58e443c49b393a8a33eae12ca664fa284e51d3185e70c3426c98bc530b3f6b",
     "evidence/fm1-fixed-inventory.json": "29b9582fc1a1f03dcdeec83617a9392234811f9a39dd432870662273c80c1ec3",
     "host/plan_dsp_hardware.py": "d5adaa28025726c429ebe9e08c8a6c66fef979a4b2fd7289a0f5bc7cdb4877b7",
-    "docs/DSP_HARDWARE_TEST_PLAN.md": "d1937bc97ea3c3ecb21247f02543dad00e1c40d78818fd76bd0f65bd71658b3d",
-    "host/engine_profile.py": "f36350b540888f6d92f8188f2bd13432b0b99da38217f62711103312cc90be3d",
+    "docs/DSP_HARDWARE_TEST_PLAN.md": "e528b83942a69f1802b36762e10e17612e5b2f39d338871f552c87692816ff49",
+    "host/engine_profile.py": "946aa0acde0039a159174782ad24a5fef73aa566a20dc50596dd3eff0cb69c2e",
     "host/dsp_candidates.py": "574097f225b2dc9b9e5c7c5e2a876bd119f049b71cabfd07c6826a1bb0c5e5c5",
-    "host/dsp_binding.py": "124a4433514d2fe4927ef297016c80f2e209530beb9774e676149f51df618e78",
+    "host/dsp_binding.py": "bf8807ced259b15509abff068c437c56865d191e67763edd581759b0149c9281",
     "host/dsp_routing.py": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
     "host/dsp_chaos_cache.py": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
     "host/dsp_core.py": "cef78c2b54df18553b6f7dc19b68a345331d4a44ea88279834d25ec79c26e0d6",
     "host/core_fixtures.py": "39d9efb88b22ba6552f64756206f26b5f91c668907891dd9be3ba79e01937dd1",
     "host/routing_fixtures.py": "27419b0fd50989af0981a74ffd1137b42753230215fba4a574ff94cb76f6ac6e",
     "host/test_dsp_candidates.py": "674806b4e814f345cd68d535ef18f12d8bf88051138d7f70e7530d26ec35cb2d",
-    "tests/dsp_kernels_test.c": "d83c1c67fbd9c29b60399f66b011485e115a09a5b0698981bbbecec7c6607e00"
+    "tests/dsp_kernels_test.c": "2fdd9f91f2188c47e77158ee02237638b07c8a010afdac48ceca82c7f512eff6"
   },
   "boards": [
     "xiao-esp32s3-pcm5102a",
@@ -369,8 +369,8 @@
       "hardware_status": "planned"
     },
     "AllpassC": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -391,8 +391,8 @@
       "hardware_status": "planned"
     },
     "AllpassL": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -413,8 +413,8 @@
       "hardware_status": "planned"
     },
     "AllpassN": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -983,8 +983,8 @@
       "hardware_status": "planned"
     },
     "CombC": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -1005,8 +1005,8 @@
       "hardware_status": "planned"
     },
     "CombL": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -1027,8 +1027,8 @@
       "hardware_status": "planned"
     },
     "CombN": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -1501,8 +1501,8 @@
       "hardware_status": "planned"
     },
     "DelayC": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -1523,8 +1523,8 @@
       "hardware_status": "planned"
     },
     "DelayL": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -1545,8 +1545,8 @@
       "hardware_status": "planned"
     },
     "DelayN": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-delay-binding",
       "candidate_groups": [
         "candidate-binding"
       ],
@@ -1942,8 +1942,8 @@
       "hardware_status": "planned"
     },
     "HPZ1": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-smoothing",
       "candidate_groups": [
         "candidate-smoothing",
         "candidate-binding"
@@ -2239,8 +2239,8 @@
       "hardware_status": "planned"
     },
     "Klang": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-banks",
       "candidate_groups": [
         "candidate-core"
       ],
@@ -2259,8 +2259,8 @@
       "hardware_status": "planned"
     },
     "Klank": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-banks",
       "candidate_groups": [
         "candidate-core"
       ],
@@ -2617,8 +2617,8 @@
       "hardware_status": "planned"
     },
     "LPZ1": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-smoothing",
       "candidate_groups": [
         "candidate-smoothing",
         "candidate-binding"
@@ -2658,8 +2658,8 @@
       "hardware_status": "planned"
     },
     "Lag2": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-smoothing",
       "candidate_groups": [
         "candidate-smoothing",
         "candidate-binding"
@@ -2681,8 +2681,8 @@
       "hardware_status": "planned"
     },
     "Lag3": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-smoothing",
       "candidate_groups": [
         "candidate-smoothing",
         "candidate-binding"
@@ -3289,8 +3289,8 @@
       "hardware_status": "planned"
     },
     "OnePole": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-smoothing",
       "candidate_groups": [
         "candidate-smoothing",
         "candidate-binding"
@@ -3312,8 +3312,8 @@
       "hardware_status": "planned"
     },
     "OneZero": {
-      "production_status": "not_recorded",
-      "existing_group": null,
+      "production_status": "project",
+      "existing_group": "qualified-smoothing",
       "candidate_groups": [
         "candidate-smoothing",
         "candidate-binding"

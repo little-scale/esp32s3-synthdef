@@ -107,6 +107,9 @@ int main(int argc,char **argv) {
   * addresses are not DSP state and differ between the two executables. */
  for(unsigned v=0;v<2;v++){
   fm_voice snapshot=voices[v];snapshot.delay_memory=NULL;snapshot.control_buses=NULL;
+#ifdef FM_QUALIFIED_NORMALIZE
+  for(unsigned i=0;i<g.nodes;i++)if(g.node[i].type==FM_Lag2 || g.node[i].type==FM_Lag3)snapshot.state[i].freq=0;
+#endif
   assert(fwrite(&snapshot,sizeof snapshot,1,stdout)==1);
   if(need)assert(fwrite(arena[v],sizeof(float),need,stdout)==need);
  }

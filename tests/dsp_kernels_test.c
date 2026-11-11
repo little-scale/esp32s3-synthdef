@@ -37,7 +37,7 @@ static void normalize(fm_voice *v){
   if((type>=FM_HenonN && type<=FM_LorenzL) || (type>=FM_FBSineN && type<=FM_StandardL))v->state[i].freq=v->state[i].b1=v->state[i].b2=0;
   }
 #endif
-#if defined(DSP_ALL_CANDIDATES)
+#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
   if(graph.node[i].type==FM_Lag2 || graph.node[i].type==FM_Lag3)v->state[i].freq=0;
 #elif defined(DSP_BINDING_COMPARISON) || defined(DSP_CORE_COMPARISON) || defined(DSP_CHAOS_COMPARISON)
   /* Binding changes no state fields; compare every field directly. */
@@ -63,22 +63,25 @@ int main(int argc,char **argv){
    float *ma=calloc(need?need:1,4),*mb=calloc(need?need:1,4),bank[32]={0};assert(ma&&mb);
    for(unsigned block=0;block<block_count;block++){
     if(block%128==0){
-#if defined(DSP_CORE_COMPARISON) || defined(DSP_ALL_CANDIDATES)
+#if defined(DSP_CORE_COMPARISON) || defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
      if(strstr(argv[file],"core_dynamic_Blip")){bank[0]=sr*.1f;bank[1]=50;}
      if(strstr(argv[file],"core_dynamic_BPeakEQ") || strstr(argv[file],"core_dynamic_BLowShelf") || strstr(argv[file],"core_dynamic_BHiShelf")){bank[0]=sr*.1f;bank[1]=1;bank[2]=0;}
      if(strstr(argv[file],"core_dynamic_Formlet")){bank[0]=sr*.1f;bank[1]=.01f;bank[2]=.2f;}
      if(strstr(argv[file],"core_dynamic_Amplitude")){bank[1]=.01f;bank[2]=.2f;}
 #endif
+#ifdef DSP_QUALIFIED_COMPARISON
+     if(strstr(argv[file],"qualified_smooth_")){bank[0]=.125f;bank[1]=.1f;}
+#endif
      assert(fm_start(&a,&graph,sr)&&dsp_ref_start(&b,&graph,sr));
      assert(fm_seed(&a,12345+block)&&dsp_ref_seed(&b,12345+block));
      assert(fm_bind_delay(&a,&graph,ma,need)&&dsp_ref_bind_delay(&b,&graph,mb,need));
      assert(fm_bind_control_buses(&a,bank,32)&&dsp_ref_bind_control_buses(&b,bank,32));
-#ifdef DSP_ALL_CANDIDATES
+#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
      memset(&sa,0xff,sizeof sa);memset(&sb,0xff,sizeof sb);
 #endif
      fm_prepare(&graph,&a,&sa);dsp_ref_prepare(&graph,&b,&sb);
      fm_prepare(&graph,&a,&sa);dsp_ref_prepare(&graph,&b,&sb);
-#ifdef DSP_ALL_CANDIDATES
+#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
      va=a;vb=b;normalize(&va);normalize(&vb);
      if(memcmp(&va,&vb,sizeof va)||memcmp(&sa,&sb,sizeof sa)||memcmp(ma,mb,need*4)){
       fprintf(stderr,"Constructor mismatch %s rate=%u\n",argv[file],rates[rate]);return 1;
@@ -94,7 +97,7 @@ int main(int argc,char **argv){
     set("lagUp",times[k%6]);set("lagDown",times[(block/17)%6]);
     set("x",xs[(block/7)%9]);set("gate",(float)(block%16<8));
     bank[0]=xs[(block/7)%9];bank[1]=(float)(block%3==0);
-#if defined(DSP_CORE_COMPARISON) || defined(DSP_ALL_CANDIDATES)
+#if defined(DSP_CORE_COMPARISON) || defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
     if(strstr(argv[file],"core_dynamic_SinOscFB")){
      const float f[]={0,.001f,.1f,.25f,.49999997f,.5f};const float fb[]={-8,-1,-0.0f,0,.5f,1,8};
      bank[0]=sr*f[(block/7)%6];bank[1]=fb[(block/11)%7];
@@ -123,6 +126,19 @@ int main(int argc,char **argv){
      bank[0]=distributions[(block/7)%9];bank[1]=distributions[(block/11+2)%9];bank[2]=shape[(block/5)%7];bank[3]=shape[(block/13+3)%7];
     }
 #endif
+#ifdef DSP_QUALIFIED_COMPARISON
+    if(strstr(argv[file],"qualified_smooth_")){
+     const float lag[]={0,-0.0f,.000001f,.01f,.1f,1000};
+     const float coef[]={-1,-.5f,-0.0f,0,.5f,1};
+     bank[1]=strstr(argv[file],"Lag")?lag[(block/9)%6]:coef[(block/9)%6];
+     if(strstr(argv[file],"_fault") && block>=31)bank[1]=strstr(argv[file],"Lag")?-1:1.1f;
+    }
+    if(strstr(argv[file],"qualified_delay_")){
+     const float delay[]={0,-0.0f,.000001f,.013f,.049999f,.05f,.051f,-.1f};
+     const float decay[]={-2,-.2f,0,.001f,.2f,2};
+     bank[1]=delay[(block/11)%8];bank[2]=decay[(block/13)%6];
+    }
+#endif
 #if defined(DSP_CHAOS_COMPARISON) || defined(DSP_ALL_CANDIDATES)
     if(strstr(argv[file],"chaos_dynamic")){
      const float factors[]={0,.000001f,.001f,.1f,.5f,.99999994f,1,2,4};
@@ -135,7 +151,7 @@ int main(int argc,char **argv){
     fm_render_input(&graph,&a,&sa,oa,in);dsp_ref_render_input(&graph,&b,&sb,ob,in);
     va=a;vb=b;normalize(&va);normalize(&vb);
     if(memcmp(oa,ob,sizeof oa)||memcmp(&va,&vb,sizeof va)||memcmp(ma,mb,need*4)
-#ifdef DSP_ALL_CANDIDATES
+#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
        || memcmp(&sa,&sb,sizeof sa)
 #endif
        ){

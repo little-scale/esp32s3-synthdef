@@ -7,8 +7,9 @@ import subprocess
 from engine_profile import ROOT,generate
 from test_dsp_candidates import fixture
 
-def main():
-    build=ROOT/'build/host/seeded-profile-test';src=generate(build/'src','fm1')
+def exercise(qualified):
+    build=ROOT/'build/host/seeded-profile-test'/('qualified' if qualified else 'reference')
+    src=generate(build/'src','fm1',qualified_kernels=qualified)
     stubs=build/'stubs'
     headers={
       'sdkconfig.h':'#define CONFIG_SYNTHDEF_DIAGNOSTICS 1\n',
@@ -40,10 +41,15 @@ static inline int mbedtls_sha256_finish(mbedtls_sha256_context *c,unsigned char 
         result=subprocess.check_output([str(binary),str(path)],text=True)
         headers=[dict(re.findall(r'(\w+)=([^ ]+)',s)) for s in result.splitlines() if s.startswith('UGEN_PROFILE ')]
         setups=[dict(re.findall(r'(\w+)=([^ ]+)',s)) for s in result.splitlines() if s.startswith('UGEN_SETUP ')]
+        assert setups and all(row['qualified']==str(int(qualified)) for row in setups),setups
         assert len(headers) in (4,5) and [h['matched'] for h in headers]==['1']+['0']*(len(headers)-2)+['1'],headers
         assert setups[0]['audio_sha256']==setups[-1]['audio_sha256'] and setups[0]['warm_sha256']==setups[-1]['warm_sha256']
         rows.append(dict(fixture=name,deterministic=True,allocation_failures_restored=len(headers)-2,voice_scratch_arena_restored=True,canaries_intact=True))
     output=build/'result.json';output.write_text(json.dumps(dict(passed=True,hardware=False,fixtures=rows),indent=2)+'\n')
-    print('PASS: target profiler deterministic output, live-state restoration and allocation failures; RNG, delay and bus fixtures under sanitizers.')
+    return rows
+
+def main():
+    for qualified in (False,True):exercise(qualified)
+    print('PASS: reference/selected target profiler modes, deterministic output, live-state restoration and allocation failures; RNG, delay and bus fixtures under sanitizers.')
 
 if __name__=='__main__':main()

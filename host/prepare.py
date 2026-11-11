@@ -32,6 +32,7 @@ def qualification_fingerprint():
                    digest((ROOT/'host/dsp_routing.py').read_bytes())+
                    digest((ROOT/'host/dsp_chaos_cache.py').read_bytes())+
                    digest((ROOT/'host/dsp_core.py').read_bytes())+
+                   digest((ROOT/'host/qualified_kernels.py').read_bytes())+
                    digest((ROOT/'examples/master-delay.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scd').read_bytes())+
@@ -105,6 +106,7 @@ def main():
         'dsp_routing_sha256':digest((ROOT/'host/dsp_routing.py').read_bytes()),
         'dsp_chaos_cache_sha256':digest((ROOT/'host/dsp_chaos_cache.py').read_bytes()),
         'dsp_core_sha256':digest((ROOT/'host/dsp_core.py').read_bytes()),
+        'qualified_kernels_sha256':digest((ROOT/'host/qualified_kernels.py').read_bytes()),
         'master_delay':{'kind':'embedded persistent mono SynthDef bus','max_seconds':5.0,
                         'arena_samples':262144,'arena_bytes':1048576,'storage':'PSRAM','graph_sha256':digest(effect)},
         'parser': 'fm_load remains authoritative for rates, selectors and graph layouts',

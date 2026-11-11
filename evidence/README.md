@@ -18,6 +18,7 @@ regressions retain their fixture/compiler scope.
 | Records | Scope |
 | --- | --- |
 | `studio-volume-db.json`, `studio-volume-db-preview.jpg` | Percentage and output-gain dB formatting, browser regressions and live readout; no volume write or firmware change |
+| `qualified-kernels-*.json` | Computer-only selective-default preparation, exact native/state comparisons, shared-scratch tests and audited board/rollback builds; combined-image hardware validation pending |
 | `dsp-seeded-host.json`, `dsp-seeded-xiao-*.json` | Deterministic profiler tests, audited images, 28-graph / 240-pair XIAO qualification and verified restoration; the interrupted USB attempt is retained separately |
 | `function-autoplay-host.json`, `function-autoplay-xiao.json` | Native SC Function autoplay/default persistence/single activation with literal-definition compatibility; current XIAO block active with PCM after an observed new boot, physical confirmation tracked separately |
 | `studio-peak-reset.json`, `studio-peak-reset-preview.jpg` | Host peak accumulation/reset, whole-window waiting, cache/identity races, fake-device HTTP tests and live XIAO UI reset observation; no firmware reset or audio-control mutation |

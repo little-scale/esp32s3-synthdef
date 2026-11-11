@@ -2,6 +2,7 @@
 #include "sdkconfig.h"
 #ifdef CONFIG_SYNTHDEF_DIAGNOSTICS
 #include "diagnostics.h"
+#include "fm_build_profile.h"
 #include "esp_cpu.h"
 #include "esp_private/esp_clk.h"
 #include "esp_timer.h"
@@ -103,8 +104,8 @@ void diagnostic_ugen_report(void)
 {
     printf("UGEN_PROFILE graph=%s blocks=%u ready=%u matched=%u normal_cycles=%" PRIu64 " measured_cycles=%" PRIu64 " audio_hash=%08" PRIx32 "\n",
            result.graph->name,PROFILE_BLOCKS,result.ready,result.matched,result.normal,result.measured,result.hash[0]);
-    printf("UGEN_SETUP mode=%s seed=%u warm_blocks=%u rate=%u frames=%u nodes=%u cpu_mhz=%u normal_wall_us=%" PRIu64 " measured_wall_us=%" PRIu64 " warm_sha256=",
-           result.fixed?"fixed":"snapshot",result.fixed?PROFILE_SEED:0,WARM_BLOCKS,result.rate,FM_BLOCK,result.graph->nodes,result.cpu_mhz,result.wall[0],result.wall[1]);
+    printf("UGEN_SETUP mode=%s seed=%u warm_blocks=%u rate=%u frames=%u nodes=%u cpu_mhz=%u qualified=%u normal_wall_us=%" PRIu64 " measured_wall_us=%" PRIu64 " warm_sha256=",
+           result.fixed?"fixed":"snapshot",result.fixed?PROFILE_SEED:0,WARM_BLOCKS,result.rate,FM_BLOCK,result.graph->nodes,result.cpu_mhz,FM_QUALIFIED_KERNELS_ENABLED,result.wall[0],result.wall[1]);
     for(unsigned i=0;i<32;++i)printf("%02x",result.warm_sha[0][i]);
     printf(" audio_sha256=");for(unsigned i=0;i<32;++i)printf("%02x",result.audio_sha[0][i]);
     printf(" rng=%08" PRIx32 ":%08" PRIx32 ":%08" PRIx32 "\n",result.rng[0][0],result.rng[0][1],result.rng[0][2]);

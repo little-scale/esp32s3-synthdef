@@ -11,6 +11,13 @@ The shared [DSP block kernels and replacement fades](DSP_OPTIMIZATIONS.md) apply
 to both board profiles. Hardware-specific timing and listening records remain
 separate; cross-building the AMOLED image is not a physical panel/speaker test.
 
+The proposed [selective DSP defaults](QUALIFIED_DSP_UPDATE.md) are controlled by
+`SYNTHDEF_QUALIFIED_KERNELS=ON` in board builds. Disable them with
+`-D SYNTHDEF_QUALIFIED_KERNELS=OFF`; leave experimental candidates set to `none`
+for a legacy-renderer comparison. They are independent options. These prepared
+images have not been flashed; historical target figures describe their original
+builds, not the new combined image.
+
 ## Toolchain
 
 The physical V2 board is the Waveshare ESP32-S3-Touch-AMOLED-1.8 with 16 MB flash

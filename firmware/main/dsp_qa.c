@@ -2,6 +2,7 @@
 #include "sdkconfig.h"
 #ifdef SYNTHDEF_DSP_QA
 #include "diagnostics.h"
+#include "fm_build_profile.h"
 #include "esp_heap_caps.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
@@ -86,7 +87,7 @@ int diagnostic_dsp_qa(instrument *s)
 }
 void diagnostic_dsp_qa_report(void)
 {
- printf("DSPQA_BEGIN cases=%u complete=%u pack=%s candidates=%s rate=44100 block=64\n",(unsigned)(sizeof qa_fixtures/sizeof *qa_fixtures),qa_ready,QA_PACK_SHA256,SYNTHDEF_DSP_CANDIDATE_LABEL);
+ printf("DSPQA_BEGIN cases=%u complete=%u pack=%s candidates=%s qualified=%u rate=44100 block=64\n",(unsigned)(sizeof qa_fixtures/sizeof *qa_fixtures),qa_ready,QA_PACK_SHA256,SYNTHDEF_DSP_CANDIDATE_LABEL,FM_QUALIFIED_KERNELS_ENABLED);
  for(unsigned f=0;f<qa_ready;++f){qa_result *r=&qa_results[f];
   printf("DSPQA_CASE index=%u blocks=%u arena_samples=%u fault_blocks=%u constructors=%u render_us=%" PRIu64,f,qa_fixtures[f].blocks,r->need,r->fault_blocks,r->constructors,r->cycles_us);
   for(unsigned k=0;k<4;++k){printf(" h%u=",k);for(unsigned j=0;j<32;++j)printf("%02x",r->sum[k][j]);}putchar('\n');

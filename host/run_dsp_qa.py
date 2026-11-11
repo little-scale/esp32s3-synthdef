@@ -11,7 +11,7 @@ import time
 from patches import Device,ROOT
 
 
-def collect(device,expected,timeout=180):
+def collect(device,expected,timeout=180,expected_qualified=False):
     device.link.write(b'q');lines=[];until=time.monotonic()+timeout
     while time.monotonic()<until:
         for raw in device.lines():
@@ -22,6 +22,7 @@ def collect(device,expected,timeout=180):
                 header=dict(re.findall(r'(\w+)=([^ ]+)',lines[0]))
                 rows=[dict(re.findall(r'(\w+)=([^ ]+)',line)) for line in lines if line.startswith('DSPQA_CASE ')]
                 assert header['candidates']==expected,('Wrong candidate image',header)
+                assert header.get('qualified','0')==str(int(expected_qualified)),('Wrong qualified-kernel mode',header)
                 assert int(header['cases'])==int(header['complete'])==len(rows)==50,header
                 assert re.fullmatch('[0-9a-f]{64}',header['pack']),'Invalid pack identity'
                 assert [int(row['index']) for row in rows]==list(range(50)),'Missing/duplicate/reordered QA cases'
@@ -38,6 +39,7 @@ def collect(device,expected,timeout=180):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--port',required=True)
     p.add_argument('--device-id',required=True);p.add_argument('--candidates',required=True)
+    p.add_argument('--qualified',action='store_true',help='Require the selected board-kernel mode; default expects the legacy reference')
     p.add_argument('--output',type=Path,required=True);p.add_argument('--compare',type=Path)
     a=p.parse_args();report=dict(passed=False,hardware=True,device_id=a.device_id,candidates=a.candidates,package_writes=False)
     log=ROOT/'build/host/private'/('dsp-qa-'+str(time.time_ns())+'.log');log.parent.mkdir(parents=True,exist_ok=True)
@@ -47,7 +49,7 @@ def main():
             try:
                 hello=d.request('HELLO',timeout=20,retries=0);assert hello['device_id']==a.device_id
                 report['hello']=hello;d.request('PANIC');d.request('VOLUME',b'\0')
-                report.update(collect(d,a.candidates))
+                report.update(collect(d,a.candidates,expected_qualified=a.qualified))
                 if a.compare:
                     baseline=json.loads(a.compare.read_text());assert baseline['device_id']==a.device_id
                     assert baseline['header']['pack']==report['header']['pack'],'Replay pack changed'

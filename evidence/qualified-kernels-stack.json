@@ -1,0 +1,12 @@
+{
+  "hardware": false,
+  "scope": "Compiler-reported individual function frames, not total call-chain or runtime stack headroom.",
+  "selected_functions": [
+    "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/firmware/build-qualified-xiao/esp-idf/synthdef_engine/target-profile/src/fm_render.c:297:39:qualified_bank\t112\tstatic",
+    "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/firmware/build-qualified-xiao/esp-idf/synthdef_engine/target-profile/src/fm_render.c:254:39:qualified_smooth\t80\tstatic",
+    "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/firmware/build-qualified-xiao/esp-idf/synthdef_engine/target-profile/src/fm_miverb.inc:45:39:render_miverb\t192\tstatic",
+    "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/firmware/build-qualified-xiao/esp-idf/synthdef_engine/target-profile/src/fm_delay.inc:51:13:delay_render\t160\tstatic",
+    "/Users/a1106632/Documents/WaveShareAmoled18-synthdef/firmware/build-qualified-xiao/esp-idf/synthdef_engine/target-profile/src/fm_render.c:328:13:render_graph\t1008\tstatic"
+  ],
+  "render_sha256": "2c13afda01ae6df31a88b87353c181cdc366f4465eefcdca35812589ee281e3f"
+}

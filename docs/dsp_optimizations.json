@@ -104,18 +104,20 @@
     "miverb-clamp": {
       "title": "MiVerb ordered delay-write clamp",
       "status": "project",
-      "scope": "Replace fminf/fmaxf calls after the finite-value guard with ordered comparisons; retain Q1.15 delay storage, saturation, quantisation and float processing.",
+      "scope": "Replace fminf/fmaxf calls after the finite-value guard with ordered comparisons; retain Q1.15 delay storage, saturation, quantisation and float processing. The proposed qualified-kernel board default also binds MiVerb graph inputs once per block; its arithmetic is unchanged.",
       "implementation": [
-        "host/engine_profile.py"
+        "host/engine_profile.py",
+        "host/qualified_kernels.py"
       ],
       "host_evidence": [
-        "evidence/miverb-clamp-host.json"
+        "evidence/miverb-clamp-host.json",
+        "evidence/qualified-kernels-review.json"
       ],
       "hardware_evidence": [
         "evidence/miverb-clamp-device.json",
         "evidence/dsp-kernels-xiao-final.json"
       ],
-      "qualification": "Historical isolated-node and whole-patch timings are retained. Latest full-patch measurements include MiVerb but do not isolate a new clamp change."
+      "qualification": "Historical isolated-node and whole-patch timings are retained. Latest full-patch measurements include MiVerb but do not isolate a new clamp change. The new combined default still awaits target validation; the measured input-binding variant is recorded separately."
     },
     "rings-placement": {
       "title": "MiRings1\u20136 memory placement and startup",
@@ -266,6 +268,58 @@
         "evidence/extended-validation.json"
       ],
       "qualification": "Reviewed on 4 November 2026. A further redesign would need dependency/cache profiling and memory-layout analysis; the existing efficient block implementation is retained in this computer-only pass."
+    },
+    "qualified-smoothing": {
+      "title": "Six additional smoothing block kernels",
+      "status": "project",
+      "scope": "Reuse the measured Lag2/Lag3/OnePole/OneZero/LPZ1/HPZ1 arithmetic bodies. Bind excitation and held coefficients once; preserve constructor histories, coefficient interpolation, faults and cache ownership. Dispatch after existing fast exits.",
+      "implementation": [
+        "host/qualified_kernels.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/qualified-kernels-host.json",
+        "evidence/qualified-kernels-review.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-seeded-xiao-smooth.json"
+      ],
+      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed."
+    },
+    "qualified-banks": {
+      "title": "Klang/Klank partial-bank block loops",
+      "status": "project",
+      "scope": "Separate the fixed-bank sample loops and bind Klank excitation once. Preserve partial order, initial parameters and constructor reset behavior; insert dispatch at the old bank fallback.",
+      "implementation": [
+        "host/qualified_kernels.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/qualified-kernels-host.json",
+        "evidence/qualified-kernels-review.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-seeded-xiao-core.json"
+      ],
+      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed."
+    },
+    "qualified-delay-binding": {
+      "title": "Delay and MiVerb input-reference binding",
+      "status": "project",
+      "scope": "Bind graph references once per block only in delay_render and render_miverb. Preserve all read indexing, interpolation, arithmetic and finite-value guards. MiVerb keeps its existing ordered-clamp primary entry too.",
+      "implementation": [
+        "host/qualified_kernels.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/qualified-kernels-host.json",
+        "evidence/qualified-kernels-review.json"
+      ],
+      "hardware_evidence": [
+        "evidence/dsp-seeded-xiao-binding-delay.json",
+        "evidence/dsp-seeded-xiao-binding.json"
+      ],
+      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed."
     }
   },
   "ugens": {
@@ -274,16 +328,16 @@
       "group": null
     },
     "AllpassC": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "AllpassL": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "AllpassN": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "Amplitude": {
       "status": "not_recorded",
@@ -342,16 +396,16 @@
       "group": null
     },
     "CombC": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "CombL": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "CombN": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "Control": {
       "status": "inherited",
@@ -402,16 +456,16 @@
       "group": null
     },
     "DelayC": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "DelayL": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "DelayN": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-delay-binding"
     },
     "Dust": {
       "status": "project",
@@ -490,8 +544,8 @@
       "group": "filter-blocks"
     },
     "HPZ1": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-smoothing"
     },
     "Hasher": {
       "status": "not_recorded",
@@ -522,12 +576,12 @@
       "group": null
     },
     "Klang": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-banks"
     },
     "Klank": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-banks"
     },
     "LFClipNoise": {
       "status": "not_recorded",
@@ -586,20 +640,20 @@
       "group": "filter-blocks"
     },
     "LPZ1": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-smoothing"
     },
     "Lag": {
       "status": "project",
       "group": "lag-blocks"
     },
     "Lag2": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-smoothing"
     },
     "Lag3": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-smoothing"
     },
     "LagControl": {
       "status": "inherited",
@@ -702,12 +756,12 @@
       "group": "inherited-arithmetic"
     },
     "OnePole": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-smoothing"
     },
     "OneZero": {
-      "status": "not_recorded",
-      "group": null
+      "status": "project",
+      "group": "qualified-smoothing"
     },
     "Out": {
       "status": "inherited",
@@ -1386,7 +1440,7 @@
       "id": "candidate-smoothing",
       "title": "Lag2/Lag3/OnePole/OneZero/LPZ1/HPZ1 block loops",
       "status": "experimental; disabled by default",
-      "scope": "Bind inputs and choose the recurrence once per block. Lag2/3 cache the time coefficient in otherwise-unused freq state and retain multiply-then-scale interpolation order. Preserve OnePole constructor behavior, OneZero/LPZ1/HPZ1 initial history and coefficient-domain faults. Opt in with candidate_smooth=True; selected-layout hardware evidence is linked below.",
+      "scope": "Bind inputs and choose the recurrence once per block. Lag2/3 cache the time coefficient in otherwise-unused freq state and retain multiply-then-scale interpolation order. Preserve OnePole constructor behavior, OneZero/LPZ1/HPZ1 initial history and coefficient-domain faults. Opt in with candidate_smooth=True; selected-layout hardware evidence is linked below. Selected bodies are now reused by the separate SYNTHDEF_QUALIFIED_KERNELS board-build option; this broad experimental flag remains off.",
       "ugens": [
         "Lag2",
         "Lag3",
@@ -1620,7 +1674,7 @@
       "id": "candidate-binding",
       "title": "Block-bound input references across ten renderer entry points",
       "status": "experimental; disabled by default",
-      "scope": "Hoist graph-reference decoding and input-rate lookup into per-call local pointers, without changing sample indices, parameters, equations or state. Seventy-two types share the touched renderers; not all benefit. All timing rows below are retained, including native regressions. Binding-only and combined variants each pass 2,176 graphs with complete state and arena identity. Target code/stack cost is recorded; selected-layout target timing, including regressions, is linked below. Opt in with candidate_binding=True.",
+      "scope": "Hoist graph-reference decoding and input-rate lookup into per-call local pointers, without changing sample indices, parameters, equations or state. Seventy-two types share the touched renderers; not all benefit. All timing rows below are retained, including native regressions. Binding-only and combined variants each pass 2,176 graphs with complete state and arena identity. Target code/stack cost is recorded; selected-layout target timing, including regressions, is linked below. Opt in with candidate_binding=True. Selected bodies are now reused by the separate SYNTHDEF_QUALIFIED_KERNELS board-build option; this broad experimental flag remains off.",
       "ugens": [
         "AllpassC",
         "AllpassL",
@@ -1946,7 +2000,7 @@
       "id": "candidate-core",
       "title": "Oscillator, ramp, partial-bank and Gendy candidates",
       "status": "experimental; disabled by default",
-      "scope": "Dedicated LFSaw/LFTri/LFPulse and Klang/Klank loops retain compensated phase, partial order and constructor resets. Line caches only invariant compensated span terms; XLine caches its held ratio, retaining per-sample pow and precise timing. Formant caches integer increments/width. Gendy1\u20133 cache independent distribution constants. SinOscFB caches exact phase steps and bit-keyed feedback targets; Blip caches effective crossfade frequency and harmonic scales, including the descending-frequency transition. Only documented otherwise-unused cache fields are normalized in comparisons. Native regressions and negligible gains are retained; timings vary between runs and fixtures, so no universal speed claim is made. Opt in with candidate_core=True. BPeakEQ/BLowShelf/BHiShelf and Formlet calculate each unchanged three-sample coefficient group once, retaining the exact division and final one-sample group. Amplitude caches attack/release coefficients independently and preserves audio-input/control-output stepping.",
+      "scope": "Dedicated LFSaw/LFTri/LFPulse and Klang/Klank loops retain compensated phase, partial order and constructor resets. Line caches only invariant compensated span terms; XLine caches its held ratio, retaining per-sample pow and precise timing. Formant caches integer increments/width. Gendy1\u20133 cache independent distribution constants. SinOscFB caches exact phase steps and bit-keyed feedback targets; Blip caches effective crossfade frequency and harmonic scales, including the descending-frequency transition. Only documented otherwise-unused cache fields are normalized in comparisons. Native regressions and negligible gains are retained; timings vary between runs and fixtures, so no universal speed claim is made. Opt in with candidate_core=True. BPeakEQ/BLowShelf/BHiShelf and Formlet calculate each unchanged three-sample coefficient group once, retaining the exact division and final one-sample group. Amplitude caches attack/release coefficients independently and preserves audio-input/control-output stepping. Selected bodies are now reused by the separate SYNTHDEF_QUALIFIED_KERNELS board-build option; this broad experimental flag remains off.",
       "ugens": [
         "LFSaw",
         "LFTri",

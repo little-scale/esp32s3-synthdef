@@ -1,0 +1,143 @@
+{
+  "passed": true,
+  "date": "2026-11-04",
+  "hardware": false,
+  "device_access": false,
+  "firmware_flashed": false,
+  "status": "Prepared selective board-build defaults; combined-image hardware validation pending",
+  "baseline_commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+  "compared_output_samples": 369393664,
+  "interleaved_output_samples": 2666496,
+  "interleaved_graphs": 217,
+  "comparison_record": "evidence/qualified-kernels-host.json",
+  "diagnostic_mode_tests": {
+    "reference": {
+      "passed": true,
+      "hardware": false,
+      "fixtures": [
+        {
+          "fixture": "random",
+          "deterministic": true,
+          "allocation_failures_restored": 2,
+          "voice_scratch_arena_restored": true,
+          "canaries_intact": true
+        },
+        {
+          "fixture": "delay",
+          "deterministic": true,
+          "allocation_failures_restored": 3,
+          "voice_scratch_arena_restored": true,
+          "canaries_intact": true
+        },
+        {
+          "fixture": "bus",
+          "deterministic": true,
+          "allocation_failures_restored": 2,
+          "voice_scratch_arena_restored": true,
+          "canaries_intact": true
+        }
+      ]
+    },
+    "qualified": {
+      "passed": true,
+      "hardware": false,
+      "fixtures": [
+        {
+          "fixture": "random",
+          "deterministic": true,
+          "allocation_failures_restored": 2,
+          "voice_scratch_arena_restored": true,
+          "canaries_intact": true
+        },
+        {
+          "fixture": "delay",
+          "deterministic": true,
+          "allocation_failures_restored": 3,
+          "voice_scratch_arena_restored": true,
+          "canaries_intact": true
+        },
+        {
+          "fixture": "bus",
+          "deterministic": true,
+          "allocation_failures_restored": 2,
+          "voice_scratch_arena_restored": true,
+          "canaries_intact": true
+        }
+      ]
+    }
+  },
+  "earlier_individual_hardware_record": "evidence/dsp-seeded-xiao-summary.json",
+  "earlier_measurements_apply_to_combined_image": false,
+  "paths": {
+    "smoothing": [
+      "Lag2",
+      "Lag3",
+      "OnePole",
+      "OneZero",
+      "LPZ1",
+      "HPZ1"
+    ],
+    "partial_banks": [
+      "Klang",
+      "Klank"
+    ],
+    "input_binding": [
+      "DelayN",
+      "DelayL",
+      "DelayC",
+      "CombN",
+      "CombL",
+      "CombC",
+      "AllpassN",
+      "AllpassL",
+      "AllpassC",
+      "MiVerb"
+    ]
+  },
+  "experimental_flags_enabled": false,
+  "builds": {
+    "xiao": {
+      "record": "evidence/qualified-kernels-xiao-build.json",
+      "app_bytes": 1342480,
+      "added_app_bytes": 3664,
+      "build_id": "49e3918de2822fe52d5d35932dcc624d5a4a3d507e80ade8cf70cddaeaafae79",
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      }
+    },
+    "amoled": {
+      "record": "evidence/qualified-kernels-amoled-build.json",
+      "app_bytes": 1685104,
+      "added_app_bytes": 3600,
+      "build_id": "49e3918de2822fe52d5d35932dcc624d5a4a3d507e80ade8cf70cddaeaafae79",
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      }
+    }
+  },
+  "rollback": "SYNTHDEF_QUALIFIED_KERNELS=OFF; candidate flags remain none",
+  "rollback_cross_build": "evidence/qualified-kernels-xiao-rollback-build.json",
+  "stack_record": "evidence/qualified-kernels-stack.json",
+  "scope": "Native equality and target compilation only. Individual-function stack frames are not full-call-chain runtime headroom. A same-board combined-image check remains before deployment.",
+  "source_sha256": {
+    "host/qualified_kernels.py": "ae282d0a407e127ea4367df2706d9109824c8c4b0357e2f3bdef6c34753d2eac",
+    "host/qualified_fixtures.py": "dd3bd2a0f4ddf914fc1cf6e85bf644c9879264d2f4245f5371ffbf7cf2062817",
+    "host/test_qualified_kernels.py": "dce73000e1c2ba9e78b982c15e7e669aaf6f8ce4220a1bc302cff4ba370b35c7",
+    "host/test_qualified_selection.py": "dba7900656f83dcb78d84c2319d796ef89966723c4482d68df51a6a656eb5ecb",
+    "host/engine_profile.py": "946aa0acde0039a159174782ad24a5fef73aa566a20dc50596dd3eff0cb69c2e",
+    "host/dsp_binding.py": "bf8807ced259b15509abff068c437c56865d191e67763edd581759b0149c9281",
+    "host/record_build.py": "37b894741c876c1356e931273c01b8679e44bdb3a383fa0434b1a0214bc4bb62",
+    "host/test_seeded_profile.py": "dbcbaeea50537c47778e18a6a974cf174b0151726b745a2066f38da251031081",
+    "host/run_dsp_qa.py": "0b8d90fdc1e6c2bf54d51a36d59fa8c822b002dd29e9e4a3d3772d256e2cd95a",
+    "host/test_run_dsp_qa.py": "8c1a0b1d6c17f79787032e3d831f7a1aef849e3e86e5e3a39ee35537cddcc037",
+    "firmware/main/ugen_profile.c": "401841bc21e42bf4c084a3ec58467f7a91e1d7a043bfea486f29e20695aac448",
+    "firmware/main/dsp_qa.c": "76835584c747df91abf6367548eb058a1a4d94d6bf8b6bfb69cf4157c7fd56d0",
+    "tests/dsp_kernels_test.c": "2fdd9f91f2188c47e77158ee02237638b07c8a010afdac48ceca82c7f512eff6",
+    "tests/signal_reuse_test.c": "5dc4252de51fdfd8fe075a8d93bc195d28bb5bd855f42f77746692831b1c7c74",
+    "firmware/components/synthdef_engine/CMakeLists.txt": "c7ff708946ea7fcff66154bc377f405bbaab5ecb984f9b555ad96eb23af8e860"
+  }
+}
