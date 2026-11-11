@@ -140,6 +140,8 @@ ESP32 {
         ^this.request(\meta,(target:target,args:args))
     }
     *omni { ^ESP32Target(\all) }
+    *group { |name| ^ESP32Target((group: name.asString)) }
+    *groups { ^this.request(\groups, ()) }
     *now { ^Main.elapsedTime+offset }
     *deploy { |function,target,args,stage=\main,name,source,definitionOnly=true|
         var definition,original=source;

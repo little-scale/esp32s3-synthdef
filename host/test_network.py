@@ -12,7 +12,8 @@ import threading
 import unittest
 from unittest.mock import patch
 from network import NetworkDevice,Pairings,endpoint,identity,discover
-from patches import ROOT,decode,frame
+from module_groups import GroupConflict, ModuleGroups
+from patches import ROOT,Device,decode,frame
 from studio import Studio,Artifact,Problem
 
 GRAPH=(ROOT/'examples/TouchBuses.scsyndef').read_bytes()
@@ -33,7 +34,8 @@ class Module(ThreadingHTTPServer):
     def close(self):self.shutdown();self.server_close();self.thread.join()
     def operation(self,op,data):
         self.calls.append(op)
-        if op=='HELLO':return dict(self.info(),model='Waveshare AMOLED 1.8 V2',policy='fm1-compat-v1',chunk=256,definition_lifecycle=True,atomic_install=True,continuous_blocks=True,master_slots=2,slots=1)
+        if op=='HELLO':return dict(self.info(),model='Waveshare AMOLED 1.8 V2',policy='fm1-compat-v1',chunk=256,definition_lifecycle=True,atomic_install=True,continuous_blocks=True,master_slots=2,slots=1,identify_tone=1)
+        if op=='IDENTIFY':return dict(identifying=True,frequency=440,duration_ms=500)
         if op=='LIST':return self.slots
         if op=='FXLIST':return [dict(slot=i,name='Bypass' if i==0 else 'FX' if self.master_meta else '',generations=[1 if self.master_meta else 0,0],selected=i==self.master_slot) for i in (0,1)]
         if op in ('FXLOAD','FXSELECT'):self.master_slot=data[0];return dict(slot=self.master_slot)
@@ -89,6 +91,19 @@ class NetworkTests(unittest.TestCase):
         app=self.app(self.b);self.a.calls.clear();self.b.calls.clear();result=self.upload(app,self.b)
         self.assertTrue(result['saved'] and result['verified']);self.assertEqual(self.a.calls,[])
         self.assertEqual(self.b.blob,GRAPH+SOURCE);self.assertIn('INSTALL',self.b.calls);self.assertNotIn('PANIC',self.b.calls)
+    def test_identify_targets_one_node_without_changing_the_connected_node(self):
+        app = self.app(self.a)
+        try:
+            connected = app.device
+            self.a.calls.clear(); self.b.calls.clear()
+            result = app.identify(dict(device_id=self.b.device_id))
+            self.assertEqual(result['device_id'], self.b.device_id)
+            self.assertEqual(result['frequency'], 440)
+            self.assertEqual(self.a.calls, [])
+            self.assertEqual(self.b.calls, ['HELLO', 'IDENTIFY'])
+            self.assertIs(app.device, connected)
+        finally:
+            app.close()
     def test_xiao_model_uses_same_checked_protocol(self):
         original=self.b.operation
         def operation(op,data):
@@ -186,6 +201,70 @@ class NetworkTests(unittest.TestCase):
         plan=app.broadcast_prepare({'target':'sound'});self.assertEqual([r['device_id'] for r in plan['recipients']],[self.a.device_id])
         app.network_devices[0]['online']=False
         with self.assertRaisesRegex(Problem,'paired online'):app.broadcast_prepare({'target':'sound'})
+
+    def test_group_membership_edits_invalidate_reviews_and_persist(self):
+        app = self.app(self.a)
+        app.groups = ModuleGroups(Path(self.directory.name) / 'groups.json')
+        a, b = self.a.device_id, self.b.device_id
+        created = app.save_group(dict(name='Front', members=[a, b]))
+        group = created['groups'][0]
+        with self.assertRaisesRegex(ValueError, 'already uses'):
+            app.save_group(dict(name=' front ', members=[a]))
+        plan = app.broadcast_prepare(dict(target='sound', group_id=group['id']))
+        app.network_devices[1]['online'] = False
+        changed = app.save_group(dict(id=group['id'], revision=group['revision'], name='Stage', members=[a, b]))['groups'][0]
+        self.assertEqual(changed['id'], group['id'])
+        with self.assertRaisesRegex(Problem, 'group changed'):
+            app.broadcast_upload(dict(plan=plan['plan'], artifact='test', name='Stale'))
+        with self.assertRaises(GroupConflict):
+            app.dissolve_group(group)
+        preview = app.broadcast_prepare(dict(target='sound', group_id=group['id']))
+        self.assertEqual([(row['device_id'], row['ready']) for row in preview['recipients']], [(a, True), (b, False)])
+        result = app.broadcast_upload(dict(plan=preview['plan'], artifact='test', name='Group sound'))
+        self.assertEqual([row['verified'] for row in result['results']], [True, False])
+        self.assertEqual(self.a.blob, GRAPH + SOURCE)
+        self.assertNotIn('BEGIN', self.b.calls)
+        removed = app.save_group(dict(id=group['id'], revision=changed['revision'], name='Stage', members=[a]))['groups'][0]
+        with self.assertRaisesRegex(GroupConflict, 'must be discovered'):
+            app.save_group(dict(id=group['id'], revision=removed['revision'], name='Stage', members=[a, b]))
+        app.network_devices[1]['online'] = True
+        added = app.save_group(dict(id=group['id'], revision=removed['revision'], name='Stage', members=[a, b]))['groups'][0]
+        self.assertEqual(ModuleGroups(app.groups.path).snapshot(), {group['id']: added})
+        self.assertEqual(app.groups.path.stat().st_mode & 0o777, 0o600)
+        app.dissolve_group(added)
+        self.assertEqual(ModuleGroups(app.groups.path).snapshot(), {})
+        self.assertEqual(self.a.blob, GRAPH + SOURCE)
+
+    def test_group_upload_shares_usb_and_deduplicates_wifi_identity(self):
+        class USB(Device):
+            closed = False
+            def __init__(self, module):
+                self.module = module
+            def request(self, op, data=b'', **kwargs):
+                return self.module.operation(op, data)
+            def close(self):
+                self.closed = True
+
+        app = self.app(self.a)
+        app.disconnect()
+        usb = app.device = USB(self.a)
+        app.device_info = usb.hello()
+        app.device_port = '/dev/test-esp32'
+        app.groups = ModuleGroups(Path(self.directory.name) / 'groups.json')
+        group = app.save_group(dict(name='Both', members=[self.a.device_id, self.b.device_id]))['groups'][0]
+        all_recipients = app.broadcast_prepare(dict(target='sound'))['recipients']
+        self.assertEqual({row['device_id'] for row in all_recipients}, {self.a.device_id, self.b.device_id})
+        self.assertEqual(len(all_recipients), 2)
+        plan = app.broadcast_prepare(dict(target='sound', group_id=group['id']))
+        self.assertEqual(len(plan['recipients']), 2)
+        self.assertEqual(plan['recipients'][0]['transport'], 'usb')
+        self.assertFalse(usb.closed)
+        result = app.broadcast_upload(dict(plan=plan['plan'], artifact='test', name='Both'))
+        self.assertTrue(result['verified'], result)
+        self.assertEqual(self.a.calls.count('BEGIN'), 1)
+        self.assertEqual(self.b.calls.count('BEGIN'), 1)
+        self.assertFalse(usb.closed)
+        self.assertIs(app.device, usb)
 
     def test_broadcast_master_does_not_replace_either_main(self):
         app=self.app(self.a);self.upload(app,self.a)

@@ -53,6 +53,35 @@ remain reachable. The same target forms work in a pattern's `\module` key.
 You can also store a target in an environment variable such as `~esp = \amoled;`
 and pass `~esp` to `ESP32.set` or use it as the `\module` value in a pattern.
 
+## Module groups
+
+Create or edit named groups in Studio's **Groups** tab. Use the name with
+`ESP32.group` to address the group in deployments, controls, patterns, and
+Main or FX commands.
+
+`ESP32.group` creates a reference to a saved group name. Studio's running host
+service resolves that name against its current membership when a command or
+pattern event arrives. Saved groups persist across Studio restarts. The browser
+and SC use the same group store on this computer.
+
+```supercollider
+ESP32.groups.onDone { |report| report["groups"].postln };
+~front = ESP32.group(\Front);
+ESP32.set(~front, \freq, 440);
+ESP32.module(~front, \volume, 0.2);
+~front.fx.bypass(true);
+{ (SinOsc.ar(330) * 0.05) ! 2 }.sendESP32(~front);
+```
+
+Use `\module, ~front` in a `Pbind`, or use
+`\module, Pseq([~front, ESP32.group(\Rear)], inf)` to alternate between groups.
+Run `ESP32.discovered` to refresh availability and `ESP32.prepare(~front)` before
+starting a timed pattern. A group targets its paired online Wi-Fi members and any
+member connected over USB. Membership edits apply to subsequent commands and
+events. Use the new name after renaming a group. A group without reachable
+members returns an error. Mixed lists of groups, IDs, and aliases are deduplicated
+by permanent module ID.
+
 ## Module settings
 
 Use `ESP32.module(target, \volume, level)` for the module's global output scale:
@@ -62,7 +91,12 @@ ESP32.module("esp32-2884853ad390", \volume, 0.5); // 50%, this module.
 ESP32.module(\all, \volume, 0.5);                 // 50%, all paired online modules.
 ESP32.module(\amoled, \volume, 0);               // Mute; does not stop Main/FX.
 ESP32.module(\amoled, \volume, 1);               // 100%.
+ESP32.module(ESP32.group(\first), \volume, 1);   // 100%, group named "first".
 ```
+
+The first argument selects the recipients. The next two arguments name the
+setting and its value. For a saved group named `first`, use
+`ESP32.module(ESP32.group(\first), \volume, level)`.
 
 Levels are linear, from 0 to 1, rounded to the slider's nearest 1%. This uses
 the same smoothed output gain and updates the Controls slider without reloading

@@ -26,6 +26,7 @@
 #include "master_delay.h"
 #include "output_volume.h"
 #include "audio_transition.h"
+#include "identify_tone.h"
 #include "nvs.h"
 #ifdef CONFIG_SYNTHDEF_TOUCH_UI
 #include "touch_ui.h"
@@ -65,6 +66,7 @@ static unsigned saved_volume=OUTPUT_VOLUME_DEFAULT_PERCENT;
 static atomic_uint observed_seed;
 static QueueHandle_t events, telemetry;
 static atomic_bool panic_requested;
+static atomic_bool identify_requested, identifying;
 static atomic_uint overflow_count;
 static atomic_uint note_sequence, control_dirty, controls_coalesced;
 static atomic_uint control_words[INST_CONTROL_COUNT];
@@ -211,6 +213,7 @@ static void audio_task(void *unused)
     const unsigned fade_blocks=(transition.frames+FM_BLOCK-1)/FM_BLOCK;
     const unsigned drain_blocks=12; /* Six 128-frame DMA buffers, 64-frame renders. */
     output_volume volume;output_volume_init(&volume,atomic_load(&volume_percent),SAMPLE_RATE);
+    identify_tone identify = {0};
     uint64_t faults_base=0,clips_base=0,nonfinite_base=0,rejected_base=0;
     uint64_t window_busy_us=0;
     uint32_t window_blocks=0,window_peak_us=0;
@@ -260,7 +263,13 @@ static void audio_task(void *unused)
             continue;
         }
         if(xQueueReceive(audio_commands,&command,0)==pdTRUE) {
-            if(command.kind==AUDIO_PARK || command.kind==AUDIO_PARK_KEEP_FX) {keep_fx=command.kind==AUDIO_PARK_KEEP_FX;parking=fade_blocks+drain_blocks;fade_up_pending=false;audio_transition_to(&transition,0);xQueueReset(events);atomic_store(&control_dirty,0);}
+            if(command.kind==AUDIO_PARK || command.kind==AUDIO_PARK_KEEP_FX) {
+                keep_fx=command.kind==AUDIO_PARK_KEEP_FX;
+                parking=fade_blocks+drain_blocks;fade_up_pending=false;
+                audio_transition_to(&transition,0);xQueueReset(events);atomic_store(&control_dirty,0);
+                identify_tone_cancel(&identify);
+                atomic_store(&identify_requested,false);atomic_store(&identifying,false);
+            }
             else if(command.kind==AUDIO_REMOTE){process_remote();int ok=1;xQueueOverwrite(audio_ack,&ok);}
             else {int ok=0;xQueueOverwrite(audio_ack,&ok);}
         }
@@ -276,6 +285,7 @@ static void audio_task(void *unused)
         if(parking) { /* Fade completely, then drain an entire DMA queue at zero. */
             if(parking==drain_blocks) {instrument_suspend(&synth);if(!keep_fx)master_delay_panic(&delay_bus);}
         } else if (atomic_exchange_explicit(&panic_requested, false, memory_order_relaxed)) {
+            identify_tone_cancel(&identify);atomic_store(&identify_requested,false);atomic_store(&identifying,false);
             xQueueReset(events);
             instrument_panic(&synth);rc_clear(remote);
             master_delay_panic(&delay_bus);atomic_store(&effect_clear_needed,true);
@@ -317,6 +327,9 @@ static void audio_task(void *unused)
 #else
         output_volume_pcm(&volume,atomic_load_explicit(&volume_percent,memory_order_relaxed),effected,mono,synth.master_gain,&synth.nonfinite,&synth.clipped);
 #endif
+        if (!parking && atomic_exchange(&identify_requested, false)) identify_tone_start(&identify, SAMPLE_RATE);
+        identify_tone_apply(&identify, mono, FM_BLOCK, BOARD_AUDIO_CHANNELS, volume.current);
+        atomic_store(&identifying, identify_tone_active(&identify));
         synth.pcm_us=(uint32_t)(audio_clock_us()-pcm_begin);
         stats.pcm_peak = 0;
         for (unsigned i = 0; i < FM_BLOCK*BOARD_AUDIO_CHANNELS; ++i) {
@@ -590,6 +603,12 @@ static int volume_save_now(void)
     service_busy(false,ok?"VOLUME SAVED":"SAVE FAILED");return ok;
 }
 static uint32_t service_seed(void){return atomic_load_explicit(&observed_seed,memory_order_relaxed);}
+static int service_identify(void)
+{
+    if (!atomic_load(&audio_started) || atomic_load(&reject_events) || atomic_load(&identifying)) return 0;
+    bool expected = false;
+    return atomic_compare_exchange_strong(&identify_requested, &expected, true);
+}
 static int volume_protocol(int percent,bool save)
 {
     if(percent>=0 && !volume_post((unsigned)percent,false))return -1;
@@ -611,7 +630,7 @@ static void console_task(void *unused)
         device_network_tick();
 #ifdef CONFIG_SYNTHDEF_HEADLESS
         headless_io_poll();
-        device_network_status network;device_network_snapshot(&network);board_audio_activity(network.receiving);
+        device_network_status network;device_network_snapshot(&network);board_audio_activity(network.receiving || atomic_load(&identifying));
 #endif
 #ifdef CONFIG_SYNTHDEF_TOUCH_UI
         static TickType_t battery_next;
@@ -619,7 +638,7 @@ static void console_task(void *unused)
         TickType_t now=xTaskGetTickCount();
         if(!connectivity_next || (int32_t)(now-connectivity_next)>=0){
             device_network_status network;device_network_snapshot(&network);
-            touch_ui_connectivity(network.name,network.id,network.online,network.rssi,network.receiving);
+            touch_ui_connectivity(network.name,network.id,network.online,network.rssi,network.receiving || atomic_load(&identifying));
             connectivity_next=now+pdMS_TO_TICKS(40);
         }
         if(!battery_next || (int32_t)(now-battery_next)>=0){
@@ -856,7 +875,7 @@ void app_main(void)
     if (!events || !telemetry || !audio_commands || !audio_ack) { ESP_LOGE(TAG, "Queue allocation failed"); return; }
     patch_hooks hooks={.remote=remote_protocol,.pause=service_pause,.activate=service_activate,.define=service_define,.master_define=service_master_define,.instance=service_instance,.stop=service_stop,.display=service_display,.busy=service_busy,
         .master_activate=service_master_activate,.master_display=service_master_display,
-        .effect=effect_protocol,.effect_save=effect_save_now,.volume=volume_protocol,.seed=service_seed,
+        .effect=effect_protocol,.effect_save=effect_save_now,.volume=volume_protocol,.seed=service_seed,.identify=service_identify,
         .build_id=BUILD_ID,.engine_commit=ENGINE_COMMIT,.profile_hash=CAPABILITY_HASH,
         .program=program_usage()};
     if(!patches_init(graph,spare,touch_patch,sizeof touch_patch,&hooks)) {ESP_LOGE(TAG,"Patch service allocation failed");return;}

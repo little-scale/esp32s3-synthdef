@@ -191,6 +191,72 @@ class FakeDevice:
     def close(self): pass
 
 
+class IdentifyTests(unittest.TestCase):
+    def setUp(self):
+        self.app = Studio('/unused')
+        self.device_id = 'esp32-288485ba1e48'
+        self.d = MagicMock()
+        self.d.hello.return_value = dict(device_id=self.device_id, device_name='Test node', identify_tone=1)
+        self.d.request.return_value = dict(identifying=True, frequency=440, duration_ms=500)
+        self.app.device = self.d
+        self.app.device_info = dict(device_id=self.device_id)
+
+    def test_current_module_is_borrowed_and_only_receives_identify(self):
+        result = self.app.identify(dict(device_id=self.device_id))
+        self.assertTrue(result['identifying'])
+        self.d.request.assert_called_once_with('IDENTIFY', retries=0)
+        self.d.close.assert_not_called()
+        self.assertIs(self.app.device, self.d)
+
+    def test_group_all_and_missing_identity_are_rejected(self):
+        for value in (None, 'all', {'group': 'Front'}, [self.device_id]):
+            with self.assertRaises(Problem):
+                self.app.identify(dict(device_id=value))
+        self.d.hello.assert_not_called()
+
+    def test_old_firmware_and_identity_change_never_receive_tone(self):
+        for hello in (dict(device_id=self.device_id), dict(device_id='esp32-ffffffffffff', identify_tone=1)):
+            self.d.hello.return_value = hello
+            with self.assertRaises(Problem):
+                self.app.identify(dict(device_id=self.device_id))
+        self.d.request.assert_not_called()
+        self.d.close.assert_not_called()
+
+    def test_other_module_is_closed_without_changing_current_connection(self):
+        target = 'esp32-000000000002'
+        other = MagicMock()
+        other.hello.return_value = dict(device_id=target, identify_tone=1)
+        other.request.return_value = dict(identifying=True)
+        with (patch.object(self.app, 'discovered_modules', return_value=[dict(device_id=target, online=True, paired=True)]),
+              patch.object(self.app, 'recipient_device', return_value=other)):
+            self.app.identify(dict(device_id=target))
+            other.close.assert_called_once()
+            other.request.assert_called_once_with('IDENTIFY', retries=0)
+            other.close.reset_mock()
+            other.request.side_effect = RuntimeError('Audio busy')
+            with self.assertRaisesRegex(RuntimeError, 'Audio busy'):
+                self.app.identify(dict(device_id=target))
+            other.close.assert_called_once()
+        self.d.request.assert_not_called()
+        self.assertIs(self.app.device, self.d)
+
+    def test_timeout_keeps_the_connection_and_does_not_retry(self):
+        self.d.request.side_effect = TimeoutError('Lost response')
+        with self.assertRaisesRegex(Problem, 'Identify connection failed'):
+            self.app.identify(dict(device_id=self.device_id))
+        self.d.request.assert_called_once_with('IDENTIFY', retries=0)
+        self.d.close.assert_not_called()
+
+    def test_offline_unpaired_and_unknown_modules_are_rejected(self):
+        target = 'esp32-000000000002'
+        for modules in ([], [dict(device_id=target, online=False, paired=True)],
+                        [dict(device_id=target, online=True, paired=False)]):
+            with patch.object(self.app, 'discovered_modules', return_value=modules):
+                with self.assertRaises(Problem):
+                    self.app.identify(dict(device_id=target))
+        self.d.request.assert_not_called()
+
+
 class UploadTests(unittest.TestCase):
     def setUp(self):
         self.app = Studio(SCLANG); self.d = self.app.device = FakeDevice()
@@ -288,6 +354,16 @@ class UploadTests(unittest.TestCase):
 
 
 class HTTPTests(unittest.TestCase):
+    def test_identify_route_requires_one_explicit_module(self):
+        auth = {'X-Studio-Token': self.server.token, 'Content-Type': 'application/json'}
+        self.assertEqual(self.request('POST', '/api/identify', {}, auth)[0], 400)
+        self.assertEqual(self.request('POST', '/api/identify', {'device_id': 'all'}, auth)[0], 400)
+        with patch.object(self.server.studio, 'identify', return_value=dict(identifying=True)) as identify:
+            payload = dict(device_id='esp32-000000000001')
+            status, body, _ = self.request('POST', '/api/identify', payload, auth)
+            self.assertEqual(status, 200, body)
+            identify.assert_called_once_with(payload)
+
     def test_firmware_review_guards_port_build_and_single_write(self):
         app = self.server.studio
         port = dict(port='/dev/fake-usb', name='Test ESP32', esp32=True,

@@ -15,6 +15,19 @@
 .resource-grid .resource-detail { font-size: 10px; font-weight: 400; color: var(--muted); line-height: 1.4; }
 .resource-detail:empty { display: none; }
 #program-flash { font-size: 16px; }
+.studio-views { display: flex; gap: 8px; margin-bottom: 14px; }
+.studio-views [aria-pressed=true] { border-color: var(--blue); background: #eff4ff; }
+.groups-view { max-width: 720px; padding: 24px; }
+.groups-view label[for=group-name] { display: block; margin-top: 12px; }
+.group-member { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.group-member small { display: block; margin-top: 3px; color: var(--muted); font-weight: 400; }
+.identify-mode { display: flex; gap: 8px; align-items: center; margin-top: 16px; }
+.group-member label { font-weight: 600; cursor: pointer; }
+.identify-node { padding: 4px 8px; }
+.group-actions, .recipient-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.group-dissolve { margin-top: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 6px; }
+#upload-destination { margin-bottom: 12px; }
+#message { margin-top: 16px; }
 #wifi-setup input,#wifi-setup button{margin-bottom:10px}input[type=password]{width:100%;border:1px solid var(--line);border-radius:6px;padding:10px 9px;background:#fff;color:var(--ink);min-width:0;margin-top:7px}#transport{margin-bottom:15px}#network-device{margin-bottom:4px}.device .hint{overflow-wrap:anywhere}
 
-.stages{display:grid;grid-template-columns:1fr 1fr;gap:8px}.playback-controls{display:flex;gap:8px}.playback-controls button{flex:1}#master-load[aria-pressed=true]{background:#eff4ff;border-color:var(--blue)}#wifi-mode{margin-bottom:14px}#broadcast-panel{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}#broadcast-nodes{font-size:11px;line-height:1.6;overflow-wrap:anywhere}#broadcast-nodes p{border-bottom:1px solid var(--line);padding-bottom:8px}
+.stages{display:grid;grid-template-columns:1fr 1fr;gap:8px}.playback-controls{display:flex;gap:8px}.playback-controls button{flex:1}#master-load[aria-pressed=true]{background:#eff4ff;border-color:var(--blue)}#broadcast-panel{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}#broadcast-nodes{font-size:11px;line-height:1.6;overflow-wrap:anywhere}#broadcast-nodes p{border-bottom:1px solid var(--line);padding-bottom:8px}

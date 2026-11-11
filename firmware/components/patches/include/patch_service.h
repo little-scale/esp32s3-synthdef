@@ -21,6 +21,7 @@ typedef struct {
     int (*effect)(const float *,float[3]);
     int (*effect_save)(void);
     int (*volume)(int percent,bool save);
+    int (*identify)(void);
     uint32_t (*seed)(void);
     int (*remote)(const char *,const unsigned char *,size_t,char *,size_t);
     const char *build_id,*engine_commit,*profile_hash;

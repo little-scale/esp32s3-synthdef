@@ -270,6 +270,7 @@ backslash. Full source remains UTF-8.
 | ABORT | Empty; discards staging, preserves active patch |
 | SAVE / LOAD | One slot byte; SAVE 1–8, LOAD 0–8 |
 | PANIC | Empty; acknowledged stop through maintenance |
+| IDENTIFY | Empty; half-second 440 Hz cue with fades, at half the current output volume |
 
 Manifest offsets: u32 transfer at 0 (nonzero for upload), u32 graph length at 4,
 u32 source length at 8, graph SHA-256 at 12, source SHA-256 at 44, name[32] at 76,
@@ -292,6 +293,13 @@ Exact file length, trailer, CRC, both SHA values and admission must all pass.
 
 
 ## Global output volume and sound seeds
+
+HELLO's `identify_tone: 1` capability enables the empty-payload `IDENTIFY`
+command over USB and paired Wi-Fi. The reply acknowledges a queued 440 Hz,
+500 ms cue. The audio owner blends the current program to the cue and back
+with 5 ms fades, using half the current output-volume gain. Muting the module
+mutes the cue. Program and FX state advance during identification. Maintenance
+and Panic cancel it. Requests during an upload or another cue are rejected.
 
 `VOLUME` with an empty payload queries the percentage; a one-byte unsigned
 0–100 payload changes it. `VOLSAVE` saves the current value. Replies contain

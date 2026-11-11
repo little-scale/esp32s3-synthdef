@@ -16,7 +16,8 @@ import struct
 import threading
 import time
 from control_client import pairs,packet,schema,instance_packet,ControlDeltas
-from network import NetworkDevice,Pairings,discover,DEVICE_ID
+from module_groups import group_list
+from network import NetworkDevice,Pairings,discover,DEVICE_ID,with_usb_module
 from patches import ROOT,Device
 
 MAX_MESSAGE=384*1024
@@ -98,22 +99,43 @@ class Hub:
         return dict(device_id=identity,device_name=info.get('device_name',info.get('model','USB module')),
             address=self.studio.device_port,port=0,transport='usb',online=True,paired=True)
     def refresh(self):
-        self.rows=discover(self.pairings)
-        usb=self.usb_row()
-        if usb:self.rows=[row for row in self.rows if row['device_id']!=usb['device_id']]+[usb]
+        try:
+            wifi = discover(self.pairings)
+        except OSError:
+            if self.usb_row() is None:
+                raise
+            wifi = [dict(row, paired=True, online=False) for row in self.pairings.public()]
+        self.studio.network_devices = wifi
+        self.rows = with_usb_module(wifi, self.usb_row())
         return self.rows
     def resolve(self,target,refresh=False):
         usb=self.usb_row()
         if usb and isinstance(target,str) and self.aliases.get(target,target) in (usb['device_id'],usb['device_name'],usb['address']):return [usb]
-        if refresh:self.refresh()
+        targets = target if isinstance(target, list) else [target]
+        has_groups = any(isinstance(value, dict) for value in targets)
+        discovered = self.studio.network_devices or self.rows
         public=self.pairings.public();paired={r['device_id']:r for r in public}
-        rows={r['device_id']:r for r in self.rows if r.get('paired') and r.get('online') and r.get('transport')!='usb'}
+        if refresh or (not discovered and (has_groups or 'all' in targets) and (paired or not usb)):
+            discovered = self.refresh()
+            usb = self.usb_row()
+        rows = {r['device_id']: r for r in discovered if r['device_id'] in paired and
+                r.get('paired') and r.get('online') and r.get('transport') != 'usb'}
         if usb:paired.setdefault(usb['device_id'],usb);rows[usb['device_id']]=usb
-        targets=target if isinstance(target,list) else [target];ids=[]
+        groups = {row['name'].casefold(): row for row in self.studio.groups.snapshot().values()} if has_groups else {}
+        ids=[]
         for value in targets:
-            if not isinstance(value,str):raise ValueError('A module target must be an ID, alias, address or list')
+            if isinstance(value, dict) and set(value) == {'group'} and isinstance(value['group'], str):
+                name = value['group'].strip()
+                group = groups.get(name.casefold())
+                if group is None:
+                    raise ValueError('Unknown module group: ' + name)
+                online = [member for member in group['members'] if member in rows]
+                if not online:
+                    raise ValueError('No reachable paired or USB-connected members in group ' + group['name'])
+                ids.extend(online)
+                continue
+            if not isinstance(value,str):raise ValueError('Choose a module ID, alias, address, group or list')
             if value=='all':
-                if not self.rows:self.refresh();rows={r['device_id']:r for r in self.rows if r.get('paired') and r.get('online')}
                 ids.extend(rows);continue
             resolved=self.aliases.get(value,value)
             if resolved in paired:ids.append(resolved);continue
@@ -291,8 +313,12 @@ class Hub:
                 entry['failed']='; '.join(r['device_id']+': '+r['error'] for r in results if not r['queued'])
             return dict(queued=all(r['queued'] for r in results),results=results)
     def meta(self,p):
-        settings=dict(pairs(p.get('args',[])))
-        if set(settings)-{'volume'}:raise ValueError('Supported module setting: volume')
+        usage=r'Use ESP32.module(target, \volume, level). Put ESP32.group(\first) in the target position.'
+        try:
+            settings=dict(pairs(p.get('args',[])))
+        except ValueError as error:
+            raise ValueError(str(error)+'. '+usage) from error
+        if set(settings)-{'volume'}:raise ValueError('Supported module setting: volume. '+usage)
         level=settings.get('volume')
         if settings and (type(level) not in (int,float) or not 0<=level<=1):
             raise ValueError('Module volume must be a number from 0 to 1')
@@ -315,6 +341,7 @@ class Hub:
             if usb:modules=[r for r in modules if r['device_id']!=usb['device_id']]+[usb]
             return dict(time=time.monotonic(),modules=modules,aliases=self.aliases)
         if action=='scan':return dict(modules=self.refresh())
+        if action=='groups':return dict(groups=group_list(self.studio.groups.snapshot()))
         if action=='alias':
             name,module=p.get('name'),p.get('module')
             available={r['device_id'] for r in self.pairings.public()};usb=self.usb_row()

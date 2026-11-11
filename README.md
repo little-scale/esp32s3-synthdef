@@ -180,6 +180,29 @@ ESP32.module(\all, \volume, 0.5);
 [The SC guide](docs/SUPERCOLLIDER.md) covers literal SynthDefs, initial arguments,
 Main/FX lifecycle, named Pbindef players, FX patterns and connection recovery.
 
+### 6. Target a named group
+
+In Studio's **Groups** tab, find modules, choose members, enter a group name,
+and save. Studio stores membership using permanent module IDs. For a group
+named `Front`, use the same name from SuperCollider.
+
+```supercollider
+~front = ESP32.group(\Front);
+ESP32.groups.onDone { |report| report["groups"].postln };
+ESP32.module(~front, \volume, 0.2); // 20% on the group's available members.
+ESP32.set(~front, \freq, 330);
+```
+
+Use `~front` as a pattern's `\module` value, or alternate groups with
+`Pseq([~front, ESP32.group(\Rear)], inf)`. Membership edits apply to subsequent
+commands and events. [Groups and routing](docs/SUPERCOLLIDER.md#module-groups)
+
+To locate a physical module, enable **Identify modules** in Studio's Groups tab
+and click its name. Updated AMOLED and XIAO firmware plays a half-second 440 Hz
+cue at half the current output setting and lights the activity indicator.
+Hardware listening verification of Identify is pending.
+[Identify](docs/STUDIO.md#identify-a-physical-module)
+
 ## Current capabilities and limits
 
 | Area | Current behaviour |

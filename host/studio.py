@@ -28,8 +28,9 @@ import webbrowser
 
 from engine_profile import generate
 import firmware_upload
+from module_groups import GroupConflict, ModuleGroups, group_list
 from patches import Device, ROOT, compile_source, manifest
-from network import NetworkDevice, Pairings, discover
+from network import DEVICE_ID, NetworkDevice, Pairings, discover, with_usb_module
 
 WEB = ROOT / 'host/web'
 MAX_BODY = 512 * 1024
@@ -251,6 +252,7 @@ class Studio:
         self.reader = None
         self.telemetry = AudioTelemetry()
         self.pairings = Pairings()
+        self.groups = ModuleGroups()
         self.network_devices = []
         self.firmware_plan = None
 
@@ -299,6 +301,8 @@ class Studio:
             serial_ready=serial_ready,
             compiler_ready=self.compiler.sclang.is_file(),
             connected=self.device is not None,
+            module_groups=True,
+            module_identify=True,
             firmware_targets=[dict(id=key, label=target.label) for key, target in firmware_upload.TARGETS.items()],
             paired_devices=self.pairings.public(),
             example=(ROOT/'examples/main-patch.scd').read_text(),master_example=(ROOT/'examples/master-fx.scd').read_text())
@@ -449,35 +453,124 @@ class Studio:
         return dict(device_id=self.device_info['device_id'],**result)
 
     def network_scan(self,payload):
-        self.network_devices=discover(self.pairings,payload.get('address') or None)
-        return dict(devices=self.network_devices)
+        address = payload.get('address') or None
+        try:
+            self.network_devices = discover(self.pairings, address)
+        except OSError:
+            if address or not self.usb_module():
+                raise
+            self.network_devices = [dict(row, paired=True, online=False) for row in self.pairings.public()]
+        return dict(devices=self.network_devices, modules=self.discovered_modules())
+
+    def usb_module(self):
+        """Describe the connected USB module while the caller owns device_lock."""
+        if self.device is None or isinstance(self.device, NetworkDevice) or not self.device_info:
+            return None
+        identity = self.device_info.get('device_id', '')
+        if not isinstance(identity, str) or not DEVICE_ID.fullmatch(identity):
+            return None
+        return dict(device_id=identity, device_name=self.device_info.get('device_name', self.device_info.get('model', 'USB module')),
+                    address=self.device_port, port=0, transport='usb', online=True, paired=True)
+
+    def discovered_modules(self):
+        return with_usb_module(self.network_devices, self.usb_module())
+
+    def group_view(self):
+        return dict(groups=group_list(self.groups.snapshot()), modules=self.discovered_modules())
+
+    def save_group(self, payload):
+        available = {row['device_id'] for row in self.discovered_modules() if row.get('online')}
+        group = self.groups.save(payload.get('id'), payload.get('revision'), payload.get('name'),
+                                 payload.get('members'), available)
+        return dict(self.group_view(), selected=group['id'])
+
+    def dissolve_group(self, payload):
+        self.groups.dissolve(payload.get('id'), payload.get('revision'))
+        return self.group_view()
+
+    def recipient_device(self, row):
+        if row.get('transport') == 'usb':
+            current = self.usb_module()
+            if current is None or any(current[key] != row[key] for key in ('device_id', 'address')):
+                raise Problem('The reviewed USB module disconnected or changed.', 409)
+            return self.device
+        return NetworkDevice(row, self.pairings.get(row['device_id']))
+
+    def identify(self, payload):
+        device_id = payload.get('device_id')
+        if not isinstance(device_id, str) or not DEVICE_ID.fullmatch(device_id):
+            raise Problem('Choose one module to identify.')
+        borrowed = self.device is not None and self.device_info.get('device_id') == device_id
+        if borrowed:
+            device = self.device
+        else:
+            row = next((row for row in self.discovered_modules() if row['device_id'] == device_id), None)
+            if not row or not row.get('online') or not row.get('paired'):
+                raise Problem('Find this module and pair it over USB before identifying it.', 409)
+            device = self.recipient_device(row)
+        try:
+            hello = device.hello()
+            if hello.get('device_id') != device_id:
+                raise Problem('The module identity changed. Find modules again.', 409)
+            if not hello.get('identify_tone'):
+                raise Problem('Update this module’s firmware to enable Identify.', 409)
+            result = device.request('IDENTIFY', retries=0)
+            if result.get('identifying') is not True:
+                raise Problem('The module did not acknowledge Identify.', 409)
+            return dict(result, device_id=device_id, device_name=hello.get('device_name', device_id))
+        except (OSError, TimeoutError) as error:
+            raise Problem('Identify connection failed. Check this module and find modules again.', 409) from error
+        finally:
+            if not borrowed:
+                device.close()
 
     def broadcast_prepare(self,payload):
         target=payload.get('target')
         if target not in ('sound','master'):raise Problem('Choose Main or FX')
         # Freeze identities and destination generations for this review. Devices
         # discovered later cannot silently join an already prepared broadcast.
-        rows=[dict(row) for row in self.network_devices if row.get('online') and row.get('paired')]
-        if not rows:raise Problem('Find paired online Wi-Fi modules first',409)
+        modules = {row['device_id']: row for row in self.discovered_modules()}
+        group_id = payload.get('group_id')
+        group = None
+        if group_id is not None:
+            group = self.groups.snapshot().get(group_id) if isinstance(group_id, str) else None
+            if group is None:
+                raise Problem('Choose a saved group.', 409)
+            known = {row['device_id']: row for row in self.pairings.public()}
+            rows = [modules.get(member) or dict(device_id=member,
+                    device_name=known.get(member, {}).get('device_name', member), address='', online=False)
+                    for member in group['members']]
+            if not rows:
+                raise Problem('Add members to this group before uploading.', 409)
+        else:
+            rows = [row for row in modules.values() if row.get('online') and row.get('paired')]
+            if not rows:
+                raise Problem('Find paired online Wi-Fi modules or connect a module by USB first.', 409)
         if len(rows)>64:raise Problem('A broadcast supports up to 64 modules')
         def inspect(row):
+            if not row.get('online'):
+                return dict(row, ready=False, error='Offline')
+            if not row.get('paired'):
+                return dict(row, ready=False, error='Pair this module over USB first')
             d=None
             try:
-                d=NetworkDevice(row,self.pairings.get(row['device_id']));hello=d.hello()
+                d = self.recipient_device(row)
+                if d.hello().get('device_id') != row['device_id']:
+                    raise Problem('The module identity changed.', 409)
                 entries=d.request('FXLIST' if target=='master' else 'LIST')
                 entry=next(e for e in entries if e['slot']==1)
                 return dict(row,ready=True,expected=entry)
             except Exception as error:return dict(row,ready=False,error=str(error))
             finally:
-                if d:d.close()
+                if d and row.get('transport') != 'usb':d.close()
         with ThreadPoolExecutor(max_workers=min(8,len(rows))) as pool:recipients=list(pool.map(inspect,rows))
         if not hasattr(self,'broadcast_plans'):self.broadcast_plans=OrderedDict()
         now=time.monotonic()
         self.broadcast_plans=OrderedDict((k,v) for k,v in self.broadcast_plans.items() if now-v['created']<600)
         while len(self.broadcast_plans)>=8:self.broadcast_plans.popitem(last=False)
         token=secrets.token_urlsafe(24)
-        self.broadcast_plans[token]=dict(target=target,recipients=recipients,created=now)
-        return dict(plan=token,target=target,recipients=recipients)
+        self.broadcast_plans[token]=dict(target=target,recipients=recipients,created=now,group=group)
+        return dict(plan=token,target=target,recipients=recipients,group=group)
 
     def broadcast_upload(self,payload):
         artifact=self.artifact(payload.get('artifact'))
@@ -486,6 +579,9 @@ class Studio:
         plan=getattr(self,'broadcast_plans',{}).pop(token,None)
         if not plan or time.monotonic()-plan['created']>=600:
             raise Problem('Refresh the broadcast recipients before uploading',409)
+        group = plan.get('group')
+        if group and self.groups.snapshot().get(group['id']) != group:
+            raise Problem('The group changed. Review the recipients again before uploading.', 409)
         if plan['target']!=artifact.info.get('target','sound'):
             raise Problem('Compile for the reviewed Main or FX destination',409)
         def send(row):
@@ -493,14 +589,18 @@ class Studio:
             if not row['ready']:return dict(result,verified=False,error=row['error'])
             worker=Studio(str(self.compiler.sclang))
             try:
-                worker.device=NetworkDevice(row,self.pairings.get(row['device_id']))
+                worker.device=self.recipient_device(row)
                 worker.device_info=worker.device.hello();worker.device_port=row['address']
+                if worker.device_info.get('device_id') != row['device_id']:
+                    raise Problem('The module identity changed.', 409)
                 worker.artifacts['broadcast']=artifact
                 uploaded=worker.upload(dict(payload,artifact='broadcast',slot=1,
                     expected=row['expected'],replace=True,device_id=row['device_id']))
                 return dict(result,verified=uploaded['verified'],name=uploaded['name'])
             except Exception as error:return dict(result,verified=False,error=str(error))
-            finally:worker.close()
+            finally:
+                if row.get('transport') == 'usb':worker.device = None
+                worker.close()
         with ThreadPoolExecutor(max_workers=min(8,len(plan['recipients']))) as pool:
             results=list(pool.map(send,plan['recipients']))
         return dict(target=plan['target'],graph_sha256=hashlib.sha256(artifact.graph).hexdigest(),
@@ -741,6 +841,9 @@ class Handler(BaseHTTPRequestHandler):
             if path == '/api/audio':
                 with exclusive(studio.device_lock, 'The device is busy. Wait for the current operation.'):
                     return self.reply(200, studio.audio_snapshot())
+            if path == '/api/groups':
+                with exclusive(studio.device_lock, 'The device is busy. Wait for the current operation.', timeout=.25):
+                    return self.reply(200, studio.group_view())
             if path.startswith('/api/artifact/'):
                 token, _, extension = path.removeprefix('/api/artifact/').partition('.')
                 artifact = studio.artifact(token)
@@ -776,6 +879,12 @@ class Handler(BaseHTTPRequestHandler):
                     result = studio.flash_firmware(payload)
                 elif path == '/api/network/scan':
                     result = studio.network_scan(payload)
+                elif path == '/api/groups/save':
+                    result = studio.save_group(payload)
+                elif path == '/api/groups/dissolve':
+                    result = studio.dissolve_group(payload)
+                elif path == '/api/identify':
+                    result = studio.identify(payload)
                 elif path == '/api/network/connect':
                     result = studio.network_connect(payload)
                 elif path == '/api/network/broadcast-prepare':
@@ -827,6 +936,8 @@ class Handler(BaseHTTPRequestHandler):
             self.dispatch()
         except Problem as error:
             self.reply(error.status, dict(error=str(error), **error.details))
+        except GroupConflict as error:
+            self.reply(409, dict(error=str(error)))
         except (ValueError, RuntimeError, UnicodeError, subprocess.SubprocessError) as error:
             self.reply(400, dict(error=str(error)[-16000:]))
         except (BrokenPipeError, ConnectionResetError):

@@ -338,6 +338,9 @@ static void process_line(const char *line)
 #endif
         const patch_program_usage *program = &s->hooks.program;
         end = strlen(s->reply);
+        if (end && s->reply[end - 1] == '}' && s->hooks.identify)
+            snprintf(s->reply + end - 1, sizeof s->reply - end + 1, ",\"identify_tone\":1}");
+        end = strlen(s->reply);
         if (end && s->reply[end - 1] == '}') {
             snprintf(s->reply + end - 1, sizeof s->reply - end + 1,
                      ",\"program\":{\"iram_bytes\":%u,\"dram_bytes\":%u,"
@@ -369,6 +372,10 @@ static void process_line(const char *line)
         ok=!setup || begin_maintenance("WIFI SETTINGS");
         if(ok){ok=device_network_command(op,payload,length,s->reply,sizeof s->reply);if(setup){int resumed=end_maintenance();ok=ok && resumed;}}
         if(!ok)snprintf(s->error,sizeof s->error,"Invalid network settings or networking unavailable");
+    } else if(!strcmp(op,"IDENTIFY") && !length) {
+        ok=s->state!=1 && s->state!=2 && s->hooks.identify && s->hooks.identify();
+        if(ok)snprintf(s->reply,sizeof s->reply,"{\"identifying\":true,\"frequency\":440,\"duration_ms\":500}");
+        else snprintf(s->error,sizeof s->error,"Identify unavailable or audio busy");
     } else if((!strcmp(op,"VOLUME") && length<=1) || (!strcmp(op,"VOLSAVE") && !length)) {
         int value=s->hooks.volume?s->hooks.volume(length?(int)payload[0]:-1,!strcmp(op,"VOLSAVE")):-1;
         ok=value>=0;if(ok)snprintf(s->reply,sizeof s->reply,"{\"percent\":%d}",value);

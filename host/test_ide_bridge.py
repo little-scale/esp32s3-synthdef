@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 from test_network import Module
 from network import Pairings
+from module_groups import ModuleGroups
 from studio import Studio,Compiler
 from ide_bridge import Bridge,Hub,osc_message,osc_decode
 from synthdef_binary import decode
@@ -346,6 +347,10 @@ Routine({
         try:
             for args in (["volume",-1],["volume",1.01],["volume",True],["volume",float('nan')],["volume",float('inf')],["volume",[.5]],["volume","0.5"],["volume"],["volume",.2,"volume",.3],["freq",440]):
                 with self.subTest(args=args),self.assertRaises(ValueError):hub.meta(dict(target='all',args=args))
+            for key in ({'group':'first'}, ['first'], None):
+                with self.subTest(key=key),self.assertRaisesRegex(ValueError, r'ESP32\.module\(target,.*volume, level\)'):
+                    hub.meta(dict(target='all',args=[key,1]))
+            hub.resolve.assert_not_called()
             hub.node.assert_not_called()
             node.device.request.side_effect=[dict(percent=50),TimeoutError('offline')]
             result=hub.meta(dict(target='all',args=['volume',.5]));self.assertFalse(result['verified'])
@@ -537,6 +542,8 @@ Routine({
         with tempfile.TemporaryDirectory() as folder:
             folder=Path(folder);app=Studio(SCLANG);app.pairings=Pairings(folder/'pairs.json')
             for m in (a,b):app.pairings.save(m.pairing())
+            app.groups = ModuleGroups(folder / 'groups.json')
+            app.groups.save(None, None, 'Front', [a.device_id], {a.device_id})
             bridge=Bridge(app,'test-private-token',config=folder/'connection.json')
             bridge.hub.alias_path=folder/'aliases.json'
             offline = dict(device_id='esp32-000000000023', device_name='Offline', paired=True, online=False)
@@ -560,6 +567,9 @@ Routine({
     try {
         ESP32.connect(%CONFIG%).wait;
         ESP32.alias(\\left,"%LEFT%").wait;ESP32.alias(\\right,"%RIGHT%").wait;
+        ~front = ESP32.group(\\Front);
+        if(ESP32.groups.wait["groups"][0]["name"] != "Front"){Error("Studio group missing").throw};
+        ESP32.module([~front, \\left], \\volume, 0.35).wait;
         ("//"++String.fill(65450,{$x})++"\n{ SinOsc.ar(220,0,0.01)!2 }.play").sendESP32(\\all).wait;
 
         ~literal=SynthDef(\\Literal,{arg frequency=330;
@@ -592,7 +602,7 @@ Routine({
         if(ESP32.scan.wait["modules"].size != 3){Error("Scan fixture lost an offline row").throw};
         ~found = ESP32.discovered.wait;
         if(~found.size != 2 or:{~found.any{|row|row["online"].not}}){Error("Discovered list included an offline module").throw};
-        ~pattern=Pbind(\\type,\\esp32Set,\\module,Pseq([\\left,\\right],inf),\\freq,Pseq([220,330,440],inf),\\dur,0.08).playESP32;
+        ~pattern=Pbind(\\type,\\esp32Set,\\module,Pseq([~front,\\right],inf),\\freq,Pseq([220,330,440],inf),\\dur,0.08).playESP32;
         0.5.wait;~pattern.stop;0.1.wait;~pattern.play;0.15.wait;~pattern.stop;0.1.wait;
         ~pattern=Pbind(\\type,\\esp32Note,\\module,Prand([\\left,\\right],inf),\\midinote,Pseq([60,64,67],inf),\\amp,0.12,\\dur,0.08).playESP32;
         0.5.wait;~pattern.stop;0.1.wait;
@@ -623,6 +633,8 @@ Routine({
                 (ROOT/'build/host/ide-native-test.log').write_text(run.stdout+run.stderr)
                 self.assertEqual(run.returncode,0,str(actions)+'\n'+run.stdout+run.stderr)
                 self.assertNotIn('WARNING: ESP32',run.stdout)
+                self.assertEqual(a.volume_history, [35])
+                self.assertEqual(b.volume_history, [])
                 self.assertLessEqual(max(wire_sizes),65536);self.assertGreater(max(len(s.encode()) for s in sources),65000);self.assertTrue(sources[0].endswith('.play'));self.assertTrue(sources[-1].strip().endswith('}'))
                 self.assertEqual(graphs[1],(folder/'literal.scsyndef').read_bytes())
                 self.assertEqual(a.blob,b.blob)

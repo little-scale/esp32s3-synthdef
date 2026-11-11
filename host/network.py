@@ -15,6 +15,13 @@ DISCOVERY_PORT = 32101
 DEVICE_ID = re.compile(r'esp32-[0-9a-f]{12}\Z')
 
 
+def with_usb_module(rows, usb):
+    """Prefer Studio's live USB connection when both transports see an ID."""
+    if usb is None:
+        return list(rows)
+    return [row for row in rows if row['device_id'] != usb['device_id']] + [usb]
+
+
 def endpoint(address, port=80):
     # IP literals only: no redirects, URL credentials, proxy or DNS rebinding.
     try:

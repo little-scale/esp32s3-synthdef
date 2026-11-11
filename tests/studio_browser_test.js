@@ -25,6 +25,7 @@ class Element {
     connection:{transport:'wifi'},status:{slot:1,continuous:true},slots:[{slot:0,name:'Factory'},{slot:1,name:'Main'}],
     masters:[{slot:0,name:'Bypass',selected:true},{slot:1,name:'FX',selected:false}]};
   let calls=[],failRefresh=false,partial=false,holdVolume=null,failVolume=false,holdAudio=null;
+  let groups = [];
   let audioReply={};
   const storage=new Map([['synthdef-studio-source','{ SinOsc.ar(123) }.play']]);
   const context={TextEncoder,Event:class{constructor(type){this.type=type;}},Option:class{constructor(text,value){this.textContent=text;this.value=value;}},setTimeout,clearTimeout,setInterval(){},
@@ -34,9 +35,20 @@ class Element {
     fetch:async(path,options={})=>{
       const body=options.body?JSON.parse(options.body):null;calls.push({path,body});let result;
       switch(path){
-        case '/api/config':result={ports:[{port:'/dev/cu.usbmodem101',name:'XIAO'},{port:'/dev/cu.usbmodem1101',name:'AMOLED'}],serial_ready:true,compiler_ready:true,connected:false,paired_devices:entries,example:'{0}.play',master_example:'{In.ar(0,2)}.play'};break;
+        case '/api/config':result={ports:[{port:'/dev/cu.usbmodem101',name:'XIAO'},{port:'/dev/cu.usbmodem1101',name:'AMOLED'}],serial_ready:true,compiler_ready:true,connected:false,module_groups:true,module_identify:true,paired_devices:entries,example:'{0}.play',master_example:'{In.ar(0,2)}.play'};break;
         case '/api/network/scan':result={devices:entries};break;
-        case '/api/network/broadcast-prepare':result={plan:'reviewed',target:body.target,recipients:entries.map(row=>({...row,ready:true,expected:{slot:1,name:'Existing'}}))};break;
+        case '/api/groups':result={groups,modules:entries};break;
+        case '/api/identify':result={identifying:true,device_id:body.device_id,device_name:entries.find(row=>row.device_id===body.device_id).device_name};break;
+        case '/api/groups/save': {
+          const group = {id:body.id || 'test-group',name:body.name,members:body.members,revision:(body.revision || 0)+1};
+          groups = [...groups.filter(row => row.id !== group.id), group];
+          result={groups,modules:entries,selected:group.id};break;
+        }
+        case '/api/groups/dissolve':groups=groups.filter(group=>group.id!==body.id);result={groups,modules:entries};break;
+        case '/api/network/broadcast-prepare': {
+          const group=groups.find(row=>row.id===body.group_id);
+          result={plan:'reviewed',target:body.target,group,recipients:entries.filter(row=>!group || group.members.includes(row.device_id)).map(row=>({...row,ready:true,expected:{slot:1,name:'Existing'}}))};break;
+        }
         case '/api/compile':result={artifact:'compiled-once',name:'Main',admitted:true,input_kind:'sound_block',target:body.target,nodes:1,graph_bytes:100,source_bytes:100,delay_samples:0,ugens:['SinOsc'],controls:[],compiler_log:''};break;
         case '/api/network/broadcast-upload':result={verified:!partial,results:entries.map((row,i)=>({...row,verified:!partial || i===0,error:i===1?'Node unreachable':undefined}))};break;
         case '/api/network/connect':result=state;break;
@@ -62,20 +74,53 @@ class Element {
   get('target').value='master';await event('target','change');assert.equal(get('source').value,'{In.ar(0,2)}.play');
   get('source').value='{ In.ar(0,2)*0.5 }.play';await event('source','input');
   get('target').value='sound';await event('target','change');assert.equal(get('source').value,'{ SinOsc.ar(123) }.play');
-  get('transport').value='wifi';await event('transport','change');get('wifi-mode').value='omni';await event('wifi-mode','change');
+  get('transport').value='wifi';await event('transport','change');get('upload-destination').value='omni';await event('upload-destination','change');
   await event('network-scan');await event('broadcast-review');await event('compile');
   assert.equal(get('broadcast-nodes').children.length,2);assert.equal(get('upload').disabled,false);
   await event('upload');assert.equal(calls.filter(row=>row.path==='/api/compile').length,1);
   const upload=calls.find(row=>row.path==='/api/network/broadcast-upload');assert.equal(upload.body.artifact,'compiled-once');assert.equal(upload.body.plan,'reviewed');
   assert.match(get('message').textContent,/Node 1.*saved and verified/);assert.match(get('message').textContent,/Node 2.*saved and verified/);
   assert.equal(get('upload').disabled,true); // A used recipient review cannot be replayed.
-  get('wifi-mode').value='single';await event('wifi-mode','change');await event('connect');
+  get('upload-destination').value='single';await event('upload-destination','change');await event('connect');
   assert.equal(get('slots').children.length,2);assert.equal(get('master-load').textContent,'Enable FX');
   await event('master-load');assert.equal(get('master-load').textContent,'Bypass FX');assert.equal(get('master-load').attributes['aria-pressed'],'false');
   await event('main-load');assert.match(get('message').textContent,/playing without touch/);
   // A selected-node refresh failure must not hide the per-node broadcast report.
-  get('wifi-mode').value='omni';await event('wifi-mode','change');await event('broadcast-review');partial=true;failRefresh=true;
+  get('upload-destination').value='omni';await event('upload-destination','change');await event('broadcast-review');partial=true;failRefresh=true;
   await event('upload');assert.match(get('message').textContent,/Node 1.*saved and verified/);assert.match(get('message').textContent,/Node 2.*Node unreachable/);assert.match(get('message').textContent,/Connection refresh: Disconnected/);
+  await event('groups-tab');
+  assert.equal(get('patches-view').hidden,true);assert.equal(get('groups-view').hidden,false);
+  await event('groups-scan');
+  get('identify-mode').checked=true;await event('identify-mode','change');
+  const identifyNode=get('group-members').children[1].children[1].children[0];
+  await identifyNode.dispatchEvent({type:'click'});await idle();
+  assert.equal(calls.filter(row=>row.path==='/api/identify').at(-1).body.device_id,entries[1].device_id);
+  assert.equal(get('group-members').children[1].children[0].checked,false);
+  assert.match(get('groups-status').textContent,/Identifying Node 2/);
+  entries[1].paired=false;await event('groups-scan');
+  assert.equal(get('group-members').children[1].children[1].children[0].disabled,true);
+  entries[1].paired=true;await event('groups-scan');
+  get('identify-mode').checked=false;await event('identify-mode','change');
+  get('group-name').value='Front';await event('group-name','input');
+  const checkMember = (index, checked) => {
+    const checkbox = get('group-members').children[index].children[0];
+    checkbox.checked = checked;checkbox.dispatchEvent({type:'change'});
+  };
+  checkMember(0,true);await event('group-save');
+  assert.equal(groups[0].name,'Front');assert.deepEqual(groups[0].members,[entries[0].device_id]);
+  get('group-name').value='Stage';await event('group-name','input');checkMember(1,true);await event('group-save');
+  assert.equal(groups[0].name,'Stage');assert.equal(groups[0].members.length,2);
+  checkMember(0,false);await event('group-save');
+  assert.deepEqual(groups[0].members,[entries[1].device_id]);
+  await event('patches-tab');
+  get('upload-destination').value='group:test-group';await event('upload-destination','change');
+  await event('broadcast-review');
+  assert.equal(calls.filter(row=>row.path==='/api/network/broadcast-prepare').at(-1).body.group_id,'test-group');
+  assert.equal(get('broadcast-nodes').children.length,1);
+  assert.match(get('broadcast-nodes').children[0].textContent,/Node 2/);
+  await event('groups-tab');await event('group-dissolve');await event('group-dissolve-confirm');
+  assert.equal(groups.length,0);assert.equal(get('upload-destination').value,'single');
+  await event('patches-tab');
   // A connection made by the host must select its actual USB port, even when
   // another board is first in the dropdown or the port list is refreshed.
   failRefresh=false;state={...state,port:'/dev/cu.usbmodem1101',connection:{transport:'usb'}};
@@ -183,6 +228,7 @@ class Element {
   audioReply={connected:false,device_id:null,source:null};await vm.runInContext('pollAudio()',context);
   assert.equal(get('connection-indicator').textContent,'OFFLINE');assert.equal(get('cpu-peak-reset').disabled,true);
   console.log('PASS: Main/FX drafts, Wi-Fi Omni without a single connection, one compilation, recipient review, per-node failures, bypass, Main restart and connected USB port selection.');
+  console.log('PASS: Groups tab, create/rename/add/remove, recipient preview, dissolve and targeted Identify without membership changes.');
   console.log('PASS: module volume, rapid gesture coalescing, in-flight changes, release save, mute/full level, failed replies, target changes and disconnect.');
   console.log('PASS: cached CPU/RAM, zero/overload/sentinel values, per-field staleness, local expiry, Wi-Fi unavailable and module-change response guard.');
   console.log('PASS: peak retention, reset/new-window waiting, stale in-flight reply rejection and disconnected reset suppression.');

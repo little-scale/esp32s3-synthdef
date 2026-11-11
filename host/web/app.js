@@ -4,6 +4,8 @@ const token = location.hash.slice(1) || sessionStorage.getItem('studio-token') |
 if (location.hash) { sessionStorage.setItem('studio-token', token); history.replaceState(null, '', location.pathname); }
 let config, device = null, artifact = null, binary = null, busy = false;
 let networkDevices = [], broadcast = null;
+let groups = [], groupModules = [], editingGroup = null, groupMembers = new Set(), groupChecks = [];
+let identifyButtons = [];
 let firmwarePlan = null;
 let volumeSending = false, volumeTimer = null, volumePending = null, volumeEpoch = 0;
 let audioEpoch = 0, audioPolling = false, audioLatest = null;
@@ -26,7 +28,11 @@ async function api(path, body) {
 function isMaster() { return $('target').value === 'master'; }
 function bank() { return (isMaster() ? device?.masters : device?.slots) || []; }
 function destination() { return bank().find(slot => slot.slot === 1); }
-function omni() { return $('transport').value === 'wifi' && $('wifi-mode').value === 'omni'; }
+function multiUpload() { return $('upload-destination').value !== 'single'; }
+function uploadGroupId() {
+  const value = $('upload-destination').value;
+  return value.startsWith('group:') ? value.slice(6) : null;
+}
 function bypassed() { return !!device?.masters?.find(row => row.slot === 0)?.selected; }
 function saveEditor() {
   const draft={source:$('source').value,name:$('patch-name').value,binary};drafts[editorTarget]=draft;
@@ -44,16 +50,27 @@ function loadEditor(target) {
   $('source-title').textContent=target==='master'?'FX code':'Main code';invalidate();
 }
 function renderBroadcast() {
-  $('broadcast-panel').hidden=!omni();$('network-device').disabled=busy || !!device || omni();
+  $('broadcast-panel').hidden = !multiUpload();
   $('broadcast-nodes').replaceChildren();
   for(const row of broadcast?.recipients || []){
-    const p=document.createElement('p');p.textContent=`${row.device_name} · ${row.device_id} · ${row.ready ? 'replace '+(row.expected.name || 'empty patch') : row.error}`;
+    const p = document.createElement('p');
+    let outcome = row.error;
+    if (row.ready) outcome = row.expected.name ? `replace “${row.expected.name}”` : 'empty slot';
+    p.textContent = `${row.device_name} · ${row.device_id} · ${outcome}`;
     $('broadcast-nodes').append(p);
   }
-  $('broadcast-status').textContent=broadcast?`${broadcast.recipients.filter(row=>row.ready).length} ready · ${broadcast.target==='master'?'FX':'Main'}. This replaces the listed patches.`:'Find modules, then review the broadcast recipients.';
+  const allLabel = config?.module_groups ? 'All discovered modules' : 'All paired Wi-Fi modules';
+  $('broadcast-status').textContent = broadcast ?
+    `${broadcast.recipients.filter(row => row.ready).length} ready · ${broadcast.group?.name || allLabel} · ${broadcast.target === 'master' ? 'FX' : 'Main'}. Upload replaces the patches marked ready.` :
+    'Find modules, then review the recipients.';
 }
 function controls() {
   const locked = busy || volumeSending || volumeTimer !== null;
+  for (const id of ['patches-tab', 'groups-tab', 'groups-scan', 'group-editor', 'group-name',
+    'group-dissolve', 'group-dissolve-confirm', 'group-dissolve-cancel', 'identify-mode']) $(id).disabled = locked;
+  for (const check of groupChecks) check.disabled = locked;
+  for (const button of identifyButtons) button.disabled = locked || !button.identifyReady;
+  $('group-save').disabled = locked || !$('group-name').value.trim() || (!editingGroup && !groupMembers.size);
   $('firmware-board').disabled = locked;
   $('firmware-port').disabled = locked;
   $('firmware-refresh').disabled = locked;
@@ -68,19 +85,20 @@ function controls() {
   $('connect').disabled = locked || (!device && (wifi ? !candidate?.online || !candidate?.paired : !$('port').value));
   $('connect').textContent = device ? 'Disconnect' : 'Connect';
   $('port').disabled = locked || !!device;
-  $('transport').disabled=locked || !!device; $('network-device').disabled=locked || !!device || omni();
+  $('transport').disabled=locked || !!device; $('network-device').disabled=locked || !!device;
   $('usb-panel').hidden=wifi; $('wifi-panel').hidden=!wifi;
   $('wifi-setup').hidden=!device || device.connection?.transport==='wifi' || !device.hello.wifi_upload;
-  for(const id of ['network-address','network-scan','module-name','wifi-ssid','wifi-password','wifi-save','wifi-pair','wifi-status','wifi-nearby','wifi-networks','wifi-mode','broadcast-review'])$(id).disabled=locked;
+  for(const id of ['network-address','network-scan','module-name','wifi-ssid','wifi-password','wifi-save','wifi-pair','wifi-status','wifi-nearby','wifi-networks','upload-destination','recipient-scan','broadcast-review'])$(id).disabled=locked;
   $('slots-field').disabled = locked || !device;
   for (const id of ['example', 'open-file', 'source-mode', 'ports-refresh', 'file', 'read-active', 'slots-refresh', 'panic', 'patch-name', 'mapping', 'target']) $(id).disabled = locked;
   for (let i = 0; i < 4; i++) $('label-' + i).disabled = locked;
   $('source').readOnly = locked;
   const ready=broadcast?.recipients.some(row=>row.ready);
   $('upload').disabled=locked || !artifact || !$('patch-name').value.trim() || !artifact.admitted ||
-    (omni()? !ready || broadcast.target!==$('target').value : !device || !entry);
-  $('upload').textContent=omni()?'Broadcast '+(isMaster()?'FX':'Main')+' over Wi-Fi':'Upload '+(isMaster()?'FX':'Main');
-  $('destination').textContent=omni()?'Sends the same compiled graph and source to every reviewed recipient.':entry?
+    (multiUpload()? !ready || broadcast.target!==$('target').value : !device || !entry);
+  const role = isMaster() ? 'FX' : 'Main';
+  $('upload').textContent = `Upload ${role}${multiUpload() ? (uploadGroupId() ? ' to group' : ' to all') : ''}`;
+  $('destination').textContent=multiUpload()?'Sends the same compiled graph and source to every ready recipient.':entry?
     `${entry.name?'Replaces “'+entry.name+'”.':'Saves '+(isMaster()?'FX':'Main')+'.'} Module: ${device.hello.device_name} · ${device.hello.device_id}.`:
     'Compile Main or FX, then connect to a module.';
   $('read-active').textContent=isMaster()?'Read FX':'Read Main';
@@ -304,6 +322,9 @@ function firmwareOptions() {
 }
 async function ports() {
   config = await api('config');
+  $('groups-tab').hidden = !config.module_groups;
+  $('identify-control').hidden = !config.module_identify;
+  if (!config.module_groups) $('upload-destination').options[1].textContent = 'All paired Wi-Fi modules';
   const previous = $('port').value; $('port').replaceChildren();
   for (const port of config.ports) {
     const option = document.createElement('option'); option.value = port.port; option.textContent = `${port.name} · ${port.port}`; $('port').append(option);
@@ -406,7 +427,7 @@ $('firmware-flash').addEventListener('click', () => task(async () => {
   }
 }));
 $('transport').addEventListener('change',()=>{broadcast=null;controls();});
-$('wifi-mode').addEventListener('change',()=>{broadcast=null;controls();});
+$('upload-destination').addEventListener('change',()=>{broadcast=null;controls();});
 $('network-device').addEventListener('change',controls);
 function renderNetworks(){
   const previous=$('network-device').value;$('network-device').replaceChildren();
@@ -415,7 +436,155 @@ function renderNetworks(){
   if(networkDevices.some(row=>row.device_id===previous))$('network-device').value=previous;
   $('network-hint').textContent=networkDevices.length?'Select the specific name and permanent ID. Unpaired modules must be paired over USB first.':'No modules found. Check 2.4 GHz Wi-Fi, or enter the module’s IP and try again.';controls();
 }
-$('network-scan').addEventListener('click',()=>task(async()=>{const result=await api('network/scan',{address:$('network-address').value.trim()});networkDevices=result.devices;broadcast=null;renderNetworks();}));
+async function scanModules(address = '') {
+  const result = await api('network/scan', {address});
+  networkDevices = result.devices;
+  broadcast = null;
+  renderNetworks();
+  return result;
+}
+$('network-scan').addEventListener('click', () => task(() => scanModules($('network-address').value.trim())));
+$('recipient-scan').addEventListener('click', () => task(() => scanModules()));
+
+function renderGroupMembers() {
+  const container = $('group-members');
+  container.replaceChildren();
+  groupChecks = [];
+  identifyButtons = [];
+  const modules = new Map(groupModules.map(row => [row.device_id, row]));
+  const members = new Set([...groupModules.filter(row => row.online).map(row => row.device_id),
+    ...(editingGroup?.members || []), ...groupMembers]);
+  for (const id of members) {
+    const row = modules.get(id);
+    const label = document.createElement('div');
+    label.className = 'group-member';
+    const check = document.createElement('input');
+    check.type = 'checkbox';
+    check.setAttribute('aria-label', `Include ${row?.device_name || id}`);
+    check.checked = groupMembers.has(id);
+    check.addEventListener('change', () => {
+      if (check.checked) groupMembers.add(id);
+      else groupMembers.delete(id);
+      controls();
+    });
+    groupChecks.push(check);
+    const description = document.createElement('span');
+    const identifying = $('identify-mode').checked;
+    const name = document.createElement(identifying ? 'button' : 'label');
+    const checkId = `group-member-${id}`;
+    check.id = checkId;
+    if (identifying) {
+      name.type = 'button';
+      name.className = 'identify-node quiet';
+      name.identifyReady = !!row?.online && !!row?.paired;
+      name.disabled = !name.identifyReady;
+      name.setAttribute('aria-label', `Identify ${row?.device_name || id}`);
+      name.addEventListener('click', () => task(async () => {
+        const result = await api('identify', {device_id: id});
+        $('groups-status').textContent = `Identifying ${result.device_name}.`;
+      }));
+      identifyButtons.push(name);
+    } else {
+      name.htmlFor = checkId;
+    }
+    name.textContent = row?.device_name || id;
+    const detail = document.createElement('small');
+    const status = !row?.online ? 'Offline' : row.transport === 'usb' ? 'USB' : row.paired ? 'Wi-Fi' : 'Wi-Fi · pairing needed';
+    detail.textContent = `${id} · ${status}`;
+    description.append(name, detail);
+    label.append(check, description);
+    container.append(label);
+  }
+  if (!members.size) {
+    const hint = document.createElement('p');
+    hint.className = 'hint';
+    hint.textContent = 'Find modules or connect one by USB to add members.';
+    container.append(hint);
+  }
+}
+$('identify-mode').addEventListener('change', () => {
+  $('identify-hint').hidden = !$('identify-mode').checked;
+  renderGroupMembers();
+  controls();
+});
+function selectGroup(id) {
+  editingGroup = groups.find(group => group.id === id) || null;
+  $('group-editor').value = editingGroup?.id || '';
+  $('group-name').value = editingGroup?.name || '';
+  groupMembers = new Set(editingGroup?.members || []);
+  $('group-dissolve').hidden = !editingGroup;
+  $('group-confirm-dissolve').hidden = true;
+  renderGroupMembers();
+}
+function renderGroups(view, selected) {
+  groups = view.groups;
+  groupModules = view.modules;
+  const editor = $('group-editor');
+  editor.replaceChildren(new Option('New group', ''));
+  const destination = $('upload-destination');
+  const previous = destination.value;
+  destination.replaceChildren(new Option('Connected module', 'single'), new Option('All discovered modules', 'omni'));
+  for (const group of groups) {
+    editor.add(new Option(group.name, group.id));
+    destination.add(new Option(`Group · ${group.name}`, `group:${group.id}`));
+  }
+  destination.value = [...destination.options].some(option => option.value === previous) ? previous : 'single';
+  const current = groups.find(group => group.id === editingGroup?.id);
+  if (selected !== undefined || editingGroup?.revision !== current?.revision) selectGroup(selected ?? current?.id);
+  else {
+    editor.value = editingGroup?.id || '';
+    renderGroupMembers();
+  }
+  if (broadcast?.group && !groups.some(group => group.id === broadcast.group.id && group.revision === broadcast.group.revision)) broadcast = null;
+  controls();
+}
+function showGroups(show) {
+  $('groups-view').hidden = !show;
+  $('patches-view').hidden = show;
+  $('groups-tab').setAttribute('aria-pressed', String(show));
+  $('patches-tab').setAttribute('aria-pressed', String(!show));
+}
+$('groups-tab').addEventListener('click', () => task(async () => {
+  showGroups(true);
+  renderGroups(await api('groups'));
+}));
+$('patches-tab').addEventListener('click', () => { showGroups(false); message(); });
+$('groups-scan').addEventListener('click', () => task(async () => {
+  $('groups-status').textContent = 'Looking for modules…';
+  try {
+    await scanModules();
+    renderGroups(await api('groups'));
+    const count = groupModules.filter(row => row.online).length;
+    $('groups-status').textContent = `${count} available ${count === 1 ? 'module' : 'modules'}.`;
+  } catch (error) {
+    $('groups-status').textContent = '';
+    throw error;
+  }
+}));
+$('group-editor').addEventListener('change', () => {
+  selectGroup($('group-editor').value);
+  $('groups-status').textContent = '';
+  controls();
+});
+$('group-name').addEventListener('input', controls);
+$('group-save').addEventListener('click', () => task(async () => {
+  const result = await api('groups/save', {id: editingGroup?.id, revision: editingGroup?.revision,
+    name: $('group-name').value, members: [...groupMembers]});
+  renderGroups(result, result.selected);
+  $('groups-status').textContent = `Saved ${editingGroup.name}.`;
+}));
+$('group-dissolve').addEventListener('click', () => {
+  if (!editingGroup) return;
+  $('group-dissolve-label').textContent = `Dissolve “${editingGroup.name}”?`;
+  $('group-confirm-dissolve').hidden = false;
+});
+$('group-dissolve-cancel').addEventListener('click', () => { $('group-confirm-dissolve').hidden = true; });
+$('group-dissolve-confirm').addEventListener('click', () => task(async () => {
+  if (!editingGroup) return;
+  const name = editingGroup.name;
+  renderGroups(await api('groups/dissolve', {id: editingGroup.id, revision: editingGroup.revision}), '');
+  $('groups-status').textContent = `Dissolved ${name}.`;
+}));
 $('wifi-save').addEventListener('click',()=>task(async()=>{
   if(!$('wifi-ssid').value)throw new Error('Enter the Wi-Fi network name');
   const result=await api('network/setup',{name:$('module-name').value.trim(),ssid:$('wifi-ssid').value,password:$('wifi-password').value});
@@ -435,7 +604,11 @@ $('connect').addEventListener('click', () => task(async () => {
   const wifi=$('transport').value==='wifi';
   renderDevice(await api(device?'disconnect':wifi?'network/connect':'connect',device?{}:wifi?{device_id:$('network-device').value}:{port:$('port').value}));
 }));
-$('broadcast-review').addEventListener('click',()=>task(async()=>{broadcast=await api('network/broadcast-prepare',{target:$('target').value});renderBroadcast();}));
+$('broadcast-review').addEventListener('click', () => task(async () => {
+  broadcast = null;
+  broadcast = await api('network/broadcast-prepare', {target: $('target').value, group_id: uploadGroupId()});
+  renderBroadcast();
+}));
 $('slots-refresh').addEventListener('click', () => task(async () => renderDevice(await api('refresh', {}))));
 $('read-active').addEventListener('click', () => task(async () => {
   const entry = destination();
@@ -454,7 +627,7 @@ $('master-load').addEventListener('click', () => task(async () => {renderDevice(
 $('main-load').addEventListener('click',()=>task(async()=>{renderDevice(await api('main-load',{}));message(device.status.continuous?'Main restarted; playing without touch.':'Main reloaded; this SynthDef uses its own controls.',true);}));
 $('upload').addEventListener('click', () => task(async () => {
   const entry = destination(); if (!artifact) throw new Error('Compile Main or FX first');
-  if(omni()){
+  if(multiUpload()){
     if(!broadcast)throw new Error('Review the broadcast recipients first');
     $('broadcast-status').textContent='Uploading concurrently and verifying each module…';
     const result=await api('network/broadcast-upload',{artifact:artifact.artifact,plan:broadcast.plan,name:$('patch-name').value.trim(),
@@ -489,5 +662,6 @@ task(async () => {
   networkDevices=(config.paired_devices || []).map(row=>({...row,paired:true,online:false}));renderNetworks();
   if (config.connected) renderDevice(await api('refresh', {}));
   loadEditor('sound'); $('compile-status').textContent = config.compiler_ready ? 'Ready to compile' : 'SuperCollider not found · compiled files can still be checked';
+  if (config.module_groups) renderGroups(await api('groups'));
   if (!token) message('Open the full session URL printed by sh host/studio.sh.');
 });

@@ -39,11 +39,11 @@ def pairs(values):
     if isinstance(values,dict):items=list(values.items())
     elif isinstance(values,list) and len(values)%2==0:items=list(zip(values[::2],values[1::2]))
     else:raise ValueError('Arguments must be name/value pairs')
-    if len({k for k,v in items})!=len(items):raise ValueError('Duplicate argument name')
     for name,value in items:
         if not isinstance(name,str) or name.startswith('__esp32_'):raise ValueError('Invalid or reserved parameter name')
         for v in value if isinstance(value,list) else [value]:
             if isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or abs(v)>3.402823466e38:raise ValueError('Parameter values must be finite 32-bit numbers')
+    if len({k for k,v in items})!=len(items):raise ValueError('Duplicate argument name')
     return items
 
 def controls(schema,values,live=True):

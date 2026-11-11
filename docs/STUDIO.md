@@ -20,6 +20,10 @@ environment, opens the browser, and prints its session URL. Keep the terminal
 running. Open the complete URL including its fragment; the session token is not
 part of a shareable/public URL. Close other serial monitors before connecting.
 
+Use the full printed URL when opening Studio in Chrome or another browser.
+Each browser tab keeps its own session access. After restarting Studio, open
+the newly printed URL to authenticate again.
+
 ```sh
 # Explicit compiler/port override; --port is the local web port, not USB.
 python host/studio.py --sclang /path/to/sclang --port 8766 --no-open
@@ -131,7 +135,7 @@ The **Output volume** slider activates after connection and shows the confirmed 
 0–100%. Drag for live, smoothed changes; release to save the final level across
 restarts. It scales the combined Main/FX output without recompiling, reloading
 or restarting either graph. Zero mutes the output. The slider controls only the
-currently connected module, including when Omni upload mode is selected.
+currently connected module, including when a group or all modules are selected for uploads.
 It works over USB or paired Wi-Fi, on both AMOLED and headless XIAO firmware.
 Use **Refresh** to read changes made from SC or the device's physical slider.
 
@@ -240,24 +244,44 @@ records. A lease excludes competing Wi-Fi writers, and the patch service exclude
 competing USB writes. After an interrupted install, refresh/read before retrying;
 the operation may have completed even if its acknowledgement was lost.
 
-## Omni broadcast uploads
+## Module groups and multi-module uploads
 
-Choose **Wi-Fi upload mode → Omni broadcast**, find modules, then **Review
-broadcast recipients**. Review paired online names/IDs and their existing Main
-or FX packages. Compile once, then **Broadcast Main / FX over Wi-Fi** sends the
-same graph and original source to that frozen recipient list. A single-module
-connection is optional in Omni mode. Unpaired/offline nodes are excluded.
+Open **Groups** and click **Find modules**. To create a group, choose **New
+group**, enter a name, check the member modules, and save. Choose an existing
+group to rename it or change its checked members. Offline members stay in the
+list so you can keep or remove them. **Dissolve group** removes the saved grouping.
+Studio keeps groups on this computer and uses permanent module IDs for membership.
+The same groups are available from [SuperCollider](SUPERCOLLIDER.md#module-groups).
 
-Uploads use up to eight concurrent authenticated connections and at most 64 nodes.
-Each result reports its own verified success or failure. It is reliable fan-out,
-not UDP code delivery, a simultaneous start guarantee, or an all-or-nothing fleet
-transaction. Each node still has its own random seed and DSP state.
+### Identify a physical module
 
-A recipient review expires after ten minutes and is consumed once. New nodes do
-not join it; changed identities or destination generations are rejected. Review
-again before another broadcast/retry. Main uploads retain each node's FX choice;
-FX uploads enable FX. The SC `\all` target resolves paired online recipients
-without the browser review flow; callers explicitly select that target.
+In **Groups**, enable **Identify modules**, then click a module name. That module
+plays a 440 Hz sine cue for half a second at 50% of its current output setting.
+Short fades blend out the program and bring it back afterwards. The program and
+its FX continue processing during the cue. The activity indicator lights for the
+cue, including the LED on XIAO builds. Membership checkboxes remain available.
+
+Identify requires updated firmware with `identify_tone` in its HELLO response.
+Studio checks the permanent device ID before sending `IDENTIFY`, and supports
+paired online Wi-Fi modules and the connected USB module. Mute also mutes the
+cue. Panic and upload maintenance cancel an active cue.
+
+### Upload to a group or all discovered modules
+
+In **Patches**, choose a group or **All discovered modules** under **Upload to**.
+Use **Find modules** to refresh discovery, then **Review recipients**. The review
+shows the existing Main or FX patch on each eligible board and flags offline or
+unpaired group members. **All discovered modules** includes paired online Wi-Fi
+modules and the connected USB module. Studio uses USB when a board appears on
+both transports. A newly discovered Wi-Fi board needs pairing before upload.
+
+Compile once and upload to send the same graph and original source to each ready
+recipient. Up to eight transfers run concurrently, with independent verification
+and results per module. Each module starts its own graph as its transfer finishes.
+A review freezes up to 64 recipients, expires after ten minutes, and is used once.
+Studio requires a fresh review after a group edit and checks each device identity
+and patch generation before upload. Main uploads retain each module's FX choice.
+FX uploads enable FX.
 
 ## Evidence and limits
 

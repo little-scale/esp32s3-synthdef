@@ -20,13 +20,27 @@
 - The user confirmed hardware testing on a XIAO with the NS4168 I²S DAC and
   speaker amplifier. [NS4168 test and wiring](docs/HEADLESS.md#ns4168-i2s-dac-and-speaker-amplifier)
 
+- **Named groups** are available in Studio and SuperCollider. Studio stores
+  membership by permanent module ID. Use `ESP32.group` for uploads, controls,
+  Main/FX commands and patterns, and `ESP32.groups` to list saved groups.
+  The user confirmed group targeting and SC group volume control on hardware
+  on 11 November. Existing sessions need a Studio restart and SC class library
+  recompile to load the new group methods.
+- **Identify modules** in Studio's Groups view sends a dedicated `IDENTIFY`
+  command for a half-second 440 Hz cue at half the current output setting, with
+  fades and an activity indicator. AMOLED and XIAO firmware builds and audits,
+  the offline PCM regression, browser checks, and host/native SC checks passed.
+  Hardware listening verification is pending.
+- **Module argument validation** now explains the target/setting/value order
+  when a group is accidentally supplied as a setting name. Local regression
+  checks cover malformed keys and valid module/group volume messages.
+
+The Groups/Identify release passed 90 host and native SuperCollider tests,
+the browser logic checks, the sanitized PCM cue regression, and both firmware
+build audits. Release firmware build identity is `d1bf9ef3a7df`.
+
 ## In progress
 
-- **Named groups** have passed the local browser checks and 48 host tests with
-  simulated modules. Studio groups modules by permanent ID, and SuperCollider
-  addresses the same groups with `ESP32.group`. Publication and a multi-module
-  hardware check are pending. Activation requires a Studio restart and a
-  SuperCollider class library recompile.
 - **Selective DSP optimisations** for smoothing, Klang/Klank, delays and MiVerb
   passed offline comparisons. The combined build still needs a same-board
   hardware comparison.

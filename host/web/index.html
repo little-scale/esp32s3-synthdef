@@ -12,7 +12,11 @@
       <div><span class="eyebrow">ESP32-S3 · MAIN + FX</span><h1>SynthDef Studio<span class="local">LOCAL</span></h1></div>
     <p>Write on your computer.<br>Play on your instrument.</p>
   </header>
-  <main>
+  <nav class="studio-views" aria-label="Studio views">
+    <button id="patches-tab" type="button" class="quiet" aria-pressed="true">Patches</button>
+    <button id="groups-tab" type="button" class="quiet" aria-pressed="false" hidden>Groups</button>
+  </nav>
+  <main id="patches-view">
     <section class="composer panel" aria-labelledby="source-title">
       <div class="panel-heading"><div><span class="step">01 / SOURCE</span><h2 id="source-title">Main code</h2></div>
         <div class="file-actions"><button id="example" class="quiet">Load example</button><button id="open-file" class="quiet">Open file</button><input type="file" id="file" tabindex="-1" accept=".scd,.sc,.scsyndef"></div>
@@ -37,7 +41,6 @@
       <label for="transport">Connection</label><select id="transport"><option value="usb">USB</option><option value="wifi">Wi-Fi · choose a module</option></select>
       <div id="usb-panel"><label for="port">USB device</label><div class="connect-row"><select id="port"><option value="">Looking for devices…</option></select><button id="ports-refresh" class="quiet" aria-label="Refresh USB ports">Refresh</button></div></div>
       <div id="wifi-panel" hidden>
-        <label for="wifi-mode">Wi-Fi upload mode</label><select id="wifi-mode"><option value="single">One module</option><option value="omni">Omni broadcast · paired online modules</option></select>
         <label for="network-device">Target module</label><select id="network-device"><option value="">Scan for modules…</option></select>
         <p id="network-hint" class="hint">Pair each module over USB once. Names and permanent IDs distinguish modules sharing a network.</p>
         <div class="connect-row"><input id="network-address" type="text" placeholder="Optional device IP" aria-label="Device IPv4 address"><button id="network-scan" class="quiet">Find modules</button></div>
@@ -98,9 +101,11 @@
       <fieldset id="slots-field" disabled><legend>Saved on this module</legend><div id="slots" class="stages"><p class="hint">Connect to see Main and FX.</p></div></fieldset>
       <div class="playback-controls"><button id="main-load" class="quiet">Restart Main</button><button id="master-load" class="quiet" aria-pressed="false">FX bypass</button></div>
       <p id="fx-status" class="hint" role="status">FX state appears after connecting.</p>
-      <div id="broadcast-panel" hidden><button id="broadcast-review" class="secondary wide">Review broadcast recipients</button>
+      <label for="upload-destination">Upload to</label>
+      <select id="upload-destination"><option value="single">Connected module</option><option value="omni">All discovered modules</option></select>
+      <div id="broadcast-panel" hidden>
+        <div class="recipient-actions"><button id="recipient-scan" class="quiet">Find modules</button><button id="broadcast-review" class="secondary">Review recipients</button></div>
         <p id="broadcast-status" class="hint" role="status"></p><div id="broadcast-nodes"></div>
-        <p class="hint">Transfers run concurrently, up to eight at a time. Starts are not sample-synchronised. Only the listed paired modules receive the package.</p>
       </div>
       <label for="patch-name">Name on the instrument</label><input id="patch-name" type="text" maxlength="31" placeholder="Patch name" autocomplete="off">
       <p id="destination" class="hint destination">Compile Main or FX, then upload to the selected module.</p>
@@ -111,8 +116,36 @@
         <label for="mapping">Legacy mapping</label><select id="mapping"><option value="1">Pitch / level</option><option value="0">Normalized values</option></select>
       </details>
     </aside>
-    <div id="message" class="message" role="alert" hidden></div>
   </main>
+  <section id="groups-view" class="panel groups-view" aria-labelledby="groups-title" hidden>
+    <div class="panel-heading">
+      <h2 id="groups-title">Module groups</h2>
+      <button id="groups-scan" type="button" class="quiet">Find modules</button>
+    </div>
+    <label for="group-editor">Group</label>
+    <select id="group-editor"><option value="">New group</option></select>
+    <label for="group-name">Group name</label>
+    <input id="group-name" type="text" maxlength="63" autocomplete="off" placeholder="e.g. Front speakers">
+    <label id="identify-control" class="identify-mode"><input id="identify-mode" type="checkbox"> Identify modules</label>
+    <p id="identify-hint" class="hint" hidden>Click a module name for a half-second 440 Hz tone at 50% of its current volume.</p>
+    <fieldset class="group-member-list">
+      <legend>Members</legend>
+      <div id="group-members"></div>
+    </fieldset>
+    <div class="group-actions">
+      <button id="group-save" type="button" class="primary" disabled>Save group</button>
+      <button id="group-dissolve" type="button" class="quiet" hidden>Dissolve group</button>
+    </div>
+    <div id="group-confirm-dissolve" class="group-dissolve" hidden>
+      <p id="group-dissolve-label" class="hint"></p>
+      <div class="group-actions">
+        <button id="group-dissolve-confirm" type="button" class="panic">Dissolve</button>
+        <button id="group-dissolve-cancel" type="button" class="quiet">Cancel</button>
+      </div>
+    </div>
+    <p id="groups-status" class="hint" role="status"></p>
+  </section>
+  <div id="message" class="message" role="alert" hidden></div>
   <footer class="page-footer"><span>SuperCollider compiler → USB or Wi-Fi → Main → FX / bypass → output</span><span>Compilation runs locally on this computer.</span></footer>
 </body>
 </html>
