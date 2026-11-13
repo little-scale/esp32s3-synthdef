@@ -95,7 +95,7 @@ ESP32 {
         if(address.notNil and:{address.isConnected.not}){this.disconnected(address)};
         if(address.isNil){opening=this.connect;if(address.isNil){^opening};opening.onError({})};
         connection=address;
-        counter=(counter%2147483646)+1;timeout=if(action==\deploy){120}{10};job=ESP32Job(counter,timeout);jobs[counter]=job;
+        counter=(counter%2147483646)+1;timeout=if(#[deploy,program].includes(action)){120}{10};job=ESP32Job(counter,timeout);jobs[counter]=job;
         // Cancellation is best effort after a stream has already stopped.
         if(action==\control and:{payload[\kind]==\cancel}){job.onError({})};
         // SC's OSC builder has a 64 KiB limit even over TCP. Larger jobs are
@@ -176,6 +176,12 @@ ESP32 {
         ^combined
     }
     *sendCode { |source,target,args,stage=\main,name| ^this.request(\deploy,(target:target,stage:stage,args:args ? [],name:name,definition:true),source) }
+    *program { |sound,pattern,target,tempo=1,autostart=true,seed=0,name|
+        ^ESP32Program(sound,pattern,tempo,autostart,seed).sendESP32(target,name)
+    }
+    *programInfo { |target| ^this.request(\pattern,(target:target,command:\info)) }
+    *programPlay { |target| ^this.request(\pattern,(target:target,command:\play)) }
+    *programStop { |target| ^this.request(\pattern,(target:target,command:\stop)) }
     *sendSelection { |target,stage=\main,args,name|
         var document=Document.current,source;
         if(document.isNil){Error("Open a document in the SuperCollider IDE and select code first").throw};

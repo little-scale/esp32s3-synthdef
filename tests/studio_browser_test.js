@@ -28,7 +28,7 @@ class Element {
   let groups = [];
   let audioReply={};
   const storage=new Map([['synthdef-studio-source','{ SinOsc.ar(123) }.play']]);
-  const context={TextEncoder,Event:class{constructor(type){this.type=type;}},Option:class{constructor(text,value){this.textContent=text;this.value=value;}},setTimeout,clearTimeout,setInterval(){},
+  const context={TextEncoder,TextDecoder,Event:class{constructor(type){this.type=type;}},Option:class{constructor(text,value){this.textContent=text;this.value=value;}},setTimeout,clearTimeout,setInterval(){},
     document:{getElementById:get,createElement:tag=>new Element(tag)},
     localStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)},
     sessionStorage:{getItem:()=> 'token',setItem(){}},location:{hash:'',pathname:'/'},history:{replaceState(){}},
@@ -55,6 +55,10 @@ class Element {
         case '/api/refresh':if(failRefresh)return {ok:false,json:async()=>({error:'Disconnected'})};result=state;break;
         case '/api/master-load':state.masters.forEach(row=>row.selected=row.slot===body.slot);result=state;break;
         case '/api/main-load':result=state;break;
+        case '/api/pattern':
+          if(body.command==='play')state.standalone_program.running=true;
+          if(body.command==='stop')state.standalone_program.running=false;
+          result=state;break;
         case '/api/volume':
           if(holdVolume)await holdVolume;
           if(failVolume)return {ok:false,json:async()=>({error:'Volume link failed'})};
@@ -227,6 +231,20 @@ class Element {
   context.nextState={...state,audio:live};vm.runInContext('renderDevice(nextState)',context);
   audioReply={connected:false,device_id:null,source:null};await vm.runInContext('pollAudio()',context);
   assert.equal(get('connection-indicator').textContent,'OFFLINE');assert.equal(get('cpu-peak-reset').disabled,true);
+  state.hello.pattern_programs=1;
+  state.standalone_program={loaded:true,running:false,bound:true,events:12,bytes:393,vm_bytes:50632,service_bytes:5500,max_eval_us:40};
+  context.patternState=state;vm.runInContext('renderDevice(patternState)',context);
+  assert.equal(get('standalone-pattern').hidden,false);assert.equal(get('pattern-play').disabled,false);
+  await event('pattern-play');assert.match(get('pattern-status').textContent,/Running.*12 events/);
+  assert.equal(calls.filter(row=>row.path==='/api/pattern').at(-1).body.device_id,entries[0].device_id);
+  await event('pattern-stop');assert.match(get('pattern-status').textContent,/Stopped/);
+  state.standalone_program.bound=false;vm.runInContext('renderDevice(patternState)',context);
+  assert.equal(get('pattern-play').disabled,true);assert.match(get('pattern-status').textContent,/Main has changed/);
+  state.standalone_program.error_hex=Buffer.from('Restart after Panic').toString('hex');
+  vm.runInContext('renderDevice(patternState)',context);
+  assert.match(get('pattern-status').textContent,/Restart after Panic/);
+  vm.runInContext('renderDevice(null)',context);assert.equal(get('standalone-pattern').hidden,true);
+  console.log('PASS: standalone pattern status, resource display, targeted start/stop and stale-Main restart suppression.');
   console.log('PASS: Main/FX drafts, Wi-Fi Omni without a single connection, one compilation, recipient review, per-node failures, bypass, Main restart and connected USB port selection.');
   console.log('PASS: Groups tab, create/rename/add/remove, recipient preview, dissolve and targeted Identify without membership changes.');
   console.log('PASS: module volume, rapid gesture coalescing, in-flight changes, release save, mute/full level, failed replies, target changes and disconnect.');

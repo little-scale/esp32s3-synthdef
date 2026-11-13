@@ -1,0 +1,10 @@
+{
+  "path": "firmware/components/instrument/pattern_vm.c",
+  "before_sha256": "ec7727f063a1bcb339b47019d1105ab8f0f6dc37aa9f6868c31cc28496819ab6",
+  "after_sha256": "a2dacf3e66c3209807ca14269c17669afdaeb030743d3f280a2da8673b83f10e",
+  "change": "Removed trailing whitespace from one otherwise empty line; no C tokens changed.",
+  "hardware_qualified_build": "2ae9176d1d48",
+  "status": "Whitespace-only source cleanup after hardware checks; both final source builds audited, no additional board write.",
+  "xiao_build": "6ca25265d1c379dd08f72ad67cbafe3c21a648b8cc5e4ef9dab0c6225548bf26",
+  "amoled_build": "6ca25265d1c379dd08f72ad67cbafe3c21a648b8cc5e4ef9dab0c6225548bf26"
+}

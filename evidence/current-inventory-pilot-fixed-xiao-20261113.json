@@ -1,0 +1,1856 @@
+{
+  "passed": false,
+  "complete": false,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "saved_patch_writes": false,
+  "firmware_writes": false,
+  "muted": true,
+  "captures": [
+    {
+      "id": "operators-unary-0",
+      "graph_sha256": "a36da00b1add0b89644baef1b950003dad8b7f04efd1df8e39f87095a39fa9b9",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "K2A",
+          2
+        ],
+        [
+          "MulAdd",
+          0
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "Pan2",
+          2
+        ],
+        [
+          "Phasor",
+          2
+        ],
+        [
+          "Select",
+          2
+        ],
+        [
+          "UnaryOpUGen",
+          0
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "5",
+        "rejected": "0",
+        "initial_rejections": "5",
+        "initial_accepts": "0",
+        "restarts": "1",
+        "max_us": "2186",
+        "peak": "0.213462502",
+        "rms": "0.0376725718"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 4.470348358154297e-08,
+        "rms_error": 5.369005801968766e-09,
+        "relative_rms_ratio": 1.0000000982147008,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      },
+      "operator_selectors": [
+        0,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        42,
+        43
+      ],
+      "operator_rate": 0
+    },
+    {
+      "id": "operators-unary-1",
+      "graph_sha256": "3b2040aa7e12e71cc0c63fa69fa3efc2794e09217c237d56b63411e6965ee0e3",
+      "type_rates": [
+        [
+          "BinaryOpUGen",
+          2
+        ],
+        [
+          "Control",
+          0
+        ],
+        [
+          "Control",
+          1
+        ],
+        [
+          "K2A",
+          2
+        ],
+        [
+          "MulAdd",
+          1
+        ],
+        [
+          "Out",
+          2
+        ],
+        [
+          "Pan2",
+          2
+        ],
+        [
+          "Phasor",
+          2
+        ],
+        [
+          "Select",
+          2
+        ],
+        [
+          "UnaryOpUGen",
+          1
+        ]
+      ],
+      "device": {
+        "passed": "1",
+        "blocks": "8192",
+        "windows": "40",
+        "rate": "44100",
+        "block": "64",
+        "faults": "0",
+        "nonfinite": "0",
+        "guards": "0",
+        "updates": "5",
+        "rejected": "0",
+        "initial_rejections": "5",
+        "initial_accepts": "0",
+        "restarts": "1",
+        "max_us": "2161",
+        "peak": "0.213462502",
+        "rms": "0.0372657627"
+      },
+      "comparison": {
+        "passed": true,
+        "comparison": "waveform",
+        "peak_error": 4.470348358154297e-08,
+        "rms_error": 5.885738287917129e-09,
+        "relative_rms_ratio": 1.0000000992868547,
+        "captured_floats": 5120,
+        "event_checks": {
+          "updates": true,
+          "rejected": true,
+          "initial_rejections": true,
+          "initial_accepts": true,
+          "restarts": true
+        },
+        "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+      },
+      "operator_selectors": [
+        0,
+        5,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        42,
+        43
+      ],
+      "operator_rate": 1
+    }
+  ],
+  "profiles": [],
+  "plan_sha256": "9c03a26f7a432f140ac79f3a7933dd018e36dcfce21cdb271d67f441f5fd15ff",
+  "blocks_per_graph": 8192,
+  "scope": "Sparse float windows plus full-duration fault/arena/RMS checks; statistical grades remain distinct. Parked diagnostics are not live deadline certification.",
+  "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+  "initial_boot": 2331069944,
+  "initial_profile": {
+    "status": {
+      "state": 3,
+      "reset_required": false,
+      "received": 2680,
+      "transfer": 0,
+      "slot": 1,
+      "name": "SoundBlock",
+      "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+      "continuous": true,
+      "seed": 1086410736
+    },
+    "header": {
+      "graph": "SoundBlock",
+      "blocks": "1024",
+      "ready": "2",
+      "matched": "1",
+      "normal_cycles": "284801422",
+      "measured_cycles": "294219449",
+      "audio_hash": "31f9148b"
+    },
+    "setup": {
+      "mode": "fixed",
+      "seed": "12345",
+      "warm_blocks": "128",
+      "rate": "44100",
+      "frames": "64",
+      "nodes": "48",
+      "cpu_mhz": "240",
+      "qualified": "1",
+      "normal_wall_us": "1187519",
+      "measured_wall_us": "1226817",
+      "warm_sha256": "89eccba5db655c039f754a15d064164f9bfbc1ea5d9d434c173e851e273aa116",
+      "audio_sha256": "c150a9486fc25fe9be044195c94cd5e188e47885f6cc5177b2f65500a4f2f1cf",
+      "rng": "f36473b4:9f0cfe47:7961475b"
+    },
+    "nodes": [
+      {
+        "index": 0,
+        "type": "Control",
+        "rate": 1,
+        "special": 0,
+        "cycles": 570049,
+        "calls": 1024
+      },
+      {
+        "index": 1,
+        "type": "Lag",
+        "rate": 1,
+        "special": 0,
+        "cycles": 553615,
+        "calls": 1024
+      },
+      {
+        "index": 2,
+        "type": "BinaryOpUGen",
+        "rate": 1,
+        "special": 4,
+        "cycles": 1045968,
+        "calls": 1024
+      },
+      {
+        "index": 3,
+        "type": "LFNoise2",
+        "rate": 1,
+        "special": 0,
+        "cycles": 861150,
+        "calls": 1024
+      },
+      {
+        "index": 4,
+        "type": "BinaryOpUGen",
+        "rate": 1,
+        "special": 2,
+        "cycles": 497199,
+        "calls": 1024
+      },
+      {
+        "index": 5,
+        "type": "Lag",
+        "rate": 1,
+        "special": 0,
+        "cycles": 415613,
+        "calls": 1024
+      },
+      {
+        "index": 6,
+        "type": "BinaryOpUGen",
+        "rate": 1,
+        "special": 0,
+        "cycles": 496299,
+        "calls": 1024
+      },
+      {
+        "index": 7,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 30611227,
+        "calls": 1024
+      },
+      {
+        "index": 8,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1468348,
+        "calls": 1024
+      },
+      {
+        "index": 9,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 3103115,
+        "calls": 1024
+      },
+      {
+        "index": 10,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 11393306,
+        "calls": 1024
+      },
+      {
+        "index": 11,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1437100,
+        "calls": 1024
+      },
+      {
+        "index": 12,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2052462,
+        "calls": 1024
+      },
+      {
+        "index": 13,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 10687366,
+        "calls": 1024
+      },
+      {
+        "index": 14,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1420457,
+        "calls": 1024
+      },
+      {
+        "index": 15,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2052219,
+        "calls": 1024
+      },
+      {
+        "index": 16,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 10669433,
+        "calls": 1024
+      },
+      {
+        "index": 17,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1426743,
+        "calls": 1024
+      },
+      {
+        "index": 18,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2050303,
+        "calls": 1024
+      },
+      {
+        "index": 19,
+        "type": "Sum4",
+        "rate": 2,
+        "special": 0,
+        "cycles": 3949998,
+        "calls": 1024
+      },
+      {
+        "index": 20,
+        "type": "Sum4",
+        "rate": 2,
+        "special": 0,
+        "cycles": 3942659,
+        "calls": 1024
+      },
+      {
+        "index": 21,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 10680435,
+        "calls": 1024
+      },
+      {
+        "index": 22,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1404422,
+        "calls": 1024
+      },
+      {
+        "index": 23,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2052109,
+        "calls": 1024
+      },
+      {
+        "index": 24,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 10657826,
+        "calls": 1024
+      },
+      {
+        "index": 25,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1402315,
+        "calls": 1024
+      },
+      {
+        "index": 26,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2031835,
+        "calls": 1024
+      },
+      {
+        "index": 27,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 10658145,
+        "calls": 1024
+      },
+      {
+        "index": 28,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1403269,
+        "calls": 1024
+      },
+      {
+        "index": 29,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2028223,
+        "calls": 1024
+      },
+      {
+        "index": 30,
+        "type": "Saw",
+        "rate": 2,
+        "special": 0,
+        "cycles": 10641179,
+        "calls": 1024
+      },
+      {
+        "index": 31,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1440356,
+        "calls": 1024
+      },
+      {
+        "index": 32,
+        "type": "Pan2",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2050733,
+        "calls": 1024
+      },
+      {
+        "index": 33,
+        "type": "Sum4",
+        "rate": 2,
+        "special": 0,
+        "cycles": 3928482,
+        "calls": 1024
+      },
+      {
+        "index": 34,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 0,
+        "cycles": 2041795,
+        "calls": 1024
+      },
+      {
+        "index": 35,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1411858,
+        "calls": 1024
+      },
+      {
+        "index": 36,
+        "type": "Sum4",
+        "rate": 2,
+        "special": 0,
+        "cycles": 3933167,
+        "calls": 1024
+      },
+      {
+        "index": 37,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 0,
+        "cycles": 1477798,
+        "calls": 1024
+      },
+      {
+        "index": 38,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1403345,
+        "calls": 1024
+      },
+      {
+        "index": 39,
+        "type": "SinOsc",
+        "rate": 1,
+        "special": 0,
+        "cycles": 924979,
+        "calls": 1024
+      },
+      {
+        "index": 40,
+        "type": "MulAdd",
+        "rate": 1,
+        "special": 0,
+        "cycles": 609581,
+        "calls": 1024
+      },
+      {
+        "index": 41,
+        "type": "Resonz",
+        "rate": 2,
+        "special": 0,
+        "cycles": 6738244,
+        "calls": 1024
+      },
+      {
+        "index": 42,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1410316,
+        "calls": 1024
+      },
+      {
+        "index": 43,
+        "type": "Resonz",
+        "rate": 2,
+        "special": 0,
+        "cycles": 5703832,
+        "calls": 1024
+      },
+      {
+        "index": 44,
+        "type": "BinaryOpUGen",
+        "rate": 2,
+        "special": 2,
+        "cycles": 1401147,
+        "calls": 1024
+      },
+      {
+        "index": 45,
+        "type": "MiVerb",
+        "rate": 2,
+        "special": 0,
+        "cycles": 109841319,
+        "calls": 1024
+      },
+      {
+        "index": 46,
+        "type": "Out",
+        "rate": 2,
+        "special": 0,
+        "cycles": 1519290,
+        "calls": 1024
+      },
+      {
+        "index": 47,
+        "type": "Control",
+        "rate": 0,
+        "special": 3,
+        "cycles": 117170,
+        "calls": 1024
+      }
+    ],
+    "node_cycle_total": 289617799,
+    "by_type": [
+      {
+        "type": "MiVerb",
+        "cycles": 109841319,
+        "share_percent": 37.92630127680792,
+        "average_us_per_block_at_240mhz": 446.9454711914062
+      },
+      {
+        "type": "Saw",
+        "cycles": 105998917,
+        "share_percent": 36.599586546819936,
+        "average_us_per_block_at_240mhz": 431.3106974283854
+      },
+      {
+        "type": "BinaryOpUGen",
+        "cycles": 22588735,
+        "share_percent": 7.799498193134187,
+        "average_us_per_block_at_240mhz": 91.91379801432292
+      },
+      {
+        "type": "Pan2",
+        "cycles": 17420999,
+        "share_percent": 6.015168632643327,
+        "average_us_per_block_at_240mhz": 70.88622639973958
+      },
+      {
+        "type": "Sum4",
+        "cycles": 15754306,
+        "share_percent": 5.439688463346136,
+        "average_us_per_block_at_240mhz": 64.10443522135417
+      },
+      {
+        "type": "Resonz",
+        "cycles": 12442076,
+        "share_percent": 4.296032924412909,
+        "average_us_per_block_at_240mhz": 50.62693684895833
+      },
+      {
+        "type": "Out",
+        "cycles": 1519290,
+        "share_percent": 0.5245844714122698,
+        "average_us_per_block_at_240mhz": 6.1820068359375
+      },
+      {
+        "type": "Lag",
+        "cycles": 969228,
+        "share_percent": 0.3346576085263323,
+        "average_us_per_block_at_240mhz": 3.943798828125
+      },
+      {
+        "type": "SinOsc",
+        "cycles": 924979,
+        "share_percent": 0.3193791967185,
+        "average_us_per_block_at_240mhz": 3.763749186197917
+      },
+      {
+        "type": "LFNoise2",
+        "cycles": 861150,
+        "share_percent": 0.29734015069978487,
+        "average_us_per_block_at_240mhz": 3.5040283203125
+      },
+      {
+        "type": "Control",
+        "cycles": 687219,
+        "share_percent": 0.23728479477879053,
+        "average_us_per_block_at_240mhz": 2.79630126953125
+      },
+      {
+        "type": "MulAdd",
+        "cycles": 609581,
+        "share_percent": 0.21047774069990774,
+        "average_us_per_block_at_240mhz": 2.480391438802083
+      }
+    ],
+    "normal_average_us_at_240mhz": 1158.859952799479,
+    "notes": "Per-node shares include probe overhead in a separate renderer. Normal DSP has no timing probes. Audio, voice-state and delay-memory digests match the normal renderer.",
+    "lines": [
+      "UGEN_PROFILE graph=SoundBlock blocks=1024 ready=2 matched=1 normal_cycles=284801422 measured_cycles=294219449 audio_hash=31f9148b",
+      "UGEN_SETUP mode=fixed seed=12345 warm_blocks=128 rate=44100 frames=64 nodes=48 cpu_mhz=240 qualified=1 normal_wall_us=1187519 measured_wall_us=1226817 warm_sha256=89eccba5db655c039f754a15d064164f9bfbc1ea5d9d434c173e851e273aa116 audio_sha256=c150a9486fc25fe9be044195c94cd5e188e47885f6cc5177b2f65500a4f2f1cf rng=f36473b4:9f0cfe47:7961475b",
+      "UGEN_NODE index=0 type=Control rate=1 special=0 cycles=570049 calls=1024",
+      "UGEN_NODE index=1 type=Lag rate=1 special=0 cycles=553615 calls=1024",
+      "UGEN_NODE index=2 type=BinaryOpUGen rate=1 special=4 cycles=1045968 calls=1024",
+      "UGEN_NODE index=3 type=LFNoise2 rate=1 special=0 cycles=861150 calls=1024",
+      "UGEN_NODE index=4 type=BinaryOpUGen rate=1 special=2 cycles=497199 calls=1024",
+      "UGEN_NODE index=5 type=Lag rate=1 special=0 cycles=415613 calls=1024",
+      "UGEN_NODE index=6 type=BinaryOpUGen rate=1 special=0 cycles=496299 calls=1024",
+      "UGEN_NODE index=7 type=Saw rate=2 special=0 cycles=30611227 calls=1024",
+      "UGEN_NODE index=8 type=BinaryOpUGen rate=2 special=2 cycles=1468348 calls=1024",
+      "UGEN_NODE index=9 type=Pan2 rate=2 special=0 cycles=3103115 calls=1024",
+      "UGEN_NODE index=10 type=Saw rate=2 special=0 cycles=11393306 calls=1024",
+      "UGEN_NODE index=11 type=BinaryOpUGen rate=2 special=2 cycles=1437100 calls=1024",
+      "UGEN_NODE index=12 type=Pan2 rate=2 special=0 cycles=2052462 calls=1024",
+      "UGEN_NODE index=13 type=Saw rate=2 special=0 cycles=10687366 calls=1024",
+      "UGEN_NODE index=14 type=BinaryOpUGen rate=2 special=2 cycles=1420457 calls=1024",
+      "UGEN_NODE index=15 type=Pan2 rate=2 special=0 cycles=2052219 calls=1024",
+      "UGEN_NODE index=16 type=Saw rate=2 special=0 cycles=10669433 calls=1024",
+      "UGEN_NODE index=17 type=BinaryOpUGen rate=2 special=2 cycles=1426743 calls=1024",
+      "UGEN_NODE index=18 type=Pan2 rate=2 special=0 cycles=2050303 calls=1024",
+      "UGEN_NODE index=19 type=Sum4 rate=2 special=0 cycles=3949998 calls=1024",
+      "UGEN_NODE index=20 type=Sum4 rate=2 special=0 cycles=3942659 calls=1024",
+      "UGEN_NODE index=21 type=Saw rate=2 special=0 cycles=10680435 calls=1024",
+      "UGEN_NODE index=22 type=BinaryOpUGen rate=2 special=2 cycles=1404422 calls=1024",
+      "UGEN_NODE index=23 type=Pan2 rate=2 special=0 cycles=2052109 calls=1024",
+      "UGEN_NODE index=24 type=Saw rate=2 special=0 cycles=10657826 calls=1024",
+      "UGEN_NODE index=25 type=BinaryOpUGen rate=2 special=2 cycles=1402315 calls=1024",
+      "UGEN_NODE index=26 type=Pan2 rate=2 special=0 cycles=2031835 calls=1024",
+      "UGEN_NODE index=27 type=Saw rate=2 special=0 cycles=10658145 calls=1024",
+      "UGEN_NODE index=28 type=BinaryOpUGen rate=2 special=2 cycles=1403269 calls=1024",
+      "UGEN_NODE index=29 type=Pan2 rate=2 special=0 cycles=2028223 calls=1024",
+      "UGEN_NODE index=30 type=Saw rate=2 special=0 cycles=10641179 calls=1024",
+      "UGEN_NODE index=31 type=BinaryOpUGen rate=2 special=2 cycles=1440356 calls=1024",
+      "UGEN_NODE index=32 type=Pan2 rate=2 special=0 cycles=2050733 calls=1024",
+      "UGEN_NODE index=33 type=Sum4 rate=2 special=0 cycles=3928482 calls=1024",
+      "UGEN_NODE index=34 type=BinaryOpUGen rate=2 special=0 cycles=2041795 calls=1024",
+      "UGEN_NODE index=35 type=BinaryOpUGen rate=2 special=2 cycles=1411858 calls=1024",
+      "UGEN_NODE index=36 type=Sum4 rate=2 special=0 cycles=3933167 calls=1024",
+      "UGEN_NODE index=37 type=BinaryOpUGen rate=2 special=0 cycles=1477798 calls=1024",
+      "UGEN_NODE index=38 type=BinaryOpUGen rate=2 special=2 cycles=1403345 calls=1024",
+      "UGEN_NODE index=39 type=SinOsc rate=1 special=0 cycles=924979 calls=1024",
+      "UGEN_NODE index=40 type=MulAdd rate=1 special=0 cycles=609581 calls=1024",
+      "UGEN_NODE index=41 type=Resonz rate=2 special=0 cycles=6738244 calls=1024",
+      "UGEN_NODE index=42 type=BinaryOpUGen rate=2 special=2 cycles=1410316 calls=1024",
+      "UGEN_NODE index=43 type=Resonz rate=2 special=0 cycles=5703832 calls=1024",
+      "UGEN_NODE index=44 type=BinaryOpUGen rate=2 special=2 cycles=1401147 calls=1024",
+      "UGEN_NODE index=45 type=MiVerb rate=2 special=0 cycles=109841319 calls=1024",
+      "UGEN_NODE index=46 type=Out rate=2 special=0 cycles=1519290 calls=1024",
+      "UGEN_NODE index=47 type=Control rate=0 special=3 cycles=117170 calls=1024",
+      "UGEN_END"
+    ]
+  },
+  "type_rates_passed": [
+    [
+      "BinaryOpUGen",
+      2
+    ],
+    [
+      "Control",
+      0
+    ],
+    [
+      "Control",
+      1
+    ],
+    [
+      "K2A",
+      2
+    ],
+    [
+      "MulAdd",
+      0
+    ],
+    [
+      "MulAdd",
+      1
+    ],
+    [
+      "Out",
+      2
+    ],
+    [
+      "Pan2",
+      2
+    ],
+    [
+      "Phasor",
+      2
+    ],
+    [
+      "Select",
+      2
+    ],
+    [
+      "UnaryOpUGen",
+      0
+    ],
+    [
+      "UnaryOpUGen",
+      1
+    ]
+  ],
+  "missing_type_rates": [
+    [
+      "A2K",
+      1
+    ],
+    [
+      "AllpassC",
+      1
+    ],
+    [
+      "AllpassC",
+      2
+    ],
+    [
+      "AllpassL",
+      1
+    ],
+    [
+      "AllpassL",
+      2
+    ],
+    [
+      "AllpassN",
+      1
+    ],
+    [
+      "AllpassN",
+      2
+    ],
+    [
+      "Amplitude",
+      1
+    ],
+    [
+      "Amplitude",
+      2
+    ],
+    [
+      "BHiShelf",
+      2
+    ],
+    [
+      "BLowShelf",
+      2
+    ],
+    [
+      "BPF",
+      1
+    ],
+    [
+      "BPF",
+      2
+    ],
+    [
+      "BPeakEQ",
+      2
+    ],
+    [
+      "BRF",
+      1
+    ],
+    [
+      "BRF",
+      2
+    ],
+    [
+      "Balance2",
+      1
+    ],
+    [
+      "Balance2",
+      2
+    ],
+    [
+      "BinaryOpUGen",
+      0
+    ],
+    [
+      "BinaryOpUGen",
+      1
+    ],
+    [
+      "Blip",
+      1
+    ],
+    [
+      "Blip",
+      2
+    ],
+    [
+      "BlockSize",
+      0
+    ],
+    [
+      "BrownNoise",
+      1
+    ],
+    [
+      "BrownNoise",
+      2
+    ],
+    [
+      "Clip",
+      1
+    ],
+    [
+      "Clip",
+      2
+    ],
+    [
+      "ClipNoise",
+      1
+    ],
+    [
+      "ClipNoise",
+      2
+    ],
+    [
+      "CoinGate",
+      1
+    ],
+    [
+      "CoinGate",
+      2
+    ],
+    [
+      "CombC",
+      1
+    ],
+    [
+      "CombC",
+      2
+    ],
+    [
+      "CombL",
+      1
+    ],
+    [
+      "CombL",
+      2
+    ],
+    [
+      "CombN",
+      1
+    ],
+    [
+      "CombN",
+      2
+    ],
+    [
+      "ControlDur",
+      0
+    ],
+    [
+      "ControlRate",
+      0
+    ],
+    [
+      "Crackle",
+      1
+    ],
+    [
+      "Crackle",
+      2
+    ],
+    [
+      "CuspL",
+      2
+    ],
+    [
+      "CuspN",
+      2
+    ],
+    [
+      "DC",
+      1
+    ],
+    [
+      "DC",
+      2
+    ],
+    [
+      "Decay",
+      1
+    ],
+    [
+      "Decay",
+      2
+    ],
+    [
+      "Decay2",
+      1
+    ],
+    [
+      "Decay2",
+      2
+    ],
+    [
+      "DegreeToKey",
+      1
+    ],
+    [
+      "DegreeToKey",
+      2
+    ],
+    [
+      "Delay1",
+      1
+    ],
+    [
+      "Delay1",
+      2
+    ],
+    [
+      "Delay2",
+      1
+    ],
+    [
+      "Delay2",
+      2
+    ],
+    [
+      "DelayC",
+      1
+    ],
+    [
+      "DelayC",
+      2
+    ],
+    [
+      "DelayL",
+      1
+    ],
+    [
+      "DelayL",
+      2
+    ],
+    [
+      "DelayN",
+      1
+    ],
+    [
+      "DelayN",
+      2
+    ],
+    [
+      "Dust",
+      1
+    ],
+    [
+      "Dust",
+      2
+    ],
+    [
+      "Dust2",
+      1
+    ],
+    [
+      "Dust2",
+      2
+    ],
+    [
+      "EnvGen",
+      1
+    ],
+    [
+      "EnvGen",
+      2
+    ],
+    [
+      "ExpRand",
+      0
+    ],
+    [
+      "FBSineC",
+      2
+    ],
+    [
+      "FBSineL",
+      2
+    ],
+    [
+      "FBSineN",
+      2
+    ],
+    [
+      "Fold",
+      1
+    ],
+    [
+      "Fold",
+      2
+    ],
+    [
+      "Formant",
+      2
+    ],
+    [
+      "Formlet",
+      1
+    ],
+    [
+      "Formlet",
+      2
+    ],
+    [
+      "FreeVerb",
+      2
+    ],
+    [
+      "FreeVerb2",
+      2
+    ],
+    [
+      "FreqShift",
+      2
+    ],
+    [
+      "Gate",
+      1
+    ],
+    [
+      "Gate",
+      2
+    ],
+    [
+      "Gendy1",
+      1
+    ],
+    [
+      "Gendy1",
+      2
+    ],
+    [
+      "Gendy2",
+      1
+    ],
+    [
+      "Gendy2",
+      2
+    ],
+    [
+      "Gendy3",
+      1
+    ],
+    [
+      "Gendy3",
+      2
+    ],
+    [
+      "GrayNoise",
+      1
+    ],
+    [
+      "GrayNoise",
+      2
+    ],
+    [
+      "HPF",
+      1
+    ],
+    [
+      "HPF",
+      2
+    ],
+    [
+      "HPZ1",
+      1
+    ],
+    [
+      "HPZ1",
+      2
+    ],
+    [
+      "Hasher",
+      1
+    ],
+    [
+      "Hasher",
+      2
+    ],
+    [
+      "HenonC",
+      2
+    ],
+    [
+      "HenonL",
+      2
+    ],
+    [
+      "HenonN",
+      2
+    ],
+    [
+      "Impulse",
+      1
+    ],
+    [
+      "Impulse",
+      2
+    ],
+    [
+      "In",
+      2
+    ],
+    [
+      "Klang",
+      2
+    ],
+    [
+      "Klank",
+      2
+    ],
+    [
+      "LFClipNoise",
+      1
+    ],
+    [
+      "LFClipNoise",
+      2
+    ],
+    [
+      "LFCub",
+      1
+    ],
+    [
+      "LFCub",
+      2
+    ],
+    [
+      "LFDClipNoise",
+      1
+    ],
+    [
+      "LFDClipNoise",
+      2
+    ],
+    [
+      "LFDNoise0",
+      1
+    ],
+    [
+      "LFDNoise0",
+      2
+    ],
+    [
+      "LFDNoise1",
+      1
+    ],
+    [
+      "LFDNoise1",
+      2
+    ],
+    [
+      "LFDNoise3",
+      1
+    ],
+    [
+      "LFDNoise3",
+      2
+    ],
+    [
+      "LFNoise0",
+      1
+    ],
+    [
+      "LFNoise0",
+      2
+    ],
+    [
+      "LFNoise1",
+      1
+    ],
+    [
+      "LFNoise1",
+      2
+    ],
+    [
+      "LFNoise2",
+      1
+    ],
+    [
+      "LFNoise2",
+      2
+    ],
+    [
+      "LFPar",
+      1
+    ],
+    [
+      "LFPar",
+      2
+    ],
+    [
+      "LFPulse",
+      1
+    ],
+    [
+      "LFPulse",
+      2
+    ],
+    [
+      "LFSaw",
+      1
+    ],
+    [
+      "LFSaw",
+      2
+    ],
+    [
+      "LFTri",
+      1
+    ],
+    [
+      "LFTri",
+      2
+    ],
+    [
+      "LPF",
+      1
+    ],
+    [
+      "LPF",
+      2
+    ],
+    [
+      "LPZ1",
+      1
+    ],
+    [
+      "LPZ1",
+      2
+    ],
+    [
+      "Lag",
+      1
+    ],
+    [
+      "Lag",
+      2
+    ],
+    [
+      "Lag2",
+      1
+    ],
+    [
+      "Lag2",
+      2
+    ],
+    [
+      "Lag3",
+      1
+    ],
+    [
+      "Lag3",
+      2
+    ],
+    [
+      "LagControl",
+      1
+    ],
+    [
+      "LagUD",
+      1
+    ],
+    [
+      "LagUD",
+      2
+    ],
+    [
+      "Latch",
+      1
+    ],
+    [
+      "Latch",
+      2
+    ],
+    [
+      "LatoocarfianC",
+      2
+    ],
+    [
+      "LatoocarfianL",
+      2
+    ],
+    [
+      "LatoocarfianN",
+      2
+    ],
+    [
+      "LeakDC",
+      1
+    ],
+    [
+      "LeakDC",
+      2
+    ],
+    [
+      "Limiter",
+      2
+    ],
+    [
+      "LinExp",
+      1
+    ],
+    [
+      "LinExp",
+      2
+    ],
+    [
+      "LinXFade2",
+      1
+    ],
+    [
+      "LinXFade2",
+      2
+    ],
+    [
+      "Line",
+      1
+    ],
+    [
+      "Line",
+      2
+    ],
+    [
+      "LocalBuf",
+      0
+    ],
+    [
+      "Logistic",
+      1
+    ],
+    [
+      "Logistic",
+      2
+    ],
+    [
+      "LorenzL",
+      2
+    ],
+    [
+      "MaxLocalBufs",
+      0
+    ],
+    [
+      "MiMu",
+      2
+    ],
+    [
+      "MiRings1",
+      2
+    ],
+    [
+      "MiRings2",
+      2
+    ],
+    [
+      "MiRings3",
+      2
+    ],
+    [
+      "MiRings4",
+      2
+    ],
+    [
+      "MiRings5",
+      2
+    ],
+    [
+      "MiRings6",
+      2
+    ],
+    [
+      "MiVerb",
+      2
+    ],
+    [
+      "MoogFF",
+      1
+    ],
+    [
+      "MoogFF",
+      2
+    ],
+    [
+      "MulAdd",
+      2
+    ],
+    [
+      "OnePole",
+      1
+    ],
+    [
+      "OnePole",
+      2
+    ],
+    [
+      "OneZero",
+      1
+    ],
+    [
+      "OneZero",
+      2
+    ],
+    [
+      "Phasor",
+      1
+    ],
+    [
+      "PinkNoise",
+      1
+    ],
+    [
+      "PinkNoise",
+      2
+    ],
+    [
+      "Pluck",
+      2
+    ],
+    [
+      "Pulse",
+      1
+    ],
+    [
+      "Pulse",
+      2
+    ],
+    [
+      "PulseCount",
+      1
+    ],
+    [
+      "PulseCount",
+      2
+    ],
+    [
+      "PulseDivider",
+      1
+    ],
+    [
+      "PulseDivider",
+      2
+    ],
+    [
+      "RHPF",
+      1
+    ],
+    [
+      "RHPF",
+      2
+    ],
+    [
+      "RLPF",
+      1
+    ],
+    [
+      "RLPF",
+      2
+    ],
+    [
+      "RadiansPerSample",
+      0
+    ],
+    [
+      "Rand",
+      0
+    ],
+    [
+      "RandSeed",
+      0
+    ],
+    [
+      "RandSeed",
+      1
+    ],
+    [
+      "RandSeed",
+      2
+    ],
+    [
+      "Resonz",
+      1
+    ],
+    [
+      "Resonz",
+      2
+    ],
+    [
+      "Ringz",
+      1
+    ],
+    [
+      "Ringz",
+      2
+    ],
+    [
+      "SampleDur",
+      0
+    ],
+    [
+      "SampleRate",
+      0
+    ],
+    [
+      "Saw",
+      1
+    ],
+    [
+      "Saw",
+      2
+    ],
+    [
+      "Select",
+      1
+    ],
+    [
+      "SetBuf",
+      0
+    ],
+    [
+      "SetResetFF",
+      1
+    ],
+    [
+      "SetResetFF",
+      2
+    ],
+    [
+      "SinOsc",
+      1
+    ],
+    [
+      "SinOsc",
+      2
+    ],
+    [
+      "SinOscFB",
+      1
+    ],
+    [
+      "SinOscFB",
+      2
+    ],
+    [
+      "Slew",
+      1
+    ],
+    [
+      "Slew",
+      2
+    ],
+    [
+      "StandardL",
+      2
+    ],
+    [
+      "StandardN",
+      2
+    ],
+    [
+      "Stepper",
+      1
+    ],
+    [
+      "Stepper",
+      2
+    ],
+    [
+      "Sum3",
+      2
+    ],
+    [
+      "Sum4",
+      0
+    ],
+    [
+      "Sum4",
+      2
+    ],
+    [
+      "SyncSaw",
+      1
+    ],
+    [
+      "SyncSaw",
+      2
+    ],
+    [
+      "TExpRand",
+      1
+    ],
+    [
+      "TExpRand",
+      2
+    ],
+    [
+      "TIRand",
+      1
+    ],
+    [
+      "TIRand",
+      2
+    ],
+    [
+      "TRand",
+      1
+    ],
+    [
+      "TRand",
+      2
+    ],
+    [
+      "TWindex",
+      1
+    ],
+    [
+      "TWindex",
+      2
+    ],
+    [
+      "ToggleFF",
+      1
+    ],
+    [
+      "ToggleFF",
+      2
+    ],
+    [
+      "Trig",
+      1
+    ],
+    [
+      "Trig",
+      2
+    ],
+    [
+      "Trig1",
+      1
+    ],
+    [
+      "Trig1",
+      2
+    ],
+    [
+      "TrigControl",
+      1
+    ],
+    [
+      "UnaryOpUGen",
+      2
+    ],
+    [
+      "VarSaw",
+      1
+    ],
+    [
+      "VarSaw",
+      2
+    ],
+    [
+      "WhiteNoise",
+      1
+    ],
+    [
+      "WhiteNoise",
+      2
+    ],
+    [
+      "Wrap",
+      1
+    ],
+    [
+      "Wrap",
+      2
+    ],
+    [
+      "XFade2",
+      1
+    ],
+    [
+      "XFade2",
+      2
+    ],
+    [
+      "XLine",
+      1
+    ],
+    [
+      "XLine",
+      2
+    ]
+  ],
+  "failed_graphs": [],
+  "restoration": {
+    "main_package_verified": true,
+    "saved_main_fx_lists_unchanged": true,
+    "instance_controls_restored": true,
+    "volume_percent": 5,
+    "volume_saved": false
+  },
+  "same_boot": true,
+  "studio_connected": true
+}

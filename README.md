@@ -59,6 +59,11 @@ unread/closed, with clean audio and unchanged saved patches. AMOLED cross-builds
 pass; physical AMOLED verification remains pending.
 [USB reliability results and remaining limits](docs/USB_RELIABILITY.md)
 
+The [current XIAO DSP sweep](docs/CURRENT_DSP_SWEEP.md) covers the full inherited
+UGen inventory and every operator at initial/control/audio rate. Its results
+retain statistical grades and the known Klang precision exception. A newer
+mixer experiment remains disabled after mixed target timing results.
+
 ### 2. Hear your first sound from the browser
 
 1. Connect the board by USB and close other serial monitors.
@@ -210,6 +215,42 @@ cue at half the current output setting and lights the activity indicator.
 Hardware listening verification of Identify is pending.
 [Identify](docs/STUDIO.md#identify-a-physical-module)
 
+### 7. Save a standalone pattern on the module
+
+The new **experimental `ESP32Program`** bundles one Main sound with a supported
+event pattern. After installation, the ESP32 advances that pattern without
+Studio, SuperCollider or a network connection. It uses the same monophonic Main
+instance as host-driven note patterns.
+
+```supercollider
+ESP32Program(
+    { arg freq = 440, amp = 0.05, gate = 0;
+        SinOsc.ar(freq) * EnvGen.kr(Env.asr(0.005, 1, 0.1), gate) * amp ! 2
+    },
+    Pbind(
+        \degree, Pseq([0, 2, 4, 7], inf),
+        \dur, Pseq([0.25, 0.25, 0.5], inf)
+    ),
+    tempo: 2, autostart: true, seed: 123
+).sendESP32(~node);
+
+ESP32.programStop(~node);
+ESP32.programPlay(~node);
+ESP32.programInfo(~node).onDone(_.postln);
+```
+
+Targets also accept a group or `\all`. In Studio, use **Pattern example**, compile
+the complete `ESP32Program(...)` expression, and upload Main. Its pattern panel
+provides restart/stop and resource counters. This needs updated firmware, a
+Studio restart and SC class-library recompile. Existing host `.playESP32` pattern
+players keep their current behavior.
+
+The first supported subset includes `Pbind`, nested/concatenated sequences,
+random patterns, arithmetic, `Pchain`, and `Pbjorklund`/`Pbjorklund2`. It does not
+run arbitrary SC Functions or the complete pattern library. See the
+[standalone pattern guide](docs/SUPERCOLLIDER.md#standalone-pattern-programs-experimental)
+for the exact list, bounds and save semantics.
+
 ## Current capabilities and limits
 
 | Area | Current behaviour |
@@ -227,6 +268,7 @@ Hardware listening verification of Identify is pending.
 | Live events | Named scalar/array control values, scheduled notes and cancellation; 16 queued events |
 | Wi-Fi | Paired authenticated HTTP; discovery by UDP; targeted and concurrent Omni uploads |
 | Control compression | Unchanged float32 values omitted per node/stream/stage; every note retained |
+| Standalone patterns | Experimental bounded pattern VM on the control task; one saved Main-bound program; optional reboot autostart |
 
 The signal-buffer planner reuses temporary audio buffers and stores each scalar
 output in one float. The expanded profile retains 64-frame blocks and the existing

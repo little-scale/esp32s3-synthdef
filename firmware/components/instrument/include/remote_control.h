@@ -38,6 +38,8 @@ void rc_bind(remote_control *,unsigned stage,const fm_graph *,fm_voice *);
 void rc_clear(remote_control *);
 int rc_decode(rc_event *,const unsigned char *,size_t);
 int rc_enqueue(remote_control *,const rc_event *,uint64_t now);
+/* Internal owner only, after Main recreation. Not a wire protocol command. */
+int rc_reopen_main_program(remote_control *,uint32_t stream,uint32_t revision);
 void rc_tick(remote_control *,instrument *,uint64_t now);
 /* Explicit instance creation/free runs only while the audio owner is parked. */
 int rc_instance(remote_control *,instrument *,master_delay *,int start,const rc_event *);

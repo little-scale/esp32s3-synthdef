@@ -116,9 +116,29 @@ static void test_deltas(void)
     e.sequence++;e.kind=2;e.flags=0;assert(rc_enqueue(&rc,&e,1100000)==1);
     e.sequence++;e.kind=0;e.flags=RC_DELTA;assert(!rc_enqueue(&rc,&e,1100000));
 }
+static void test_program_reopen(void)
+{
+    rc_init(&rc,777);rc_bind(&rc,0,&g,&voice);rc_bind(&rc,1,&g,&fx_voice);
+    rc_event other=message(700,1,0,0);other.stage=1;other.revision=rc.stage[1].revision;
+    assert(rc_enqueue(&rc,&other,1000));rc_tick(&rc,&synth,1000);
+    assert(!rc_reopen_main_program(&rc,700,rc.stage[0].revision));
+    for(unsigned i=0;i<64;i++){
+        rc_bind(&rc,0,&g,&voice);
+        assert(rc_reopen_main_program(&rc,500,rc.stage[0].revision));
+        rc_event e=message(500,1,0,0);assert(rc_enqueue(&rc,&e,1000));
+        assert(!rc_reopen_main_program(&rc,500,rc.stage[0].revision)); /* queued */
+        rc_tick(&rc,&synth,1000);e.kind=2;e.sequence=2;assert(rc_enqueue(&rc,&e,1000));
+        assert(!rc_reopen_main_program(&rc,500,rc.stage[0].revision)); /* same revision */
+        e.kind=0;e.sequence=3;assert(!rc_enqueue(&rc,&e,1000)); /* cancelled */
+        rc_bind(&rc,0,&g,&voice);
+        assert(rc_reopen_main_program(&rc,500,rc.stage[0].revision));
+        assert(!rc_enqueue(&rc,&e,1000)); /* old revision still rejected */
+    }
+    puts("PASS: 64 internal Main program reopen cycles preserve FX and stale/cancelled packet rejection.");
+}
 int main(int argc,char **argv){
     assert(argc==3);FILE *f=fopen(argv[1],"rb");assert(f);unsigned char data[65536];size_t size=fread(data,1,sizeof data,f);fclose(f);char error[160];assert(fm_load(&g,data,size,error,sizeof error));
-    test_deltas();assert(instrument_init(&synth,&g,&voice,&scratch,NULL,0,44100));rc_init(&rc,123);rc_bind(&rc,0,&g,&voice);
+    test_deltas();test_program_reopen();assert(instrument_init(&synth,&g,&voice,&scratch,NULL,0,44100));rc_init(&rc,123);rc_bind(&rc,0,&g,&voice);
     int freq=index_of("freq"),gate=index_of("gate"),amp=index_of("amp");assert(freq>=0 && gate>=0 && amp>=0);
     rc_event e=message(1,1,0,1000);e.count=2;e.index[0]=freq;e.value[0]=.1f;e.index[1]=amp;e.value[1]=2;
     assert(rc_enqueue(&rc,&e,1000));rc_tick(&rc,&synth,1000);assert(voice.control[freq]==.1f && voice.control[amp]==2);

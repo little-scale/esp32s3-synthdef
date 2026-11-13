@@ -19,6 +19,13 @@ statistical-only and float-drift results explicitly; numerical support does not
 guarantee real-time CPU suitability. See [EXTENDED_TESTS.md](EXTENDED_TESTS.md).
 Native execution of C on the computer is not cycle-accurate Xtensa emulation.
 
+The [13 November current-build XIAO sweep](CURRENT_DSP_SWEEP.md) repeats the
+inherited inventory and operator-rate banks in 332 distinct long traces:
+309 waveform passes, 22 statistical passes and the retained Klang precision
+exception, with no reported renderer faults, nonfinite values or arena-guard
+failures. These grades and the tested build identity remain separate from
+real-time timing suitability and physical AMOLED coverage.
+
 ## Meaning of the results
 
 - **Software tested:** every row passed finite-output rendering with undefined-

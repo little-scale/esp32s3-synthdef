@@ -100,7 +100,7 @@ static esp_err_t exchange_http(httpd_req_t *req)
     unsigned char payload[PATCH_FRAME_PAYLOAD];size_t bytes=sizeof payload;uint32_t request;char op[16],error[160];
     if(!patch_frame_decode(net->request,&request,op,payload,&bytes,error))return httpd_resp_send_err(req,HTTPD_400_BAD_REQUEST,"Invalid protocol frame");
     if(!strncmp(op,"NET",3))return httpd_resp_send_err(req,HTTPD_403_FORBIDDEN,"Network setup is USB only");
-    bool read=!strcmp(op,"HELLO") || !strcmp(op,"STATUS") || !strcmp(op,"LIST") || !strcmp(op,"FXLIST") || !strcmp(op,"INFO") || !strcmp(op,"FXINFO") || !strcmp(op,"READ") || !strcmp(op,"FXREAD") || !strcmp(op,"CAPINFO") || !strcmp(op,"CAPREAD") || !strcmp(op,"INPUTS");
+    bool read=!strcmp(op,"HELLO") || !strcmp(op,"STATUS") || !strcmp(op,"LIST") || !strcmp(op,"FXLIST") || !strcmp(op,"INFO") || !strcmp(op,"FXINFO") || !strcmp(op,"READ") || !strcmp(op,"FXREAD") || !strcmp(op,"CAPINFO") || !strcmp(op,"CAPREAD") || !strcmp(op,"INPUTS") || !strcmp(op,"PINFO");
     int64_t now=esp_timer_get_time();
     if(net->lease_until>now && strcmp(client,net->lease) && !read)return unavailable(req,"Another uploader owns this transfer");
     if(net->lease_until>now && !strcmp(client,net->lease))net->lease_until=now+30000000;
@@ -111,8 +111,8 @@ static esp_err_t exchange_http(httpd_req_t *req)
     }
     atomic_store(&net->work,0);
     /* Completed transfers must not be reacquired by subsequent readback/status. */
-    if((!strcmp(op,"BEGIN") || !strcmp(op,"FXBEGIN")) && strstr(net->response," OK ")){strcpy(net->lease,client);net->lease_until=esp_timer_get_time()+30000000;}
-    if(!strcmp(client,net->lease) && (!strcmp(op,"INSTALL") || !strcmp(op,"SAVE") || !strcmp(op,"FXSAVE") || !strcmp(op,"ABORT")))net->lease_until=0;
+    if((!strcmp(op,"BEGIN") || !strcmp(op,"FXBEGIN") || !strcmp(op,"PBEGIN")) && strstr(net->response," OK ")){strcpy(net->lease,client);net->lease_until=esp_timer_get_time()+30000000;}
+    if(!strcmp(client,net->lease) && (!strcmp(op,"INSTALL") || !strcmp(op,"SAVE") || !strcmp(op,"FXSAVE") || !strcmp(op,"ABORT") || !strcmp(op,"PSAVE") || !strcmp(op,"PABORT")))net->lease_until=0;
     httpd_resp_set_type(req,"text/plain");return httpd_resp_sendstr(req,net->response);
 }
 static void discover_task(void *unused)

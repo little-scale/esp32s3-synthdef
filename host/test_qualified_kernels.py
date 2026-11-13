@@ -25,6 +25,9 @@ def main():
     exec(compile(legacy,'legacy_profile.py','exec'),namespace)
     pinned=namespace['generate'](build/'pinned/src','fm1')
     for p in pinned.iterdir():
+        if p.name=='fm_build_profile.h':
+            assert (reference/p.name).read_text()==p.read_text()+'#define FM_MIX_KERNELS_ENABLED 0\n'
+            continue
         if p.suffix in ('.c','.h','.inc'):assert p.read_bytes()==(reference/p.name).read_bytes(),p.name
     edges=suite.fixtures()+core_fixtures(build)+routing_fixtures(build)+qualified_fixtures(build)
     all_paths=edges+sorted((ROOT/'upstream/fm1-synthdef/synthdef-engine/fixtures').glob('*.scsyndef'))+sorted((ROOT/'examples').glob('*.scsyndef'))

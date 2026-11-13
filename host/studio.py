@@ -179,6 +179,8 @@ class Compiler:
             with tempfile.TemporaryDirectory(prefix='synthdef-studio-') as folder:
                 graph_path, source_path = Path(folder)/'patch.scsyndef', Path(folder)/'source.scd'
                 compiler_log = ''
+                program = payload.get('program')
+                definition = payload.get('definition',False)
                 input_kind = 'compiled_file'
                 if binary_input is None:
                     if not source.strip():
@@ -188,6 +190,8 @@ class Compiler:
                     source_path.write_bytes(source)
                     compilation = compile_source(source_path, graph_path, self.sclang, target, definition=payload.get('definition',False))
                     compiler_log, input_kind = compilation['compiler_log'], compilation['input_kind']
+                    program=compilation.get('program')
+                    if program is not None: definition=True
                     pairing = 'compiled_from_source'
                 else:
                     if not isinstance(binary_input, str) or len(binary_input) > 87384:
@@ -201,7 +205,7 @@ class Compiler:
                     graph_path.write_bytes(graph)
                     pairing = 'attached_source_not_recompiled' if source else 'binary_without_source'
                 graph = graph_path.read_bytes()
-                result = subprocess.run([str(self.validator()), str(graph_path), str(int(payload.get('definition',False)))],
+                result = subprocess.run([str(self.validator()), str(graph_path), str(int(definition))],
                     capture_output=True, text=True, timeout=15)
                 if result.returncode:
                     raise Problem('Graph inspection failed: '+result.stderr[-4000:])
@@ -211,14 +215,14 @@ class Compiler:
                     from control_client import defaults
                     definitions=[dict(c,name=bytes.fromhex(c['name_hex']).decode('utf8')) for c in info['controls']]
                     graph=defaults(graph,payload['args'],dict(controls=definitions));graph_path.write_bytes(graph)
-                    result=subprocess.run([str(self.validator()),str(graph_path),str(int(payload.get('definition',False)))],capture_output=True,text=True,timeout=15,check=True)
+                    result=subprocess.run([str(self.validator()),str(graph_path),str(int(definition))],capture_output=True,text=True,timeout=15,check=True)
                     info=json.loads(result.stdout)
                 error = bytes.fromhex(info.pop('error_hex')).decode('utf-8', errors='replace')
                 if not info.pop('loaded'):
                     raise Problem('Unsupported or invalid SynthDef: '+error)
                 info['name'] = bytes.fromhex(info.pop('name_hex')).decode('utf-8', errors='replace')
                 master_error=bytes.fromhex(info.pop('master_error_hex')).decode('utf-8',errors='replace')
-                info['definition']=bool(payload.get('definition',False))
+                info['definition']=bool(definition)
                 info.update(target=target,admitted=info['master_admitted'] if target=='master' else info['fm1_admitted'])
                 if target=='master':error=master_error
                 for control in info['controls']:
@@ -228,6 +232,19 @@ class Compiler:
                     source_sha256=hashlib.sha256(source).hexdigest(), admission_error=error,
                     source_pairing=pairing, compiler_log=compiler_log, input_kind=input_kind)
                 info['ugens'] = list(dict.fromkeys(info['ugens']))
+                if program is not None:
+                    from pattern_program import compile_pattern
+                    if target!='sound' or not isinstance(program,dict) or set(program)!={'pattern','tempo','autostart','seed'}:
+                        raise Problem('Invalid standalone program specification')
+                    raw,meta=compile_pattern(program['pattern'],info['graph_sha256'],tempo=program['tempo'],
+                        autostart=program['autostart'],seed=program['seed'])
+                    event_fields={'type','stage','dur','delta','stretch','legato','sustain','degree',
+                        'note','midinote','octave','root','scale','ctranspose','mtranspose','gtranspose',
+                        'harmonic','detune','db','isRest','freq','amp','gate'}
+                    writable={c['name'] for c in info['controls'] if c['writable']}
+                    unknown=set(meta['event_keys'])-event_fields-writable
+                    if unknown:raise Problem('Pattern keys are not writable Main controls: '+', '.join(sorted(unknown)))
+                    info['program']=dict(meta,data=base64.b64encode(raw).decode('ascii'))
                 return graph, source, info
 
 
@@ -305,7 +322,8 @@ class Studio:
             module_identify=True,
             firmware_targets=[dict(id=key, label=target.label) for key, target in firmware_upload.TARGETS.items()],
             paired_devices=self.pairings.public(),
-            example=(ROOT/'examples/main-patch.scd').read_text(),master_example=(ROOT/'examples/master-fx.scd').read_text())
+            example=(ROOT/'examples/main-patch.scd').read_text(),master_example=(ROOT/'examples/master-fx.scd').read_text(),
+            pattern_example=(ROOT/'examples/standalone-pattern.scd').read_text())
 
     def firmware_port(self, path):
         ports, _ = self.ports()
@@ -402,9 +420,21 @@ class Studio:
                     status=d.request('STATUS'), slots=d.request('LIST'), audio=self.audio_snapshot())
         if self.device_info.get('master_slots')==2:state['masters']=d.request('FXLIST')
         if self.device_info.get('global_volume'):state['volume_percent']=self.volume_value(d.request('VOLUME'))
+        if self.device_info.get('pattern_programs'):state['standalone_program']=d.request('PINFO')
         state['connection']=dict(transport='wifi' if isinstance(d,NetworkDevice) else 'usb',
             device_id=self.device_info.get('device_id'),device_name=self.device_info.get('device_name'),address=self.device_port)
         return state
+
+    def pattern_command(self,payload):
+        self.check_target(payload)
+        d=self.connected()
+        if not self.device_info.get('pattern_programs'):
+            raise Problem('Update firmware for standalone pattern programs',409)
+        commands={'info':'PINFO','play':'PPLAY','stop':'PSTOP'}
+        command=commands.get(payload.get('command'))
+        if command is None:raise Problem('Choose program info, play or stop')
+        result=d.request(command)
+        return dict(result=result,**self.state())
 
     @staticmethod
     def volume_value(reply):
@@ -725,6 +755,8 @@ class Studio:
             raise Problem('Invalid legacy mapping')
         _, expected_meta = manifest(artifact.graph, artifact.source, name, labels, mapping, transfer=1, definition=artifact.info.get('definition',False))
         d = self.connected()
+        if artifact.info.get('program') and not self.device_info.get('pattern_programs'):
+            raise Problem('Update device firmware for standalone pattern programs before uploading Main')
         check_graph_limits(artifact.info,self.device_info)
         if master and self.device_info.get('master_slots')!=2:raise Problem('Update firmware to use the master slots')
         if master and not artifact.info.get('master_admitted'):raise Problem(artifact.info['admission_error'])
@@ -767,7 +799,14 @@ class Studio:
                 raise RuntimeError('Saved package readback does not match the compiled package')
             if not master and not artifact.info.get('continuous') and not artifact.info.get('definition'):
                 d.request('PANIC')
-            return dict(saved=True, verified=True, target='master' if master else 'sound',continuous=artifact.info.get('continuous',False), slot=slot, name=name, **self.state())
+            program=None
+            if artifact.info.get('program'):
+                from program_transport import upload_program
+                try:
+                    program=upload_program(d,base64.b64decode(artifact.info['program']['data'],validate=True))
+                except (ValueError,RuntimeError,OSError,TimeoutError) as error:
+                    raise Problem('Main saved, but standalone program did not finish: '+str(error),409) from error
+            return dict(saved=True, verified=True, target='master' if master else 'sound',continuous=artifact.info.get('continuous',False), slot=slot, name=name, program_upload=program, **self.state())
         except Exception as error:
             if isinstance(error, (OSError, TimeoutError)):
                 self.disconnect()
@@ -908,6 +947,8 @@ class Handler(BaseHTTPRequestHandler):
                     result = studio.connected().request('PANIC')
                 elif path == '/api/volume':
                     result = studio.volume(payload)
+                elif path == '/api/pattern':
+                    result = studio.pattern_command(payload)
                 elif path == '/api/audio/reset-peak':
                     result = studio.reset_audio_peak(payload)
                 elif path == '/api/diagnostics/ugen-profile':

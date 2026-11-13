@@ -1,0 +1,6599 @@
+{
+  "passed": false,
+  "device_id": "esp32-1c29043eeb84",
+  "muted": true,
+  "tests": {
+    "soak_50hz": {
+      "hz": 50,
+      "count": 3000,
+      "device_elapsed_seconds": 60.180318,
+      "pattern": {
+        "loaded": true,
+        "running": false,
+        "ended": true,
+        "bound": true,
+        "autostart": false,
+        "bytes": 528,
+        "vm_bytes": 50632,
+        "service_bytes": 4896,
+        "events": 3000,
+        "rests": 0,
+        "steps": 54008,
+        "eval_calls": 19057,
+        "eval_us": 830704,
+        "max_eval_us": 673,
+        "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+        "faulted": false,
+        "error_hex": ""
+      },
+      "samples": [
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 0,
+            "rests": 0,
+            "steps": 0,
+            "eval_calls": 99,
+            "eval_us": 114,
+            "max_eval_us": 19,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1598794799,
+            "active": true,
+            "prepared": true,
+            "queued": 0,
+            "applied": 0,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  440
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0199999996
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70346880,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5168596,
+            "controls_stack_free_bytes": 11656,
+            "average_x10": 239,
+            "peak_x10": 358
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 53,
+            "rests": 0,
+            "steps": 959,
+            "eval_calls": 438,
+            "eval_us": 14183,
+            "max_eval_us": 578,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1599862811,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 51,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  235
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0195934121
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70435200,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 76,
+            "peak_x10": 173
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 106,
+            "rests": 0,
+            "steps": 1913,
+            "eval_calls": 777,
+            "eval_us": 28211,
+            "max_eval_us": 578,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1600933834,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 104,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  228
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0135203386
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70479360,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 196
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 159,
+            "rests": 0,
+            "steps": 2867,
+            "eval_calls": 1116,
+            "eval_us": 42432,
+            "max_eval_us": 578,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1601996145,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 157,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  278
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.014552542
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70523520,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 179
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 213,
+            "rests": 0,
+            "steps": 3839,
+            "eval_calls": 1457,
+            "eval_us": 58942,
+            "max_eval_us": 578,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1603070069,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 211,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  285
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0178227201
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70567680,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116884,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 224
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 267,
+            "rests": 0,
+            "steps": 4811,
+            "eval_calls": 1797,
+            "eval_us": 76347,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1604149797,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 265,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  295
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.014743086
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70611840,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116884,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 79,
+            "peak_x10": 202
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 320,
+            "rests": 0,
+            "steps": 5765,
+            "eval_calls": 2136,
+            "eval_us": 90644,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1605217914,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 319,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  296
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0107680596
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70656000,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 201
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 374,
+            "rests": 0,
+            "steps": 6737,
+            "eval_calls": 2477,
+            "eval_us": 104748,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1606297642,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 373,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  319
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0193520188
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70700160,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 169
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 428,
+            "rests": 0,
+            "steps": 7709,
+            "eval_calls": 2818,
+            "eval_us": 119048,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1607380271,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 427,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  331
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0160702672
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70744320,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 183
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 482,
+            "rests": 0,
+            "steps": 8681,
+            "eval_calls": 3159,
+            "eval_us": 133144,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1608457097,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 481,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  341
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0169294607
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70788480,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 180
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 536,
+            "rests": 0,
+            "steps": 9653,
+            "eval_calls": 3499,
+            "eval_us": 147297,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1609525215,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 534,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  351
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0122733926
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70832640,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 178
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 589,
+            "rests": 0,
+            "steps": 10607,
+            "eval_calls": 3838,
+            "eval_us": 164177,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1610599139,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 588,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  373
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0196586233
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70876800,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 190
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 643,
+            "rests": 0,
+            "steps": 11579,
+            "eval_calls": 4179,
+            "eval_us": 180660,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1611673064,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 641,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  347
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0183594897
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70920960,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 79,
+            "peak_x10": 263
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 697,
+            "rests": 0,
+            "steps": 12551,
+            "eval_calls": 4519,
+            "eval_us": 195584,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1612741178,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 695,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  347
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0189951211
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 70965120,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 207
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 750,
+            "rests": 0,
+            "steps": 13505,
+            "eval_calls": 4858,
+            "eval_us": 209452,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1613812200,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 748,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  330
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.017729748
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71009280,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 192
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 805,
+            "rests": 0,
+            "steps": 14495,
+            "eval_calls": 5201,
+            "eval_us": 224160,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1614903545,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 803,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  319
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0129191168
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71097600,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 193
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 859,
+            "rests": 0,
+            "steps": 15467,
+            "eval_calls": 5542,
+            "eval_us": 238178,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1615983264,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 857,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  327
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0114621921
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71141760,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 177
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 912,
+            "rests": 0,
+            "steps": 16421,
+            "eval_calls": 5881,
+            "eval_us": 252168,
+            "max_eval_us": 655,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1617051384,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 910,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  312
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0196636524
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71185920,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 173
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 966,
+            "rests": 0,
+            "steps": 17393,
+            "eval_calls": 6220,
+            "eval_us": 269356,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1618128207,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 964,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  324
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0111549683
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71230080,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 198
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1019,
+            "rests": 0,
+            "steps": 18347,
+            "eval_calls": 6559,
+            "eval_us": 283512,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1619196326,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1017,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  313
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0133270938
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71274240,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 175
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1073,
+            "rests": 0,
+            "steps": 19319,
+            "eval_calls": 6899,
+            "eval_us": 297439,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1620264444,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 1071,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  333
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0159407146
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71318400,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 191
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1128,
+            "rests": 0,
+            "steps": 20309,
+            "eval_calls": 7243,
+            "eval_us": 311823,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1621370294,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1126,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  313
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0135363759
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71362560,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 186
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1182,
+            "rests": 0,
+            "steps": 21281,
+            "eval_calls": 7584,
+            "eval_us": 326202,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1622450025,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1180,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  331
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0136611806
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71406720,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 210
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1236,
+            "rests": 0,
+            "steps": 22253,
+            "eval_calls": 7924,
+            "eval_us": 341446,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1623529754,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1234,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  389
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0196432881
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71450880,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 192
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1290,
+            "rests": 0,
+            "steps": 23225,
+            "eval_calls": 8264,
+            "eval_us": 359785,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1624612382,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1288,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  381
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0122165605
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71495040,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 189
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1344,
+            "rests": 0,
+            "steps": 24197,
+            "eval_calls": 8605,
+            "eval_us": 374678,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1625689205,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1342,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  394
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.019303726
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71539200,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 79,
+            "peak_x10": 214
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1399,
+            "rests": 0,
+            "steps": 25187,
+            "eval_calls": 8948,
+            "eval_us": 389523,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1626783448,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 1397,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  370
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0188034028
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71583360,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 214
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1453,
+            "rests": 0,
+            "steps": 26159,
+            "eval_calls": 9290,
+            "eval_us": 403759,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1627877688,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 1452,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  362
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0194867682
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71671680,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 201
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1507,
+            "rests": 0,
+            "steps": 27131,
+            "eval_calls": 9631,
+            "eval_us": 417886,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1628957413,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 1506,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  354
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0157408696
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71715840,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 198
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1561,
+            "rests": 0,
+            "steps": 28103,
+            "eval_calls": 9971,
+            "eval_us": 431882,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1630028437,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1559,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  306
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0166228432
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71760000,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 197
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1615,
+            "rests": 0,
+            "steps": 29075,
+            "eval_calls": 10312,
+            "eval_us": 447719,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1631113970,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1613,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  271
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0130586056
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71804160,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 209
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1670,
+            "rests": 0,
+            "steps": 30065,
+            "eval_calls": 10654,
+            "eval_us": 465571,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1632199508,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 1668,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  262
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0173486173
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71848320,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 79,
+            "peak_x10": 170
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1723,
+            "rests": 0,
+            "steps": 31019,
+            "eval_calls": 10994,
+            "eval_us": 479864,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1633276325,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1721,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  264
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0133647788
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71892480,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 222
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1778,
+            "rests": 0,
+            "steps": 32009,
+            "eval_calls": 11337,
+            "eval_us": 494497,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1634373472,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1776,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  237
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0101869022
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71936640,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 173
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1832,
+            "rests": 0,
+            "steps": 32981,
+            "eval_calls": 11677,
+            "eval_us": 508725,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1635444490,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 1830,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  232
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0165384859
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 71980800,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 178
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1885,
+            "rests": 0,
+            "steps": 33935,
+            "eval_calls": 12016,
+            "eval_us": 522766,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1636515509,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1883,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  254
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0152057465
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72024960,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 187
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1939,
+            "rests": 0,
+            "steps": 34907,
+            "eval_calls": 12357,
+            "eval_us": 537277,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1637589432,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 1937,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  294
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0143333506
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72069120,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 183
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 1992,
+            "rests": 0,
+            "steps": 35861,
+            "eval_calls": 12695,
+            "eval_us": 552446,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1638657550,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 1991,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  264
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0127813332
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72113280,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 182
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2047,
+            "rests": 0,
+            "steps": 36851,
+            "eval_calls": 13037,
+            "eval_us": 568406,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1639743090,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2045,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  293
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0167724565
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72157440,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 189
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2100,
+            "rests": 0,
+            "steps": 37805,
+            "eval_calls": 13376,
+            "eval_us": 582379,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1640808300,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 2098,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  281
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0132941464
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72201600,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 168
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2154,
+            "rests": 0,
+            "steps": 38777,
+            "eval_calls": 13717,
+            "eval_us": 596801,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1641888029,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 2152,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  289
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0103159724
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72289920,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 181
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2207,
+            "rests": 0,
+            "steps": 39731,
+            "eval_calls": 14056,
+            "eval_us": 610608,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1642956146,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 2205,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  292
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0132839605
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72334080,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 76,
+            "peak_x10": 196
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2261,
+            "rests": 0,
+            "steps": 40703,
+            "eval_calls": 14396,
+            "eval_us": 624865,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1644024262,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2259,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  253
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0107236337
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72378240,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 186
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2315,
+            "rests": 0,
+            "steps": 41675,
+            "eval_calls": 14736,
+            "eval_us": 642661,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1645101089,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2313,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  238
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0143133728
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72422400,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 207
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2368,
+            "rests": 0,
+            "steps": 42629,
+            "eval_calls": 15075,
+            "eval_us": 658458,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1646177914,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2367,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  225
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0179472864
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72466560,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 183
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2422,
+            "rests": 0,
+            "steps": 43601,
+            "eval_calls": 15414,
+            "eval_us": 672942,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1647240236,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2420,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  224
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0180298313
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72510720,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 178
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2475,
+            "rests": 0,
+            "steps": 44555,
+            "eval_calls": 15753,
+            "eval_us": 686893,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1648314152,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 2473,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  231
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0115314173
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72554880,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 172
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2529,
+            "rests": 0,
+            "steps": 45527,
+            "eval_calls": 16093,
+            "eval_us": 701382,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1649379364,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2527,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  236
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.018458249
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72599040,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 187
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2582,
+            "rests": 0,
+            "steps": 46481,
+            "eval_calls": 16432,
+            "eval_us": 715305,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1650453288,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 2580,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  245
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0164645147
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72643200,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 178
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2636,
+            "rests": 0,
+            "steps": 47453,
+            "eval_calls": 16772,
+            "eval_us": 729206,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1651521405,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2634,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  275
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0117314737
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72687360,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 189
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2690,
+            "rests": 0,
+            "steps": 48425,
+            "eval_calls": 17113,
+            "eval_us": 745190,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1652604035,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2688,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  265
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.015437034
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72731520,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 172
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2743,
+            "rests": 0,
+            "steps": 49379,
+            "eval_calls": 17452,
+            "eval_us": 759527,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1653675058,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 2741,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  278
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.014339122
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72775680,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 175
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2798,
+            "rests": 0,
+            "steps": 50369,
+            "eval_calls": 17795,
+            "eval_us": 773945,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1654760589,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2796,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  280
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0175852776
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72819840,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 168
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2851,
+            "rests": 0,
+            "steps": 51323,
+            "eval_calls": 18134,
+            "eval_us": 787713,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1655834514,
+            "active": true,
+            "prepared": true,
+            "queued": 3,
+            "applied": 2849,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  279
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0194174964
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72864000,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 176
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2905,
+            "rests": 0,
+            "steps": 52295,
+            "eval_calls": 18474,
+            "eval_us": 801950,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1656917142,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2904,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  246
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0146058938
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72952320,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 77,
+            "peak_x10": 199
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 2959,
+            "rests": 0,
+            "steps": 53267,
+            "eval_calls": 18813,
+            "eval_us": 817192,
+            "max_eval_us": 673,
+            "sha256": "aa407ccad9a0fdb403ad4095b11776df8f29dc0340d177e12ea3d70918a75380",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 6,
+            "now_us": 1657982357,
+            "active": true,
+            "prepared": true,
+            "queued": 2,
+            "applied": 2957,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  230
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0128051192
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 72996480,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 182
+          }
+        }
+      ]
+    },
+    "rate_100": {
+      "hz": 100,
+      "count": 300,
+      "device_elapsed_seconds": 3.288528,
+      "pattern": {
+        "loaded": true,
+        "running": false,
+        "ended": true,
+        "bound": true,
+        "autostart": false,
+        "bytes": 528,
+        "vm_bytes": 50632,
+        "service_bytes": 4896,
+        "events": 300,
+        "rests": 0,
+        "steps": 5408,
+        "eval_calls": 1542,
+        "eval_us": 67022,
+        "max_eval_us": 581,
+        "sha256": "65fbec5792a3019cf061efc468ace21aba9a61713ad21a00faff6a128f7ced27",
+        "faulted": false,
+        "error_hex": ""
+      },
+      "samples": [
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 0,
+            "rests": 0,
+            "steps": 0,
+            "eval_calls": 99,
+            "eval_us": 110,
+            "max_eval_us": 12,
+            "sha256": "65fbec5792a3019cf061efc468ace21aba9a61713ad21a00faff6a128f7ced27",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 7,
+            "now_us": 1659184306,
+            "active": true,
+            "prepared": true,
+            "queued": 0,
+            "applied": 3000,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  440
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0199999996
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 73040640,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 78,
+            "peak_x10": 200
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 102,
+            "rests": 0,
+            "steps": 1841,
+            "eval_calls": 594,
+            "eval_us": 22797,
+            "max_eval_us": 581,
+            "sha256": "65fbec5792a3019cf061efc468ace21aba9a61713ad21a00faff6a128f7ced27",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 7,
+            "now_us": 1660223401,
+            "active": true,
+            "prepared": true,
+            "queued": 5,
+            "applied": 3098,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  223
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0102447374
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 73084800,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73447,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116860,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 81,
+            "peak_x10": 241
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 206,
+            "rests": 0,
+            "steps": 3713,
+            "eval_calls": 1091,
+            "eval_us": 46121,
+            "max_eval_us": 581,
+            "sha256": "65fbec5792a3019cf061efc468ace21aba9a61713ad21a00faff6a128f7ced27",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 7,
+            "now_us": 1661268296,
+            "active": true,
+            "prepared": true,
+            "queued": 5,
+            "applied": 3203,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  290
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0137980916
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 73128960,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 86,
+            "peak_x10": 238
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": false,
+            "ended": true,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 300,
+            "rests": 0,
+            "steps": 5408,
+            "eval_calls": 1542,
+            "eval_us": 67022,
+            "max_eval_us": 581,
+            "sha256": "65fbec5792a3019cf061efc468ace21aba9a61713ad21a00faff6a128f7ced27",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 7,
+            "now_us": 1662316099,
+            "active": true,
+            "prepared": true,
+            "queued": 0,
+            "applied": 3300,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  290
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0178112667
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 73173120,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 86,
+            "peak_x10": 221
+          }
+        }
+      ]
+    },
+    "rate_200": {
+      "hz": 200,
+      "count": 600,
+      "device_elapsed_seconds": 3.239185,
+      "pattern": {
+        "loaded": true,
+        "running": false,
+        "ended": true,
+        "bound": true,
+        "autostart": false,
+        "bytes": 528,
+        "vm_bytes": 50632,
+        "service_bytes": 4896,
+        "events": 600,
+        "rests": 0,
+        "steps": 10808,
+        "eval_calls": 1761,
+        "eval_us": 105455,
+        "max_eval_us": 586,
+        "sha256": "8b05eb15d7d0eff9dcd297b337998a31bc46593a35e05aacef7dfe85f89ddf0e",
+        "faulted": false,
+        "error_hex": ""
+      },
+      "samples": [
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 0,
+            "rests": 0,
+            "steps": 0,
+            "eval_calls": 99,
+            "eval_us": 100,
+            "max_eval_us": 6,
+            "sha256": "8b05eb15d7d0eff9dcd297b337998a31bc46593a35e05aacef7dfe85f89ddf0e",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 8,
+            "now_us": 1662682137,
+            "active": true,
+            "prepared": true,
+            "queued": 0,
+            "applied": 3300,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  440
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0199999996
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 73173120,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 86,
+            "peak_x10": 221
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 208,
+            "rests": 0,
+            "steps": 3749,
+            "eval_calls": 683,
+            "eval_us": 35804,
+            "max_eval_us": 586,
+            "sha256": "8b05eb15d7d0eff9dcd297b337998a31bc46593a35e05aacef7dfe85f89ddf0e",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 8,
+            "now_us": 1663747350,
+            "active": true,
+            "prepared": true,
+            "queued": 10,
+            "applied": 3501,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  283
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0193978753
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.100000001,
+                  0.200000003
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 73217280,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 82,
+            "peak_x10": 247
+          }
+        },
+        {
+          "program": {
+            "loaded": true,
+            "running": true,
+            "ended": false,
+            "bound": true,
+            "autostart": false,
+            "bytes": 528,
+            "vm_bytes": 50632,
+            "service_bytes": 4896,
+            "events": 426,
+            "rests": 0,
+            "steps": 7673,
+            "eval_calls": 1279,
+            "eval_us": 73372,
+            "max_eval_us": 586,
+            "sha256": "8b05eb15d7d0eff9dcd297b337998a31bc46593a35e05aacef7dfe85f89ddf0e",
+            "faulted": false,
+            "error_hex": ""
+          },
+          "remote": {
+            "boot": 1214282528,
+            "revision": 8,
+            "now_us": 1664841591,
+            "active": true,
+            "prepared": true,
+            "queued": 10,
+            "applied": 3720,
+            "rejected": 0,
+            "late": 0,
+            "total": 4,
+            "controls": [
+              {
+                "name_hex": "66726571",
+                "index": 0,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  340
+                ]
+              },
+              {
+                "name_hex": "616d70",
+                "index": 1,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.0133309811
+                ]
+              },
+              {
+                "name_hex": "67617465",
+                "index": 2,
+                "count": 1,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  1
+                ]
+              },
+              {
+                "name_hex": "6c6576656c73",
+                "index": 3,
+                "count": 2,
+                "rate": 1,
+                "trigger": false,
+                "writable": true,
+                "values": [
+                  0.200000003,
+                  0.100000001
+                ]
+              }
+            ]
+          },
+          "diagnostics": {
+            "frame": 73261440,
+            "active": 1,
+            "render_max_us": 3872,
+            "combined_max_us": 3937,
+            "write_fail": 0,
+            "partial": 0,
+            "dma_event_overflow": 0,
+            "faults": 0,
+            "clips": 0,
+            "nonfinite": 0,
+            "overflow": 0,
+            "stack_free_bytes": 12492,
+            "internal_free": 73519,
+            "internal_min": 72603,
+            "internal_largest": 63488,
+            "psram_free": 5116876,
+            "controls_stack_free_bytes": 9576,
+            "average_x10": 114,
+            "peak_x10": 264
+          }
+        }
+      ]
+    },
+    "invalid_uploads_preserve_program": 4,
+    "incomplete_transfer_recovery": true,
+    "work_budget_stops_infinite_empty": {
+      "loaded": true,
+      "running": false,
+      "ended": false,
+      "bound": true,
+      "autostart": false,
+      "bytes": 189,
+      "vm_bytes": 50632,
+      "service_bytes": 4896,
+      "events": 0,
+      "rests": 0,
+      "steps": 3585,
+      "eval_calls": 37,
+      "eval_us": 3143,
+      "max_eval_us": 3101,
+      "sha256": "29c9c35bdaee6069d7a243ff94b4e2a39151bbcb489114df37415e1bd413051c",
+      "faulted": true,
+      "error_hex": "5061747465726e2072657365742065786861757374656420776f726b20627564676574"
+    },
+    "restart_cycles": [
+      {
+        "cycle": 1,
+        "passed": true
+      },
+      {
+        "cycle": 2,
+        "passed": true
+      },
+      {
+        "cycle": 3,
+        "passed": true
+      },
+      {
+        "cycle": 4,
+        "passed": true
+      },
+      {
+        "cycle": 5,
+        "passed": true
+      },
+      {
+        "cycle": 6,
+        "passed": true
+      },
+      {
+        "cycle": 7,
+        "passed": true
+      },
+      {
+        "cycle": 8,
+        "passed": true
+      },
+      {
+        "cycle": 9,
+        "passed": true
+      },
+      {
+        "cycle": 10,
+        "passed": true
+      },
+      {
+        "cycle": 11,
+        "passed": true
+      },
+      {
+        "cycle": 12,
+        "passed": true
+      },
+      {
+        "cycle": 13,
+        "passed": true
+      },
+      {
+        "cycle": 14,
+        "passed": true
+      },
+      {
+        "cycle": 15,
+        "passed": true
+      },
+      {
+        "cycle": 16,
+        "passed": true
+      },
+      {
+        "cycle": 17,
+        "passed": true
+      },
+      {
+        "cycle": 18,
+        "passed": true
+      },
+      {
+        "cycle": 19,
+        "passed": true
+      },
+      {
+        "cycle": 20,
+        "passed": true
+      },
+      {
+        "cycle": 21,
+        "passed": true
+      },
+      {
+        "cycle": 22,
+        "passed": true
+      },
+      {
+        "cycle": 23,
+        "passed": true
+      },
+      {
+        "cycle": 24,
+        "passed": true
+      },
+      {
+        "cycle": 25,
+        "passed": true
+      },
+      {
+        "cycle": 26,
+        "passed": true
+      },
+      {
+        "cycle": 27,
+        "passed": true
+      },
+      {
+        "cycle": 28,
+        "passed": true
+      },
+      {
+        "cycle": 29,
+        "passed": false,
+        "error": "Pattern event rejected by audio owner"
+      }
+    ]
+  },
+  "observations": [],
+  "build_id": "9dcafb858f7a57a7a91adddf67ab840935295317d072b6920d9ce3a2144f2510",
+  "error": "Restart cycle failed: {'cycle': 29, 'passed': False, 'error': 'Pattern event rejected by audio owner'}",
+  "restoration": {
+    "main_package_verified": true,
+    "saved_main_fx_lists_unchanged": true,
+    "instance_controls_restored": true,
+    "volume_percent": 0,
+    "volume_saved": true
+  },
+  "studio_connected": true
+}

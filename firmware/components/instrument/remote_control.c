@@ -43,6 +43,18 @@ int rc_decode(rc_event *e,const unsigned char *p,size_t bytes)
     for(unsigned i=0;i<e->count;++i){e->index[i]=p[32+i*5];uint32_t bits=get32(p+33+i*5);memcpy(&e->value[i],&bits,4);if(!isfinite(e->value[i]))return 0;}
     return 1;
 }
+int rc_reopen_main_program(remote_control *r,uint32_t id,uint32_t revision)
+{
+    if(!id || revision!=r->stage[0].revision || r->stage[0].owner==id)return 0;
+    for(unsigned k=0;k<r->count;k++)if(r->event[k].stream==id)return 0;
+    for(unsigned k=0;k<RC_STREAMS;k++)if(r->streams[k].id==id){
+        rc_stream *s=&r->streams[k];
+        if(s->baseline[1].revision || s->baseline[0].revision==revision)return 0;
+        memset(s,0,sizeof *s);
+        return 1;
+    }
+    return 1;
+}
 int rc_enqueue(remote_control *r,const rc_event *e,uint64_t now)
 {
     if(e->stage>1 || e->kind>2 || e->count>RC_PAIRS || (e->flags & ~RC_DELTA) || (e->kind==2 && e->flags)){++r->rejected;return 0;}

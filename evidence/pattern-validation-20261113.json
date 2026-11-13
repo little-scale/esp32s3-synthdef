@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-13",
+  "status": "experimental bounded subset; shared AMOLED/XIAO code",
+  "sc_reference_cases": 92,
+  "numeric_tolerance": {
+    "absolute": 1e-12,
+    "relative": 1e-12
+  },
+  "targeted_tests": {
+    "program_integration": 7,
+    "program_transport_and_scheduler": 10,
+    "pattern_limits": 7,
+    "pattern_storage": 1
+  },
+  "existing_regressions": {
+    "studio": 47,
+    "ide_bridge": 16
+  },
+  "malformed_mutations": 10000,
+  "random_domain_draws": 50000,
+  "browser_logic_passed": true,
+  "hardware_evidence": "pattern-xiao-20261113.json",
+  "hardware_muted": true,
+  "firmware_build": "9dcafb858f7a57a7a91adddf67ab840935295317d072b6920d9ce3a2144f2510",
+  "physical_amoled_tested": false,
+  "loaded_network_tested": false,
+  "source_sha256": {
+    "firmware/components/instrument/pattern_vm.c": "ec7727f063a1bcb339b47019d1105ab8f0f6dc37aa9f6868c31cc28496819ab6",
+    "firmware/components/instrument/pattern_player.c": "7584e7b8b83d646a63b75ebd322ace13b2882a120d6e122539b7c82e0cdc5dda",
+    "firmware/components/patches/pattern_service.c": "bed83c4707c303a5be35239796d334e3d96d0d57ac0d5134f50d26372bc20b91",
+    "host/pattern_program.py": "04f901289325a0161acd90152af67931c5ba44fd27d4a3e5966d1f2a5bd24afc",
+    "host/program_transport.py": "9c771ca5d1abf43f8090f07b6b2306b6c16b2522c664eac7735aeba17c2344df",
+    "host/patches.py": "c99de14cb90c400e18c6649838dce37a2da72e90d64b49e906eab0cd27b367b0",
+    "host/studio.py": "1319f92ff3e332e13a72b3e8d43a65bbba7c0d406d5262a953d7d4c68ccbc14c",
+    "host/ide_bridge.py": "cef5c5d979d0e334224bfada054a0e2eb3a6f9fd3d3937cc85ddfa087f977d24",
+    "supercollider/ESP32Pattern.sc": "526fcf5b99e1ac5cbc29fe1f04de2eaaee23729e0f6c11c46423b44c04ad9b1b",
+    "supercollider/ESP32Program.sc": "8a778f615695bbfcef71464418697370ccfb37ced0ea5cfc0a480bd908f8eccc",
+    "supercollider/ESP32.sc": "776126cd1e5ab2d117b6f561facb53730e1ae71c7610468457fa16db492fb6ac",
+    "host/web/app.js": "c495236801c6d9967bf24c2ad767384df9742c68c91108853a9d170a2b30bfa9"
+  }
+}

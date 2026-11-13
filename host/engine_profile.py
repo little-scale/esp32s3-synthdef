@@ -12,6 +12,7 @@ from dsp_binding import prepare as prepare_binding
 from dsp_routing import prepare as prepare_routing
 from dsp_chaos_cache import prepare as prepare_chaos
 from dsp_core import prepare as prepare_core
+from dsp_mix import prepare as prepare_mix
 from qualified_kernels import prepare as prepare_qualified,BINDINGS as QUALIFIED_BINDINGS
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'upstream/fm1-synthdef/synthdef-engine/src'
@@ -92,7 +93,7 @@ static __attribute__((noinline)) void ugen_end(unsigned i){
     assert render.count(loop)==1
     return prefix+render.replace(loop,'for(ni=0;ni<g->nodes && !v->fault;ugen_end(ni),ni++) {\n  ugen_begin();')
 
-def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True, optimize_filters=True, optimize_lag=True, optimize_unary=True, optimize_miverb_packed=False, candidate_smooth=False, candidate_binary=False, candidate_noise=False, candidate_binding=False, candidate_routing=False, candidate_chaos=False, candidate_core=False, binding_families=None, qualified_kernels=False):
+def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True, optimize_filters=True, optimize_lag=True, optimize_unary=True, optimize_miverb_packed=False, candidate_smooth=False, candidate_binary=False, candidate_noise=False, candidate_binding=False, candidate_routing=False, candidate_chaos=False, candidate_core=False, binding_families=None, qualified_kernels=False, candidate_mix=False):
     if binding_families is not None and not candidate_binding:raise ValueError('Binding families require candidate_binding')
     output.mkdir(parents=True,exist_ok=True)
     source=(SOURCE/'fm_synth.h').read_text();header=source
@@ -259,6 +260,7 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         files,binding_counts=prepare_binding(files,binding_families)
     if candidate_chaos:files=prepare_chaos(files)
     if candidate_core:files=prepare_core(files)
+    if candidate_mix:files=prepare_mix(files)
     qualified={}
     if qualified_kernels:
         already_bound=set(binding_counts)
@@ -277,12 +279,13 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         if not destination.exists() or destination.read_bytes()!=data:destination.write_bytes(data)
     (output/'fm_dsp_kernels.inc').write_text(files['fm_dsp_kernels.inc'])
     (output/'fm_dsp_candidates.inc').write_text(files['fm_dsp_candidates.inc'])
-    (output/'fm_build_profile.h').write_text('/* Generated build-mode metadata. */\n#pragma once\n#define FM_QUALIFIED_KERNELS_ENABLED '+str(int(qualified_kernels))+'\n')
+    (output/'fm_build_profile.h').write_text('/* Generated build-mode metadata. */\n#pragma once\n#define FM_QUALIFIED_KERNELS_ENABLED '+str(int(qualified_kernels))+'\n#define FM_MIX_KERNELS_ENABLED '+str(int(candidate_mix))+'\n')
     (output/'fm_profile_render.inc').write_text(profile_renderer(render,delay))
     manifest={'profile':profile,'changes':{name:{'upstream':old,'target':new} for name,(old,new) in limits.items()},
               'qualified_kernels':{'enabled':qualified_kernels,**qualified},
               'qualified_kernels_source_sha256':hashlib.sha256((ROOT/'host/qualified_kernels.py').read_bytes()).hexdigest(),
-              'candidate_kernels':{'smooth':candidate_smooth,'binary':candidate_binary,'noise':candidate_noise,'binding':candidate_binding,'routing':candidate_routing,'chaos':candidate_chaos,'core':candidate_core,'production_default':False},
+              'candidate_kernels':{'smooth':candidate_smooth,'binary':candidate_binary,'noise':candidate_noise,'binding':candidate_binding,'routing':candidate_routing,'chaos':candidate_chaos,'core':candidate_core,'mix':candidate_mix,'production_default':False},
+              'candidate_mix_source_sha256':hashlib.sha256((ROOT/'host/dsp_mix.py').read_bytes()).hexdigest(),
               'candidate_core_source_sha256':hashlib.sha256((ROOT/'host/dsp_core.py').read_bytes()).hexdigest(),
               'candidate_chaos_source_sha256':hashlib.sha256((ROOT/'host/dsp_chaos_cache.py').read_bytes()).hexdigest(),
               'candidate_routing_source_sha256':hashlib.sha256((ROOT/'host/dsp_routing.py').read_bytes()).hexdigest(),
@@ -335,5 +338,6 @@ if __name__=='__main__':
     parser.add_argument('--candidate-routing',action='store_true',help='Opt-in, not hardware-qualified')
     parser.add_argument('--candidate-chaos',action='store_true',help='Opt-in, not hardware-qualified')
     parser.add_argument('--candidate-core',action='store_true',help='Opt-in, not hardware-qualified')
+    parser.add_argument('--candidate-mix',action='store_true',help='Experimental exact Sum3/Sum4/Pan2 pointer and rate specialisation')
     parser.add_argument('--binding-families',help='Optional comma-separated binding entry points')
-    args=parser.parse_args();generate(args.output,args.profile,candidate_smooth=args.candidate_smooth,candidate_binary=args.candidate_binary,candidate_noise=args.candidate_noise,candidate_binding=args.candidate_binding,candidate_routing=args.candidate_routing,candidate_chaos=args.candidate_chaos,candidate_core=args.candidate_core,binding_families=args.binding_families.split(',') if args.binding_families else None,qualified_kernels=args.qualified_kernels)
+    args=parser.parse_args();generate(args.output,args.profile,candidate_smooth=args.candidate_smooth,candidate_binary=args.candidate_binary,candidate_noise=args.candidate_noise,candidate_binding=args.candidate_binding,candidate_routing=args.candidate_routing,candidate_chaos=args.candidate_chaos,candidate_core=args.candidate_core,candidate_mix=args.candidate_mix,binding_families=args.binding_families.split(',') if args.binding_families else None,qualified_kernels=args.qualified_kernels)

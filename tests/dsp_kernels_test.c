@@ -39,7 +39,7 @@ static void normalize(fm_voice *v){
 #endif
 #if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
   if(graph.node[i].type==FM_Lag2 || graph.node[i].type==FM_Lag3)v->state[i].freq=0;
-#elif defined(DSP_BINDING_COMPARISON) || defined(DSP_CORE_COMPARISON) || defined(DSP_CHAOS_COMPARISON)
+#elif defined(DSP_BINDING_COMPARISON) || defined(DSP_CORE_COMPARISON) || defined(DSP_CHAOS_COMPARISON) || defined(DSP_STRICT_COMPARISON)
   /* Binding changes no state fields; compare every field directly. */
 #elif defined(DSP_CANDIDATE_COMPARISON)
   if(graph.node[i].type==FM_Lag2 || graph.node[i].type==FM_Lag3)v->state[i].freq=0;
@@ -76,12 +76,12 @@ int main(int argc,char **argv){
      assert(fm_seed(&a,12345+block)&&dsp_ref_seed(&b,12345+block));
      assert(fm_bind_delay(&a,&graph,ma,need)&&dsp_ref_bind_delay(&b,&graph,mb,need));
      assert(fm_bind_control_buses(&a,bank,32)&&dsp_ref_bind_control_buses(&b,bank,32));
-#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
+#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON) || defined(DSP_STRICT_COMPARISON)
      memset(&sa,0xff,sizeof sa);memset(&sb,0xff,sizeof sb);
 #endif
      fm_prepare(&graph,&a,&sa);dsp_ref_prepare(&graph,&b,&sb);
      fm_prepare(&graph,&a,&sa);dsp_ref_prepare(&graph,&b,&sb);
-#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
+#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON) || defined(DSP_STRICT_COMPARISON)
      va=a;vb=b;normalize(&va);normalize(&vb);
      if(memcmp(&va,&vb,sizeof va)||memcmp(&sa,&sb,sizeof sa)||memcmp(ma,mb,need*4)){
       fprintf(stderr,"Constructor mismatch %s rate=%u\n",argv[file],rates[rate]);return 1;
@@ -151,7 +151,7 @@ int main(int argc,char **argv){
     fm_render_input(&graph,&a,&sa,oa,in);dsp_ref_render_input(&graph,&b,&sb,ob,in);
     va=a;vb=b;normalize(&va);normalize(&vb);
     if(memcmp(oa,ob,sizeof oa)||memcmp(&va,&vb,sizeof va)||memcmp(ma,mb,need*4)
-#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON)
+#if defined(DSP_ALL_CANDIDATES) || defined(DSP_QUALIFIED_COMPARISON) || defined(DSP_STRICT_COMPARISON)
        || memcmp(&sa,&sb,sizeof sa)
 #endif
        ){

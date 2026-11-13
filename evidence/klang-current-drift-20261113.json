@@ -1,0 +1,67 @@
+{
+  "case": "klang",
+  "strict_float_check_passed": false,
+  "comparison": {
+    "passed": false,
+    "comparison": "failed",
+    "peak_error": 1.0679243132472038e-05,
+    "rms_error": 3.431152241401117e-06,
+    "relative_rms_ratio": 1.000003901490129,
+    "captured_floats": 5120,
+    "event_checks": {
+      "updates": true,
+      "rejected": true,
+      "initial_rejections": true,
+      "initial_accepts": true,
+      "restarts": true
+    },
+    "scope": "Sparse windows across 11.89 s plus full-duration RMS/peak/fault/canary checks; statistical cases do not establish identical trajectories"
+  },
+  "pcm_checks": [
+    {
+      "gain": 0.05,
+      "channels": "stereo",
+      "compared_samples": 5120,
+      "max_pcm_step_error": 1,
+      "passed": true
+    },
+    {
+      "gain": 0.05,
+      "channels": "mono",
+      "compared_samples": 2560,
+      "max_pcm_step_error": 1,
+      "passed": true
+    },
+    {
+      "gain": 0.12,
+      "channels": "stereo",
+      "compared_samples": 5120,
+      "max_pcm_step_error": 1,
+      "passed": true
+    },
+    {
+      "gain": 0.12,
+      "channels": "mono",
+      "compared_samples": 2560,
+      "max_pcm_step_error": 1,
+      "passed": true
+    },
+    {
+      "gain": 1,
+      "channels": "stereo",
+      "compared_samples": 5120,
+      "max_pcm_step_error": 1,
+      "passed": true
+    },
+    {
+      "gain": 1,
+      "channels": "mono",
+      "compared_samples": 2560,
+      "max_pcm_step_error": 1,
+      "passed": true
+    }
+  ],
+  "hardware_float_sha256": "081b57f63c97d1c7b622eb904b93836659e194be8bed173f2703e028e60a6f21",
+  "native_float_sha256": "2429008329b52a79938aa2425a9a47c9d1c68d42d7944dbcd6911bf407785434",
+  "scope": "Captured diagnostic float windows converted using float32 mono/stereo gain operations and nearest-even S16 rounding. Not analogue playback; strict waveform failure retained."
+}

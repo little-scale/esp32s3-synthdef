@@ -167,6 +167,15 @@
   "initial_voice_limit": 1,
   "master_effect_enabled": true,
   "raw_graph_byte_limit": 65536,
+  "standalone_patterns": {
+    "version": 1,
+    "program_bytes_max": 32768,
+    "nodes_max": 256,
+    "event_fields_max": 32,
+    "depth_max": 24,
+    "event_rate_max_hz": 200,
+    "execution": "bounded control-task VM; Main only; graph-SHA-bound"
+  },
   "note_preparation_blocks": 1,
   "engine_target_limits": {
     "FM_NODES": 24,
@@ -175,7 +184,7 @@
     "FM_DELAY_LIMIT": 262144
   },
   "engine_target_header_sha256": "b8e6b59b9b1d12a05ea51979568f0cff0d2a4058648211adae365341bdcea13d",
-  "engine_profile_generator_sha256": "b1e3fc437f8e8060f178f807892b1c5eb3a3d74a3755cf24c907c2f93187b072",
+  "engine_profile_generator_sha256": "7d044ba8b8484e2541095f8e9156663bccad67d18f3168515bab1bf93eb44047",
   "signal_planner_sha256": "f94e23434874846afc8f72f59d62345df9c80e1ab1cb937d613d00587735ec4d",
   "dsp_kernels_sha256": "f320e9cffc95115e60458411d8e4a2929da3616f6a2ac77b59e71c734697c108",
   "dsp_candidates_sha256": "574097f225b2dc9b9e5c7c5e2a876bd119f049b71cabfd07c6826a1bb0c5e5c5",
@@ -183,6 +192,7 @@
   "dsp_routing_sha256": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
   "dsp_chaos_cache_sha256": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
   "dsp_core_sha256": "cef78c2b54df18553b6f7dc19b68a345331d4a44ea88279834d25ec79c26e0d6",
+  "dsp_mix_sha256": "1dc5b65312cff9374acfce219e2280e648e9bf37093b541d2fa199e37fbd1403",
   "qualified_kernels_sha256": "ae282d0a407e127ea4367df2706d9109824c8c4b0357e2f3bdef6c34753d2eac",
   "master_delay": {
     "kind": "embedded persistent mono SynthDef bus",
@@ -582,5 +592,5 @@
     "touch-sine": "f6e1de8d981f567333400853af5712a657739556d2cf7675beea9e9f83d458a5"
   },
   "factory_source_sha256": "b26eb2d4188682b6f7c35c86d76f8d4d7dc934d2e9c3a4313e9b22291c3f81f2",
-  "profile_sha256": "21787bc4fff6d8c28e6c0b638260d579ef74e22eb2da6e8a7f0a580b8ff4a5e4"
+  "profile_sha256": "ba5720dec6acd3654211071e3ec582e66e2d85d841405c470baafd03a1045a10"
 }

@@ -177,6 +177,7 @@ class Hub:
         definition=p.get('definition',False)
         if type(definition) is not bool:raise ValueError('Invalid definition mode')
         payload=dict(target=target,source=source,args=p.get('args',[]),definition=definition)
+        if p.get('program_spec') is not None:payload['program']=p['program_spec']
         if graph:payload['graph']=base64.b64encode(graph).decode()
         graph,source,info=self.studio.compiler.compile(payload,wait=True)
         artifact=Artifact(graph,source,info)
@@ -200,6 +201,7 @@ class Hub:
                     if hello.get('remote_controls'):
                         cached=schema(d,int(target=='master'));cached['_synced']=time.monotonic();node.schemas[int(target=='master')]=cached
                     reply=dict(device_id=row['device_id'],device_name=row['device_name'],verified=result['verified'])
+                    if result.get('program_upload') is not None:reply['program']=result['program_upload']
                     if not definition and hello.get('remote_controls'):reply['active']=cached['active']
                     return reply
             except Exception as e:return dict(device_id=row['device_id'],device_name=row['device_name'],verified=False,error=str(e))
@@ -358,6 +360,23 @@ class Hub:
                 finally:temporary.unlink(missing_ok=True)
                 return dict(aliases=dict(self.aliases))
         if action=='deploy':return self.deploy(dict(p,_client=client),source,graph)
+        if action=='program':
+            spec={k:p.get(k) for k in ('pattern','tempo','autostart','seed')}
+            return self.deploy(dict(p,_client=client,stage='main',definition=True,program_spec=spec),source,graph)
+        if action=='pattern':
+            operations={'info':'PINFO','play':'PPLAY','stop':'PSTOP'}
+            if p.get('command') not in operations:raise ValueError('Choose program info, play or stop')
+            results=[]
+            for row in self.resolve(p.get('target')):
+                try:
+                    node=self.node(row)
+                    with node.lock:
+                        if not node.device.hello().get('pattern_programs'):raise ValueError('Update firmware for standalone patterns')
+                        result=node.device.request(operations[p['command']])
+                        node.schemas.pop(0,None)
+                        results.append(dict(device_id=row['device_id'],verified=True,program=result))
+                except Exception as error:results.append(dict(device_id=row['device_id'],verified=False,error=str(error)))
+            return dict(verified=all(r['verified'] for r in results),results=results)
         if action in ('play','stop'):return self.instance(p,action=='play',client)
         if action=='control':return self.control(p,client,sequence)
         if action=='meta':return self.meta(p)
@@ -430,7 +449,7 @@ class Handler(socketserver.BaseRequestHandler):
                     if path=='/esp32/begin':
                         if len(args)!=7 or len(transfers)>=4 or key in transfers:return
                         action,payload,source_size,graph_size=args[3:]
-                        if action!='deploy' or type(source_size) is not int or type(graph_size) is not int or not 0<=source_size<=65536 or not 0<=graph_size<=65536:return
+                        if action not in ('deploy','program') or type(source_size) is not int or type(graph_size) is not int or not 0<=source_size<=65536 or not 0<=graph_size<=65536:return
                         transfers[key]=(action,payload,source_size,graph_size,bytearray());continue
                     if key not in transfers:return
                     action,payload,source_size,graph_size,buffer=transfers[key]

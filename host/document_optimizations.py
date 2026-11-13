@@ -48,6 +48,7 @@ def render(data):
     assert set(by_id['candidate-routing']['ugens']) == set(ROUTING_TYPES)
     assert set(by_id['candidate-chaos']['ugens']) == set(CHAOS_TYPES)
     assert set(by_id['candidate-core']['ugens']) == set(CORE_TYPES)
+    assert set(by_id['candidate-mix']['ugens']) == {'Sum3','Sum4','Pan2'}
     candidate_anchors = {entry['id'] for entry in candidates}
     assert len(candidate_anchors) == len(candidates), 'Duplicate candidate ID'
     assert not candidate_anchors.intersection(groups), 'Candidate/group anchor collision'
@@ -110,9 +111,11 @@ not rerun DSP tests or certify that a source implementation is still enabled.
 Shared buffer reuse, code/cache placement and float32 arithmetic can benefit
 many rows. They do not mark every UGen as individually optimised. Hardware
 records retain their original board/build/fixture scope; an older measurement
-does not automatically qualify the current image. The latest targeted tests ran
-on XIAO; a complete sweep of the latest image and its physical AMOLED check
-remain outstanding. See [current status](../STATUS.md).
+does not automatically qualify the current image. The 13 November XIAO sweep
+completed 332 long traces on build `b06188c54dbe`: 309 waveform passes,
+22 statistical passes and the retained Klang float-tolerance exception.
+Physical AMOLED verification remains separate. See
+[current sweep](CURRENT_DSP_SWEEP.md) and [current status](../STATUS.md).
 
 ## Coverage summary
 

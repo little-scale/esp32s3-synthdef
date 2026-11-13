@@ -32,6 +32,7 @@ def qualification_fingerprint():
                    digest((ROOT/'host/dsp_routing.py').read_bytes())+
                    digest((ROOT/'host/dsp_chaos_cache.py').read_bytes())+
                    digest((ROOT/'host/dsp_core.py').read_bytes())+
+                   digest((ROOT/'host/dsp_mix.py').read_bytes())+
                    digest((ROOT/'host/qualified_kernels.py').read_bytes())+
                    digest((ROOT/'examples/master-delay.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scsyndef').read_bytes())+
@@ -95,6 +96,9 @@ def main():
         'hardware_validated_types': [], 'sample_rate_requested': 44100,
         'sample_rates_hardware_validated': [], 'initial_voice_limit': 1,
         'master_effect_enabled': True, 'raw_graph_byte_limit': 65536,
+        'standalone_patterns':{'version':1,'program_bytes_max':32768,'nodes_max':256,
+            'event_fields_max':32,'depth_max':24,'event_rate_max_hz':200,
+            'execution':'bounded control-task VM; Main only; graph-SHA-bound'},
         'note_preparation_blocks':1,
         'engine_target_limits':{k:int(str(new).rstrip('u')) for k,(_,new) in LIMITS.items()},
         'engine_target_header_sha256':digest((ENGINE/'src/fm_synth.h').read_bytes()),
@@ -106,6 +110,7 @@ def main():
         'dsp_routing_sha256':digest((ROOT/'host/dsp_routing.py').read_bytes()),
         'dsp_chaos_cache_sha256':digest((ROOT/'host/dsp_chaos_cache.py').read_bytes()),
         'dsp_core_sha256':digest((ROOT/'host/dsp_core.py').read_bytes()),
+        'dsp_mix_sha256':digest((ROOT/'host/dsp_mix.py').read_bytes()),
         'qualified_kernels_sha256':digest((ROOT/'host/qualified_kernels.py').read_bytes()),
         'master_delay':{'kind':'embedded persistent mono SynthDef bus','max_seconds':5.0,
                         'arena_samples':262144,'arena_bytes':1048576,'storage':'PSRAM','graph_sha256':digest(effect)},

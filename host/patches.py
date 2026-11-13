@@ -177,11 +177,17 @@ def compile_source(source, output, sclang, target='sound', definition=False):
     with tempfile.TemporaryDirectory(prefix='synthdef-compile-', dir=output.parent) as folder:
         script = Path(folder) / 'compile.scd'
         compiled = Path(folder) / 'compiled.scsyndef'
+        program = Path(folder) / 'program.json'
         input_path = source
         if input_kind == 'sound_block':
             input_path = Path(folder) / 'sound.scd'
             input_path.write_text(input_source, encoding='utf-8')
         script.write_text('try {\nvar autoPlay = '+('false' if target=='master' else 'true')+';\nvar definitionOnly = '+('true' if definition else 'false')+';\nvar def = thisProcess.interpreter.executeFile(' + quote(input_path) + ');\n'
+                          'var programClass = \\ESP32Program.asClass;\n'
+                          'if(programClass.notNil and: { def.isKindOf(programClass) }) {\n'
+                          + ('Error("Standalone programs belong in Main, not FX").throw;\n' if target=='master' else '') +
+                          'File.use('+quote(program)+', "w", { |f| f.write(\\ESP32.asClass.json(def.specification)) });\n'
+                          'def = def.definition; definitionOnly = true;\n};\n'
                           + (ROOT/'host/compile-sound-block.scd').read_text() + '\n'
                           'if(def.isKindOf(SynthDef).not) { Error("Source must return one SynthDef or sound Function").throw };\n'
                           'File.use(' + quote(compiled) + ', "wb", { |f| f.write(def.asBytes) });\n'
@@ -197,8 +203,11 @@ def compile_source(source, output, sclang, target='sound', definition=False):
         if compiled.stat().st_size > 65536:
             raise ValueError('Compiled SynthDef exceeds the 64 KiB device limit')
         compiled.replace(output)
+        specification = json.loads(program.read_text()) if program.exists() else None
+        if specification is not None: input_kind='program'
     return {'graph': str(output.resolve()), 'bytes': output.stat().st_size,
-            'sha256': hashlib.sha256(output.read_bytes()).hexdigest(), 'compiler_log': log, 'input_kind': input_kind}
+            'sha256': hashlib.sha256(output.read_bytes()).hexdigest(), 'compiler_log': log, 'input_kind': input_kind,
+            'program': specification}
 
 
 def main():

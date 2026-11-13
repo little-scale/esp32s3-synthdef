@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "build_id": "814e14cdfc6ccdbc857a3ff2bccd2ece16f4f06a95b2f5a3036d7646a2556b8c",
+  "fixed_seed": true,
+  "paired_trials": 27,
+  "graphs": 9,
+  "rate": 44100,
+  "block_frames": 64,
+  "cpu_mhz": 240,
+  "comparison": "Matching warm/measured audio SHA-256 and RNG across all trials/images; normal/instrumented audio, state, scratch and arena match within each image. Strict native state/scratch comparison is separate.",
+  "fixtures": {
+    "eight_saw": {
+      "baseline_us": 1161.245654296875,
+      "candidate_us": 1145.828369140625,
+      "less_time_percent": 1.3276506223470097,
+      "graph_sha256": "9098343a03cf51c5b5d957214b362f14fcec3416019bcd9f43fad0b3d1ea49b2"
+    },
+    "comb_kr": {
+      "baseline_us": 385.9320922851563,
+      "candidate_us": 374.7243977864583,
+      "less_time_percent": 2.9040586991187167,
+      "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0"
+    },
+    "triggered_harmonics": {
+      "baseline_us": 311.04652913411456,
+      "candidate_us": 300.7812866210937,
+      "less_time_percent": 3.3002273137710425,
+      "graph_sha256": "4064dea2e2a4ac3060c46c0465e12847e5972038b97451dde457c084c228eda6"
+    },
+    "filters": {
+      "baseline_us": 277.85894368489585,
+      "candidate_us": 266.45126953125,
+      "less_time_percent": 4.10556306101223,
+      "graph_sha256": "31c360880ff4b8c9780bc6bdf8870a894a0787b7e1c4fad9eed286f0edbe1999"
+    },
+    "bank_Sum3": {
+      "baseline_us": 450.7067911783854,
+      "candidate_us": 358.80182291666665,
+      "less_time_percent": 20.391298746892772,
+      "graph_sha256": "5d3bde1fdebfdb8a2abf97625812b7bd615e502a877f1cdf1aadce1064df71a1"
+    },
+    "bank_Sum4": {
+      "baseline_us": 530.8044881184895,
+      "candidate_us": 394.5980265299479,
+      "less_time_percent": 25.66038242655868,
+      "graph_sha256": "c35207a8d3f7f68886f82caf2619b64c22e1b924c9378fa9b23d925f73db2b14"
+    },
+    "bank_Pan2": {
+      "baseline_us": 343.7137084960938,
+      "candidate_us": 363.10174967447915,
+      "less_time_percent": -5.640752957808126,
+      "graph_sha256": "84704314621fc9a896d5b32cc2e15c36a6cc5aaee15a72a25cc7a1b8212c2149"
+    },
+    "pan_dynamic_ar": {
+      "baseline_us": 45.63644205729167,
+      "candidate_us": 44.319970703125,
+      "less_time_percent": 2.8846932294020133,
+      "graph_sha256": "56e641e76dd20eff0264f5f4ccfe05ec0af743d98af3bff939bbab84adc9d1c6"
+    },
+    "pan_dynamic_kr": {
+      "baseline_us": 111.08507486979167,
+      "candidate_us": 110.54346110026042,
+      "less_time_percent": 0.4875666422029301,
+      "graph_sha256": "fbb668d9a6d22a35418a2f1fceb4cb4c21ff333fb1a56653ed303514b21a9f73"
+    }
+  },
+  "production_enabled": false,
+  "decision": "Keep candidate disabled: Sum3/Sum4 and musical graphs improve in this comparison, but the 24-Pan2 bank regresses. Separate Sum and Pan changes before considering promotion.",
+  "scope": "Muted parked DSP renderer timings; excludes PCM/I2S/UI/network. Three fixed-seed trials per fixture and image; not universal per-UGen performance.",
+  "sources": [
+    "evidence/mix-xiao-baseline-20261113.json",
+    "evidence/mix-xiao-candidate-20261113.json",
+    "evidence/dsp-mix-host-20261113.json"
+  ]
+}

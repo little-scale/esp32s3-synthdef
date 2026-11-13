@@ -1,6 +1,6 @@
 # DSP optimisation register
 
-Last reviewed: **2026-11-12**. Applies to the shared AMOLED/XIAO DSP
+Last reviewed: **2026-11-13**. Applies to the shared AMOLED/XIAO DSP
 source. This is an implementation ledger, separate from the
 [support and hardware-test ledger](UGEN_SUPPORT.md).
 
@@ -30,15 +30,17 @@ not rerun DSP tests or certify that a source implementation is still enabled.
 Shared buffer reuse, code/cache placement and float32 arithmetic can benefit
 many rows. They do not mark every UGen as individually optimised. Hardware
 records retain their original board/build/fixture scope; an older measurement
-does not automatically qualify the current image. The latest targeted tests ran
-on XIAO; a complete sweep of the latest image and its physical AMOLED check
-remain outstanding. See [current status](../STATUS.md).
+does not automatically qualify the current image. The 13 November XIAO sweep
+completed 332 long traces on build `b06188c54dbe`: 309 waveform passes,
+22 statistical passes and the retained Klang float-tolerance exception.
+Physical AMOLED verification remains separate. See
+[current sweep](CURRENT_DSP_SWEEP.md) and [current status](../STATUS.md).
 
 ## Coverage summary
 
 | Category | Project optimisation enabled | Inherited FM1 fast path | No enabled individual optimisation | Experimental candidate available |
 | --- | ---: | ---: | ---: | ---: |
-| Native UGen types | 43 | 24 | 88 | 112 |
+| Native UGen types | 43 | 24 | 88 | 115 |
 | Unary selectors | 33 | 0 | 0 | 0 |
 | Binary selectors | 0 | 40 | 0 | 40 |
 
@@ -435,7 +437,7 @@ Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUA
 | OnePole | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
 | OneZero | Project optimisation enabled | [qualified-smoothing](#qualified-smoothing); [experimental candidate](#candidate-smoothing), [experimental candidate](#candidate-binding) |
 | Out | Inherited FM1 fast path | [inherited-bus-blocks](#inherited-bus-blocks) |
-| Pan2 | Inherited FM1 fast path | [inherited-pan](#inherited-pan) |
+| Pan2 | Inherited FM1 fast path | [inherited-pan](#inherited-pan); [experimental candidate](#candidate-mix) |
 | Phasor | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | PinkNoise | No enabled individual optimisation | —; [experimental candidate](#candidate-noise) |
 | Pluck | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
@@ -461,8 +463,8 @@ Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUA
 | StandardL | No enabled individual optimisation | —; [experimental candidate](#candidate-chaos) |
 | StandardN | No enabled individual optimisation | —; [experimental candidate](#candidate-chaos) |
 | Stepper | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
-| Sum3 | Inherited FM1 fast path | [inherited-arithmetic](#inherited-arithmetic) |
-| Sum4 | Inherited FM1 fast path | [inherited-arithmetic](#inherited-arithmetic) |
+| Sum3 | Inherited FM1 fast path | [inherited-arithmetic](#inherited-arithmetic); [experimental candidate](#candidate-mix) |
+| Sum4 | Inherited FM1 fast path | [inherited-arithmetic](#inherited-arithmetic); [experimental candidate](#candidate-mix) |
 | SyncSaw | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | TDelay | No enabled individual optimisation | New implementation; see project additions below |
 | TExpRand | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
@@ -917,6 +919,16 @@ Negative percentages mean the candidate was slower in that fixture.
 | Line | 0.270 | 0.197 | 27.1% |
 | SinOscFB | 0.490 | 0.492 | -0.3% |
 | XLine | 0.301 | 0.203 | 32.4% |
+
+### candidate-mix
+
+**Sum3/Sum4 all-audio loops and Pan2 output binding (experimental; disabled by default).** Retain float32 left-associative arithmetic, all state, control ramps and signal-buffer lifetimes. All-audio Sum3/Sum4 bind input pointers once; Pan2 binds output pointers per invocation. Opt in with candidate_mix=True / SYNTHDEF_DSP_CANDIDATES=mix. Strict native state/scratch tests pass across 174 four-rate edges and 1,628 inventory graphs. Same-XIAO fixed-seed comparison: 24-node Sum3/Sum4 banks improve 20.39%/25.66%, but the 24-Pan2 bank regresses 5.64%. Musical gains are 1.33–4.11% in these graphs. Keep this combined candidate disabled; separate changes and repeat before promotion.
+
+Implementation: [host/dsp_mix.py](../host/dsp_mix.py), [host/engine_profile.py](../host/engine_profile.py)
+
+Host verification: [evidence/dsp-mix-host-20261113.json](../evidence/dsp-mix-host-20261113.json)
+
+Hardware evidence: [evidence/mix-xiao-comparison-20261113.json](../evidence/mix-xiao-comparison-20261113.json)
 
 ## Shared engine improvements
 

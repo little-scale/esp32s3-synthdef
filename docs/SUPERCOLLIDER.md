@@ -436,6 +436,181 @@ Boot IDs and per-stage activation revisions reject delayed commands after reboot
 Panic or code replacement. Automatic finite note releases remain on the device
 when the host disappears. Autonomous patches continue independently.
 
+## Standalone pattern programs (experimental)
+
+`ESP32Program` bundles one Main sound with an event pattern. SC compiles the
+Function or literal SynthDef and exports the pattern's structure; Studio
+validates both and sends a compact program to the selected module, group or all
+discovered modules. The device advances the stream without Studio or a network.
+It contains a bounded stream machine, not an SC language interpreter.
+
+```supercollider
+(
+ESP32Program(
+    { arg freq = 440, amp = 0.06, gate = 0;
+        SinOsc.ar(freq) * EnvGen.kr(Env.asr(0.005, 1, 0.1), gate) * amp ! 2
+    },
+    Pbind(
+        \degree, Pseq([0, Pseq([2, 4], 2), 7], inf),
+        \dur, Pbjorklund2(3, 8, inf) / 8,
+        \legato, 0.7
+    ),
+    tempo: 2, autostart: true, seed: 123
+).sendESP32(ESP32.group(\Front));
+)
+```
+
+Install the Bjorklund quark in the host SC library to author its classes.
+Studio's **Pattern example** uses core classes. A Function returns mono/stereo
+audio and gets wrapped with `Out.ar`; a literal SynthDef retains its routing.
+
+`ESP32.program(sound, pattern, target, tempo: 2, autostart: true, seed: 123)` is
+equivalent. `ESP32.programInfo(target)`, `ESP32.programPlay(target)` and
+`ESP32.programStop(target)` return ordinary jobs with per-module results.
+Recompile the SC class library and restart Studio after updating. Existing host
+`.playESP32` patterns retain their existing host scheduling behavior.
+
+### Supported pattern subset
+
+- Event construction: `Pbind`, `Pchain`, `Pbindf` and `Pkey`, with event
+  evaluation order preserved. Keys address local Main controls or supported
+  event fields. `module`, `server`, `instrument`, `group` and `out` are rejected.
+- Lists/choice: `Pseq`, `Pser`, `Prand`, `Pxrand`, `Pshuf`, `Pwrand`,
+  `Pswitch`, `Pswitch1`, `Ptuple`. Nesting is supported; `++` exports as a
+  sequence. Repeated appearances create independent stream state.
+- Numeric generation: `Pseries`, `Pgeom`, `Pwhite`, `Pexprand`, `Pbrown`,
+  `Pgbrown`, `Ptime`.
+- Repetition/filtering: `Pn`, `Pstutter`, `Pdup`, `Pfin`, `Pdrop`, `Pseed`.
+- Euclidean rhythm: `Pbjorklund`, `Pbjorklund2`, including changing pulse/step
+  streams, finite repetitions and positive/negative offsets. Steps are 1–32.
+  Duration form needs at least one pulse and emits integer inter-hit distances
+  before your arithmetic scaling.
+- Unary arithmetic: `neg`, `abs`, `squared`, `cubed`, `sqrt`, `exp`, `reciprocal`,
+  `midicps`, `cpsmidi`, `midiratio`, `ratiomidi`, `dbamp`, `ampdb`, `log`, `log2`,
+  `log10`, `sin`, `cos`, `tan`, `floor`, `ceil`, `frac`, `sign`, `distort`, `softclip`.
+- Binary arithmetic: `+`, `-`, `*`, `/`, `mod`, `pow`, `min`, `max`, `<`, `<=`,
+  `>`, `>=`, `==`, `!=`, `round`, `clip2`. Numeric arrays wrap to the longest
+  operand as in the tested SC cases; binary adverbs are not supported.
+
+`Rest` and rest events advance time without enqueuing notes. The adapter handles
+`dur`, `delta`, `stretch`, `sustain`, `legato`, default major or numeric array
+`scale`, degree/note/MIDI/frequency pitch, octave/root/transposition,
+harmonic/detune, amp and dB. Note events use a writable Main `gate`; sets use
+`\type, \esp32Set` or `\type, \set`. Arrays can address matching array controls.
+Chord expansion into simultaneous voices is not implemented.
+
+Unsupported classes fail explicitly. `Pfunc`, `Prout`, arbitrary closures,
+`Pbindef`/proxy mutation on the node, `Ppar`/`Ptpar`, demand patterns and the rest
+of the complete SC pattern library are outside this first subset. Full Event
+inheritance, custom event types and Scale objects are outside this adapter; use
+a numeric scale array. `Pn` environment-key mode is rejected. Invalid/zero
+durations and nonfinite arithmetic stop the program with a queryable error.
+
+### Timing, ownership and persistence
+
+Tempo is fixed beats per second. The player uses the existing audio-owner queue,
+100 ms initial lead and 50 ms lookahead, with at most 200 events/second. This
+admission ceiling is not a performance guarantee for every sound/program
+combination. Missing a deadline by more than 100 ms stops it. Onsets remain control-block scheduled,
+not sample-accurate. Each Main is monophonic; another host stream or touch can
+compete for that voice. Group targets receive the same program, but nodes start
+when their own upload/play completes. They do not share a sample clock or
+synchronized group phase.
+
+Starting a program creates Main with gate zero if that writable control exists,
+then starts the stream. The first note comes from the pattern. A set program can
+also start a continuous gate-free sound. Stop cancels queued events and the
+program's owned gate; a continuous Main can keep sounding until Panic or
+`ESP32.stop(target)`. Main replacement, instance recreation and Panic invalidate
+the stream. Restart intentionally rather than replaying stale control indices.
+
+The program is bound to the exact Main graph SHA-256. Upload validates both
+components first, saves/verifies Main, then transfers/verifies/saves its program
+and starts it. This is **not one atomic Main-plus-pattern transaction**: a later
+failure reports that Main was saved but its program did not finish. An old
+program cannot drive a different graph. Main/FX package generations are
+independent of program storage.
+
+Two CRC-protected records preserve the previous program across an interrupted
+write. On boot the newest intact record loads only if Main matches.
+`autostart: true` restarts it without a host; false leaves it stopped until play.
+Upload starts it in either case. Saving stops a running program and uses the
+existing audio fade/maintenance path; the uploader starts it afterward.
+Program deletion uses `unlink` and `errno` directly: ESP-IDF SPIFFS does not
+implement `access`. Native tests emulate that missing operation, and the hardware
+qualification checks that a deleted program stays absent after reboot.
+
+A nonzero seed repeats the device's xorshift32 sequence; zero requests a fresh
+seed on each start. Device random sequences are **not bit-identical to SC's RNG**.
+`Pseed` isolates child RNG state. This does not change UGen randomness.
+
+### Resource bounds and validation
+
+Programs fit within 32 KiB: 256 nodes, 2,048 references, 64 UTF-8 symbols, depth
+24, lists up to 32 entries and 32 event fields. Evaluation has a 4,096-node work
+budget including resets, 256 pooled array values and eight cached event slots.
+Exhausting a budget stops cleanly.
+
+On the tested XIAO, VM storage is **50,632 bytes of PSRAM**, plus **4,896 bytes**
+for the service and the program binary itself. Replacing a program briefly holds
+both old and incoming VMs/binaries. The control stack grows from 8 to 16 KiB of
+internal RAM; the audio stack, graph limits, block size and delay arenas stay the
+same. Euclidean grouping is kept out of recursive evaluator frames.
+The bundled example's pattern is 602 bytes. Compared with the preceding
+candidate-off DSP image, this integration adds about 45.8 KiB of application
+flash on XIAO and 46.4 KiB on AMOLED. These include the service integration, not
+just the VM. Both images fit their existing 3 MiB application partitions.
+
+`PINFO` reports events, rests, VM work, cumulative evaluation time and maximum
+evaluation time. These exclude synthesis and transport/audio-owner handshakes;
+they are not total-chip CPU percentages. The short XIAO fixture measured a peak
+below 0.6 ms of pattern evaluation; this is not a worst-case bound for arbitrary
+programs. Studio displays these counters separately from its audio CPU gauge.
+
+The silent host suite has 92 real-SC reference cases, including the listed
+operators, with 1e-12 absolute/relative tolerance for numeric rounding. Additional
+checks exercise scheduling/control binding, malformed binaries, work limits,
+seeds, 10,000 mutations, corrupted-record fallback, SC bridge authoring and
+browser controls. Both board builds pass audits. Muted XIAO checks cover nested
+Euclidean notes, deep nesting, set events, stop/restart, Panic and saved-program
+autostart after a real chip reset. Original Main/FX packages, generations, live
+controls and muted volume are restored afterward. Physical AMOLED, loaded-network
+scheduling, long-run drift and listening qualification remain pending.
+See [host stream evidence](../evidence/pattern-program-host.json) and
+[XIAO evidence](../evidence/pattern-xiao-20261113.json).
+
+### Unattended XIAO soak and restart check
+
+On 13 November, build `2ae9176d1d48` passed a muted 60-second run of 3,000
+scheduled notes with random pitch/amplitude and array controls at 50 events/s,
+then 300 events at 100/s and 600 at 200/s. Applied counts matched generated
+counts, with no late or rejected events in those runs. This checks scheduling
+and queue delivery; it does not measure sample-level onset jitter or listening
+quality, and the short 200/s run is not a general workload guarantee.
+
+Forty-eight rapid restart/stop cycles also pass. The first build failed at cycle
+29 because every restart allocated another cancellation-protected stream slot.
+The correction keeps one onboard stream identity and reopens it internally only
+after Main is recreated. Queued/current-revision streams and FX streams cannot
+be reopened through that helper; it is not exposed as a device wire command.
+The native regression checks 64 cycles, FX isolation and stale/cancelled packet
+rejection. Remote clients retain their existing cancellation protection.
+
+Bad digests, invalid program headers, wrong graph hashes, unknown controls,
+out-of-order/incomplete transfers and an infinite empty stream recover without
+resetting the device. The old program survives failed commits; the empty stream
+stops at its work budget. During the final soak, diagnostic DSP/nonfinite/queue/
+write/DMA fault counters remained zero. After warmup, sampled free PSRAM varied
+by 24 bytes and internal free RAM by 72 bytes; longer tests are still needed to
+rule out slow leaks. Minimum sampled control-stack headroom was 9,576 bytes.
+Peak pattern evaluation reached 1,183 µs in this longer run, excluding the
+audio-owner handshake and synthesis.
+
+The original Main/FX packages, saved generations, live controls and 0% volume
+were restored, all test programs removed, and Studio reconnected. Reports retain
+both the [original failure](../evidence/pattern-soak-xiao-20261113.json) and the
+[corrected run](../evidence/pattern-soak-restart-fixed-xiao-20261113.json).
+
 ## Verification
 
 ```sh
@@ -444,6 +619,10 @@ python3 host/test_control_client.py
 python3 host/test_ide_bridge.py
 python3 host/test_studio.py
 python3 host/test_network.py
+python3 host/test_pattern_program.py
+python3 -m unittest discover -s host -p 'test_program_*.py'
+python3 -m unittest discover -s host -p 'test_pattern_limits.py'
+python3 -m unittest discover -s host -p 'test_pattern_storage.py'
 ```
 
 The native SC test uses two isolated real HTTP servers and the actual extension,

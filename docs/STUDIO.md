@@ -62,6 +62,29 @@ review again. The installer writes the three build images without a full-chip
 erase. On an existing installation, keep the same partition layout to retain
 saved patches and settings.
 
+## Standalone pattern programs (experimental)
+
+Choose **Main → Pattern example** to load an `ESP32Program(sound, pattern)`
+expression. Compile the whole expression, then upload Main. The target needs
+firmware advertising `pattern_programs: 1`; older firmware is rejected before
+Main is overwritten. The sound and its pattern are saved separately and verified,
+then the pattern starts on the device. With `autostart: true`, it also starts
+after reboot without Studio or the SC IDE.
+
+The **Standalone pattern** panel shows loaded/running/finished/error status,
+whether Main still matches, event count, binary size, runtime RAM and peak
+evaluation time. Use **Restart pattern**, **Stop pattern** or **Refresh pattern**.
+Refresh reads the latest program counters; the audio CPU gauge measures the
+audio task separately. Stop cancels pattern events; a continuous gate-free Main
+can keep sounding until Panic. Main replacement and Panic require an intentional
+program restart.
+
+Paste `ESP32Program(...)` without its IDE `.sendESP32(target)` suffix in Studio.
+Targets are chosen by the existing USB/Wi-Fi/group/Omni upload controls.
+See [the exact pattern subset and bounds](SUPERCOLLIDER.md#standalone-pattern-programs-experimental).
+This update needs a Studio restart; the server already running in memory does
+not gain new Python routes/configuration from a browser refresh alone.
+
 ## Main + FX destinations
 
 Each device has one writable **Main** patch and one writable **FX** patch.

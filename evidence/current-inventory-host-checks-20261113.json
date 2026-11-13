@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "host_native_tests": 129,
+  "log_sha256": "b62578f1bcbc4be59d766a719b1a758ea0fd29a3b1fe775464b15e60d4c336da",
+  "source_sha256": {
+    "host/qualify_current_inventory.py": "476e1642801711a79fda30b2e692d52868504ec8621b9bbf9833d2b8983a5cc5",
+    "host/test_qualify_current_inventory.py": "103b3fd991bd9f9adc31275b856cdc37626e44d5f6f4b1f16c00473b470db978",
+    "host/qualify_mix.py": "105b0de2e5c5be64b52ae23fe093183bb2cd6038eab93e1f7cd14d0ddc212581",
+    "host/test_qualify_mix.py": "6cffacce54226886f74e160f74f777a97cabccd249af4611250808d2b11bb337",
+    "host/dsp_mix.py": "1dc5b65312cff9374acfce219e2280e648e9bf37093b541d2fa199e37fbd1403",
+    "host/test_dsp_mix.py": "90eac23b5bd6444325d3db1547da26e742922153ae4181fc17122fc027158f33",
+    "host/test_mix_selection.py": "e7aae373dd8ba134b7c3a06884b6ae78f858f2d3c73f50c9d2635a533f39cf54",
+    "host/engine_profile.py": "7d044ba8b8484e2541095f8e9156663bccad67d18f3168515bab1bf93eb44047",
+    "tests/dsp_kernels_test.c": "23156375499686ee0aef77ed3dd78690a541cf7fabf79828da3e0bb45a801e4b"
+  },
+  "hardware_records": [
+    "evidence/current-inventory-summary-20261113.json",
+    "evidence/mix-xiao-comparison-20261113.json",
+    "evidence/mix-xiao-final-default-install-20261113.json"
+  ],
+  "candidate_enabled_by_default": false
+}

@@ -1,0 +1,458 @@
+{
+  "target": "ESP32-S3",
+  "build_id": "9dcafb858f7a57a7a91adddf67ab840935295317d072b6920d9ce3a2144f2510",
+  "compiler_generated_stack_usage": {
+    "pattern_vm": [
+      {
+        "function": "f64",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "euclid",
+        "frame_bytes": 2368,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_unary",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_binary",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "fail$part$0",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "reset_node",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "next",
+        "frame_bytes": 320,
+        "kind": "static"
+      },
+      {
+        "function": "argument",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "euclid_next",
+        "frame_bytes": 272,
+        "kind": "static"
+      },
+      {
+        "function": "pg_number",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pg_find",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pg_get",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pg_reset",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pg_load",
+        "frame_bytes": 2128,
+        "kind": "static"
+      },
+      {
+        "function": "pg_next_value",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "pg_next",
+        "frame_bytes": 48,
+        "kind": "static"
+      }
+    ],
+    "pattern_player": [
+      {
+        "function": "append",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "pg_player_start",
+        "frame_bytes": 64,
+        "kind": "static"
+      },
+      {
+        "function": "pg_player_poll",
+        "frame_bytes": 896,
+        "kind": "static"
+      },
+      {
+        "function": "pg_player_cancel",
+        "frame_bytes": 32,
+        "kind": "static"
+      }
+    ],
+    "main": [
+      {
+        "function": "service_master_display",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_busy",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_seed",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "audio_call",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "service_pause_mode",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_pause",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "volume_save_now",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "audio_clock_us",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "initialize_synth_mode",
+        "frame_bytes": 64,
+        "kind": "static"
+      },
+      {
+        "function": "initialize_master_mode",
+        "frame_bytes": 64,
+        "kind": "static"
+      },
+      {
+        "function": "service_display",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "remote_protocol",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_instance",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "service_stop",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_define",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_activate",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_master_activate",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_master_define",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "service_identify",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "internal_alloc",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "volume_protocol",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "send_event.isra",
+        "frame_bytes": 64,
+        "kind": "static"
+      },
+      {
+        "function": "audio_task",
+        "frame_bytes": 1792,
+        "kind": "static"
+      },
+      {
+        "function": "effect_save_now",
+        "frame_bytes": 64,
+        "kind": "static"
+      },
+      {
+        "function": "console_task",
+        "frame_bytes": 1216,
+        "kind": "static"
+      },
+      {
+        "function": "effect_protocol",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "app_main",
+        "frame_bytes": 752,
+        "kind": "static"
+      }
+    ],
+    "pattern_service": [
+      {
+        "function": "send_event",
+        "frame_bytes": 400,
+        "kind": "static"
+      },
+      {
+        "function": "read_record",
+        "frame_bytes": 112,
+        "kind": "static"
+      },
+      {
+        "function": "context",
+        "frame_bytes": 64,
+        "kind": "static"
+      },
+      {
+        "function": "activate.constprop",
+        "frame_bytes": 976,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_service_error",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_service_stop",
+        "frame_bytes": 400,
+        "kind": "static"
+      },
+      {
+        "function": "start",
+        "frame_bytes": 80,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_service_init",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_service_bind",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_service_tick",
+        "frame_bytes": 784,
+        "kind": "static"
+      },
+      {
+        "function": "pattern_service_command",
+        "frame_bytes": 592,
+        "kind": "static"
+      }
+    ],
+    "patch_service": [
+      {
+        "function": "publish",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "end_maintenance",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "sha",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "master_persist",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "persist_selection",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "activate_stage",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "begin_maintenance",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "wire_send",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "reply_send",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "scan_slot.constprop",
+        "frame_bytes": 320,
+        "kind": "static"
+      },
+      {
+        "function": "load_slot$part$0",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "load_slot",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "save_slot$part$0",
+        "frame_bytes": 448,
+        "kind": "static"
+      },
+      {
+        "function": "save_slot",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "master_scan",
+        "frame_bytes": 320,
+        "kind": "static"
+      },
+      {
+        "function": "master_activate_stage",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "master_load",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "master_save$part$0",
+        "frame_bytes": 784,
+        "kind": "static"
+      },
+      {
+        "function": "master_save",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "process_line",
+        "frame_bytes": 1328,
+        "kind": "static"
+      },
+      {
+        "function": "patches_publish",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "patches_master_init",
+        "frame_bytes": 208,
+        "kind": "static"
+      },
+      {
+        "function": "patches_master_restore",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "patches_master_request",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "patches_init",
+        "frame_bytes": 256,
+        "kind": "static"
+      },
+      {
+        "function": "patches_restore",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "patches_request",
+        "frame_bytes": 48,
+        "kind": "static"
+      },
+      {
+        "function": "patches_tick",
+        "frame_bytes": 64,
+        "kind": "static"
+      },
+      {
+        "function": "patches_line",
+        "frame_bytes": 32,
+        "kind": "static"
+      },
+      {
+        "function": "patches_exchange",
+        "frame_bytes": 32,
+        "kind": "static"
+      }
+    ]
+  },
+  "control_stack_bytes": 16384,
+  "notes": "Per-function static frames; recursive depth/call-chain overhead are additional. Physical high-water result is in pattern-xiao-20261113.json."
+}

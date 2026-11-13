@@ -66,6 +66,11 @@ function renderBroadcast() {
 }
 function controls() {
   const locked = busy || volumeSending || volumeTimer !== null;
+  $('pattern-example').disabled=locked || isMaster() || !config?.pattern_example;
+  const pattern=device?.standalone_program;
+  $('pattern-play').disabled=locked || !pattern?.loaded || !pattern?.bound;
+  $('pattern-stop').disabled=locked || !pattern?.running;
+  $('pattern-refresh').disabled=locked || !device?.hello.pattern_programs;
   for (const id of ['patches-tab', 'groups-tab', 'groups-scan', 'group-editor', 'group-name',
     'group-dissolve', 'group-dissolve-confirm', 'group-dissolve-cancel', 'identify-mode']) $(id).disabled = locked;
   for (const check of groupChecks) check.disabled = locked;
@@ -128,7 +133,7 @@ function invalidate() {
 }
 function sourceMode() {
   binary = null; $('file-mode').hidden = true;
-  $('source-help').textContent = 'Use a SynthDef or { sound } block; a trailing .play is accepted without host playback. Source runs locally; use code you trust.';
+  $('source-help').textContent = 'Use a SynthDef, { sound } block or ESP32Program(sound, pattern). Source runs locally; use code you trust.';
   invalidate();
 }
 function renderDevice(result) {
@@ -138,6 +143,14 @@ function renderDevice(result) {
     volumeEpoch++; volumePending = null; clearTimeout(volumeTimer); volumeTimer = null;
   }
   device = result?.connected ? result : null;
+  const pattern=device?.standalone_program;
+  $('standalone-pattern').hidden=!device?.hello.pattern_programs;
+  $('pattern-status').textContent=!pattern?.loaded?'No standalone pattern loaded.':
+    `${pattern.running?'Running':pattern.faulted?'Stopped with an error':pattern.ended?'Finished':'Stopped'} · ${pattern.bound?'Main matches':'Main has changed'} · ${pattern.events} events · ${pattern.bytes} bytes of program · ${((pattern.vm_bytes+pattern.service_bytes)/1024).toFixed(1)} KiB runtime RAM · evaluation peak ${pattern.max_eval_us} µs.`;
+  if(pattern?.error_hex){
+    const bytes=Uint8Array.from(pattern.error_hex.match(/../g) || [],value=>parseInt(value,16));
+    $('pattern-status').textContent+=' '+new TextDecoder().decode(bytes);
+  }
   renderAudio(device?.audio);
   renderProgram();
   if (!device?.hello.global_volume || !Number.isInteger(device.volume_percent)) {
@@ -358,6 +371,10 @@ $('source').addEventListener('keydown', event => {
 $('patch-name').addEventListener('input', () => {saveEditor();controls();});
 $('port').addEventListener('change', controls);
 $('example').addEventListener('click', () => { $('source').value = isMaster() ? config.master_example : config.example; $('patch-name').value = isMaster() ? 'Master FX' : 'Main'; sourceMode(); });
+$('pattern-example').addEventListener('click',()=>{$('source').value=config.pattern_example;$('patch-name').value='Standalone melody';sourceMode();});
+for(const [id,command] of [['pattern-play','play'],['pattern-stop','stop'],['pattern-refresh','info']]){
+  $(id).addEventListener('click',()=>task(async()=>{renderDevice(await api('pattern',{command}));}));
+}
 $('target').addEventListener('change', () => {saveEditor();broadcast=null;loadEditor($('target').value);renderDevice(device);});
 $('source-mode').addEventListener('click', sourceMode);
 $('open-file').addEventListener('click', () => $('file').click());

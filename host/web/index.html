@@ -19,13 +19,13 @@
   <main id="patches-view">
     <section class="composer panel" aria-labelledby="source-title">
       <div class="panel-heading"><div><span class="step">01 / SOURCE</span><h2 id="source-title">Main code</h2></div>
-        <div class="file-actions"><button id="example" class="quiet">Load example</button><button id="open-file" class="quiet">Open file</button><input type="file" id="file" tabindex="-1" accept=".scd,.sc,.scsyndef"></div>
+        <div class="file-actions"><button id="example" class="quiet">Load example</button><button id="pattern-example" class="quiet">Pattern example</button><button id="open-file" class="quiet">Open file</button><input type="file" id="file" tabindex="-1" accept=".scd,.sc,.scsyndef"></div>
       </div>
       <div id="file-mode" class="file-mode" hidden><span id="file-description"></span><button id="source-mode" class="quiet">Use source instead</button></div>
       <label for="source" class="sr-only">SuperCollider source code</label>
       <textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off" aria-describedby="source-help" placeholder="Paste a SynthDef or { sound }.play block, or open a .scd file…"></textarea>
       <div class="editor-footer"><span id="source-size">0 / 65,536 bytes</span><span>SuperCollider · UTF-8</span></div>
-      <p id="source-help" class="hint">Use a SynthDef or { sound } block; a trailing .play is accepted without host playback. Source runs locally; use code you trust.</p>
+      <p id="source-help" class="hint">Use a SynthDef, { sound } block or ESP32Program(sound, pattern). A trailing .play is accepted for sound blocks without host playback. Source runs locally; use code you trust.</p>
       <div class="compile-bar"><button id="compile" class="primary">Compile</button><span id="compile-status" role="status">Ready to compile</span></div>
       <div id="result" class="result" hidden>
         <div class="result-heading"><span class="success-dot"></span><strong id="result-title"></strong></div>
@@ -100,6 +100,11 @@
       </details>
       <fieldset id="slots-field" disabled><legend>Saved on this module</legend><div id="slots" class="stages"><p class="hint">Connect to see Main and FX.</p></div></fieldset>
       <div class="playback-controls"><button id="main-load" class="quiet">Restart Main</button><button id="master-load" class="quiet" aria-pressed="false">FX bypass</button></div>
+      <section id="standalone-pattern" hidden aria-labelledby="pattern-title">
+        <h3 id="pattern-title">Standalone pattern</h3>
+        <p id="pattern-status" class="hint" role="status"></p>
+        <div class="playback-controls"><button id="pattern-play" class="quiet">Restart pattern</button><button id="pattern-stop" class="quiet">Stop pattern</button><button id="pattern-refresh" class="quiet">Refresh pattern</button></div>
+      </section>
       <p id="fx-status" class="hint" role="status">FX state appears after connecting.</p>
       <label for="upload-destination">Upload to</label>
       <select id="upload-destination"><option value="single">Connected module</option><option value="omni">All discovered modules</option></select>

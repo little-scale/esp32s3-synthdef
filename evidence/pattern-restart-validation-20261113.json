@@ -1,0 +1,80 @@
+{
+  "date": "2026-11-13",
+  "passed": true,
+  "firmware_build": "2ae9176d1d48f8bff12946849b36886e572fcad1da45f14e030a02acdcc924f9",
+  "hardware": "XIAO-3eeb84",
+  "output_muted": true,
+  "rate_counts": {
+    "soak_50hz": 3000,
+    "rate_100": 300,
+    "rate_200": 600
+  },
+  "rapid_restart_cycles": 48,
+  "native_restart_cycles": 64,
+  "baseline_failure_cycle": 29,
+  "diagnostic_ranges": {
+    "psram_free": {
+      "min": 5116988,
+      "max": 5117012,
+      "variation": 24
+    },
+    "internal_free": {
+      "min": 73435,
+      "max": 73507,
+      "variation": 72
+    },
+    "controls_stack_free_bytes": {
+      "min": 9576,
+      "max": 9576,
+      "variation": 0
+    },
+    "faults": {
+      "min": 0,
+      "max": 0,
+      "variation": 0
+    },
+    "nonfinite": {
+      "min": 0,
+      "max": 0,
+      "variation": 0
+    },
+    "overflow": {
+      "min": 0,
+      "max": 0,
+      "variation": 0
+    },
+    "write_fail": {
+      "min": 0,
+      "max": 0,
+      "variation": 0
+    },
+    "dma_event_overflow": {
+      "min": 0,
+      "max": 0,
+      "variation": 0
+    }
+  },
+  "restoration": {
+    "main_package_verified": true,
+    "saved_main_fx_lists_unchanged": true,
+    "instance_controls_restored": true,
+    "volume_percent": 0,
+    "volume_saved": true
+  },
+  "source_sha256": {
+    "firmware/components/instrument/remote_control.c": "5ad91e2d6e3a0231b5d12d492d0ec341cc0c8fbfa4c1fa61cdfb2cb921d3b6f9",
+    "firmware/components/instrument/include/remote_control.h": "d9c3be5d433fc75e79df1b94f4e663583f10596a110149d1f6ccd6334a622fe9",
+    "firmware/components/patches/pattern_service.c": "ac01c723a6cc9bdaed6e315dba9e991393da26610496770cde53914431681848",
+    "firmware/main/main.c": "d7fc55867bc3d3fad833613758a4adfb0144e255a3784ae204f1f26244dc79db",
+    "host/qualify_pattern_soak.py": "3bbc16798d5903f17fec383e8703943349f5661b74d927248d22325e548cd10a",
+    "tests/remote_control_test.c": "c4c2bc7e5dc34e250bb72fa925ce5a7291a5d870a406ebef9e3839b6172cb0d1"
+  },
+  "evidence": [
+    "pattern-soak-xiao-20261113.json",
+    "pattern-soak-restart-fixed-xiao-20261113.json",
+    "pattern-restart-xiao-build-20261113.json",
+    "pattern-restart-amoled-build-20261113.json",
+    "remote-control-host.json"
+  ],
+  "limits": "Muted scheduling/queue checks; no listening, sample-onset jitter, loaded-Wi-Fi or physical AMOLED test."
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed": "2026-11-12",
+  "reviewed": "2026-11-13",
   "groups": {
     "sine-cache": {
       "title": "SinOsc phase-step cache",
@@ -2091,6 +2091,29 @@
       },
       "hardware_metrics_record": "evidence/dsp-seeded-xiao-core.json",
       "hardware_metrics_scope": "Klang/Klank graphs contain 16 partials; other rows are individual named UGens with their supporting nodes."
+    },
+    {
+      "id": "candidate-mix",
+      "title": "Sum3/Sum4 all-audio loops and Pan2 output binding",
+      "status": "experimental; disabled by default",
+      "scope": "Retain float32 left-associative arithmetic, all state, control ramps and signal-buffer lifetimes. All-audio Sum3/Sum4 bind input pointers once; Pan2 binds output pointers per invocation. Opt in with candidate_mix=True / SYNTHDEF_DSP_CANDIDATES=mix. Strict native state/scratch tests pass across 174 four-rate edges and 1,628 inventory graphs. Same-XIAO fixed-seed comparison: 24-node Sum3/Sum4 banks improve 20.39%/25.66%, but the 24-Pan2 bank regresses 5.64%. Musical gains are 1.33\u20134.11% in these graphs. Keep this combined candidate disabled; separate changes and repeat before promotion.",
+      "ugens": [
+        "Sum3",
+        "Sum4",
+        "Pan2"
+      ],
+      "unary": [],
+      "binary": [],
+      "implementation": [
+        "host/dsp_mix.py",
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/dsp-mix-host-20261113.json"
+      ],
+      "hardware_evidence": [
+        "evidence/mix-xiao-comparison-20261113.json"
+      ]
     }
   ],
   "project_additions": {

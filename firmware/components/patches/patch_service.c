@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "patch_service.h"
+#include "pattern_service.h"
 #include "device_network.h"
 #include "board_audio.h"
 #ifdef CONFIG_SYNTHDEF_HEADLESS
@@ -128,6 +129,7 @@ static int activate_stage(int slot,bool start)
     if(!((s->stage_meta.flags&PATCH_DEFINITION)?(s->hooks.define && s->hooks.define(s->graph[next],start)):s->hooks.activate(s->graph[next]))) {s->faulted=true;snprintf(s->error,160,"Activation acknowledgement failed; reset required");return 0;}
     unsigned char *old=s->active_blob;s->active_blob=s->stage_blob;s->stage_blob=old;
     s->active_meta=s->stage_meta;s->active=next;s->active_slot=slot;s->state=3;s->stage_master=false;
+    pattern_service_bind(s->graph[s->active],s->active_meta.graph_hash,s->mounted);
     publish();return 1;
 }
 static int load_slot(unsigned slot,bool start)
@@ -276,7 +278,8 @@ int patches_init(fm_graph *first,fm_graph *spare,const void *factory,size_t byte
     for(unsigned k=0;k<4;++k)snprintf(m->label[k],12,"%s",labels[k]);
     m->mapping=1;
     s->active_meta=*m;memcpy(s->active_blob,factory,bytes);snprintf(s->names[0],32,"Factory Sine");
-    mount_store();return 1;
+    mount_store();if(!pattern_service_init(s->hooks.remote,s->hooks.instance))return 0;
+    pattern_service_bind(first,s->active_meta.graph_hash,s->mounted);return 1;
 }
 void patches_restore(bool factory_only)
 {
@@ -293,6 +296,7 @@ bool patches_request(unsigned slot,bool save)
 static uint64_t now_ms(void) {return (uint64_t)esp_timer_get_time()/1000;}
 void patches_tick(void)
 {
+    if(s)pattern_service_tick(!s->faulted && s->state!=1 && s->state!=2);
     if(!s)return;
     if((s->state==1||s->state==2) && now_ms()-s->last_rx>10000) {s->state=0;snprintf(s->error,160,"Upload timed out; active patch retained");}
     if(s->state==1 || s->state==2)return; /* Keep queued touch loads out of the staging graph. */
@@ -311,7 +315,7 @@ static void process_line(const char *line)
     unsigned char payload[PATCH_FRAME_PAYLOAD];size_t length=sizeof payload;uint32_t id=0;
     char op[16];
     if(!patch_frame_decode(line,&id,op,payload,&length,s->error)) {reply_send(0,"ERR",s->error,false,0);return;}
-    bool read=!strcmp(op,"HELLO") || !strcmp(op,"STATUS") || !strcmp(op,"LIST") || !strcmp(op,"FXLIST") || !strcmp(op,"INFO") || !strcmp(op,"FXINFO") || !strcmp(op,"READ") || !strcmp(op,"FXREAD") || !strcmp(op,"NETINFO") || !strcmp(op,"CAPINFO") || !strcmp(op,"CAPREAD") || !strcmp(op,"INPUTS");
+    bool read=!strcmp(op,"HELLO") || !strcmp(op,"STATUS") || !strcmp(op,"LIST") || !strcmp(op,"FXLIST") || !strcmp(op,"INFO") || !strcmp(op,"FXINFO") || !strcmp(op,"READ") || !strcmp(op,"FXREAD") || !strcmp(op,"NETINFO") || !strcmp(op,"CAPINFO") || !strcmp(op,"CAPREAD") || !strcmp(op,"INPUTS") || !strcmp(op,"PINFO");
     /* Queries stay dark; repeated valid data frames still count as reception. */
     if(!read && strcmp(op,"RCINFO") && strcmp(op,"NETPAIR") && strcmp(op,"NETSCAN") &&
        ((strcmp(op,"FX") && strcmp(op,"VOLUME")) || length))device_network_received();
@@ -329,6 +333,8 @@ static void process_line(const char *line)
     if(!strcmp(op,"HELLO") && !length) {
         size_t total=0,used=0;if(s->mounted)esp_spiffs_info("storage",&total,&used);
         snprintf(s->reply,sizeof s->reply,"{\"protocol\":1,\"model\":\"%s\",\"build\":\"%s\",\"engine\":\"%s\",\"profile\":\"%s\",\"rate\":44100,\"block\":64,\"voices\":1,\"effects\":1,\"continuous_blocks\":true,\"master_slots\":2,\"atomic_install\":true,\"global_volume\":true,\"remote_controls\":1,\"control_deltas\":1,\"definition_lifecycle\":1,\"transports\":[\"usb-serial-jtag\",\"wifi-http\"],\"graph_max\":65536,\"source_max\":65536,\"chunk\":256,\"slots\":1,\"main_slot\":1,\"fx_slot\":1,\"fx_bypass_slot\":0,\"storage\":%s,\"storage_total\":%u,\"storage_free\":%u,\"policy\":\"%s\",\"catalog\":%s}",BOARD_MODEL,s->hooks.build_id,s->hooks.engine_commit,s->hooks.profile_hash,s->mounted?"true":"false",(unsigned)total,(unsigned)(total-used),PATCH_POLICY,PATCH_CATALOG_JSON);
+        size_t pattern_end=strlen(s->reply);
+        if(pattern_end && s->reply[pattern_end-1]=='}')snprintf(s->reply+pattern_end-1,sizeof s->reply-pattern_end+1,",\"pattern_programs\":1,\"pattern_version\":1,\"pattern_max\":32768}");
         /* Identity is also carried by USB so pairing never relies on an IP. */
         size_t end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"device_id\":\"%s\",\"device_name\":\"%s\",\"wifi_upload\":true}",device_network_id(),device_network_name());
 #ifdef FM_SIGNAL_REUSE
@@ -357,6 +363,16 @@ static void process_line(const char *line)
         ok=board_audio_capture_command(op,payload,length,s->reply,sizeof s->reply);
         if(!ok)snprintf(s->error,sizeof s->error,"Capture busy, unavailable or invalid request");
 #endif
+    } else if(op[0]=='P' && strcmp(op,"PANIC")) {
+        if(s->state==1 || s->state==2){reply_send(id,"ERR","Main upload pending; program unavailable",true,crc);return;}
+        bool store=!strcmp(op,"PSAVE") || !strcmp(op,"PDELETE");
+        if(store)pattern_service_stop();
+        ok=!store || begin_maintenance("SAVE PROGRAM");
+        if(ok){
+            ok=pattern_service_command(op,payload,length,s->channel,s->reply,sizeof s->reply);
+            if(store){int resumed=end_maintenance();ok=ok && resumed;}
+        }
+        if(!ok)snprintf(s->error,sizeof s->error,"%s",pattern_service_error());
     } else if(!strcmp(op,"RCINFO") || !strcmp(op,"RCEVENT")) {
         if(s->state==1 || s->state==2){reply_send(id,"ERR","Upload pending; controls unavailable",true,crc);return;}
         int result=s->hooks.remote?s->hooks.remote(op,payload,length,s->reply,sizeof s->reply):0;

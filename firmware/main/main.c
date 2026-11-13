@@ -41,7 +41,7 @@
 #define SAMPLE_RATE 44100u
 #define EVENT_CAPACITY 16
 #define AUDIO_STACK_BYTES 16384
-#define CONTROL_STACK_BYTES 8192
+#define CONTROL_STACK_BYTES 16384
 static const char *TAG = "synthdef";
 static float *synth_arena;
 static uint32_t synth_arena_samples;
@@ -124,6 +124,10 @@ static int initialize_master(fm_graph *g){return initialize_master_mode(g,false)
 static void process_remote(void)
 {
     uint64_t now=audio_clock_us();
+    if(remote_mail->info==2){
+        remote_mail->result=rc_reopen_main_program(remote,remote_mail->event.stream,remote_mail->event.revision);
+        return;
+    }
     remote_mail->result=remote_mail->info?
         rc_snapshot(remote,remote_mail->stage,now,&remote_mail->status):
         rc_enqueue(remote,&remote_mail->event,now);
@@ -477,13 +481,15 @@ static int remote_protocol(const char *op,const unsigned char *payload,size_t by
 {
     if(remote_failed)return -1;
     if(!remote || !remote_mail || atomic_load(&reject_events))return 0;
-    remote_mail->info=!strcmp(op,"RCINFO");
-    if(remote_mail->info){if(bytes!=2 || payload[0]>1 || payload[1]>8)return 0;remote_mail->stage=payload[0];remote_mail->page=payload[1];}
+    remote_mail->info=!strcmp(op,"RCREOPEN")?2:!strcmp(op,"RCINFO");
+    if(remote_mail->info==2){if(bytes!=8)return 0;remote_mail->event.stream=patch_get32(payload);remote_mail->event.revision=patch_get32(payload+4);}
+    else if(remote_mail->info){if(bytes!=2 || payload[0]>1 || payload[1]>8)return 0;remote_mail->stage=payload[0];remote_mail->page=payload[1];}
     else if(!rc_decode(&remote_mail->event,payload,bytes))return 0;
     /* Formatting is bounded. No allocation, flash access or network I/O occurs on the audio owner. */
     if(!audio_call(AUDIO_REMOTE,NULL)){remote_failed=true;return -1;}
     if(!remote_mail->result)return 0;
     if(!remote_mail->info && remote_mail->result==RC_NEED_FULL){snprintf(reply,size,"{\"queued\":false,\"need_full\":true}");return 1;}
+    if(remote_mail->info==2){snprintf(reply,size,"{\"reopened\":true}");return 1;}
     if(remote_mail->info)return rc_info(&remote_mail->status,remote_mail->page,reply,size);
     snprintf(reply,size,"{\"queued\":true}");return 1;
 }

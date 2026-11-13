@@ -41,6 +41,37 @@ build audits. Release firmware build identity is `d1bf9ef3a7df`.
 
 ## In progress
 
+- **Unattended pattern soak and restart fix:** build `2ae9176d1d48` supersedes
+  the first pattern image on XIAO-3eeb84. It passes 3,000 notes at 50/s over
+  one minute, short 100/s and 200/s runs, array controls, malformed-transfer
+  recovery, work-budget failure/recovery and 48 rapid restart/stop cycles.
+  The first run exposed stream-slot exhaustion at restart 29; onboard programs
+  now reuse one identity after safe Main recreation. Native checks cover 64
+  cycles and retain FX/stale/cancelled-command protection. Both target builds
+  pass audits. Original sound, controls, generations and 0% volume are restored;
+  no test program remains. [Results](evidence/pattern-soak-restart-fixed-xiao-20261113.json),
+  [limits and measurements](docs/SUPERCOLLIDER.md#unattended-xiao-soak-and-restart-check).
+
+- **Experimental standalone patterns:** host `ESP32Program` compilation/export,
+  a bounded off-audio stream VM, Main-hash binding, event scheduling, two-bank
+  program storage, SC start/stop/query methods and Studio controls are implemented.
+  The initial supported subset includes Pbind, nested/concatenated sequences,
+  random generators, arithmetic and Pbjorklund/Pbjorklund2; it is not the complete
+  SC pattern library. Computer checks and both firmware build audits pass.
+  XIAO muted functional checks pass, including gate=1 suppression, leading
+  rests, seeded Brownian/exponential controls, deep nesting, Panic, reboot
+  autostart and deletion surviving a second reboot. SPIFFS deletion now avoids
+  its unsupported access() operation, covered by a native regression.
+  This first qualification used build `9dcafb858f7a`, superseded by the
+  restart fix above. Its SoundBlock, saved generations, live controls and
+  original 0% volume were restored.
+  The 92 SC-reference cases, targeted host/native tests, browser checks and both
+  target build audits pass. The deep test leaves 6,280 bytes of control stack;
+  no DSP/nonfinite/queue/write/DMA faults are reported. See the separate
+  [device results](evidence/pattern-xiao-20261113.json). AMOLED physical checks,
+  loaded-network scheduling and broader long-run qualification remain pending.
+  [Authoring, supported classes, resource bounds and limitations](docs/SUPERCOLLIDER.md#standalone-pattern-programs-experimental).
+
 - **USB reliability:** macOS/native-ESP opening updates DTR/RTS together,
   removing a reproduced unintended reset (68 earlier lifecycle passes, including
   50 consecutive reopens). Buffered console build `b06188c54dbe` now batches
@@ -63,9 +94,34 @@ build audits. Release firmware build identity is `d1bf9ef3a7df`.
   passed the combined-image comparison on XIAO-3eeb84: 28 pinned graphs, three
   fixed-seed trials on each image, matching output hashes and final RNG. Musical
   workloads improve by up to 6.42%; unchanged isolated SinOscFB/Formant graphs
-  have small absolute slowdowns, retained in the results. Physical AMOLED and
-  broader whole-inventory qualification remain pending.
+  have small absolute slowdowns, retained in the results. Physical AMOLED
+  verification remains pending; the broader XIAO sweep is recorded below.
   [Combined XIAO comparison](evidence/dsp-combined-xiao-3eeb84-summary.json)
+
+## Broader DSP sweep and mixer experiment — 13 November 2026
+
+XIAO-3eeb84 completed 332 long diagnostic traces on `b06188c54dbe`, covering all
+154 inherited native types and every unary/binary selector at initial/control/audio
+rate. There are 309 waveform passes, 22 statistical passes and the unchanged
+Klang strict-float exception (separate conversion check: at most one S16 step).
+No renderer faults, nonfinite values or arena-guard failures were reported.
+Eight sustained hotspot graphs then completed three fixed-seed profiles each.
+The finite `m5_addy` profiling attempt is unavailable because its Line ends the
+voice before the measurement window finishes; its numerical trace passes.
+
+The new default-disabled Sum3/Sum4/Pan2 mixer candidate passes strict native
+state/scratch comparisons over 174 four-rate edge graphs and 1,628 inventory
+graphs. Same-board timing improves the 24-Sum3/24-Sum4 banks by 20.39%/25.66%
+and four musical graphs by 1.33–4.11%, but the 24-Pan2 bank regresses 5.64%.
+The combined candidate is therefore **not promoted**; separate its changes
+before further qualification. Both standard board builds and the experimental
+XIAO image pass audits. Final XIAO firmware is the standard candidate-off
+`814e14cdfc6c`, with original Main/FX, generations and live controls restored,
+saved volume 5%, and Studio connected at that checkpoint. Standalone pattern work
+began afterward and is tracked separately above.
+[Results and reproduction](docs/CURRENT_DSP_SWEEP.md),
+[sweep summary](evidence/current-inventory-summary-20261113.json),
+[mixer comparison](evidence/mix-xiao-comparison-20261113.json)
 
 ## USB pattern endurance completed — 13 November 2026
 

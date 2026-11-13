@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "device_id": "esp32-1c29043eeb84",
+  "app_sha256": "8e7444400606de612df24f0cc3145274f20f08b6f790b09d78fb3ee501bf81d0",
+  "build": "814e14cdfc6ccdbc857a3ff2bccd2ece16f4f06a95b2f5a3036d7646a2556b8c",
+  "app_only": true,
+  "mix": false,
+  "restoration": {
+    "main_package_verified": true,
+    "saved_main_fx_lists_unchanged": true,
+    "instance_controls_restored": true,
+    "volume_percent": 5,
+    "volume_saved": true
+  },
+  "studio_connected": true
+}
