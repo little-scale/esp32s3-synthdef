@@ -1,19 +1,24 @@
 # USB pattern lifecycle checks — 13 November 2026
 
-## Result and pause point
+## Completed resumed run
 
 The real SuperCollider extension, isolated Studio bridge and XIAO-3eeb84
-(`esp32-1c29043eeb84`) passed **23 lifecycle checkpoints** at **5% output volume**.
-The subsequent ten-minute DSP/control soak was **paused at the user's request**:
-29 monitoring windows reached **149.78 seconds**, with no new errors observed in
-those windows. This is **not a completed 600-second soak**. Hardware work is
-paused until the board is available again.
+(`esp32-1c29043eeb84`) passed **25 lifecycle checkpoints** and the full
+**600-second DSP/control soak** at **5% output volume**. SC submitted **9,609
+updates** across the prelude and timed run; **9,600 events applied** between the
+recorded remote-info boundaries. Lookahead events were canceled when stopping.
+No new late/rejected events or audio diagnostic errors occurred in the soak.
+[Completed run](../evidence/usb-patterns-xiao-3eeb84-resumed-20261113.json)
 
-The original Main/FX packages, storage generations, active states and live
-controls were verified after cleanup, with **5% volume saved** and normal Studio
-reconnected. No test graph was saved, no storage was erased, and this pack did
-not flash firmware. The installed USB-qualified build remains `b06188c54dbe`.
-[Interrupted run and restoration](../evidence/usb-patterns-xiao-3eeb84-20261113.json)
+The final checks verified that cancellation emptied the queue, held `freq`
+unchanged, and left the autonomous audio playing. Original Main/FX packages,
+generations, active states and live controls were independently verified after
+restoration, with **5% saved** and normal Studio reconnected. The boot ID stayed
+unchanged throughout. No firmware was flashed; build remains `b06188c54dbe`.
+
+The earlier user-interrupted run remains archived as incomplete at 149.78
+seconds; it has not been relabelled as a completed test.
+[Earlier paused run](../evidence/usb-patterns-xiao-3eeb84-20261113.json)
 
 ## What passed
 
@@ -24,6 +29,7 @@ not flash firmware. The installed USB-qualified build remains `b06188c54dbe`.
 | 8 notes/second | Scheduled gates and audio captured; stop produced silence |
 | Replay of stopped player | Fresh remote stream played successfully |
 | 16 notes/second | Gate intervals and cancellation passed |
+| Identical pitch at 16 notes/second | 52 acknowledged empty 32-byte note deltas in the capture window; gates still retriggered |
 | Overlapping notes | One-block retrigger gaps measured at 64–65 samples |
 | Finite pattern | Exactly three notes applied; final release completed |
 | Cancel a future note | Pending event removed; capture spanning its due time stayed silent |
@@ -38,7 +44,7 @@ process. It does not send a global stop to the user's IDE or a host audio server
 The fixture does not start scsynth or play sound on the computer.
 
 Measured gate intervals in the short captured windows had maximum errors of
-about **1.26 ms at 8 Hz** and **1.55 ms at 16 Hz**, with SC's default 0.25-second
+about **2.71 ms at 8 Hz** and **1.55 ms at 16 Hz**, with SC's default 0.25-second
 scheduling lead. These are intervals in on-device post-volume PCM, not a
 measurement of end-to-end latency, the external DAC clock or long-run jitter.
 The gate-period acceptance threshold was 10 ms and missing transitions also fail.
@@ -75,25 +81,38 @@ missing/displaced gates, wrong-device/state refusal, and detecting a stalled
 control stream or new diagnostic error. Private PCM and native SC logs remain
 under `build/host/private/`; the public report contains numeric observations.
 
-## Partial soak
+## Completed soak and compact notes
 
-The soak uses Comb Cloud KR followed by temporary MiVerb, with an actual
-`esp32Set` Pbind updating `freq` at **16 Hz**. Repeated pairs of frequencies also
-exercise unchanged-value delta packets. Controls and audio are observed every
-five seconds; PCM is sampled periodically while the pattern keeps running.
+The ten-minute soak uses Comb Cloud KR followed by temporary MiVerb, with an
+actual `esp32Set` Pbind updating `freq` at **16 Hz**. Repeated pairs of frequencies
+exercise unchanged-value deltas. There are **116 monitoring windows** and **20
+periodic PCM samples**, with no new write failure, partial write, DMA event, DSP
+fault, clipping, nonfinite value, control overflow, late event or rejected event.
 
-The sampled average DSP load ranged **64.6–66.3%**. The maximum recorded reporting
-window peak was **103.2%**; it is preserved rather than hidden. No additional
-write failures, partial writes, DMA events, DSP faults, clipping, nonfinite
-values, late events or rejected events were observed in the completed monitoring
-windows. A peak over the per-block budget is not itself proof of a dropped sample,
-and this partial run is not a long-term real-time guarantee.
+Sampled average DSP load was **64.0–66.0%**, with a maximum reporting-window peak
+of **102.1%**. This peak is retained; no claim of universal deadline compliance is
+made. Internal free memory stayed **81,711 bytes** at both boundaries. Free PSRAM
+went from **5,173,752 to 5,173,736 bytes** (16 bytes lower), within the pack's 1 KiB
+stability tolerance. This is a ten-minute observation, not a long-term leak proof.
 
-**Still pending:** finish 600 seconds, execute the soak's final frequency-hold and
-continuous-audio-after-cancel assertions, and qualify repeated identical-pitch
-*note* events carrying empty deltas. The latter was not exercised by the pitched
-note sequence in this pack. Physical AMOLED and Wi-Fi pattern testing are also
-separate follow-ups.
+A separate repeated-pitch note phase captured **52 acknowledged note events**
+with no argument records: a **32-byte binary body**, versus 52 bytes for the first
+full four-argument note. The audio marker still shows 16 retriggers per second.
+Counts include neither ASCII framing nor transport headers. The overall run
+contains 61 empty-delta notes; the 52-event figure is the specifically measured
+capture phase. Repeating controls does not suppress note timestamps or triggers.
+
+The earlier 149.78-second interrupted attempt had sampled average load of
+64.6–66.3% and a 103.2% peak, with clean sampled windows. Its completion and final
+stop/hold assertions were pending then; both now pass in the resumed run.
+The first smoothed-marker measurement failure also remains preserved separately.
+
+Physical AMOLED, Wi-Fi-under-load/multiple-node tests, other hosts/hubs and
+longer observations remain follow-ups. There is no new acoustic listening
+confirmation for this resumed run; the results above use on-device PCM and
+telemetry. The six focused offline guard/analysis tests and the full **118-test**
+host/native regression set pass.
+[Computer-only checks](../evidence/usb-patterns-resume-host-checks-20261113.json)
 
 ## Reproduction
 
@@ -107,7 +126,7 @@ All test uploads use temporary ACTIVATE; INSTALL/SAVE are never used.
 ```sh
 PYTHONPATH=host python3 host/qualify_usb_patterns.py \
   --device-id esp32-1c29043eeb84 \
-  --backup build/host/private/usb-patterns-20261113-backup.json \
+  --backup build/host/private/usb-patterns-resume-20261113-backup.json \
   --soak-seconds 600 \
   --output evidence/usb-patterns-xiao.json
 ```
@@ -115,8 +134,8 @@ PYTHONPATH=host python3 host/qualify_usb_patterns.py \
 Do not reuse a stale backup. Ctrl-C stops the native client/monitor, drains the
 isolated bridge, panics pending events, restores and verifies original packages
 and controls, saves 5%, and reattaches normal Studio. Physical loss of USB can
-prevent restoration and is reported explicitly; this session completed cleanup
-before the user unplugged.
+prevent restoration and is reported explicitly; the earlier paused session completed cleanup before the user unplugged, and
+the resumed session also verified restoration.
 
 ```sh
 PYTHONPATH=host python3 -m unittest test_qualify_usb_patterns

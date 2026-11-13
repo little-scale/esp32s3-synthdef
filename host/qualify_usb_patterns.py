@@ -67,15 +67,22 @@ def period_stats(right,rate,sample_rate=44100):
                 max_period_error_seconds=error,zero_gap_min_samples=min(gaps),zero_gap_max_samples=max(gaps))
 
 
+def empty_note_delta_stats(wires):
+    notes=[row for row in wires if row['kind']==1 and row.get('queued') is True]
+    assert len(notes)>=3,'Too few acknowledged repeated notes'
+    assert all(row['delta'] and row['pairs']==0 and row['bytes']==32 for row in notes), 'Repeated notes did not use empty 32-byte deltas'
+    return dict(acknowledged_notes=len(notes),empty_delta_notes=len(notes),bytes_per_event=32)
+
+
 SCRIPT=r'''
 Routine({
     var target=%TARGET%,p,mk,ask,s1,s2,future;
     try {
         ESP32.connect(%CONFIG%).wait;ESP32.latency=0.25;
         ask={|name,extra|ESP32.request(\qa,(name:name).putAll(extra ? ())).wait};
-        mk={|rate,overlap=false|
+        mk={|rate,overlap=false,repeated=false|
             Pbind(\type,\esp32Note,\module,target,
-                \freq,Pfunc({~sent=~sent+1;[220,330,440,550].wrapAt(~sent)}),
+                \freq,Pfunc({~sent=~sent+1;if(repeated){440}{[220,330,440,550].wrapAt(~sent)}}),
                 \amp,0.05,\attack,0.002,\release,0.01,
                 \dur,1/rate,\sustain,if(overlap){0.2}{0.7/rate}).playESP32;
         };
@@ -86,6 +93,7 @@ Routine({
         p.stop;0.5.wait;ask.value("cancel_silent");
         p.play;0.6.wait;ask.value("replay8",(rate:8,sent:~sent));p.stop;0.5.wait;ask.value("cancel_silent");
         ~sent=0;p=mk.value(16);0.6.wait;ask.value("rate16",(rate:16,sent:~sent));p.stop;0.5.wait;ask.value("cancel_silent");
+        ~sent=0;p=mk.value(16,false,true);0.6.wait;ask.value("same_pitch16",(rate:16,sent:~sent));p.stop;0.5.wait;ask.value("cancel_silent");
         ~sent=0;p=mk.value(16,true);0.6.wait;ask.value("overlap16",(rate:16,sent:~sent));p.stop;0.5.wait;ask.value("cancel_silent");
         ask.value("finite_before");
         p=Pbind(\type,\esp32Note,\module,target,\freq,Pseq([220,330,440],1),\amp,0.05,\dur,0.125).playESP32;
@@ -188,10 +196,13 @@ class Qualification:
                 row.update(self.silent());info=self.info()
                 assert next(c['values'][0] for c in info['controls'] if c['name']=='gate')==0
                 if name in ('definition_silent','changed_silent'):assert not info['active']
-            elif name in ('rate8','replay8','rate16','overlap16','new_definition8'):
+            elif name in ('rate8','replay8','rate16','same_pitch16','overlap16','new_definition8'):
                 values,pcm=self.capture(.8);assert 0<pcm['peak']<32767
                 row.update(pcm=pcm,timing=period_stats(values[1::2],int(p['rate'])),sc_sent=int(p['sent']))
                 if name=='overlap16':assert row['timing']['zero_gap_max_samples']<=192,'Overlap produced an unexpectedly long gate gap'
+                if name=='same_pitch16':
+                    with self.lock:wires=[v.copy() for v in self.wires if v['phase']==name]
+                    row['wire_deltas']=empty_note_delta_stats(wires)
                 if name=='new_definition8':self.expect_stale=False
             elif name=='finite_before':self.finite=self.info()['applied']
             elif name=='finite_ended':

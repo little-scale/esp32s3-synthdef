@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "computer_only": true,
+  "date": "2026-11-13",
+  "unit_tests": 118,
+  "hardware_build_unchanged": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+  "sources": {
+    "host/qualify_usb_patterns.py": "99050ee8d8a54ba0f0a7e2caf59bdd37523b1f2bd551b9a774a4260b27672590",
+    "host/test_qualify_usb_patterns.py": "55f1fc9f80ce25157a76bc577ce72b567f2ef610009e96ed8ad4b6f89b2c9e04",
+    "supercollider/ESP32.sc": "29e938b9b586cad15d1cd97f0cffbd93634ba9566df5842aee4406231a85a7a0",
+    "host/ide_bridge.py": "a59f3daf22be013e3a9c1c312dd12878278cc26eeb3cc3f079555d3c33bc3343",
+    "host/control_client.py": "0bf1dc51909e2add4e51f296a3a259b87de44024d55e8fc611deaa35b8d43cf5",
+    "firmware/components/instrument/remote_control.c": "7163e0c4f0df541ec69e8d54412258b22fd379f9d75818eb3b4f48f9e7e2b5f2"
+  }
+}

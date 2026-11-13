@@ -67,7 +67,25 @@ build audits. Release firmware build identity is `d1bf9ef3a7df`.
   broader whole-inventory qualification remain pending.
   [Combined XIAO comparison](evidence/dsp-combined-xiao-3eeb84-summary.json)
 
-## USB patterns paused — 13 November 2026
+## USB pattern endurance completed — 13 November 2026
+
+After reconnecting XIAO-3eeb84, 25 lifecycle checkpoints and the complete
+600-second SC/Studio/USB soak pass at 5%. SC submitted 9,609 updates including
+the prelude; 9,600 events applied within the observed soak boundaries. There are
+no new audio-error, late or rejected-event counts, and cancellation leaves the
+continuous sound playing with its parameter held. Repeated identical-pitch notes
+also retrigger with empty 32-byte deltas (52 acknowledged events in that capture).
+
+Sampled average CPU was 64.0–66.0%, with a retained 102.1% reporting-window peak.
+Internal free memory was unchanged at 81,711 bytes; PSRAM was 16 bytes lower,
+within the 1 KiB test tolerance. Original Main/FX, generations and controls are
+restored, 5% is saved, and Studio is connected; the boot did not change. Firmware
+remains `b06188c54dbe`. All 118 host/native checks pass. Physical AMOLED and Wi-Fi
+pattern/load tests remain separate work.
+[Completed evidence](evidence/usb-patterns-xiao-3eeb84-resumed-20261113.json),
+[test details](docs/USB_PATTERN_TESTS.md)
+
+## Earlier paused USB pattern run — 13 November 2026
 
 Real sclang/Studio/USB tests passed 23 lifecycle checkpoints on XIAO-3eeb84 at
 5%: silent definition/creation, 8/16 Hz notes, overlapping retriggers, replay,
@@ -81,7 +99,7 @@ The 16 Hz Comb Cloud/MiVerb control soak was paused at the user's request after
 stop/hold assertions remain **incomplete**. Sampled average CPU was 64.6–66.3%;
 one reporting-window peak reached 103.2%, with no new observed error counters.
 Original Main/FX, generations and live controls are restored, 5% is saved and
-Studio reconnected. Further hardware work is paused; computer-only checks pass.
+Studio reconnected. That run was paused; the later completed run is recorded above.
 [Details and resume requirements](docs/USB_PATTERN_TESTS.md)
 
 ## Buffered USB requalification — 13 November 2026

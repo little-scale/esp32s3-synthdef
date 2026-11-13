@@ -381,7 +381,8 @@ The [build guide](docs/BUILD.md) provides the current FM1/cache configuration,
 flashing/recovery steps and test commands. The latest installed image is recorded
 in [STATUS.md](STATUS.md) with matching build and device evidence.
 The [USB pattern checks](docs/USB_PATTERN_TESTS.md) cover 8/16 Hz note lifecycle
-and cancellation; their ten-minute endurance follow-up is paused and incomplete.
+and cancellation, including identical-pitch compact note messages. The resumed
+600-second, 16 Hz DSP/control soak passes with the original sound restored.
 
 The compact-control change passes full/delta PCM identity tests with interleaved
 future events, 300 real EnvGen retriggers, 37 SC/network/control regressions and

@@ -11,6 +11,14 @@ import qualify_usb_patterns as tool
 
 
 class PatternQualificationTests(unittest.TestCase):
+    def test_identical_note_check_requires_acknowledged_empty_delta_packets(self):
+        empty=dict(kind=1,queued=True,delta=True,pairs=0,bytes=32)
+        self.assertEqual(tool.empty_note_delta_stats([empty]*4)['empty_delta_notes'],4)
+        for change in (dict(delta=False),dict(pairs=1,bytes=37),dict(queued=False)):
+            with self.subTest(change=change),self.assertRaises(AssertionError):
+                tool.empty_note_delta_stats([dict(empty,**change)]*4)
+        with self.assertRaises(AssertionError):tool.empty_note_delta_stats([empty]*2)
+
     def wave(self,rate,overlap=False,jitter=False):
         count=44100;period=44100/rate
         data=[]
