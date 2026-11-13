@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "device_id": "esp32-1c29043eeb84",
+  "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+  "boot": 2970250089,
+  "same_boot_as_idle_tests": true,
+  "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+  "main_active": true,
+  "volume_percent": 5,
+  "saved_lists_unchanged": true,
+  "main_and_fx_live_controls_restored": true,
+  "studio_connected": true,
+  "program": {
+    "iram_bytes": 141056,
+    "dram_bytes": 40732,
+    "app_bytes": 1358352,
+    "partition_bytes": 3145728
+  }
+}

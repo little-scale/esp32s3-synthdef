@@ -27,7 +27,15 @@ def link(path):
 def render(data):
     inventory = json.loads((ROOT / 'evidence/fm1-fixed-inventory.json').read_text())
     assert data['schema_version'] == 1
-    assert set(data['ugens']) == set(inventory['types']), 'UGen inventory changed; update register'
+    additions = data.get('project_additions', {})
+    assert not set(additions).intersection(inventory['types'])
+    assert set(data['ugens']) == set(inventory['types']) | set(additions), 'UGen inventory changed; update register'
+    capabilities = json.loads((ROOT / 'docs/capabilities.json').read_text())
+    assert set(data['ugens']) == set(capabilities['compiled_types']), 'Compiled UGen inventory changed; update register'
+    for entry in additions.values():
+        assert entry['status'] == 'new implementation; no individual speed-up claimed'
+        for field in ('implementation', 'host_evidence', 'hardware_evidence'):
+            for path in entry[field]: assert (ROOT/path).is_file(), path
     for section, typename in [('unary', 'UnaryOpUGen'), ('binary', 'BinaryOpUGen')]:
         assert set(data[section]) == set(inventory['operators'][typename]), f'{section} inventory changed'
     groups = data['groups']
@@ -64,7 +72,7 @@ def render(data):
             if entry['group']:
                 assert entry['status'] == groups[entry['group']]['status']
             if entry['status']=='not_recorded':
-                assert key in candidate_rows[section], f'Unreviewed {section}: {key}'
+                assert key in candidate_rows[section] or (section=='ugens' and key in additions), f'Unreviewed {section}: {key}'
     for group in [*groups.values(), *data['shared'], *data['experiments'], *candidates]:
         for field in ('implementation', 'host_evidence', 'hardware_evidence'):
             for path in group[field]:
@@ -80,7 +88,8 @@ The editable source is [dsp_optimizations.json](dsp_optimizations.json).
 Regenerate with `python3 host/document_optimizations.py`; validate coverage and
 the checked-in page with `python3 host/document_optimizations.py --check`.
 The command checks every native type and supported operator selector against the
-pinned inventory, status/group consistency and linked file existence. It does
+pinned inventory plus explicit project additions, compiled capabilities,
+status/group consistency and linked file existence. It does
 not rerun DSP tests or certify that a source implementation is still enabled.
 
 ## Status meanings
@@ -117,6 +126,7 @@ remain outstanding. See [current status](../STATUS.md).
     text += '''
 Every supported native type and selector now has a recorded implementation
 review: an existing enabled/inherited path, an experimental candidate, or both.
+New project additions are recorded separately without claiming a speed-up.
 No supported entry remains unreviewed. This does **not** mean every candidate
 is faster: negative timing differences are retained below and all new candidate
 switches remain off. Constructor/state/arena and raw-scratch combined checks are
@@ -135,7 +145,15 @@ in [the final offline report](../evidence/dsp-all-host.json).
         work = f'[{group}](#{group})' if group else '—'
         if name in candidate_rows['ugens']:
             work += '; '+', '.join(f"[experimental candidate](#{key})" for key in candidate_rows['ugens'][name])
+        if name in additions:
+            work = 'New implementation; see project additions below'
         text += f"| {name} | {STATUSES[entry['status']]} | {work} |\n"
+    if additions:
+        text += '\n## Project additions\n'
+        for name, entry in sorted(additions.items()):
+            text += f"\n**{name}: {entry['status']}.** {entry['scope']}\n"
+            for field, label in [('implementation','Implementation'),('host_evidence','Host verification'),('hardware_evidence','Hardware evidence')]:
+                text += f'\n{label}: '+(', '.join(link(p) for p in entry[field]) or 'Pending.')+'\n'
     for section, title in [('unary', 'Unary operator checklist'), ('binary', 'Binary operator checklist')]:
         text += f'\n## {title}\n\n| Selector | Operation | Status | Applicable path |\n| ---: | --- | --- | --- |\n'
         for selector, entry in sorted(data[section].items(), key=lambda item: int(item[0])):

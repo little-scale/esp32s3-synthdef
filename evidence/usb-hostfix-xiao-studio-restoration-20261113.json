@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "device_id": "esp32-1c29043eeb84",
+  "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+  "volume_percent": 5,
+  "saved_lists_unchanged": true,
+  "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+  "live_controls_restored": true,
+  "main_active": true,
+  "boot": 134886375,
+  "studio_connected": true
+}

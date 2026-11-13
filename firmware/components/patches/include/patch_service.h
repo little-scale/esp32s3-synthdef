@@ -24,6 +24,7 @@ typedef struct {
     int (*identify)(void);
     uint32_t (*seed)(void);
     int (*remote)(const char *,const unsigned char *,size_t,char *,size_t);
+    bool (*console_write)(const char *,size_t);
     const char *build_id,*engine_commit,*profile_hash;
     patch_program_usage program;
 } patch_hooks;

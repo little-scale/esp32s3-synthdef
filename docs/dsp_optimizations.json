@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed": "2026-11-04",
+  "reviewed": "2026-11-12",
   "groups": {
     "sine-cache": {
       "title": "SinOsc phase-step cache",
@@ -282,9 +282,11 @@
         "evidence/qualified-kernels-review.json"
       ],
       "hardware_evidence": [
-        "evidence/dsp-seeded-xiao-smooth.json"
+        "evidence/dsp-seeded-xiao-smooth.json",
+        "evidence/dsp-combined-xiao-3eeb84-summary.json",
+        "evidence/dsp-combined-xiao-3eeb84-final.json"
       ],
-      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed."
+      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed. Combined-image follow-up on XIAO-3eeb84 (12 November): 28 fixed-seed graphs/three trials match output and RNG; selected timing gains and unchanged isolated oscillator slowdowns retained. A 30-second Main/FX control/capture check passes. Physical AMOLED and broad coverage remain pending."
     },
     "qualified-banks": {
       "title": "Klang/Klank partial-bank block loops",
@@ -299,9 +301,11 @@
         "evidence/qualified-kernels-review.json"
       ],
       "hardware_evidence": [
-        "evidence/dsp-seeded-xiao-core.json"
+        "evidence/dsp-seeded-xiao-core.json",
+        "evidence/dsp-combined-xiao-3eeb84-summary.json",
+        "evidence/dsp-combined-xiao-3eeb84-final.json"
       ],
-      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed."
+      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed. Combined-image follow-up on XIAO-3eeb84 (12 November): 28 fixed-seed graphs/three trials match output and RNG; selected timing gains and unchanged isolated oscillator slowdowns retained. A 30-second Main/FX control/capture check passes. Physical AMOLED and broad coverage remain pending."
     },
     "qualified-delay-binding": {
       "title": "Delay and MiVerb input-reference binding",
@@ -317,9 +321,11 @@
       ],
       "hardware_evidence": [
         "evidence/dsp-seeded-xiao-binding-delay.json",
-        "evidence/dsp-seeded-xiao-binding.json"
+        "evidence/dsp-seeded-xiao-binding.json",
+        "evidence/dsp-combined-xiao-3eeb84-summary.json",
+        "evidence/dsp-combined-xiao-3eeb84-final.json"
       ],
-      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed."
+      "qualification": "Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed. Combined-image follow-up on XIAO-3eeb84 (12 November): 28 fixed-seed graphs/three trials match output and RNG; selected timing gains and unchanged isolated oscillator slowdowns retained. A 30-second Main/FX control/capture check passes. Physical AMOLED and broad coverage remain pending."
     }
   },
   "ugens": {
@@ -936,6 +942,10 @@
       "group": null
     },
     "XLine": {
+      "status": "not_recorded",
+      "group": null
+    },
+    "TDelay": {
       "status": "not_recorded",
       "group": null
     }
@@ -2082,5 +2092,20 @@
       "hardware_metrics_record": "evidence/dsp-seeded-xiao-core.json",
       "hardware_metrics_scope": "Klang/Klank graphs contain 16 partials; other rows are individual named UGens with their supporting nodes."
     }
-  ]
+  ],
+  "project_additions": {
+    "TDelay": {
+      "status": "new implementation; no individual speed-up claimed",
+      "scope": "Audio/control-rate trigger delay. Reuses per-node countdown and previous-trigger state; no delay arena or dynamic allocation. Exact SC pulse timing tested in legacy/qualified/dedicated-buffer modes. Six selected XIAO PCM timing cases pass (100,588 checked frames); physical AMOLED and isolated performance measurements remain pending.",
+      "implementation": [
+        "host/engine_profile.py"
+      ],
+      "host_evidence": [
+        "evidence/tdelay-host.json"
+      ],
+      "hardware_evidence": [
+        "evidence/tdelay-xiao-3eeb84.json"
+      ]
+    }
+  }
 }

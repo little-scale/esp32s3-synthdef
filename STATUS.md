@@ -1,4 +1,4 @@
-# Project status — 11 November 2026
+# Project status — 13 November 2026
 
 ## Published on main
 
@@ -41,9 +41,110 @@ build audits. Release firmware build identity is `d1bf9ef3a7df`.
 
 ## In progress
 
+- **USB reliability:** macOS/native-ESP opening updates DTR/RTS together,
+  removing a reproduced unintended reset (68 earlier lifecycle passes, including
+  50 consecutive reopens). Buffered console build `b06188c54dbe` now batches
+  protocol replies and passes 60/300-second unread and closed-port checks,
+  12 Main replacement cycles with FX/bypass, and the corrected Main/FX sequence
+  on XIAO-3eeb84 at 5%. Both selected builds pass audits; only XIAO was flashed.
+  The user confirmed clean audio including the tail; 112 host/native checks pass.
+  Other boards/OSes, Wi-Fi load and the earlier entirely unresponsive symptom
+  remain outside this qualification. [Results](docs/USB_RELIABILITY.md)
+- **TDelay.ar/kr** is implemented in the shared AMOLED/XIAO engine, bringing
+  the native type count to 155. Silent tests compare exact trigger timing
+  against SuperCollider and an independent countdown oracle, with sanitizer,
+  restart, shared-scratch and invalid-input checks. It uses existing node state
+  and no delay arena. Six XIAO PCM timing cases now pass over 100,588 checked
+  frames. Physical AMOLED verification remains pending; boards need new firmware.
+  [Host evidence](evidence/tdelay-host.json). Both firmware builds passed their
+  audits, with graph/scratch/voice structure sizes unchanged.
+  [Build records](evidence/tdelay-builds.json), [XIAO timing captures](evidence/tdelay-xiao-3eeb84.json)
 - **Selective DSP optimisations** for smoothing, Klang/Klank, delays and MiVerb
-  passed offline comparisons. The combined build still needs a same-board
-  hardware comparison.
+  passed the combined-image comparison on XIAO-3eeb84: 28 pinned graphs, three
+  fixed-seed trials on each image, matching output hashes and final RNG. Musical
+  workloads improve by up to 6.42%; unchanged isolated SinOscFB/Formant graphs
+  have small absolute slowdowns, retained in the results. Physical AMOLED and
+  broader whole-inventory qualification remain pending.
+  [Combined XIAO comparison](evidence/dsp-combined-xiao-3eeb84-summary.json)
+
+## USB patterns paused — 13 November 2026
+
+Real sclang/Studio/USB tests passed 23 lifecycle checkpoints on XIAO-3eeb84 at
+5%: silent definition/creation, 8/16 Hz notes, overlapping retriggers, replay,
+finite release, future-note cancellation, ownership handoff, Panic, stale-graph
+protection, restart and the ESP32 CmdPeriod hook. The step marker measured
+64–65-sample retrigger gaps; short-window gate-period errors stayed below 1.55 ms.
+One expected stale-pattern warning occurred during replacement, without a flood.
+
+The 16 Hz Comb Cloud/MiVerb control soak was paused at the user's request after
+**149.78 seconds of clean sampled windows**. The 600-second run and its final
+stop/hold assertions remain **incomplete**. Sampled average CPU was 64.6–66.3%;
+one reporting-window peak reached 103.2%, with no new observed error counters.
+Original Main/FX, generations and live controls are restored, 5% is saved and
+Studio reconnected. Further hardware work is paused; computer-only checks pass.
+[Details and resume requirements](docs/USB_PATTERN_TESTS.md)
+
+## Buffered USB requalification — 13 November 2026
+
+The selected source build is **`b06188c54dbe`**, retained on the XIAO after the
+corrected tests. The original bytewise buffered candidate remains withdrawn;
+its protocol throughput and tail-test timing were addressed in the new build.
+A 0.1-second capture/download fell from 1.224 seconds to about 0.391 seconds in
+three batched trials; this is a transfer measurement, not a DSP speed-up.
+
+All four 60/300-second unread/closed cases retain the same boot, graph, controls
+and 5% volume, with fresh nonzero PCM, stable memory and zero new diagnostic
+counts. Twelve Main uploads, six temporary FX uploads and six bypass selections
+also pass with unchanged saved generations. The final 30-second soak sent
+**196 controls**, then passed the three sound fixtures, tail after Main Stop
+(with a 50 ms exclusion window) and Panic silence. The user confirmed clean
+sound, including the tail. Original Main/FX and live controls are restored,
+**5% is saved**, and Studio is connected.
+
+The real transport C checks exercise packet boundaries, backpressure, timeout,
+short/invalid writes, resynchronization and USB-enabled/disabled startup. The
+full host/native suite passes **112 tests**. Both profiles cross-build and pass
+audits with unchanged DSP structure sizes; only the XIAO was physically tested.
+AMOLED and Wi-Fi-under-load follow-up remain pending.
+[Requalification summary](evidence/usb-buffered-requalification-xiao-3eeb84-20261113.json)
+
+## Earlier USB and regression follow-up — 13 November 2026
+
+The retained firmware is `5b23fabbfe7f`, with the macOS reconnect fix active in
+Studio. Both selected firmware images were regenerated and audited after the
+buffered-console experiment was withdrawn. No DSP equations or graph limits
+changed. The corrected Main/FX test passed a 30-second soak, 197 controls,
+three sound fixtures and digital tail/Stop/Panic assertions. The original
+Main/FX, generations and live controls are restored; **5% volume is saved** and
+Studio is connected. The retained host/native SC set passes 89 tests.
+
+Two harness errors were corrected: command-stream reuse between runs, and soak
+FX left enabled during the subsequent Main fixtures. The latter also caused an
+over-budget failure on the retained image, so earlier buffered-image failures
+cannot be attributed solely to its console driver. That candidate remains
+unqualified; long-idle console/audio reliability is still open.
+[Session summary](evidence/usb-reliability-xiao-3eeb84-summary-20261113.json)
+
+## DSP hardware follow-up — 12 November 2026
+
+XIAO-3eeb84 now has the selective DSP/TDelay firmware. Comb Cloud KR uses 6.42%
+less DSP time; the six targeted smoothing graphs improve 52.60–62.51%, Klang
+29.24%, Klank 25.48%, and the nine delay graphs 6.88–8.12%. The eight-saw patch
+improves 1.51%; unchanged isolated Formant/SinOscFB graphs are slightly slower.
+All 28 graphs retain matching fixed-seed output/RNG across images. These are
+fixture-specific figures, not universal speed-ups.
+
+A final 30-second Main/FX check at **5% volume** sent 199 controls with stable
+free memory and no new fault, DMA-overflow, clipping or invalid-number counts.
+Digital tail/stop/Panic assertions passed. Initial setup DMA events, an early
+failed counter comparison and USB reconnects remain documented; the longer
+soak and broad inventory sweep remain pending. Original Main/FX packages,
+generations and live controls are restored, the empty FX slot remains empty,
+and **5% volume is saved**. Studio is connected again. The user confirmed clean
+playback, including the separate reverb tail, at 5% on 12 November; this is
+recorded separately from the digital checks.
+[Detailed results](docs/DSP_COMBINED_XIAO.md),
+[final checks and restoration](evidence/dsp-combined-xiao-3eeb84-final.json).
 
 ## DSP qualification and standalone controls — 4 November 2026
 

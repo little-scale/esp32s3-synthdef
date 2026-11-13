@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "phase": "tdelay",
+  "saved_patch_writes": false,
+  "volume_limit_percent": 50,
+  "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+  "tests": [
+    {
+      "rate": "ar",
+      "trigger_hz": 100,
+      "delay_ticks": 0,
+      "checked_frames": 17529,
+      "pulses": 39,
+      "graph_sha256": "0bb0ec295daa539a11a2930bb8cff445745dd780376d0104256790a919581d54",
+      "passed": true
+    },
+    {
+      "rate": "ar",
+      "trigger_hz": 100,
+      "delay_ticks": 5,
+      "checked_frames": 17525,
+      "pulses": 39,
+      "graph_sha256": "313ca77649f28dd2eb394d44078ae481389b72f3f2a939ef0eb27a2e55685fab",
+      "passed": true
+    },
+    {
+      "rate": "ar",
+      "trigger_hz": 2000,
+      "delay_ticks": 64,
+      "checked_frames": 17598,
+      "pulses": 266,
+      "graph_sha256": "611fed04e241cfec2b8614cf394e6b2eb18d1105592e5499372f57159df34a41",
+      "passed": true
+    },
+    {
+      "rate": "kr",
+      "trigger_hz": 20,
+      "delay_ticks": 0,
+      "checked_frames": 15552,
+      "pulses": 7,
+      "graph_sha256": "ea634116526eedce70004a87ed7bbbe1443235af39206e7620cef1398163e97d",
+      "passed": true
+    },
+    {
+      "rate": "kr",
+      "trigger_hz": 20,
+      "delay_ticks": 5,
+      "checked_frames": 15296,
+      "pulses": 6,
+      "graph_sha256": "9add856bcfa85f87915ed64de8e0b7a4a6b4359d6b6b4353653c138b65fd3413",
+      "passed": true
+    },
+    {
+      "rate": "kr",
+      "trigger_hz": 100,
+      "delay_ticks": 12,
+      "checked_frames": 17088,
+      "pulses": 19,
+      "graph_sha256": "d002719fa01d86eaf393a8aba0539146fda05bf5723acf62e0fbfcbcb78333f6",
+      "passed": true
+    }
+  ],
+  "restoration": {
+    "main_package_verified": true,
+    "saved_main_fx_lists_unchanged": true,
+    "instance_controls_restored": true,
+    "volume_percent": 0,
+    "volume_saved": false
+  },
+  "audio_telemetry": {
+    "frame": 662400,
+    "active": 1,
+    "render_max_us": 1876,
+    "combined_max_us": 1908,
+    "updated": 145869.00882625,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "overflow": 0,
+    "stack_free_bytes": 12648,
+    "internal_free": 92763,
+    "internal_min": 92567,
+    "internal_largest": 63488,
+    "psram_free": 5173728,
+    "controls_stack_free_bytes": 3852,
+    "average_x10": 265,
+    "peak_x10": 364,
+    "ages": {
+      "frame": 0.6891348329954781,
+      "active": 0.6891348329954781,
+      "render_max_us": 0.6869503749767318,
+      "combined_max_us": 0.6869503749767318,
+      "write_fail": 0.6887725409760606,
+      "partial": 0.6887725409760606,
+      "dma_event_overflow": 0.6887725409760606,
+      "faults": 0.6887725409760606,
+      "clips": 0.6887725409760606,
+      "nonfinite": 0.6887725409760606,
+      "overflow": 0.6880902079865336,
+      "stack_free_bytes": 0.6880902079865336,
+      "internal_free": 0.6880902079865336,
+      "internal_min": 0.6880902079865336,
+      "internal_largest": 0.6880902079865336,
+      "psram_free": 0.6880902079865336,
+      "controls_stack_free_bytes": 0.6880902079865336,
+      "average_x10": 0.6867244159802794,
+      "peak_x10": 0.6867244159802794
+    },
+    "peak_tracking": true,
+    "peak_since_reset_x10": 1315,
+    "peak_windows": 15,
+    "peak_waiting": false,
+    "peak_generation": 0
+  }
+}

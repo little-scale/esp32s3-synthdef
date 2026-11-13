@@ -62,12 +62,9 @@ def manifest(graph, source=b'', name='Uploaded Sine', labels=('PITCH', 'LEVEL', 
 
 
 class Device:
-    def __init__(self, port, log=None):
-        import serial
-        self.link = serial.Serial(baudrate=115200, timeout=.1, write_timeout=3)
-        self.link.dtr = self.link.rts = False
-        self.link.port = port
-        self.link.open()
+    def __init__(self, port, log=None, *, open_policy='auto'):
+        from serial_port import open_port
+        self.link = open_port(port,policy=open_policy,baudrate=115200,timeout=.1,write_timeout=3)
         self.sequence = secrets.randbelow(0xfffffffe) + 1
         self.log = log
         self.pending = bytearray()

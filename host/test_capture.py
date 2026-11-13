@@ -4,10 +4,10 @@ import base64
 import threading
 import json
 import http.client
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from studio import Studio,Problem,Server
 from capture import capture
-from patches import frame,decode
+from patches import Device,frame,decode
 
 class CaptureDevice:
     def __init__(self):self.data=bytes(range(256))*4;self.reads=[]
@@ -30,6 +30,34 @@ class TaggedCaptureDevice(CaptureDevice):
         return dict(result,capture_id=self.capture_id)
 
 class CaptureTests(unittest.TestCase):
+    def test_identified_read_recovers_lost_ack_without_rearming(self):
+        for drop_all in (False,True):
+            writes=[];replies=[];begins=[]
+            class Lossy(TaggedCaptureDevice):
+                def request(device,op,payload=b'',**kwargs):
+                    if op=='CAPBEGIN':
+                        begins.append(op);self.assertEqual(kwargs['retries'],0)
+                    if op!='CAPREAD':return super().request(op,payload,**kwargs)
+                    transport=Device.__new__(Device);transport.sequence=17
+                    def write(wire):
+                        writes.append(wire)
+                        if len(writes)==1 or drop_all:return
+                        ident,operation,data=decode(wire)
+                        response=TaggedCaptureDevice.request(device,operation,data)
+                        replies.append(frame(ident,'OK',json.dumps(response).encode()).strip())
+                    transport.link=Mock(write=write)
+                    transport.lines=lambda:iter([replies.pop(0)] if replies else [])
+                    return Device.request(transport,op,payload,**kwargs)
+            ticks=iter(range(1000))
+            with patch('patches.time.monotonic',side_effect=lambda:next(ticks)):
+                if drop_all:
+                    with self.assertRaises(TimeoutError):capture(Lossy(),.001)
+                else:
+                    d=Lossy();pcm,_=capture(d,.001);self.assertEqual(pcm,d.data)
+            self.assertEqual(len(begins),1)
+            self.assertEqual(len(writes),2)
+            self.assertEqual(writes[0],writes[1])
+
     def test_capture_yields_usb_for_controls_between_chunks(self):
         app=Studio('/unused');paused=threading.Event();resume=threading.Event();results=[];failures=[]
         class LockedDevice(CaptureDevice):

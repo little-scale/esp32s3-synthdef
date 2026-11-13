@@ -52,6 +52,13 @@ complete session URL. If `sclang` is elsewhere, use
 With the matching local firmware build available, use **Install firmware** in
 Studio to flash a fresh XIAO or AMOLED V2 over USB. [Firmware installation](docs/STUDIO.md#install-firmware-on-a-usb-board)
 
+The current host fixes an unintended native-USB reset when reconnecting on macOS.
+The reconnect fix needs only updated host tools. Current firmware also buffers
+console I/O and batches USB replies; XIAO checks pass at one and five minutes
+unread/closed, with clean audio and unchanged saved patches. AMOLED cross-builds
+pass; physical AMOLED verification remains pending.
+[USB reliability results and remaining limits](docs/USB_RELIABILITY.md)
+
 ### 2. Hear your first sound from the browser
 
 1. Connect the board by USB and close other serial monitors.
@@ -213,7 +220,7 @@ Hardware listening verification of Identify is pending.
 | Definitions | One saved Main and one saved FX; legacy numbered slots are archived, not exposed |
 | Instances | One Main voice and one FX instance; note patterns are monophonic |
 | Code | Compiled SC SynthDef graphs, not the full SC language executing on the board |
-| Coverage | 154 native UGen types, 33 unary and 40 binary operators in the pinned FM1 profile |
+| Coverage | 155 native UGen types (154 pinned FM1 + TDelay), 33 unary and 40 binary operators |
 | Composites | DynKlank, DynKlang, Splay and similar classes expand on the host into supported UGens |
 | Limits | 256 nodes, 512 logical signals, 2,048 input references; at most 192 simultaneously live audio buffers; graph and original source up to 64 KiB each |
 | Delay memory | Separate 1 MiB PSRAM arenas for Main and FX; admission checks actual rounded allocations |
@@ -254,7 +261,10 @@ value. See [UI](docs/UI.md) and [Studio](docs/STUDIO.md).
 ## Supported UGens and operators
 
 These are the complete native names/selectors in the current **FM1/cache build**:
-**154 UGens, 33 unary operators and 40 binary operators**. Valid rates, parameter
+**155 UGens, 33 unary operators and 40 binary operators**. `TDelay.ar/kr` is a
+project addition with exact offline SC comparisons and selected XIAO PCM timing
+checks; physical AMOLED checks remain pending. Existing boards require updated
+firmware. Valid rates, parameter
 layouts and numerical/CPU qualifications are detailed in the
 [support ledger](docs/UGEN_SUPPORT.md); inclusion is not a guarantee that every
 graph meets the audio deadline.
@@ -287,7 +297,7 @@ including all six smoothing candidates, partial banks, oscillator/Gendy caches
 and nine delay types. They retain both target gains and regressions; current
 combined-image performance is still pending validation.
 
-### UGens (154)
+### UGens (155)
 
 ```text
 A2K               AllpassC          AllpassL          AllpassN
@@ -325,10 +335,10 @@ Ringz             SampleDur         SampleRate        Saw
 Select            SetBuf            SetResetFF        SinOsc
 SinOscFB          Slew              StandardL         StandardN
 Stepper           Sum3              Sum4              SyncSaw
-TExpRand          TIRand            TRand             TWindex
-ToggleFF          Trig              Trig1             TrigControl
-UnaryOpUGen       VarSaw            WhiteNoise        Wrap
-XFade2            XLine
+TDelay            TExpRand          TIRand            TRand
+TWindex           ToggleFF          Trig              Trig1
+TrigControl       UnaryOpUGen       VarSaw            WhiteNoise
+Wrap              XFade2            XLine
 ```
 
 `DynKlank`, `DynKlang`, `Splay` and `Mix` are also usable host-side composites:
@@ -370,6 +380,8 @@ evidence for every operation.
 The [build guide](docs/BUILD.md) provides the current FM1/cache configuration,
 flashing/recovery steps and test commands. The latest installed image is recorded
 in [STATUS.md](STATUS.md) with matching build and device evidence.
+The [USB pattern checks](docs/USB_PATTERN_TESTS.md) cover 8/16 Hz note lifecycle
+and cancellation; their ten-minute endurance follow-up is paused and incomplete.
 
 The compact-control change passes full/delta PCM identity tests with interleaved
 future events, 300 real EnvGen retriggers, 37 SC/network/control regressions and
@@ -383,8 +395,9 @@ The **XIAO ESP32-S3 headless target** now shares the same engine and Main/FX
 workflow. It provides stereo I²S, USB-based SC uploads and patterns, output
 capture alongside live USB patterns, an activity LED, and a BOOT-button control bus. Use its
 separate 8 MB build; see the [headless guide](docs/HEADLESS.md) and
-[SC examples](examples/xiao-headless.scd). Physical DAC output, externally driven
-ADC inputs and Wi-Fi operation on this XIAO remain to be verified.
+[SC examples](examples/xiao-headless.scd). Physical audio output has been checked with PCM5102A and NS4168 adapters.
+Externally driven ADC inputs and Wi-Fi-under-load operation on this XIAO remain
+to be verified.
 
 - [Build, flash and tests](docs/BUILD.md)
 - [XIAO headless build, stereo I²S, USB control and PCM capture](docs/HEADLESS.md)

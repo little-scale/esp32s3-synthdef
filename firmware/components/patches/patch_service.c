@@ -49,6 +49,7 @@ static const char *TAG="patches";
 static void wire_send(const char *wire)
 {
     if(s->response){snprintf(s->response,s->response_size,"%s",wire);return;}
+    if(s->hooks.console_write){s->hooks.console_write(wire,strlen(wire));return;}
     flockfile(stdout);fputs(wire,stdout);fflush(stdout);funlockfile(stdout);
 }
 static int sha(const void *p,size_t n,unsigned char out[32]) { return mbedtls_sha256(p,n,out,0)==0; }

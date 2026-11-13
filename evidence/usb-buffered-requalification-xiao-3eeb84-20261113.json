@@ -1,0 +1,187 @@
+{
+  "date": "2026-11-13",
+  "device_id": "esp32-1c29043eeb84",
+  "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+  "status": "Retained on tested XIAO; Studio offers matching selected images",
+  "scope": "One XIAO ESP32-S3 revision v0.2 on macOS; no physical AMOLED or Wi-Fi-under-load tests today",
+  "volume_limit_percent": 5,
+  "implementation": {
+    "rx_buffer_bytes": 2048,
+    "tx_buffer_bytes": 4096,
+    "protocol_chunk_max_bytes": 256,
+    "enqueue_budget_us": 50000,
+    "budget_scope": "After stdout acquisition/flush; scheduler and stdio waits preclude a hard end-to-end 50ms guarantee",
+    "nonblocking_input": true,
+    "yield_on_tx_full": true,
+    "newline_resynchronization": true,
+    "reply_cache_unchanged": true,
+    "network_reply_path_unchanged": true,
+    "no_audio_equation_precision_block_or_capacity_changes": true
+  },
+  "main_fx_integration": {
+    "path": "evidence/usb-buffered-batched-xiao-final-20261113.json",
+    "sha256": "4c637fd3f7ef5e46ed7ab3bda1d206c897565027f5fa56dbe136fa20d5b01818",
+    "passed": true,
+    "soak_seconds": 30.02,
+    "controls_sent": 196,
+    "diagnostic_deltas": {
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "overflow": 0
+    },
+    "stable_memory": true,
+    "reverb": {
+      "playing_rms": 59.67856093205193,
+      "tail_after_main_stop_rms": 180.78373239513294,
+      "panic_silence": true
+    },
+    "tail_check_wait_after_stop_seconds": 0.05,
+    "original_restored": {
+      "main_package_verified": true,
+      "saved_main_fx_lists_unchanged": true,
+      "instance_controls_restored": true,
+      "volume_percent": 5,
+      "volume_saved": true
+    }
+  },
+  "idle": {
+    "path": "evidence/usb-buffered-batched-xiao-idle-audio-20261113.json",
+    "sha256": "7972ceb55ce0714be6b0edb706966dc62ddd4e0f04d4072fdcebfc1f34d185e6",
+    "passed": true,
+    "case_count": 4,
+    "observed_gaps_seconds": [
+      60,
+      300
+    ],
+    "modes": [
+      "unread",
+      "closed"
+    ],
+    "same_boot_through_all_tests": true,
+    "zero_diagnostic_deltas": true,
+    "nonzero_post_gap_pcm": true,
+    "stable_memory": true,
+    "case_records": [
+      {
+        "path": "evidence/usb-buffered-batched-xiao-unread-60s-20261113.json",
+        "sha256": "84b2a0fdda1c5c00169344dc77a5b8610a1481003dee7938103bf826d89cebca"
+      },
+      {
+        "path": "evidence/usb-buffered-batched-xiao-closed-60s-20261113.json",
+        "sha256": "24eafab8f5995c46230a4cbff1bf4237a8208d7676e82e8d375fa4cb84100b14"
+      },
+      {
+        "path": "evidence/usb-buffered-batched-xiao-unread-300s-20261113.json",
+        "sha256": "10bc151e7a7ce9a65bf533efc29937993a9f79c9a488ed4f5a2f51b65b1830c2"
+      },
+      {
+        "path": "evidence/usb-buffered-batched-xiao-closed-300s-20261113.json",
+        "sha256": "441b2a1862724b1a278002da00d24c5352087a63db4afac88ae4bd6d0e5e1eb7"
+      }
+    ],
+    "application_unread_does_not_guarantee_continuous_hardware_backpressure": true
+  },
+  "replacements": {
+    "path": "evidence/usb-buffered-batched-xiao-replacement-cycles-20261113.json",
+    "sha256": "05e3a6c9d3299254fdfe052a698446e86ff8380ec1e4323f8fce543283f01a75",
+    "passed": true,
+    "main_uploads": 12,
+    "temporary_fx_uploads": 6,
+    "bypass_selections": 6,
+    "zero_diagnostic_deltas": true,
+    "stable_memory": true,
+    "saved_generations_unchanged": true
+  },
+  "capture_timing": {
+    "bytewise": {
+      "path": "evidence/usb-buffered-bytewise-capture-timing-20261113.json",
+      "sha256": "e49602bbff1d4bcace6a6cd159dd822309670b7eb7b47a0ae031c8878db55b32"
+    },
+    "batched": {
+      "path": "evidence/usb-buffered-batched-capture-timing-20261113.json",
+      "sha256": "ad0cb5b12bd4234a04f3f1c4f9cec77a9dd537d7f64a07cefd6f6bfaf3edde16"
+    },
+    "capture_seconds": 0.1,
+    "bytewise_one_trial_seconds": 1.224,
+    "batched_three_trial_median_seconds": 0.3909,
+    "total_time_reduction_percent": 68.06,
+    "scope": "Capture plus download, single bytewise comparison versus three batched trials on the same original graph; not a DSP or statistical throughput benchmark"
+  },
+  "listening": {
+    "user_confirmed_clean_including_tail": true,
+    "date": "2026-11-13",
+    "volume_percent": 5,
+    "applies_to": "First complete batched-build sequence; later delayed-tail check verified digitally"
+  },
+  "host_and_native_tests": {
+    "passed": true,
+    "count": 112,
+    "command": "PYTHONPATH=host python -m unittest test_usb_console test_serial_port test_probe_usb_lifecycle test_qualify_dsp_transient test_capture test_control_client test_studio test_patches test_network",
+    "native_console_test_program_invocations": 20,
+    "console_boundaries_and_failure_cases": true
+  },
+  "final_studio": {
+    "path": "evidence/usb-buffered-batched-xiao-studio-restoration-20261113.json",
+    "sha256": "5e14f1684695238df7683b8baf96aee347141d2f65fff3ac96b28076fda6ef1a",
+    "passed": true,
+    "connected": true,
+    "volume_percent": 5,
+    "saved_lists_and_controls_restored": true,
+    "boot": 2970250089
+  },
+  "builds": {
+    "path": "evidence/usb-buffered-batched-builds-20261113.json",
+    "sha256": "e1ba73345f1923cf39db817e5f45f7787f9a15912a74db0482e8f890245f0581"
+  },
+  "previous_investigation": {
+    "path": "evidence/usb-reliability-xiao-3eeb84-summary-20261113.json",
+    "sha256": "9cdaf506c2bc7dca156c2461722e4240f54e42ab28c05a64289ba4d93a47b5b6"
+  },
+  "older_bytewise_candidate": {
+    "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+    "status": "remains withdrawn; superseded by batched build",
+    "corrected_run": {
+      "path": "evidence/usb-buffered-xiao-corrected-integration-20261113.json",
+      "sha256": "31d39b74b4610561095d41a1e0b30c436eed786cdd1282efb931a035c19f79d6"
+    },
+    "failure": "Tail timing assertion after a one-shot and a slow recording download; sustained tone plus delayed Stop capture now isolates this check"
+  },
+  "source_sha256": {
+    "firmware/main/usb_console.c": "be37452cfd0dfa818443a1d8a12a447a188d390eb0773ff7237260ef3d602f5f",
+    "firmware/main/usb_console.h": "2ebd46a784e9c6d58a248e627a901c4809802c844745b77679e041db9bfc13f8",
+    "firmware/main/main.c": "f92b648b0fe4f771557d43a49f4956e80894b04dd40fbd8460416711e00f7870",
+    "firmware/main/CMakeLists.txt": "69e99896e43de5ac9232f8ec9b479749f26b6e5619e8d00c4b6590d6272dfab9",
+    "firmware/components/patches/patch_service.c": "03b6c552395fa38f6072bb2d29effe8a346896e6a9c5e3c52e4a5b6f4a9cb9d2",
+    "firmware/components/patches/include/patch_service.h": "55e8d16d802c5def336aa17c535022734b33a44d633e0a5a0da6edf1c9b809ad",
+    "host/serial_port.py": "ae83baaf28256c82eaf92cdfafbbfac36fa7e0edd8f5cdbe43208303f155c5a9",
+    "host/patches.py": "b84f441905de7685f0a0eb262c8ed3ee01d62ea62cd93c23e6025f0a52d518a5",
+    "host/capture.py": "c22008361b81d9e5bbfd103b04795fae2d5ad87ce2a335e631b874e90246d201",
+    "host/probe_usb_lifecycle.py": "bb5af75729c0d78f866f647e468332e0c1c32053341e3ea92fa057afae3bc3f0",
+    "host/qualify_dsp_transient.py": "2a6d4f0d63a91590c494b8886c59d03dc0abfb50a1b22b2f567681b18edf44c6",
+    "host/test_usb_console.py": "56ab65510dd52b0781291281de2b2df4c6045bc41342571175c2a5e63143e555",
+    "host/test_probe_usb_lifecycle.py": "acfe71741d5805ec518d1ac0f7737f16eb9daa829d3b4034c3f185345f9b8ab6",
+    "host/test_qualify_dsp_transient.py": "fc0a456e63019a40f34f6e625318f632a620cd5c4d5d65d2c74979b0b67fa4c5",
+    "host/test_serial_port.py": "d42c7d12d9c8a55ae5bd4c391021fbb524c5ddbf7b5a87c2d2e9646981da5ddb",
+    "host/test_capture.py": "c995d79e2e06fd1e13c73161f6ac196e27f06cc69252fa15d07a2570bb8a7505"
+  },
+  "remaining": [
+    "Physical AMOLED verification",
+    "Wi-Fi patterns under load and multiple nodes",
+    "Longer soaks, more boards/OSes/hubs",
+    "Earlier fully unresponsive native-USB fault not conclusively explained; no silicon reset workaround added"
+  ],
+  "saved_patch_writes": false,
+  "firmware_flashes_this_requalification": 2,
+  "storage_erased": false,
+  "wifi_availability": {
+    "path": "evidence/usb-batched-wifi-availability-20261113.json",
+    "sha256": "df0cee69e35d4de6547e5a6af7a135ee1127f80e4d33aed42abf147d4fb9982e",
+    "online": false,
+    "configured": true,
+    "reason_not_tested": "The attached XIAO is not currently online over Wi-Fi; no network settings changed."
+  }
+}

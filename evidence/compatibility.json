@@ -1,6 +1,6 @@
 {
   "engine_commit": "00ac338904304e87845477808e598ef973f49b52",
-  "compiled_type_count": 154,
+  "compiled_type_count": 155,
   "upstream_profile_type_count": 118,
   "missing_from_upstream_profile": [
     "Blip",
@@ -37,6 +37,7 @@
     "SinOscFB",
     "StandardL",
     "StandardN",
+    "TDelay",
     "TIRand",
     "TWindex"
   ],

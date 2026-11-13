@@ -1,0 +1,187 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "fixed_seed": true,
+  "graph_count": 28,
+  "normal_instrumented_pairs": 168,
+  "comparison": {
+    "passed": true,
+    "fixtures": {
+      "eight_saw": {
+        "baseline_us": 1176.8923624674478,
+        "candidate_us": 1159.1172688802083,
+        "less_time_percent": 1.5103414852631558
+      },
+      "comb_kr": {
+        "baseline_us": 410.84996744791664,
+        "candidate_us": 384.45444742838544,
+        "less_time_percent": 6.424612902732518
+      },
+      "triggered_harmonics": {
+        "baseline_us": 310.59547932942706,
+        "candidate_us": 311.0592366536458,
+        "less_time_percent": -0.14931232264552285
+      },
+      "filters": {
+        "baseline_us": 277.72918701171875,
+        "candidate_us": 277.9875040690104,
+        "less_time_percent": -0.09301041063456417
+      },
+      "Lag2": {
+        "baseline_us": 485.74688313802085,
+        "candidate_us": 186.4792928059896,
+        "less_time_percent": 61.60978087984908
+      },
+      "Lag3": {
+        "baseline_us": 526.462715657552,
+        "candidate_us": 212.09796549479168,
+        "less_time_percent": 59.71263316721655
+      },
+      "OnePole": {
+        "baseline_us": 443.8947021484375,
+        "candidate_us": 179.67591959635416,
+        "less_time_percent": 59.52285108906956
+      },
+      "OneZero": {
+        "baseline_us": 443.8653238932292,
+        "candidate_us": 166.3841064453125,
+        "less_time_percent": 62.514731949338795
+      },
+      "LPZ1": {
+        "baseline_us": 269.8480916341146,
+        "candidate_us": 127.90911865234375,
+        "less_time_percent": 52.59958375923037
+      },
+      "HPZ1": {
+        "baseline_us": 269.80663248697914,
+        "candidate_us": 127.84612630208333,
+        "less_time_percent": 52.61564731613735
+      },
+      "Klang": {
+        "baseline_us": 147.62646484375,
+        "candidate_us": 104.45414225260417,
+        "less_time_percent": 29.24429751592307
+      },
+      "Klank": {
+        "baseline_us": 197.6306355794271,
+        "candidate_us": 147.28360595703126,
+        "less_time_percent": 25.47531635203467
+      },
+      "SinOscFB": {
+        "baseline_us": 31.435335286458333,
+        "candidate_us": 32.61558430989583,
+        "less_time_percent": -3.7545297757518137
+      },
+      "Blip": {
+        "baseline_us": 59.043355305989586,
+        "candidate_us": 59.329890950520834,
+        "less_time_percent": -0.485297021224973
+      },
+      "Formant": {
+        "baseline_us": 36.11560872395833,
+        "candidate_us": 38.142049153645836,
+        "less_time_percent": -5.610982346099025
+      },
+      "Gendy1": {
+        "baseline_us": 89.78068440755209,
+        "candidate_us": 89.815283203125,
+        "less_time_percent": -0.038537014727868524
+      },
+      "Gendy2": {
+        "baseline_us": 101.49190266927083,
+        "candidate_us": 101.54529215494792,
+        "less_time_percent": -0.052604675124734435
+      },
+      "Gendy3": {
+        "baseline_us": 91.45693766276041,
+        "candidate_us": 91.29214680989584,
+        "less_time_percent": 0.1801840921814124
+      },
+      "DelayN": {
+        "baseline_us": 146.34877115885416,
+        "candidate_us": 135.4261027018229,
+        "less_time_percent": 7.463450748879364
+      },
+      "DelayL": {
+        "baseline_us": 146.3314412434896,
+        "candidate_us": 136.04333089192707,
+        "less_time_percent": 7.030690235903247
+      },
+      "DelayC": {
+        "baseline_us": 158.99803466796874,
+        "candidate_us": 148.05861002604166,
+        "less_time_percent": 6.880226327810646
+      },
+      "CombN": {
+        "baseline_us": 149.08890787760416,
+        "candidate_us": 137.39564615885416,
+        "less_time_percent": 7.843146673493429
+      },
+      "CombL": {
+        "baseline_us": 148.82293294270832,
+        "candidate_us": 138.18640950520833,
+        "less_time_percent": 7.147099729310325
+      },
+      "CombC": {
+        "baseline_us": 161.5145060221354,
+        "candidate_us": 150.29367268880208,
+        "less_time_percent": 6.947260410031242
+      },
+      "AllpassN": {
+        "baseline_us": 151.00362955729167,
+        "candidate_us": 138.74678548177084,
+        "less_time_percent": 8.11692017698854
+      },
+      "AllpassL": {
+        "baseline_us": 151.00623372395833,
+        "candidate_us": 139.63486328125,
+        "less_time_percent": 7.530398025485063
+      },
+      "AllpassC": {
+        "baseline_us": 164.806005859375,
+        "candidate_us": 152.63257649739583,
+        "less_time_percent": 7.386520472055169
+      },
+      "MiVerb_modulated": {
+        "baseline_us": 555.4960734049479,
+        "candidate_us": 539.3402791341146,
+        "less_time_percent": 2.9083543600597173
+      }
+    }
+  },
+  "restoration_verified": true,
+  "scope": "Same XIAO, 44.1 kHz / 64 frames, fixed seed 12345, 128 warm-up + 1024 measured blocks. Same graph bytes, warm/measured audio SHA256 and final RNG across three trials and both images; normal/instrumented state/scratch/arena match within each image. No cross-image normalized whole-state comparison.",
+  "session_date": "2026-11-12",
+  "restoration_verified_scope": "Original Main/FX package bytes, generations, active states and live controls restored. Studio reconnected and independently verified package lists, Main control values and 5% volume. The new 5% setting is saved at user request.",
+  "integration_status": "Six TDelay captures, a 15-second settled Main/FX observation, a 30.11-second combined live-control/capture soak (199 controls) and digital listening/tail/panic assertions pass. The user confirmed clean playback, including the separate reverb tail, at 5% volume.",
+  "remaining_hardware": [
+    "physical AMOLED",
+    "broader 324-graph sweep",
+    "long soak"
+  ],
+  "build_record": "evidence/dsp-combined-xiao-3eeb84-builds.json",
+  "final_record": "evidence/dsp-combined-xiao-3eeb84-final.json",
+  "restored_volume_percent": 5,
+  "studio_connected": true,
+  "studio_final_verification": {
+    "device_id": "esp32-1c29043eeb84",
+    "connected": true,
+    "volume_percent": 5,
+    "saved_lists_match_backup": true,
+    "main_live_control_values_match_backup": true
+  },
+  "listening_confirmation": {
+    "confirmed": true,
+    "date": "2026-11-12",
+    "source": "user listening assessment",
+    "volume_percent": 5,
+    "result": "Clean, including the tail",
+    "scope": [
+      "eight-saw",
+      "Comb Cloud",
+      "triggered harmonics",
+      "separate MiVerb tail"
+    ]
+  }
+}

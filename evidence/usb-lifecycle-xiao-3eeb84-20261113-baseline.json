@@ -1,0 +1,132 @@
+{
+  "passed": false,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "date_utc": "2026-11-12T21:48:09.549031+00:00",
+  "saved_patch_writes": false,
+  "volume_changes": false,
+  "firmware_writes": false,
+  "reset_requests": false,
+  "cases": [
+    {
+      "mode": "unread",
+      "gap_seconds": 0.2,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 1285921122,
+        "revision": 2,
+        "uptime_us": 2627613,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.019
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 1285921122,
+        "revision": 2,
+        "uptime_us": 2881361,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 50.273
+      },
+      "rx_bytes": 4598,
+      "passed": true
+    },
+    {
+      "mode": "unread",
+      "gap_seconds": 2.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 1285921122,
+        "revision": 2,
+        "uptime_us": 2935280,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.758
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 1285921122,
+        "revision": 2,
+        "uptime_us": 4988556,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 49.879
+      },
+      "rx_bytes": 6528,
+      "passed": true
+    },
+    {
+      "mode": "unread",
+      "gap_seconds": 5.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 1285921122,
+        "revision": 2,
+        "uptime_us": 5042489,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.8
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 1285921122,
+        "revision": 2,
+        "uptime_us": 10098636,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.704
+      },
+      "rx_bytes": 9439,
+      "passed": true
+    }
+  ],
+  "initial": {
+    "device_id": "esp32-1c29043eeb84",
+    "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+    "boot": 1285921122,
+    "revision": 2,
+    "uptime_us": 2572468,
+    "active": true,
+    "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+    "volume_percent": 5,
+    "elapsed_ms": 3149.642
+  },
+  "active_case": {
+    "mode": "closed",
+    "gap_seconds": 0.2,
+    "rx_bytes_before": 48489
+  },
+  "error_type": "AssertionError",
+  "error": "MCU rebooted during a no-reset probe",
+  "failed_case": {
+    "mode": "closed",
+    "gap_seconds": 0.2,
+    "rx_bytes_before": 48489,
+    "rx_bytes_after": 67219
+  },
+  "port_still_present": true,
+  "rx_bytes_total": 67219,
+  "usb_reset_boot_messages": [
+    {
+      "reason_hex": "15",
+      "name": "USB_UART_CHIP_RESET"
+    },
+    {
+      "reason_hex": "15",
+      "name": "USB_UART_CHIP_RESET"
+    }
+  ]
+}

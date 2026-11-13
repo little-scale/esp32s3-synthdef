@@ -34,7 +34,11 @@ def capture(device,seconds=1.0):
         offset=len(pcm);count=min(chunk,info['bytes']-offset)
         wire=struct.pack('<IH',offset,count)
         if capture_id is not None:wire=struct.pack('<I',capture_id)+wire
-        result=device.request('CAPREAD',wire,timeout=3,retries=0)
+        # An identified recording makes this read idempotent. Resend the same
+        # request once if its reply is lost; never re-arm CAPBEGIN, and still
+        # reject a capture replaced while downloading. Untagged legacy devices
+        # retain their single-attempt behavior.
+        result=device.request('CAPREAD',wire,timeout=3,retries=1 if capture_id is not None else 0)
         if capture_id is not None and result.get('capture_id')!=capture_id:raise ValueError('Capture was replaced while downloading')
         data=bytes.fromhex(result['data'])
         if result['offset']!=offset or len(data)!=count:raise ValueError('Capture read offset/length mismatch')

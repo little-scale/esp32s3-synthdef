@@ -1,4 +1,4 @@
-# UGen and operator support — 1 November 2026
+# UGen and operator support — 12 November 2026
 
 For implementation tuning status, see the separate
 [optimisation register](OPTIMIZATION_REGISTER.md). Supported/tested status does
@@ -45,11 +45,45 @@ observed in the rendered fixtures/probes, not a promise of every possible rate o
 input combination. The pinned loader remains authoritative for valid layouts,
 literal parameters, selectors and domains.
 
+## Project additions — 11 November 2026
+
+The current engine has **155 native UGen types**: the 154 pinned types described
+by the historical results above, plus `TDelay`. The new type does not extend the
+historical hardware-coverage claims.
+
+| UGen | Software-tested rates | Implementation | Hardware evidence |
+| --- | --- | --- | --- |
+| TDelay | kr, ar | Shared AMOLED/XIAO engine; exact SC offline pulse timing; existing node state, no delay arena | XIAO captured: kr, ar; physical AMOLED pending |
+
+`TDelay` emits a unit pulse after a positive trigger edge, with a minimum delay
+of one audio sample or control tick. Triggers while pending, including the
+output tick, are ignored. Duration is read at the first sample of the block and
+latched when accepting a trigger. Negative durations act like zero; durations
+that cannot fit a signed 32-bit countdown fault safely on an accepted trigger.
+The trigger must match the UGen's rate; duration can be initial, control or audio
+rate. New firmware and a Studio restart are needed to enable the new type.
+
+[Silent regression evidence](../evidence/tdelay-host.json) covers SC NRT and
+independent pulse comparisons, compiler/admission checks, sanitizers, constructor
+reset, voice isolation, scratch reuse and invalid layouts/durations. Tests use
+legacy, qualified and dedicated-buffer modes.
+
+[XIAO hardware captures](../evidence/tdelay-xiao-3eeb84.json) on 12 November verify
+six audio/control-rate cases over 100,588 post-volume PCM frames: zero/minimum
+delay, five-tick delay, and pending-trigger rejection. Each stereo capture holds
+the trigger on the left and delayed pulse on the right. The countdown oracle
+anchors on the first observed output pulse to recover an already-running delay's
+state, then predicts subsequent pulses from the left channel. These are selected
+timing checks, not a new full rate/input sweep or an analogue-quality assessment.
+Saved Main/FX lists and package bytes were restored unchanged. Physical AMOLED
+verification remains pending. See the
+[optimisation register](OPTIMIZATION_REGISTER.md#project-additions) for tuning status.
+
 ## Dynamic bank composites
 
 DynKlank and DynKlang are supported and verified at audio/control rate, including
 live parameter changes and mixed-rate inputs. SuperCollider expands them to
-Ringz/SinOsc plus mixing; they do not add new native opcode names to the 154-type
+Ringz/SinOsc plus mixing; they do not add new native opcode names to the 155-type
 count. Twelve SC NRT comparisons and four muted board traces pass. See
 [DYNAMIC_BANKS.md](DYNAMIC_BANKS.md) for examples, rate semantics and evidence.
 

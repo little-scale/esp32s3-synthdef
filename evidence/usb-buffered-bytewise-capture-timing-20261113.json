@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "device_id": "esp32-1c29043eeb84",
+  "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+  "capture_seconds": 0.1,
+  "transfer_and_capture_seconds": 1.224,
+  "pcm_bytes": 17640,
+  "pcm_frames": 4410,
+  "pcm_peak": 1020,
+  "volume_percent": 5
+}

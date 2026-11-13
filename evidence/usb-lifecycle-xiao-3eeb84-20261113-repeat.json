@@ -1,0 +1,1486 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "date_utc": "2026-11-12T21:58:01.256841+00:00",
+  "saved_patch_writes": false,
+  "volume_changes": false,
+  "firmware_writes": false,
+  "reset_requests": false,
+  "open_policy": "auto",
+  "repeats": 50,
+  "cases": [
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 401708223,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.049
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 401812721,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 46.092
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 401866592,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.846
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 401969444,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 46.274
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 2
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402023328,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.116
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402136585,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.568
+      },
+      "rx_bytes": 5260,
+      "passed": true,
+      "iteration": 3
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402191673,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 56.035
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402297419,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 47.364
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 4
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402351308,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.354
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402457041,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 50.131
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 5
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402513850,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 55.734
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402628296,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 56.016
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 6
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402683488,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.147
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402798294,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.303
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 7
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402853440,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.031
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 402956285,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 44.419
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 8
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403010175,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.741
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403117569,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.596
+      },
+      "rx_bytes": 5120,
+      "passed": true,
+      "iteration": 9
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403171032,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.983
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403274302,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.206
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 10
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403327888,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.996
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403431038,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 47.744
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 11
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403484475,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.966
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403587772,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 46.284
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 12
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403641220,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.997
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403744506,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 49.318
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 13
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403788043,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 44.002
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403892535,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.735
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 14
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 403947680,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.039
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404050530,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.155
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 15
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404114300,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 59.504
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404217612,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 47.589
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 16
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404271076,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.077
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404374347,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.535
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 17
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404427810,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.935
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404542693,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 49.787
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 18
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404594937,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.941
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404697744,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 50.601
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 19
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404751671,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.01
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404854585,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 48.489
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 20
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 404908406,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.972
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405012896,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.057
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 21
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405065141,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.004
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405169630,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.613
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 22
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405224779,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 64.854
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405339236,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 49.646
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 23
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405393123,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.95
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405506320,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.644
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 24
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405561468,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 55.025
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405655687,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 39.738
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 25
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405709494,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.122
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405812330,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 47.199
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 26
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405866230,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.932
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 405979426,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.469
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 27
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406034574,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.852
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406149082,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.341
+      },
+      "rx_bytes": 5132,
+      "passed": true,
+      "iteration": 28
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406202918,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.896
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406314470,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 50.694
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 29
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406366674,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.841
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406478655,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.749
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 30
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406533804,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.93
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406647000,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.766
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 31
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406699245,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.917
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406812442,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 50.308
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 32
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406865940,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.995
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 406969177,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.505
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 33
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407021422,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.786
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407133057,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.043
+      },
+      "rx_bytes": 5120,
+      "passed": true,
+      "iteration": 34
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407186864,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.923
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407300061,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.192
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 35
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407352306,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.922
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407455137,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.554
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 36
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407509041,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.945
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407613533,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 46.974
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 37
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407666987,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.944
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407770265,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 44.969
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 38
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407822510,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.044
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407935708,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.779
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 39
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 407989251,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.9
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408104058,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.944
+      },
+      "rx_bytes": 5593,
+      "passed": true,
+      "iteration": 40
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408156298,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.933
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408269494,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.848
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 41
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408322970,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.053
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408436185,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.44
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 42
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408490084,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.971
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408603282,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.07
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 43
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408656762,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.926
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408760019,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.229
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 44
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408813487,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.994
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408918003,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 46.94
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 45
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 408973183,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 55.024
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409089522,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 55.759
+      },
+      "rx_bytes": 5593,
+      "passed": true,
+      "iteration": 46
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409143145,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.874
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409256344,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.779
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 47
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409309995,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.076
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409414300,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.998
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 48
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409468227,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.607
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409572716,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 47.405
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 49
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.05,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409627864,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 55.63
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 409732353,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.651
+      },
+      "rx_bytes": 4604,
+      "passed": true,
+      "iteration": 50
+    }
+  ],
+  "effective_open_policy": "atomic",
+  "initial": {
+    "device_id": "esp32-1c29043eeb84",
+    "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+    "boot": 4285739571,
+    "revision": 2,
+    "uptime_us": 401654713,
+    "active": true,
+    "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+    "volume_percent": 5,
+    "elapsed_ms": 41.908
+  },
+  "active_case": {
+    "mode": "closed",
+    "gap_seconds": 0.05,
+    "iteration": 50,
+    "rx_bytes_before": 461968
+  },
+  "rx_bytes_total": 471176,
+  "usb_reset_boot_messages": [],
+  "studio_final_boot": 4285739571,
+  "studio_reattached": true
+}

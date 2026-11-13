@@ -1,0 +1,15 @@
+{
+  "passed": false,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "date_utc": "2026-11-12T21:45:38.970811+00:00",
+  "saved_patch_writes": false,
+  "volume_changes": false,
+  "firmware_writes": false,
+  "reset_requests": false,
+  "cases": [],
+  "error_type": "TimeoutError",
+  "error": "HELLO: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation",
+  "port_still_present": true,
+  "rx_bytes_total": 4936
+}

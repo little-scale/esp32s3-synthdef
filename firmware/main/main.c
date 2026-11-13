@@ -18,6 +18,7 @@
 #include "esp_timer.h"
 #include "esp_random.h"
 #include "board_audio.h"
+#include "usb_console.h"
 #ifdef CONFIG_SYNTHDEF_HEADLESS
 #include "headless_io.h"
 #endif
@@ -788,6 +789,7 @@ static patch_program_usage program_usage(void)
 
 void app_main(void)
 {
+    ESP_ERROR_CHECK(usb_console_init());
     const esp_app_desc_t *app = esp_app_get_description();
     uint32_t flash_bytes = 0;
     ESP_ERROR_CHECK(esp_flash_get_size(NULL, &flash_bytes));
@@ -876,6 +878,7 @@ void app_main(void)
     patch_hooks hooks={.remote=remote_protocol,.pause=service_pause,.activate=service_activate,.define=service_define,.master_define=service_master_define,.instance=service_instance,.stop=service_stop,.display=service_display,.busy=service_busy,
         .master_activate=service_master_activate,.master_display=service_master_display,
         .effect=effect_protocol,.effect_save=effect_save_now,.volume=volume_protocol,.seed=service_seed,.identify=service_identify,
+        .console_write=usb_console_write_frame,
         .build_id=BUILD_ID,.engine_commit=ENGINE_COMMIT,.profile_hash=CAPABILITY_HASH,
         .program=program_usage()};
     if(!patches_init(graph,spare,touch_patch,sizeof touch_patch,&hooks)) {ESP_LOGE(TAG,"Patch service allocation failed");return;}

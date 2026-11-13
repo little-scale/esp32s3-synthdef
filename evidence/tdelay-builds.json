@@ -1,0 +1,255 @@
+{
+  "passed": true,
+  "hardware": false,
+  "flashed": false,
+  "scope": "Cross-compiled AMOLED V2 and headless XIAO; build audits verify target type table, compile options, structure sizes and section placement. No physical runtime qualification.",
+  "builds": {
+    "xiao": {
+      "status": "cross-compiled; physical runtime results are recorded separately",
+      "build_id": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+      "firmware_fingerprint": "f3aec1ca925054a1269b6723004611469a08ca46b6caf582c23eaa79b820ddee",
+      "board_revision": "XIAO ESP32-S3 (headless profile)",
+      "output_channels": 2,
+      "compiled_loader_types_checked_in_target_object": 155,
+      "app_bytes": 1345600,
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      },
+      "engine_compile_options_verified": [
+        {
+          "source": "firmware/build-xiao/esp-idf/synthdef_engine/target-profile/src/fm_load.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        },
+        {
+          "source": "firmware/build-xiao/esp-idf/synthdef_engine/target-profile/src/fm_render.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        }
+      ],
+      "engine_profile": {
+        "profile": "fm1",
+        "changes": {
+          "FM_NODES": {
+            "upstream": 160,
+            "target": 256
+          },
+          "FM_OUTPUTS": {
+            "upstream": 192,
+            "target": 512
+          },
+          "FM_INPUTS": {
+            "upstream": 1024,
+            "target": 2048
+          },
+          "FM_DELAY_LIMIT": {
+            "upstream": "65536u",
+            "target": "262144u"
+          }
+        },
+        "qualified_kernels": {
+          "enabled": false
+        },
+        "qualified_kernels_source_sha256": "ae282d0a407e127ea4367df2706d9109824c8c4b0357e2f3bdef6c34753d2eac",
+        "candidate_kernels": {
+          "smooth": false,
+          "binary": false,
+          "noise": false,
+          "binding": false,
+          "routing": false,
+          "chaos": false,
+          "core": false,
+          "production_default": false
+        },
+        "candidate_core_source_sha256": "cef78c2b54df18553b6f7dc19b68a345331d4a44ea88279834d25ec79c26e0d6",
+        "candidate_chaos_source_sha256": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
+        "candidate_routing_source_sha256": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
+        "candidate_binding_sites": {},
+        "candidate_binding_families": null,
+        "candidate_binding_source_sha256": "bf8807ced259b15509abff068c437c56865d191e67763edd581759b0149c9281",
+        "candidate_source_sha256": "574097f225b2dc9b9e5c7c5e2a876bd119f049b71cabfd07c6826a1bb0c5e5c5",
+        "block_kernels": {
+          "filters": true,
+          "lag": true,
+          "unary": true
+        },
+        "miverb_packed_words": false,
+        "dsp_kernels_sha256": "f320e9cffc95115e60458411d8e4a2929da3616f6a2ac77b59e71c734697c108",
+        "signal_reuse": true,
+        "signal_planner_sha256": "f94e23434874846afc8f72f59d62345df9c80e1ab1cb937d613d00587735ec4d",
+        "audio_buffers_max": 192,
+        "signal_storage": "Loader-planned conservative audio lifetimes, independent scalar values; persistent logical IDs unchanged.",
+        "upstream_header_sha256": "cd18ce36033a4075db21430c9f501157f74cc730ad5493d85ebfea9fe2bd0223",
+        "target_header_sha256": "048e1c5a45e069ab9802e4a682c6486ea64ad5aae25f919646fe840faae304a2",
+        "control_bus_extension": "32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.",
+        "target_load_sha256": "5258c7c23fccec39ee1eb26cdf272ffa388468e953ee50d458dd7a7e26f2ff29",
+        "dynamic_banks": "DynKlank/DynKlang expand to Ringz/SinOsc; mixed-rate parameter inputs accepted with the existing SC sampling semantics; Ringz excitation rate remains checked.",
+        "trigger_delay_extension": "TDelay.ar/kr: SC positive-edge/countdown semantics; duration sampled at block start and latched on trigger; pending/output-tick triggers ignored; min one tick; checked signed-32-bit range; no delay arena.",
+        "target_render_sha256": "1255c36ddfe4269760160a21f8444907f75c5f408c3c5a73f9da4f2baf010dae",
+        "binding_extension": "fm_bind_delay_precleared: same checked layout; caller clears arena incrementally",
+        "target_delay_sha256": "dd6f057e775686e76351a42780794d5f0cf843595ddf070079202bbfc939b8c4",
+        "target_gendy_sha256": "e1052d1546253d08a998cf949a7a8f0d0f12585023bdbd38ebd37ffd5d11a474",
+        "target_rings_sha256": "a248b820af7a52d49d8a52bed472a9c9e4a56959517988b287f67a4eb02af45f",
+        "target_fast_sha256": "f0dcad57f455413e876294dda8db5c39e57436c7e9559d43ec78a432cb370ab1",
+        "target_extensions_sha256": "76c27921c89340346bf8adb8fbfed0d45caf79537d1c269daee8f8458b8bf15b",
+        "target_miverb_sha256": "ffb43ca006ff78982df96aaff670329f6fbc5dda18ec7f2a8c9f7e91acfd1427",
+        "miverb_optimized": true,
+        "target_bandlimited_sha256": "cb6ea2d8d6c13fa96bbdef0528dc160f8ce479ee0d8d3a60e82465a461956c53",
+        "saw_crossfade_optimized": true,
+        "saw_crossfade_optimization": "Exact j/64 reciprocal multiplication; constructor/control one-sample fraction remains zero.",
+        "miverb_optimization": "Finite ordered Q1.15 write clamp; identical quantisation, fault handling and accumulator scaling.",
+        "kernel_optimized": true,
+        "kernel_optimization": "Exact cached sine increments; power-of-two Decay2 ramp division; independent coefficient caches; identical block-local Dust/Dust2 RNG.",
+        "rings_startup": "Bound voices use rg_init_precleared after zeroed binding; standalone rg_init retains its original clear for independent oracle callers.",
+        "gendy_fix": "Allow the allocated zero-valued Gendy3 closing segment after discarded sub-sample breakpoints; keep bounds checks beyond it.",
+        "scope": "Checked capacities, control bus input, precleared binding, Gendy3 closing-segment fix and duplicate Rings clear removal and bit-preserving hot-kernel optimizations; no precision reduction or changes to existing DSP equations."
+      },
+      "profile_sha256": "21787bc4fff6d8c28e6c0b638260d579ef74e22eb2da6e8a7f0a580b8ff4a5e4",
+      "sha256": {
+        "firmware/build-xiao/waveshare_synthdef.bin": "97202c59285f8de06cf521bba9a24e5fbdd9b67343b289b4447d0c2ea8f51d55",
+        "firmware/build-xiao/bootloader/bootloader.bin": "8d6b17522ada51a81b7fa919d710cbc74615ecf3de2bb7ad6841de533dd01992",
+        "firmware/build-xiao/partition_table/partition-table.bin": "77534a67bc8a38ec085b2bdfd1a3c6ba1c1569a74c70ac0e34b43e9896dcbb08",
+        "build/host/xiao-sdkconfig": "7419f9c491f22c3675b9e441c35f4caf095c57c4dcb7791a4547508cb7b369a1",
+        "host/xiao.defaults": "694daab30b59525be3b75a9069da3bdf810124a142d1ca2603bb027522809005",
+        "firmware/partitions-xiao.csv": "a59da30f21cd4f3a910fc1a88a16669303309f4f27573612afcd81b18e5c1315",
+        "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+      },
+      "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+      "idf_version": "v5.5"
+    },
+    "amoled": {
+      "status": "cross-compiled; physical runtime results are recorded separately",
+      "build_id": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+      "firmware_fingerprint": "f3aec1ca925054a1269b6723004611469a08ca46b6caf582c23eaa79b820ddee",
+      "board_revision": "V2 (user confirmed; not physically probed)",
+      "output_channels": 1,
+      "compiled_loader_types_checked_in_target_object": 155,
+      "app_bytes": 1688144,
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      },
+      "engine_compile_options_verified": [
+        {
+          "source": "firmware/build-instrument/esp-idf/synthdef_engine/target-profile/src/fm_load.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        },
+        {
+          "source": "firmware/build-instrument/esp-idf/synthdef_engine/target-profile/src/fm_render.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        }
+      ],
+      "engine_profile": {
+        "profile": "fm1",
+        "changes": {
+          "FM_NODES": {
+            "upstream": 160,
+            "target": 256
+          },
+          "FM_OUTPUTS": {
+            "upstream": 192,
+            "target": 512
+          },
+          "FM_INPUTS": {
+            "upstream": 1024,
+            "target": 2048
+          },
+          "FM_DELAY_LIMIT": {
+            "upstream": "65536u",
+            "target": "262144u"
+          }
+        },
+        "qualified_kernels": {
+          "enabled": false
+        },
+        "qualified_kernels_source_sha256": "ae282d0a407e127ea4367df2706d9109824c8c4b0357e2f3bdef6c34753d2eac",
+        "candidate_kernels": {
+          "smooth": false,
+          "binary": false,
+          "noise": false,
+          "binding": false,
+          "routing": false,
+          "chaos": false,
+          "core": false,
+          "production_default": false
+        },
+        "candidate_core_source_sha256": "cef78c2b54df18553b6f7dc19b68a345331d4a44ea88279834d25ec79c26e0d6",
+        "candidate_chaos_source_sha256": "396e8a6ba5e284877faac75db86b5248ae386152eaf97dd627873a6ac4b1bf0b",
+        "candidate_routing_source_sha256": "fe2a44dd50b5b48ab2fc5da37fb288074645865c9c791b6712e6f9ba8e251015",
+        "candidate_binding_sites": {},
+        "candidate_binding_families": null,
+        "candidate_binding_source_sha256": "bf8807ced259b15509abff068c437c56865d191e67763edd581759b0149c9281",
+        "candidate_source_sha256": "574097f225b2dc9b9e5c7c5e2a876bd119f049b71cabfd07c6826a1bb0c5e5c5",
+        "block_kernels": {
+          "filters": true,
+          "lag": true,
+          "unary": true
+        },
+        "miverb_packed_words": false,
+        "dsp_kernels_sha256": "f320e9cffc95115e60458411d8e4a2929da3616f6a2ac77b59e71c734697c108",
+        "signal_reuse": true,
+        "signal_planner_sha256": "f94e23434874846afc8f72f59d62345df9c80e1ab1cb937d613d00587735ec4d",
+        "audio_buffers_max": 192,
+        "signal_storage": "Loader-planned conservative audio lifetimes, independent scalar values; persistent logical IDs unchanged.",
+        "upstream_header_sha256": "cd18ce36033a4075db21430c9f501157f74cc730ad5493d85ebfea9fe2bd0223",
+        "target_header_sha256": "048e1c5a45e069ab9802e4a682c6486ea64ad5aae25f919646fe840faae304a2",
+        "control_bus_extension": "32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.",
+        "target_load_sha256": "5258c7c23fccec39ee1eb26cdf272ffa388468e953ee50d458dd7a7e26f2ff29",
+        "dynamic_banks": "DynKlank/DynKlang expand to Ringz/SinOsc; mixed-rate parameter inputs accepted with the existing SC sampling semantics; Ringz excitation rate remains checked.",
+        "trigger_delay_extension": "TDelay.ar/kr: SC positive-edge/countdown semantics; duration sampled at block start and latched on trigger; pending/output-tick triggers ignored; min one tick; checked signed-32-bit range; no delay arena.",
+        "target_render_sha256": "1255c36ddfe4269760160a21f8444907f75c5f408c3c5a73f9da4f2baf010dae",
+        "binding_extension": "fm_bind_delay_precleared: same checked layout; caller clears arena incrementally",
+        "target_delay_sha256": "dd6f057e775686e76351a42780794d5f0cf843595ddf070079202bbfc939b8c4",
+        "target_gendy_sha256": "e1052d1546253d08a998cf949a7a8f0d0f12585023bdbd38ebd37ffd5d11a474",
+        "target_rings_sha256": "a248b820af7a52d49d8a52bed472a9c9e4a56959517988b287f67a4eb02af45f",
+        "target_fast_sha256": "f0dcad57f455413e876294dda8db5c39e57436c7e9559d43ec78a432cb370ab1",
+        "target_extensions_sha256": "76c27921c89340346bf8adb8fbfed0d45caf79537d1c269daee8f8458b8bf15b",
+        "target_miverb_sha256": "ffb43ca006ff78982df96aaff670329f6fbc5dda18ec7f2a8c9f7e91acfd1427",
+        "miverb_optimized": true,
+        "target_bandlimited_sha256": "cb6ea2d8d6c13fa96bbdef0528dc160f8ce479ee0d8d3a60e82465a461956c53",
+        "saw_crossfade_optimized": true,
+        "saw_crossfade_optimization": "Exact j/64 reciprocal multiplication; constructor/control one-sample fraction remains zero.",
+        "miverb_optimization": "Finite ordered Q1.15 write clamp; identical quantisation, fault handling and accumulator scaling.",
+        "kernel_optimized": true,
+        "kernel_optimization": "Exact cached sine increments; power-of-two Decay2 ramp division; independent coefficient caches; identical block-local Dust/Dust2 RNG.",
+        "rings_startup": "Bound voices use rg_init_precleared after zeroed binding; standalone rg_init retains its original clear for independent oracle callers.",
+        "gendy_fix": "Allow the allocated zero-valued Gendy3 closing segment after discarded sub-sample breakpoints; keep bounds checks beyond it.",
+        "scope": "Checked capacities, control bus input, precleared binding, Gendy3 closing-segment fix and duplicate Rings clear removal and bit-preserving hot-kernel optimizations; no precision reduction or changes to existing DSP equations."
+      },
+      "profile_sha256": "21787bc4fff6d8c28e6c0b638260d579ef74e22eb2da6e8a7f0a580b8ff4a5e4",
+      "sha256": {
+        "firmware/build-instrument/waveshare_synthdef.bin": "055d2a1c3eed020aaa13922a396d60867029383045b94c6c23f768f4bbdbaee1",
+        "firmware/build-instrument/bootloader/bootloader.bin": "000ffe0efc8874210136ce295518898bb0d097293275c7d2313720c46138b172",
+        "firmware/build-instrument/partition_table/partition-table.bin": "3d6618f869e029b89931eedaa807f28e696aeb86aacb08ae8a418ca6c846fa7f",
+        "firmware/build-instrument/sdkconfig": "7c65330b78b6052091f4becc85f76e4e3af43ba7306d6251e83c614934176cc3",
+        "firmware/sdkconfig.defaults": "f3e05b85fbc3930fefc7596fa4dafed1ccdf72f3ce9a73e3bfc3090b131d5cdd",
+        "firmware/partitions.csv": "11e1a6f2c0a677945771ab08b81761fe19c9ecd46829f2810b118aa16236f6e3",
+        "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+      },
+      "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+      "idf_version": "v5.5"
+    }
+  },
+  "generator_sha256": "b1e3fc437f8e8060f178f807892b1c5eb3a3d74a3755cf24c907c2f93187b072"
+}

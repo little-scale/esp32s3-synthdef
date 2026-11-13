@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "device_id": "esp32-1c29043eeb84",
+  "volume_percent": 5,
+  "capture_seconds": 0.1,
+  "trials": [
+    {
+      "transfer_and_capture_seconds": 0.3951,
+      "pcm_bytes": 17640,
+      "frames": 4410,
+      "pcm_peak": 881
+    },
+    {
+      "transfer_and_capture_seconds": 0.3897,
+      "pcm_bytes": 17640,
+      "frames": 4410,
+      "pcm_peak": 1089
+    },
+    {
+      "transfer_and_capture_seconds": 0.3909,
+      "pcm_bytes": 17640,
+      "frames": 4410,
+      "pcm_peak": 832
+    }
+  ],
+  "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8"
+}

@@ -1,0 +1,120 @@
+{
+  "date": "2026-11-13",
+  "status": "XIAO physically qualified in the recorded conditions; AMOLED cross-build only",
+  "images": {
+    "xiao": {
+      "status": "cross-compiled; physical runtime results are recorded separately",
+      "build_id": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+      "firmware_fingerprint": "58d5179826d78d64c867567163da811871e87974fb3ab0a51cad385b83c7b08b",
+      "idf_version": "v5.5",
+      "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+      "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+      "target": "esp32s3",
+      "board_revision": "XIAO ESP32-S3 (headless profile)",
+      "output_channels": 2,
+      "compiled_loader_types_checked_in_target_object": 155,
+      "engine_compile_options_verified": [
+        {
+          "source": "firmware/build-xiao/esp-idf/synthdef_engine/target-profile/src/fm_load.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        },
+        {
+          "source": "firmware/build-xiao/esp-idf/synthdef_engine/target-profile/src/fm_render.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        }
+      ],
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      },
+      "app_bytes": 1358352,
+      "sha256": {
+        "firmware/build-xiao/waveshare_synthdef.bin": "2d3ec87eb925a134589632fc208ff66a683c9010fb35bd47dd683424e5c64b80",
+        "firmware/build-xiao/bootloader/bootloader.bin": "8d6b17522ada51a81b7fa919d710cbc74615ecf3de2bb7ad6841de533dd01992",
+        "firmware/build-xiao/partition_table/partition-table.bin": "77534a67bc8a38ec085b2bdfd1a3c6ba1c1569a74c70ac0e34b43e9896dcbb08",
+        "build/host/xiao-sdkconfig": "7419f9c491f22c3675b9e441c35f4caf095c57c4dcb7791a4547508cb7b369a1",
+        "host/xiao.defaults": "694daab30b59525be3b75a9069da3bdf810124a142d1ca2603bb027522809005",
+        "firmware/partitions-xiao.csv": "a59da30f21cd4f3a910fc1a88a16669303309f4f27573612afcd81b18e5c1315",
+        "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+      },
+      "qualified_kernels": {
+        "enabled": true,
+        "smoothing": true,
+        "partial_banks": true,
+        "input_binding": {
+          "delay_render": {
+            "bound_slots": 3,
+            "sample_call_sites": 2,
+            "rate_call_sites": 2
+          },
+          "render_miverb": {
+            "bound_slots": 8,
+            "sample_call_sites": 2,
+            "rate_call_sites": 0
+          }
+        }
+      }
+    },
+    "amoled": {
+      "status": "cross-compiled; physical runtime results are recorded separately",
+      "build_id": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+      "firmware_fingerprint": "58d5179826d78d64c867567163da811871e87974fb3ab0a51cad385b83c7b08b",
+      "idf_version": "v5.5",
+      "idf_commit": "8c750b088c7cd857d079c0eeb495da199b359461",
+      "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+      "target": "esp32s3",
+      "board_revision": "V2 (user confirmed; not physically probed)",
+      "output_channels": 1,
+      "compiled_loader_types_checked_in_target_object": 155,
+      "engine_compile_options_verified": [
+        {
+          "source": "firmware/build-instrument/esp-idf/synthdef_engine/target-profile/src/fm_load.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        },
+        {
+          "source": "firmware/build-instrument/esp-idf/synthdef_engine/target-profile/src/fm_render.c",
+          "math": [
+            "-fno-fast-math",
+            "-ffp-contract=off"
+          ],
+          "language": "c99",
+          "fm1_platform_includes": false
+        }
+      ],
+      "target_structure_sizes": {
+        "graph_bytes": 21720,
+        "scratch_bytes": 51200,
+        "voice_bytes": 57896
+      },
+      "app_bytes": 1697264,
+      "sha256": {
+        "firmware/build-instrument/waveshare_synthdef.bin": "53338e39bfe019036ea8ccbc2f9ab15fb8bf792f2d792ba92b385d1fa52b424d",
+        "firmware/build-instrument/bootloader/bootloader.bin": "000ffe0efc8874210136ce295518898bb0d097293275c7d2313720c46138b172",
+        "firmware/build-instrument/partition_table/partition-table.bin": "3d6618f869e029b89931eedaa807f28e696aeb86aacb08ae8a418ca6c846fa7f",
+        "firmware/build-instrument/sdkconfig": "7c65330b78b6052091f4becc85f76e4e3af43ba7306d6251e83c614934176cc3",
+        "firmware/sdkconfig.defaults": "f3e05b85fbc3930fefc7596fa4dafed1ccdf72f3ce9a73e3bfc3090b131d5cdd",
+        "firmware/partitions.csv": "11e1a6f2c0a677945771ab08b81761fe19c9ecd46829f2810b118aa16236f6e3",
+        "firmware/dependencies.lock": "431703eb89663992c29c82bfa98a3cc04cbb8d9a0c50bfff2d91de844d3512aa"
+      },
+      "qualified_kernels": {
+        "enabled": false
+      }
+    }
+  }
+}

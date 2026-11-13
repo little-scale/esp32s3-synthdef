@@ -1,6 +1,6 @@
 # DSP optimisation register
 
-Last reviewed: **2026-11-04**. Applies to the shared AMOLED/XIAO DSP
+Last reviewed: **2026-11-12**. Applies to the shared AMOLED/XIAO DSP
 source. This is an implementation ledger, separate from the
 [support and hardware-test ledger](UGEN_SUPPORT.md).
 
@@ -8,7 +8,8 @@ The editable source is [dsp_optimizations.json](dsp_optimizations.json).
 Regenerate with `python3 host/document_optimizations.py`; validate coverage and
 the checked-in page with `python3 host/document_optimizations.py --check`.
 The command checks every native type and supported operator selector against the
-pinned inventory, status/group consistency and linked file existence. It does
+pinned inventory plus explicit project additions, compiled capabilities,
+status/group consistency and linked file existence. It does
 not rerun DSP tests or certify that a source implementation is still enabled.
 
 ## Status meanings
@@ -37,7 +38,7 @@ remain outstanding. See [current status](../STATUS.md).
 
 | Category | Project optimisation enabled | Inherited FM1 fast path | No enabled individual optimisation | Experimental candidate available |
 | --- | ---: | ---: | ---: | ---: |
-| Native UGen types | 43 | 24 | 87 | 112 |
+| Native UGen types | 43 | 24 | 88 | 112 |
 | Unary selectors | 33 | 0 | 0 | 0 |
 | Binary selectors | 0 | 40 | 0 | 40 |
 
@@ -45,6 +46,7 @@ Selector totals are separate views of UnaryOpUGen/BinaryOpUGen, not additional n
 
 Every supported native type and selector now has a recorded implementation
 review: an existing enabled/inherited path, an experimental candidate, or both.
+New project additions are recorded separately without claiming a speed-up.
 No supported entry remains unreviewed. This does **not** mean every candidate
 is faster: negative timing differences are retained below and all new candidate
 switches remain off. Constructor/state/arena and raw-scratch combined checks are
@@ -286,9 +288,9 @@ Implementation: [host/qualified_kernels.py](../host/qualified_kernels.py), [host
 
 Host verification: [evidence/qualified-kernels-host.json](../evidence/qualified-kernels-host.json), [evidence/qualified-kernels-review.json](../evidence/qualified-kernels-review.json)
 
-Hardware evidence: [evidence/dsp-seeded-xiao-smooth.json](../evidence/dsp-seeded-xiao-smooth.json)
+Hardware evidence: [evidence/dsp-seeded-xiao-smooth.json](../evidence/dsp-seeded-xiao-smooth.json), [evidence/dsp-combined-xiao-3eeb84-summary.json](../evidence/dsp-combined-xiao-3eeb84-summary.json), [evidence/dsp-combined-xiao-3eeb84-final.json](../evidence/dsp-combined-xiao-3eeb84-final.json)
 
-Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed.
+Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed. Combined-image follow-up on XIAO-3eeb84 (12 November): 28 fixed-seed graphs/three trials match output and RNG; selected timing gains and unchanged isolated oscillator slowdowns retained. A 30-second Main/FX control/capture check passes. Physical AMOLED and broad coverage remain pending.
 
 ### qualified-banks
 
@@ -300,9 +302,9 @@ Implementation: [host/qualified_kernels.py](../host/qualified_kernels.py), [host
 
 Host verification: [evidence/qualified-kernels-host.json](../evidence/qualified-kernels-host.json), [evidence/qualified-kernels-review.json](../evidence/qualified-kernels-review.json)
 
-Hardware evidence: [evidence/dsp-seeded-xiao-core.json](../evidence/dsp-seeded-xiao-core.json)
+Hardware evidence: [evidence/dsp-seeded-xiao-core.json](../evidence/dsp-seeded-xiao-core.json), [evidence/dsp-combined-xiao-3eeb84-summary.json](../evidence/dsp-combined-xiao-3eeb84-summary.json), [evidence/dsp-combined-xiao-3eeb84-final.json](../evidence/dsp-combined-xiao-3eeb84-final.json)
 
-Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed.
+Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed. Combined-image follow-up on XIAO-3eeb84 (12 November): 28 fixed-seed graphs/three trials match output and RNG; selected timing gains and unchanged isolated oscillator slowdowns retained. A 30-second Main/FX control/capture check passes. Physical AMOLED and broad coverage remain pending.
 
 ### qualified-delay-binding
 
@@ -314,9 +316,9 @@ Implementation: [host/qualified_kernels.py](../host/qualified_kernels.py), [host
 
 Host verification: [evidence/qualified-kernels-host.json](../evidence/qualified-kernels-host.json), [evidence/qualified-kernels-review.json](../evidence/qualified-kernels-review.json)
 
-Hardware evidence: [evidence/dsp-seeded-xiao-binding-delay.json](../evidence/dsp-seeded-xiao-binding-delay.json), [evidence/dsp-seeded-xiao-binding.json](../evidence/dsp-seeded-xiao-binding.json)
+Hardware evidence: [evidence/dsp-seeded-xiao-binding-delay.json](../evidence/dsp-seeded-xiao-binding-delay.json), [evidence/dsp-seeded-xiao-binding.json](../evidence/dsp-seeded-xiao-binding.json), [evidence/dsp-combined-xiao-3eeb84-summary.json](../evidence/dsp-combined-xiao-3eeb84-summary.json), [evidence/dsp-combined-xiao-3eeb84-final.json](../evidence/dsp-combined-xiao-3eeb84-final.json)
 
-Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed.
+Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUALIFIED_KERNELS. Individual candidate measurements exist; the new combined image has native equality and cross-build checks but still needs a same-board hardware check. Existing deployed firmware was not changed. Combined-image follow-up on XIAO-3eeb84 (12 November): 28 fixed-seed graphs/three trials match output and RNG; selected timing gains and unchanged isolated oscillator slowdowns retained. A 30-second Main/FX control/capture check passes. Physical AMOLED and broad coverage remain pending.
 
 ## Native UGen checklist
 
@@ -462,6 +464,7 @@ Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUA
 | Sum3 | Inherited FM1 fast path | [inherited-arithmetic](#inherited-arithmetic) |
 | Sum4 | Inherited FM1 fast path | [inherited-arithmetic](#inherited-arithmetic) |
 | SyncSaw | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
+| TDelay | No enabled individual optimisation | New implementation; see project additions below |
 | TExpRand | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | TIRand | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | TRand | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
@@ -476,6 +479,16 @@ Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUA
 | Wrap | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | XFade2 | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
 | XLine | No enabled individual optimisation | —; [experimental candidate](#candidate-core) |
+
+## Project additions
+
+**TDelay: new implementation; no individual speed-up claimed.** Audio/control-rate trigger delay. Reuses per-node countdown and previous-trigger state; no delay arena or dynamic allocation. Exact SC pulse timing tested in legacy/qualified/dedicated-buffer modes. Six selected XIAO PCM timing cases pass (100,588 checked frames); physical AMOLED and isolated performance measurements remain pending.
+
+Implementation: [host/engine_profile.py](../host/engine_profile.py)
+
+Host verification: [evidence/tdelay-host.json](../evidence/tdelay-host.json)
+
+Hardware evidence: [evidence/tdelay-xiao-3eeb84.json](../evidence/tdelay-xiao-3eeb84.json)
 
 ## Unary operator checklist
 

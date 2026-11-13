@@ -1,11 +1,15 @@
-# Selective DSP update — computer preparation
+# Selective DSP update — preparation and XIAO comparison
 
 This update selects the measured winners from the XIAO qualification: six
 smoothing UGens, Klang/Klank, and input binding for the nine delays and MiVerb.
-It is prepared on `codex/qualified-dsp-defaults`; **the connected board has not
-been accessed or flashed during this work**. The combined image still needs a
-same-board hardware comparison. Published individual-candidate gains are not
-claimed for this combined image.
+It is prepared on `codex/qualified-dsp-defaults`. The original work below was
+computer-only. On **12 November 2026**, the combined image completed a same-board
+28-graph comparison on XIAO-3eeb84: matching output/RNG, measurable targeted gains
+and retained small isolated oscillator regressions. Physical AMOLED, broader
+coverage and remaining integration checks are separate. Use the
+[combined-image hardware results](DSP_COMBINED_XIAO.md) for the current scope and
+connection/restoration status. Older individual-candidate figures are not
+substituted for these combined-image measurements.
 
 ## Implementation
 

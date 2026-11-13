@@ -1,0 +1,743 @@
+{
+  "passed": false,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "volume_limit_percent": 5,
+  "saved_patch_writes": false,
+  "firmware_writes": false,
+  "cases": [
+    {
+      "name": "definition_silent",
+      "passed": true,
+      "queued": 0,
+      "active": false,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "created_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "rate8",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 29.633524300556207
+      },
+      "timing": {
+        "transitions": 6,
+        "mean_period_seconds": 0.1253877551020408,
+        "max_period_error_seconds": 0.00125850340136055,
+        "zero_gap_min_samples": 1536,
+        "zero_gap_max_samples": 1664
+      },
+      "sc_sent": 5
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "replay8",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 29.67336066800209
+      },
+      "timing": {
+        "transitions": 6,
+        "mean_period_seconds": 0.1253922902494331,
+        "max_period_error_seconds": 0.00125850340136055,
+        "zero_gap_min_samples": 1600,
+        "zero_gap_max_samples": 1665
+      },
+      "sc_sent": 34
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "rate16",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 29.566217622310027
+      },
+      "timing": {
+        "transitions": 12,
+        "mean_period_seconds": 0.06253555967841683,
+        "max_period_error_seconds": 0.0015476190476190477,
+        "zero_gap_min_samples": 768,
+        "zero_gap_max_samples": 896
+      },
+      "sc_sent": 10
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "overlap16",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 34.95102136644684
+      },
+      "timing": {
+        "transitions": 13,
+        "mean_period_seconds": 0.062403628117913834,
+        "max_period_error_seconds": 0.0015476190476190477,
+        "zero_gap_min_samples": 64,
+        "zero_gap_max_samples": 65
+      },
+      "sc_sent": 10
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "finite_before",
+      "passed": true
+    },
+    {
+      "name": "finite_ended",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      },
+      "notes_applied": 3
+    },
+    {
+      "name": "queued_future",
+      "passed": true,
+      "queued": 1
+    },
+    {
+      "name": "future_canceled",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "new_owner_survives",
+      "passed": true,
+      "pcm": {
+        "frames": 8820,
+        "peak": 66,
+        "rms": 35.28362566917991
+      },
+      "gate": 1,
+      "freq": 660
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "queued_future",
+      "passed": true,
+      "queued": 1
+    },
+    {
+      "name": "panic_silent",
+      "passed": true,
+      "queued": 0,
+      "active": false,
+      "pcm": {
+        "frames": 35280,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "replace_while_queued",
+      "passed": true,
+      "old_revision": 44,
+      "new_revision": 45,
+      "queue_flushed": true
+    },
+    {
+      "name": "changed_silent",
+      "passed": true,
+      "queued": 0,
+      "active": false,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "new_definition8",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 29.491588120026186
+      },
+      "timing": {
+        "transitions": 6,
+        "mean_period_seconds": 0.12480725623582767,
+        "max_period_error_seconds": 0.00019274376417233174,
+        "zero_gap_min_samples": 1664,
+        "zero_gap_max_samples": 1664
+      },
+      "sc_sent": 5
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "cmdperiod_hook_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "soak_install",
+      "passed": true
+    },
+    {
+      "name": "soak_begin",
+      "passed": true
+    }
+  ],
+  "graphs": {
+    "gated": {
+      "graph_sha256": "e5db77175454d6248080f74280773cbe094041d7c9948737dfb991ed5a33b50a",
+      "source_sha256": "e931affc0a842af3e1103b2653c6dcf4f3a66a3fa40289e38fc2a2a05deffe3b",
+      "nodes": 10
+    },
+    "replacement": {
+      "graph_sha256": "c43ad3faf8c0fba195453cdb7e030e9c200f391b621f5eb09f476e430ba3bf2d",
+      "source_sha256": "94ecb57d751e76600117bdb62af21c96c5842b0559d89379bc20f285944703a5",
+      "nodes": 10
+    },
+    "cloud": {
+      "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0",
+      "source_sha256": "66c59c58d621bf6b8bfeb1f3e898e71218ccf44350a74cc2a927a7f54f12b1fb",
+      "nodes": 56
+    },
+    "fx": {
+      "graph_sha256": "c36526b2f889fd19f46dd2433650d29f4dbe1382881ede9bc3830d18343bb9f9",
+      "source_sha256": "70f459180aeabaddcbb09997f474e0fd25f0e57f3ba4e75b73fd0e801d99f742",
+      "nodes": 3
+    }
+  },
+  "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+  "initial_boot": 2970250089,
+  "soak": {
+    "seconds": 600,
+    "rate_hz": 16,
+    "before": {
+      "frame": 131773440,
+      "active": 1,
+      "render_max_us": 2195,
+      "combined_max_us": 2232,
+      "updated": 169561.916232291,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 46,
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "overflow": 0,
+      "stack_free_bytes": 12428,
+      "internal_free": 81843,
+      "internal_min": 81551,
+      "internal_largest": 63488,
+      "psram_free": 5173736,
+      "controls_stack_free_bytes": 3520,
+      "average_x10": 220,
+      "peak_x10": 1284,
+      "ages": {
+        "frame": 0.48528391699073836,
+        "active": 0.48528391699073836,
+        "render_max_us": 0.48521141699166037,
+        "combined_max_us": 0.48521141699166037,
+        "write_fail": 0.48524308399646543,
+        "partial": 0.48524308399646543,
+        "dma_event_overflow": 0.48524308399646543,
+        "faults": 0.48524308399646543,
+        "clips": 0.48524308399646543,
+        "nonfinite": 0.48524308399646543,
+        "overflow": 0.4852309999987483,
+        "stack_free_bytes": 0.4852309999987483,
+        "internal_free": 0.4852309999987483,
+        "internal_min": 0.4852309999987483,
+        "internal_largest": 0.4852309999987483,
+        "psram_free": 0.4852309999987483,
+        "controls_stack_free_bytes": 0.4852309999987483,
+        "average_x10": 0.4852085839956999,
+        "peak_x10": 0.4852085839956999
+      },
+      "peak_tracking": true,
+      "peak_since_reset_x10": 1284,
+      "peak_windows": 43,
+      "peak_waiting": false,
+      "peak_generation": 0
+    },
+    "remote_before": {
+      "boot": 2970250089,
+      "revision": 46,
+      "now_us": 2991662971,
+      "active": true,
+      "prepared": true,
+      "queued": 4,
+      "applied": 787,
+      "rejected": 2,
+      "late": 0,
+      "total": 2,
+      "controls": [
+        {
+          "index": 0,
+          "count": 1,
+          "rate": 1,
+          "trigger": false,
+          "writable": true,
+          "values": [
+            440
+          ],
+          "name": "freq"
+        },
+        {
+          "index": 1,
+          "count": 1,
+          "rate": 0,
+          "trigger": false,
+          "writable": false,
+          "values": [
+            1
+          ],
+          "name": "__esp32_autoplay"
+        }
+      ],
+      "offset_us": -166570755820.0205,
+      "clock_error_us": 6374.812495778315
+    },
+    "samples": [
+      {
+        "seconds": 5.02,
+        "queued": 4,
+        "applied": 867,
+        "average_x10": 650,
+        "peak_x10": 783,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 10.03,
+        "queued": 4,
+        "applied": 947,
+        "average_x10": 658,
+        "peak_x10": 980,
+        "internal_free": 81771,
+        "psram_free": 5173752,
+        "pcm": {
+          "frames": 8820,
+          "peak": 177,
+          "rms": 40.005093213154716
+        }
+      },
+      {
+        "seconds": 15.88,
+        "queued": 4,
+        "applied": 1041,
+        "average_x10": 656,
+        "peak_x10": 818,
+        "internal_free": 81771,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 20.89,
+        "queued": 4,
+        "applied": 1121,
+        "average_x10": 656,
+        "peak_x10": 783,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 25.91,
+        "queued": 4,
+        "applied": 1201,
+        "average_x10": 656,
+        "peak_x10": 843,
+        "internal_free": 81843,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 30.94,
+        "queued": 4,
+        "applied": 1282,
+        "average_x10": 661,
+        "peak_x10": 850,
+        "internal_free": 81771,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 35.95,
+        "queued": 4,
+        "applied": 1362,
+        "average_x10": 656,
+        "peak_x10": 768,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 40.96,
+        "queued": 4,
+        "applied": 1442,
+        "average_x10": 646,
+        "peak_x10": 771,
+        "internal_free": 81843,
+        "psram_free": 5173736,
+        "pcm": {
+          "frames": 8820,
+          "peak": 234,
+          "rms": 52.08509847349045
+        }
+      },
+      {
+        "seconds": 46.86,
+        "queued": 4,
+        "applied": 1536,
+        "average_x10": 655,
+        "peak_x10": 738,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 51.87,
+        "queued": 4,
+        "applied": 1617,
+        "average_x10": 654,
+        "peak_x10": 907,
+        "internal_free": 81771,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 56.89,
+        "queued": 4,
+        "applied": 1697,
+        "average_x10": 655,
+        "peak_x10": 781,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 61.9,
+        "queued": 4,
+        "applied": 1777,
+        "average_x10": 648,
+        "peak_x10": 747,
+        "internal_free": 81843,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 66.91,
+        "queued": 4,
+        "applied": 1857,
+        "average_x10": 656,
+        "peak_x10": 761,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 71.92,
+        "queued": 3,
+        "applied": 1938,
+        "average_x10": 659,
+        "peak_x10": 1032,
+        "internal_free": 81771,
+        "psram_free": 5173752,
+        "pcm": {
+          "frames": 8820,
+          "peak": 632,
+          "rms": 175.38025742334156
+        }
+      },
+      {
+        "seconds": 77.85,
+        "queued": 4,
+        "applied": 2032,
+        "average_x10": 660,
+        "peak_x10": 942,
+        "internal_free": 81771,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 82.86,
+        "queued": 3,
+        "applied": 2113,
+        "average_x10": 655,
+        "peak_x10": 777,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 87.88,
+        "queued": 4,
+        "applied": 2193,
+        "average_x10": 655,
+        "peak_x10": 770,
+        "internal_free": 81843,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 92.89,
+        "queued": 4,
+        "applied": 2273,
+        "average_x10": 657,
+        "peak_x10": 776,
+        "internal_free": 81771,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 97.91,
+        "queued": 4,
+        "applied": 2353,
+        "average_x10": 655,
+        "peak_x10": 754,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 102.92,
+        "queued": 3,
+        "applied": 2434,
+        "average_x10": 655,
+        "peak_x10": 738,
+        "internal_free": 81843,
+        "psram_free": 5173736,
+        "pcm": {
+          "frames": 8820,
+          "peak": 560,
+          "rms": 140.61397701821758
+        }
+      },
+      {
+        "seconds": 108.82,
+        "queued": 4,
+        "applied": 2528,
+        "average_x10": 655,
+        "peak_x10": 741,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 113.82,
+        "queued": 4,
+        "applied": 2608,
+        "average_x10": 655,
+        "peak_x10": 735,
+        "internal_free": 81843,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 118.84,
+        "queued": 4,
+        "applied": 2688,
+        "average_x10": 663,
+        "peak_x10": 863,
+        "internal_free": 81771,
+        "psram_free": 5173756
+      },
+      {
+        "seconds": 123.85,
+        "queued": 4,
+        "applied": 2768,
+        "average_x10": 655,
+        "peak_x10": 772,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      },
+      {
+        "seconds": 128.88,
+        "queued": 4,
+        "applied": 2849,
+        "average_x10": 655,
+        "peak_x10": 785,
+        "internal_free": 81843,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 133.89,
+        "queued": 4,
+        "applied": 2929,
+        "average_x10": 657,
+        "peak_x10": 830,
+        "internal_free": 81843,
+        "psram_free": 5173752,
+        "pcm": {
+          "frames": 8820,
+          "peak": 628,
+          "rms": 181.774559485618
+        }
+      },
+      {
+        "seconds": 139.74,
+        "queued": 3,
+        "applied": 3023,
+        "average_x10": 658,
+        "peak_x10": 822,
+        "internal_free": 81843,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 144.75,
+        "queued": 4,
+        "applied": 3103,
+        "average_x10": 657,
+        "peak_x10": 875,
+        "internal_free": 81771,
+        "psram_free": 5173736
+      },
+      {
+        "seconds": 149.78,
+        "queued": 4,
+        "applied": 3183,
+        "average_x10": 655,
+        "peak_x10": 734,
+        "internal_free": 81843,
+        "psram_free": 5173752
+      }
+    ],
+    "completed": false,
+    "observed_seconds": 149.78,
+    "requested_seconds": 600,
+    "sampled_windows_clean": true,
+    "completion_not_claimed": true
+  },
+  "error": "KeyboardInterrupt",
+  "restoration": {
+    "main_package_verified": true,
+    "saved_main_fx_lists_unchanged": true,
+    "instance_controls_restored": true,
+    "volume_percent": 5,
+    "volume_saved": true
+  },
+  "wire_summary": {
+    "requests": 2714,
+    "accepted": 2712,
+    "errors": [
+      {
+        "phase": "replace_while_queued",
+        "kind": 1,
+        "delta": true,
+        "pairs": 1,
+        "bytes": 37,
+        "stream": 808242307,
+        "error": "Invalid, stale, late or full remote command",
+        "ack_ms": 15.075
+      },
+      {
+        "phase": "replace_while_queued",
+        "kind": 2,
+        "delta": false,
+        "pairs": 0,
+        "bytes": 32,
+        "stream": 808242307,
+        "error": "Invalid, stale, late or full remote command",
+        "ack_ms": 10.824
+      }
+    ],
+    "delta_packets": 1455,
+    "empty_delta_notes": 0,
+    "ack_ms_median": 10.8995,
+    "ack_ms_max": 47.264
+  },
+  "studio_connected": true,
+  "status": "paused at user request; lifecycle checks passed, long soak incomplete",
+  "interrupted_by_user": true,
+  "lifecycle_checks_passed": true,
+  "lifecycle_checkpoints": 23,
+  "sc_warnings": [
+    "WARNING: ESP32 pattern stopped: esp32-1c29043eeb84: Invalid, stale, late or full remote command"
+  ],
+  "source_sha256": {
+    "host/qualify_usb_patterns.py": "3b1e5b9a562b8d89d9ef1d55b73de651b6c83f0e310bd64bc4c93197b6184e68",
+    "host/test_qualify_usb_patterns.py": "2cb2aac4da78b742cbc5bfd79c737a441d57f19d1bfb90a4d24986d6256faba5",
+    "supercollider/ESP32.sc": "29e938b9b586cad15d1cd97f0cffbd93634ba9566df5842aee4406231a85a7a0",
+    "firmware/components/instrument/remote_control.c": "7163e0c4f0df541ec69e8d54412258b22fd379f9d75818eb3b4f48f9e7e2b5f2"
+  },
+  "remaining": [
+    "Complete the 600-second soak and its final stop/control-hold assertions",
+    "Repeated identical-pitch note events with empty delta packets",
+    "Physical AMOLED and Wi-Fi pattern coverage"
+  ]
+}

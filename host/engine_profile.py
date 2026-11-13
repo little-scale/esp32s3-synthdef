@@ -18,6 +18,50 @@ SOURCE=ROOT/'upstream/fm1-synthdef/synthdef-engine/src'
 LIMITS={'FM_NODES':(160,24),'FM_OUTPUTS':(192,32),'FM_INPUTS':(1024,256),'FM_DELAY_LIMIT':('65536u','262144u')}
 PROFILES={'compact':LIMITS,'fm1':{**LIMITS,'FM_NODES':(160,256),'FM_OUTPUTS':(192,512),'FM_INPUTS':(1024,2048)}}
 
+def prepare_tdelay(header, load, files):
+    """SC TriggerUGens TDelay semantics, with a checked 32-bit countdown.
+
+    Append the opcode so all pinned FM1 type IDs remain unchanged. Countdown
+    and previous-trigger storage already exist in each voice's per-node state.
+    """
+    anchor='FM_StandardL, FM_TYPES'
+    assert header.count(anchor)==1
+    header=header.replace(anchor,'FM_StandardL, FM_TDelay, FM_TYPES')
+    anchor='"StandardN","StandardL"};'
+    assert load.count(anchor)==1
+    load=load.replace(anchor,'"StandardN","StandardL","TDelay"};')
+    anchor='  } else if(u->type>=FM_SinOscFB'
+    assert load.count(anchor)==1
+    load=load.replace(anchor,'''  } else if(u->type==FM_TDelay) {
+   if((u->rate!=1 && u->rate!=2) || u->inputs!=2 || u->outputs!=1)BAD("TDelay requires two inputs and one output at audio/control rate");
+   fm_ref *ref=&g->ref[u->input];
+   if(ref->node<0 || g->node[ref->node].rate!=u->rate)BAD("TDelay trigger must match calculation rate");
+   /* Like SC, duration may be audio rate: sample offset zero of each block. */
+'''+anchor)
+    utilities=files['fm_utilities.inc']
+    anchor='  case FM_PulseDivider:\n'
+    assert utilities.count(anchor)==1
+    utilities=utilities.replace(anchor,'''  case FM_TDelay:
+   if(s->total>1)--s->total;
+   else if(s->total==1){s->total=0;z=1;}
+   else if(a>0 && s->last<=0){
+    /* SC multiplies float duration by double sample rate before rounding.
+     * Only an accepted trigger needs this conversion; no per-sample double
+     * arithmetic or delay arena. Guard before the integer conversion. */
+    double duration=(double)target[1]*(double)sr+.5;
+    if(!isfinite(duration) || duration>=2147483648.0){v->fault=1;break;}
+    s->total=duration<1?1:(uint32_t)duration;
+   }
+   s->last=a;break;
+'''+anchor)
+    anchor='if(n->type==FM_Trig || n->type==FM_Trig1 ||'
+    assert utilities.count(anchor)==1
+    files['fm_utilities.inc']=utilities.replace(anchor,'if(n->type==FM_TDelay || n->type==FM_Trig || n->type==FM_Trig1 ||')
+    anchor='if(n->type>=FM_Fold && n->type<=FM_MiMu)'
+    assert files['fm_render.c'].count(anchor)==1
+    files['fm_render.c']=files['fm_render.c'].replace(anchor,'if((n->type>=FM_Fold && n->type<=FM_MiMu) || n->type==FM_TDelay)')
+    return header,load,files
+
 def profile_renderer(render, delay):
     """Separate diagnostic translation unit: zero timing overhead in normal DSP."""
     names=sorted(set(re.findall(r"^(?:int|void|uint32_t) (fm_\w+)\(",render+'\n'+delay,re.M)))
@@ -220,6 +264,7 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         already_bound=set(binding_counts)
         files,qualified=prepare_qualified(files,smooth=not candidate_smooth,banks=not candidate_core,
             binding_families=[name for name in QUALIFIED_BINDINGS if name not in already_bound])
+    header,load,files=prepare_tdelay(header,load,files)
     if reuse_buffers:
         header,load,files=prepare_signals(header,load,files,min(int(limits['FM_OUTPUTS'][1]),192))
     render=files['fm_render.c'];delay=files['fm_delay.inc']
@@ -257,6 +302,7 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
               'control_bus_extension':'32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.',
               'target_load_sha256':hashlib.sha256(load.encode()).hexdigest(),
               'dynamic_banks':'DynKlank/DynKlang expand to Ringz/SinOsc; mixed-rate parameter inputs accepted with the existing SC sampling semantics; Ringz excitation rate remains checked.',
+              'trigger_delay_extension':'TDelay.ar/kr: SC positive-edge/countdown semantics; duration sampled at block start and latched on trigger; pending/output-tick triggers ignored; min one tick; checked signed-32-bit range; no delay arena.',
               'target_render_sha256':hashlib.sha256(render.encode()).hexdigest(),
               'binding_extension':'fm_bind_delay_precleared: same checked layout; caller clears arena incrementally',
               'target_delay_sha256':hashlib.sha256(delay.encode()).hexdigest(),

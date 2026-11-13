@@ -1,0 +1,20 @@
+{
+  "passed": false,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "phase": "soak",
+  "saved_patch_writes": false,
+  "volume_limit_percent": 50,
+  "error": "HELLO: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation",
+  "restoration": {
+    "skipped": "Physical module identity was not verified"
+  },
+  "audio_telemetry": {
+    "ages": {},
+    "peak_tracking": true,
+    "peak_since_reset_x10": null,
+    "peak_windows": 0,
+    "peak_waiting": true,
+    "peak_generation": 0
+  }
+}

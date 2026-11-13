@@ -1,0 +1,217 @@
+{
+  "date": "2026-11-13",
+  "device_id": "esp32-1c29043eeb84",
+  "chip_revision": "v0.2",
+  "host_os": "macOS",
+  "volume_limit_percent": 5,
+  "host_fix": {
+    "status": "retained",
+    "scope": "macOS native ESP 303a:1001; combined DTR/RTS TIOCMSET; other ports/platforms unchanged",
+    "retained_firmware_passing_cases": 68,
+    "consecutive_reopens": 50,
+    "evidence": [
+      {
+        "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-atomic.json",
+        "sha256": "41794564d3aee4855156ce79c7c0f83f0dbdd2e4dbd94f50d31920e118d4f99f",
+        "cases": 6,
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "console": "retained polled",
+        "effective_policy": "atomic",
+        "reset_messages": []
+      },
+      {
+        "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-fixed.json",
+        "sha256": "5f5d4736718e85b9c9303fb3d075757c2833edeaa50dde4791dc8268417bab5e",
+        "cases": 12,
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "console": "retained polled",
+        "effective_policy": "atomic",
+        "reset_messages": []
+      },
+      {
+        "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-repeat.json",
+        "sha256": "8df5d1ff6297671b23a6c5d13ef33ec874fde7566faa4c1038881224735de9d1",
+        "cases": 50,
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "console": "retained polled",
+        "effective_policy": "atomic",
+        "reset_messages": []
+      },
+      {
+        "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-buffered-long-idle.json",
+        "sha256": "c943a6d2e1ff05559104baeaf4a191d448a05333ce1c518fdb35582752953c6e",
+        "cases": 2,
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "console": "buffered candidate",
+        "effective_policy": "atomic",
+        "reset_messages": []
+      },
+      {
+        "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-buffered-regression.json",
+        "sha256": "335ecd094ec3eb8cc3050a0f685c1120d1bf9c88ecfd86cbe136adf8e69c3c76",
+        "cases": 9,
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "console": "buffered candidate",
+        "effective_policy": "atomic",
+        "reset_messages": []
+      }
+    ]
+  },
+  "firmware_candidate": {
+    "build_id": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+    "status": "withdrawn; retained image restored",
+    "candidate_lifecycle_passing_cases": 11,
+    "idle_gaps_seconds": 60,
+    "idle_modes": [
+      "unread",
+      "closed"
+    ],
+    "not_qualified_by_lifecycle_alone": true,
+    "integration_confounds": [
+      "hard-coded stream 712 reused with sequence reset; corrected to fresh nonzero streams",
+      "soak FX remained active during Main fixtures with built-in MiVerb; corrected to FX bypass before listening"
+    ],
+    "attribution": "Transport-specific cause of capture/maintenance failures not isolated. Retained image also failed overloaded fixture. Corrected buffered-image full integration remains pending.",
+    "source_patch": "evidence/usb-buffered-candidate-withdrawn-20261113.patch"
+  },
+  "remaining_issues": [
+    "Long unread-output I2S write timeout on retained polled console",
+    "Earlier fully unresponsive native USB symptom",
+    "AMOLED physical validation and other host OSes"
+  ],
+  "unit_tests": {
+    "passed": true,
+    "count": 89,
+    "command": "PYTHONPATH=host python -m unittest test_serial_port test_probe_usb_lifecycle test_qualify_dsp_transient test_capture test_control_client test_studio"
+  },
+  "capture_recovery": {
+    "identified_CAPREAD_retries": 1,
+    "CAPBEGIN_retries": 0,
+    "legacy_CAPREAD_retries": 0,
+    "changed_recording_rejected": true,
+    "lost_ack_and_permanent_loss_tested": true
+  },
+  "builds": "evidence/usb-buffered-builds-20261113.json",
+  "saved_patch_writes": false,
+  "source_sha256": {
+    "host/serial_port.py": "ae83baaf28256c82eaf92cdfafbbfac36fa7e0edd8f5cdbe43208303f155c5a9",
+    "host/patches.py": "b84f441905de7685f0a0eb262c8ed3ee01d62ea62cd93c23e6025f0a52d518a5",
+    "host/capture.py": "c22008361b81d9e5bbfd103b04795fae2d5ad87ce2a335e631b874e90246d201",
+    "host/probe_usb_lifecycle.py": "ab67fdab18a3aa4b278274a63f6b24789d08fd8052623454a0712fcc0d634767",
+    "host/test_probe_usb_lifecycle.py": "acfe71741d5805ec518d1ac0f7737f16eb9daa829d3b4034c3f185345f9b8ab6",
+    "host/test_serial_port.py": "d42c7d12d9c8a55ae5bd4c391021fbb524c5ddbf7b5a87c2d2e9646981da5ddb",
+    "host/test_capture.py": "c995d79e2e06fd1e13c73161f6ac196e27f06cc69252fa15d07a2570bb8a7505",
+    "host/qualify_dsp_transient.py": "338a2ef53c1feccda41e0e33a4c4d558e4ad32c6a2d9c5aa5165029ed8e01c3a",
+    "host/test_qualify_dsp_transient.py": "fc0a456e63019a40f34f6e625318f632a620cd5c4d5d65d2c74979b0b67fa4c5"
+  },
+  "integration_failures": [
+    {
+      "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-initial.json",
+      "sha256": "9d0e09a911021b4dee22826630584d207e63338ba5d9bedff9b4db83c59b19e1",
+      "error": "HELLO: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation",
+      "restoration_error": null
+    },
+    {
+      "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-baseline.json",
+      "sha256": "73d60fd917f076aa240039c2c7bf46d3c3ecd3d4efd9a2564fe73bbba9b3081c",
+      "error": "MCU rebooted during a no-reset probe",
+      "restoration_error": null
+    },
+    {
+      "path": "evidence/usb-lifecycle-xiao-3eeb84-20261113-polled-failure.json",
+      "sha256": "a44a9391b11c22e82633636a279517c2ca876f08e792c214abb534e161b7800d",
+      "error": "Remote ownership uncertain; reset required",
+      "restoration_error": null
+    },
+    {
+      "path": "evidence/usb-buffered-xiao-integration-20261113.json",
+      "sha256": "0710ddd81dfc852cc165445882ce1b1008b570857e855ec6edfedc86df7e65d5",
+      "error": "CAPREAD: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation",
+      "restoration_error": null
+    },
+    {
+      "path": "evidence/usb-buffered-xiao-integration-repeat-20261113.json",
+      "sha256": "59178f154e8770197fa2339339cc6d880e5e735b33cd79c1fbc1d1152d57144c",
+      "error": "Invalid, stale, late or full remote command",
+      "restoration_error": null
+    },
+    {
+      "path": "evidence/usb-buffered-xiao-integration-final-20261113.json",
+      "sha256": "6ede8bbf71aa9a3d22dd4edcf9ee046ec934994e69ee34375e8f3c2c78be1cc2",
+      "error": "CAPREAD: no valid acknowledgement; reconnect and inspect STATUS before retrying a mutation",
+      "restoration_error": null
+    },
+    {
+      "path": "evidence/usb-buffered-xiao-integration-retry-20261113.json",
+      "sha256": "98d71e45fe3fd38acabf69b159af215843ac70dce476f5ae6ef5c0dd88589a0c",
+      "error": "Audio did not acknowledge maintenance; reset required",
+      "restoration_error": "Audio ownership uncertain; reset required"
+    },
+    {
+      "path": "evidence/usb-hostfix-xiao-integration-20261113.json",
+      "sha256": "3298a66525915be318b5f0d89ab6f2012505ea25ffca5d2f3d8f5f62d4882449",
+      "error": "Audio did not acknowledge maintenance; reset required",
+      "restoration_error": "Audio ownership uncertain; reset required"
+    }
+  ],
+  "intentional_unplug_20261112_is_fault": false,
+  "retained_image_integration": {
+    "passed": true,
+    "path": "evidence/usb-hostfix-xiao-isolated-integration-20261113.json",
+    "sha256": "f853d3ec64558c3961949e704c3ebd8a6b6190349015f51a36f7c2e3781f6946",
+    "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+    "soak_seconds": 30.02,
+    "controls_sent": 197,
+    "diagnostic_deltas": {
+      "faults": 0,
+      "clips": 0,
+      "nonfinite": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "dma_event_overflow": 0,
+      "overflow": 0
+    },
+    "listening_fixtures": {
+      "eight_saw": {
+        "graph_sha256": "9098343a03cf51c5b5d957214b362f14fcec3416019bcd9f43fad0b3d1ea49b2",
+        "pcm_peak": 632
+      },
+      "comb_kr": {
+        "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0",
+        "pcm_peak": 346
+      },
+      "triggered_harmonics": {
+        "graph_sha256": "4064dea2e2a4ac3060c46c0465e12847e5972038b97451dde457c084c228eda6",
+        "pcm_peak": 16
+      },
+      "reverb": {
+        "tail_rms": 12.793620859392291,
+        "tail_after_main_stop_rms": 2.1298990923546124,
+        "panic_silence": true
+      }
+    },
+    "restoration": {
+      "main_package_verified": true,
+      "saved_main_fx_lists_unchanged": true,
+      "instance_controls_restored": true,
+      "volume_percent": 5,
+      "volume_saved": true
+    },
+    "physical_listening_assessment": "Not newly requested today; digital capture assertions only. User confirmed clean tails separately on 12 November."
+  },
+  "final_studio": {
+    "path": "evidence/usb-hostfix-xiao-studio-restoration-20261113.json",
+    "sha256": "38bb57025c38b3f141e8699afb340b5f37ee54db399c044ef1f25d382e3cbdf3",
+    "passed": true,
+    "device_id": "esp32-1c29043eeb84",
+    "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+    "volume_percent": 5,
+    "saved_lists_unchanged": true,
+    "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+    "live_controls_restored": true,
+    "main_active": true,
+    "boot": 134886375,
+    "studio_connected": true
+  },
+  "selected_binary_matches_rollback": true
+}

@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "date_utc": "2026-11-12T22:56:17.849451+00:00",
+  "saved_patch_writes": false,
+  "volume_changes": false,
+  "firmware_writes": false,
+  "reset_requests": false,
+  "open_policy": "auto",
+  "repeats": 1,
+  "cases": [
+    {
+      "mode": "unread",
+      "gap_seconds": 60.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+        "boot": 2970250089,
+        "revision": 11,
+        "uptime_us": 183601945,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 46.967
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+        "boot": 2970250089,
+        "revision": 11,
+        "uptime_us": 243651652,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.145
+      },
+      "rx_bytes": 65267,
+      "passed": true,
+      "iteration": 1
+    }
+  ],
+  "effective_open_policy": "atomic",
+  "initial": {
+    "device_id": "esp32-1c29043eeb84",
+    "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+    "boot": 2970250089,
+    "revision": 11,
+    "uptime_us": 183555507,
+    "active": true,
+    "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+    "volume_percent": 5,
+    "elapsed_ms": 43.753
+  },
+  "active_case": {
+    "mode": "unread",
+    "gap_seconds": 60.0,
+    "iteration": 1,
+    "rx_bytes_before": 4630
+  },
+  "rx_bytes_total": 74527,
+  "usb_reset_boot_messages": [],
+  "studio_final_boot": 2970250089,
+  "studio_reattached": true
+}

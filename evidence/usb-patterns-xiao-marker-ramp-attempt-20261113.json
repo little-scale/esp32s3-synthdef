@@ -1,0 +1,167 @@
+{
+  "passed": false,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "volume_limit_percent": 5,
+  "saved_patch_writes": false,
+  "firmware_writes": false,
+  "cases": [
+    {
+      "name": "definition_silent",
+      "passed": true,
+      "queued": 0,
+      "active": false,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "created_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "rate8",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 29.540711607716045
+      },
+      "timing": {
+        "transitions": 6,
+        "mean_period_seconds": 0.12509750566893424,
+        "max_period_error_seconds": 0.00134920634920635,
+        "zero_gap_min_samples": 1539,
+        "zero_gap_max_samples": 1609
+      },
+      "sc_sent": 5
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "replay8",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 29.893189014106653
+      },
+      "timing": {
+        "transitions": 6,
+        "mean_period_seconds": 0.1253877551020408,
+        "max_period_error_seconds": 0.0031405895691609953,
+        "zero_gap_min_samples": 1475,
+        "zero_gap_max_samples": 1735
+      },
+      "sc_sent": 34
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "rate16",
+      "passed": true,
+      "pcm": {
+        "frames": 35280,
+        "peak": 66,
+        "rms": 29.50423866508589
+      },
+      "timing": {
+        "transitions": 12,
+        "mean_period_seconds": 0.06253555967841683,
+        "max_period_error_seconds": 0.007261904761904761,
+        "zero_gap_min_samples": 457,
+        "zero_gap_max_samples": 1092
+      },
+      "sc_sent": 10
+    },
+    {
+      "name": "cancel_silent",
+      "passed": true,
+      "queued": 0,
+      "active": true,
+      "pcm": {
+        "frames": 11025,
+        "peak": 0,
+        "rms": 0.0
+      }
+    },
+    {
+      "name": "overlap16",
+      "passed": false,
+      "error": "Too few gate transitions in capture"
+    }
+  ],
+  "graphs": {
+    "gated": {
+      "graph_sha256": "ec8e4f196fb615fa0d85ddb268c70ccf2cf66fdb8ebc2a80fd491e7c9190ab2d",
+      "source_sha256": "98d5f43c579d4f9874ad9b2bd1a19d92f77f73557082e243a3d731b31e1566f3",
+      "nodes": 9
+    },
+    "replacement": {
+      "graph_sha256": "d45bdbddc2860cb9a4b22f0ee3a4005e23d0a3e97602869c116f4a2c2381f922",
+      "source_sha256": "ac33a0c008c5cb07bf4aab4b17ddf6fff9173feb8318a39a21f90da32e58a375",
+      "nodes": 9
+    },
+    "cloud": {
+      "graph_sha256": "d1eb3e7cd09accac8350d17ad849b80d3184463675b17970ff9e9281455c2fe0",
+      "source_sha256": "66c59c58d621bf6b8bfeb1f3e898e71218ccf44350a74cc2a927a7f54f12b1fb",
+      "nodes": 56
+    },
+    "fx": {
+      "graph_sha256": "c36526b2f889fd19f46dd2433650d29f4dbe1382881ede9bc3830d18343bb9f9",
+      "source_sha256": "70f459180aeabaddcbb09997f474e0fd25f0e57f3ba4e75b73fd0e801d99f742",
+      "nodes": 3
+    }
+  },
+  "build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+  "initial_boot": 2970250089,
+  "sclang_exit_code": 1,
+  "sc_warnings": [
+    "WARNING: ESP32: Too few gate transitions in capture"
+  ],
+  "error": "sclang failed; inspect private qualification log",
+  "restoration": {
+    "main_package_verified": true,
+    "saved_main_fx_lists_unchanged": true,
+    "instance_controls_restored": true,
+    "volume_percent": 5,
+    "volume_saved": true
+  },
+  "wire_summary": {
+    "requests": 188,
+    "accepted": 188,
+    "errors": [],
+    "delta_packets": 180,
+    "empty_delta_notes": 0,
+    "ack_ms_median": 11.817499999999999,
+    "ack_ms_max": 17.011
+  },
+  "studio_connected": true
+}

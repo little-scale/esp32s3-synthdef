@@ -1,0 +1,53 @@
+{
+  "status": "hardware investigation resumed; host reconnect fix validated, buffered firmware candidate withdrawn",
+  "date": "2026-11-12",
+  "host_tests": {
+    "passed": true,
+    "retained_regression_tests": 89
+  },
+  "hardware_probe_run": true,
+  "device_id": "esp32-1c29043eeb84",
+  "last_successful_handshake_volume_percent": 5,
+  "current_availability": "XIAO attached during test session",
+  "physical_connection_question_pending": false,
+  "firmware_writes": true,
+  "saved_patch_writes": false,
+  "volume_changes": "5% saved; temporary mute while changing graphs",
+  "reset_requests": true,
+  "source_sha256": {
+    "host/serial_port.py": "ae83baaf28256c82eaf92cdfafbbfac36fa7e0edd8f5cdbe43208303f155c5a9",
+    "host/patches.py": "b84f441905de7685f0a0eb262c8ed3ee01d62ea62cd93c23e6025f0a52d518a5",
+    "host/capture.py": "c22008361b81d9e5bbfd103b04795fae2d5ad87ce2a335e631b874e90246d201",
+    "host/probe_usb_lifecycle.py": "ab67fdab18a3aa4b278274a63f6b24789d08fd8052623454a0712fcc0d634767",
+    "host/test_probe_usb_lifecycle.py": "acfe71741d5805ec518d1ac0f7737f16eb9daa829d3b4034c3f185345f9b8ab6",
+    "host/test_serial_port.py": "d42c7d12d9c8a55ae5bd4c391021fbb524c5ddbf7b5a87c2d2e9646981da5ddb",
+    "host/test_capture.py": "c995d79e2e06fd1e13c73161f6ac196e27f06cc69252fa15d07a2570bb8a7505",
+    "host/qualify_dsp_transient.py": "338a2ef53c1feccda41e0e33a4c4d558e4ad32c6a2d9c5aa5165029ed8e01c3a",
+    "host/test_qualify_dsp_transient.py": "fc0a456e63019a40f34f6e625318f632a620cd5c4d5d65d2c74979b0b67fa4c5"
+  },
+  "upstream_lead": {
+    "url": "https://github.com/espressif/esp-idf/issues/18996",
+    "confirmed_same_issue": false,
+    "reported_sdk": "6.0.2",
+    "installed_sdk": "5.5"
+  },
+  "configuration_checks": {
+    "automatic_power_management_enabled": false,
+    "explicit_sleep_or_restart_calls_in_project_sources": false,
+    "headless_i2s_gpio": [
+      7,
+      8,
+      9
+    ],
+    "sdk_console_driver": "default polled retained; buffered candidate withdrawn",
+    "sdk_console_tx_fifo_wait_us": 50000
+  },
+  "latest_disappearance": {
+    "user_confirmed_intentional_unplug": true,
+    "count_as_usb_fault": false
+  },
+  "reviewed": "2026-11-13",
+  "initial_preparation": "12 November: no firmware/patch/volume writes or reset requests; paused after user confirmed intentional unplug",
+  "superseded_by": "evidence/usb-buffered-requalification-xiao-3eeb84-20261113.json",
+  "current_status": "Buffered/batched transport retained after corrected XIAO qualification; original fields describe earlier preparation/withdrawal"
+}

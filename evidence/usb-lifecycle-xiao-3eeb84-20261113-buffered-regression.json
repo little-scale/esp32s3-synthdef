@@ -1,0 +1,297 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "date_utc": "2026-11-12T22:16:08.843426+00:00",
+  "saved_patch_writes": false,
+  "volume_changes": false,
+  "firmware_writes": false,
+  "reset_requests": false,
+  "open_policy": "auto",
+  "repeats": 1,
+  "cases": [
+    {
+      "mode": "unread",
+      "gap_seconds": 0.2,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 371198921,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 97.732
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 371496651,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 92.448
+      },
+      "rx_bytes": 4917,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "unread",
+      "gap_seconds": 2.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 371595335,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 107.894
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 373702548,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 99.73
+      },
+      "rx_bytes": 6603,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "unread",
+      "gap_seconds": 5.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 373802493,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 107.208
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 378905097,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 97.122
+      },
+      "rx_bytes": 9569,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "partial",
+      "gap_seconds": 0.2,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 379011209,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 106.945
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 379314360,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 97.926
+      },
+      "rx_bytes": 5614,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "partial",
+      "gap_seconds": 2.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 379421728,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 106.99
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 381524771,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 89.008
+      },
+      "rx_bytes": 6738,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "partial",
+      "gap_seconds": 5.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 381621801,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 105.985
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 386709943,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 86.999
+      },
+      "rx_bytes": 9703,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.2,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 386816018,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 105.888
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 387120778,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 97.365
+      },
+      "rx_bytes": 4626,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 2.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 387216562,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 98.071
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 389325035,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 98.199
+      },
+      "rx_bytes": 5583,
+      "passed": true,
+      "iteration": 1
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 5.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 389431165,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 105.92
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+        "boot": 582855005,
+        "revision": 5,
+        "uptime_us": 396609035,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 2158.744
+      },
+      "rx_bytes": 12624,
+      "passed": true,
+      "iteration": 1
+    }
+  ],
+  "effective_open_policy": "atomic",
+  "initial": {
+    "device_id": "esp32-1c29043eeb84",
+    "build": "414cacc09e45321feaae7322cd5410edda5213f27e50531ba95b68ad32537b01",
+    "boot": 582855005,
+    "revision": 5,
+    "uptime_us": 371101915,
+    "active": true,
+    "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+    "volume_percent": 5,
+    "elapsed_ms": 88.667
+  },
+  "active_case": {
+    "mode": "closed",
+    "gap_seconds": 5.0,
+    "iteration": 1,
+    "rx_bytes_before": 96674
+  },
+  "rx_bytes_total": 113924,
+  "usb_reset_boot_messages": [],
+  "studio_final_boot": 582855005,
+  "studio_reattached": true
+}

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "computer_only": true,
+  "hardware_accessed_by_these_checks": false,
+  "date": "2026-11-13",
+  "unit_tests": 117,
+  "tdelay": {
+    "passed": true,
+    "cases": 81,
+    "rejections": 18,
+    "reference": "SuperCollider offline rendering plus independent countdown oracle",
+    "matches_published_evidence": true,
+    "evidence": "evidence/tdelay-host.json",
+    "evidence_sha256": "ca08b771ac37c47a60e0bd60383e20c805fef4f8298f1401b5a4b7a0fd51ef9d"
+  },
+  "selected_firmware_build": "b06188c54dbe6ad97b19c6de9cb116840dd4b906ba68eb594421206ca3858ec8",
+  "hardware_soak_status": "paused at user request, incomplete",
+  "related_files": 84
+}

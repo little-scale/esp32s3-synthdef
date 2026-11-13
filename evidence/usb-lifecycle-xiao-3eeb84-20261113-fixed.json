@@ -1,0 +1,369 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1c29043eeb84",
+  "date_utc": "2026-11-12T21:55:04.795171+00:00",
+  "saved_patch_writes": false,
+  "volume_changes": false,
+  "firmware_writes": false,
+  "reset_requests": false,
+  "open_policy": "auto",
+  "cases": [
+    {
+      "mode": "unread",
+      "gap_seconds": 0.2,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 225216256,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.08
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 225468693,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.024
+      },
+      "rx_bytes": 4604,
+      "passed": true
+    },
+    {
+      "mode": "unread",
+      "gap_seconds": 2.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 225522648,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.788
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 227577616,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.173
+      },
+      "rx_bytes": 6579,
+      "passed": true
+    },
+    {
+      "mode": "unread",
+      "gap_seconds": 5.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 227631154,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.793
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 232675722,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 40.3
+      },
+      "rx_bytes": 9543,
+      "passed": true
+    },
+    {
+      "mode": "unread",
+      "gap_seconds": 15.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 232729540,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.767
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 247780259,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 51.72
+      },
+      "rx_bytes": 19703,
+      "passed": true
+    },
+    {
+      "mode": "partial",
+      "gap_seconds": 0.2,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 247834120,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.882
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 248084941,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 47.241
+      },
+      "rx_bytes": 5592,
+      "passed": true
+    },
+    {
+      "mode": "partial",
+      "gap_seconds": 2.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 248140077,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.898
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 250190947,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 46.022
+      },
+      "rx_bytes": 6581,
+      "passed": true
+    },
+    {
+      "mode": "partial",
+      "gap_seconds": 5.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 250244409,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.805
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 255290631,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.991
+      },
+      "rx_bytes": 9546,
+      "passed": true
+    },
+    {
+      "mode": "partial",
+      "gap_seconds": 15.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 255345781,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.801
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 270395211,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 45.777
+      },
+      "rx_bytes": 19433,
+      "passed": true
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 0.2,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 270448651,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.874
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 270714487,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 53.687
+      },
+      "rx_bytes": 4604,
+      "passed": true
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 2.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 270767948,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.858
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 272827501,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 50.283
+      },
+      "rx_bytes": 4604,
+      "passed": true
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 5.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 272881025,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 52.887
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 277941696,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 55.09
+      },
+      "rx_bytes": 4604,
+      "passed": true
+    },
+    {
+      "mode": "closed",
+      "gap_seconds": 15.0,
+      "before": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 277995183,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 54.927
+      },
+      "after": {
+        "device_id": "esp32-1c29043eeb84",
+        "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+        "boot": 4285739571,
+        "revision": 2,
+        "uptime_us": 293060789,
+        "active": true,
+        "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+        "volume_percent": 5,
+        "elapsed_ms": 55.635
+      },
+      "rx_bytes": 4604,
+      "passed": true
+    }
+  ],
+  "effective_open_policy": "atomic",
+  "initial": {
+    "device_id": "esp32-1c29043eeb84",
+    "build": "5b23fabbfe7f91ba01cd91daadeef0daa2b0e9c5e88a44c22a7885c3f739061e",
+    "boot": 4285739571,
+    "revision": 2,
+    "uptime_us": 225162740,
+    "active": true,
+    "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+    "volume_percent": 5,
+    "elapsed_ms": 50.421
+  },
+  "active_case": {
+    "mode": "closed",
+    "gap_seconds": 15.0,
+    "rx_bytes_before": 151630
+  },
+  "rx_bytes_total": 160838,
+  "usb_reset_boot_messages": [],
+  "studio_reattached": true
+}
