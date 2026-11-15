@@ -1,0 +1,213 @@
+{
+  "date": "2026-11-15",
+  "passed": true,
+  "hardware_access": false,
+  "scope": "Inventory/exporter agreement, representative graph admission and current pattern reference suite; not a new full UGen execution or hardware qualification sweep",
+  "audio": {
+    "native_ugen_count": 155,
+    "unary_operator_count": 33,
+    "binary_operator_count": 40,
+    "readme_loader_capability_register_sets_match": true,
+    "native16_rejected_types": [
+      "MiRings1",
+      "MiRings2",
+      "MiRings3",
+      "MiRings4",
+      "MiRings5",
+      "MiRings6"
+    ],
+    "selected_admission_cases": [
+      {
+        "name": "audio_envelope_follower",
+        "pipeline_loaded": true,
+        "admitted": true,
+        "rates": {
+          "16000": true,
+          "44100": true,
+          "48000": true
+        },
+        "error": ""
+      },
+      {
+        "name": "dynamic_oscillator_bank",
+        "pipeline_loaded": true,
+        "admitted": true,
+        "rates": {
+          "16000": true,
+          "44100": true,
+          "48000": true
+        },
+        "error": ""
+      },
+      {
+        "name": "dynamic_resonator_bank",
+        "pipeline_loaded": true,
+        "admitted": true,
+        "rates": {
+          "16000": true,
+          "44100": true,
+          "48000": true
+        },
+        "error": ""
+      },
+      {
+        "name": "fixed_bank_dynamic_parameters",
+        "pipeline_loaded": false,
+        "admitted": false,
+        "error": "Unsupported or invalid SynthDef: Resonator/bank parameters currently require initial rate (node 2)"
+      },
+      {
+        "name": "saw_audio_frequency",
+        "pipeline_loaded": false,
+        "admitted": false,
+        "error": "Unsupported or invalid SynthDef: Band-limited oscillator and LFNoise parameters require initial/control rate (node 2)"
+      },
+      {
+        "name": "rlpf_audio_cutoff",
+        "pipeline_loaded": false,
+        "admitted": false,
+        "error": "Unsupported or invalid SynthDef: Filter/lag/duty parameters require control or initial rate (node 3)"
+      },
+      {
+        "name": "dynamic_delay_allocation",
+        "pipeline_loaded": false,
+        "admitted": false,
+        "error": "Unsupported or invalid SynthDef: Delay maxdelaytime must be a nonnegative literal (node 2)"
+      },
+      {
+        "name": "negative_lfpar",
+        "pipeline_loaded": true,
+        "admitted": false,
+        "rates": {
+          "16000": false,
+          "44100": false,
+          "48000": false
+        },
+        "error": "LFPar frequency must be in 0..344.53125 Hz at 44100 Hz (node 0); got -0.00499999989"
+      },
+      {
+        "name": "voice_pe_led_write",
+        "pipeline_loaded": true,
+        "admitted": true,
+        "rates": {
+          "16000": true,
+          "44100": true,
+          "48000": true
+        },
+        "error": ""
+      },
+      {
+        "name": "rings_rate_restriction",
+        "pipeline_loaded": true,
+        "admitted": true,
+        "rates": {
+          "16000": false,
+          "44100": true,
+          "48000": true
+        },
+        "error": "",
+        "scope": "Pinned compiled fixture; host wrapper setup tested separately"
+      }
+    ]
+  },
+  "patterns": {
+    "standalone_class_forms": [
+      "Pbind",
+      "Pbindf",
+      "Pbinop",
+      "Pbjorklund",
+      "Pbjorklund2",
+      "Pbrown",
+      "Pchain",
+      "Pdrop",
+      "Pdup",
+      "Pexprand",
+      "Pfin",
+      "Pgbrown",
+      "Pgeom",
+      "Pkey",
+      "Pn",
+      "Prand",
+      "Pseed",
+      "Pseq",
+      "Pser",
+      "Pseries",
+      "Pshuf",
+      "Pstutter",
+      "Pswitch",
+      "Pswitch1",
+      "Ptime",
+      "Ptuple",
+      "Punop",
+      "Pwhite",
+      "Pwrand",
+      "Pxrand"
+    ],
+    "class_count": 30,
+    "unary_operators": [
+      "neg",
+      "abs",
+      "squared",
+      "cubed",
+      "sqrt",
+      "exp",
+      "reciprocal",
+      "midicps",
+      "cpsmidi",
+      "midiratio",
+      "ratiomidi",
+      "dbamp",
+      "ampdb",
+      "log",
+      "log2",
+      "log10",
+      "sin",
+      "cos",
+      "tan",
+      "floor",
+      "ceil",
+      "frac",
+      "sign",
+      "distort",
+      "softclip"
+    ],
+    "binary_operators": [
+      "+",
+      "-",
+      "*",
+      "/",
+      "mod",
+      "pow",
+      "min",
+      "max",
+      "<",
+      "<=",
+      ">",
+      ">=",
+      "==",
+      "!=",
+      "round",
+      "clip2"
+    ],
+    "exporter_compiler_readme_sets_match": true,
+    "rejected_class_probes": [
+      "Pfunc",
+      "Prout",
+      "Pbindef",
+      "Ppar",
+      "Ptpar",
+      "Pwalk"
+    ],
+    "sc_reference_cases": 92,
+    "sc_reference_passed": true
+  },
+  "host_setup_observation": "Default standalone sclang compiler does not resolve project MiRings1 wrapper until its supplied SC class directory is included; rate admission checked with the pinned compiled fixture.",
+  "sources": {
+    "README.md": "15d1182139594832c312f18abe74836cc7df2bc817298820bded6480058a4f22",
+    "docs/UGEN_SUPPORT.md": "3bf03e3e858c7f6cb075325e47ca3e6ebaeb9c367e2dbaf84862c25ee82c777a",
+    "host/document_support.py": "cc3c3bd3211c4d10f4cd85ead56b7a21d8a0a635d89df6aace3a93b6171f97d2",
+    "host/pattern_program.py": "04f901289325a0161acd90152af67931c5ba44fd27d4a3e5966d1f2a5bd24afc",
+    "supercollider/ESP32Pattern.sc": "526fcf5b99e1ac5cbc29fe1f04de2eaaee23729e0f6c11c46423b44c04ad9b1b",
+    "firmware/components/patches/patch_format.c": "7ef3603ae258234b474d0ec8290663f803d1dffda94c0b64894affd257051d05"
+  }
+}

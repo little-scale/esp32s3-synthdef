@@ -60,7 +60,7 @@ binary=dict(zip([0,1,2,3,4,5,6,7,8,9,10,11,12,13,17,18,19,20,21,22,23,24,25,30,3
     ['+','-','*','div (floor integer division)','/','mod','==','!=','<','>','<=','>=','min','max','lcm','gcd','round','roundUp','trunc (floor quantization)','atan2','hypot','hypotApx','pow (signed)','ring1','ring2','ring3','ring4','difsqr','sumsqr','sqrsum','sqrdif','absdif','thresh','amclip','scaleneg','clip2','excess','fold2','wrap2','firstArg']))
 assert set(map(str,unary))==set(report['operators']['UnaryOpUGen'])
 assert set(map(str,binary))==set(report['operators']['BinaryOpUGen'])
-text='''# UGen and operator support — 12 November 2026
+text='''# UGen and operator support — 15 November 2026
 
 For implementation tuning status, see the separate
 [optimisation register](OPTIMIZATION_REGISTER.md). Supported/tested status does
@@ -80,6 +80,46 @@ audio rate. A Gendy3 closing-segment fault was found and fixed. The ledger label
 statistical-only and float-drift results explicitly; numerical support does not
 guarantee real-time CPU suitability. See [EXTENDED_TESTS.md](EXTENDED_TESTS.md).
 Native execution of C on the computer is not cycle-accurate Xtensa emulation.
+
+The [13 November current-build XIAO sweep](CURRENT_DSP_SWEEP.md) repeats the
+inherited inventory and operator-rate banks in 332 distinct long traces:
+309 waveform passes, 22 statistical passes and the retained Klang precision
+exception, with no reported renderer faults, nonfinite values or arena-guard
+failures. These grades and the tested build identity remain separate from
+real-time timing suitability and physical AMOLED coverage.
+
+## Current target compatibility
+
+The generated engine inventory contains **155 native UGen types**, including
+TDelay, and **33 unary / 40 binary audio operators**. The tables below retain
+historical waveform/statistical evidence rather than asserting every form of
+every UGen is unrestricted. The original heard/captured/long columns refer to
+AMOLED test records; the later XIAO sweep is linked separately above.
+
+| Target | DSP rate | Inventory restriction |
+| --- | --- | --- |
+| AMOLED V2 and XIAO | 44.1 kHz | 155 names; valid forms/domains and graph resources still checked |
+| Standard Voice PE | 48 kHz | Same 155 names; selected Voice PE hardware coverage, not a complete new sweep |
+| Native-16k Voice PE pair | 16 kHz | MiRings1–6 rejected; remaining 149 names retain input/rate checks and have selected coverage |
+
+Native 16 kHz has an 8 kHz Nyquist limit and a 4 ms control period. It requires
+matching XMOS/ESP32 firmware. Effects are not promised identical tuning across
+rates. See [native16 evidence and limits](../ports/voice_pe/NATIVE_16K.md).
+
+Common loader/admission restrictions include initial/control-rate frequency
+parameters for Saw/Pulse; initial/control cutoff parameters for LPF/RLPF;
+nonnegative LFPar/LFCub/VarSaw frequencies limited by their calculation rate;
+literal maximum delay allocation; initial-rate Klang/Klank bank parameters;
+and EnvGen done actions 0/2. Amplitude.kr can follow audio-rate input. Supported
+DynKlang/DynKlank composites provide dynamic banks. Physical Out.kr LED writes
+are Voice PE-only, buses 3–41. In.ar is internal bus routing, not external input.
+The [README compatibility notes](../README.md#supported-ugens-and-operators)
+and current loader/admission source define the scope; a runtime control can
+still leave a valid input domain after upload.
+
+These audio operator counts are separate from standalone pattern arithmetic:
+ESP32Program supports 25 unary and 16 binary pattern operators, and its explicit
+pattern subset is documented in [SuperCollider workflows](SUPERCOLLIDER.md#supported-pattern-subset).
 
 ## Meaning of the results
 
@@ -115,7 +155,7 @@ historical hardware-coverage claims.
 
 | UGen | Software-tested rates | Implementation | Hardware evidence |
 | --- | --- | --- | --- |
-| TDelay | kr, ar | Shared AMOLED/XIAO engine; exact SC offline pulse timing; existing node state, no delay arena | XIAO captured: kr, ar; physical AMOLED pending |
+| TDelay | kr, ar | Shared board engine; exact SC offline pulse timing; existing node state, no delay arena | XIAO captured: kr, ar; physical AMOLED pending |
 
 `TDelay` emits a unit pulse after a positive trigger edge, with a minimum delay
 of one audio sample or control tick. Triggers while pending, including the
@@ -170,19 +210,20 @@ text+='''
 
 | Profile | Graph capacity | Synth arena | Upload policy | Qualification |
 | --- | --- | --- | --- | --- |
-| Compact (default) | 24 nodes, 32 signals, 256 references | None | Existing sine family and exact catalog graphs | Earlier graphs have board evidence; current changed source requires renewed qualification |
-| FM1 compatibility (optional) | 256 nodes, 512 logical signals, 2,048 references; 192 live audio buffers | 262,144 floats / 1 MiB PSRAM | Entire pinned FM1 type/operator set, subject to loader validation | Expanded capacities and buffer reuse have host evidence; earlier physical captures retain their recorded build identities |
+| Compact (legacy) | 24 nodes, 32 signals, 256 references | None | Existing sine family and exact catalog graphs | Earlier graphs have board evidence; current changed source requires renewed qualification |
+| FM1/cache (current board builds) | 256 nodes, 512 logical signals, 2,048 references; 192 live audio buffers | 262,144 floats / 1 MiB PSRAM | Entire pinned FM1 type/operator set, subject to loader validation | Expanded capacities and buffer reuse have host evidence; earlier physical captures retain their recorded build identities |
 
 The compact loader accepted 1,443 of the 1,444 original fixtures; the large
 `m5_addy` graph needs 125 nodes, 136 signals and 338 input references. Loader
 acceptance alone does not grant upload admission. The optional profile restores
 the FM1 graph capacities and admits all 1,444 after a test-only live-control
-interface is added. Uploaded voices require live `freq`, `amp` and `gate` controls;
-the four knobs are optional. The fixture wrapper does not automatically connect
-those added controls to the fixture DSP and is not a musical patch converter.
+interface is added. That fixture wrapper requires live `freq`, `amp` and `gate`
+controls; current continuous Functions, definition-only packages and authored
+control-bus patches have their own admission paths. Note patterns need a writable
+gate. The four legacy knobs are optional. The fixture wrapper does not
+automatically connect those added controls to the fixture DSP and is not a musical patch converter.
 
-The shared five-second master delay retains a separate 1 MiB arena. The optional
-synth arena enables Delay/Comb/Allpass, Pluck, FreeVerb/FreeVerb2/MiVerb,
+Master FX retains a separate 1 MiB arena. The Main synth arena enables Delay/Comb/Allpass, Pluck, FreeVerb/FreeVerb2/MiVerb,
 Gendy and Rings inside voices. Graphs share that voice arena and must fit its
 total budget. Graphs and scratch move to PSRAM in this profile; voice state stays
 internal. This affects performance. Extended hardware tests comprise 24 thirty-second rounds across the three
@@ -207,10 +248,14 @@ startup interval has not been measured with an external audio capture.
 
 `In.ar` is meaningful in an effect role with an input bus; ordinary voices receive
 a silent audio input bus. The ESP32 target now also supports bounded `In.kr`
-reads from a 32-channel control snapshot, with X/Y/gate at 0/1/2. This is an
+reads from a 68-channel control bank (32 on older builds), with Waveshare
+X/Y/gate at 0/1/2. Voice PE uses its [own physical bus map](../ports/voice_pe/CONTROLS.md)
+and bounded Out.kr on 3–41 for its RGB ring. This is an
 extension beyond the pinned FM1 engine, independently checked against SC and
-on the board; see [TOUCH_BUSES.md](TOUCH_BUSES.md). Custom master-effect uploads and general audio-bus routing
-are not added by this profile. LocalBuf/SetBuf remain immutable scale tables
+on the board; see [TOUCH_BUSES.md](TOUCH_BUSES.md). Current Main/FX builds support
+a separate uploaded stereo FX graph on bus 0 with bypass; this remains bounded
+routing, not a general scsynth audio-bus/server implementation. LocalBuf/SetBuf
+remain immutable scale tables
 (up to 16 tables, 128 entries each), not general sample recording/playback.
 Other FM1 limits remain, including 64 controls, 64 partials, 32 envelope segments
 and 64 Gendy points. This is parity with the pinned FM1 DSP subset, not all of
@@ -273,4 +318,4 @@ changed; historical hardware qualifications remain in their original evidence.
 - [Pinned FM1 limits and semantics](../upstream/fm1-synthdef/synthdef-engine/README.md)
 '''
 (ROOT/'docs/UGEN_SUPPORT.md').write_text(text)
-print(f"Documented {len(report['types'])} UGens, {len(unary)} unary and {len(binary)} binary operators")
+print(f"Documented {len(report['types'])} inherited UGens plus TDelay, {len(unary)} unary and {len(binary)} binary operators")

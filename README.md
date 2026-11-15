@@ -272,13 +272,46 @@ run arbitrary SC Functions or the complete pattern library. See the
 [standalone pattern guide](docs/SUPERCOLLIDER.md#standalone-pattern-programs-experimental)
 for the exact list, bounds and save semantics.
 
+### Pattern compatibility
+
+| Workflow | Where patterns run | Compatibility |
+| --- | --- | --- |
+| `Pbind(...).playESP32` | SuperCollider on the computer | Normal SC pattern generation; events use `\esp32Note` or `\esp32Set`. Device/group routing and live `Pbindef` changes stay on the host. Studio remains running. |
+| `ESP32Program(sound, pattern, ...).sendESP32(target)` | Bounded stream VM on the module | The supported subset below; saved programs can run and restart without the computer. Events control that module's Main instance. |
+
+Standalone export supports **30 pattern class forms**, including the two
+arithmetic wrappers:
+
+| Family | Classes |
+| --- | --- |
+| Events | `Pbind`, `Pchain`, `Pbindf`, `Pkey` |
+| Sequences and choice | `Pseq`, `Pser`, `Prand`, `Pxrand`, `Pshuf`, `Pwrand`, `Pswitch`, `Pswitch1`, `Ptuple` |
+| Numeric generators | `Pseries`, `Pgeom`, `Pwhite`, `Pexprand`, `Pbrown`, `Pgbrown`, `Ptime` |
+| Repetition and seeds | `Pn`, `Pstutter`, `Pdup`, `Pfin`, `Pdrop`, `Pseed` |
+| Euclidean rhythms | `Pbjorklund`, `Pbjorklund2` |
+| Arithmetic wrappers | `Punop`, `Pbinop` |
+
+Supported forms can nest and concatenate with `++`. Rests and matching array
+controls are supported. Standalone arithmetic has **25 unary and 16 binary
+operators**, a separate subset from the audio-engine operators listed below.
+See the [exact operators and argument limits](docs/SUPERCOLLIDER.md#supported-pattern-subset).
+Authoring `Pbjorklund`/`Pbjorklund2` requires the Bjorklund quark in the host SC library.
+
+Standalone export rejects `Pfunc`, `Prout`, arbitrary Functions inside patterns,
+live `Pbindef`/proxy mutation, `Ppar`/`Ptpar`, unsupported classes and binary
+adverbs. It is not the complete SC runtime. Module/group selection happens at
+upload, not inside the on-device event stream. Each module remains monophonic;
+group uploads do not synchronize pattern phase. Programs are limited to 32 KiB,
+256 pattern nodes, nesting depth 24 and lists of at most 32 entries. The 200
+events/second ceiling is an admission bound, not a performance guarantee.
+
 ## Current capabilities and limits
 
 | Area | Current behaviour |
 | --- | --- |
-| Hardware | Waveshare AMOLED 1.8 **V2**, ESP32-S3 at 240 MHz |
-| Audio | 44.1 kHz, 64-frame DSP blocks, float32 internals, mono ES8311 speaker output |
-| Routing | Stereo graph bus through Main → FX/bypass → smoothed output volume → mono sink |
+| Hardware | Waveshare AMOLED 1.8 **V2**, XIAO ESP32-S3 and experimental Voice PE; 240 MHz baseline |
+| Audio | 64-frame DSP blocks, float32 internals; 44.1 kHz on AMOLED/XIAO, 48 kHz on Voice PE, optional matched native-16k Voice PE build |
+| Routing | Stereo graph bus through Main → FX/bypass → smoothed output volume → board-specific mono/stereo output |
 | Definitions | One saved Main and one saved FX; legacy numbered slots are archived, not exposed |
 | Instances | One Main voice and one FX instance; note patterns are monophonic |
 | Code | Compiled SC SynthDef graphs, not the full SC language executing on the board |
@@ -317,7 +350,8 @@ SynthDefs keep authored outputs and must follow the documented bus routing.
 The CPU indicator measures **audio processing time against the block budget**,
 not combined utilisation of both cores. The receive dot signals valid incoming
 control/upload frames; it is not a playback acknowledgement. Module volume is
-linear, 0–1 in SC and 0–100% on screen, defaulting to 20% when no level is saved;
+linear, 0–1 in SC and 0–100% on screen. Fresh AMOLED/XIAO defaults to 20%; Voice PE
+uses its documented first-upgrade/commissioning policy;
 SC changes are live, while releasing the physical or Studio slider saves its
 value. See [UI](docs/UI.md) and [Studio](docs/STUDIO.md).
 
@@ -332,6 +366,37 @@ layouts and numerical/CPU qualifications are detailed in the
 [support ledger](docs/UGEN_SUPPORT.md); inclusion is not a guarantee that every
 graph meets the audio deadline.
 
+The [15 November compatibility audit](evidence/readme-compatibility-20261115.json)
+checks these lists against the generated loader and SC/pattern exporters, plus
+selected supported/rejected graphs and the standalone pattern reference suite.
+
+The list is a **compiled engine inventory**, not a claim of unrestricted SC
+compatibility or complete hardware qualification on every board/rate:
+
+- **Native 16 kHz Voice PE rejects MiRings1–6**, which require at least 32 kHz.
+  The other 149 native names remain subject to their normal input/rate checks;
+  they have not all been independently qualified on Voice PE at 16 kHz.
+- `MiRings1`–`MiRings6` are project compile-only wrappers, supplied in
+  [the pinned SC class directory](upstream/fm1-synthdef/synthdef-engine/sc/Classes).
+  Include that directory in the host SC class-library paths and recompile the
+  library; the general mi-UGens package alone does not define those six names.
+  See the [MiRings1 example and setup notes](examples/miRings1.scd).
+- A listed UGen does not necessarily support every `.ar`/`.kr`/initial-rate
+  form or arbitrary input-rate combination. `Saw`/`Pulse` frequency parameters
+  and the common LPF/RLPF cutoff controls require initial/control-rate inputs.
+  `Amplitude.kr` does accept audio input for envelope following.
+- `LFPar`, `LFCub` and `VarSaw` have nonnegative frequency limits based on their
+  calculation rate. At 16 kHz, their control-rate limit is 125 Hz. Literal
+  violations are rejected before upload; dynamic inputs retain runtime checks.
+- Delay-family `maxdelaytime` must be a nonnegative compile-time literal.
+  `Klang`/`Klank` bank parameters are initial-rate; use `DynKlang`/`DynKlank` for
+  supported dynamic bank construction. Envelope done actions are limited to
+  0 and 2, with at most 32 literal segments.
+- `Out.kr` physical LED writes require Voice PE and buses 3–41. `In.ar(0, 2)`
+  reads the internal Main-to-FX bus in an FX graph; it does not enable microphone
+  or external audio capture. Missing classes, demand UGens, FFT/sample-player
+  UGens and arbitrary third-party plugins are not added by this inventory.
+
 The [optimisation register](docs/OPTIMIZATION_REGISTER.md) tracks every native
 UGen and operator separately: enabled project changes, inherited FM1 fast paths,
 items with no enabled individual optimisation, and disabled experiments. Each
@@ -339,16 +404,18 @@ record links the implementation and scoped host/hardware evidence. Update its
 JSON source and run `python3 host/document_optimizations.py`; use `--check` to
 check inventory coverage and ensure the page is current.
 
-The [proposed selective update](docs/QUALIFIED_DSP_UPDATE.md) now enables the
+The [selective update](docs/QUALIFIED_DSP_UPDATE.md) enables the
 measured smoothing, Klang/Klank and delay/MiVerb binding paths in board builds
-through `SYNTHDEF_QUALIFIED_KERNELS`. Native equality and both cross-builds pass;
-the combined image still needs its same-board hardware check. Existing deployed
-modules are unchanged. Set this option to `OFF` for the legacy reference.
+through `SYNTHDEF_QUALIFIED_KERNELS`. Its combined image passed the
+[28-graph, fixed-seed XIAO comparison](docs/DSP_COMBINED_XIAO.md); later broad
+XIAO traces retain statistical grades and the known Klang float-tolerance
+exception. These results do not qualify every patch or other board/rate.
+Set this option to `OFF` for the legacy reference.
 
 The [complete computer-only review](docs/DSP_OPTIMIZATIONS.md#complete-computer-only-review--4-november-2026)
 now covers every supported UGen/operator. Per-fixture desktop gains, regressions,
-equivalence checks and code/stack costs are recorded. All seven new candidate
-switches remain off; selected ESP32 qualifications are recorded separately and
+equivalence checks and code/stack costs are recorded. Broad experimental candidate
+switches remain off in standard builds; selected ESP32 qualifications are recorded separately and
 the broad experiments remain separate from the selective update.
 The [hardware test plan](docs/DSP_HARDWARE_TEST_PLAN.md) starts with a bounded
 30-minute baseline/candidate session, with extended coverage kept optional.
@@ -357,8 +424,10 @@ replays, mixed target timings and clean PCM5102A listening. Experimental flags
 remain disabled in the standard firmware. The subsequent
 [fixed-seed XIAO comparisons](docs/DSP_SEEDED_PROFILING.md) cover 28 graphs,
 including all six smoothing candidates, partial banks, oscillator/Gendy caches
-and nine delay types. They retain both target gains and regressions; current
-combined-image performance is still pending validation.
+and nine delay types. They retain both target gains and regressions. The later
+combined-image comparison is linked above. The [native-16k Voice PE wrapper](ports/voice_pe/NATIVE_16K.md)
+explicitly enables the separately measured Saw/Impulse candidates; standard
+AMOLED/XIAO/48 kHz Voice PE builds keep those candidates disabled.
 
 ### UGens (155)
 
@@ -406,7 +475,8 @@ Wrap              XFade2            XLine
 
 `DynKlank`, `DynKlang`, `Splay` and `Mix` are also usable host-side composites:
 SC expands them into the supported native UGens. They are not extra native types
-in the count above. Patterns and array-building code also run on the host.
+in the count above. SC array-building code runs on the host. Host-driven patterns
+run there too; only the supported `ESP32Program` subset runs on the module.
 
 ### Unary operators (33)
 
