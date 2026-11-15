@@ -1,0 +1,23 @@
+{
+  "format": "synthdef-input-device-draft-1",
+  "status": "design_only_not_loaded_by_firmware",
+  "board": "voice_pe",
+  "port": "grove",
+  "enabled": false,
+  "mode": "i2c",
+  "topology": "passive_hub",
+  "bus_speed_hz": 100000,
+  "timing_status": "proposed_starting_values_not_qualified",
+  "instances": [
+    {
+      "id": "light",
+      "profile": "m5stack.dlight.u136",
+      "poll_interval_ms": 250
+    },
+    {
+      "id": "environment",
+      "profile": "m5stack.env_iv.u001_d",
+      "poll_interval_ms": 1000
+    }
+  ]
+}

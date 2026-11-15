@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include "patch_policy.h"
 #include "../instrument/include/playback_mode.h"
+#include "../instrument/include/synthdef_rate.h"
 #if !PATCH_FM1_COMPAT
 #define PATCH_CATALOG_IMPLEMENTATION
 #include "catalog_generated.h"
@@ -85,14 +86,56 @@ int patch_verify(const patch_meta *m,const unsigned char *blob,patch_hash_fn has
     if(!utf8(blob+m->graph_bytes,m->source_bytes))return bad(e,"Source is not valid UTF-8 text");
     return 1;
 }
-int patch_validate(const fm_graph *g,const patch_meta *m,char e[160])
+static int physical_outputs_supported(const fm_graph *g,char e[160])
 {
+#if defined(ESP_PLATFORM) && !defined(CONFIG_SYNTHDEF_VOICE_PE)
+    for(unsigned i=0;i<g->nodes;++i)if(g->node[i].type==FM_Out && g->node[i].rate==1)
+        return bad(e,"LED output buses require Voice PE firmware");
+#else
+    (void)g;(void)e;
+#endif
+    return 1;
+}
+static int rate_types_supported(const fm_graph *g,unsigned rate,char e[160])
+{
+    if(rate<32000)for(unsigned i=0;i<g->nodes;++i)
+        if(g->node[i].type>=FM_MiRings1 && g->node[i].type<=FM_MiRings6)
+            return bad(e,"MiRings requires at least 32000 Hz; use 48 kHz firmware");
+    return 1;
+}
+/* These oscillators reject negative/above-Nyquist rates in modulation().
+ * Catch literal values before parking audio or replacing the saved graph.
+ * Dynamic inputs retain the engine's existing runtime domain checks. */
+static int oscillator_literals_supported(const fm_graph *g,unsigned rate,char e[160])
+{
+    for(unsigned i=0;i<g->nodes;++i) {
+        const fm_node *n=&g->node[i];
+        if(n->type!=FM_VarSaw && n->type!=FM_LFCub && n->type!=FM_LFPar)continue;
+        const fm_ref *r=&g->ref[n->input];
+        if(r->node<0) {
+            float frequency=g->constant[r->output];
+            float maximum=(float)rate/(n->rate==2?2.0f:2.0f*FM_BLOCK);
+            if(frequency<0 || frequency>maximum) {
+                snprintf(e,160,"%s frequency must be in 0..%.9g Hz at %u Hz (node %u); got %.9g",
+                         fm_type_name(n->type),(double)maximum,rate,i,(double)frequency);
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+int patch_validate_at_rate(const fm_graph *g,const patch_meta *m,unsigned rate,char e[160])
+{
+    if(!synthdef_rate_valid(rate))return bad(e,"Unsupported sample rate");
     if(!g || !g->valid)return bad(e,"Graph has not been parsed successfully");
+    if(!rate_types_supported(g,rate,e))return 0;
+    if(!oscillator_literals_supported(g,rate,e))return 0;
+    if(!physical_outputs_supported(g,e))return 0;
 #if PATCH_FM1_COMPAT
     /* fm_load remains authoritative for every type, rate, selector, reference
      * and literal-domain restriction. This is experimental admission, never
      * an assertion that an arbitrary graph meets an ESP32 audio deadline. */
-    uint32_t need=fm_delay_required(g,44100);
+    uint32_t need=fm_delay_required(g,(float)rate);
     if(need==UINT32_MAX || need>FM_DELAY_LIMIT)return bad(e,"FM1 synth arena budget exceeded");
     int continuous=graph_continuous_mode(g);
     if(continuous<0)return bad(e,"Invalid autoplay marker");
@@ -108,7 +151,7 @@ int patch_validate(const fm_graph *g,const patch_meta *m,char e[160])
         if(!memcmp(m->graph_hash,patch_catalog[i].hash,32))catalog=&patch_catalog[i];
     if(catalog && (catalog->state==2 || (catalog->state==0 && !PATCH_ALLOW_CANDIDATES)))return bad(e,"Catalog graph is not qualified for this build");
     if(catalog && (g->nodes!=catalog->nodes || g->outputs!=catalog->signals || g->inputs!=catalog->inputs || m->graph_bytes!=catalog->bytes))return bad(e,"Catalog graph structure mismatch");
-    if(g->nodes>(catalog?24:20) || g->outputs>32 || g->inputs>256 || fm_delay_required(g,44100)!=0)
+    if(g->nodes>(catalog?24:20) || g->outputs>32 || g->inputs>256 || fm_delay_required(g,(float)rate)!=0)
         return bad(e,"simple-voice-v1: graph/memory budget exceeded");
     if(!catalog) {
     unsigned audio=0,sines=0,envs=0,powers=0,pans=0,outs=0;
@@ -166,20 +209,29 @@ int patch_validate(const fm_graph *g,const patch_meta *m,char e[160])
     return 1;
 }
 
-int patch_validate_master(const fm_graph *g,const patch_meta *m,char e[160])
+int patch_validate_master_at_rate(const fm_graph *g,const patch_meta *m,unsigned rate,char e[160])
 {
+    if(!synthdef_rate_valid(rate))return bad(e,"Unsupported sample rate");
     (void)m;if(!g || !g->valid)return bad(e,"Master graph has not been parsed");
-    uint32_t need=fm_delay_required(g,44100);
+    if(!rate_types_supported(g,rate,e))return 0;
+    if(!oscillator_literals_supported(g,rate,e))return 0;
+    if(!physical_outputs_supported(g,e))return 0;
+    uint32_t need=fm_delay_required(g,(float)rate);
     if(need==UINT32_MAX || need>FM_DELAY_LIMIT)return bad(e,"Master FX arena budget exceeded");
     if(graph_continuous_mode(g))return bad(e,"Compile this program for the Master FX target");
     unsigned inputs=0,outputs=0;
     for(unsigned i=0;i<g->nodes;++i){
         const fm_node *n=&g->node[i];
         if(n->type==FM_In && n->rate==2){if(n->outputs!=2)return bad(e,"Master input must be In.ar(0,2)");++inputs;}
-        if(n->type==FM_Out){if(n->inputs!=3)return bad(e,"Master output must have two channels");++outputs;}
+        if(n->type==FM_Out && n->rate==2){if(n->inputs!=3)return bad(e,"Master output must have two channels");++outputs;}
     }
     return inputs && outputs?1:bad(e,"Master FX must route In.ar(0,2) to stereo Out.ar(0,...)");
 }
+
+int patch_validate(const fm_graph *g,const patch_meta *m,char e[160])
+{return patch_validate_at_rate(g,m,SYNTHDEF_SAMPLE_RATE,e);}
+int patch_validate_master(const fm_graph *g,const patch_meta *m,char e[160])
+{return patch_validate_master_at_rate(g,m,SYNTHDEF_SAMPLE_RATE,e);}
 
 int patch_record_write(const char *path,const patch_meta *m,uint32_t generation,const unsigned char *blob,char e[160])
 {

@@ -39,6 +39,15 @@ first, then reconnect and restart them afterward.
 Build the desired image once on the host. Studio uses `firmware/build-xiao` for
 the [XIAO ESP32-S3 headless build](HEADLESS.md#build-and-flash) and
 `firmware/build-instrument` for the [Waveshare AMOLED 1.8 V2 build](BUILD.md#build-the-current-instrument).
+Voice PE uses `firmware/build-voice-pe-app`, produced by
+`bash host/voice_pe_app.sh build`. Select **Nabu Casa Home Assistant Voice Preview
+Edition · 48 kHz** for normal/fresh units. A [native 16 kHz pair](../ports/voice_pe/NATIVE_16K.md)
+is available as a separate experimental conversion requiring matching XMOS
+firmware. When an already commissioned native-16k Voice PE is connected over
+USB, Studio offers its matching ESP image from `firmware/build-voice-pe-native16`
+and rejects a mismatched 48k update. This is not a runtime rate selector or an
+automatic XMOS installer. First conversion uses the documented paired procedure.
+
 The programmer uses esptool 4.9–4.x from the Studio Python environment or the
 installed ESP-IDF 5.5 Python environment.
 
@@ -47,10 +56,62 @@ installed ESP-IDF 5.5 Python environment.
    has just appeared. A fresh board can be flashed before using **Connect**.
 3. Click **Review firmware**. Check the board, USB port and local build, then
    click **Flash firmware**. Studio releases its connection to that port and
-   esptool checks the chip and flash size before writing the bootloader,
-   partition table and application. Leave the board plugged in until verification.
+   esptool checks the chip and flash size. XIAO/AMOLED write their bootloader,
+   partition table and application; Voice PE uses the guarded procedure below. Leave the board plugged in until verification.
 4. After verification, refresh the USB ports if needed and **Connect** to the
    board. Use the [standard audio check](COMMISSIONING.md) to commission it.
+
+### Voice PE installation and recovery
+
+- **First install on recognized stock firmware:** verifies the stock 16 MiB DIO
+  layout (including both known NVS sizes) and Voice PE application identity, then reads the complete ESP flash
+  into a private recovery file. The file's MD5 must match an independent checksum
+  from the device before any flash write. This can take several minutes. It then
+  writes the project partition table, resets OTA selection to app0 and writes the
+  application. The original ESP bootloader, PHY and full NVS settings partition stay intact.
+  The installed NVS size follows the device: 0x6d000 or 0x70000 bytes.
+- **Updating project firmware:** verifies the existing Voice PE image and app0
+  selection, backs up the application sector range being replaced and the boot/
+  partition metadata, then writes **only app0**. Patch storage,
+  partition table and OTA metadata stay intact. The first upgrade from the old
+  −24 dB codec profile to 0 dB starts at no more than 5% software volume, including
+  autoplay blocks; later updates and power cycles retain the user’s volume.
+- Both paths verify written bytes and compare untouched regions before reset.
+  Neither path writes XMOS firmware, eFuses or NVS. Unknown/custom layouts,
+  unidentified or blank firmware, secured/encrypted devices and unsupported
+  active-slot selections are rejected without flash writes.
+
+Backups are retained at
+`recovery/voice-pe/private/studio/<device-mac>/<UTC-time-and-unique-suffix>/`.
+`backup.json` records offsets, sizes, hashes and progress; a failed installation
+retains any verified backups. Initial `esp-flash-before.bin` is a full ESP recovery
+image; update `application-before.bin` plus `boot-and-table-before.bin` cover the
+regions relevant to that app-only update. These files can contain settings and
+credentials and remain private/ignored by Git. They do not back up XMOS's separate
+flash. See [Voice PE recovery](../ports/voice_pe/RECOVERY.md).
+
+Studio's Voice PE update path is checked on the connected, already-converted
+unit. The stock migration/backup policy has computer tests and recognizes the
+saved original factory image; a new stock unit has not yet been flashed through
+this new Studio path. Generic IDF full-flash commands remain inappropriate for
+this target.
+
+### Upload reports “requires a restart”
+
+This is a latched device-side audio ownership fault. It can follow a failed
+graph initializer or a missing audio-task acknowledgement; it does not establish
+that compilation failed. Unplug the module for five seconds, reconnect normally,
+connect it again in Studio, then retry a corrected graph. No firmware reflash is
+needed merely to clear this state. On Voice PE, do not hold the centre button
+for a normal restart.
+
+The reproduced negative-`LFPar` startup case is now rejected before upload.
+Literal LFPar/LFCub/VarSaw frequencies must stay in the renderer's supported
+nonnegative range; the error names the node and rate-specific limit. Bipolar
+randomness around a positive rate should use `rate * (1 + randomness.rand2)`.
+This validation is not a guarantee against faults from later dynamic values.
+If the restart warning returns, retain the first error and the exact patch;
+repeatedly resending into a faulted module cannot clear it.
 
 On 11 November 2026, Studio verified a physical XIAO USB flash and connected to
 the XIAO afterward. The [headless guide](HEADLESS.md#ns4168-i2s-dac-and-speaker-amplifier)

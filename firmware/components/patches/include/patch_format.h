@@ -23,6 +23,8 @@ int patch_meta_decode(const void *,size_t,patch_meta *,char error[160]);
 void patch_meta_encode(const patch_meta *,unsigned char out[PATCH_META_BYTES]);
 int patch_validate(const fm_graph *,const patch_meta *,char error[160]);
 int patch_validate_master(const fm_graph *,const patch_meta *,char error[160]);
+int patch_validate_at_rate(const fm_graph *,const patch_meta *,unsigned rate,char error[160]);
+int patch_validate_master_at_rate(const fm_graph *,const patch_meta *,unsigned rate,char error[160]);
 int patch_verify(const patch_meta *,const unsigned char *,patch_hash_fn,char error[160]);
 int patch_record_read(const char *,patch_meta *,uint32_t *,unsigned char *,size_t,patch_hash_fn,char error[160]);
 int patch_record_write(const char *,const patch_meta *,uint32_t,const unsigned char *,char error[160]);

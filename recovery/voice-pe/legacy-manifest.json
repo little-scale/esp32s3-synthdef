@@ -1,0 +1,26 @@
+{
+  "name": "Nabu Casa.Home Assistant Voice PE",
+  "version": "26.9.0",
+  "home_assistant_domain": "esphome",
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "ota": {
+        "path": "26.9.0/home-assistant-voice-esp32s3.ota.bin",
+        "md5": "341aca73289a93e934372fb3069216ac",
+        "sha256": "557651452f49f335bc38e7dbed793547e535ee920b660fcbe860a2e3f1d1a842",
+        "summary": "## What's Changed\r\n* Bump min ESPHome version to 2026.6.0 by @kahrendt in https://github.com/esphome/home-assistant-voice-pe/pull/601\r\n* Fix update-latest workflow skip and add manual dispatch by @jesserockz in https://github.com/esphome/home-assistant-voice-pe/pull/608\r\n* Switch to lock buttons by @vanseforge in https://github.com/esphome/home-assistant-voice-pe/pull/428\r\n* Use explicit LED strip timings instead of WS2812 chipset preset by @kbx81 in https://github.com/esphome/home-assistant-voice-pe/pull/640\r\n\r\n## New Contributors\r\n* @vanseforge made their first contribution in https://github.com/esphome/home-assistant-voice-pe/pull/428\r\n\r\n**Full Changelog**: https://github.com/esphome/home-assistant-voice-pe/compare/26.6.0...26.9.0",
+        "release_url": "https://github.com/esphome/home-assistant-voice-pe/releases/tag/26.9.0"
+      },
+      "parts": [
+        {
+          "path": "26.9.0/home-assistant-voice-esp32s3.factory.bin",
+          "offset": 0,
+          "md5": "caa37bc133319f4a6d4423b5d7fc7f88",
+          "sha256": "98b7e304e6e91335384a66eaa73aa2bd2dd43c55460cce8694d40e6a7fb9d9da"
+        }
+      ]
+    }
+  ]
+}

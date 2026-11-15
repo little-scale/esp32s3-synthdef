@@ -1,0 +1,164 @@
+{
+  "format": "synthdef-input-catalog-draft-1",
+  "reviewed_date": "2026-11-06",
+  "status": "design_only_not_loaded_by_firmware",
+  "sources": {
+    "board_i2c": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/modules/grove-i2c.yaml",
+    "board_power": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/modules/grove-power.yaml",
+    "board_schematic": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/LED%20%26%20Connector.kicad_sch",
+    "nabu_guide": "https://support.nabucasa.com/hc/en-us/articles/25938245892765-Connecting-a-sensor-to-the-Grove-port-of-Home-Assistant-Voice-Preview-Edition",
+    "dlight": "https://shop.m5stack.com/products/dlight-unit-ambient-light-sensor-bh1750fvi-tr",
+    "env_iv": "https://shop.m5stack.com/products/env-iv-unit-with-temperature-humidity-air-pressure-sensor-sht40-bmp280",
+    "pir": "https://docs.m5stack.com/en/unit/PIR",
+    "passive_hub": "https://docs.m5stack.com/en/unit/hub"
+  },
+  "boards": [
+    {
+      "id": "voice_pe",
+      "port": "grove",
+      "modes": [
+        "disabled",
+        "i2c",
+        "digital"
+      ],
+      "mutually_exclusive_modes": true,
+      "i2c": {
+        "sda_gpio": 1,
+        "scl_gpio": 2
+      },
+      "power_enable_gpio": 46,
+      "power_active_high": true,
+      "connector_supply_v": 5,
+      "level_translator": "TXS0102",
+      "direct_analog_input_supported": false,
+      "qualified_current_budget_ma": null,
+      "qualified_bus_speed_hz": null,
+      "source_ids": [
+        "board_i2c",
+        "board_power",
+        "board_schematic"
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "m5stack.dlight.u136",
+      "label": "DLight / BH1750FVI",
+      "manufacturer": "M5Stack",
+      "sku": "U136",
+      "transport": "i2c",
+      "components": [
+        {
+          "id": "light",
+          "chip": "BH1750FVI",
+          "address_7bit": "0x23",
+          "proposed_driver": "bh1750"
+        }
+      ],
+      "channels": [
+        {
+          "id": "illuminance",
+          "unit": "lx",
+          "component": "light",
+          "kind": "continuous"
+        }
+      ],
+      "source_ids": [
+        "dlight",
+        "nabu_guide"
+      ],
+      "firmware_status": "planned_not_implemented",
+      "hardware_validated": false,
+      "startup_ready_ms": null,
+      "electrical_qualification": "pending"
+    },
+    {
+      "id": "m5stack.env_iv.u001_d",
+      "label": "ENV IV / SHT40 + BMP280",
+      "manufacturer": "M5Stack",
+      "sku": "U001-D",
+      "transport": "i2c",
+      "components": [
+        {
+          "id": "climate",
+          "chip": "SHT40",
+          "address_7bit": "0x44",
+          "proposed_driver": "sht4x"
+        },
+        {
+          "id": "barometer",
+          "chip": "BMP280",
+          "address_7bit": "0x76",
+          "proposed_driver": "bmp280"
+        }
+      ],
+      "channels": [
+        {
+          "id": "temperature",
+          "unit": "degC",
+          "component": "climate",
+          "kind": "continuous"
+        },
+        {
+          "id": "humidity",
+          "unit": "%RH",
+          "component": "climate",
+          "kind": "continuous"
+        },
+        {
+          "id": "pressure",
+          "unit": "hPa",
+          "component": "barometer",
+          "kind": "continuous"
+        }
+      ],
+      "source_ids": [
+        "env_iv",
+        "nabu_guide"
+      ],
+      "firmware_status": "planned_not_implemented",
+      "hardware_validated": false,
+      "startup_ready_ms": null,
+      "electrical_qualification": "pending",
+      "manufacturer_lifecycle": "EOL_as_listed_on_review_date"
+    },
+    {
+      "id": "m5stack.pir.u004",
+      "label": "PIR",
+      "manufacturer": "M5Stack",
+      "sku": "U004",
+      "transport": "digital",
+      "components": [
+        {
+          "id": "motion",
+          "proposed_driver": "digital_input",
+          "active_high": true,
+          "nabu_example_gpio": 2,
+          "manufacturer_output_conductor": "white",
+          "qualified_gpio": null,
+          "pin_qualification": "blocked_documentation_discrepancy"
+        }
+      ],
+      "channels": [
+        {
+          "id": "motion",
+          "unit": "boolean",
+          "component": "motion",
+          "kind": "binary"
+        }
+      ],
+      "source_ids": [
+        "pir",
+        "nabu_guide",
+        "board_schematic",
+        "board_i2c"
+      ],
+      "firmware_status": "planned_not_implemented",
+      "hardware_validated": false,
+      "startup_ready_ms": null,
+      "electrical_qualification": "pending",
+      "fixed_hold_ms": 2000,
+      "retriggerable": true
+    }
+  ]
+}

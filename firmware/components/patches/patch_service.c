@@ -3,7 +3,7 @@
 #include "pattern_service.h"
 #include "device_network.h"
 #include "board_audio.h"
-#ifdef CONFIG_SYNTHDEF_HEADLESS
+#ifdef CONFIG_SYNTHDEF_NO_DISPLAY
 #include "headless_io.h"
 #endif
 #include "playback_mode.h"
@@ -12,6 +12,7 @@
 #include "esp_heap_caps.h"
 #include "esp_log.h"
 #include "esp_spiffs.h"
+#include "esp_partition.h"
 #include "esp_timer.h"
 #include "mbedtls/sha256.h"
 #include "nvs_flash.h"
@@ -108,6 +109,15 @@ static int mount_store(void)
     esp_vfs_spiffs_conf_t cfg={.base_path="/patches",.partition_label="storage",.max_files=4,.format_if_mount_failed=false};
     err=esp_vfs_spiffs_register(&cfg);
     if(err!=ESP_OK && !s->provisioned) {
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+        /* Only the reviewed tail of stock app1 is a new, dedicated filesystem.
+         * A wrong/missing table must never turn inherited stock bytes into FS. */
+        const esp_partition_t *storage=esp_partition_find_first(ESP_PARTITION_TYPE_DATA,ESP_PARTITION_SUBTYPE_DATA_SPIFFS,"storage");
+        if(!storage || storage->address!=0xb90000 || storage->size!=0x400000) {
+            ESP_LOGE(TAG,"Voice PE storage layout mismatch; no format attempted");
+            return 0;
+        }
+#endif
         /* One-time initialization of this project's dedicated data partition.
          * Never auto-format after it has contained project patches. */
         ESP_LOGW(TAG,"Initializing dedicated patch partition for first use");
@@ -332,7 +342,7 @@ static void process_line(const char *line)
     }
     if(!strcmp(op,"HELLO") && !length) {
         size_t total=0,used=0;if(s->mounted)esp_spiffs_info("storage",&total,&used);
-        snprintf(s->reply,sizeof s->reply,"{\"protocol\":1,\"model\":\"%s\",\"build\":\"%s\",\"engine\":\"%s\",\"profile\":\"%s\",\"rate\":44100,\"block\":64,\"voices\":1,\"effects\":1,\"continuous_blocks\":true,\"master_slots\":2,\"atomic_install\":true,\"global_volume\":true,\"remote_controls\":1,\"control_deltas\":1,\"definition_lifecycle\":1,\"transports\":[\"usb-serial-jtag\",\"wifi-http\"],\"graph_max\":65536,\"source_max\":65536,\"chunk\":256,\"slots\":1,\"main_slot\":1,\"fx_slot\":1,\"fx_bypass_slot\":0,\"storage\":%s,\"storage_total\":%u,\"storage_free\":%u,\"policy\":\"%s\",\"catalog\":%s}",BOARD_MODEL,s->hooks.build_id,s->hooks.engine_commit,s->hooks.profile_hash,s->mounted?"true":"false",(unsigned)total,(unsigned)(total-used),PATCH_POLICY,PATCH_CATALOG_JSON);
+        snprintf(s->reply,sizeof s->reply,"{\"protocol\":1,\"model\":\"%s\",\"build\":\"%s\",\"engine\":\"%s\",\"profile\":\"%s\",\"rate\":%u,\"block\":64,\"voices\":1,\"effects\":1,\"continuous_blocks\":true,\"master_slots\":2,\"atomic_install\":true,\"global_volume\":true,\"remote_controls\":1,\"control_deltas\":1,\"definition_lifecycle\":1,\"transports\":[\"usb-serial-jtag\",\"wifi-http\"],\"graph_max\":65536,\"source_max\":65536,\"chunk\":256,\"slots\":1,\"main_slot\":1,\"fx_slot\":1,\"fx_bypass_slot\":0,\"storage\":%s,\"storage_total\":%u,\"storage_free\":%u,\"policy\":\"%s\",\"catalog\":%s}",BOARD_MODEL,s->hooks.build_id,s->hooks.engine_commit,s->hooks.profile_hash,SYNTHDEF_SAMPLE_RATE,s->mounted?"true":"false",(unsigned)total,(unsigned)(total-used),PATCH_POLICY,PATCH_CATALOG_JSON);
         size_t pattern_end=strlen(s->reply);
         if(pattern_end && s->reply[pattern_end-1]=='}')snprintf(s->reply+pattern_end-1,sizeof s->reply-pattern_end+1,",\"pattern_programs\":1,\"pattern_version\":1,\"pattern_max\":32768}");
         /* Identity is also carried by USB so pairing never relies on an IP. */
@@ -340,8 +350,12 @@ static void process_line(const char *line)
 #ifdef FM_SIGNAL_REUSE
         end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"graph_limits\":{\"nodes\":%u,\"signals\":%u,\"inputs\":%u,\"audio_buffers\":%u},\"signal_reuse\":1}",FM_NODES,FM_OUTPUTS,FM_INPUTS,FM_AUDIO_BUFFERS);
 #endif
-#ifdef CONFIG_SYNTHDEF_HEADLESS
+#ifdef CONFIG_SYNTHDEF_NO_DISPLAY
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+        end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"capture_rate\":%u,\"capture_source\":\"dsp-post-volume\",\"output_rate\":%u,\"input_buses\":[0,1,2],\"codec_gain_db\":0,\"control_outputs\":{\"base\":3,\"count\":39},\"grove_reserved_base\":42}",BOARD_CAPTURE_CHUNK_BYTES,SYNTHDEF_SAMPLE_RATE,SYNTHDEF_OUTPUT_SAMPLE_RATE);
+#else
         end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"input_buses\":[8,9,10]}",BOARD_CAPTURE_CHUNK_BYTES);
+#endif
 #endif
         const patch_program_usage *program = &s->hooks.program;
         end = strlen(s->reply);
@@ -356,7 +370,7 @@ static void process_line(const char *line)
                      program->app_bytes, program->partition_bytes);
         }
 
-#ifdef CONFIG_SYNTHDEF_HEADLESS
+#ifdef CONFIG_SYNTHDEF_NO_DISPLAY
     } else if(!strcmp(op,"INPUTS") && !length) {
         ok=headless_io_info(s->reply,sizeof s->reply);
     } else if(!strcmp(op,"CAPBEGIN") || !strcmp(op,"CAPINFO") || !strcmp(op,"CAPREAD")) {

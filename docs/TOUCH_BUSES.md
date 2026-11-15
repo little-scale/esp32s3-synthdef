@@ -1,7 +1,11 @@
 # Touch control buses
 
 The code-first interface reads hardware-style control buses with standard
-SuperCollider `In.kr`. There are 32 read-only float32 channels, numbered 0–31.
+SuperCollider `In.kr`. The shared engine has 68 readable float32 channels, numbered 0–67. Older
+firmware has 32. Touch assignments on Waveshare remain unchanged.
+[Voice PE uses its own physical input/LED map](../ports/voice_pe/CONTROLS.md):
+button/dial/mute 0–2, individual RGB 3–38, shared RGB 39–41, Grove reserved from 42.
+
 Control-bus numbering is separate from the existing stereo audio input bus.
 
 | Bus | Source | Values |
@@ -9,7 +13,7 @@ Control-bus numbering is separate from the existing stereo audio input bus.
 | 0 | Touch X | Left 0, right 1 |
 | 1 | Touch Y | Bottom 0, top 1 |
 | 2 | Touch gate | Finger down 1, release 0 |
-| 3–31 | Reserved | Currently zero |
+| 3–67 | Reserved on Waveshare | Currently zero |
 
 The playing region is screen (0,48) through (319,367). X/Y retain their last
 values on release. Opening Controls, becoming busy and Panic release the touch.

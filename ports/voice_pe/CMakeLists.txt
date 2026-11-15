@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.16)
+# Isolated bring-up application: never selects the Waveshare or XIAO adapters.
+set(COMPONENTS main)
+set(EXTRA_COMPONENT_DIRS "${CMAKE_CURRENT_LIST_DIR}/../../firmware/components/synthdef_engine")
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(synthdef_voice_pe_probe VERSION 0.1.0)
+if(NOT IDF_TARGET STREQUAL "esp32s3")
+    message(FATAL_ERROR "Voice PE requires ESP32-S3")
+endif()
+if(NOT IDF_VERSION_MAJOR EQUAL 5 OR NOT IDF_VERSION_MINOR EQUAL 5)
+    message(FATAL_ERROR "This scaffold is checked against ESP-IDF 5.5 only")
+endif()

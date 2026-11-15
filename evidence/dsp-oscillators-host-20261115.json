@@ -1,0 +1,264 @@
+{
+  "passed": true,
+  "hardware": false,
+  "device_access": false,
+  "production_enabled": false,
+  "sample_rates": [
+    8000,
+    44100,
+    48000,
+    192000
+  ],
+  "blocks_per_case": 2048,
+  "restarts_per_rate": 3,
+  "comparison": "Byte-identical audio, full scratch and voice state except Saw b1/total setup cache; RNG, flags, compensated phase and constructor behaviour retained.",
+  "sanitizers": [
+    "undefined",
+    "bounds",
+    "float-cast-overflow"
+  ],
+  "edges": {
+    "passed": true,
+    "graphs": 48,
+    "blocks": 1179648,
+    "stereo_samples": 150994944,
+    "explicit_constructors": 384,
+    "matching_faults": 168
+  },
+  "switch_combinations": [
+    {
+      "saw": true,
+      "impulse": false,
+      "binding": false,
+      "passed": true,
+      "graphs": 48,
+      "blocks": 1179648,
+      "stereo_samples": 150994944,
+      "explicit_constructors": 384,
+      "matching_faults": 168
+    },
+    {
+      "saw": false,
+      "impulse": true,
+      "binding": false,
+      "passed": true,
+      "graphs": 48,
+      "blocks": 1179648,
+      "stereo_samples": 150994944,
+      "explicit_constructors": 384,
+      "matching_faults": 168
+    },
+    {
+      "saw": true,
+      "impulse": true,
+      "binding": true,
+      "passed": true,
+      "graphs": 48,
+      "blocks": 1179648,
+      "stereo_samples": 150994944,
+      "explicit_constructors": 384,
+      "matching_faults": 168
+    }
+  ],
+  "native_benchmarks": {
+    "Saw": {
+      "runs": [
+        {
+          "reference_seconds": 0.30951,
+          "candidate_seconds": 0.225893,
+          "blocks": 131072,
+          "sink": 12796.8271
+        },
+        {
+          "reference_seconds": 0.272799,
+          "candidate_seconds": 0.217494,
+          "blocks": 131072,
+          "sink": 12796.8271
+        },
+        {
+          "reference_seconds": 0.279112,
+          "candidate_seconds": 0.218559,
+          "blocks": 131072,
+          "sink": 12796.8271
+        }
+      ],
+      "median_time_reduction_percent": 21.69487517555677,
+      "scope": "Desktop 12-oscillator bank; not an ESP32 CPU prediction or the complete LED/Splay graph."
+    },
+    "Impulse": {
+      "runs": [
+        {
+          "reference_seconds": 0.82237,
+          "candidate_seconds": 0.776275,
+          "blocks": 131072,
+          "sink": 25438
+        },
+        {
+          "reference_seconds": 0.82392,
+          "candidate_seconds": 0.77321,
+          "blocks": 131072,
+          "sink": 25438
+        },
+        {
+          "reference_seconds": 0.823756,
+          "candidate_seconds": 0.774771,
+          "blocks": 131072,
+          "sink": 25438
+        }
+      ],
+      "median_time_reduction_percent": 5.946542422756263,
+      "scope": "Desktop 12-oscillator bank; not an ESP32 CPU prediction or the complete LED/Splay graph."
+    },
+    "Saw_user12": {
+      "runs": [
+        {
+          "reference_seconds": 0.454766,
+          "candidate_seconds": 0.39092,
+          "blocks": 131072,
+          "sink": 87.8173599
+        },
+        {
+          "reference_seconds": 0.449306,
+          "candidate_seconds": 0.386703,
+          "blocks": 131072,
+          "sink": 87.8173599
+        },
+        {
+          "reference_seconds": 0.465991,
+          "candidate_seconds": 0.39753,
+          "blocks": 131072,
+          "sink": 87.8173599
+        }
+      ],
+      "median_time_reduction_percent": 14.039308127696447,
+      "scope": "Desktop full LED/Splay graph; not an ESP32 CPU prediction."
+    },
+    "SinOsc_user12": {
+      "runs": [
+        {
+          "reference_seconds": 0.27816,
+          "candidate_seconds": 0.280984,
+          "blocks": 131072,
+          "sink": 5.79858351
+        },
+        {
+          "reference_seconds": 0.267885,
+          "candidate_seconds": 0.26979,
+          "blocks": 131072,
+          "sink": 5.79858351
+        },
+        {
+          "reference_seconds": 0.274529,
+          "candidate_seconds": 0.276999,
+          "blocks": 131072,
+          "sink": 5.79858351
+        }
+      ],
+      "median_time_reduction_percent": -0.8997227979557598,
+      "scope": "Desktop full LED/Splay graph; not an ESP32 CPU prediction."
+    }
+  },
+  "inventory": {
+    "passed": true,
+    "graphs": 1454,
+    "blocks": 93056,
+    "samples": 11911168,
+    "matching_fault_blocks": 933
+  },
+  "xtensa": {
+    "available": true,
+    "hardware_timing": false,
+    "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0",
+    "flags": [
+      "-std=gnu99",
+      "-O2",
+      "-mlongcalls",
+      "-mtext-section-literals",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-fno-jump-tables",
+      "-fno-tree-switch-conversion",
+      "-fno-fast-math",
+      "-ffp-contract=off"
+    ],
+    "reference": {
+      "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n 201327\t      0\t      0\t 201327\t  3126f\t/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-oscillators/reference-xtensa.o",
+      "object_sha256": "edb9f509f5e5bb6d14d2a16045ec12a04761028333b4bf8b770607c7eb6f0423",
+      "bandlimited": {
+        "float_division_relocations": 16,
+        "double_arithmetic_relocations": 0
+      },
+      "extensions": {
+        "float_division_relocations": 14,
+        "double_arithmetic_relocations": 0
+      }
+    },
+    "candidate": {
+      "size": "text\t   data\t    bss\t    dec\t    hex\tfilename\n 202962\t      0\t      0\t 202962\t  318d2\t/Users/a1106632/Documents/WaveShareAmoled18-synthdef/build/host/dsp-oscillators/candidate-xtensa.o",
+      "object_sha256": "569317a1f8b50abbb2c780d6f956452de58d1be42aa8e115a109a856d8034bc9",
+      "candidate_saw": {
+        "float_division_relocations": 10,
+        "double_arithmetic_relocations": 0
+      },
+      "candidate_impulse": {
+        "float_division_relocations": 8,
+        "double_arithmetic_relocations": 0
+      }
+    }
+  },
+  "source_sha256": {
+    "host/dsp_oscillators.py": "5584bbab8f4d96eacb1f8ca878358ced68bf74796700dbce46196cf5d7621494",
+    "tests/oscillator_candidates_test.c": "ffd7d6c36afc1c074ab224a2fad932f585500f60060c2340ca1689d9d37d8f4b",
+    "host/test_dsp_oscillators.py": "1e9c730d86021bcd6d75971efb8b6db363029ad6a79b837cddc0956192c59dec"
+  },
+  "graphs": {
+    "build/host/dsp-oscillators/Saw_kr_literal_0.0.scsyndef": "4feabb88011c2fd524ffaa7ce0800f11a0914db44e32edac704efd7e449674da",
+    "build/host/dsp-oscillators/Saw_kr_initial_0.0.scsyndef": "822e236872aa64292b74b8e0ad25b1f35afc86abd1f64c37d279764f4564e75f",
+    "build/host/dsp-oscillators/Saw_kr_dynamic_0.0.scsyndef": "3f9ea6903c8898fb58c9402b3fdbec9e31197a692d6bec096fc0fbbca9434057",
+    "build/host/dsp-oscillators/Saw_ar_literal_0.0.scsyndef": "933744e33d564a98e08279b90cb009d3e679bcf361fb8bcdc2d01c65fe0ebee3",
+    "build/host/dsp-oscillators/Saw_ar_initial_0.0.scsyndef": "11c11712756dff23de2dc32940bd6ebd2c4b9606ad655aa606df815c8897558c",
+    "build/host/dsp-oscillators/Saw_ar_dynamic_0.0.scsyndef": "5d9c80b21618f74b6fd16b5c57c8ffc07f8588f72f6bde3c52f120444a7d0b0d",
+    "build/host/dsp-oscillators/Impulse_kr_literal_0.0.scsyndef": "7a7e74dd6c308f1dfd662283aa34d56f610cb0279d2b942a06a74b74cf2a2ff8",
+    "build/host/dsp-oscillators/Impulse_kr_literal_-0.0.scsyndef": "954232d64baa4dcd8b530a1f1f48debeae9021bfc88bdfcc421b2f5fb80e81ab",
+    "build/host/dsp-oscillators/Impulse_kr_literal_0.25.scsyndef": "e55879a190350209c522e245493a6068e8f63bbd97348578d079f3ea90774ccc",
+    "build/host/dsp-oscillators/Impulse_kr_literal_1.0.scsyndef": "4b130e34bf50c433c9b84ba94d6015164ddb5ec4fc53b85ba1fd193396d4038e",
+    "build/host/dsp-oscillators/Impulse_kr_literal_-0.25.scsyndef": "0d74e9abf01fa165b54537afd0ac07f1075e13d526d32376825614015ce9786c",
+    "build/host/dsp-oscillators/Impulse_kr_literal_1000.0.scsyndef": "123c9c1eb05bbcdbc18014952578c907e9600b44de84f807271ffe7e7807655d",
+    "build/host/dsp-oscillators/Impulse_kr_initial_0.0.scsyndef": "572c1fcf60fd9b7c5fe858720bd4f4d6e8728176452358d0a06b0a05924ba25d",
+    "build/host/dsp-oscillators/Impulse_kr_initial_-0.0.scsyndef": "211cab743c2c57942cb98dc8267397a5eb36217015aa9003e705b35a066a58bd",
+    "build/host/dsp-oscillators/Impulse_kr_initial_0.25.scsyndef": "3e50700fc5754964667b756c2e0561e21b18f81eddf2f13bbba970924938d0a3",
+    "build/host/dsp-oscillators/Impulse_kr_initial_1.0.scsyndef": "d23502ac261a608b12f7ccb76168d941671fa524ef5b4c0633c9560762d6063c",
+    "build/host/dsp-oscillators/Impulse_kr_initial_-0.25.scsyndef": "584e2764deb8aa5f7cd4b63b9ea690a4c53e093a8267304c627ab0f5b3ce9e78",
+    "build/host/dsp-oscillators/Impulse_kr_initial_1000.0.scsyndef": "6ca77a55e00ad0f2585ffc6936b626edce187a208dbf4ab3f255b2abd4547af1",
+    "build/host/dsp-oscillators/Impulse_kr_dynamic_0.0.scsyndef": "3d2c3c32ee829c5a06f75d7b155cdb49c28dcf0c7b25f0988fd9b60e2466c107",
+    "build/host/dsp-oscillators/Impulse_kr_dynamic_-0.0.scsyndef": "bb7a85f70522a9433cda31366d0ed219758c34aef1c4c1603aa99819db32258e",
+    "build/host/dsp-oscillators/Impulse_kr_dynamic_0.25.scsyndef": "2e4c8d5c5c8b5fb1f4c3314d88b6799a9987e5f3b49cf49a17d68389f761fbab",
+    "build/host/dsp-oscillators/Impulse_kr_dynamic_1.0.scsyndef": "c8901c69e0900464c0f21316d52c76057b677c0d259f97303cdddb70adbec2c5",
+    "build/host/dsp-oscillators/Impulse_kr_dynamic_-0.25.scsyndef": "47c29df5e607299f0ee63e5cdb468fccd170a72c512eb1b9deb44da27b1d3583",
+    "build/host/dsp-oscillators/Impulse_kr_dynamic_1000.0.scsyndef": "c132c32beb2acff4e1f8de81465842eb4f7d6d7b153517c1121d0bfd71dca1cf",
+    "build/host/dsp-oscillators/Impulse_ar_literal_0.0.scsyndef": "1305010aef68b15b29c7e0debf8a861906dee0c5547313197a03583dde6192a3",
+    "build/host/dsp-oscillators/Impulse_ar_literal_-0.0.scsyndef": "ca1b65c888b5e1d43947e134c22da4eea3a9881a7bff85c444dc252e6a179738",
+    "build/host/dsp-oscillators/Impulse_ar_literal_0.25.scsyndef": "53dd646d5b51e21bc81957c53c2b3b0342795b76f4bcd81f6e5b1e7142318c85",
+    "build/host/dsp-oscillators/Impulse_ar_literal_1.0.scsyndef": "16bfb98190863d36c759c515fb41c8b1d00b32d55efe39ab5c47d1dbed7578e2",
+    "build/host/dsp-oscillators/Impulse_ar_literal_-0.25.scsyndef": "b07f9c31d7363039089f03d8b72301d34bcdadcb2025029c42d74df6ad4e7520",
+    "build/host/dsp-oscillators/Impulse_ar_literal_1000.0.scsyndef": "d2513e6e922c01283e5399a5a21c1e292a11d7bf47567c3a956e52702d30649d",
+    "build/host/dsp-oscillators/Impulse_ar_initial_0.0.scsyndef": "b8d0a21488a663ef64f28960c9f57c40c240e2203789925215321beb822a8baf",
+    "build/host/dsp-oscillators/Impulse_ar_initial_-0.0.scsyndef": "369ec03be42363133c0ed4c7c2f3292e47d4ac78d84e2715701f9aa4c79a2355",
+    "build/host/dsp-oscillators/Impulse_ar_initial_0.25.scsyndef": "3c6287297c3f5ed45023e70ed0eb4a62b11a60a2557f4f40b2809082f75aa90f",
+    "build/host/dsp-oscillators/Impulse_ar_initial_1.0.scsyndef": "a2e08db3418d23aef16386cac4a4c3229079656f255401ffbdf9e29f0906d36d",
+    "build/host/dsp-oscillators/Impulse_ar_initial_-0.25.scsyndef": "1f437e4fb1152f0fb35a60dfa83437dd2ff2fc8226ee3c43eb0e4f27ffead024",
+    "build/host/dsp-oscillators/Impulse_ar_initial_1000.0.scsyndef": "9e80e81648c749ae10bba83d90ebe031232ee4f18b7d5fff05e9f4772a227391",
+    "build/host/dsp-oscillators/Impulse_ar_dynamic_0.0.scsyndef": "e57be89040549ec2e5a10f5d2370a60055bceee33b0b8deddf82e73b7471720d",
+    "build/host/dsp-oscillators/Impulse_ar_dynamic_-0.0.scsyndef": "22ecbde14ea03bc008a63e53778c7681aca07590caa07b7c2c3280a01b325612",
+    "build/host/dsp-oscillators/Impulse_ar_dynamic_0.25.scsyndef": "1371f115ba6901f6121d723efba6e3cd889401dc5cf5e69b2a524437d6dfbbe5",
+    "build/host/dsp-oscillators/Impulse_ar_dynamic_1.0.scsyndef": "2e60803e2270daf77dd73450e0de8501a430b7640dae0bc1f06009547c8ef220",
+    "build/host/dsp-oscillators/Impulse_ar_dynamic_-0.25.scsyndef": "0a55a1c01f4375f798f1173530e768f14e45a62d814fd2cdc337ecade68ced41",
+    "build/host/dsp-oscillators/Impulse_ar_dynamic_1000.0.scsyndef": "d9a1f25789524d4c004d7ed058afdb0a82e64dccee66574c562ce3a9eaca2593",
+    "build/host/dsp-oscillators/Impulse_ar_audio_0.0.scsyndef": "a0cdb5dc462b3736725994a6ecf1d18f4622e7eaf75aa20605f4b9a064288a5b",
+    "build/host/dsp-oscillators/Impulse_ar_audio_-0.0.scsyndef": "cf98f138baa225bcf365390ea670f4856582598dccc7c61bb022d0c4df65a275",
+    "build/host/dsp-oscillators/Impulse_ar_audio_0.25.scsyndef": "4c2c9b7de8a95041ccfd8a6a95a78f4ee139916b816b92f4420561cf53fbab04",
+    "build/host/dsp-oscillators/Impulse_ar_audio_1.0.scsyndef": "e7cd50820b5ba5d7610a3b7234f3fedf51289c684b28ad8f53a1bdda3ad4b8c5",
+    "build/host/dsp-oscillators/Impulse_ar_audio_-0.25.scsyndef": "24e1fc87f718b80c5d671b869bfb89cf9c080778ff18bfb312b681cb59ad041c",
+    "build/host/dsp-oscillators/Impulse_ar_audio_1000.0.scsyndef": "3cb25de2e138ef83fd7537ebdf77bcebfce2cfb9409941ff1981d2ed4fad5316"
+  }
+}

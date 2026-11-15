@@ -1,0 +1,221 @@
+{
+  "passed": true,
+  "hardware": true,
+  "device_id": "esp32-1020ba0697d4",
+  "board": "Nabu Casa Home Assistant Voice Preview Edition",
+  "rate": 48000,
+  "frames": 64,
+  "cpu_mhz": 240,
+  "runs_per_graph_per_image": 3,
+  "graphs": 10,
+  "fixed_seed": 12345,
+  "warm_blocks": 128,
+  "measured_blocks": 1024,
+  "audio_and_rng_across_images_match": true,
+  "normal_instrumented_audio_voice_scratch_arena_match": true,
+  "comparison": {
+    "user_saw12": {
+      "baseline_us": 1389.6551432291667,
+      "candidate_us": 1268.2631673177084,
+      "less_time_percent": 8.735402916537804
+    },
+    "user_sine12": {
+      "baseline_us": 555.1732462565104,
+      "candidate_us": 554.6253621419271,
+      "less_time_percent": 0.09868705278535117
+    },
+    "saw_literal12": {
+      "baseline_us": 774.43564453125,
+      "candidate_us": 644.5214884440104,
+      "less_time_percent": 16.775332721917003
+    },
+    "saw_changing12": {
+      "baseline_us": 1208.1759399414063,
+      "candidate_us": 1113.5099853515626,
+      "less_time_percent": 7.835444446479778
+    },
+    "impulse_literal12": {
+      "baseline_us": 513.18701171875,
+      "candidate_us": 368.66700846354166,
+      "less_time_percent": 28.16127453638907
+    },
+    "impulse_initial12": {
+      "baseline_us": 588.0967081705729,
+      "candidate_us": 372.3625773111979,
+      "less_time_percent": 36.68344472297284
+    },
+    "impulse_control12": {
+      "baseline_us": 1064.119266764323,
+      "candidate_us": 474.40525716145834,
+      "less_time_percent": 55.4180370585727
+    },
+    "impulse_audio12": {
+      "baseline_us": 933.8572591145834,
+      "candidate_us": 720.4672526041667,
+      "less_time_percent": 22.850387939666263
+    },
+    "impulse_kr12": {
+      "baseline_us": 132.77305501302084,
+      "candidate_us": 124.20998128255208,
+      "less_time_percent": 6.4494062666773715
+    },
+    "pulse_regression": {
+      "baseline_us": 1661.131083170573,
+      "candidate_us": 1626.446931966146,
+      "less_time_percent": 2.0879839981216897
+    }
+  },
+  "images": {
+    "baseline": {
+      "phase": "baseline",
+      "app_sha256": "7b82ca4d40a0d581acb38b690c5e8f30b07d70ba73be3fffa59195e90fea4acd",
+      "candidate_flags": {
+        "smooth": false,
+        "binary": false,
+        "noise": false,
+        "binding": false,
+        "routing": false,
+        "chaos": false,
+        "core": false,
+        "mix": false,
+        "saw": false,
+        "impulse": false,
+        "production_default": false
+      },
+      "rate": 48000,
+      "device_id": "esp32-1020ba0697d4",
+      "port": "/dev/cu.usbmodem101",
+      "flash_verified": true,
+      "protected_regions_unchanged": [
+        "bootloader",
+        "phy",
+        "nvs",
+        "app1_and_storage",
+        "partition_table",
+        "ota"
+      ]
+    },
+    "candidate": {
+      "phase": "candidate",
+      "app_sha256": "6321a87b5d1eeae0bb96415ce363adfe3003f838b070a9478b1d21c394e1b400",
+      "candidate_flags": {
+        "smooth": false,
+        "binary": false,
+        "noise": false,
+        "binding": false,
+        "routing": false,
+        "chaos": false,
+        "core": false,
+        "mix": false,
+        "saw": true,
+        "impulse": true,
+        "production_default": false
+      },
+      "rate": 48000,
+      "device_id": "esp32-1020ba0697d4",
+      "port": "/dev/cu.usbmodem101",
+      "flash_verified": true,
+      "protected_regions_unchanged": [
+        "bootloader",
+        "phy",
+        "nvs",
+        "app1_and_storage",
+        "partition_table",
+        "ota"
+      ]
+    },
+    "final": {
+      "phase": "final",
+      "app_sha256": "f3d260d9eb989dcd4fcfd0a551ca25a7ba9e0aef19466bcca10120195cea420c",
+      "candidate_flags": {
+        "smooth": false,
+        "binary": false,
+        "noise": false,
+        "binding": false,
+        "routing": false,
+        "chaos": false,
+        "core": false,
+        "mix": false,
+        "saw": true,
+        "impulse": true,
+        "production_default": false
+      },
+      "rate": 48000,
+      "device_id": "esp32-1020ba0697d4",
+      "port": "/dev/cu.usbmodem101",
+      "flash_verified": true,
+      "protected_regions_unchanged": [
+        "bootloader",
+        "phy",
+        "nvs",
+        "app1_and_storage",
+        "partition_table",
+        "ota"
+      ]
+    }
+  },
+  "live": {
+    "scope": "Combined live DSP/control/PCM windows, not parked profiling. Historical DMA/peak counters include intentional pauses.",
+    "baseline_average_percent": [
+      117.8,
+      117.7,
+      117.7,
+      117.7,
+      118.1
+    ],
+    "candidate_diagnostic_average_percent": [
+      108.6,
+      108.4,
+      108.4,
+      108.6,
+      108.5
+    ],
+    "final_lean_average_percent": [
+      109.2,
+      109.2,
+      109.3,
+      109.2,
+      109.5
+    ],
+    "baseline_median_percent": 117.7,
+    "final_lean_median_percent": 109.2
+  },
+  "restoration": {
+    "main_package_verified": true,
+    "graph_sha256": "dd1fda6464b1e44620ac13ad2d0343a240476e205006477a3ed71b3d4298b54c",
+    "fx_selected": 0,
+    "fx_storage_preserved_by_flash_md5": true,
+    "volume_percent": 16,
+    "firmware": "lean combined candidate; diagnostics disabled",
+    "capture": {
+      "frames": 48000,
+      "rate": 48000,
+      "peak": 473,
+      "rms": [
+        40.8689730521007,
+        65.91112908682418
+      ],
+      "capture_sha256": "9669e63b83bc339a737799ff7d88e631cb828afb06e37631775e887dff6744ac"
+    },
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "listening_confirmed": true,
+    "listening_feedback": {
+      "source": "user confirmation",
+      "result": "Sounds clean",
+      "patch": "original twelve-Saw LED/Splay block",
+      "volume_percent": 16,
+      "fx_bypassed": true,
+      "scope": "Restored user patch only; not separate listening qualification for every Impulse fixture."
+    }
+  },
+  "production_defaults_changed": false,
+  "limits": [
+    "Voice PE only; XIAO/AMOLED timing pending",
+    "Twelve-Saw live graph still exceeds the audio deadline",
+    "Not a long-duration network/audio stress qualification"
+  ]
+}

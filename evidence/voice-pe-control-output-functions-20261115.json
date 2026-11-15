@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-15",
+  "hardware_access": false,
+  "native_supercollider": true,
+  "scope": "Fresh SC class library, compiler and isolated SC-to-bridge simulated Voice PE; no physical uploads or live IDE reload",
+  "supported_paths": [
+    "Function.playESP32 with Out.kr",
+    "ESP32Program sound Function with Out.kr",
+    "Studio sound-block compiler with Out.kr"
+  ],
+  "user_original": "Out.kr(3, four Decay.kr/Dust.kr envelopes); five audio oscillators from inclusive (0..size)",
+  "original_control_routing_accepted": true,
+  "original_five_audio_channels_rejected": true,
+  "corrected": "Four oscillator frequencies via (0..(size-1)); Splay.ar(sig) returns stereo",
+  "graph_verified": {
+    "control_out_nodes": 1,
+    "control_out_channels": 4,
+    "audio_out_nodes": 1,
+    "audio_out_channels": 2,
+    "sine_oscillators": 4
+  },
+  "runtime_refresh": "Existing IDE likely has the older extension loaded; user should recompile SC class library. Current IDE process not modified.",
+  "regression_checks": {
+    "studio_suite_passed": 50,
+    "native_control_routing_passed": 1
+  },
+  "improved_errors": "Report actual audio channel count and suggest Mix.ar/Splay.ar; clarify that Out.kr is allowed"
+}

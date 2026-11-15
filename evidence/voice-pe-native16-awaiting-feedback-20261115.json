@@ -1,0 +1,8 @@
+{
+  "rate": 16000,
+  "volume_percent": 5,
+  "main_active": true,
+  "boot_changed_since_initial_tests": false,
+  "faults": 0,
+  "listening_feedback_received": false
+}

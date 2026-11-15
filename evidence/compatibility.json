@@ -44,7 +44,7 @@
   "extra_in_upstream_profile": [],
   "host_structure_sizes": {
     "graph_bytes": 8208,
-    "voice_bytes": 6744,
+    "voice_bytes": 6912,
     "scratch_bytes": 8320
   },
   "hardware_checks": "pending; host struct sizes are not ESP32 measurements"

@@ -2,14 +2,18 @@
 
 The current instrument configuration is the FM1 compatibility/cache profile in
 `host/fm1-cache.defaults`, on top of `firmware/sdkconfig.defaults`. It enables the
-AMOLED UI, the full pinned 154-type engine profile, internal rendering/Rings code,
+AMOLED UI, the 155-type engine profile (154 inherited types plus TDelay), internal rendering/Rings code,
 32 KiB instruction and 64 KiB data caches, PSRAM arenas and Wi-Fi memory settings.
 The older compact/catalog builds remain useful historical configurations; they
 are not the configuration used by the README quickstart.
 
 The shared [DSP block kernels and replacement fades](DSP_OPTIMIZATIONS.md) apply
-to both board profiles. Hardware-specific timing and listening records remain
+across the board profiles. Hardware-specific timing and listening records remain
 separate; cross-building the AMOLED image is not a physical panel/speaker test.
+
+The [Voice PE port](../ports/voice_pe/README.md) has separate 48 kHz and matched
+native-16k build wrappers and a guarded installer. Use its recovery instructions;
+the generic flash commands below are for Waveshare/XIAO layouts.
 
 The proposed [selective DSP defaults](QUALIFIED_DSP_UPDATE.md) are controlled by
 `SYNTHDEF_QUALIFIED_KERNELS=ON` in board builds. Disable them with

@@ -377,7 +377,9 @@ startup interval has not been measured with an external audio capture.
 
 `In.ar` is meaningful in an effect role with an input bus; ordinary voices receive
 a silent audio input bus. The ESP32 target now also supports bounded `In.kr`
-reads from a 32-channel control snapshot, with X/Y/gate at 0/1/2. This is an
+reads from a 68-channel control snapshot (32 on older builds), with Waveshare
+X/Y/gate at 0/1/2. Voice PE uses its [own physical bus map](../ports/voice_pe/CONTROLS.md)
+and adds bounded `Out.kr` on 3–41 for its RGB ring. This is an
 extension beyond the pinned FM1 engine, independently checked against SC and
 on the board; see [TOUCH_BUSES.md](TOUCH_BUSES.md). Custom master-effect uploads and general audio-bus routing
 are not added by this profile. LocalBuf/SetBuf remain immutable scale tables
@@ -436,8 +438,18 @@ changed; historical hardware qualifications remain in their original evidence.
 - [1,445 admission/initialization/lifecycle tests](../evidence/fm1-voice.json)
 - [Positive and negative upload-policy checks](../evidence/fm1-admission.json)
 - [1,560,000 malformed-input cases](../evidence/fm1-fuzz.json)
-- [Original FM1 API and independent oracle output](../evidence/fm1-upstream-tests.log)
+- [Original FM1 API and independent oracle test sources](../upstream/fm1-synthdef/synthdef-engine/tests/)
 - [Three persistent input-bus/delay comparisons](../evidence/delay-host-reference.json)
 - [Compact target build](../evidence/fm1-compact-build.json)
 - [FM1 compatibility target build](../evidence/fm1-compat-build.json)
 - [Pinned FM1 limits and semantics](../upstream/fm1-synthdef/synthdef-engine/README.md)
+
+### Voice PE native 16 kHz restriction
+
+The optional [native 16 kHz pair](../ports/voice_pe/NATIVE_16K.md) has an 8 kHz
+Nyquist limit and a 4 ms control period at the existing 64-frame block size.
+MiRings1–6 require at least 32 kHz and are rejected before activation at 16 kHz.
+Other UGens retain their existing input validation; lower sample rates change
+valid oscillator/filter ranges and do not guarantee the same reverb tuning.
+The native16 evidence is a separate bounded suite, not a reclassification of
+every UGen in this table as hardware-qualified at every sample rate.

@@ -1,0 +1,183 @@
+{
+  "date": "2026-11-14",
+  "board": "Nabu Casa Home Assistant Voice Preview Edition",
+  "device_mac": "10:20:ba:06:97:d4",
+  "stage": "silent commissioning probe; not production target parity",
+  "app_offset": 65536,
+  "phase1_image_sha256": "665539349c39ecc652edf8cb85536bdb6062887fec1dcd4c6cd6fdb85d8db5b2",
+  "flash_bytes": 16777216,
+  "psram_bytes": 8388608,
+  "idf": "v5.5",
+  "offline_dsp": {
+    "passed": true,
+    "rate": 48000,
+    "frames": 48000,
+    "positive_crossings_after_quarter_second": 330,
+    "peak": 0.070507,
+    "audio_playback": false
+  },
+  "input_observations": {
+    "levels_seen": {
+      "button": [
+        0,
+        1
+      ],
+      "mute": [
+        0,
+        1
+      ],
+      "jack": [
+        0
+      ],
+      "A": [
+        0,
+        1
+      ],
+      "B": [
+        0,
+        1
+      ]
+    },
+    "raw_button_transitions": 6,
+    "raw_mute_transitions": 4,
+    "raw_jack_transitions": 0,
+    "raw_encoder_transitions": 45,
+    "simultaneous_two_bit_encoder_jumps": 0,
+    "max_poll_gap_us": 6000,
+    "jack_physical_test": false,
+    "decoder_direction_and_debounce_qualified": false
+  },
+  "untouched_regions_verified": [
+    "bootloader_and_ota",
+    "nvs",
+    "app1"
+  ],
+  "host_probe": {
+    "passed": true,
+    "hardware_access": false,
+    "scope": "portable packing/core rendering and build-wrapper restrictions; not board validation",
+    "known_blocker": "production master FX wrapper rejects 48000 Hz",
+    "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+    "sanitizers": [
+      "undefined",
+      "bounds",
+      "float-cast-overflow"
+    ],
+    "output": "Core sine probe: rate=44100 frames=44100 crossings=330 peak=0.07051823\nCore sine probe: rate=48000 frames=48000 crossings=330 peak=0.07050704\nExisting master-delay graph arena: 44.1k=262144 48k=262144 samples; production FX wrapper rejects 48k as expected\nPASS: all S16 values, stereo order, bounds, invalid input, two engine rates, known FX blocker\n"
+  },
+  "host_inputs": {
+    "passed": true,
+    "hardware_access": false,
+    "audio_playback": false,
+    "scope": "portable input core and generated FM1 In.kr at both rates; two raw engine voices, not production Main/FX lifecycle integration",
+    "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+    "sanitizers": [
+      "undefined",
+      "bounds",
+      "float-cast-overflow"
+    ],
+    "rates": [
+      44100,
+      48000
+    ],
+    "slots": 8,
+    "output": "PASS: normalization, clipping, inversion, binary levels, invalid data/config, timestamps, expiry/recovery, stable slots, generations and bounded publication\nPASS: normalized In.kr, all 8 slots, two engine voices, stale validity and rebind at 44100 Hz\nPASS: normalized In.kr, all 8 slots, two engine voices, stale validity and rebind at 48000 Hz\n",
+    "target_compile": {
+      "passed": true,
+      "scope": "portable component object only; no target link or execution",
+      "compiler": "xtensa-esp-elf-gcc (crosstool-NG esp-14.2.0_20241119) 14.2.0"
+    }
+  },
+  "remaining": [
+    "codec initialization and mute qualification",
+    "I2S DMA and audio",
+    "production 48 kHz Main/FX/admission/protocol integration",
+    "jack insertion test",
+    "Grove drivers and production bus binding",
+    "missing-clock and interrupted-DMA hardware fault injection",
+    "cold power cycle of final DMA image",
+    "decoder detent/direction/debounce qualification"
+  ],
+  "clock_presence_survey": {
+    "warm_restart": {
+      "codec_address": 24,
+      "codec_ack": true,
+      "xmos_address": 66,
+      "xmos_ack": true,
+      "ws_hz": 47993.5,
+      "bclk_hz": 3071968.3,
+      "ws_pulses": 4773,
+      "bclk_pulses": 306564,
+      "ws_gate_us": 99451,
+      "bclk_gate_us": 99794
+    },
+    "cold_power_cycle": {
+      "codec_address": 24,
+      "codec_ack": true,
+      "xmos_address": 66,
+      "xmos_ack": true,
+      "ws_hz": 47998.1,
+      "bclk_hz": 3071937.5,
+      "ws_pulses": 4788,
+      "bclk_pulses": 306564,
+      "ws_gate_us": 99754,
+      "bclk_gate_us": 99795
+    }
+  },
+  "cold_start": {
+    "usb_absence_observed": true,
+    "connections": 2,
+    "captured_bytes": 3602,
+    "fresh_dsp_pass_captured": true
+  },
+  "survey_image_sha256": "b501107440c64ff2a1fcbfc33c1896bd0a30a7b0d1c54aab203ecc1e2de4c27b",
+  "silent_dma": {
+    "passed": true,
+    "preloaded_bytes": 6144,
+    "submitted_wire_bytes": 768000,
+    "submitted_stereo_frames": 96000,
+    "writes": 1500,
+    "partial_writes": 0,
+    "timeouts": 0,
+    "elapsed_us": 1999950,
+    "max_write_us": 2658,
+    "amplifier_pad_readback": 0,
+    "amplifier_pad_input_enabled": true,
+    "literal_zeros_only": true,
+    "audible_signal_generated": false,
+    "wire_pcm_captured": false,
+    "missing_clock_fault_injected": false,
+    "final_image_cold_power_cycle_tested": false
+  },
+  "final_image": {
+    "bytes": 473360,
+    "sha256": "681af2a796e5e51415dcd6994ba2c7a95055ac8fbb7b816a4c5a6358d46d5108",
+    "verified_app_only_write": true,
+    "untouched_stock_regions_verified": [
+      "bootloader_and_ota",
+      "nvs",
+      "app1"
+    ],
+    "arbitrary_audio_start_blocked": true
+  },
+  "source_base": "24a304aad36148c846ba87401b2e1ee8842d1ce2",
+  "probe_source_sha256": {
+    "ports/voice_pe/main/CMakeLists.txt": "e6c331e55bfe55edd54661955a0e62d9601cfdd8de7a6aaa302996eef17ac839",
+    "ports/voice_pe/main/main.c": "114fb12b140a758fd7b654c124512954f1b69700fc8a1f042aa2a190a61a27a1",
+    "ports/voice_pe/main/voice_pe_board.c": "0311138d9b94cd45e790804785b5c996734fdc0d4f1ea1c594598e10831d7a8a",
+    "ports/voice_pe/main/voice_pe_board.h": "5b5320cc66ab4edcd23d0e9c7d44e945b5ffc9397aab5e889ddd8f18744cc8ed",
+    "ports/voice_pe/main/voice_pe_format.c": "1b414451b64d6b0133ae442eacd19c9321c392aa9a5638246f9e61cd98300b69",
+    "ports/voice_pe/main/voice_pe_format.h": "47a0760eb44930ecd09a2d49dc01e2cf2b0cb8c130a29bf3b297f9fe2e3c0e4c",
+    "ports/voice_pe/main/voice_pe_pins.h": "a46d00176920c720b5e5abb85a2c7f2ffdcf7b1e575f788632c245922a9ae99b",
+    "ports/voice_pe/main/voice_pe_probe.c": "b86af163905206a0734e2d630edf6ffa1a30d7b6ae6d8bf0be55e7b64bc58d79",
+    "ports/voice_pe/main/voice_pe_probe.h": "e9a96e12d2b1734a4a6c665c32acc0afa94767104e5b9accb92c2efb6a203b61",
+    "ports/voice_pe/main/voice_pe_silent_dma.c": "4ec63082ad8891e3313c4f2f8bc341699ee876e83f6f7905d2b1049648dc9446",
+    "ports/voice_pe/main/voice_pe_silent_dma.h": "5efa1e9c3ca2f1c9acde082c8274c599594d28f8d5e543a7db297ef0b81da13a",
+    "ports/voice_pe/main/voice_pe_survey.c": "a82863d54cd96439879ae2fb12806c7b32bb241966e96c1892c96328f955cd19",
+    "ports/voice_pe/main/voice_pe_survey.h": "b7076571dfcc76a887bf74ffe1b85a2fe3bfc56b955754e91e8d7de9c65b4507",
+    "ports/voice_pe/partitions.csv": "0738591540aa64848f48147f69efa6283b1384053de9ff906b7012dea08c3afb",
+    "ports/voice_pe/sdkconfig.defaults": "f0abeeb90ef3cc6dabb40b549c228be99fdb20e88c0b7c3e9209c9a91c321c95"
+  },
+  "hardware_session_audio_state": "Historical silent-stage image; later muted-at-boot codec/tone bench build is recorded separately.",
+  "stage_superseded_by": "voice-pe-codec-20261114.json"
+}

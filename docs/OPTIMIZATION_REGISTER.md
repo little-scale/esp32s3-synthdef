@@ -1,6 +1,6 @@
 # DSP optimisation register
 
-Last reviewed: **2026-11-13**. Applies to the shared AMOLED/XIAO DSP
+Last reviewed: **2026-11-15**. Applies to the shared AMOLED/XIAO DSP
 source. This is an implementation ledger, separate from the
 [support and hardware-test ledger](UGEN_SUPPORT.md).
 
@@ -40,7 +40,7 @@ Physical AMOLED verification remains separate. See
 
 | Category | Project optimisation enabled | Inherited FM1 fast path | No enabled individual optimisation | Experimental candidate available |
 | --- | ---: | ---: | ---: | ---: |
-| Native UGen types | 43 | 24 | 88 | 115 |
+| Native UGen types | 43 | 24 | 88 | 116 |
 | Unary selectors | 33 | 0 | 0 | 0 |
 | Binary selectors | 0 | 40 | 0 | 40 |
 
@@ -386,7 +386,7 @@ Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUA
 | HenonC | No enabled individual optimisation | —; [experimental candidate](#candidate-chaos) |
 | HenonL | No enabled individual optimisation | —; [experimental candidate](#candidate-chaos) |
 | HenonN | No enabled individual optimisation | —; [experimental candidate](#candidate-chaos) |
-| Impulse | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
+| Impulse | No enabled individual optimisation | —; [experimental candidate](#candidate-binding), [experimental candidate](#candidate-oscillators) |
 | In | Inherited FM1 fast path | [inherited-bus-blocks](#inherited-bus-blocks) |
 | K2A | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
 | Klang | Project optimisation enabled | [qualified-banks](#qualified-banks); [experimental candidate](#candidate-core) |
@@ -453,7 +453,7 @@ Qualification: Enabled in the proposed board-build defaults through SYNTHDEF_QUA
 | Ringz | Project optimisation enabled | [filter-blocks](#filter-blocks) |
 | SampleDur | Inherited FM1 fast path | [inherited-initial-cache](#inherited-initial-cache) |
 | SampleRate | Inherited FM1 fast path | [inherited-initial-cache](#inherited-initial-cache) |
-| Saw | Project optimisation enabled | [bandlimited-crossfade](#bandlimited-crossfade) |
+| Saw | Project optimisation enabled | [bandlimited-crossfade](#bandlimited-crossfade); [experimental candidate](#candidate-oscillators) |
 | Select | No enabled individual optimisation | —; [experimental candidate](#candidate-routing) |
 | SetBuf | Inherited FM1 fast path | [inherited-initial-cache](#inherited-initial-cache) |
 | SetResetFF | No enabled individual optimisation | —; [experimental candidate](#candidate-binding) |
@@ -929,6 +929,16 @@ Implementation: [host/dsp_mix.py](../host/dsp_mix.py), [host/engine_profile.py](
 Host verification: [evidence/dsp-mix-host-20261113.json](../evidence/dsp-mix-host-20261113.json)
 
 Hardware evidence: [evidence/mix-xiao-comparison-20261113.json](../evidence/mix-xiao-comparison-20261113.json)
+
+### candidate-oscillators
+
+**Exact Saw setup cache and dedicated Impulse loops (experimental; disabled by default).** Independent candidate_saw/candidate_impulse switches; SYNTHDEF_DSP_CANDIDATES=saw,impulse. Saw retains the SC-style band-limited recurrence, caches harmonic setup and effective-frequency steps, and separates steady/crossfade loops. Impulse binds frequency once, retaining actual input rate, compensated phase and exact interpolation. No added per-voice/scratch/delay memory. Forty-eight four-rate cases pass alone, independently and with input binding; 1,454 inventory graphs pass at 48 kHz. Desktop median time reductions: 21.69% for a 12-Saw bank, 5.95% for a 12-Impulse bank, 14.04% for the user’s complete 12-Saw LED/Splay block. The unchanged sine block measures 0.90% slower. These are native timings, not target CPU predictions; ESP32 timing/listening qualification is pending. See docs/DSP_OSCILLATORS.md. Voice PE hardware follow-up: ten identical compiled graphs, three fixed-seed trials per graph at 48 kHz/64 frames/240 MHz. Audio warm-up/measured SHA256 and final RNG agree across images; each normal/instrumented pair matches audio/state/scratch/arena. Whole-graph time reductions: user Saw block 8.74%; held/changing Saw banks 16.78%/7.84%; audio-rate Impulse banks 22.85–55.42%; Impulse.kr bank 6.45%. The sine regression fixture changes by only 0.10%. Live user-patch CPU falls from roughly 117.8% to 108.5%; still exceeds deadline. Qualified only on this Voice PE; defaults remain disabled. The user confirmed the restored twelve-Saw block sounds clean at 16% volume with FX bypassed; separate listening of every Impulse fixture is not claimed.
+
+Implementation: [host/dsp_oscillators.py](../host/dsp_oscillators.py), [host/engine_profile.py](../host/engine_profile.py)
+
+Host verification: [evidence/dsp-oscillators-host-20261115.json](../evidence/dsp-oscillators-host-20261115.json)
+
+Hardware evidence: [evidence/dsp-oscillators-voice-pe-baseline-20261115.json](../evidence/dsp-oscillators-voice-pe-baseline-20261115.json), [evidence/dsp-oscillators-voice-pe-candidate-20261115.json](../evidence/dsp-oscillators-voice-pe-candidate-20261115.json), [evidence/dsp-oscillators-voice-pe-summary-20261115.json](../evidence/dsp-oscillators-voice-pe-summary-20261115.json)
 
 ## Shared engine improvements
 

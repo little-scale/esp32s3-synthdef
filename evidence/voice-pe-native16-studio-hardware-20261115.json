@@ -1,0 +1,9 @@
+{
+  "rate": 16000,
+  "volume_percent": 5,
+  "native16_update_offered": true,
+  "mismatched_48k_review_rejected": true,
+  "native16_review_rate": 16000,
+  "main_active": true,
+  "boot_changed_since_initial_tests": false
+}

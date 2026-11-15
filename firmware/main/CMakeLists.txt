@@ -1,5 +1,5 @@
 set(APP_REQUIRES instrument board_audio patches esp_timer esp_psram esp_app_format app_update bootloader_support spi_flash mbedtls esp_driver_usb_serial_jtag)
-if(NOT "$ENV{SYNTHDEF_BOARD}" STREQUAL "xiao")
+if(NOT "$ENV{SYNTHDEF_BOARD}" MATCHES "^(xiao|voice_pe)$")
     list(APPEND APP_REQUIRES ui)
 else()
     list(APPEND APP_REQUIRES headless_io)

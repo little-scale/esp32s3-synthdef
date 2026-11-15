@@ -1,0 +1,25 @@
+{
+  "name": "Nabu Casa.Home Assistant Voice PE",
+  "version": "2026.9.1",
+  "home_assistant_domain": "esphome",
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "ota": {
+        "path": "firmware-esp32s3.ota.bin",
+        "md5": "037c9226574484a690194e7c93ef8b53",
+        "sha256": "2fc71a7d7a7975add2aa435582211b403caf386e0c4120b9e94e26dc56e2217d",
+        "release_url": "https://github.com/NabuCasa/home-assistant-voice-pe/commit/e30a995db234887f975f8fa191e1c4c74cd8851a"
+      },
+      "parts": [
+        {
+          "path": "firmware-esp32s3.factory.bin",
+          "offset": 0,
+          "md5": "619d5a5165bd9b0d103699b6485a25c2",
+          "sha256": "e86eb706730629e952b886080b9af50a74a7ca11f10cae3d625cea710ee7ec38"
+        }
+      ]
+    }
+  ]
+}

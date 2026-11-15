@@ -88,6 +88,7 @@ int main(int argc, char **argv)
     FILE *out = fopen(argv[2], "wb"); assert(out);
     run_rate(44100, out); assert(fclose(out) == 0);
     run_rate(48000, NULL);
+    run_rate(16000, NULL);
     assert(!instrument_init(&synth, &graph, &voice, &scratch, NULL, 0, 0));
     /* Initial-rate controls must not be advertised as live controls. */
     graph.node[0].rate = 0;
@@ -112,7 +113,7 @@ int main(int argc, char **argv)
         instrument_pcm(stereo, pcm, 1, &nonfinite, &clips);
         for (unsigned k = 0; k < 4; ++k) assert(pcm[k] == (int16_t)lrintf(cases[k] * 32767.0f));
     }
-    puts("PASS: 44.1/48 kHz, pitch, release, stale note IDs, panic, same-block cancellation, initial-rate rejection, finite PCM and clipping");
+    puts("PASS: 16/44.1/48 kHz, pitch, release, stale note IDs, panic, same-block cancellation, initial-rate rejection, finite PCM and clipping");
     puts("PASS: 262136 PCM conversions agree with the lrintf nearest/even oracle");
     f=fopen(argv[3],"rb"); assert(f);
     n=fread(bytes,1,sizeof bytes,f); fclose(f);

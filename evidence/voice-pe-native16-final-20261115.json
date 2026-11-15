@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "listening_user_confirmed": "Clean, including the tail",
+  "cold_restart_user_confirmed": true,
+  "original_main_package_verified": true,
+  "original_fx_package_verified": true,
+  "volume_percent": 9,
+  "fx_selected": 0,
+  "main_active": true,
+  "rate": 16000,
+  "output_rate": 16000,
+  "startup_ws_hz": 15997.7,
+  "startup_bclk_hz": 1023986.1,
+  "faults": 0,
+  "nonfinite": 0,
+  "write_fail": 0,
+  "app_sha256": "fa2e392ac296bdf1059120a62132a4a7bafc6a6beeff8cf4ee317442c36d45d1"
+}

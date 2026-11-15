@@ -33,12 +33,12 @@ int main(int argc,char **argv)
     memset(output,0,sizeof output);fm_render(&graph,&voice,&scratch,output);
     memset(output,0,sizeof output);fm_render(&graph,&voice,&scratch,output); /* K2A settles over one block. */
     assert(output[0]==.125f && output[1]==-.25f && !voice.fault);
-    assert(fm_set(&voice,&graph,"hwBus",29));bank[29]=.75f;bank[30]=.5f;bank[31]=1;
+    assert(fm_set(&voice,&graph,"hwBus",65));bank[65]=.75f;bank[66]=.5f;bank[67]=1;
     assert(fm_bind_control_buses(&voice,bank,FM_CONTROL_BUSES));
     memset(output,0,sizeof output);fm_render(&graph,&voice,&scratch,output);
     memset(output,0,sizeof output);fm_render(&graph,&voice,&scratch,output);
     assert(output[0]==.75f && output[1]==.5f && !voice.fault);
-    assert(fm_set(&voice,&graph,"hwBus",30));fm_render(&graph,&voice,&scratch,output);assert(voice.fault);
+    assert(fm_set(&voice,&graph,"hwBus",66));fm_render(&graph,&voice,&scratch,output);assert(voice.fault);
     assert(fm_start(&voice,&graph,44100));assert(!voice.control_buses && !voice.control_bus_count);
     assert(fm_bind_control_buses(&voice,bank,FM_CONTROL_BUSES));bank[0]=NAN;
     fm_render(&graph,&voice,&scratch,output);assert(voice.fault);

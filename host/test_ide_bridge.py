@@ -119,6 +119,84 @@ Routine({
                 self.assertAlmostEqual(fx['graph']['controls'][dict(fx['graph']['names'])['wet']],.3,places=6)
             finally:bridge.server_close();app.close();m.close()
 
+    def test_deployment_checks_each_recipient_rate_instead_of_44100_summary(self):
+        modules=[ControlModule(74),ControlModule(75)]
+        for module,rate in zip(modules,(48000,16000)):
+            operation=module.operation
+            def voice_operation(op,data,operation=operation,rate=rate):
+                reply=operation(op,data)
+                if op=='HELLO':reply.update(model='Home Assistant Voice PE',rate=rate)
+                return reply
+            module.operation=voice_operation
+        with tempfile.TemporaryDirectory() as folder:
+            folder=Path(folder);app=Studio(SCLANG);app.pairings=Pairings(folder/'pairs.json')
+            for module in modules:app.pairings.save(module.pairing())
+            bridge=Bridge(app,'test-recipient-rates',config=folder/'connection.json')
+            bridge.hub.refresh=lambda:[dict(m.info(),paired=True,online=True) for m in modules]
+            try:
+                source='{ SinOsc.ar(220,0,0.01) * LFPar.kr(350) }'
+                result=bridge.hub.deploy(dict(target='all'),source,b'')
+                self.assertFalse(result['verified'])
+                self.assertTrue(result['results'][0]['verified'])
+                self.assertFalse(result['results'][1]['verified'])
+                self.assertIn('0..125 Hz',result['results'][1]['error'])
+                self.assertIsNotNone(modules[0].graphs[0])
+                self.assertIsNone(modules[1].graphs[0])
+            finally:
+                bridge.server_close();app.close()
+                for module in modules:module.close()
+
+    def test_native_sound_function_can_write_control_buses(self):
+        m=ControlModule(73);operation=m.operation
+        def voice_operation(op,data):
+            reply=operation(op,data)
+            if op=='HELLO':reply.update(model='Home Assistant Voice PE',rate=48000,control_outputs=dict(base=3,count=39))
+            return reply
+        m.operation=voice_operation
+        with tempfile.TemporaryDirectory() as folder:
+            folder=Path(folder);app=Studio(SCLANG);app.pairings=Pairings(folder/'pairs.json');app.pairings.save(m.pairing())
+            bridge=Bridge(app,'test-control-output-function',config=folder/'connection.json')
+            bridge.hub.refresh=lambda:[dict(m.info(),paired=True,online=True)]
+            bridge.hub.rows=bridge.hub.refresh()
+            body="""{
+                arg rate = 1, decay = 0.5;
+                var size = 4, env, sig;
+                env = Decay.kr(Dust.kr(rate!size), decay);
+                Out.kr(3, env);
+                sig = (SinOsc.ar((48 + (0..size)).midicps) * env) / size;
+            }"""
+            corrected=body.replace('(0..size)','(0..(size - 1))').replace(' / size;', ' / size; Splay.ar(sig);')
+            script=folder/'control-routing.scd';program=folder/'program.scsyndef'
+            script.write_text(r'''
+Routine({
+    var rejected=false, sound, definition;
+    try {
+        ESP32.connect(%CONFIG%).wait;
+        try { %ORIGINAL%.playESP32(\all) } { |error|
+            rejected=error.errorString.find("5 channels").notNil;
+            if(rejected.not){error.throw};
+        };
+        if(rejected.not){Error("Five-channel Function must request an explicit mix").throw};
+        sound=%CORRECTED%;
+        sound.playESP32(\all).wait;
+        definition=ESP32Program(sound,Pbind(\dur,1)).definition;
+        File.use(%PROGRAM%,"wb",{|file|file.write(definition.asBytes)});
+        ESP32.disconnect;
+        "PASS: native playESP32 and ESP32Program retain Out.kr and return stereo audio".postln;0.exit;
+    } {|error|error.reportError;1.exit};
+}).play(SystemClock);
+'''.replace('%CONFIG%',json.dumps(str(folder/'connection.json'))).replace('%ORIGINAL%',body).replace('%CORRECTED%',corrected).replace('%PROGRAM%',json.dumps(str(program))))
+            try:
+                run=subprocess.run([SCLANG,'-l',str(LANGUAGE),'-D',str(script)],capture_output=True,text=True,timeout=40)
+                self.assertEqual(run.returncode,0,run.stdout+run.stderr)
+                for graph in (m.graphs[0],decode(program.read_bytes())):
+                    kr=[n for n in graph['nodes'] if n[0]=='Out' and n[1]==1]
+                    ar=[n for n in graph['nodes'] if n[0]=='Out' and n[1]==2]
+                    self.assertEqual(len(kr),1);self.assertEqual(len(kr[0][2]),5)
+                    self.assertEqual(len(ar),1);self.assertEqual(len(ar[0][2]),3)
+                    self.assertEqual(len([n for n in graph['nodes'] if n[0]=='SinOsc']),4)
+            finally:bridge.server_close();app.close();m.close()
+
     def test_native_stale_named_and_cached_players_restart_after_clock_clear(self):
         with tempfile.TemporaryDirectory() as folder:
             folder=Path(folder);app=Studio(SCLANG);bridge=Bridge(app,'test-stale-player',config=folder/'connection.json')

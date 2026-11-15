@@ -22,6 +22,10 @@ typedef struct {
     float frequency, amplitude, master_gain;
     float knob[4];
     float buses[FM_CONTROL_BUSES];
+    /* Optional immutable hardware snapshot, separate from touch-gate state.
+     * Assign after init and before any voice start; caller owns its lifetime. */
+    const float *input_buses;
+    unsigned input_bus_count;
     unsigned bus_mode,gate_low_blocks,continuous,suspended_continuous,suspended_restart;
     unsigned managed_definition;
     uint32_t touch_note_id;

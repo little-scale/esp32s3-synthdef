@@ -1,0 +1,82 @@
+{
+  "format": "synthdef-input-buses-draft-2",
+  "status": "design_only_not_loaded_by_firmware",
+  "device_example": "example-i2c-device.draft.json",
+  "enabled": false,
+  "allocation_status": "proposed_not_current_firmware",
+  "value_bus_base": 16,
+  "validity_bus_base": 24,
+  "capacity": 8,
+  "output_range": [
+    0,
+    1
+  ],
+  "smoothing": "in_synthdef",
+  "slots": [
+    {
+      "slot": 0,
+      "source": {
+        "instance": "light",
+        "channel": "illuminance"
+      },
+      "normalization": {
+        "unit": "lx",
+        "min": 0,
+        "max": 1000,
+        "invert": false,
+        "clamp": true
+      },
+      "stale_after_ms": 2000,
+      "fallback_normalized": 0
+    },
+    {
+      "slot": 1,
+      "source": {
+        "instance": "environment",
+        "channel": "temperature"
+      },
+      "normalization": {
+        "unit": "degC",
+        "min": 15,
+        "max": 35,
+        "invert": false,
+        "clamp": true
+      },
+      "stale_after_ms": 5000,
+      "fallback_normalized": 0
+    },
+    {
+      "slot": 2,
+      "source": {
+        "instance": "environment",
+        "channel": "humidity"
+      },
+      "normalization": {
+        "unit": "%RH",
+        "min": 0,
+        "max": 100,
+        "invert": false,
+        "clamp": true
+      },
+      "stale_after_ms": 5000,
+      "fallback_normalized": 0
+    },
+    {
+      "slot": 3,
+      "source": {
+        "instance": "environment",
+        "channel": "pressure"
+      },
+      "normalization": {
+        "unit": "hPa",
+        "min": 950,
+        "max": 1050,
+        "invert": false,
+        "clamp": true
+      },
+      "stale_after_ms": 5000,
+      "fallback_normalized": 0
+    }
+  ],
+  "note": "Calibration endpoints are examples, not sensor measurement limits. Assignments persist independently of graphs; never compact missing slots."
+}

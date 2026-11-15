@@ -1,0 +1,18 @@
+{
+  "format": "synthdef-input-device-draft-1",
+  "status": "design_only_not_loaded_by_firmware",
+  "board": "voice_pe",
+  "port": "grove",
+  "enabled": false,
+  "mode": "digital",
+  "topology": "single",
+  "activation_blocker": "Resolve U004 signal conductor versus Nabu GPIO2 example before choosing qualified_gpio.",
+  "instances": [
+    {
+      "id": "presence",
+      "profile": "m5stack.pir.u004",
+      "poll_interval_ms": 20
+    }
+  ],
+  "timing_status": "proposed_starting_value_not_qualified"
+}

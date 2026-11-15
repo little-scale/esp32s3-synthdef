@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-15",
+  "device_id": "esp32-1020ba0697d4",
+  "build_id": "40f0507f419248ca216dfe9c13e2b4717232efeeef857472ecea49dd6182174e",
+  "rate": 48000,
+  "codec_gain_db": {
+    "previous": -24,
+    "current": 0
+  },
+  "software_volume_percent": {
+    "before": 15,
+    "before_flash": 5,
+    "after_flash": 5,
+    "user_selected_after_listening": 10
+  },
+  "user_patch_preserved": true,
+  "graph_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2",
+  "installer": "Studio guarded application update; verified backup, app0-only write and untouched-region checks",
+  "startup_volume_migration": {
+    "before_audio": true,
+    "cap_percent": 5,
+    "one_time_key": "wsynthfx/vpe_unity",
+    "later_user_levels_retained": true
+  },
+  "host_checks": {
+    "codec_profiles_db": [
+      -24,
+      0
+    ],
+    "io_failure_positions_per_profile": 140,
+    "unmute_failure_positions_per_profile": 34,
+    "corrupted_registers_per_profile": 21,
+    "unsupported_gain_rejected": true,
+    "commissioning_unmute_rejects_unity": true,
+    "startup_volume_policy": true
+  },
+  "builds": {
+    "shared_voice_pe": true,
+    "isolated_quiet_bench": true,
+    "xiao": true,
+    "amoled_v2": true
+  },
+  "unchanged": {
+    "engine_master_gain": 0.8,
+    "sample_rate": 48000,
+    "pcm": "stereo S16 application / S32 wire",
+    "xmos_firmware": true
+  },
+  "listening": "User confirmed stronger and clean at the new gain profile, 15 November 2026.",
+  "cold_boot_with_user_volume": {
+    "passed": true,
+    "user_confirmed_physical_cycle": true,
+    "codec_gain_db": 0,
+    "retained_percent": 10,
+    "patch_sha256": "c9b388f13b00708d3577698ab221a9329ca6fd0d26205e54c7661c64d7df99a2"
+  }
+}

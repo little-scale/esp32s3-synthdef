@@ -5,9 +5,10 @@
 #include <stdio.h>
 static void fill(float *x){for(unsigned i=0;i<FM_BLOCK;i++){x[2*i]=1;x[2*i+1]=-0.5f;}}
 int main(void){
- unsigned rates[]={8000,44100,48000,192000};
- for(unsigned r=0;r<4;r++){
+ unsigned rates[]={8000,16000,44100,48000,192000};
+ for(unsigned r=0;r<5;r++){
   audio_transition t;float x[FM_BLOCK*2];audio_transition_init(&t,rates[r]);
+  assert(t.frames==(rates[r]*5u+999u)/1000u);
   fill(x);float original[FM_BLOCK*2];memcpy(original,x,sizeof x);audio_transition_apply(&t,x);assert(!memcmp(x,original,sizeof x));
   audio_transition_to(&t,0);unsigned blocks=(t.frames+FM_BLOCK-1)/FM_BLOCK;float previous=1;
   for(unsigned b=0;b<blocks;b++){
@@ -26,5 +27,5 @@ int main(void){
   audio_transition_to(&t,0);fill(x);audio_transition_apply(&t,x);float last=t.current;
   audio_transition_to(&t,1);fill(x);audio_transition_apply(&t,x);assert(x[0]==last);
  }
- puts("PASS: 5 ms stereo ramps, exact endpoints, silence through DMA drain, delayed resume, interruption and bit-exact steady unity at four rates.");
+ puts("PASS: 5 ms stereo ramps, exact endpoints, silence through DMA drain, delayed resume, interruption and bit-exact steady unity at five rates.");
 }

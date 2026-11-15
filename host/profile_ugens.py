@@ -8,7 +8,7 @@ import re
 import time
 from patches import Device
 
-def collect(device,timeout=30,fixed=False):
+def collect(device,timeout=30,fixed=False,expected_rate=44100):
     before=device.request('STATUS')
     device.link.write(b'J' if fixed else b'j')
     lines=[];until=time.monotonic()+timeout
@@ -24,7 +24,7 @@ def collect(device,timeout=30,fixed=False):
                 setup=setups[0] if setups else None
                 if fixed:
                     assert setup and setup['mode']=='fixed' and setup['seed']=='12345','Fixed-seed profiler required'
-                    assert setup['warm_blocks']=='128' and setup['frames']=='64' and setup['rate']=='44100' and setup['cpu_mhz']=='240',setup
+                    assert setup['warm_blocks']=='128' and setup['frames']=='64' and setup['rate']==str(expected_rate) and setup['cpu_mhz']=='240',setup
                     assert all(re.fullmatch('[0-9a-f]{64}',setup[k]) for k in ('warm_sha256','audio_sha256')),setup
                     assert re.fullmatch('[0-9a-f]{8}:[0-9a-f]{8}:[0-9a-f]{8}',setup['rng']),setup
                     assert all(int(setup[k])>0 for k in ('normal_wall_us','measured_wall_us')),setup

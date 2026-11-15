@@ -1,0 +1,38 @@
+{
+  "board": "Home Assistant Voice PE",
+  "stock_recovery_and_native_upgrade": {
+    "stock": {
+      "image_sha256": "11b563d6c51424f49f1e1d3585ba03a073e2802798e6aa067c6734d7ecb6935b",
+      "image_bytes": 278528,
+      "written_alternate": 1,
+      "status": "readback_verified",
+      "rebooted_device": {
+        "path": "1-1",
+        "devnum": 1,
+        "configuration": 1,
+        "interface": 0,
+        "usb_version": "0131",
+        "serial": "0000000001"
+      },
+      "factory_preserved": true,
+      "data_interface_preserved": true
+    },
+    "native16": {
+      "image_sha256": "5fde08cbb8fb1c051cc03b697b103e173831155ca9370f55c917f90ba8247927",
+      "image_bytes": 278528,
+      "written_alternate": 1,
+      "status": "readback_verified",
+      "rebooted_device": {
+        "path": "1-1",
+        "devnum": 1,
+        "configuration": 1,
+        "interface": 0,
+        "usb_version": "1610",
+        "serial": "0000000001"
+      },
+      "factory_preserved": true,
+      "data_interface_preserved": true
+    }
+  },
+  "scope": "USB DFU stock recovery/native upgrade and reboot/readback verification; matched ESP16 subsequently measured physical clocks and passed digital audio/SC checks (see companion audio/SC evidence)."
+}

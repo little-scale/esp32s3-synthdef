@@ -1,0 +1,8 @@
+# Preserve stock bootloader, app0 start/size and NVS; reserve only empty app1 tail.
+# Name, Type, SubType, Offset, Size, Flags
+otadata,data,ota,0x9000,0x2000,
+phy_init,data,phy,0xb000,0x1000,
+app0,app,ota_0,0x10000,0x7c0000,
+app1,app,ota_1,0x7d0000,0x3c0000,
+storage,data,spiffs,0xb90000,0x400000,
+nvs,data,nvs,0xf90000,0x6d000,

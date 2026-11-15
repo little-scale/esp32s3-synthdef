@@ -1,0 +1,98 @@
+{
+  "device_id": "esp32-1020ba0697d4",
+  "build": "9fb89ff722c4ca1eada2be35d7c409ae5102e54c1a3533063485fc4121f9cad3",
+  "rate": 16000,
+  "volume_percent": 1,
+  "tests": {
+    "first_start_muted": true,
+    "stereo_pitch": {
+      "positive_crossings_1s": [
+        440,
+        660
+      ],
+      "levels": [
+        {
+          "peak": 26,
+          "rms": 18.52970588001871
+        },
+        {
+          "peak": 26,
+          "rms": 18.533213428868724
+        }
+      ]
+    },
+    "live_control": {
+      "positive_crossings_1s": [
+        550,
+        825
+      ]
+    },
+    "stop_silence": true,
+    "delay_100ms": {
+      "left_positions": [
+        2560,
+        10560
+      ],
+      "right_positions": [
+        4160,
+        12160
+      ],
+      "delay_frames": 1600
+    },
+    "workloads": {
+      "user_sine12": {
+        "graph_sha256": "2b14dd885ff85f6356f58152d80f09d076c82005a8cf1033af63f31a9da96f3b",
+        "average_percent": 16.2,
+        "peak_percent": 18.5,
+        "peak_since_reset_percent": 18.6,
+        "audio_stack_free_bytes": 12476
+      },
+      "user_saw12": {
+        "graph_sha256": "dd1fda6464b1e44620ac13ad2d0343a240476e205006477a3ed71b3d4298b54c",
+        "average_percent": 37.2,
+        "peak_percent": 45.9,
+        "peak_since_reset_percent": 45.9,
+        "audio_stack_free_bytes": 12428
+      },
+      "impulse_audio12": {
+        "graph_sha256": "b1d54ae887a37e9c556129badea5bd39910b8ca5907f983a92f17475b679c7eb",
+        "average_percent": 20.5,
+        "peak_percent": 22.6,
+        "peak_since_reset_percent": 22.6,
+        "audio_stack_free_bytes": 12428
+      }
+    },
+    "master_reverb_tail": {
+      "levels": [
+        {
+          "peak": 29,
+          "rms": 6.894118870457631
+        },
+        {
+          "peak": 25,
+          "rms": 6.840572892674999
+        }
+      ],
+      "audio_before_stop": {
+        "average_x10": 242,
+        "peak_x10": 290,
+        "faults": 0,
+        "nonfinite": 0,
+        "write_fail": 0
+      }
+    },
+    "panic_silence": true
+  },
+  "passed": true,
+  "startup_clocks": {
+    "startup_ws_hz": 15996.5,
+    "startup_bclk_hz": 1023986.6
+  },
+  "restore": {
+    "main_package_verified": true,
+    "fx_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.0,
+    "instances_restored": true
+  }
+}

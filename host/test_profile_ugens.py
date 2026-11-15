@@ -6,10 +6,10 @@ from qualify_seeded_dsp import compare
 
 
 class Device:
-    def __init__(self,mode='fixed',seed=12345,nodes=1,calls=1024,matched=1,setup=True):
+    def __init__(self,mode='fixed',seed=12345,nodes=1,calls=1024,matched=1,setup=True,rate=44100):
         self.link=self;self.sent=[]
         self.data=[f'UGEN_PROFILE graph=Test blocks=1024 ready=2 matched={matched} normal_cycles=240000 measured_cycles=250000 audio_hash=12345678']
-        if setup:self.data.append(f'UGEN_SETUP mode={mode} seed={seed} warm_blocks=128 rate=44100 frames=64 nodes={nodes} cpu_mhz=240 normal_wall_us=1000 measured_wall_us=1042 warm_sha256='+('a'*64)+' audio_sha256='+('b'*64)+' rng=12345678:12345678:12345678')
+        if setup:self.data.append(f'UGEN_SETUP mode={mode} seed={seed} warm_blocks=128 rate={rate} frames=64 nodes={nodes} cpu_mhz=240 normal_wall_us=1000 measured_wall_us=1042 warm_sha256='+('a'*64)+' audio_sha256='+('b'*64)+' rng=12345678:12345678:12345678')
         self.data.extend([f'UGEN_NODE index=0 type=SinOsc rate=2 special=0 cycles=200000 calls={calls}','UGEN_END'])
     def request(self,op):return {'graph_sha256':'c'*64}
     def write(self,data):self.sent.append(data)
@@ -25,6 +25,10 @@ class ProfileTests(unittest.TestCase):
     def test_original_snapshot_protocol_remains_supported(self):
         d=Device(setup=False);r=collect(d)
         self.assertEqual(d.sent,[b'j']);self.assertIsNone(r['setup'])
+    def test_voice_pe_rate_must_match_the_selected_device(self):
+        self.assertEqual(collect(Device(rate=48000),fixed=True,expected_rate=48000)['setup']['rate'],'48000')
+        with self.assertRaises(AssertionError):collect(Device(rate=44100),fixed=True,expected_rate=48000)
+        with self.assertRaises(AssertionError):collect(Device(rate=48000),fixed=True)
     def test_comparison_rejects_different_seed_audio_and_graph(self):
         r=collect(Device(),fixed=True)
         fixture={'graph_sha256':'c'*64,'median_us':100,'runs':[r]}

@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "master_delay.h"
+#include "synthdef_rate.h"
 #include <math.h>
 #include <string.h>
 int master_delay_set(master_delay *s,unsigned k,float value)
@@ -15,6 +16,7 @@ int master_effect_start(master_delay *s,fm_scratch *scratch,const float *control
     s->suppressed=true;
     if(!fm_start(s->voice,s->graph,(float)s->rate) ||
        !fm_bind_delay(s->voice,s->graph,s->arena,s->capacity) || !fm_seed(s->voice,0))return 0;
+    if(s->control_buses && !fm_bind_control_buses(s->voice,s->control_buses,s->control_bus_count))return 0;
     if(controls)memcpy(s->voice->control,controls,sizeof s->voice->control);
     else for(unsigned i=0;i<3;++i)if(s->index[i]>=0)s->voice->control[s->index[i]]=s->value[i];
     fm_prepare(s->graph,s->voice,scratch);
@@ -28,18 +30,20 @@ int master_delay_reset(master_delay *s,fm_scratch *scratch)
 }
 int master_delay_init(master_delay *s,fm_graph *graph,fm_voice *voice,float *arena,unsigned capacity,unsigned rate,fm_scratch *scratch)
 {
-    if(!s || !graph || !voice || !arena || !scratch || rate!=44100 ||
+    if(!s || !graph || !voice || !arena || !scratch || !synthdef_rate_valid(rate) ||
        fm_delay_required(graph,(float)rate)!=MASTER_DELAY_SAMPLES || capacity<MASTER_DELAY_SAMPLES)return 0;
     if(!master_effect_init(s,graph,voice,arena,capacity,rate,scratch))return 0;
     for(unsigned k=0;k<3;++k)if(s->index[k]<0)return 0;
     return 1;
 }
-static int effect_init(master_delay *s,fm_graph *graph,fm_voice *voice,float *arena,unsigned capacity,unsigned rate,fm_scratch *scratch,int define)
+static int effect_init(master_delay *s,fm_graph *graph,fm_voice *voice,float *arena,unsigned capacity,unsigned rate,fm_scratch *scratch,int define,const float *buses,unsigned bus_count)
 {
-    if(!s || !graph || !voice || !scratch || rate!=44100)return 0;
+    if(!s || !graph || !voice || !scratch || !synthdef_rate_valid(rate))return 0;
+    if((buses==NULL)!=(bus_count==0) || bus_count>FM_CONTROL_BUSES)return 0;
     uint32_t need=fm_delay_required(graph,(float)rate);
     if(need==UINT32_MAX || need>capacity || (need && !arena))return 0;
     memset(s,0,sizeof *s);s->graph=graph;s->voice=voice;s->arena=arena;s->capacity=capacity;s->rate=rate;
+    s->control_buses=buses;s->control_bus_count=bus_count;
     s->definition_only=define!=0;
     if(define){memset(voice,0,sizeof *voice);memcpy(voice->control,graph->defaults,sizeof voice->control);voice->sample_rate=(float)rate;}
     s->value[0]=.35f;s->value[1]=.35f;s->value[2]=.25f;
@@ -64,9 +68,11 @@ static int effect_init(master_delay *s,fm_graph *graph,fm_voice *voice,float *ar
     return master_delay_reset(s,scratch);
 }
 int master_effect_init(master_delay *s,fm_graph *g,fm_voice *v,float *a,unsigned c,unsigned r,fm_scratch *b)
-{return effect_init(s,g,v,a,c,r,b,0);}
+{return effect_init(s,g,v,a,c,r,b,0,NULL,0);}
 int master_effect_define(master_delay *s,fm_graph *g,fm_voice *v,float *a,unsigned c,unsigned r,fm_scratch *b)
-{return effect_init(s,g,v,a,c,r,b,1);}
+{return effect_init(s,g,v,a,c,r,b,1,NULL,0);}
+int master_effect_init_buses(master_delay *s,fm_graph *g,fm_voice *v,float *a,unsigned c,unsigned r,fm_scratch *b,const float *buses,unsigned count,bool define)
+{return effect_init(s,g,v,a,c,r,b,define,buses,count);}
 void master_delay_panic(master_delay *s) {s->suppressed=true;}
 void master_delay_render(master_delay *s,fm_scratch *scratch,const float *input,float *output)
 {

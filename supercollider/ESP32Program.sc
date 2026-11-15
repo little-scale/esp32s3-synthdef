@@ -10,10 +10,10 @@ ESP32Program {
         if(sound.isKindOf(Function).not) { Error("ESP32Program needs a Function or SynthDef").throw };
         ^SynthDef(\StandaloneProgram,{
             var signal=SynthDef.wrap(sound).asArray;
-            if(UGen.buildSynthDef.children.any{|u|u.isKindOf(AbstractOut)}) {
-                Error("Return audio from the Function; use SynthDef for authored Out routing").throw;
+            if(UGen.buildSynthDef.children.any{|u|u.isKindOf(AbstractOut) and: { (u.class == Out and: { u.rate == \control }).not }}) {
+                Error("Out.kr is allowed inside a sound Function. Return its audio signal; use SynthDef for authored Out.ar routing").throw;
             };
-            if(signal.size<1 or:{signal.size>2}) { Error("Return mono or stereo audio").throw };
+            if(signal.size<1 or:{signal.size>2}) { Error("Function returned "++signal.size++" channels. Return mono or stereo audio; use Mix.ar or Splay.ar to combine channels.").throw };
             signal=signal.collect{|x|if(x.isNumber){DC.ar(x)}{if(x.rate==\audio){x}{K2A.ar(x)}}};
             if(signal.size==1){signal=signal.dup(2).flat};Out.ar(0,signal);
         })

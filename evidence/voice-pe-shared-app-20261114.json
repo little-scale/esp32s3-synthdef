@@ -1,0 +1,283 @@
+{
+  "date": "2026-11-14",
+  "device_id": "esp32-1020ba0697d4",
+  "device_name": "VoicePE-0697d4",
+  "build_id": "1590554beae395f30e5db8d6e5f958efaa19fd48fc1cf1a59fca5b57e8630347",
+  "rate": 48000,
+  "block": 64,
+  "output_channels": 2,
+  "application_bytes": 1251808,
+  "partition_migration": {
+    "bootloader_preserved": true,
+    "ota_metadata_preserved": true,
+    "nvs_preserved_before_first_boot": true,
+    "previous_app1_empty_verified": true,
+    "storage_offset": "0xb90000",
+    "storage_bytes": 4194304,
+    "app1_bytes": 3932160,
+    "notes": "NVS differed from the earliest backup because stock firmware had saved settings; current NVS was separately saved before migration. No NVS erase. Project namespaces subsequently add settings."
+  },
+  "original_recovery": {
+    "full_flash_copies": 2,
+    "byte_identical": true,
+    "exact_restore_previously_verified": true,
+    "xmos_firmware_modified": false
+  },
+  "studio_usb": {
+    "upload_verified": true,
+    "source_and_graph_readback": true,
+    "storage": true,
+    "main_and_fx": true,
+    "volume_percent": 25
+  },
+  "captures": {
+    "stereo_bypass": [
+      {
+        "positive_crossings": 330,
+        "peak": 655,
+        "rms": 463.3862204378402
+      },
+      {
+        "positive_crossings": 660,
+        "peak": 655,
+        "rms": 463.3932294319084
+      }
+    ],
+    "half_gain_fx": [
+      {
+        "positive_crossings": 330,
+        "peak": 328,
+        "rms": 231.68551804295694
+      },
+      {
+        "positive_crossings": 660,
+        "peak": 328,
+        "rms": 231.72039284088342
+      }
+    ],
+    "forced_button": [
+      {
+        "positive_crossings": 311,
+        "peak": 655,
+        "rms": 463.4037944474919
+      },
+      {
+        "positive_crossings": 311,
+        "peak": 655,
+        "rms": 463.4037944474919
+      }
+    ],
+    "scope": "post-volume digital S16 PCM before codec; not analog recording"
+  },
+  "encoder_fix": {
+    "cause": "Audio safe GPIO setup disabled PCNT pull-ups after input initialization; initialize encoder after safe audio setup.",
+    "readback": {
+      "led_buses": {
+        "base": 3,
+        "count": 39,
+        "all_rgb_base": 39,
+        "grove_reserved_base": 42,
+        "leds": 12,
+        "order": "RGB",
+        "maximum_brightness": 0.2
+      },
+      "analog_enabled": false,
+      "buses": [
+        1,
+        2,
+        0
+      ],
+      "labels": [
+        "dial",
+        "microphone_mute",
+        "button"
+      ],
+      "gpio": [
+        16,
+        18,
+        3,
+        0
+      ],
+      "values": [
+        0.5,
+        1,
+        0
+      ],
+      "encoder_pullups": [
+        1,
+        1
+      ],
+      "encoder_inputs": [
+        1,
+        1
+      ],
+      "encoder_count": 0,
+      "raw_ab": [
+        1,
+        1
+      ],
+      "amplifier_enabled": 1,
+      "led_power": 1
+    },
+    "physical_rotation_after_fix": "User confirmed: dial is working now, 14 November 2026."
+  },
+  "physical_user_observation": {
+    "prior_build": "Green ring, blue segment, purple/pink on button; no audible sound and no perceptible dial change.",
+    "button_and_ring": true,
+    "analog_sound_current_app": "User confirmed audible while pressing the button at saved 25% volume, 14 November 2026.",
+    "post_fix_dial": "confirmed working",
+    "dial_sensitivity_feedback": "Working, but initially required many clicks; sensitivity increased fivefold from 0.0025 to 0.0125 per quadrature edge.",
+    "final_confirmation": "User confirmed everything works after a physical power cycle: faster dial/highlight, button-triggered sound and release, 14 November 2026."
+  },
+  "remote_usb": {
+    "passed": true,
+    "notes": 8,
+    "packet_bytes": [
+      42,
+      37,
+      37,
+      37,
+      37,
+      37,
+      37,
+      37
+    ],
+    "note_rms": [
+      465.7179120574075,
+      461.3553824210669,
+      466.0143849115008,
+      463.3872945196299,
+      461.14956901205056,
+      462.1488930047929,
+      463.72812916382134,
+      463.37566728063933
+    ],
+    "definition_install_silent": true,
+    "automatic_release": true,
+    "patch_restored": true
+  },
+  "bus_map": {
+    "button": 0,
+    "dial": 1,
+    "microphone_mute": 2,
+    "led_rgb": [
+      3,
+      38
+    ],
+    "all_led_rgb": [
+      39,
+      41
+    ],
+    "grove_reserved_from": 42,
+    "grove_active": false
+  },
+  "brightness_limit": 0.2,
+  "led_refresh_hz": 40,
+  "main_fx_inputs_separate_from_touch_state": true,
+  "offline_tests": {
+    "control_outputs": true,
+    "fx_control_inputs": true,
+    "rate_admission_boundary": true,
+    "delay_timing_44100_48000": true,
+    "studio_tests": 48,
+    "signal_limit_tests": 6,
+    "codec_fault_injection": true,
+    "control_bus_sc_comparison": true,
+    "low_rate_core_only": {
+      "rates": [
+        16000,
+        48000
+      ],
+      "production_option_enabled": false
+    }
+  },
+  "pending": [
+    "Wi-Fi pairing and uploads on Voice PE",
+    "Missing-clock fault recovery",
+    "Grove sensor hardware and drivers",
+    "Filtered converter and complete timing/model qualification for optional 16k mode",
+    "Headphone/jack check"
+  ],
+  "final_live_telemetry": {
+    "average_x10": 213,
+    "peak_x10": 236,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "faults": 0,
+    "clips": 0,
+    "nonfinite": 0,
+    "internal_free": 98915,
+    "psram_free": 5307640
+  },
+  "build_checks": {
+    "voice_pe": true,
+    "xiao": true,
+    "amoled_v2": true,
+    "other_board_sample_rate": 44100
+  },
+  "installed_example": "examples/voice-pe-controls.scd",
+  "installed_example_note": "Moving dial highlight and a 1.0-amplitude source before the saved 5% global volume; previous forced-button digital measurement used 0.5 source amplitude.",
+  "supercollider_bridge": {
+    "discovery_returned_only_online_voice_pe": true,
+    "friendly_name_target": true,
+    "module_volume_verified": 0.05,
+    "transport": "Studio USB bridge; no Voice PE Wi-Fi qualification"
+  },
+  "volume_change": "25% requested by user, saved and confirmed through Studio after reconnect.",
+  "core_validation_build_id": "99ae9e12d479e2d6c7f70afcff2fc63763c0f58879cb4c67f7c0451a03bba529",
+  "dial_sensitivity_update": {
+    "per_quadrature_edge": 0.0125,
+    "multiplier": 5,
+    "build_id": "1590554beae395f30e5db8d6e5f958efaa19fd48fc1cf1a59fca5b57e8630347",
+    "app_only_flash_verified": true,
+    "listening_and_cold_start_retest": "User confirmed everything works after reconnect."
+  },
+  "cold_start_verification": {
+    "user_confirmed": true,
+    "after_reconnect_usb_verified": true,
+    "volume_percent": 25,
+    "patch": "Voice PE controls",
+    "build": "1590554beae395f30e5db8d6e5f958efaa19fd48fc1cf1a59fca5b57e8630347",
+    "usb_watch_saw_complete_cycle": false
+  },
+  "studio_firmware_installer": {
+    "target": "voice-pe",
+    "sample_rate": 48000,
+    "hardware_update_passed": true,
+    "application_sha256": "139a800bedea1f26dfa447b2547599fe6d1a8fde64f08615cf6ee157a6de7bf3",
+    "backup_verified": true,
+    "written_offsets": [
+      65536
+    ],
+    "untouched_regions_verified": [
+      "bootloader",
+      "phy",
+      "nvs",
+      "app1_and_storage",
+      "partition_table",
+      "ota"
+    ],
+    "first_stock_migration": "Computer tests only; original factory layout and project identity recognized from the exact-unit backup. No fresh unit flashed through Studio yet.",
+    "computer_guard_tests": 19,
+    "sampling_rate_selector": false,
+    "concurrent_user_state": "User confirmed on 15 November 2026 that the new SoundBlock and 100% volume were their intentional SC/Studio changes; left untouched.",
+    "recognized_stock_images": [
+      "Exact-unit original",
+      "Official 26.9.0 factory",
+      "Official 2026.9.1 factory"
+    ],
+    "nvs_sizes_preserved": [
+      446464,
+      458752
+    ],
+    "studio_regression_tests": 49
+  },
+  "user_settings_confirmation": {
+    "date": "2026-11-15",
+    "new_soundblock_intentional": true,
+    "volume_percent": 100,
+    "action": "Preserve user settings; no device commands issued."
+  },
+  "current_gain_profile_update": "voice-pe-unity-gain-20261115.json (0 dB shared codec gain; user-selected 10% retained after cold power cycle; old gain results above are historical)"
+}

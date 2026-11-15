@@ -1,4 +1,4 @@
-# Project status — 13 November 2026
+# Project status — 15 November 2026
 
 ## Published on main
 
@@ -39,7 +39,66 @@ The Groups/Identify release passed 90 host and native SuperCollider tests,
 the browser logic checks, the sanitized PCM cue regression, and both firmware
 build audits. Release firmware build identity is `d1bf9ef3a7df`.
 
+## Voice PE and DSP update — 15 November 2026
+
+Release checks pass on source build `8803796c6ccd`: AMOLED and XIAO at 44.1 kHz,
+Voice PE at 48 kHz and native 16 kHz all cross-build and pass their audits.
+The 120 host tests, browser logic suite, seven portable sanitizer suites and
+multi-rate/native16 regressions pass. The audio-to-LED example compiles and
+renders silently at 16/48 kHz. These release checks did not access or reflash
+hardware; the earlier hardware/listening evidence is linked separately.
+[Release verification](evidence/release-20261115.json).
+
+- **Oscillator upload validation:** literal negative or above-domain frequencies
+  for LFPar, LFCub and VarSaw are rejected before upload, with the oscillator,
+  node and rate-specific range in the error. The check covers Main and FX;
+  dynamic inputs retain runtime checks. A negative LFPar initializer reproduced
+  the reported activation failure offline. The sanitizer regression covers 108
+  audio/control-rate cases at 16/44.1/48 kHz; 54 Studio tests pass. The running
+  Studio uses the updated check; this follow-up has not been flashed to hardware.
+  SC deployment now also uses each recipient's rate checks when a graph is
+  admitted at 16/48 kHz but not in the inspector's 44.1 kHz legacy summary.
+
+- **Voice PE native 16 kHz:** matching XMOS and ESP32 images are installed on
+  VoicePE-0697d4. Physical I²S clocks, stock XMOS recovery/readback, on-board
+  pitch/control/delay/FX checks and real SC Function/SynthDef/Pbind operations
+  pass. Twelve-Saw audio averages 37.2% CPU with a 45.9% window peak in the short
+  run. Cold-power, physical IO and user listening checks pass. At that qualification
+  checkpoint, original Main/FX patches and the saved 9% volume were restored and
+  verified; subsequent user patch/volume changes are independent. Fresh boards retain 48 kHz;
+  Studio guards matching-rate updates for commissioned native-16k units.
+  [Build and test details](ports/voice_pe/NATIVE_16K.md).
+
 ## In progress
+
+- **Saw/Impulse optimisation candidates:** exact Saw setup caching and separate
+  steady/crossfade loops, plus dedicated Impulse input-rate loops, are prepared
+  behind independent disabled-by-default switches. Forty-eight four-rate edge
+  cases and 1,454 broader graphs pass silent native comparison. Desktop timing
+  improves the user's complete twelve-Saw LED/Splay patch by 14.04%; this is not
+  an ESP32 CPU prediction. Subsequent Voice PE hardware comparison passes ten
+  fixed-seed graphs with three trials per graph: identical audio/RNG across
+  images and normal/instrumented state checks within each image. The user's
+  full Saw patch improves 8.74% in DSP time and approximately 118% to 109% in
+  live combined CPU on the final lean image, which remains over budget. Audio-rate Impulse test graphs
+  improve 22.85–55.42%. The user confirmed the restored twelve-Saw patch sounds
+  clean at 16% volume with FX bypassed. General defaults remain disabled; the
+  native-16k experiment explicitly enables Saw/Impulse. XIAO/AMOLED hardware
+  follow-up remains pending.
+  [Implementation, tests and measurements](docs/DSP_OSCILLATORS.md).
+
+- **Voice PE remaining qualification:** USB Function/SynthDef/Pbind deployment,
+  Main/FX, button/dial/LED buses, normal cold restart and speaker listening pass
+  on the commissioned unit. The shared application uses 0 dB codec gain and
+  retains saved volume after its first-upgrade migration. Fresh-board Studio
+  migration is computer-tested; the existing-unit update was hardware-verified.
+  Voice PE Wi-Fi under load, physical jack output, missing-clock/runtime-fault
+  recovery and Grove sensors remain unqualified. A failed audio initializer can
+  still latch the restart-required state; literal oscillator validation now
+  prevents the reproduced negative-LFPar case. No claim of full arbitrary-graph
+  fault recovery is made.
+  [Port, recovery and current limits](ports/voice_pe/README.md),
+  [native 16 kHz results](ports/voice_pe/NATIVE_16K.md).
 
 - **Unattended pattern soak and restart fix:** build `2ae9176d1d48` supersedes
   the first pattern image on XIAO-3eeb84. It passes 3,000 notes at 50/s over

@@ -1,0 +1,119 @@
+{
+  "date": "2026-11-14",
+  "board": "Home Assistant Voice PE",
+  "mac": "10:20:ba:06:97:d4",
+  "host_tests": {
+    "passed": true,
+    "hardware_access": false,
+    "scope": "portable sequence and fault model; not electrical or audio qualification",
+    "output": "PASS: all 140 initialization I/O failure positions leave readiness false and never unmute\nPASS: 21 corrupted readbacks, missing clock, stuck reset, 34 unmute failures, fixed gain guard and reinitialization\n",
+    "tone_output": "PASS: bounded 3.2-second PCM, channel isolation, ramps, S32 packing, restart determinism, 440/660/550 cycles and exact fresh-command matching\n"
+  },
+  "muted_codec": {
+    "hardware_passed": true,
+    "verified_register_checks": 28,
+    "power_flags": 238,
+    "digital_and_analog_muted": true,
+    "muted_after_zero_dma": true,
+    "amplifier_pad": 0,
+    "unique_chip_id_queried": false
+  },
+  "muted_image": {
+    "mac": "1020ba0697d4",
+    "image_sha256": "8d8d4937b226ca629a2d145ace5474435f7d45c2e0468b7314de615b968f51ee",
+    "bytes": 478656,
+    "offset": 65536,
+    "scope": "muted codec register setup and zero DMA; no XMOS writes or amplifier enable",
+    "app_verified": true,
+    "untouched_regions_verified": [
+      "bootloader_and_ota",
+      "nvs",
+      "app1"
+    ],
+    "status": "flashed_verified"
+  },
+  "audible_test": {
+    "hardware_completed": true,
+    "user_confirmation": "Clean, and stopped",
+    "pcm_peak_s16": 1638,
+    "pcm_peak_percent": 4.998779296875,
+    "codec_gain_db": -24,
+    "louder_test_played": false,
+    "writes": 2700,
+    "partial_writes": 0,
+    "timeouts": 0,
+    "elapsed_us": 3599933,
+    "muted_at_completion": true,
+    "amplifier_off_at_completion": true,
+    "stereo_jack_listening_tested": false,
+    "waveform_captured": false
+  },
+  "command_guards": {
+    "stale_challenge_rejected": true,
+    "bare_t_rejected": true,
+    "usb_abort_in_zero_leadin": true,
+    "abort_elapsed_us": 34637,
+    "writes_before_abort": 25,
+    "muted_after_abort": true,
+    "amplifier_off_after_abort": true,
+    "abort_during_audible_segment_tested": false
+  },
+  "cold_start": {
+    "usb_absence_observed": true,
+    "connections": 1,
+    "captured_bytes": 2091,
+    "fresh_dsp_start_captured": true,
+    "user_confirmation": "Reconnected; silent",
+    "codec_checks": 28,
+    "power_flags": 238,
+    "digital_and_analog_muted": true,
+    "amplifier_off": true,
+    "zero_dma_passed": true,
+    "tone_autostart": false,
+    "ws_hz": 47993.3,
+    "bclk_hz": 3071966.1
+  },
+  "final_image": {
+    "mac": "1020ba0697d4",
+    "image_sha256": "364e63c6e07c4271c3e91281a611f1ef5a135ed4b33639a5cfd9e22f2ab9df09",
+    "bytes": 498944,
+    "offset": 65536,
+    "scope": "muted-at-boot codec and explicit challenge-gated low-level tone capability; no XMOS writes",
+    "app_verified": true,
+    "untouched_regions_verified": [
+      "bootloader_and_ota",
+      "nvs",
+      "app1"
+    ],
+    "status": "flashed_verified"
+  },
+  "source_sha256": {
+    "ports/voice_pe/main/main.c": "1369faf48f92ff51311d704b21444d5067cbe92af3b1d5038752270437f78e55",
+    "ports/voice_pe/main/voice_pe_board.c": "0311138d9b94cd45e790804785b5c996734fdc0d4f1ea1c594598e10831d7a8a",
+    "ports/voice_pe/main/voice_pe_board.h": "5b5320cc66ab4edcd23d0e9c7d44e945b5ffc9397aab5e889ddd8f18744cc8ed",
+    "ports/voice_pe/main/voice_pe_codec.c": "8788866f9926f48e26382ba1c917013a6a4d1f700eebafe91a9216056b479de8",
+    "ports/voice_pe/main/voice_pe_codec.h": "c7af184e4e113e5476fdb6e63473873933006cee4732848e29dead43795c0ee3",
+    "ports/voice_pe/main/voice_pe_codec_sequence.c": "e9da046ae47e399c19ceda0eb1a47883fd7851fb4515e498959a944e9319596c",
+    "ports/voice_pe/main/voice_pe_codec_sequence.h": "ad0d2cfeff04a0277211c273236225d311e38748ac726f93e19c086ee29f6c6d",
+    "ports/voice_pe/main/voice_pe_format.c": "1b414451b64d6b0133ae442eacd19c9321c392aa9a5638246f9e61cd98300b69",
+    "ports/voice_pe/main/voice_pe_format.h": "47a0760eb44930ecd09a2d49dc01e2cf2b0cb8c130a29bf3b297f9fe2e3c0e4c",
+    "ports/voice_pe/main/voice_pe_pins.h": "a46d00176920c720b5e5abb85a2c7f2ffdcf7b1e575f788632c245922a9ae99b",
+    "ports/voice_pe/main/voice_pe_probe.c": "b86af163905206a0734e2d630edf6ffa1a30d7b6ae6d8bf0be55e7b64bc58d79",
+    "ports/voice_pe/main/voice_pe_probe.h": "e9a96e12d2b1734a4a6c665c32acc0afa94767104e5b9accb92c2efb6a203b61",
+    "ports/voice_pe/main/voice_pe_silent_dma.c": "430bb94af4a12213fcb34c20656d12c7eae1f08691a5691457cc74b4f5afdd7c",
+    "ports/voice_pe/main/voice_pe_silent_dma.h": "4fc593b5c8a16f158357128db9d96618b487f7ab38384a504619581db1a25756",
+    "ports/voice_pe/main/voice_pe_survey.c": "a82863d54cd96439879ae2fb12806c7b32bb241966e96c1892c96328f955cd19",
+    "ports/voice_pe/main/voice_pe_survey.h": "b7076571dfcc76a887bf74ffe1b85a2fe3bfc56b955754e91e8d7de9c65b4507",
+    "ports/voice_pe/main/voice_pe_test_tone.c": "ba7cc8994bc1ac0e65eefd57c61300214b58eff3416f2fb7dfd42c4d6bea972e",
+    "ports/voice_pe/main/voice_pe_test_tone.h": "dbb5db5c1006ea4f9e391b5e753dfd8fd1be827bf56b4d3b620044ed1ef6c6ce"
+  },
+  "direct_xmos_writes": false,
+  "mclk_driven_by_esp": false,
+  "final_state": "Bench application installed; codec muted, amplifier/LED ring off; no normal SC/Studio protocol yet.",
+  "remaining": [
+    "stereo jack and jack-detect qualification",
+    "physical center-button/audible-midstream abort",
+    "missing clocks and I2C electrical fault injection",
+    "production 48 kHz admission/Main/FX/transport integration"
+  ]
+}

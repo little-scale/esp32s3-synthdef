@@ -1,0 +1,8 @@
+menu "Voice PE silent probe"
+    config SYNTHDEF_FM1_COMPAT
+        bool
+        default y
+    config SYNTHDEF_DIAGNOSTICS
+        bool
+        default n
+endmenu

@@ -12,7 +12,7 @@ probe=dict(name='BusProbe',constants=[0],controls=[0],names=[('hwBus',0)],nodes=
  ('Control',1,[],[1],0),('In',1,[(0,0)],[1,1,1],0),('K2A',2,[(1,0)],[2],0),
  ('K2A',2,[(1,1)],[2],0),('Out',2,[(-1,0),(2,0),(3,0)],[],0)])
 fixture=BUILD/'probe.scsyndef';fixture.write_bytes(encode(probe));invalid=[]
-for name,bus,channels,rate in [('negative',-1,1,1),('fractional',.5,1,1),('past-end',32,1,1),('spanning',31,2,1),('too-many',0,33,1),('scalar',0,1,0),('audio-range',1,2,2),('audio-channels',0,3,2)]:
+for name,bus,channels,rate in [('negative',-1,1,1),('fractional',.5,1,1),('past-end',68,1,1),('spanning',67,2,1),('too-many',0,69,1),('scalar',0,1,0),('audio-range',1,2,2),('audio-channels',0,3,2)]:
  g=decode(encode(probe));g['constants']=[bus];g['nodes'][1]=('In',rate,[(-1,0)],[rate]*channels,0)
  # The rejection must occur at In, before downstream references are inspected.
  f=BUILD/(name+'.scsyndef');f.write_bytes(encode(g));invalid.append(f)

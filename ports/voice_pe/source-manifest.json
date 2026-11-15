@@ -1,0 +1,361 @@
+{
+  "prepared_date": "2026-11-05",
+  "timezone": "Australia/Adelaide",
+  "source_verification_only": true,
+  "hardware_validated": false,
+  "sources": [
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/main/main.c",
+      "sha256": "7843152a3dbe3a38488b849f77cbcd7ca21e446856d08a451d505d2d11eb516b",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/main/main.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/main/CMakeLists.txt",
+      "sha256": "ff0d21f0754be62058f5d13d9d06f15d6b39ff77c954be295292a2bc70aee256",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/main/CMakeLists.txt",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/main/Kconfig.projbuild",
+      "sha256": "f4736c9b532c906013b63cb64e7b938b00c47dd5276ad7fb12f4b87d7383aead",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/main/Kconfig.projbuild",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/CMakeLists.txt",
+      "sha256": "191c2d7f0bc346bf472bfbebc81aee2f7f4327ecb38231f153b629209920710e",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/CMakeLists.txt",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/main/idf_component.yml",
+      "sha256": "ade61349870e70e3fbfb539c3cc4c1d4b2c647d3775ab90974e362ed7abf9cd6",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/main/idf_component.yml",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/board_audio/board_audio_i2s.c",
+      "sha256": "d3c1c3a99bcfd7ed054162de2401e8c0818255f3cb48c393a882cf25980b83b4",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/board_audio/board_audio_i2s.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/board_audio/board_audio.c",
+      "sha256": "ff86ff1da342bb7728da615f96a5129661fe3adbcd20c4b1a88a393828f3cef7",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/board_audio/board_audio.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/board_audio/include/board_audio.h",
+      "sha256": "87c87647fa0cc5c0a1c052fccf35a9d73c432aa011b16acb7262afe35a855b8d",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/board_audio/include/board_audio.h",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/board_audio/CMakeLists.txt",
+      "sha256": "2abad15fb788ded37886bb90b67f05810e41d5fb4c94f60d68e721fd87ca78bf",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/board_audio/CMakeLists.txt",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/headless_io/headless_io.c",
+      "sha256": "84ef8a6b36421ffb54e6bae1cfdb8eb3cc628bdc45ea4dcf13fd03ddec07535b",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/headless_io/headless_io.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/instrument/master_delay.c",
+      "sha256": "bab676f22e6070f3c999a63c00e618911ecf4240fc1d55edd998cbe2c5d7d067",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/instrument/master_delay.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/instrument/instrument.c",
+      "sha256": "67fab435bcaff1ba2d0c2c708bc0cbc5540df44e20a0b3e51b50e2ab27567bf4",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/instrument/instrument.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/patches/patch_format.c",
+      "sha256": "08471431706d42bf748222a9b0b44908755605b97302578da63dc25955501f46",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/patches/patch_format.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/patches/patch_service.c",
+      "sha256": "25042da4b828c5586ef986bc1b0a48b7f8b1570231dbde01d71383c117c1d15d",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/patches/patch_service.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/synthdef_engine/CMakeLists.txt",
+      "sha256": "051b52208ed9a748fffb5e893d8847474a759002698bf3fe22b650d5d5fef3a6",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/synthdef_engine/CMakeLists.txt",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "host/engine_profile.py",
+      "sha256": "f36350b540888f6d92f8188f2bd13432b0b99da38217f62711103312cc90be3d",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/host/engine_profile.py",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "host/prepare.py",
+      "sha256": "25d4884e32ea0314111299dda03a03573f452e278ac37e43201d00747bc8a46c",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/host/prepare.py",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "host/xiao.sh",
+      "sha256": "5cf5472d054b31d4f1df14027a16f147bd8b8f13bd08f1b657bb302a59087fdf",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/host/xiao.sh",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "host/idf.sh",
+      "sha256": "53c0bd52e0a84c0ba1a6af1abb604ffba0852b076d2215ceb8b80a48d092f26d",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/host/idf.sh",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "host/xiao.defaults",
+      "sha256": "694daab30b59525be3b75a9069da3bdf810124a142d1ca2603bb027522809005",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/host/xiao.defaults",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "host/studio_probe.c",
+      "sha256": "881055e6e7716c87d25b93878cd19dd3f5aedcd485cb32ad4342595986c0ed84",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/host/studio_probe.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "host/inspect_graph.c",
+      "sha256": "be385a45fb0139505c7dfadeba85b23c148a1e290532f211396f639e6fb91c08",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/host/inspect_graph.c",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "examples/gated-sine.scsyndef",
+      "sha256": "ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/examples/gated-sine.scsyndef",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "examples/master-delay.scsyndef",
+      "sha256": "837addbc31c3f66824d18b1eace82d73a394f60755e7aa97a9f495d1921cc940",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/examples/master-delay.scsyndef",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "home-assistant-voice.yaml",
+      "sha256": "d4e7ab1da4f5b77d1683aa3b47a1ef5b2f1a230b94e37091faab0aa0855908dc",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/home-assistant-voice.yaml",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "esphome/components/voice_kit/voice_kit.cpp",
+      "sha256": "bc95179ea25c3d545048d03dd6d524f71a2dbc345deba7a95aae3d667e9d84bb",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/esphome/components/voice_kit/voice_kit.cpp",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "esphome/components/voice_kit/__init__.py",
+      "sha256": "f7c457b6ff936ba136777309108ef6a4e986f866563663388cc6aca5d39f1618",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/esphome/components/voice_kit/__init__.py",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/Block.kicad_sch",
+      "sha256": "789e180c928e22c9a34f5f2d1fe55541fe125f502b7189f89bc5100008e52aa7",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/Block.kicad_sch",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/DAC.kicad_sch",
+      "sha256": "78711be757815ee55992c294fdb4b69349e0e098c55ca3525801db86bbbda6c6",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/DAC.kicad_sch",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/ESP32S3.kicad_sch",
+      "sha256": "afda6f7f73fa146842654f1bb3bc789af688898bf8a15c1f11a226dcb73cc639",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/ESP32S3.kicad_sch",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/Home Assistant Voice PE.kicad_sch",
+      "sha256": "fffaa20260091da31366f4edf285f2af76fbc11b6ee64cc0901579ee47768796",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/Home%20Assistant%20Voice%20PE.kicad_sch",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/LED & Connector.kicad_sch",
+      "sha256": "4c470602853c234c179abdd1db3c14a6cd7ae11cbcc29153a2db582f30b2dcb1",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/LED%20%26%20Connector.kicad_sch",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/Power.kicad_sch",
+      "sha256": "cf581ddf571dea97fbca0ffaff5850795c2617361a60524ee4c92f64afc28dab",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/Power.kicad_sch",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/XMOS.kicad_sch",
+      "sha256": "387d5000cb34800556ed75edd765b759fd93eb9659d5111498f57b38b0583484",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/XMOS.kicad_sch",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "hardware/KiCad/Home Assistant Voice PE.pdf",
+      "sha256": "c6fd1e4f5af42bfda15c127585ac6f7ad037f877d7f0ac358f67abb70762417d",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/hardware/KiCad/Home%20Assistant%20Voice%20PE.pdf",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/esphome",
+      "commit": "fc106564ed1fd2e1047428878b0333baf1cbcd29",
+      "path": "esphome/components/aic3204/aic3204.h",
+      "sha256": "95ebebd6e95d8a8e58bace4810fa58bbf3aec2550a9287b621a5b78ee8eb4acf",
+      "url": "https://github.com/esphome/esphome/blob/fc106564ed1fd2e1047428878b0333baf1cbcd29/esphome/components/aic3204/aic3204.h",
+      "kind": "local-text-snapshot"
+    },
+    {
+      "repository": "esphome/esphome",
+      "commit": "fc106564ed1fd2e1047428878b0333baf1cbcd29",
+      "path": "esphome/components/aic3204/audio_dac.py",
+      "sha256": "e688c10b9e0e040ebd70c64a6582b1ced20282b81280d87fda4e63bede287f9a",
+      "url": "https://github.com/esphome/esphome/blob/fc106564ed1fd2e1047428878b0333baf1cbcd29/esphome/components/aic3204/audio_dac.py",
+      "kind": "local-text-snapshot"
+    },
+    {
+      "repository": "esphome/esphome",
+      "commit": "fc106564ed1fd2e1047428878b0333baf1cbcd29",
+      "path": "esphome/components/aic3204/aic3204.cpp",
+      "sha256": "65097dd6df06a338d5c80df29112dff6ebbb29e717c709a9b6ad4912ac2e8551",
+      "url": "https://github.com/esphome/esphome/blob/fc106564ed1fd2e1047428878b0333baf1cbcd29/esphome/components/aic3204/aic3204.cpp",
+      "kind": "local-text-snapshot"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "modules/grove-i2c.yaml",
+      "sha256": "20c72d100690206451e363659367f7486742b714cccfb430f0d01041545e907b",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/modules/grove-i2c.yaml",
+      "kind": "source"
+    },
+    {
+      "repository": "esphome/home-assistant-voice-pe",
+      "commit": "d4e6fa43d6a1a7d342b7d4d403567e06516719de",
+      "path": "modules/grove-power.yaml",
+      "sha256": "088238c841ba6056e9e50aacced9eea451f267e7efe87a6f6a6cc1d92c04b65f",
+      "url": "https://github.com/esphome/home-assistant-voice-pe/blob/d4e6fa43d6a1a7d342b7d4d403567e06516719de/modules/grove-power.yaml",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "docs/SUPERCOLLIDER.md",
+      "sha256": "c2dfaeca740995d9adcfb387a60a6569fe0c92ecffd35659699dd046b3bbc41d",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/docs/SUPERCOLLIDER.md",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "firmware/components/instrument/include/remote_control.h",
+      "sha256": "c5a74245ece7e18badc392e1c5ec1fa28f78bfb767523407a2a78106beb8d1fb",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/firmware/components/instrument/include/remote_control.h",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "docs/TOUCH_BUSES.md",
+      "sha256": "dd066ff85bad942f5026c5b5a0d11e07be83c6623b3884a7ba8df631e6f48476",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/docs/TOUCH_BUSES.md",
+      "kind": "source"
+    },
+    {
+      "repository": "little-scale/esp32s3-synthdef",
+      "commit": "b7fd8ac210a7a08ac4d94431104076907dbe5c78",
+      "path": "docs/HEADLESS.md",
+      "sha256": "8a6cf384950f5e743fad6c880e4262891785b0e1ead96e25603cfeb0820cc130",
+      "url": "https://github.com/little-scale/esp32s3-synthdef/blob/b7fd8ac210a7a08ac4d94431104076907dbe5c78/docs/HEADLESS.md",
+      "kind": "source"
+    }
+  ],
+  "grove_review_date": "2026-11-06"
+}

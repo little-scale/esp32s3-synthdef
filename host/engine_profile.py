@@ -13,6 +13,7 @@ from dsp_routing import prepare as prepare_routing
 from dsp_chaos_cache import prepare as prepare_chaos
 from dsp_core import prepare as prepare_core
 from dsp_mix import prepare as prepare_mix
+from dsp_oscillators import prepare as prepare_oscillators
 from qualified_kernels import prepare as prepare_qualified,BINDINGS as QUALIFIED_BINDINGS
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/'upstream/fm1-synthdef/synthdef-engine/src'
@@ -93,7 +94,7 @@ static __attribute__((noinline)) void ugen_end(unsigned i){
     assert render.count(loop)==1
     return prefix+render.replace(loop,'for(ni=0;ni<g->nodes && !v->fault;ugen_end(ni),ni++) {\n  ugen_begin();')
 
-def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True, optimize_filters=True, optimize_lag=True, optimize_unary=True, optimize_miverb_packed=False, candidate_smooth=False, candidate_binary=False, candidate_noise=False, candidate_binding=False, candidate_routing=False, candidate_chaos=False, candidate_core=False, binding_families=None, qualified_kernels=False, candidate_mix=False):
+def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=True, optimize_saw=True, reuse_buffers=True, optimize_filters=True, optimize_lag=True, optimize_unary=True, optimize_miverb_packed=False, candidate_smooth=False, candidate_binary=False, candidate_noise=False, candidate_binding=False, candidate_routing=False, candidate_chaos=False, candidate_core=False, binding_families=None, qualified_kernels=False, candidate_mix=False, candidate_saw=False, candidate_impulse=False):
     if binding_families is not None and not candidate_binding:raise ValueError('Binding families require candidate_binding')
     output.mkdir(parents=True,exist_ok=True)
     source=(SOURCE/'fm_synth.h').read_text();header=source
@@ -155,6 +156,8 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
    s->initialized=1;continue;
   }
 '''+anchor)
+    from control_outputs import extend_control_outputs
+    header,load,render=extend_control_outputs(header,load,render)
     delay=(SOURCE/'fm_delay.inc').read_text()
     start=delay.index('int fm_bind_delay(');end=delay.index('static float delay_feedback',start)
     original=delay[start:end]
@@ -266,6 +269,7 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
         already_bound=set(binding_counts)
         files,qualified=prepare_qualified(files,smooth=not candidate_smooth,banks=not candidate_core,
             binding_families=[name for name in QUALIFIED_BINDINGS if name not in already_bound])
+    if candidate_saw or candidate_impulse:files=prepare_oscillators(files,saw=candidate_saw,impulse=candidate_impulse)
     header,load,files=prepare_tdelay(header,load,files)
     if reuse_buffers:
         header,load,files=prepare_signals(header,load,files,min(int(limits['FM_OUTPUTS'][1]),192))
@@ -284,7 +288,8 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
     manifest={'profile':profile,'changes':{name:{'upstream':old,'target':new} for name,(old,new) in limits.items()},
               'qualified_kernels':{'enabled':qualified_kernels,**qualified},
               'qualified_kernels_source_sha256':hashlib.sha256((ROOT/'host/qualified_kernels.py').read_bytes()).hexdigest(),
-              'candidate_kernels':{'smooth':candidate_smooth,'binary':candidate_binary,'noise':candidate_noise,'binding':candidate_binding,'routing':candidate_routing,'chaos':candidate_chaos,'core':candidate_core,'mix':candidate_mix,'production_default':False},
+              'candidate_kernels':{'smooth':candidate_smooth,'binary':candidate_binary,'noise':candidate_noise,'binding':candidate_binding,'routing':candidate_routing,'chaos':candidate_chaos,'core':candidate_core,'mix':candidate_mix,'saw':candidate_saw,'impulse':candidate_impulse,'production_default':False},
+              'candidate_oscillators_source_sha256':hashlib.sha256((ROOT/'host/dsp_oscillators.py').read_bytes()).hexdigest(),
               'candidate_mix_source_sha256':hashlib.sha256((ROOT/'host/dsp_mix.py').read_bytes()).hexdigest(),
               'candidate_core_source_sha256':hashlib.sha256((ROOT/'host/dsp_core.py').read_bytes()).hexdigest(),
               'candidate_chaos_source_sha256':hashlib.sha256((ROOT/'host/dsp_chaos_cache.py').read_bytes()).hexdigest(),
@@ -302,7 +307,7 @@ def generate(output, profile='compact', optimize_kernels=True, optimize_miverb=T
               'signal_storage':'Loader-planned conservative audio lifetimes, independent scalar values; persistent logical IDs unchanged.' if reuse_buffers else 'Dedicated full vector for every logical output; comparison oracle.',
               'upstream_header_sha256':hashlib.sha256(source.encode()).hexdigest(),
               'target_header_sha256':hashlib.sha256(header.encode()).hexdigest(),
-              'control_bus_extension':'32 caller-owned snapshot channels via In.kr; existing In.ar unchanged; missing channels read zero, invalid ranges fault/reject.',
+              'control_bus_extension':'68 caller-owned snapshot channels via In.kr; 39 reserved Out.kr values at 3..41 for Voice PE physical LEDs; existing audio buses unchanged; missing inputs read zero; invalid ranges fault/reject.',
               'target_load_sha256':hashlib.sha256(load.encode()).hexdigest(),
               'dynamic_banks':'DynKlank/DynKlang expand to Ringz/SinOsc; mixed-rate parameter inputs accepted with the existing SC sampling semantics; Ringz excitation rate remains checked.',
               'trigger_delay_extension':'TDelay.ar/kr: SC positive-edge/countdown semantics; duration sampled at block start and latched on trigger; pending/output-tick triggers ignored; min one tick; checked signed-32-bit range; no delay arena.',
@@ -339,5 +344,7 @@ if __name__=='__main__':
     parser.add_argument('--candidate-chaos',action='store_true',help='Opt-in, not hardware-qualified')
     parser.add_argument('--candidate-core',action='store_true',help='Opt-in, not hardware-qualified')
     parser.add_argument('--candidate-mix',action='store_true',help='Experimental exact Sum3/Sum4/Pan2 pointer and rate specialisation')
+    parser.add_argument('--candidate-saw',action='store_true',help='Experimental exact Saw setup cache and steady/crossfade loops')
+    parser.add_argument('--candidate-impulse',action='store_true',help='Experimental exact Impulse frequency-rate loops')
     parser.add_argument('--binding-families',help='Optional comma-separated binding entry points')
-    args=parser.parse_args();generate(args.output,args.profile,candidate_smooth=args.candidate_smooth,candidate_binary=args.candidate_binary,candidate_noise=args.candidate_noise,candidate_binding=args.candidate_binding,candidate_routing=args.candidate_routing,candidate_chaos=args.candidate_chaos,candidate_core=args.candidate_core,candidate_mix=args.candidate_mix,binding_families=args.binding_families.split(',') if args.binding_families else None,qualified_kernels=args.qualified_kernels)
+    args=parser.parse_args();generate(args.output,args.profile,candidate_smooth=args.candidate_smooth,candidate_binary=args.candidate_binary,candidate_noise=args.candidate_noise,candidate_binding=args.candidate_binding,candidate_routing=args.candidate_routing,candidate_chaos=args.candidate_chaos,candidate_core=args.candidate_core,candidate_mix=args.candidate_mix,candidate_saw=args.candidate_saw,candidate_impulse=args.candidate_impulse,binding_families=args.binding_families.split(',') if args.binding_families else None,qualified_kernels=args.qualified_kernels)

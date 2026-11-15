@@ -1,12 +1,31 @@
-# SynthDefs for ESP32-S3 Touch AMOLED 1.8
+# ESP32-S3 SynthDef
 
-Run compiled SuperCollider sounds on a **Waveshare ESP32-S3-Touch-AMOLED-1.8 V2**.
+Run compiled SuperCollider sounds on an ESP32-S3 instrument.
 The computer compiles the code; the ESP32 makes the sound. Upload from the local
 browser tool or directly from the SuperCollider IDE over USB or Wi-Fi.
+
+| Device | Audio rate | Interface |
+| --- | --- | --- |
+| Waveshare Touch AMOLED 1.8 V2 | 44.1 kHz | Source display, touch and onboard audio |
+| Seeed XIAO ESP32-S3 | 44.1 kHz | Headless, external I²S DAC/amp |
+| Nabu Casa Home Assistant Voice PE | 48 kHz; optional native 16 kHz pair | Built-in speaker, dial, button and RGB LED buses; experimental port |
 
 For the **headless Seeed XIAO ESP32-S3**, use the separate
 [headless build and quickstart](docs/HEADLESS.md). Headless audio has been tested
 on hardware with the [NS4168 I²S speaker amp](docs/HEADLESS.md#ns4168-i2s-dac-and-speaker-amplifier).
+
+An [experimental Nabu Casa Voice PE port](ports/voice_pe/README.md) now runs the
+shared Main/FX application at **48 kHz**, with verified Studio USB upload/readback,
+stereo PCM capture and scheduled control events. Its [physical bus map](ports/voice_pe/CONTROLS.md)
+uses button/dial/mute 0–2, LED RGB 3–38 and all-LED RGB 39–41; Grove starts at 42
+and remains reserved. Speaker listening, physical controls and cold restart pass.
+Studio offers a guarded [48 kHz firmware installation/update option](docs/STUDIO.md#voice-pe-installation-and-recovery)
+with recovery backups. The [native 16 kHz build](ports/voice_pe/NATIVE_16K.md)
+also passes on-board Function/SynthDef/Pbind, pitch, delay, Main/FX and listening
+checks. It needs matching custom XMOS firmware; it is not a runtime sample-rate
+switch. Twelve-Saw audio averaged 37.2% CPU in a short native-16k observation,
+not a general performance guarantee. Fresh Voice PE installations remain 48 kHz;
+Voice PE Wi-Fi, jack output and Grove sensors still need qualification.
 
 Each module has **one Main definition, one master FX definition, and FX bypass**.
 Use continuous sound Functions, literal SynthDefs, named controls and routed
@@ -27,8 +46,9 @@ these are layout renders, not live hardware captures.*
 
 Use the **V2 board with 16 MB flash, 8 MB PSRAM and a connected speaker**. For a
 board that does not yet run this firmware, follow [Build and flash](docs/BUILD.md)
-first. The XIAO uses its own 8 MB headless build; other boards require a suitable
-hardware adapter and build configuration.
+first. The XIAO uses its own 8 MB headless build. For Voice PE, use its
+[board-specific build, guarded installer and recovery guide](ports/voice_pe/README.md);
+the generic Waveshare/XIAO flash commands do not apply.
 
 After installing each new module, use the [standard audio check](docs/COMMISSIONING.md)
 to verify autonomous sound with the separate master FX slot bypassed.
@@ -80,7 +100,8 @@ The browser's sound-block workflow starts this sound without touch input. Use
 viewer; editing and compilation happen on the host.
 
 Studio's **Output volume** slider adjusts the connected module from 0–100%;
-release it to save the level across reboots. Fresh firmware defaults to 20%.
+release it to save the level across reboots. Fresh Waveshare/XIAO firmware defaults to 20%; Voice PE has its own documented
+first-upgrade/commissioning volume policy.
 The same slider works with the headless XIAO over USB or paired Wi-Fi.
 The **Audio resources** panel shows live average/peak audio CPU load and free
 RAM from USB diagnostics. Wi-Fi-only readings are currently unavailable;

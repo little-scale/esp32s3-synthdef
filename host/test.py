@@ -22,7 +22,7 @@ run = subprocess.run([str(build/'instrument-test'), str(ROOT/'examples/gated-sin
                       str(build/'gated-sine.pcm'), str(ROOT/'examples/touch-sine.scsyndef')], text=True, capture_output=True, check=True, timeout=30)
 print(run.stdout.strip())
 report = {'test': 'portable instrument adapter', 'result': 'passed', 'hardware': False,
-          'sample_rates': [44100, 48000], 'seed': 0, 'factory_patch_sha256':
+          'sample_rates': [16000, 44100, 48000], 'seed': 0, 'factory_patch_sha256':
           hashlib.sha256((ROOT/'examples/gated-sine.scsyndef').read_bytes()).hexdigest(),
           'compiler': subprocess.check_output(['cc', '--version'], text=True).splitlines()[0],
           'sanitizers': ['undefined', 'bounds', 'float-cast-overflow'], 'details': run.stdout.strip(),

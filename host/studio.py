@@ -127,6 +127,10 @@ def slot_number(value):
 
 def check_graph_limits(info, hello):
     """Reject an expanded graph before transfer to an older/smaller firmware."""
+    if info.get('requires_control_outputs'):
+        outputs=hello.get('control_outputs')
+        if not isinstance(outputs,dict) or outputs.get('base')!=3 or outputs.get('count')!=39:
+            raise Problem('This graph writes LED buses; connect a Voice PE with control-output firmware')
     limits=hello.get('graph_limits')
     if limits is None:
         if hello.get('policy')!='fm1-compat-v1':return
@@ -140,6 +144,22 @@ def check_graph_limits(info, hello):
             raise Problem(f'This graph needs {info[key]} {key}; connected firmware allows {maximum}. Update the firmware or simplify the graph.')
 
 
+def admission_for_device(info, hello):
+    """Select immutable compile-once resource checks for each recipient's rate."""
+    rate = hello.get('rate', 44100)
+    if type(rate) is not int or rate not in (16000, 44100, 48000):
+        raise Problem('Device reported an unsupported audio rate')
+    rates = info.get('admission_rates')
+    if rates is None:
+        if rate != 44100:
+            raise Problem('Recompile this patch for the device sample-rate resource checks before uploading')
+        return info
+    row = rates.get(str(rate))
+    if not isinstance(row, dict):
+        raise Problem('Missing resource checks for the device audio rate; recompile the patch')
+    return row
+
+
 class Compiler:
     def __init__(self, sclang):
         self.sclang = Path(sclang)
@@ -151,7 +171,8 @@ class Compiler:
         component = ROOT / 'firmware/components/patches'
         files = [*sorted(source.iterdir()), component/'patch_format.c',
                  *sorted((component/'include').glob('*.h')),
-                 ROOT/'firmware/components/instrument/include/playback_mode.h', ROOT/'host/studio_probe.c']
+                 ROOT/'firmware/components/instrument/include/playback_mode.h',
+                 ROOT/'firmware/components/instrument/include/synthdef_rate.h', ROOT/'host/studio_probe.c']
         digest = hashlib.sha256(b''.join(p.read_bytes() for p in files)).hexdigest()
         binary, stamp = build/'inspect', build/'inspect.sha256'
         if not binary.exists() or not stamp.exists() or stamp.read_text() != digest:
@@ -222,6 +243,10 @@ class Compiler:
                     raise Problem('Unsupported or invalid SynthDef: '+error)
                 info['name'] = bytes.fromhex(info.pop('name_hex')).decode('utf-8', errors='replace')
                 master_error=bytes.fromhex(info.pop('master_error_hex')).decode('utf-8',errors='replace')
+                for row in info.get('admission_rates', {}).values():
+                    row['admission_error'] = bytes.fromhex(row.pop('error_hex')).decode('utf-8', errors='replace')
+                    row['master_error'] = bytes.fromhex(row.pop('master_error_hex')).decode('utf-8', errors='replace')
+                info['master_error'] = master_error
                 info['definition']=bool(definition)
                 info.update(target=target,admitted=info['master_admitted'] if target=='master' else info['fm1_admitted'])
                 if target=='master':error=master_error
@@ -314,13 +339,17 @@ class Studio:
 
     def config(self):
         ports, serial_ready = self.ports()
+        native_voice = bool(self.device and self.device_port and self.device_info and
+            self.device_info.get('model') == 'Home Assistant Voice PE' and
+            self.device_info.get('output_rate', self.device_info.get('rate')) == 16000)
         return dict(ports=[{key: row[key] for key in ('port', 'name', 'esp32')} for row in ports],
             serial_ready=serial_ready,
             compiler_ready=self.compiler.sclang.is_file(),
             connected=self.device is not None,
             module_groups=True,
             module_identify=True,
-            firmware_targets=[dict(id=key, label=target.label) for key, target in firmware_upload.TARGETS.items()],
+            firmware_targets=[dict(id=key, label=target.label) for key, target in firmware_upload.TARGETS.items()
+                if (target.native16 == native_voice if target.voice_pe else True)],
             paired_devices=self.pairings.public(),
             example=(ROOT/'examples/main-patch.scd').read_text(),master_example=(ROOT/'examples/master-fx.scd').read_text(),
             pattern_example=(ROOT/'examples/standalone-pattern.scd').read_text())
@@ -337,11 +366,24 @@ class Studio:
         board = payload.get('board')
         row = self.firmware_port(payload.get('port'))
         image = firmware_upload.load_image(board)
+        if image.target.voice_pe and self.device_port==row['port'] and self.device_info and self.device_info.get('model')!='Home Assistant Voice PE':
+            raise Problem('The connected module is not a Voice PE. Choose its exact board model.',409)
+        if image.target.voice_pe and self.device_port==row['port'] and self.device_info:
+            output_rate=self.device_info.get('output_rate',self.device_info.get('rate'))
+            if output_rate in (16000,48000) and output_rate!=image.target.rate:
+                raise Problem(f'This Voice PE uses {output_rate} Hz audio. Choose its matching ESP firmware; changing rate also requires the corresponding XMOS firmware.',409)
+        if image.target.native16 and not (self.device and self.device_port==row['port'] and
+                self.device_info and self.device_info.get('model')=='Home Assistant Voice PE' and
+                self.device_info.get('output_rate',self.device_info.get('rate'))==16000):
+            raise Problem('Connect the already commissioned native 16 kHz Voice PE before updating its ESP firmware. First installation requires the paired XMOS/ESP procedure.',409)
         python = firmware_upload.programmer_python()
         plan = secrets.token_urlsafe(24)
         self.firmware_plan = (plan, board, row, image.signature, python, time.monotonic() + 180)
         return dict(plan=plan, board=image.target.label, port=row['port'],
-                    folder='firmware/' + image.target.folder, app_sha256=image.app_hash)
+                    folder='firmware/' + image.target.folder, app_sha256=image.app_hash,
+                    rate=image.target.rate,voice_pe=image.target.voice_pe,
+                    output_rate=image.target.rate,
+                    notes=(('EXPERIMENTAL NATIVE 16 kHz: install the matching custom XMOS firmware first. This ESP upload does not update XMOS. Stock 48 kHz XMOS clocks will keep audio muted. ' if image.target.native16 else '') + ('Voice PE: preserves the ESP bootloader, settings and XMOS firmware. First installation creates a verified private ESP flash backup before replacing stock firmware and creating patch storage; this can take several minutes. Updates preserve patches. The first upgrade from the quiet codec profile starts at no more than 5% volume; later volume settings are retained.' if image.target.voice_pe else 'Flashing replaces the board’s firmware and restarts it.')))
 
     def flash_firmware(self, payload):
         token = payload.get('plan')
@@ -364,7 +406,7 @@ class Studio:
         try:
             log = firmware_upload.write_image(python, image, port, row['usb_id'][2])
         except subprocess.TimeoutExpired as error:
-            raise Problem('Flashing timed out. Reconnect the board in download mode and review the firmware again.', 409) from error
+            raise Problem('Flashing timed out. Reconnect the board and inspect the flash log and recovery backup before retrying.', 409) from error
         except OSError as error:
             raise Problem(f'Could not start the firmware programmer. {error}', 409) from error
         return dict(board=image.target.label, port=port, log=log)
@@ -477,7 +519,7 @@ class Studio:
         if self.volume_value(self.device.request('VOLUME'))!=0:
             raise Problem('Mute the module before UGen profiling',409)
         from profile_ugens import collect
-        try:result=collect(self.device,fixed=fixed)
+        try:result=collect(self.device,fixed=fixed,expected_rate=self.device_info.get('rate',44100))
         except (AssertionError,KeyError,ValueError) as error:
             raise Problem('Profiler output failed validation; check the diagnostic firmware and result before retrying',409) from error
         return dict(device_id=self.device_info['device_id'],**result)
@@ -708,7 +750,8 @@ class Studio:
             try:pcm,info=capture(Connection(),seconds)
             except (OSError,TimeoutError) as error:
                 raise Problem('Capture connection failed: '+str(error)+'. Check the module connection before retrying.',409) from error
-        return dict(rate=info['rate'],channels=2,frames=info['frames'],format='s16le',data=base64.b64encode(pcm).decode('ascii'))
+        return dict(rate=info['rate'],channels=2,frames=info['frames'],format='s16le',data=base64.b64encode(pcm).decode('ascii'),
+                    **{key:info[key] for key in ('output_rate','source','startup_ws_hz','startup_bclk_hz') if key in info})
 
     def read_active(self, slot=None,master=False):
         d=self.connected()
@@ -759,9 +802,11 @@ class Studio:
             raise Problem('Update device firmware for standalone pattern programs before uploading Main')
         check_graph_limits(artifact.info,self.device_info)
         if master and self.device_info.get('master_slots')!=2:raise Problem('Update firmware to use the master slots')
-        if master and not artifact.info.get('master_admitted'):raise Problem(artifact.info['admission_error'])
-        if not master and self.device_info['policy'] == 'fm1-compat-v1' and not artifact.info['fm1_admitted']:
-            raise Problem('This graph cannot be used as an instrument: '+artifact.info['admission_error'])
+        admission=admission_for_device(artifact.info,self.device_info)
+        if master and not admission.get('master_admitted'):
+            raise Problem(admission.get('master_error',artifact.info['admission_error']))
+        if not master and self.device_info['policy'] == 'fm1-compat-v1' and not admission['fm1_admitted']:
+            raise Problem('This graph cannot be used as an instrument: '+admission['admission_error'])
         if artifact.info.get('definition') and not self.device_info.get('definition_lifecycle'):raise Problem('Update device firmware to support definition-only uploads')
         if artifact.info.get('continuous') and not self.device_info.get('continuous_blocks'):
             raise Problem('This sound block needs firmware with continuous playback support. Update the device firmware first.')

@@ -98,7 +98,10 @@ internal_sine='CONFIG_SYNTHDEF_INTERNAL_SINE=y' in config
 internal_adapter='CONFIG_SYNTHDEF_INTERNAL_ADAPTER=y' in config
 adapter_hot=['instrument_apply','instrument_apply_batch','instrument_render','instrument_pcm']
 adapter_hot+=['instrument_render_stereo','master_delay_render','master_delay_set']
-if 'CONFIG_SYNTHDEF_HEADLESS=y' in config:adapter_hot.append('instrument_pcm_stereo')
+if 'CONFIG_SYNTHDEF_NO_DISPLAY=y' in config:adapter_hot.append('instrument_pcm_stereo')
+if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config:
+    # Diagnostics are intentionally excluded; unused mono wrappers are removed.
+    adapter_hot=[name for name in adapter_hot if name not in ('instrument_render','instrument_pcm')]
 assert all(name in symbols for name in adapter_hot)
 if internal_adapter:
     assert all(0x40370000<=symbols[name]['address']<0x403e0000 for name in adapter_hot),'Audio adapter escaped internal instruction RAM'
@@ -128,8 +131,12 @@ report = {
     'idf_commit': subprocess.check_output(['git', '-C', str(idf_path), 'rev-parse', 'HEAD'], text=True).strip(),
     'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
     'target': 'esp32s3',
-    'board_revision': 'XIAO ESP32-S3 (headless profile)' if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 'V2 (user confirmed; not physically probed)',
-    'output_channels': 2 if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 1,
+    'sample_rate': (16000 if any(flag in config for flag in ('CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE=y','CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y')) else 48000) if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config else 44100,
+    'output_sample_rate':(16000 if 'CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y' in config else 48000) if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config else 44100,
+    'native_16k_requires_matching_xmos':'CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y' in config,
+    'output_converter':'63-tap 3-phase FIR, 16k DSP to 48k wire' if 'CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE=y' in config else 'none',
+    'board_revision': 'Nabu Casa Voice PE (experimental)' if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config else 'XIAO ESP32-S3 (headless profile)' if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 'V2 (user confirmed; not physically probed)',
+    'output_channels': 2 if any(flag in config for flag in ('CONFIG_SYNTHDEF_HEADLESS=y','CONFIG_SYNTHDEF_VOICE_PE=y')) else 1,
     'compiled_loader_types_checked_in_target_object': len(capabilities['compiled_types']),
     'engine_compile_options_verified': verified, 'target_structure_sizes': sizes,
     'engine_fixed_allocation_bytes': 4*sizes['graph_bytes']+2*sizes['voice_bytes']+sizes['scratch_bytes'],
@@ -165,7 +172,7 @@ report = {
     'app_bytes': app.stat().st_size,
     'sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in
                [app, BUILD/'bootloader/bootloader.bin', BUILD/'partition_table/partition-table.bin',
-                config_path, ROOT/('host/xiao.defaults' if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 'firmware/sdkconfig.defaults'),
+                config_path, ROOT/('host/voice_pe.defaults' if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config else 'host/xiao.defaults' if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 'firmware/sdkconfig.defaults'),
                 ROOT/'firmware'/re.search(r'^CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="([^"]+)"$',config,re.M)[1],
                 ROOT/'firmware/dependencies.lock']},
     'runtime_heap_and_clocks': 'see runtime logs; actual clocks still require external measurement',

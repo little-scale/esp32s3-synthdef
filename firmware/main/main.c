@@ -19,8 +19,11 @@
 #include "esp_random.h"
 #include "board_audio.h"
 #include "usb_console.h"
-#ifdef CONFIG_SYNTHDEF_HEADLESS
+#ifdef CONFIG_SYNTHDEF_NO_DISPLAY
 #include "headless_io.h"
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+#include "voice_pe_controls.h"
+#endif
 #endif
 #include "instrument.h"
 #include "remote_control.h"
@@ -38,7 +41,8 @@
 #include "generated.h"
 #include "diagnostics.h"
 
-#define SAMPLE_RATE 44100u
+#include "synthdef_rate.h"
+#define SAMPLE_RATE SYNTHDEF_SAMPLE_RATE
 #define EVENT_CAPACITY 16
 #define AUDIO_STACK_BYTES 16384
 #define CONTROL_STACK_BYTES 16384
@@ -58,6 +62,13 @@ static struct {rc_event event;unsigned info,stage,page;int result;rc_status stat
 static bool remote_failed;
 static StaticTask_t audio_task_state,console_task_state;
 static master_delay delay_bus;
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+static float physical_buses[FM_CONTROL_BUSES]={[VPE_BUS_DIAL]=.5f};
+#define SHARED_CONTROL_BUSES physical_buses
+#else
+#define SHARED_CONTROL_BUSES synth.buses
+#endif
+
 static atomic_uint effect_words[3],effect_dirty;
 static atomic_bool effect_clear_needed,effect_save_requested;
 static bool effect_maintenance_fault;
@@ -94,6 +105,9 @@ static int initialize_synth_mode(fm_graph *graph,fm_voice *voice,fm_scratch *scr
     float *arena=internal?synth_fast_arena:synth_arena;
     uint32_t capacity=internal?synth_fast_samples:synth_arena_samples;
     int ok=instrument_init_definition(&synth,graph,voice,scratch,arena,capacity,SAMPLE_RATE,managed);
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+    synth.input_buses=physical_buses;synth.input_bus_count=FM_CONTROL_BUSES;
+#endif
     synth.clock_us=audio_clock_us;
     synth.defer_note_render=1;
     if(ok){
@@ -113,8 +127,7 @@ static int initialize_synth(fm_graph *g,fm_voice *v,fm_scratch *b)
 static int initialize_master_mode(fm_graph *graph,bool define)
 {
     fm_voice *voice=delay_bus.voice;float *arena=delay_bus.arena;
-    int ok=define?master_effect_define(&delay_bus,graph,voice,arena,MASTER_DELAY_SAMPLES,SAMPLE_RATE,synth.scratch):
-        master_effect_init(&delay_bus,graph,voice,arena,MASTER_DELAY_SAMPLES,SAMPLE_RATE,synth.scratch);
+    int ok=master_effect_init_buses(&delay_bus,graph,voice,arena,MASTER_DELAY_SAMPLES,SAMPLE_RATE,synth.scratch,SHARED_CONTROL_BUSES,FM_CONTROL_BUSES,define);
     if(ok){for(unsigned k=0;k<3;++k){uint32_t bits;memcpy(&bits,&delay_bus.value[k],sizeof bits);atomic_store(&effect_words[k],bits);}atomic_store(&effect_dirty,0);}
     if(ok && remote)rc_bind(remote,1,graph,voice);
     return ok;
@@ -216,7 +229,8 @@ static void audio_task(void *unused)
     bool fade_up_pending=false;
     audio_transition transition;audio_transition_init(&transition,SAMPLE_RATE);
     const unsigned fade_blocks=(transition.frames+FM_BLOCK-1)/FM_BLOCK;
-    const unsigned drain_blocks=12; /* Six 128-frame DMA buffers, 64-frame renders. */
+    const unsigned output_ratio=SYNTHDEF_OUTPUT_SAMPLE_RATE/SAMPLE_RATE;
+    const unsigned drain_blocks=(6*128+FM_BLOCK*output_ratio-1)/(FM_BLOCK*output_ratio);
     output_volume volume;output_volume_init(&volume,atomic_load(&volume_percent),SAMPLE_RATE);
     identify_tone identify = {0};
     uint64_t faults_base=0,clips_base=0,nonfinite_base=0,rejected_base=0;
@@ -308,17 +322,37 @@ static void audio_task(void *unused)
             instrument_apply_batch(&synth, pending, count);
             if(synth.preparation_max_us>stats.prep_max_us)stats.prep_max_us=synth.preparation_max_us;
         }
-#ifdef CONFIG_SYNTHDEF_HEADLESS
+#ifdef CONFIG_SYNTHDEF_NO_DISPLAY
         float physical[3];headless_io_values(physical);
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+        physical_buses[VPE_BUS_DIAL]=physical[0];physical_buses[VPE_BUS_MIC_MUTE]=physical[1];physical_buses[VPE_BUS_BUTTON]=physical[2];
+#else
         for(unsigned i=0;i<3;++i)synth.buses[8+i]=physical[i];
+#endif
 #endif
         if(!parking)rc_tick(remote,&synth,audio_clock_us());
         int64_t render_begin = esp_timer_get_time();
         float dry[FM_BLOCK*2],effected[FM_BLOCK*2];
         uint64_t prior_blocks=synth.voice->blocks;
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+        /* Wrappers can suppress rendering, so clear stale physical outputs
+         * even when fm_render_input is not called for an inactive graph. */
+        memset(synth.voice->control_outputs,0,sizeof synth.voice->control_outputs);synth.voice->control_output_mask=0;
+        memset(delay_bus.voice->control_outputs,0,sizeof delay_bus.voice->control_outputs);delay_bus.voice->control_output_mask=0;
+#endif
         instrument_render_stereo(&synth,dry);
         uint64_t effect_begin=audio_clock_us();
         master_delay_render(&delay_bus,synth.scratch,dry,effected);
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+        float leds[VPE_LED_CHANNELS];
+        vpe_led_resolve(synth.voice->control_outputs,synth.voice->control_output_mask,
+                       delay_bus.voice->control_outputs,delay_bus.voice->control_output_mask,leds);
+        memcpy(physical_buses+VPE_BUS_LED_BASE,leds,sizeof leds); /* Next-block readback. */
+        static unsigned led_frames;
+        led_frames+=FM_BLOCK;
+        if(led_frames>=SAMPLE_RATE/50){headless_io_led_values(leds);led_frames=0;}
+
+#endif
         uint32_t effect_us=(uint32_t)(audio_clock_us()-effect_begin);
         if(effect_us>stats.effect_max_us)stats.effect_max_us=effect_us;
         uint64_t pcm_begin=audio_clock_us();
@@ -327,7 +361,7 @@ static void audio_task(void *unused)
         }
         audio_transition_apply(&transition,effected);
         atomic_store_explicit(&observed_seed,synth.seed_active,memory_order_relaxed);
-#ifdef CONFIG_SYNTHDEF_HEADLESS
+#if BOARD_AUDIO_CHANNELS == 2
         output_volume_pcm_stereo(&volume,atomic_load_explicit(&volume_percent,memory_order_relaxed),effected,mono,synth.master_gain,&synth.nonfinite,&synth.clipped);
 #else
         output_volume_pcm(&volume,atomic_load_explicit(&volume_percent,memory_order_relaxed),effected,mono,synth.master_gain,&synth.nonfinite,&synth.clipped);
@@ -345,6 +379,13 @@ static void audio_task(void *unused)
         if(!synth.voice->active && stats.pcm_peak>4)++stats.effect_tail_blocks;
         uint32_t render_us = (uint32_t)(esp_timer_get_time() - render_begin);
         uint32_t combined_us = (uint32_t)(esp_timer_get_time() - begin);
+        size_t written = 0;
+        int64_t write_begin = esp_timer_get_time();
+        esp_err_t err = board_audio_write(mono, FM_BLOCK, &written);
+        uint32_t write_us = (uint32_t)(esp_timer_get_time() - write_begin);
+        uint32_t conversion_us=board_audio_processing_us();
+        render_us+=conversion_us;combined_us+=conversion_us;synth.pcm_us+=conversion_us;
+        if (write_us > stats.write_max_us) stats.write_max_us = write_us;
         window_busy_us+=combined_us;++window_blocks;
         if(combined_us>window_peak_us)window_peak_us=combined_us;
         if (render_us > stats.render_max_us) stats.render_max_us = render_us;
@@ -366,11 +407,6 @@ static void audio_task(void *unused)
         }
         if(over_budget)++stats.profile_budget;
 #endif
-        size_t written = 0;
-        int64_t write_begin = esp_timer_get_time();
-        esp_err_t err = board_audio_write(mono, FM_BLOCK, &written);
-        uint32_t write_us = (uint32_t)(esp_timer_get_time() - write_begin);
-        if (write_us > stats.write_max_us) stats.write_max_us = write_us;
         if (err != ESP_OK || written != sizeof mono) {
             if (err != ESP_OK) ++stats.write_failures;
             if (written != sizeof mono) ++stats.partial_writes;
@@ -397,7 +433,7 @@ static void audio_task(void *unused)
         stats.frame += FM_BLOCK;
         if (stats.frame >= next_snapshot) {
             stats.faults = faults_base+synth.faults+delay_bus.faults;
-            stats.clips = clips_base+synth.clipped; stats.nonfinite = nonfinite_base+synth.nonfinite;
+            stats.clips = clips_base+synth.clipped+board_audio_conversion_clips(); stats.nonfinite = nonfinite_base+synth.nonfinite;
             stats.rejected = rejected_base+synth.rejected; stats.active = synth.voice->active;
             stats.current_fault=synth.voice->fault || delay_bus.voice->fault;
             memcpy(stats.effect_value,delay_bus.value,sizeof stats.effect_value);
@@ -633,9 +669,10 @@ static void console_task(void *unused)
     uint32_t note = 0;
     char frame[PATCH_FRAME_BYTES];size_t frame_size=0;bool framing=false,discard=false;
     for (;;) {
+        board_audio_maintenance();
         patches_tick();
         device_network_tick();
-#ifdef CONFIG_SYNTHDEF_HEADLESS
+#ifdef CONFIG_SYNTHDEF_NO_DISPLAY
         headless_io_poll();
         device_network_status network;device_network_snapshot(&network);board_audio_activity(network.receiving || atomic_load(&identifying));
 #endif
@@ -795,6 +832,7 @@ static patch_program_usage program_usage(void)
 
 void app_main(void)
 {
+    ESP_ERROR_CHECK(board_audio_early_init());
     ESP_ERROR_CHECK(usb_console_init());
     const esp_app_desc_t *app = esp_app_get_description();
     uint32_t flash_bytes = 0;
@@ -871,7 +909,7 @@ void app_main(void)
         ESP_LOGE(TAG, "Factory patch admission failed"); return;
     }
     if(!fm_load(effect_graph,master_bypass_patch,sizeof master_bypass_patch,error,sizeof error) ||
-       !master_effect_init(&delay_bus,effect_graph,effect_voice,effect_arena,MASTER_DELAY_SAMPLES,SAMPLE_RATE,scratch)) {
+       !master_effect_init_buses(&delay_bus,effect_graph,effect_voice,effect_arena,MASTER_DELAY_SAMPLES,SAMPLE_RATE,scratch,SHARED_CONTROL_BUSES,FM_CONTROL_BUSES,false)) {
         ESP_LOGE(TAG,"Master delay admission/start failed: %s",error);return;
     }
     ESP_LOGI(TAG,"Master output graph=%s nodes=%u arena_bytes=%u storage=PSRAM default=Bypass",effect_graph->name,effect_graph->nodes,(unsigned)(MASTER_DELAY_SAMPLES*sizeof(float)));
@@ -899,6 +937,39 @@ void app_main(void)
         if(nvs_get_u8(effect_store,"volume",&volume_value)==ESP_OK && volume_value<=100){saved_volume=volume_value;atomic_store(&volume_percent,volume_value);}
         nvs_close(effect_store);
     }
+#ifdef CONFIG_SYNTHDEF_VOICE_PE
+    /* One-time transition from the commissioning DAC attenuation. This runs
+     * before codec/DMA enable, including restored autoplay blocks. */
+    nvs_handle_t gain_store;uint8_t acknowledged=0;
+    bool gain_store_open=nvs_open("wsynthfx",NVS_READWRITE,&gain_store)==ESP_OK;
+    if(gain_store_open)nvs_get_u8(gain_store,"vpe_unity",&acknowledged);
+    unsigned old_volume=atomic_load(&volume_percent);
+    unsigned safe_volume=vpe_startup_volume(old_volume,acknowledged==1);
+    atomic_store(&volume_percent,safe_volume);
+    if(acknowledged!=1){
+        bool saved=gain_store_open && nvs_set_u8(gain_store,"volume",(uint8_t)safe_volume)==ESP_OK &&
+            nvs_set_u8(gain_store,"vpe_unity",1)==ESP_OK && nvs_commit(gain_store)==ESP_OK;
+        if(saved)saved_volume=safe_volume;
+        ESP_LOGW(TAG,"Voice PE unity DAC profile: initial volume %u%% -> %u%%; saved=%d",old_volume,safe_volume,saved);
+    }
+    if(gain_store_open)nvs_close(gain_store);
+#ifdef CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K
+    /* The first activation of the experimental clock/rate pair starts muted.
+     * Commit this once before restoring autoplay or enabling codec DMA; later
+     * boots preserve the user's chosen volume exactly as the 48k profile does. */
+    nvs_handle_t rate_store;uint8_t rate_acknowledged=0;
+    bool rate_store_open=nvs_open("wsynthfx",NVS_READWRITE,&rate_store)==ESP_OK;
+    if(rate_store_open)nvs_get_u8(rate_store,"vpe_16k",&rate_acknowledged);
+    if(rate_acknowledged!=1){
+        atomic_store(&volume_percent,0);
+        bool saved=rate_store_open && nvs_set_u8(rate_store,"volume",0)==ESP_OK &&
+            nvs_set_u8(rate_store,"vpe_16k",1)==ESP_OK && nvs_commit(rate_store)==ESP_OK;
+        if(saved)saved_volume=0;
+        ESP_LOGW(TAG,"First native 16k activation starts muted; saved=%d",saved);
+    }
+    if(rate_store_open)nvs_close(rate_store);
+#endif
+#endif
     for(unsigned k=0;k<3;++k) {float value[3];effect_values(value);master_delay_set(&delay_bus,k,value[k]);}
 #ifdef CONFIG_SYNTHDEF_TOUCH_UI
     touch_ui_actions actions={.post=send_event,.new_note=new_note,.panic=request_panic,.patch_action=patches_request,.master_action=patches_master_request,.volume=volume_post,.effect=effect_post,.effect_save=effect_save_request};
@@ -920,8 +991,12 @@ void app_main(void)
      * leave an already-running I2S channel without its producer. */
     if(!device_network_init(patches_exchange,service_pause))ESP_LOGE(TAG,"Network setup unavailable; USB retained");
     ESP_ERROR_CHECK(board_audio_init(SAMPLE_RATE));
-#ifdef CONFIG_SYNTHDEF_HEADLESS
-    ESP_ERROR_CHECK(headless_io_init());
+#ifdef CONFIG_SYNTHDEF_NO_DISPLAY
+    /* Voice PE's safe GPIO setup disables input pulls. Configure PCNT after
+     * that setup so its encoder pull-ups remain enabled. DMA contains zeros. */
+    esp_err_t input_error=headless_io_init();
+    if(input_error!=ESP_OK)board_audio_mute();
+    ESP_ERROR_CHECK(input_error);
 #endif
     ESP_LOGI(TAG, "Boots silent. Console: n note-on; o release; ! panic; +/- pitch; [/] amplitude");
     atomic_store(&audio_started,true);

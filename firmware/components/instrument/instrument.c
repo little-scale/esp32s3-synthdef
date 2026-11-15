@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "instrument.h"
 #include "playback_mode.h"
+#include "synthdef_rate.h"
 #include <math.h>
 #include <string.h>
 static const char *const knob_names[4] = {"knob1", "knob2", "knob3", "knob4"};
@@ -29,7 +30,7 @@ static int live_index(const fm_graph *g, const char *name)
 int instrument_init_definition(instrument *s, fm_graph *g, fm_voice *v, fm_scratch *scratch,
                     float *arena, uint32_t samples, uint32_t rate,int managed)
 {
-    if (!s || !g || !v || !scratch || (rate != 44100 && rate != 48000)) return 0;
+    if (!s || !g || !v || !scratch || !synthdef_rate_valid(rate)) return 0;
     int16_t indices[7];
     static const char *const names[]={"freq","amp","gate","knob1","knob2","knob3","knob4"};
     for(unsigned i=0;i<7;++i)indices[i]=(int16_t)live_index(g,names[i]);
@@ -101,7 +102,7 @@ static int start_controls(instrument *s,int fresh,const float *controls)
     s->buses[2]=0;
     if(controls)memcpy(s->voice->control,controls,sizeof s->voice->control);
     else if(!s->continuous && s->control_index[2]>=0)s->voice->control[s->control_index[2]]=0;
-    if(!fm_bind_control_buses(s->voice,s->buses,FM_CONTROL_BUSES))return 0;
+    if(!fm_bind_control_buses(s->voice,s->input_buses?s->input_buses:s->buses,s->input_buses?s->input_bus_count:FM_CONTROL_BUSES))return 0;
     s->preparing_memory=s->defer_note_render && s->arena_needed && !pristine;
     if(!s->preparing_memory){
         if(!(pristine?fm_bind_delay_precleared(s->voice,s->graph,s->arena,s->arena_samples):fm_bind_delay(s->voice,s->graph,s->arena,s->arena_samples)))return 0;
@@ -213,7 +214,7 @@ int instrument_apply(instrument *s, const inst_event *e)
         if(s->control_index[1]>=0)s->voice->control[s->control_index[1]]=s->amplitude;
         if(s->control_index[2]>=0)s->voice->control[s->control_index[2]]=1;
         s->buses[2]=1;
-        if(!fm_bind_control_buses(s->voice,s->buses,FM_CONTROL_BUSES))break;
+        if(!fm_bind_control_buses(s->voice,s->input_buses?s->input_buses:s->buses,s->input_buses?s->input_bus_count:FM_CONTROL_BUSES))break;
         for (unsigned k = 0; k < 4; ++k)
             if (s->knob_mask & (1u << k)) s->voice->control[s->control_index[3+k]]=s->knob[k];
         uint64_t controls_done=s->clock_us?s->clock_us():0;

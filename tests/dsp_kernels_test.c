@@ -22,6 +22,9 @@ static void normalize(fm_voice *v){
  /* Only new, otherwise-unused coefficient/input cache fields are ignored.
   * All recursive filter/envelope history, RNG, flags and arena stay compared. */
  for(unsigned i=0;i<graph.nodes;i++){
+#ifdef DSP_OSCILLATORS_COMPARISON
+  if(graph.node[i].type==FM_Saw){v->state[i].b1=0;v->state[i].total=0;}
+#endif
 #if defined(DSP_CORE_COMPARISON) || defined(DSP_ALL_CANDIDATES)
   unsigned type=graph.node[i].type;fm_state *s=&v->state[i];
   if(type==FM_Line || type==FM_XLine)s->freq=s->width=0;

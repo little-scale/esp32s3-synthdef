@@ -5,6 +5,11 @@ and operator checklist, including inherited paths and disabled experiments.
 Its editable JSON and generation/check command keep coverage explicit as the
 supported inventory changes. This page describes the latest implementation.
 
+The [15 November Saw/Impulse candidates](DSP_OSCILLATORS.md) add exact setup
+caches and specialised loops behind independent optional switches. Native
+regressions and the user's full twelve-voice patches are recorded there;
+the candidates remain disabled pending ESP32 timing and listening checks.
+
 The AMOLED and headless XIAO builds use the same generated DSP implementation.
 `host/engine_profile.py` applies audited transformations to the pinned engine;
 the vendored upstream files remain unchanged. These changes retain float32

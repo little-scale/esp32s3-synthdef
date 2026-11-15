@@ -156,8 +156,8 @@ ESP32 {
             definition=SynthDef(if(stage==\fx){\MasterFX}{\SoundBlock},{
                 var signal=SynthDef.wrap(function).asArray;
                 var mode=if(stage==\main and:{definitionOnly.not}){NamedControl.ir(\__esp32_autoplay,1)}{nil};
-                if(UGen.buildSynthDef.children.any{|u|u.isKindOf(AbstractOut)}){Error("Return audio from the Function; use a literal SynthDef for authored Out.ar routing.").throw};
-                if(signal.size<1 or:{signal.size>2}){Error("Return mono or stereo audio").throw};
+                if(UGen.buildSynthDef.children.any{|u|u.isKindOf(AbstractOut) and: { (u.class == Out and: { u.rate == \control }).not }}){Error("Out.kr is allowed inside a sound Function. Return its audio signal; use a literal SynthDef for authored Out.ar routing.").throw};
+                if(signal.size<1 or:{signal.size>2}){Error("Function returned "++signal.size++" channels. Return mono or stereo audio; use Mix.ar or Splay.ar to combine channels.").throw};
                 signal=signal.collect{|channel|if(channel.isNumber){DC.ar(channel)}{if(channel.rate==\audio){channel}{K2A.ar(channel)}}};
                 if(signal.size==1){signal=signal.dup(2).flat};Out.ar(0,signal)
             });

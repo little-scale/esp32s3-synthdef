@@ -46,6 +46,39 @@ class CompilerTests(unittest.TestCase):
         graph, source, _ = self.compiler.compile({'source': added})
         self.assertEqual(graph, GRAPH); self.assertEqual(source, added.encode())
 
+    def test_voice_pe_led_writers_compile_in_sound_and_fx_functions(self):
+        source='({ Out.kr(39, [0.1, 0.2, 0.3]); SinOsc.ar(220) * 0.01 }.play)'
+        _,raw,info=self.compiler.compile(dict(source=source))
+        self.assertEqual(raw.decode(),source)
+        self.assertTrue(info['requires_control_outputs'])
+        self.assertTrue(info['admission_rates']['48000']['fm1_admitted'])
+        _,_,info=self.compiler.compile(dict(source='{ Out.kr(3, [0, 0.1, 0]); In.ar(0, 2) }',target='master'))
+        self.assertTrue(info['requires_control_outputs'])
+        self.assertTrue(info['admission_rates']['48000']['master_admitted'])
+
+    def test_dust_decay_control_routing_and_multichannel_diagnostic(self):
+        body="""{
+            arg rate = 1, decay = 0.5;
+            var size = 4, env, sig;
+            env = Decay.kr(Dust.kr(rate!size), decay);
+            Out.kr(3, env);
+            sig = (SinOsc.ar((48 + (0..size)).midicps) * env) / size;
+        }"""
+        with self.assertRaisesRegex(RuntimeError,'got 5'):
+            self.compiler.compile(dict(source=body))
+        corrected=body.replace('(0..size)','(0..(size - 1))').replace(' / size;', ' / size; Splay.ar(sig);')
+        from synthdef_binary import decode
+        graph,_,info=self.compiler.compile(dict(source=corrected))
+        nodes=decode(graph)['nodes']
+        self.assertTrue(info['requires_control_outputs'])
+        self.assertTrue(info['admission_rates']['48000']['fm1_admitted'])
+        self.assertEqual(len([n for n in nodes if n[0]=='SinOsc']),4)
+        self.assertEqual(len([n for n in nodes if n[0]=='Decay']),4)
+        kr=[n for n in nodes if n[0]=='Out' and n[1]==1]
+        ar=[n for n in nodes if n[0]=='Out' and n[1]==2]
+        self.assertEqual(len(kr),1);self.assertEqual(len(kr[0][2]),5)
+        self.assertEqual(len(ar),1);self.assertEqual(len(ar[0][2]),3)
+
     def test_binary_import_does_not_claim_source_pairing(self):
         graph, source, info = self.compiler.compile({'graph': base64.b64encode(GRAPH).decode()})
         self.assertEqual(graph, GRAPH); self.assertEqual(source, b'')
@@ -81,6 +114,21 @@ class CompilerTests(unittest.TestCase):
         _, _, info = self.compiler.compile({'source': 'SynthDef(\\noGate, { Out.ar(0, SinOsc.ar(440)) });'})
         self.assertFalse(info['fm1_admitted'])
         self.assertIn('Missing live control', info['admission_error'])
+
+    def test_negative_lfpar_is_rejected_before_upload_in_sound_and_fx(self):
+        for target,source in (
+            ('sound','{ Splay.ar(Saw.ar([65,66,67,68]) * LFPar.kr(-0.005)) }'),
+            ('master','{ In.ar(0,2) * LFPar.kr(-0.005) }'),
+        ):
+            with self.subTest(target=target):
+                _,_,info=self.compiler.compile(dict(source=source,target=target))
+                self.assertFalse(info['admitted'])
+                self.assertIn('LFPar frequency must be in 0..',info['admission_error'])
+                for row in info['admission_rates'].values():
+                    self.assertFalse(row['master_admitted' if target=='master' else 'fm1_admitted'])
+        _,_,info=self.compiler.compile(dict(source='{ Splay.ar(Saw.ar([65,66,67,68]) * LFPar.kr(0.1, -0.02)) }'))
+        self.assertTrue(info['admitted'])
+        self.assertTrue(all(row['fm1_admitted'] for row in info['admission_rates'].values()))
 
     def test_dynamic_banks_compile_to_supported_kernels(self):
         cases=json.loads((ROOT/'tests/dynamic_bank_cases.json').read_text())
@@ -118,8 +166,9 @@ class CompilerTests(unittest.TestCase):
                 self.assertEqual(raw, source.encode()); self.assertTrue(info['fm1_admitted'])
 
     def test_sound_block_rejects_internal_outputs_and_too_many_channels(self):
-        for source in ('{ Out.ar(0,SinOsc.ar(220)) }.play', '{ SinOsc.ar([220,330,440]) }'):
-            with self.subTest(source=source), self.assertRaisesRegex(RuntimeError, 'Sound block must return'):
+        for source,message in (('{ Out.ar(0,SinOsc.ar(220)) }.play','Return its audio signal'),
+                               ('{ SinOsc.ar([220,330,440]) }','got 3')):
+            with self.subTest(source=source), self.assertRaisesRegex(RuntimeError, message):
                 self.compiler.compile({'source': source})
 
     def test_play_detection_ignores_comments_literals_and_characters(self):
@@ -409,6 +458,57 @@ class HTTPTests(unittest.TestCase):
             self.assertEqual(flash(plan)[0], 409)
             self.assertEqual(write.call_count, 1)
 
+    def test_voice_firmware_review_rejects_connected_other_model(self):
+        app=self.server.studio
+        port=dict(port='/dev/fake-voice',name='Test ESP32',esp32=True,usb_id=(0x303a,0x1001,'12:34:56:78:9a:bc','test'))
+        image=firmware_upload.Image(firmware_upload.TARGETS['voice-pe'],'dio','80m',(b'boot',b'table',b'app'))
+        app.device_port=port['port'];app.device_info=dict(model='Waveshare AMOLED 1.8 V2')
+        auth={'X-Studio-Token':self.server.token,'Content-Type':'application/json'}
+        with (patch.object(app,'ports',return_value=([port],True)),patch('firmware_upload.load_image',return_value=image),
+              patch('firmware_upload.programmer_python') as programmer):
+            status,_,_=self.request('POST','/api/firmware/review',dict(board='voice-pe',port=port['port']),auth)
+            self.assertEqual(status,409);programmer.assert_not_called()
+
+    def test_voice_firmware_review_rejects_mismatched_rate_before_programmer(self):
+        app=self.server.studio
+        port=dict(port='/dev/fake-voice',name='Test ESP32',esp32=True,usb_id=(0x303a,0x1001,'12:34:56:78:9a:bc','test'))
+        auth={'X-Studio-Token':self.server.token,'Content-Type':'application/json'}
+        app.device_port=port['port']
+        for current,target in ((16000,'voice-pe'),(48000,'voice-pe-native-16k')):
+            app.device_info=dict(model='Home Assistant Voice PE',rate=current,output_rate=current)
+            image=firmware_upload.Image(firmware_upload.TARGETS[target],'dio','80m',(b'boot',b'table',b'app'))
+            with (patch.object(app,'ports',return_value=([port],True)),patch('firmware_upload.load_image',return_value=image),
+                  patch('firmware_upload.programmer_python') as programmer):
+                status,body,_=self.request('POST','/api/firmware/review',dict(board=target,port=port['port']),auth)
+                self.assertEqual(status,409,body);programmer.assert_not_called()
+
+    def test_voice_firmware_choices_follow_connected_rate(self):
+        app=self.server.studio
+        class Device:
+            def close(self):pass
+        with patch.object(app,'ports',return_value=([],True)):
+            for rate in (16000,48000):
+                app.device=Device();app.device_port='/dev/fake-voice';app.device_info=dict(model='Home Assistant Voice PE',rate=rate,output_rate=rate)
+                choices={x['id'] for x in app.config()['firmware_targets']}
+                self.assertIn('voice-pe-native-16k' if rate==16000 else 'voice-pe',choices)
+                self.assertNotIn('voice-pe' if rate==16000 else 'voice-pe-native-16k',choices)
+            app.device_port=None
+            choices={x['id'] for x in app.config()['firmware_targets']}
+            self.assertIn('voice-pe',choices);self.assertNotIn('voice-pe-native-16k',choices)
+            app.device=None;app.device_info=None
+            choices={x['id'] for x in app.config()['firmware_targets']}
+            self.assertIn('voice-pe',choices);self.assertNotIn('voice-pe-native-16k',choices)
+
+    def test_native_voice_firmware_review_requires_commissioned_usb_connection(self):
+        app=self.server.studio
+        port=dict(port='/dev/fake-voice',name='Test ESP32',esp32=True,usb_id=(0x303a,0x1001,'12:34:56:78:9a:bc','test'))
+        image=firmware_upload.Image(firmware_upload.TARGETS['voice-pe-native-16k'],'dio','80m',(b'boot',b'table',b'app'))
+        auth={'X-Studio-Token':self.server.token,'Content-Type':'application/json'}
+        with (patch.object(app,'ports',return_value=([port],True)),patch('firmware_upload.load_image',return_value=image),
+              patch('firmware_upload.programmer_python') as programmer):
+            status,_,_=self.request('POST','/api/firmware/review',dict(board='voice-pe-native-16k',port=port['port']),auth)
+            self.assertEqual(status,409);programmer.assert_not_called()
+
     def test_muted_profile_borrows_current_usb_and_guards_identity(self):
         class ProfileDevice:
             percent=0
@@ -427,8 +527,11 @@ class HTTPTests(unittest.TestCase):
                 self.assertEqual(self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)[0],409)
                 collect.assert_not_called();d.percent=0
                 status,raw,_=self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)
-                self.assertEqual(status,200,raw);collect.assert_called_once_with(d,fixed=True)
+                self.assertEqual(status,200,raw);collect.assert_called_once_with(d,fixed=True,expected_rate=44100)
                 self.assertIs(app.device,d)
+                collect.reset_mock();app.device_info['rate']=48000
+                status,raw,_=self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)
+                self.assertEqual(status,200,raw);collect.assert_called_once_with(d,fixed=True,expected_rate=48000)
                 collect.side_effect=AssertionError('Mismatch')
                 self.assertEqual(self.request('POST','/api/diagnostics/ugen-profile',{'device_id':'test-profile'},auth)[0],409)
                 self.assertIs(app.device,d)

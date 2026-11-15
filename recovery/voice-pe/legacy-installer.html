@@ -1,0 +1,137 @@
+<!-- created: 2026-09-17T06:32:04.340719 -->
+<!-- CI/CD run: https://github.com/esphome/home-assistant-voice-pe/actions/runs/35190233487 -->
+<!-- triggered by: release -->
+<!-- branch/tag: refs/tags/26.9.0 -->
+<html>
+  <head>
+    <title>Home Assistant Voice PE</title>
+    <meta
+      name="description"
+      content="Install firmware on Home Assistant Voice PE."
+    />
+    <style>
+      /* Basic styling for the details element */
+      details {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        width: 300px;
+        background-color: #f9f9f9;
+        margin: 10px;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+      }
+
+      /* Styling for the summary element */
+      summary {
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* Hover effect for summary */
+      summary:hover {
+        color: #007bff;
+      }
+
+      /* Open details transition */
+      details[open] {
+        border-color: #007bff;
+        background-color: #eef6ff;
+      }
+
+      details[open] summary {
+        margin-bottom: 12px;
+      }
+
+      .link {
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <h1>Install Voice PE Latest Firmware</h1>
+      <p>
+        Connect your Home Assistant Voice to your computer and click on connect
+        below.
+      </p>
+      <esp-web-install-button
+        manifest="https://firmware.esphome.io/home-assistant-voice-pe/home-assistant-voice/manifest.json"
+      >
+      </esp-web-install-button>
+    </div>
+    <br />
+    <details>
+      <summary>Install Specific Version</summary>
+      Select a Release: <select id="releases"><option value="26.9.0">26.9.0 (pre-release)</option>
+<option value="26.6.0">26.6.0</option>
+<option value="26.5.0">26.5.0 (pre-release)</option>
+<option value="26.4.0">26.4.0</option>
+<option value="26.3.0">26.3.0 (pre-release)</option>
+<option value="26.2.2">26.2.2 (pre-release)</option>
+<option value="26.2.1">26.2.1 (pre-release)</option>
+<option value="26.2.0">26.2.0 (pre-release)</option>
+<option value="25.12.4">25.12.4</option>
+<option value="25.12.3">25.12.3 (pre-release)</option>
+<option value="25.12.2">25.12.2 (pre-release)</option>
+<option value="25.12.1">25.12.1</option>
+<option value="25.12.0">25.12.0 (pre-release)</option>
+<option value="25.11.0">25.11.0</option>
+<option value="25.10.0">25.10.0</option>
+<option value="25.9.0">25.9.0</option>
+<option value="25.7.0">25.7.0</option>
+<option value="25.6.0">25.6.0</option>
+<option value="25.5.2">25.5.2</option>
+<option value="25.5.1">25.5.1 (pre-release)</option>
+<option value="25.5.0">25.5.0 (pre-release)</option>
+<option value="25.4.1">25.4.1 (pre-release)</option>
+<option value="25.4.0">25.4.0</option>
+<option value="25.3.4">25.3.4</option>
+<option value="25.3.3">25.3.3 (pre-release)</option>
+<option value="25.3.2">25.3.2 (pre-release)</option>
+<option value="25.3.1">25.3.1 (pre-release)</option>
+<option value="25.3.0">25.3.0</option>
+<option value="25.2.1">25.2.1</option>
+<option value="25.2.0">25.2.0 (pre-release)</option>
+</select><br />
+      <div class="link"></div>
+    </details>
+    <script>
+      function selectVersion(version) {
+        select = document.getElementById("releases")
+        const option = Array.from(select.options).find(option => option.value === version);
+        select.selectedIndex = option ? option.index : 0;
+      }
+
+      function setVersion(version) {
+        document.querySelector("h1").innerHTML = `Install Voice PE v${version}`;
+        document.querySelector(
+          "esp-web-install-button",
+        ).manifest = `https://firmware.esphome.io/home-assistant-voice-pe/home-assistant-voice/${version}/manifest.json`;
+        document.querySelector(
+          ".link",
+        ).innerHTML = `<a href="?version=${version}">Link to v${version}</a>`;
+      }
+
+      document.querySelector("#releases").addEventListener("change", (ev) => {
+        const version = ev.target.value;
+        setVersion(version);
+      });
+
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("version")) {
+        const version = urlParams.get("version");
+        setVersion(version);
+        selectVersion(version);
+      }
+    </script>
+  </body>
+  <script
+    type="module"
+    src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+  ></script>
+</html>

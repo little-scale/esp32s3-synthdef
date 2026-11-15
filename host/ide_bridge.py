@@ -181,7 +181,11 @@ class Hub:
         if graph:payload['graph']=base64.b64encode(graph).decode()
         graph,source,info=self.studio.compiler.compile(payload,wait=True)
         artifact=Artifact(graph,source,info)
-        if not info['admitted']:raise ValueError(info['admission_error'])
+        # The inspector's legacy summary uses 44.1 kHz. A graph may instead be
+        # valid only at 16 or 48 kHz; upload() checks each actual recipient.
+        admission_key='master_admitted' if target=='master' else 'fm1_admitted'
+        if not info['admitted'] and not any(row.get(admission_key) for row in info.get('admission_rates',{}).values()):
+            raise ValueError(info['admission_error'])
         def send(row):
             worker=None
             try:

@@ -1,0 +1,10 @@
+{
+  "user_confirmed_dial_button_led_and_cold_restart": true,
+  "rate": 16000,
+  "output_rate": 16000,
+  "saved_volume_percent": 5,
+  "boot_changed": true,
+  "main_active": true,
+  "startup_ws_hz": 15997.7,
+  "startup_bclk_hz": 1023986.1
+}

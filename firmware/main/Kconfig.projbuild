@@ -1,4 +1,26 @@
 menu "SynthDef diagnostics"
+    config SYNTHDEF_VOICE_PE
+        bool "Nabu Casa Voice PE (48 kHz slave I2S)"
+        default n
+    config SYNTHDEF_VOICE_PE_LOW_RATE
+        bool "Experimental 16 kHz Voice PE synthesis (filtered 48 kHz output)"
+        depends on SYNTHDEF_VOICE_PE
+        default n
+        help
+            Main and FX run at 16 kHz, with 4 ms control blocks. A fixed
+            polyphase FIR converts stereo output to the existing 48 kHz XMOS
+            link. Rings requires at least 32 kHz and is rejected in this mode.
+    config SYNTHDEF_VOICE_PE_NATIVE_16K
+        bool "Native 16 kHz Voice PE output (requires matching custom XMOS)"
+        depends on SYNTHDEF_VOICE_PE && !SYNTHDEF_VOICE_PE_LOW_RATE
+        default n
+        help
+            This needs a matching 16 kHz XMOS image and codec divider profile.
+            Do not use with the stock 48 kHz XMOS clock configuration.
+    config SYNTHDEF_NO_DISPLAY
+        bool
+        default y if SYNTHDEF_HEADLESS || SYNTHDEF_VOICE_PE
+        default n
     config SYNTHDEF_HEADLESS
         bool "Seeed XIAO ESP32-S3 headless stereo I2S target"
         default n
@@ -29,7 +51,6 @@ menu "SynthDef diagnostics"
         default n
     config SYNTHDEF_FM1_COMPAT
         bool "Enable software-validated FM1 compatibility profile"
-        depends on SYNTHDEF_DIAGNOSTICS
         default n
         help
             Accept the complete pinned FM1 UGen/operator set and full graph
@@ -37,7 +58,7 @@ menu "SynthDef diagnostics"
             This experimental profile has no ESP32 real-time qualification.
     config SYNTHDEF_TOUCH_UI
         bool "Enable V2 touchscreen and four-control factory patch"
-        depends on !SYNTHDEF_HEADLESS
+        depends on !SYNTHDEF_NO_DISPLAY
         default n
     config SYNTHDEF_OFFLINE_CAPTURE
         bool "Render the factory fixture offline, dump float output, and remain silent"

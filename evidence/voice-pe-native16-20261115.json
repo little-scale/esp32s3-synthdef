@@ -1,0 +1,173 @@
+{
+  "date": "2026-11-15",
+  "board": "Home Assistant Voice PE",
+  "status": "native pair implemented, installed and verified on VoicePE-0697d4; original patches/settings restored",
+  "hardware_access": "Stock XMOS recovery and native16 upgrade both rebooted and read back exactly; factory image preserved. Matched ESP16 app installed through guarded updater. First activation was muted. Digital pitch/delay/controls/FX, real SC Function/SynthDef/Pbind, cold restart and physical IO passed. User confirmed clean listening. Original Main/FX, controls, bypass, active playback and 9% volume restored and verified.",
+  "dsp_rate": 16000,
+  "output_rate": 16000,
+  "block_frames": 64,
+  "xmos": {
+    "source_revision": "1a1df7c2b3e578431b1550a8defe8ae2c8b54d93",
+    "patches": [
+      {
+        "name": "application",
+        "revision": "1a1df7c2b3e578431b1550a8defe8ae2c8b54d93",
+        "patch_sha256": "af84fabe579c7fb978cb80adead930cbdfc3cff60dab652207c6f2ea1f15e28a"
+      },
+      {
+        "name": "rtos",
+        "revision": "656e31cc784254d7f404f915a1663438ac46356c",
+        "patch_sha256": "109fe5ecd70841edf653207f48f8ea7f9c8a6302c31e2c343d8d5452114ff340"
+      },
+      {
+        "name": "microphone-array",
+        "revision": "28cc9b13ea73c9301ee6c786cb64218d773bc43e",
+        "patch_sha256": "1ba0811c32ab2ddbc20dac1af931b241ce65513cb5f961b065e9a7c0660bad8f"
+      }
+    ],
+    "container": "ghcr.io/xmos/xcore_builder@sha256:cb301ec2c847d622a4a779a7fbbb131eba0c8f1931f53b938516b09529065e16",
+    "compiler": "XTC 15.3.0",
+    "i2c_version": "1.3.116",
+    "usb_bcd_device": "0x1610",
+    "i2s_rate": 16000,
+    "bclk_hz": 1024000,
+    "mclk_hz": 24576000,
+    "sha256": "5fde08cbb8fb1c051cc03b697b103e173831155ca9370f55c917f90ba8247927",
+    "bytes": 278528,
+    "image": "build/host/voice-pe-native16/xmos-src/build-native16/example_ffva_int_fixed_delay_upgrade.bin",
+    "factory_15_2_and_15_3_packaging_byte_identical": true,
+    "hardware_testing_performed_by_build": false
+  },
+  "images": {
+    "xmos-native16-upgrade.bin": {
+      "bytes": 278528,
+      "sha256": "5fde08cbb8fb1c051cc03b697b103e173831155ca9370f55c917f90ba8247927"
+    },
+    "xmos-stock-v1.3.1-upgrade.bin": {
+      "bytes": 278528,
+      "sha256": "11b563d6c51424f49f1e1d3585ba03a073e2802798e6aa067c6734d7ecb6935b"
+    },
+    "esp-previous48.bin": {
+      "bytes": 1254128,
+      "sha256": "f3d260d9eb989dcd4fcfd0a551ca25a7ba9e0aef19466bcca10120195cea420c"
+    },
+    "esp-native16.bin": {
+      "bytes": 1255104,
+      "sha256": "fa2e392ac296bdf1059120a62132a4a7bafc6a6beeff8cf4ee317442c36d45d1"
+    }
+  },
+  "tests": {
+    "integration": {
+      "passed": true,
+      "hardware_access": false,
+      "rates": [
+        16000,
+        48000
+      ],
+      "graphs": 13,
+      "seconds_per_graph_per_rate": 4,
+      "restarts": 2,
+      "seed": 12345,
+      "scope": "finite/state/restart smoke checks, not spectral/tuning equivalence or CPU qualification",
+      "output": "build/host/voice-pe-native16-tests/user_saw12.scsyndef 16000 Hz: peak=0.271338 delay_floats=0 repeat_hash=e00e5c3aace17c9a\nbuild/host/voice-pe-native16-tests/user_saw12.scsyndef 48000 Hz: peak=0.184478 delay_floats=0 repeat_hash=665a65e61859788c\nbuild/host/voice-pe-native16-tests/user_sine12.scsyndef 16000 Hz: peak=0.452227 delay_floats=0 repeat_hash=99d9abf40f809056\nbuild/host/voice-pe-native16-tests/user_sine12.scsyndef 48000 Hz: peak=0.346785 delay_floats=0 repeat_hash=40a5e67eca1a3d15\nbuild/host/voice-pe-native16-tests/saw_literal12.scsyndef 16000 Hz: peak=0.0648552 delay_floats=0 repeat_hash=232efee5a5fad585\nbuild/host/voice-pe-native16-tests/saw_literal12.scsyndef 48000 Hz: peak=0.0648552 delay_floats=0 repeat_hash=0a708c47301391e1\nbuild/host/voice-pe-native16-tests/saw_changing12.scsyndef 16000 Hz: peak=0.011687 delay_floats=0 repeat_hash=21d9fa9f0e746916\nbuild/host/voice-pe-native16-tests/saw_changing12.scsyndef 48000 Hz: peak=0.011687 delay_floats=0 repeat_hash=76b39d4f4312691f\nbuild/host/voice-pe-native16-tests/impulse_literal12.scsyndef 16000 Hz: peak=0.12 delay_floats=0 repeat_hash=904e1d7ff52075c5\nbuild/host/voice-pe-native16-tests/impulse_literal12.scsyndef 48000 Hz: peak=0.12 delay_floats=0 repeat_hash=3f3cd0beae16dcb3\nbuild/host/voice-pe-native16-tests/impulse_initial12.scsyndef 16000 Hz: peak=0.12 delay_floats=0 repeat_hash=d77f71229b9b454f\nbuild/host/voice-pe-native16-tests/impulse_initial12.scsyndef 48000 Hz: peak=0.12 delay_floats=0 repeat_hash=77347a13cf4f42a3\nbuild/host/voice-pe-native16-tests/impulse_control12.scsyndef 16000 Hz: peak=0.12 delay_floats=0 repeat_hash=68d43bdda67478a9\nbuild/host/voice-pe-native16-tests/impulse_control12.scsyndef 48000 Hz: peak=0.12 delay_floats=0 repeat_hash=7d223cedbc024647\nbuild/host/voice-pe-native16-tests/impulse_audio12.scsyndef 16000 Hz: peak=0.12 delay_floats=0 repeat_hash=a7a98f54644ea14b\nbuild/host/voice-pe-native16-tests/impulse_audio12.scsyndef 48000 Hz: peak=0.12 delay_floats=0 repeat_hash=c1999d241e91e457\nbuild/host/voice-pe-native16-tests/impulse_kr12.scsyndef 16000 Hz: peak=0.12 delay_floats=0 repeat_hash=5e3bd3e737d16bf9\nbuild/host/voice-pe-native16-tests/impulse_kr12.scsyndef 48000 Hz: peak=0.12 delay_floats=0 repeat_hash=3e7538dc31783f6d\nbuild/host/voice-pe-native16-tests/pulse_regression.scsyndef 16000 Hz: peak=0.0135582 delay_floats=0 repeat_hash=3ec6f04bde47d173\nbuild/host/voice-pe-native16-tests/pulse_regression.scsyndef 48000 Hz: peak=0.0194306 delay_floats=0 repeat_hash=97d758a6a1b2202c\nbuild/host/voice-pe-native16-tests/comb_cloud.scsyndef 16000 Hz: peak=0.152037 delay_floats=2048 repeat_hash=4da62072b9ac2490\nbuild/host/voice-pe-native16-tests/comb_cloud.scsyndef 48000 Hz: peak=0.184251 delay_floats=8192 repeat_hash=3444d62ab1200dab\nbuild/host/voice-pe-native16-tests/saw_resonz_miverb.scsyndef 16000 Hz: peak=0.190235 delay_floats=16384 repeat_hash=cd0ef6590dfb279e\nbuild/host/voice-pe-native16-tests/saw_resonz_miverb.scsyndef 48000 Hz: peak=0.199681 delay_floats=16384 repeat_hash=35eea78d369b5cd6\nbuild/host/voice-pe-native16-tests/master_miverb.scsyndef 16000 Hz: peak=0.0388194 delay_floats=16384 repeat_hash=7558311e0dc7898e\nbuild/host/voice-pe-native16-tests/master_miverb.scsyndef 48000 Hz: peak=0.052422 delay_floats=16384 repeat_hash=4c2b54335ae97766\nPASS: finite audio/control outputs, bounded arenas, seeded restart determinism at 16/48k\n",
+      "oscillator_reference_comparison_16000": {
+        "passed": true,
+        "graphs": 48,
+        "blocks": 294912,
+        "stereo_samples": 37748736,
+        "explicit_constructors": 96,
+        "matching_faults": 42
+      }
+    },
+    "rate_admission": {
+      "passed": true,
+      "hardware_access": false,
+      "rates": [
+        16000,
+        44100,
+        48000
+      ],
+      "output": "16000 Hz: stereo 100ms delay peaks at 1600/1600; arena=8192\n44100 Hz: stereo 100ms delay peaks at 4410/4410; arena=32768\n48000 Hz: stereo 100ms delay peaks at 4800/4800; arena=32768\n16000 Hz: FX bus updates, reset and definition start retain bus binding\n44100 Hz: FX bus updates, reset and definition start retain bus binding\n48000 Hz: FX bus updates, reset and definition start retain bus binding\nPASS: rate-specific admission, stereo delay timing, FX control-bus lifetime, 16k Rings rejection\n",
+      "boundary_admissions": {
+        "16000": {
+          "fm1_admitted": true,
+          "master_admitted": true,
+          "delay_samples": 131072,
+          "error_hex": "",
+          "master_error_hex": ""
+        },
+        "44100": {
+          "fm1_admitted": true,
+          "master_admitted": true,
+          "delay_samples": 262144,
+          "error_hex": "",
+          "master_error_hex": ""
+        },
+        "48000": {
+          "fm1_admitted": false,
+          "master_admitted": false,
+          "delay_samples": null,
+          "error_hex": "464d312073796e7468206172656e6120627564676574206578636565646564",
+          "master_error_hex": "4d6173746572204658206172656e6120627564676574206578636565646564"
+        }
+      }
+    },
+    "physical_controls": {
+      "passed": true,
+      "hardware_access": false,
+      "rates": [
+        16000,
+        44100,
+        48000
+      ],
+      "output": "PASS: first unity-gain upgrade starts at <=5%; acknowledged profile preserves user levels, including mute\nPASS: Out.kr sums, first/last buses, dynamic bounds, faults/prepare/restart, separate physical inputs, broadcast RGB, explicit FX priority, GRB mapping and dark default at 16/44.1/48k\n"
+    },
+    "input_buses": {
+      "passed": true,
+      "hardware_access": false,
+      "audio_playback": false,
+      "scope": "portable input core and generated FM1 In.kr at both rates; two raw engine voices, not production Main/FX lifecycle integration",
+      "compiler": "Apple clang version 17.0.0 (clang-1700.6.3.2)",
+      "sanitizers": [
+        "undefined",
+        "bounds",
+        "float-cast-overflow"
+      ],
+      "rates": [
+        16000,
+        44100,
+        48000
+      ],
+      "slots": 8,
+      "output": "PASS: normalization, clipping, inversion, binary levels, invalid data/config, timestamps, expiry/recovery, stable slots, generations and bounded publication\nPASS: normalized In.kr, all 8 slots, two engine voices, stale validity and rebind at 16000 Hz\nPASS: normalized In.kr, all 8 slots, two engine voices, stale validity and rebind at 44100 Hz\nPASS: normalized In.kr, all 8 slots, two engine voices, stale validity and rebind at 48000 Hz\n"
+    }
+  },
+  "limitations": [
+    "MiRings1-6 require at least 32k and are rejected at 16k.",
+    "Reverb spectral/tail equivalence across rates not claimed.",
+    "Native profile is a paired XMOS/ESP conversion, not a runtime rate switch.",
+    "Voice PE Wi-Fi, mic input, external-jack-specific behaviour and Grove were not newly qualified in this native-rate trial.",
+    "CPU observations are short-run results, not matched-seed rate-to-rate comparisons or worst-case bounds."
+  ],
+  "regressions": {
+    "studio_compiler_tests": 53,
+    "firmware_loader_tests": 20,
+    "default_48k_esp_build": true,
+    "native_16k_esp_build": true,
+    "native_16k_xmos_build": true,
+    "audio_transition_16k": true,
+    "xmos_read_only_backup_tests_simulated": 11
+  },
+  "hardware_evidence": [
+    "voice-pe-native16-xmos-hardware-20261115.json",
+    "voice-pe-native16-audio-hardware-20261115.json",
+    "voice-pe-native16-sc-hardware-20261115.json",
+    "voice-pe-native16-studio-hardware-20261115.json",
+    "voice-pe-native16-io-observation-20261115.json",
+    "voice-pe-native16-cold-start-20261115.json",
+    "voice-pe-native16-final-20261115.json"
+  ],
+  "computer_inventory_evidence": "voice-pe-native16-inventory-20261115.json",
+  "user_confirmed_physical_io_and_cold_restart": true,
+  "user_confirmed_listening": "Clean, including the tail"
+}

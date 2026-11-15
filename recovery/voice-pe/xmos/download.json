@@ -1,0 +1,9 @@
+{
+  "url": "https://github.com/esphome/voice-kit-xmos-firmware/releases/download/v1.3.1/ffva_v1.3.1_upgrade.bin",
+  "release": "v1.3.1",
+  "bytes": 278528,
+  "sha256": "11b563d6c51424f49f1e1d3585ba03a073e2802798e6aa067c6734d7ecb6935b",
+  "md5": "964635c5bf125529dab14a2472a15401",
+  "official_md5_verified": true,
+  "flashed": false
+}

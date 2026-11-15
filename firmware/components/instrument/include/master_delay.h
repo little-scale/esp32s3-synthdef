@@ -9,6 +9,8 @@ typedef struct {
     fm_voice *voice;
     float *arena;
     unsigned capacity,rate;
+    const float *control_buses;
+    unsigned control_bus_count;
     int index[3];
     float value[3]; /* seconds, feedback fraction, wet fraction */
     bool suppressed,bypass,definition_only;
@@ -18,6 +20,8 @@ int master_delay_init(master_delay *,fm_graph *,fm_voice *,float *,unsigned,unsi
 /* Generic stereo master processor; uses authored controls and can be identity. */
 int master_effect_init(master_delay *,fm_graph *,fm_voice *,float *,unsigned,unsigned,fm_scratch *);
 int master_effect_define(master_delay *,fm_graph *,fm_voice *,float *,unsigned,unsigned,fm_scratch *);
+/* The caller owns the bus snapshot and updates it on the audio task. */
+int master_effect_init_buses(master_delay *,fm_graph *,fm_voice *,float *,unsigned,unsigned,fm_scratch *,const float *,unsigned,bool definition);
 int master_effect_start(master_delay *,fm_scratch *,const float *controls);
 int master_delay_set(master_delay *,unsigned,float);
 /* Reset clears the arena: call only at startup or after DMA has stopped. */

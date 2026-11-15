@@ -1,0 +1,9 @@
+{
+  "version": "2026.9.1",
+  "url": "https://firmware.nabucasa.com/home-assistant-voice-pe/2026.9.1/firmware-esp32s3.factory.bin",
+  "manifest_url": "https://firmware.nabucasa.com/home-assistant-voice-pe/2026.9.1/manifest.json",
+  "path": "recovery/voice-pe/2026.9.1/stock.factory.bin",
+  "bytes": 3346432,
+  "sha256": "e86eb706730629e952b886080b9af50a74a7ca11f10cae3d625cea710ee7ec38",
+  "manufacturer_offset": 0
+}

@@ -99,7 +99,7 @@ function controls() {
   for (let i = 0; i < 4; i++) $('label-' + i).disabled = locked;
   $('source').readOnly = locked;
   const ready=broadcast?.recipients.some(row=>row.ready);
-  $('upload').disabled=locked || !artifact || !$('patch-name').value.trim() || !artifact.admitted ||
+  $('upload').disabled=locked || !artifact || !$('patch-name').value.trim() || (!multiUpload() && !artifactForDevice(artifact).admitted) ||
     (multiUpload()? !ready || broadcast.target!==$('target').value : !device || !entry);
   const role = isMaster() ? 'FX' : 'Main';
   $('upload').textContent = `Upload ${role}${multiUpload() ? (uploadGroupId() ? ' to group' : ' to all') : ''}`;
@@ -143,6 +143,7 @@ function renderDevice(result) {
     volumeEpoch++; volumePending = null; clearTimeout(volumeTimer); volumeTimer = null;
   }
   device = result?.connected ? result : null;
+  if (artifact) showArtifact(artifact);
   const pattern=device?.standalone_program;
   $('standalone-pattern').hidden=!device?.hello.pattern_programs;
   $('pattern-status').textContent=!pattern?.loaded?'No standalone pattern loaded.':
@@ -350,10 +351,19 @@ async function ports() {
   controls();
 }
 function nameDefault(name) { return name.replace(/[^\x20-\x7e]|["\\]/g, '_').slice(0, 31) || 'My SynthDef'; }
+function artifactForDevice(result) {
+  if (!result) return null;
+  const rate = device?.hello.rate || 44100;
+  const row = result.admission_rates?.[String(rate)];
+  if (!row) return result;
+  const master = result.target === 'master';
+  return {...result, ...row, rate, admitted: master ? row.master_admitted : row.fm1_admitted,
+    admission_error: master ? row.master_error : row.admission_error};
+}
 function showArtifact(result) {
-  artifact = result; $('result').hidden = false; $('result-title').textContent = `${result.name} · graph checked`;
+  artifact = result; result = artifactForDevice(result); $('result').hidden = false; $('result-title').textContent = `${result.name} · graph checked`;
   $('result-facts').replaceChildren();
-  const facts = [`${result.nodes} UGens`, `${result.graph_bytes.toLocaleString()} graph bytes`, `${result.source_bytes.toLocaleString()} source bytes`, `${(result.delay_samples * 4 / 1024).toFixed(1)} KiB synth arena`];
+  const facts = [`${result.rate || 44100} Hz checks`, `${result.nodes} UGens`, `${result.graph_bytes.toLocaleString()} graph bytes`, `${result.source_bytes.toLocaleString()} source bytes`, result.delay_samples === null ? 'Synth arena budget exceeded' : `${(result.delay_samples * 4 / 1024).toFixed(1)} KiB synth arena`];
   for (const fact of facts) { const span = document.createElement('span'); span.textContent = fact; $('result-facts').append(span); }
   $('result-note').textContent = !result.admitted ? 'Compatibility: ' + result.admission_error : result.source_pairing === 'compiled_from_source' ? 'Original source is paired with this compiled graph. The device checks compatibility before activation.' : result.source_bytes ? 'Attached source is preserved; it has not been recompiled to prove it matches this binary.' : 'No original source attached. The device will have no source code to display.';
   if (result.input_kind === 'sound_block' && result.admitted && result.target !== 'master') $('result-note').textContent = 'Starts automatically when loaded, independently of touch. Panic stops it; reload the slot to restart. The original code is preserved; .play was not executed on the computer.';
@@ -417,6 +427,7 @@ $('firmware-review').addEventListener('click', () => task(async () => {
   try {
     firmwarePlan = await api('firmware/review', {board: $('firmware-board').value, port: $('firmware-port').value});
     $('firmware-selection').textContent = `${firmwarePlan.board} · ${firmwarePlan.port} · ${firmwarePlan.folder} · SHA-256 ${firmwarePlan.app_sha256.slice(0, 12)}`;
+    $('firmware-notes').textContent = (firmwarePlan.notes || 'Flashing replaces the board’s firmware and restarts it.') + ' Keep USB connected until verification finishes.';
     $('firmware-confirmation').hidden = false;
     $('firmware-status').textContent = '';
   } catch (error) {
@@ -426,8 +437,9 @@ $('firmware-review').addEventListener('click', () => task(async () => {
 $('firmware-flash').addEventListener('click', () => task(async () => {
   if (!firmwarePlan) return;
   const plan = firmwarePlan.plan;
+  const voicePE = firmwarePlan.voice_pe || firmwarePlan.rate === 48000;
   clearFirmwareReview();
-  $('firmware-status').textContent = 'Flashing and verifying firmware. Keep USB connected.';
+  $('firmware-status').textContent = voicePE ? 'Backing up, installing and verifying Voice PE firmware. A first installation can take several minutes. Keep USB connected.' : 'Flashing and verifying firmware. Keep USB connected.';
   try {
     const result = await api('firmware/flash', {plan});
     $('firmware-status').textContent = `Firmware verified for ${result.board}. Refresh USB ports if needed, then Connect.`;
@@ -620,6 +632,7 @@ $('wifi-networks').addEventListener('change',()=>{if($('wifi-networks').value)$(
 $('connect').addEventListener('click', () => task(async () => {
   const wifi=$('transport').value==='wifi';
   renderDevice(await api(device?'disconnect':wifi?'network/connect':'connect',device?{}:wifi?{device_id:$('network-device').value}:{port:$('port').value}));
+  await ports();
 }));
 $('broadcast-review').addEventListener('click', () => task(async () => {
   broadcast = null;

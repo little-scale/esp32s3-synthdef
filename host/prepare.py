@@ -17,7 +17,8 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 def firmware_sources():
-    return sorted(p for p in (ROOT/'firmware').rglob('*') if p.is_file() and
+    shared_port_sources = sorted((ROOT/'ports/voice_pe/main').glob('*.[ch]'))
+    return shared_port_sources + sorted(p for p in (ROOT/'firmware').rglob('*') if p.is_file() and
                   ('components' in p.parts or 'main' in p.parts or p.parent==ROOT/'firmware') and
                   not any(x=='managed_components' or x.startswith('build') for x in p.parts) and
                   p.name not in ('generated.h','catalog_generated.h','sdkconfig','sdkconfig.old','dependencies.lock'))
@@ -25,6 +26,7 @@ def firmware_sources():
 def qualification_fingerprint():
     provenance=json.loads((ROOT/'upstream/SOURCES.json').read_text())
     return digest((provenance['commit']+digest((ROOT/'host/engine_profile.py').read_bytes())+
+                   digest((ROOT/'host/control_outputs.py').read_bytes())+
                    digest((ROOT/'host/signal_buffers.py').read_bytes())+
                    digest((ROOT/'host/dsp_kernels.py').read_bytes())+
                    digest((ROOT/'host/dsp_candidates.py').read_bytes())+
@@ -33,6 +35,7 @@ def qualification_fingerprint():
                    digest((ROOT/'host/dsp_chaos_cache.py').read_bytes())+
                    digest((ROOT/'host/dsp_core.py').read_bytes())+
                    digest((ROOT/'host/dsp_mix.py').read_bytes())+
+                   digest((ROOT/'host/dsp_oscillators.py').read_bytes())+
                    digest((ROOT/'host/qualified_kernels.py').read_bytes())+
                    digest((ROOT/'examples/master-delay.scsyndef').read_bytes())+
                    digest((ROOT/'examples/master-bypass.scsyndef').read_bytes())+
@@ -111,6 +114,7 @@ def main():
         'dsp_chaos_cache_sha256':digest((ROOT/'host/dsp_chaos_cache.py').read_bytes()),
         'dsp_core_sha256':digest((ROOT/'host/dsp_core.py').read_bytes()),
         'dsp_mix_sha256':digest((ROOT/'host/dsp_mix.py').read_bytes()),
+        'dsp_oscillators_sha256':digest((ROOT/'host/dsp_oscillators.py').read_bytes()),
         'qualified_kernels_sha256':digest((ROOT/'host/qualified_kernels.py').read_bytes()),
         'master_delay':{'kind':'embedded persistent mono SynthDef bus','max_seconds':5.0,
                         'arena_samples':262144,'arena_bytes':1048576,'storage':'PSRAM','graph_sha256':digest(effect)},
@@ -121,7 +125,7 @@ def main():
             'signal_storage':'Loader-planned audio reuse and one float per scalar output',
             'synth_arena_samples':262144,
             'synth_arena_bytes':1048576,'required_live_controls':['freq','amp','gate'],
-            'control_buses':{'count':32,'touch':{'x':0,'y':1,'gate':2},'reader':'In.kr','bus_patches_require_legacy_controls':False},
+            'control_buses':{'count':68,'reserved_outputs':{'base':3,'count':39,'writer':'Out.kr'},'touch':{'x':0,'y':1,'gate':2},'reader':'In.kr','bus_patches_require_legacy_controls':False},
             'types':names,'qualification':'host emulation only; ESP32 deadlines unmeasured',
             'arena_clear_samples_per_block':1024,'large_graphs_and_scratch':'PSRAM'},
         'admission': {'policy': 'catalog-voice-v2', 'legacy_family': {'policy':'simple-voice-v1','nodes_max': 20, 'signals_max': 32,

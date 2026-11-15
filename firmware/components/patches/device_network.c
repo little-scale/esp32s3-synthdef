@@ -176,7 +176,9 @@ int device_network_init(network_exchange_fn exchange,int (*pause)(bool))
     net->exchange=exchange;net->pause=pause;atomic_store(&net->rssi,-127);net->done=xSemaphoreCreateBinary();if(!net->done)return 0;
     uint8_t mac[6];if(esp_read_mac(mac,ESP_MAC_WIFI_STA)!=ESP_OK)return 0;
     snprintf(net->id,sizeof net->id,"esp32-%02x%02x%02x%02x%02x%02x",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5]);
-    #ifdef CONFIG_SYNTHDEF_HEADLESS
+    #if defined(CONFIG_SYNTHDEF_VOICE_PE)
+    snprintf(net->name,sizeof net->name,"VoicePE-%02x%02x%02x",mac[3],mac[4],mac[5]);
+#elif defined(CONFIG_SYNTHDEF_HEADLESS)
     snprintf(net->name,sizeof net->name,"XIAO-%02x%02x%02x",mac[3],mac[4],mac[5]);
 #else
     snprintf(net->name,sizeof net->name,"AMOLED-%02x%02x%02x",mac[3],mac[4],mac[5]);

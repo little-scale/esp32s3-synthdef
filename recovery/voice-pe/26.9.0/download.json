@@ -1,0 +1,9 @@
+{
+  "version": "26.9.0",
+  "url": "https://firmware.esphome.io/home-assistant-voice-pe/home-assistant-voice/26.9.0/home-assistant-voice-esp32s3.factory.bin",
+  "manifest_url": "https://firmware.esphome.io/home-assistant-voice-pe/home-assistant-voice/manifest.json",
+  "path": "recovery/voice-pe/26.9.0/stock.factory.bin",
+  "bytes": 3315584,
+  "sha256": "98b7e304e6e91335384a66eaa73aa2bd2dd43c55460cce8694d40e6a7fb9d9da",
+  "manufacturer_offset": 0
+}

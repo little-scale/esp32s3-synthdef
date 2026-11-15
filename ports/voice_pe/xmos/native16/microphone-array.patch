@@ -1,0 +1,12 @@
+diff --git a/etc/vanilla/mic_array_vanilla.cpp b/etc/vanilla/mic_array_vanilla.cpp
+index 4f13955..3f8f5c8 100644
+--- a/etc/vanilla/mic_array_vanilla.cpp
++++ b/etc/vanilla/mic_array_vanilla.cpp
+@@ -2,6 +2,7 @@
+ // This Software is subject to the terms of the XMOS Public Licence: Version 1.
+ 
+ #include <stdint.h>
++#include <platform.h> /* Explicit board ports with XTC 15.3. */
+ #include <xcore/channel_streaming.h>
+ #include <xcore/interrupt.h>
+ 

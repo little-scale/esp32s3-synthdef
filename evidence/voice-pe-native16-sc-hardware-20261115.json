@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "tests": {
+    "function_set": {
+      "positive_crossings_1s": [
+        550,
+        825
+      ]
+    },
+    "definition_waiting": {
+      "silent": true,
+      "inactive": true
+    },
+    "pattern_playing": {
+      "peak": 21,
+      "above_threshold_energy_regions": 7,
+      "scope": "Gated pattern audio detected; this region count is not an exact note count or event-jitter measurement."
+    }
+  },
+  "restore": {
+    "main_package_verified": true,
+    "fx_selected": 0,
+    "volume": 0.0,
+    "instances_restored": true
+  }
+}

@@ -20,11 +20,16 @@ class Target:
     folder: str
     flash_size: str
     headless: bool
+    voice_pe: bool = False
+    rate: int = 44100
+    native16: bool = False
 
 
 TARGETS = {
     'xiao': Target('Seeed XIAO ESP32-S3', 'build-xiao', '8MB', True),
     'amoled-v2': Target('Waveshare AMOLED 1.8 V2', 'build-instrument', '16MB', False),
+    'voice-pe': Target('Nabu Casa Home Assistant Voice Preview Edition · 48 kHz', 'build-voice-pe-app', '16MB', False, True,48000),
+    'voice-pe-native-16k': Target('Nabu Casa Home Assistant Voice Preview Edition · native 16 kHz experimental (matching XMOS required)', 'build-voice-pe-native16', '16MB', False, True,16000,True),
 }
 FILES = {
     '0x0': 'bootloader/bootloader.bin',
@@ -65,22 +70,36 @@ def load_image(board):
             description.get('project_name') == 'waveshare_synthdef'
             and description.get('target') == 'esp32s3'
             and config.get('SYNTHDEF_HEADLESS', False) is target.headless
-            and config.get('SYNTHDEF_TOUCH_UI', False) is (not target.headless)
+            and config.get('SYNTHDEF_TOUCH_UI', False) is (not (target.headless or target.voice_pe))
+            and config.get('SYNTHDEF_VOICE_PE', False) is target.voice_pe
             and config.get('ESPTOOLPY_FLASHSIZE') == settings['flash_size'] == target.flash_size
             and manifest['extra_esptool_args']['chip'] == 'esp32s3'
-            and manifest['flash_files'] == FILES
+            and manifest['flash_files'] == (dict(FILES, **{'0x9000':'ota_data_initial.bin'}) if target.voice_pe else FILES)
             and all(manifest[part]['encrypted'] == 'false' for part in ('bootloader', 'partition-table', 'app'))
             and mode in ('dio', 'dout', 'qio', 'qout')
             and frequency in ('20m', '26m', '40m', '80m')
         )
         if not valid:
             raise ValueError('Build metadata does not match the selected board.')
+        if target.voice_pe:
+            from voice_pe_firmware import PROJECT,partitions
+            if (config.get('SYNTHDEF_NO_DISPLAY') is not True or config.get('SYNTHDEF_FM1_COMPAT') is not True
+                    or config.get('SYNTHDEF_DIAGNOSTICS',False) or mode!='dio' or frequency!='80m'
+                    or config.get('SYNTHDEF_VOICE_PE_LOW_RATE',False)
+                    or config.get('SYNTHDEF_VOICE_PE_NATIVE_16K',False) is not target.native16
+                    or manifest['otadata']['encrypted']!='false'
+                    or (folder/'ota_data_initial.bin').read_bytes()!=b'\xff'*8192):
+                raise ValueError('Voice PE build does not match the selected synthesis-rate option.')
+            if partitions((folder/FILES['0x8000']).read_bytes())!=PROJECT:
+                raise ValueError('The Voice PE build has an unreviewed partition layout.')
         binaries = tuple((folder / name).read_bytes() for name in FILES.values())
         boot, partitions, app = binaries
         if not (boot.startswith(b'\xe9') and partitions.startswith(b'\xaa\x50') and app.startswith(b'\xe9')):
             raise ValueError('Invalid ESP-IDF bootloader, partition table, or application image.')
-        if len(boot) > 0x8000 or len(partitions) > 0x1000 or len(app) > 0x300000:
+        if len(boot) > 0x8000 or len(partitions) > 0x1000 or len(app) > (0x3c0000 if target.voice_pe else 0x300000):
             raise ValueError('A firmware image exceeds its flash region.')
+        if target.voice_pe and b'Home Assistant Voice PE' not in app:
+            raise ValueError('Voice PE application marker is missing.')
         return Image(target, mode, frequency, binaries)
     except FileNotFoundError as error:
         raise ValueError(f'Build {target.label} first. Studio needs a complete build in firmware/{target.folder}.') from error
@@ -116,13 +135,14 @@ def write_image(python, image, port, serial_number):
         mac = (serial_number or '').replace(':', '').replace('-', '').lower()
         if re.fullmatch(r'[0-9a-f]{12}', mac) and int(mac, 16):
             command.extend(('--mac', mac))
+        if image.target.voice_pe:command.extend(('--board','voice-pe'))
         command.append('--images')
         for index, data in enumerate(image.binaries):
             path = Path(folder) / f'{index}.bin'
             path.write_bytes(data)
             command.append(str(path))
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                text=True, errors='replace', timeout=180)
+                                text=True, errors='replace', timeout=600 if image.target.voice_pe else 180)
     log = result.stdout.replace('\r', '\n').strip()
     if result.returncode:
         raise ValueError(f'Firmware flashing failed.\n{log[-5000:]}')
@@ -130,6 +150,9 @@ def write_image(python, image, port, serial_number):
 
 
 def flash(args, esptool):
+    if getattr(args,'board',None)=='voice-pe':
+        from voice_pe_firmware import flash as voice_pe_flash
+        return voice_pe_flash(args,esptool)
     with esptool.detect_chip(port=args.port, connect_attempts=3) as chip:
         if chip.CHIP_NAME != 'ESP32-S3' or chip.secure_download_mode:
             raise ValueError('Expected an ESP32-S3 with standard serial download mode.')
@@ -167,6 +190,7 @@ def main():
     parser.add_argument('--frequency')
     parser.add_argument('--mac')
     parser.add_argument('--images', nargs=3)
+    parser.add_argument('--board', choices=['voice-pe'])
     args = parser.parse_args()
     try:
         import esptool

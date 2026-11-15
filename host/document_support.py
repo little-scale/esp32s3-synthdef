@@ -266,7 +266,7 @@ changed; historical hardware qualifications remain in their original evidence.
 - [1,445 admission/initialization/lifecycle tests](../evidence/fm1-voice.json)
 - [Positive and negative upload-policy checks](../evidence/fm1-admission.json)
 - [1,560,000 malformed-input cases](../evidence/fm1-fuzz.json)
-- [Original FM1 API and independent oracle output](../evidence/fm1-upstream-tests.log)
+- [Original FM1 API and independent oracle test sources](../upstream/fm1-synthdef/synthdef-engine/tests/)
 - [Three persistent input-bus/delay comparisons](../evidence/delay-host-reference.json)
 - [Compact target build](../evidence/fm1-compact-build.json)
 - [FM1 compatibility target build](../evidence/fm1-compat-build.json)

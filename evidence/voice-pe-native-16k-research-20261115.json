@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-15",
+  "kind": "read-only source investigation",
+  "device_access": false,
+  "hardware_changed": false,
+  "xmos_firmware_built": false,
+  "installed_xmos_version": "not queried; unknown",
+  "official_source": {
+    "dev": "ef04d4b59d172dfbe5c85ba982bf05fcc85f77f3",
+    "v1.3.1": "1a1df7c2b3e578431b1550a8defe8ae2c8b54d93",
+    "dev_vs_release_changes": "CI workflow files only"
+  },
+  "pinned_dependencies": {
+    "esphome/xmos_fwk_rtos": "656e31cc784254d7f404f915a1663438ac46356c",
+    "esphome/xmos_fwk_io": "0fc6f7c9c7608f3ffaa05238df04cc5ba50718fc"
+  },
+  "source_sha256": {
+    "src/ffva/ffva_int.cmake": "80f96822c5707135f1c683ee4e0e6f43daf9d4d2757c5d8f473d70bba2bdfd60",
+    "src/ffva/src/app_conf.h": "a46d18fb0417892c425786f2d0bcbf55ac229cc059066e1a8689ca2d18759aaa",
+    "src/ffva/src/configuration/configuration_servicer.h": "8a52e1230d601ace07588574979f69ae6212a64a0d321109e9ca38ad420417ab",
+    "src/ffva/src/main.c": "9462ecdbd6c063033e051d16d08898c920793491b14c365b90cf124c1795db97",
+    "src/ffva/bsp_config/NC-VOICE-KIT/platform/platform_start.c": "cd96cc98c8c7e7d5b52d4adf0525849e965ed0b65fdb11759de1a6dfa5e93190",
+    "doc/programming_guide/howto.rst": "74f05b28d050c333967e6624be2097e513a9913dc5603b666fc941bfc18fa611"
+  },
+  "findings": {
+    "runtime_rate_command_found": false,
+    "documented_compile_time_rates": [
+      16000,
+      48000
+    ],
+    "shipping_int_rate": 48000,
+    "audio_pipeline_rate": 16000,
+    "effective_i2s_master_clock": 24576000,
+    "native_16k_clock_candidate": {
+      "word_select_hz": 16000,
+      "slots": 2,
+      "bits_per_slot": 32,
+      "bit_clock_hz": 1024000,
+      "mclk_bclk_ratio": 24
+    },
+    "codec_divider_arithmetic_candidate": {
+      "mclk_hz": 24576000,
+      "ndac": 6,
+      "mdac": 2,
+      "dosr": 128,
+      "dac_rate": 16000,
+      "qualified": false
+    },
+    "ordinary_configuration_commands": [
+      "VNR readback",
+      "microphone channel 0 stage",
+      "microphone channel 1 stage"
+    ]
+  },
+  "limitations": [
+    "Installed XMOS version has not been read",
+    "No XMOS XTC compiler located; no custom build",
+    "Board-specific 16k clocks and codec configuration untested",
+    "ESP flash backups do not include XMOS flash",
+    "ESP-side converter work remains unfinished and uninstalled"
+  ]
+}
