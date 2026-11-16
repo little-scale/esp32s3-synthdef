@@ -11,6 +11,16 @@ instance, named-control and pattern API. The USB connection is shared with
 Studio's reader and serialized per transaction. See the [XIAO headless guide](HEADLESS.md)
 for stereo output, physical input buses and capture without a DAC.
 
+For a commissioned SynthDef/RNBO USB pair, first select and **Inspect** the node
+in Studio's **Runtimes** tab. Studio keeps that inspected RNBO node discoverable
+to SC. A valid Main `.sendESP32` or `.playESP32` deployment then selects SynthDef
+when needed, retaining the ordinary definition/instance and argument behavior.
+Use its permanent ID or registered alias. Notes, named controls and discovery
+do not change engines; FX deployment while running RNBO is refused until a Main
+is sent. The USB handoff is a guarded maintenance reboot (65.9 seconds in the
+native-16k Voice PE test), not a live crossfade. Automatic Wi-Fi handoff remains
+pending. [Dual-runtime workflow and evidence](DUAL_RUNTIME.md).
+
 ## Install and start
 
 ```sh

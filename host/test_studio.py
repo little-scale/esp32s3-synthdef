@@ -668,6 +668,17 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual(self.request()[0], 403)
         self.assertEqual(self.request(headers={'X-Studio-Token': self.server.token})[0], 200)
 
+    def test_runtime_routes_keep_auth_and_separate_large_file_limit(self):
+        self.assertEqual(self.request(path='/api/runtime/job')[0], 403)
+        headers={'X-Studio-Token': self.server.token,'Content-Type':'application/json'}
+        self.assertEqual(self.request(path='/api/runtime/job',headers=headers)[0],200)
+        with patch.object(self.server.studio.runtime_uploads,'review',return_value={'reviewed':True}) as review:
+            status,raw,_=self.request('POST','/api/runtime/review',{'data':'A'*600000},headers)
+            self.assertEqual(status,200);self.assertTrue(json.loads(raw)['reviewed'])
+            review.assert_called_once()
+        self.assertEqual(self.request('POST','/api/runtime/review',headers={**headers,'Content-Length':'1048577'})[0],413)
+        self.assertEqual(self.request('POST','/api/compile',headers={**headers,'Content-Length':'600000'})[0],413)
+
     def test_cross_origin_and_rebinding_rejected_even_with_token(self):
         for headers in ({'Origin': 'https://example.com'}, {'Host': 'evil.example'}, {'Sec-Fetch-Site': 'cross-site'}):
             self.assertEqual(self.request(headers={'X-Studio-Token': self.server.token, **headers})[0], 403)
@@ -694,6 +705,11 @@ class FirmwareProgrammerTests(unittest.TestCase):
         chip.IS_STUB = False
         chip.__enter__.return_value = chip
         chip.read_mac.return_value = bytes.fromhex('123456789abc')
+        stub = MagicMock()
+        stub.IS_STUB = True
+        stub._port = chip._port
+        stub.read_flash.return_value = b'\xff' * 4096
+        chip.run_stub.return_value = stub
         flash_size = Mock(return_value='16MB')
         esptool = SimpleNamespace(detect_chip=Mock(return_value=chip),
                                   cmds=SimpleNamespace(detect_flash_size=flash_size),
@@ -712,7 +728,9 @@ class FirmwareProgrammerTests(unittest.TestCase):
         firmware_upload.flash(args, esptool)
         command = esptool.main.call_args.args[0]
         self.assertEqual(command[-6:], ['0x0', 'boot', '0x8000', 'partitions', '0x10000', 'app'])
-        self.assertIs(esptool.main.call_args.kwargs['esp'], chip)
+        self.assertIs(esptool.main.call_args.kwargs['esp'], stub)
+        self.assertIs(stub._port, chip._port)
+        chip.run_stub.assert_called_once()
 
 
 if __name__ == '__main__':

@@ -34,6 +34,7 @@ from network import DEVICE_ID, NetworkDevice, Pairings, discover, with_usb_modul
 
 WEB = ROOT / 'host/web'
 MAX_BODY = 512 * 1024
+MAX_RUNTIME_BODY = 1024 * 1024
 
 
 class Problem(Exception):
@@ -297,6 +298,8 @@ class Studio:
         self.groups = ModuleGroups()
         self.network_devices = []
         self.firmware_plan = None
+        from studio_runtime import RuntimeUploads
+        self.runtime_uploads = RuntimeUploads(self)
 
     def start_reader(self):
         def drain():
@@ -322,6 +325,7 @@ class Studio:
         self.reader.start()
 
     def close(self):
+        self.runtime_uploads.close()
         self.stop_reader.set()
         if self.reader:
             self.reader.join(timeout=2)
@@ -348,6 +352,8 @@ class Studio:
             connected=self.device is not None,
             module_groups=True,
             module_identify=True,
+            runtime_uploads=True,
+            runtime_job=self.runtime_uploads.snapshot(),
             firmware_targets=[dict(id=key, label=target.label) for key, target in firmware_upload.TARGETS.items()
                 if (target.native16 == native_voice if target.voice_pe else True)],
             paired_devices=self.pairings.public(),
@@ -922,6 +928,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.reply(200, (WEB/file).read_bytes(), kind)
             if path == '/api/config':
                 return self.reply(200, studio.config())
+            if path == '/api/runtime/job':
+                return self.reply(200, studio.runtime_uploads.snapshot())
             if path == '/api/audio':
                 with exclusive(studio.device_lock, 'The device is busy. Wait for the current operation.'):
                     return self.reply(200, studio.audio_snapshot())
@@ -944,7 +952,8 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get('Content-Length', '-1'))
         except ValueError:
             length = -1
-        if not 0 <= length <= MAX_BODY:
+        maximum = MAX_RUNTIME_BODY if path == '/api/runtime/review' else MAX_BODY
+        if not 0 <= length <= maximum:
             raise Problem('Request too large or missing length', 413)
         payload = json.loads(self.rfile.read(length))
         if not isinstance(payload, dict):
@@ -953,6 +962,12 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(200, studio.compile(payload))
         if path == '/api/capture':
             return self.reply(200, studio.capture_audio(payload))
+        if path == '/api/runtime/inspect':
+            return self.reply(200, studio.runtime_uploads.inspect(payload))
+        if path == '/api/runtime/review':
+            return self.reply(200, studio.runtime_uploads.review(payload))
+        if path == '/api/runtime/upload':
+            return self.reply(200, studio.runtime_uploads.start(payload))
         with exclusive(studio.device_lock, 'The device is busy. Wait for the current operation.', timeout=.25):
             try:
                 if path == '/api/connect':

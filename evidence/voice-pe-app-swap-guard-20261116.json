@@ -1,0 +1,39 @@
+{
+  "format": "voice-pe-app-swap-guard-v1",
+  "date": "2026-11-16",
+  "device_id": "esp32-1020ba0697d4",
+  "hardware_inspection": {
+    "app0_project_name": "rnbo_s3_voice-pe",
+    "active_ota_slot": 0,
+    "partition_layout": "reviewed PROJECT",
+    "flash_written": false
+  },
+  "target": {
+    "application": "waveshare_synthdef",
+    "rate": 16000,
+    "app_sha256": "9c15bb2985944ef69b4745a1fddbf148d0a41be653acf92c6e8a75d7369233f1"
+  },
+  "computer_tests": {
+    "command": "python3 -m unittest discover -s host -p test_voice_pe_firmware.py",
+    "tests": 23,
+    "passed": true,
+    "scope": [
+      "RNBO conversion on both reviewed project NVS layouts",
+      "saved original application",
+      "application-only writes",
+      "bootloader/partition/OTA/NVS/storage preservation",
+      "bad old image digest and wrong board marker rejected",
+      "unknown project names and app1 selection rejected",
+      "wrong new application identity rejected"
+    ]
+  },
+  "hardware_conversion_performed": false,
+  "xmos_changed": false,
+  "source_sha256": {
+    "host/voice_pe_firmware.py": "81eb2d40e0314be510cf006cdd48442eee05139de125eb3dd3c25b44c5a49c62",
+    "host/test_voice_pe_firmware.py": "771ab9364aee356164056f3962c9525bd6d27783bef052c360409cf05858f3a2",
+    "ports/voice_pe/NATIVE_16K.md": "2b6677c80bed0e2b69bef11a2bfcde7816e42b66da7e9b8732619c00ca52d3d5",
+    "ports/voice_pe/RECOVERY.md": "33fa8597840ce0e3cfc034bd8a0ae61356354acd5d5c73d5e4cb805abfbfe994"
+  },
+  "remaining": "Actual RNBO-to-SynthDef update and subsequent reverse-swap verification; source checks establish the RNBO updater already permits waveshare_synthdef."
+}

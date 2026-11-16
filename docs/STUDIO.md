@@ -34,6 +34,26 @@ service and releases USB. Use the browser's Disconnect button before another
 tool accesses the board. Restarting Studio disconnects SC clients; stop patterns
 first, then reconnect and restart them afterward.
 
+## SynthDef and RNBO: Runtimes view
+
+For an already commissioned dual-app USB module, open **Runtimes**, select the
+module and click **Inspect**. Paste Main code or choose `.scd`, `.sc`,
+`.scsyndef` or `.rnbopkg`, then **Review upload**. Studio checks the contents,
+shows the permanent recipient ID and says whether the engine must change.
+**Upload Main** runs the reviewed upload once, with background progress that can
+resume after reloading the page. The ordinary SynthDef connection is borrowed
+for inspection and restored after a SynthDef upload.
+
+This view changes Main only. It requires both matching runtime-aware apps and a
+verified local pairing inventory; it does not install the companion firmware on
+a fresh board. Existing Patches/Groups retain their SynthDef behavior. A Main
+deployment from SC can also select SynthDef for this inspected USB node while
+RNBO is running; notes and controls never select an engine. Switching engines
+is a maintenance reboot with the target app's normal
+startup behavior, not a seamless crossfade. Native-16k Voice PE browser uploads
+have been verified with muted fixtures; the original setup was restored.
+[Pairing, commands and qualification](DUAL_RUNTIME.md).
+
 ## Install firmware on a USB board
 
 Build the desired image once on the host. Studio uses `firmware/build-xiao` for

@@ -149,6 +149,18 @@ def write_image(python, image, port, serial_number):
     return log[-5000:]
 
 
+def reject_dual_app_overwrite(raw):
+    """A legacy full-table upload must not dismantle an installed runtime pair."""
+    from voice_pe_firmware import partitions as decode_partitions
+    try:
+        rows = decode_partitions(raw)
+    except ValueError:
+        return  # Original first-install behaviour for blank/unrecognized tables.
+    ota_apps = [row for row in rows if row[1] == 0 and row[2] in (0x10, 0x11)]
+    if len(ota_apps) == 2:
+        raise ValueError('Dual applications detected. Use the dual-app updater; this legacy installer would replace the partition table.')
+
+
 def flash(args, esptool):
     if getattr(args,'board',None)=='voice-pe':
         from voice_pe_firmware import flash as voice_pe_flash
@@ -164,6 +176,9 @@ def flash(args, esptool):
             detected = esptool.cmds.detect_flash_size(chip)
             if detected != args.flash_size:
                 raise ValueError(f'Flash size is {detected or "unknown"}. The selected build requires {args.flash_size}.')
+            if not chip.IS_STUB:
+                chip = chip.run_stub()
+            reject_dual_app_overwrite(chip.read_flash(0x8000, 0x1000))
         except ValueError:
             try:
                 chip.watchdog_reset()

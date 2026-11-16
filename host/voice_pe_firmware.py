@@ -118,7 +118,8 @@ def save_region(chip,folder,name,offset,size):
 def install(chip,esptool,table,app,table_path,app_path,backup_root,mac):
     if partitions(table)!=PROJECT:raise ValueError('The build does not have the reviewed Voice PE layout.')
     verified_image(app)
-    if b'Home Assistant Voice PE' not in app or not 0<len(app)<=0x3c0000:
+    if (b'Home Assistant Voice PE' not in app or project_name(app)!='waveshare_synthdef'
+            or not 0<len(app)<=0x3c0000):
         raise ValueError('Expected the Voice PE application, not another board build.')
     current=chip.read_flash(0x8000,0x1000);layout=partitions(current)
     if layout not in (STOCK,STOCK_LATEST,PROJECT,PROJECT_LATEST):raise ValueError('Unknown device layout. No flash was changed; restore official Voice PE firmware first.')
@@ -127,6 +128,7 @@ def install(chip,esptool,table,app,table_path,app_path,backup_root,mac):
         raise ValueError('Expected the reviewed 16 MB DIO Voice PE bootloader.')
     migration=layout in (STOCK,STOCK_LATEST)
     prefix=chip.read_flash(APP_OFFSET,256)
+    previous_project=project_name(prefix)
     if migration:
         other=chip.read_flash(0x7d0000,256)
         names={project_name(prefix),project_name(other)}
@@ -134,7 +136,10 @@ def install(chip,esptool,table,app,table_path,app_path,backup_root,mac):
             raise ValueError('Cannot identify stock Voice PE firmware. No flash was changed.')
         span=FLASH_BYTES
     else:
-        if project_name(prefix)!='waveshare_synthdef' or active_slot(chip.read_flash(0x9000,8192))!=0:
+        # The companion RNBO Voice PE player uses this exact reviewed layout.
+        # A recognized name is only an initial check: verify its saved complete
+        # image and board marker below before permitting any flash write.
+        if previous_project not in ('waveshare_synthdef','rnbo_s3_voice-pe') or active_slot(chip.read_flash(0x9000,8192))!=0:
             raise ValueError('Expected the Voice PE application in app0; recover the device before updating.')
         old_length=image_length(chip,APP_OFFSET,APP_BYTES)
         span=(max(old_length,len(app))+4095)&~4095
@@ -144,7 +149,8 @@ def install(chip,esptool,table,app,table_path,app_path,backup_root,mac):
     print('Creating verified Voice PE recovery backup: '+str(folder),flush=True)
     record=dict(device_mac=mac,installation='stock migration' if migration else 'application update',
                 layout_before=layout,nvs_preserved_bytes=layout[-1][-1],
-                application_sha256=hashlib.sha256(app).hexdigest(),files=[],status='backing_up')
+                application_sha256=hashlib.sha256(app).hexdigest(),
+                previous_project=previous_project,files=[],status='backing_up')
     manifest=folder/'backup.json'
     def journal():
         manifest.write_text(json.dumps(record,indent=2)+'\n');os.chmod(manifest,0o600)
@@ -200,7 +206,7 @@ def flash(args,esptool):
     # Validate the reviewed snapshot before touching the connected device.
     if partitions(table)!=PROJECT:raise ValueError('Invalid Voice PE build layout.')
     verified_image(app)
-    with open_port(args.port,baudrate=115200,timeout=5) as link:
+    with open_port(args.port,baudrate=115200,timeout=5,exclusive=True) as link:
         chip=esptool.detect_chip(port=link,connect_mode='usb_reset',connect_attempts=3)
         try:
             if chip.CHIP_NAME!='ESP32-S3' or chip.secure_download_mode or bytes(chip.read_mac()).hex()!=args.mac:

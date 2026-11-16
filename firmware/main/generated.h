@@ -2,7 +2,7 @@
 #pragma once
 #define ENGINE_COMMIT "00ac338904304e87845477808e598ef973f49b52"
 #define CAPABILITY_HASH "402b52620b1d4d1fe62bcf58871f5da82c14d53c0c7147f86cf0d7416abe9aaf"
-#define BUILD_ID "8803796c6ccd0cfc940f4366ebcaafe4bfdf2911a67e57d73eea040531f78ab9"
+#define BUILD_ID "65c6dc09ae659f7514f0c39bf9cf08db15e325d80efbfe021abf10f1464a58ff"
 #define PATCH_SHA256 "ebc0989f61564f2909cd37bb934fc38dbb0e0f7e5bb93b6d671a523fc9e51f45"
 static const unsigned char embedded_patch[] = {
     0x53,0x43,0x67,0x66,0x00,0x00,0x00,0x02,0x00,0x01,0x09,0x66,0x6d,0x31,0x5f,0x76,

@@ -79,6 +79,40 @@ class VoiceFirmwareTests(unittest.TestCase):
         self.assertEqual(chip.writes,[0x10000]);self.assertEqual(result['installation'],'application update')
         self.assertEqual(chip.memory[:0x10000],before[:0x10000]);self.assertEqual(chip.memory[0x7d0000:],before[0x7d0000:])
         self.assertTrue(next((self.root/'private').rglob('application-before.bin')).exists())
+    def test_rnbo_conversion_backs_up_old_app_and_preserves_other_regions(self):
+        for layout in (vpe.PROJECT,vpe.PROJECT_LATEST):
+            with self.subTest(layout=layout):
+                chip=Chip();old=app('rnbo_s3_voice-pe')
+                chip.memory[0x8000:0x9000]=table(layout).ljust(4096,b'\xff')
+                chip.memory[0x10000:0x10000+len(old)]=old
+                chip.memory[0xb90000:0xb90008]=b'RNBO FS!'
+                before=bytes(chip.memory);result=self.run_install(chip)
+                self.assertEqual(chip.writes,[0x10000])
+                self.assertEqual(result['previous_project'],'rnbo_s3_voice-pe')
+                self.assertEqual(result['status'],'installed_verified')
+                self.assertEqual(chip.memory[:0x10000],before[:0x10000])
+                self.assertEqual(chip.memory[0x7d0000:],before[0x7d0000:])
+                saved=list((self.root/'private').rglob('application-before.bin'))
+                self.assertTrue(any(p.read_bytes().startswith(old) for p in saved))
+    def test_rnbo_name_does_not_bypass_board_marker_or_digest_checks(self):
+        for problem in ('marker','digest'):
+            with self.subTest(problem=problem):
+                chip=Chip();old=app('rnbo_s3_voice-pe',b'Another board' if problem=='marker' else b'Home Assistant Voice PE')
+                chip.memory[0x10000:0x10000+len(old)]=old
+                before=bytes(chip.memory)
+                if problem=='digest':
+                    def validate(data):
+                        if vpe.project_name(data)=='rnbo_s3_voice-pe':raise ValueError('Invalid application digest')
+                    with patch.object(vpe,'verified_image',side_effect=validate):
+                        with self.assertRaisesRegex(ValueError,'digest'):self.run_install(chip)
+                else:
+                    with self.assertRaisesRegex(ValueError,'different board'):self.run_install(chip)
+                self.assertEqual(chip.writes,[]);self.assertEqual(chip.memory,before)
+    def test_unrecognized_project_with_voice_pe_marker_still_rejected(self):
+        chip=Chip();old=app('unreviewed_voice_pe')
+        chip.memory[0x10000:0x10000+len(old)]=old
+        with self.assertRaisesRegex(ValueError,'app0'):self.run_install(chip)
+        self.assertEqual(chip.writes,[]);self.assertFalse((self.root/'private').exists())
     def test_unknown_layout_and_bad_table_rejected_before_write(self):
         for corrupt in (0,1):
             chip=Chip();changed=list(vpe.PROJECT);changed[-1]=('nvs',1,2,0xf80000,0x6d000)
@@ -96,10 +130,13 @@ class VoiceFirmwareTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'different board'):self.run_install(chip)
         self.assertEqual(chip.writes,[])
     def test_app1_ota_selection_rejected_for_project_updates(self):
-        chip=Chip();ota=bytearray(b'\xff'*32);struct.pack_into('<I',ota,0,2);struct.pack_into('<I',ota,24,2)
-        struct.pack_into('<I',ota,28,zlib.crc32(ota[:4],0xffffffff));chip.memory[0x9000:0x9020]=ota
-        with self.assertRaisesRegex(ValueError,'app0'):self.run_install(chip)
-        self.assertEqual(chip.writes,[])
+        for name in ('waveshare_synthdef','rnbo_s3_voice-pe'):
+            with self.subTest(name=name):
+                chip=Chip();old=app(name);chip.memory[0x10000:0x10000+len(old)]=old
+                ota=bytearray(b'\xff'*32);struct.pack_into('<I',ota,0,2);struct.pack_into('<I',ota,24,2)
+                struct.pack_into('<I',ota,28,zlib.crc32(ota[:4],0xffffffff));chip.memory[0x9000:0x9020]=ota
+                with self.assertRaisesRegex(ValueError,'app0'):self.run_install(chip)
+                self.assertEqual(chip.writes,[])
     def test_failed_backup_never_calls_programmer(self):
         chip=Chip()
         with patch.object(chip,'flash_md5sum',return_value='bad'):
@@ -113,7 +150,7 @@ class VoiceFirmwareTests(unittest.TestCase):
         self.assertEqual(chip.writes,[])
     def test_overlarge_or_wrong_new_app_rejected(self):
         chip=Chip()
-        for data in (app(marker=b'wrong-board'),b'Home Assistant Voice PE'+b'\0'*0x3c0000):
+        for data in (app(marker=b'wrong-board'),app('rnbo_s3_voice-pe'),b'Home Assistant Voice PE'+b'\0'*0x3c0000):
             self.app.write_bytes(data)
             with self.assertRaisesRegex(ValueError,'Voice PE application'):self.run_install(chip)
             self.assertEqual(chip.writes,[])

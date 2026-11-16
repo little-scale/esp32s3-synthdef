@@ -1,0 +1,201 @@
+{
+  "format": "dual-runtime-computer-verification-v1",
+  "date": "2026-11-16",
+  "physical_device_access": false,
+  "scope": "Final checks following the user request for computer-only work; earlier manual Voice PE hardware evidence is separate.",
+  "tests": {
+    "studio_and_dual_runtime": 118,
+    "rnbo_voice_pe_updater": 17,
+    "all_passed": true,
+    "real_synthdef_source_check": {
+      "engine": "synthdef",
+      "rate": 16000,
+      "payload_sha256": "5f99af953085f4dcab069cf746b880c4542b169c586aea5d74c48394c6c60469",
+      "valid": true
+    },
+    "real_rnbo_package_check": {
+      "engine": "rnbo",
+      "rate": 16000,
+      "payload_sha256": "51ab6a47dadeba434ff259beafa478abbfe29a4512d51819432440f23fba1dd5",
+      "valid": true
+    }
+  },
+  "cross_builds": [
+    {
+      "engine": "synthdef",
+      "board_variant": "xiao",
+      "build_directory": "firmware/build-xiao",
+      "bytes": 1407824,
+      "sha256": "5aef05ea18405045d1e204a0bf75612dc8b00d97083f7341464015df80082747",
+      "build_id": "65c6dc09ae659f7514f0c39bf9cf08db15e325d80efbfe021abf10f1464a58ff",
+      "audit": "evidence/dual-runtime-xiao-build.json",
+      "audit_passed": true
+    },
+    {
+      "engine": "synthdef",
+      "board_variant": "amoled",
+      "build_directory": "firmware/build-instrument",
+      "bytes": 1747808,
+      "sha256": "a6939b4ab5aedb2df0917924f6acd65880d1e2645f15a52aa397d1bb30539745",
+      "build_id": "65c6dc09ae659f7514f0c39bf9cf08db15e325d80efbfe021abf10f1464a58ff",
+      "audit": "evidence/dual-runtime-amoled-build.json",
+      "audit_passed": true
+    },
+    {
+      "engine": "synthdef",
+      "board_variant": "voicepe16",
+      "build_directory": "firmware/build-voice-pe-native16",
+      "bytes": 1255872,
+      "sha256": "cbd89235478be74a2864ac229e158c4dea186e57596136eb570e2562d5e3fc00",
+      "build_id": "65c6dc09ae659f7514f0c39bf9cf08db15e325d80efbfe021abf10f1464a58ff",
+      "audit": "evidence/dual-runtime-voicepe16-build.json",
+      "audit_passed": true
+    },
+    {
+      "engine": "synthdef",
+      "board_variant": "voicepe48",
+      "build_directory": "firmware/build-voice-pe-app",
+      "bytes": 1253728,
+      "sha256": "ba6f078ec1227c62a1476fa0d502434005ff5201b89b3aa4e365c7f9a3b9efb8",
+      "build_id": "65c6dc09ae659f7514f0c39bf9cf08db15e325d80efbfe021abf10f1464a58ff",
+      "audit": "evidence/dual-runtime-voicepe48-build.json",
+      "audit_passed": true
+    },
+    {
+      "engine": "rnbo",
+      "board_variant": "xiao",
+      "companion_build_directory": "build/firmware-xiao-player-dual-runtime",
+      "bytes": 937552,
+      "sha256": "5dd9ac722017ff4d833d69e4162c0a5267fb54eb81971c7054285614e54ff31d",
+      "profile": "esp32s3-44100-256-v1",
+      "audit_passed": true,
+      "report_sha256": "8e885666a39d44039bf43a271b67c653714da414afb6218b6d8f0c65e2236050"
+    },
+    {
+      "engine": "rnbo",
+      "board_variant": "amoled",
+      "companion_build_directory": "build/firmware-amoled-player-dual-runtime",
+      "bytes": 1269552,
+      "sha256": "51203bcd0f2eab395f6c9ae399af48a16d9a1bb760088c75e923d203743ac3d0",
+      "profile": "esp32s3-44100-256-v1",
+      "audit_passed": true,
+      "report_sha256": "868603665134be1b5f464085cd0d5957c25e361ec9d2cc99f2a7a3942f443101"
+    },
+    {
+      "engine": "rnbo",
+      "board_variant": "voicepe16",
+      "companion_build_directory": "build/firmware-voice-pe-player-dual-runtime-16000",
+      "bytes": 987232,
+      "sha256": "60b2c38693288a959eb0a0deebf244d6fe5134283aa1db94c59ba4eda50dcccb",
+      "profile": "voice-pe-16000-256-v1",
+      "audit_passed": true,
+      "report_sha256": "eb29843d6162851ac68e921bdc6122ed3ca6acac4fe08f591fce5e4bda0d01d6"
+    },
+    {
+      "engine": "rnbo",
+      "board_variant": "voicepe48",
+      "companion_build_directory": "build/firmware-voice-pe-player-dual-runtime-48k-48000",
+      "bytes": 987248,
+      "sha256": "9eb7a444b731ee4a7e1e77a5f0eb39cfd1a708d26a45e6797905ea21678993c9",
+      "profile": "voice-pe-48000-256-v1",
+      "audit_passed": true,
+      "report_sha256": "1c067d30ce38d7373c3972aa297cbf543e0b8bd9b2fe910c8a80c4faed6f6a93"
+    }
+  ],
+  "source_sha256": {
+    "host/dual_apps.py": "5080ccb014deae0df3911dd8e3661c7681e7480edd6cf1d5b6f557eb43a39bff",
+    "host/dual_upload.py": "bbd498029180d8d12fbe2aecc360a2e80f1a1de5f60bfd098de3681499d5eae8",
+    "host/runtime_routing.py": "7ff283574b193f82fa9587746c120cae1112a232f11518a745d03cb98704f18a",
+    "host/voice_pe_apps.py": "d7c34822a3f8b603fb465519f3b3cdc12698429be9b12b2a651f77933de47966",
+    "host/firmware_upload.py": "82409c78b5c1bdf8b6d17a0a8330f877bfb7f476cfab16587d942348e998585b",
+    "host/voice_pe_firmware.py": "d45bf8bde7e6442c44ced37c6961738d96e3a51d4cde5214b0a210b076033f7c",
+    "host/patches.py": "99435065000f21e447571880cec6b2601c2fc387103e7da3b1332670580b49e0",
+    "host/test_dual_apps.py": "30e1f27bce2ce9db264aa19dd5c278c2657ff647ecc4d531ee188cedb8bc1a2b",
+    "host/test_dual_upload.py": "3770973add0bee841c3627cb8f83f790d9bfae6de106c823b706be28c2375488",
+    "host/test_voice_pe_apps.py": "7dd2b4850c5683ce4bddab58a4e6548b7454f2a1b22f4284e0e85eb95213b3c0",
+    "host/test_runtime_routing.py": "3efc1dc147687a039919a09f5f9d9d01292be9b3b03d3d1d62bc942379edf85e",
+    "host/test_storage_guard.py": "635e1a90cd6cb6c3a5d9692e6c6053607adcfae1d5bf6f84df810c4fe5d28639",
+    "firmware/components/patches/patch_service.c": "18069c58875628ddede066b81418278b89a8fe8c58c9e0128cfb7a1fd1be6614",
+    "firmware/components/patches/include/storage_guard.h": "fe0994626a999d5192311ba87a3d9b9d1f3be9d88bf3d13f52bdc4df6e93689b"
+  },
+  "companion_source_sha256": {
+    "firmware/main/player_main.c": "71076daf09a9d0800ccd1e10a897363c0a6254a8a272e7fc9a5ca719ac6992bf",
+    "host/voice_pe_firmware.py": "4bf1aa484c6c1208135cdf35a0db95d7e6d2ebbf7f0f5d1c5400acf28cd3990f",
+    "host/test_voice_pe_firmware.py": "fc93d6679f57df1b0f63a5437781d0507941f0da34796f26c6b6138ebf3fa0b1"
+  },
+  "compact_layouts": [
+    {
+      "board": "xiao",
+      "synthdef_bytes": 1407824,
+      "rnbo_bytes": 937552,
+      "layout": {
+        "board": "xiao",
+        "flash_bytes": 8388608,
+        "app0": {
+          "offset": 65536,
+          "capacity": 1769472,
+          "engine": "synthdef"
+        },
+        "app1": {
+          "offset": 1835008,
+          "capacity": 1310720,
+          "engine": "rnbo"
+        },
+        "otadata": {
+          "offset": 3145728,
+          "bytes": 8192
+        },
+        "storage": {
+          "offset": 3211264,
+          "bytes": 5177344
+        },
+        "nvs": {
+          "offset": 36864,
+          "bytes": 24576
+        },
+        "preserves_storage_geometry": true
+      }
+    },
+    {
+      "board": "amoled-v2",
+      "synthdef_bytes": 1747808,
+      "rnbo_bytes": 1269552,
+      "layout": {
+        "board": "amoled-v2",
+        "flash_bytes": 16777216,
+        "app0": {
+          "offset": 65536,
+          "capacity": 1769472,
+          "engine": "synthdef"
+        },
+        "app1": {
+          "offset": 1835008,
+          "capacity": 1310720,
+          "engine": "rnbo"
+        },
+        "otadata": {
+          "offset": 3145728,
+          "bytes": 8192
+        },
+        "storage": {
+          "offset": 3211264,
+          "bytes": 13565952
+        },
+        "nvs": {
+          "offset": 36864,
+          "bytes": 24576
+        },
+        "preserves_storage_geometry": true
+      }
+    }
+  ],
+  "earlier_hardware_record": "evidence/voice-pe-dual-runtime-20261116.json",
+  "pending": [
+    "Install runtime-aware images and test automatic payload handoff on physical Voice PE",
+    "Physical XIAO/AMOLED partition migration, both-direction boot and payload handoff",
+    "Physical Voice PE 48 kHz dual-runtime test",
+    "Existing Studio/SC/Max frontend integration",
+    "Wi-Fi and group/broadcast runtime handoff"
+  ],
+  "commit_status": "Uncommitted local work at this checkpoint"
+}

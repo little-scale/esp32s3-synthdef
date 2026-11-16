@@ -1,0 +1,87 @@
+{
+  "format": "studio-runtime-integration-v1",
+  "date": "2026-11-16",
+  "device_id": "esp32-1020ba0697d4",
+  "native_rate": 16000,
+  "firmware_build": "65c6dc09ae659f7514f0c39bf9cf08db15e325d80efbfe021abf10f1464a58ff",
+  "new_firmware_written_in_this_stage": false,
+  "xmos_changed": false,
+  "checks": {
+    "browser_pasted_source_review_and_upload": true,
+    "browser_rnbo_file_review_and_upload": true,
+    "browser_handoff_both_directions": true,
+    "browser_same_engine_upload": true,
+    "browser_active_job_reload_resumed": true,
+    "browser_completed_job_reload_recovered": true,
+    "inspect_borrows_existing_usb_connection": true,
+    "immutable_identity_bound_single_use_review": true,
+    "sc_read_only_reconnect_and_discovery": true,
+    "sc_rnbo_discovery": true,
+    "sc_control_only_request_refused_without_boot": true,
+    "sc_main_deployment_selected_synthdef": true,
+    "sc_definition_remained_quiet": true,
+    "sc_autonomous_function_after_handoff": true,
+    "sc_parameter_880_readback": true
+  },
+  "graph_checksums": {
+    "browser_synthdef": "5f99af953085f4dcab069cf746b880c4542b169c586aea5d74c48394c6c60469",
+    "browser_rnbo": "51ab6a47dadeba434ff259beafa478abbfe29a4512d51819432440f23fba1dd5",
+    "original_rnbo": "7b91cb1689f370b5df77ff3f44cf31458454c247debf1e9cd4728d0101c714cc",
+    "sc_definition": "ba28962edcd63fd17e7bb287fc8877f5bde7494dbd066df75f1e4c6069091014"
+  },
+  "sc_handoff_seconds": 65.900271125,
+  "muted_tests": true,
+  "listening_checked": false,
+  "restoration": {
+    "connected_in_primary_studio": true,
+    "main_graph_sha256": "7e37d7faed8849151697fae52c023c6cd7fecfc7a93ea763e86b463cf9675c1e",
+    "source_and_manifest_verified": true,
+    "fx_library_and_settings_verified": true,
+    "fx_bypassed": true,
+    "volume_percent": 36,
+    "continuous": true,
+    "reset_required": false,
+    "silent_fixture_pcm": {
+      "frames": 800,
+      "rate": 16000,
+      "all_zero": true
+    }
+  },
+  "regression_tests": {
+    "host_and_native_sc": 160,
+    "companion_installer_previously_passed": 17,
+    "browser_startup_stories": 3
+  },
+  "service": {
+    "primary_port": 8765,
+    "existing_session_credentials_and_sc_endpoint_retained": true,
+    "isolated_preview_stopped": true
+  },
+  "source_sha256": {
+    "host/studio.py": "9c3af142f2c441bfc8227e53a5599551224b4f59b534bff65472ccc707a4a5a8",
+    "host/studio_runtime.py": "c7f9e87ffd15095eedfdf01bc3c52b16391d6bba5a8701b7c029fae659f686a1",
+    "host/dual_upload.py": "d1d5eb6c58a75c40138e05ccb0f43127586c27c70a879eec992aa69a3dcb3524",
+    "host/ide_bridge.py": "9f05e4b2898d441d8a7d2737d0902458a01e03e1b4f3e119f7c0745eaffdfe83",
+    "host/test_studio.py": "4e961180f199e2a95aea67ef822012fa070db4d0db4e7f216c713bd8d7906c2a",
+    "host/test_studio_runtime.py": "ec0343cee3d2a72f6012f21c91d6221c99902ba6788a8565fa6a0b949c3724d3",
+    "host/test_dual_upload.py": "4de14d70e71ee3c249549abcd52fdf86282417667d4f8ac90720b199c56f8567",
+    "host/test_ide_bridge.py": "3b2f147da76953138a4e36e17cbad2794e3bd8c30094ab8d7e0001cb9d518123",
+    "host/web/app.js": "4d34bc52d4fecf5af434abf021f395197b7979f7a18d91f89b0758bb0f9eb90d",
+    "host/web/index.html": "f6cbfbd0eb342332844a9b9e2a18fa6bb004e1c2c56f536fc5f8b2e4fc89627b",
+    "host/web/style.css": "d19488700c4958528c0cec501398223e96bcd31eefa1f95dc930ea1d6ea51200",
+    "host/web/test_runtime.cjs": "db891c3d1cb55bc302bb155801a34a8a5931efbccb3451881cf8a71109fde998"
+  },
+  "screenshots": {
+    "studio-runtimes-20261116.jpg": "dceafd659026ceb7971d07421d4aceea6e11eaa49eced4f8075020ea4a228e31",
+    "studio-runtimes-preview-20261116.jpg": "61cd3f299e87bed316df8badf44258e9c74ad7941a150a504bde2505a80d53ff"
+  },
+  "limits": [
+    "Only Voice PE native 16 kHz physically qualified; XIAO/AMOLED and Voice PE 48 kHz remain host/build qualified",
+    "USB Main handoff only; Wi-Fi and Max automatic handoff remain pending",
+    "SC handoff requires selection/inspection of the commissioned USB node in Runtimes",
+    "Notes, controls and FX deployment do not implicitly switch engines",
+    "Target app normal startup can resume its saved Main before the incoming upload; quiet-boot handoff is pending",
+    "Guarded maintenance reboot, not seamless live crossfade; no new listening qualification"
+  ],
+  "commit_status": "Uncommitted local working-tree changes"
+}

@@ -62,9 +62,11 @@ def manifest(graph, source=b'', name='Uploaded Sine', labels=('PITCH', 'LEVEL', 
 
 
 class Device:
-    def __init__(self, port, log=None, *, open_policy='auto'):
+    def __init__(self, port, log=None, *, open_policy='auto', exclusive=None):
         from serial_port import open_port
-        self.link = open_port(port,policy=open_policy,baudrate=115200,timeout=.1,write_timeout=3)
+        options = dict(baudrate=115200,timeout=.1,write_timeout=3)
+        if exclusive is not None: options['exclusive'] = exclusive
+        self.link = open_port(port,policy=open_policy,**options)
         self.sequence = secrets.randbelow(0xfffffffe) + 1
         self.log = log
         self.pending = bytearray()

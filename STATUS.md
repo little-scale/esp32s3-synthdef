@@ -1,4 +1,47 @@
-# Project status — 15 November 2026
+# Project status — 17 November 2026
+
+## Experimental dual-runtime update — 17 November 2026
+
+- SynthDef app0 and RNBO app1 were both installed and booted in each direction
+  on VoicePE-0697d4 at native 16 kHz. The new runtime-aware builds are installed;
+  its original programs, FX bypass/settings and 36% volume were restored, and
+  it was left in SynthDef. XMOS was not changed.
+- Guarded XIAO/AMOLED pairing, updates and selection are implemented, with
+  simulated flash preservation and interruption tests. Physical migration is
+  pending. Both runtimes build for those boards and Voice PE at 16/48 kHz.
+- A new USB payload uploader compiles/validates before access, identifies the
+  runtime, rejects busy/incompatible devices, fades and selects the other app
+  when necessary, then uses that engine's verified upload protocol. Muted Main
+  uploads pass on native-16k Voice PE in both directions; same-engine uploads
+  preserve uptime and busy/exclusive-USB checks refuse to switch. Hardware work
+  exposed and fixed a companion Python namespace collision and a USB return
+  timing race. The 160 host/native-SC and 17 companion-installer tests pass.
+  Wi-Fi runtime handoff remains pending; new runtime-aware
+  images are required. No new listening qualification is claimed.
+- Studio's new **Runtimes** tab reviews SC source/SCgf/RNBO Main payloads, binds
+  their bytes to the inspected USB identity and runs a single-use background
+  upload with recoverable progress after page reload. Browser tests pass in
+  both directions on native-16k Voice PE; the original setup is restored.
+  The updated service is enabled at the normal Studio address, with its prior
+  credentials and SC endpoint retained. [Studio verification](evidence/studio-runtime-20261116.json).
+- Main `.sendESP32` / `.playESP32` deployment can select SynthDef for the USB node
+  explicitly inspected in Runtimes while RNBO is running. Existing aliases and
+  target resolution are retained, along with quiet definition and autonomous
+  Function semantics. A real SC client confirmed RNBO discovery, refused a
+  control-only message without switching, and completed a verified quiet Main
+  deployment in 65.9 seconds. Autonomous playback and parameter readback also
+  pass after the handoff. Tests were silent/muted; the original setup is restored.
+  FX/control-only requests do not change engines. No firmware change was needed
+  for these Studio/SC host integrations. Quiet boot before the incoming Main is
+  installed, automatic Wi-Fi handoff and other-board hardware qualification remain
+  pending. [SC workflow](docs/DUAL_RUNTIME.md#supercollider-main-deployment-over-usb).
+- A storage guard prevents formatting nonempty shared storage after a failed
+  SynthDef mount. Factory-only update paths refuse paired layouts.
+- Computer-only preflight was followed by the resumed Voice PE hardware session
+  on 16 November at the user's request.
+  [Workflow and limits](docs/DUAL_RUNTIME.md),
+  [computer preflight](evidence/dual-runtime-computer-20261116.json),
+  [automatic handoff hardware verification](evidence/voice-pe-auto-runtime-20261116.json).
 
 ## Published on main
 

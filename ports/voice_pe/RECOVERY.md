@@ -26,3 +26,18 @@ which retained its existing app0 OTA records. Both keep XMOS untouched.
 
 The known-unit original recovery described above remains available separately.
 Unknown layouts and secured/encrypted devices are refused by the new installer.
+
+## Returning from the RNBO player
+
+The guarded updater recognizes the companion `rnbo_s3_voice-pe` application in
+app0 on the exact reviewed project layouts. It saves and verifies the installed
+application before replacing only app0 with SynthDef firmware; partition/OTA
+metadata, NVS, patch storage, the bootloader and XMOS are preserved. The old
+application must pass its complete image verification and contain the Voice PE
+board marker. An arbitrary project name or app1 selection is still refused.
+
+Choose the SynthDef build matching the installed XMOS clocks. For a device
+already clocked at 16 kHz, use the guarded command in
+[the native-16 guide](NATIVE_16K.md), without changing XMOS. RNBO package files
+remain in storage but cannot be executed as SynthDefs. Previously saved SynthDef
+patches/settings may be restored by the SynthDef application after conversion.

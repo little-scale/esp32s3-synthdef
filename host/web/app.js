@@ -12,6 +12,7 @@ let audioEpoch = 0, audioPolling = false, audioLatest = null;
 let editorTarget = 'sound';
 const drafts = {};
 const encoder = new TextEncoder();
+let runtimeInspection = null, runtimePlan = null, runtimeFile = null, runtimeActive = false;
 
 function message(text = '', success = false) {
   $('message').textContent = text; $('message').hidden = !text; $('message').classList.toggle('success', success);
@@ -65,7 +66,7 @@ function renderBroadcast() {
     'Find modules, then review the recipients.';
 }
 function controls() {
-  const locked = busy || volumeSending || volumeTimer !== null;
+  const locked = busy || volumeSending || volumeTimer !== null || runtimeActive;
   $('pattern-example').disabled=locked || isMaster() || !config?.pattern_example;
   const pattern=device?.standalone_program;
   $('pattern-play').disabled=locked || !pattern?.loaded || !pattern?.bound;
@@ -114,7 +115,8 @@ function controls() {
   $('master-load').setAttribute('aria-pressed',String(bypassed()));
   $('fx-status').textContent=device?(bypassed()?'FX bypassed · Main goes straight to output.':'FX enabled · Main passes through FX.'):'FX state appears after connecting.';
   renderBroadcast();
-  $('volume').disabled = busy || !device?.hello.global_volume || !Number.isInteger(device?.volume_percent);
+  $('volume').disabled = locked || !device?.hello.global_volume || !Number.isInteger(device?.volume_percent);
+  runtimeControls(locked);
 }
 async function task(action) {
   if (busy || volumeSending || volumeTimer !== null) return;
@@ -337,6 +339,7 @@ function firmwareOptions() {
 async function ports() {
   config = await api('config');
   $('groups-tab').hidden = !config.module_groups;
+  $('runtimes-tab').hidden = !config.runtime_uploads;
   $('identify-control').hidden = !config.module_identify;
   if (!config.module_groups) $('upload-destination').options[1].textContent = 'All paired Wi-Fi modules';
   const previous = $('port').value; $('port').replaceChildren();
@@ -348,6 +351,7 @@ async function ports() {
   if (config.ports.some(p => p.port === selected)) $('port').value = selected;
   if (!config.serial_ready) $('device-status').textContent = 'USB support needs pyserial. Launch with sh host/studio.sh.';
   firmwareOptions();
+  runtimeOptions();
   controls();
 }
 function nameDefault(name) { return name.replace(/[^\x20-\x7e]|["\\]/g, '_').slice(0, 31) || 'My SynthDef'; }
@@ -568,10 +572,13 @@ function renderGroups(view, selected) {
   controls();
 }
 function showGroups(show) {
-  $('groups-view').hidden = !show;
-  $('patches-view').hidden = show;
-  $('groups-tab').setAttribute('aria-pressed', String(show));
-  $('patches-tab').setAttribute('aria-pressed', String(!show));
+  showView(show ? 'groups' : 'patches');
+}
+function showView(name) {
+  for (const view of ['patches', 'groups', 'runtimes']) {
+    $(view + '-view').hidden = view !== name;
+    $(view + '-tab').setAttribute('aria-pressed', String(view === name));
+  }
 }
 $('groups-tab').addEventListener('click', () => task(async () => {
   showGroups(true);
@@ -687,11 +694,121 @@ async function download(extension) {
 }
 $('download-graph').addEventListener('click', () => download('scsyndef'));
 $('download-source').addEventListener('click', () => download('scd'));
-task(async () => {
+function runtimeControls(locked) {
+  for (const id of ['runtimes-tab', 'runtime-port', 'runtime-refresh', 'runtime-inspect',
+    'runtime-open', 'runtime-file', 'runtime-paste', 'runtime-definition']) $(id).disabled = locked;
+  $('runtime-inspect').disabled = locked || !$('runtime-port').value;
+  $('runtime-source').readOnly = locked || !!runtimeFile;
+  const hasInput = runtimeFile || $('runtime-source').value.trim();
+  $('runtime-review').disabled = locked || !runtimeInspection?.ready || !hasInput;
+  $('runtime-upload').disabled = locked || !runtimePlan;
+  if (runtimeFile?.filename.toLowerCase().endsWith('.rnbopkg')) $('runtime-definition').disabled = true;
+}
+function clearRuntimeReview() {
+  runtimePlan = null;
+  $('runtime-confirmation').hidden = true;
+}
+function runtimeOptions() {
+  const port = $('runtime-port'), previous = port.value;
+  const rows = (config.ports || []).filter(row => row.esp32);
+  port.replaceChildren(new Option(rows.length ? 'Choose a USB module…' : 'No USB module found', ''));
+  for (const row of rows) port.add(new Option(`${row.name} · ${row.port}`, row.port));
+  port.value = rows.some(row => row.port === previous) ? previous : rows.length === 1 ? rows[0].port : '';
+  if (runtimeInspection?.port !== port.value) runtimeInspection = null;
+  clearRuntimeReview();
+}
+function runtimeSourceMode() {
+  runtimeFile = null; $('runtime-file').value = '';
+  $('runtime-file-info').textContent = 'Pasted SuperCollider Main code';
+  clearRuntimeReview(); controls();
+}
+async function pollRuntimeJob() {
+  runtimeActive = true; controls();
+  let job;
+  do {
+    job = await api('runtime/job');
+    if (job.device_id) $('runtime-device').textContent = `${job.model || job.device_id} · ${job.device_id} · ${job.active ? 'Target: ' : ''}${job.engine === 'rnbo' ? 'RNBO' : 'SynthDef'}` +
+      (job.rate ? ` · ${(job.rate / 1000).toLocaleString()} kHz` : '');
+    const elapsed = Math.max(0, Math.round(Date.now() / 1000 - (job.started || Date.now() / 1000)));
+    $('runtime-progress').textContent = `${job.progress || 'Checking upload'}${job.active ? ` · ${elapsed}s` : ''}`;
+    if (job.active) await new Promise(resolve => setTimeout(resolve, 1000));
+  } while (job.active);
+  runtimeActive = false;
+  sessionStorage.removeItem('studio-runtime-job');
+  if (job.studio_connected) renderDevice(await api('refresh', {})); else renderDevice(null);
+  if (job.state === 'failed') {
+    runtimeInspection = null; $('runtime-device').textContent = 'Inspect the module before another upload.';
+    throw new Error(job.error || 'Upload stopped. Inspect the module before retrying.');
+  }
+  if (job.state === 'complete') {
+    $('runtime-progress').textContent = `Saved and verified · ${job.engine === 'rnbo' ? 'RNBO' : 'SynthDef'}`;
+    $('runtime-device').textContent = `${job.model || job.device_id} · ${job.device_id} · ${job.engine === 'rnbo' ? 'RNBO' : 'SynthDef'}` +
+      (job.rate ? ` · ${(job.rate / 1000).toLocaleString()} kHz` : '');
+    runtimeInspection = null;
+    message('Main saved and verified. Inspect the module again for another upload.', true);
+  }
+}
+$('runtimes-tab').addEventListener('click', () => { showView('runtimes'); message(); });
+$('runtime-refresh').addEventListener('click', () => task(ports));
+$('runtime-port').addEventListener('change', () => {
+  runtimeInspection = null; clearRuntimeReview();
+  $('runtime-device').textContent = 'Inspect the selected USB module.'; controls();
+});
+$('runtime-inspect').addEventListener('click', () => task(async () => {
+  clearRuntimeReview(); runtimeInspection = null;
+  $('runtime-device').textContent = 'Identifying the running engine…';
+  let result;
+  try { result = await api('runtime/inspect', {port: $('runtime-port').value}); }
+  catch (error) { $('runtime-device').textContent = 'Inspection stopped. ' + error.message; throw error; }
+  runtimeInspection = result;
+  $('runtime-device').textContent = `${result.model} · ${result.device_id} · ${result.engine === 'rnbo' ? 'RNBO' : 'SynthDef'} · ${(result.rate / 1000).toLocaleString()} kHz` +
+    (result.busy ? ' · Transfer busy; wait before reviewing.' : result.error ? ` · ${result.error}` : ' · Both runtimes commissioned');
+}));
+$('runtime-open').addEventListener('click', () => $('runtime-file').click());
+$('runtime-file').addEventListener('change', () => task(async () => {
+  clearRuntimeReview(); runtimeFile = null;
+  const file = $('runtime-file').files[0]; if (!file) return;
+  if (file.size > 128 + 65536 + 524288) throw new Error('File exceeds the package limit.');
+  const bytes = new Uint8Array(await file.arrayBuffer()); let text = '';
+  for (let at = 0; at < bytes.length; at += 8192) text += String.fromCharCode(...bytes.subarray(at, at + 8192));
+  runtimeFile = {filename: file.name, data: btoa(text)};
+  if (file.name.toLowerCase().endsWith('.rnbopkg')) $('runtime-definition').checked = false;
+  $('runtime-file-info').textContent = `${file.name} · ${file.size.toLocaleString()} bytes`;
+}));
+$('runtime-paste').addEventListener('click', runtimeSourceMode);
+$('runtime-source').addEventListener('input', () => { clearRuntimeReview(); controls(); });
+$('runtime-definition').addEventListener('change', () => { clearRuntimeReview(); controls(); });
+$('runtime-review').addEventListener('click', () => task(async () => {
+  clearRuntimeReview(); $('runtime-progress').textContent = 'Compiling / validating before device access…';
+  const input = runtimeFile || {source: $('runtime-source').value};
+  let result;
+  try { result = await api('runtime/review', {...input, inspection: runtimeInspection.inspection, definition: $('runtime-definition').checked}); }
+  catch (error) { $('runtime-progress').textContent = 'Review stopped. ' + error.message; throw error; }
+  runtimePlan = result;
+  $('runtime-review-summary').textContent = `${result.engine === 'rnbo' ? 'RNBO' : 'SynthDef'} Main · ${result.bytes.toLocaleString()} bytes · ${result.device_id} · ${(result.rate / 1000).toLocaleString()} kHz. ` +
+    (result.switch ? 'Will fade and restart into the other engine.' : 'The running engine will stay selected.') +
+    (result.definition ? ' Saves a definition without starting it.' : '') + ` SHA-256 ${result.sha256.slice(0, 12)}.`;
+  $('runtime-confirmation').hidden = false; $('runtime-progress').textContent = 'Ready to upload the reviewed Main.';
+}));
+$('runtime-upload').addEventListener('click', () => task(async () => {
+  if (!runtimePlan) return;
+  const plan = runtimePlan.plan; clearRuntimeReview();
+  const job = await api('runtime/upload', {plan});
+  sessionStorage.setItem('studio-runtime-job', job.job);
+  await pollRuntimeJob();
+}));
+
+async function startStudio() {
   await ports();
   networkDevices=(config.paired_devices || []).map(row=>({...row,paired:true,online:false}));renderNetworks();
-  if (config.connected) renderDevice(await api('refresh', {}));
   loadEditor('sound'); $('compile-status').textContent = config.compiler_ready ? 'Ready to compile' : 'SuperCollider not found · compiled files can still be checked';
+  // A running upload owns device_lock. Resume its cached job before asking
+  // for groups/current-device state, which intentionally refuse that lock.
+  if (config.runtime_job?.active || (config.runtime_job?.job && config.runtime_job.job === sessionStorage.getItem('studio-runtime-job'))) {
+    sessionStorage.setItem('studio-runtime-job', config.runtime_job.job);
+    showView('runtimes'); await pollRuntimeJob(); await ports();
+  } else if (config.connected) renderDevice(await api('refresh', {}));
   if (config.module_groups) renderGroups(await api('groups'));
   if (!token) message('Open the full session URL printed by sh host/studio.sh.');
-});
+}
+task(startStudio);

@@ -89,7 +89,9 @@ class Hub:
         self.upload_pool.shutdown(wait=True,cancel_futures=True);self.pool.shutdown(wait=True,cancel_futures=True)
     def usb_row(self):
         device=getattr(self.studio,'device',None)
-        if device is None or isinstance(device,NetworkDevice):return None
+        if device is None or isinstance(device,NetworkDevice):
+            runtime=getattr(self.studio,'runtime_uploads',None)
+            return runtime.usb_hint() if runtime is not None else None
         with self.studio.device_lock:return self.usb_row_locked()
     def usb_row_locked(self):
         device=getattr(self.studio,'device',None);info=getattr(self.studio,'device_info',None)
@@ -147,6 +149,8 @@ class Hub:
         if len(ids)>64:raise ValueError('At most 64 modules per operation')
         return [dict(rows[i] if i in rows else paired[i],paired=True) for i in ids]
     def node(self,row):
+        if row.get('runtime')=='rnbo':
+            raise ValueError('This USB module is running RNBO. Send a SynthDef Main before notes, controls or FX; these messages do not switch engines.')
         with self.lock:
             node=self.nodes.get(row['device_id'])
             usb=row.get('transport')=='usb'
@@ -186,31 +190,39 @@ class Hub:
         admission_key='master_admitted' if target=='master' else 'fm1_admitted'
         if not info['admitted'] and not any(row.get(admission_key) for row in info.get('admission_rates',{}).values()):
             raise ValueError(info['admission_error'])
-        def send(row):
+        def deliver(node,row):
             worker=None
             try:
-                node=self.node(row)
-                with node.lock:
-                    d=node.device;hello=d.hello()
-                    if definition and not hello.get('definition_lifecycle'):raise ValueError('Update device firmware to upload definitions without playing')
-                    worker=Studio(str(self.studio.compiler.sclang));worker.device=d;worker.device_info=hello;worker.device_port=row['address'];worker.artifacts['ide']=artifact
-                    expected=next(r for r in d.request('FXLIST' if target=='master' else 'LIST') if r['slot']==1)
-                    name=p.get('name') or info['name'];name=''.join(c if 32<=ord(c)<127 and c not in '\\"' else '_' for c in name)[:31] or 'Main'
-                    result=worker.upload(dict(artifact='ide',slot=1,expected=expected,replace=True,name=name,device_id=row['device_id']))
-                    if hello.get('remote_controls') and not definition and (info.get('continuous') or target=='master'):
-                        until=time.monotonic()+5
-                        while not d.request('RCINFO',bytes([int(target=='master'),0]),timeout=2,retries=0)['prepared']:
-                            if time.monotonic()>until:raise RuntimeError('Main saved but constructor is not ready')
-                            time.sleep(.01)
-                    if hello.get('remote_controls'):
-                        cached=schema(d,int(target=='master'));cached['_synced']=time.monotonic();node.schemas[int(target=='master')]=cached
-                    reply=dict(device_id=row['device_id'],device_name=row['device_name'],verified=result['verified'])
-                    if result.get('program_upload') is not None:reply['program']=result['program_upload']
-                    if not definition and hello.get('remote_controls'):reply['active']=cached['active']
-                    return reply
-            except Exception as e:return dict(device_id=row['device_id'],device_name=row['device_name'],verified=False,error=str(e))
+                d=node.device;hello=d.hello()
+                if definition and not hello.get('definition_lifecycle'):raise ValueError('Update device firmware to upload definitions without playing')
+                worker=Studio(str(self.studio.compiler.sclang));worker.device=d;worker.device_info=hello;worker.device_port=row['address'];worker.artifacts['ide']=artifact
+                expected=next(r for r in d.request('FXLIST' if target=='master' else 'LIST') if r['slot']==1)
+                name=p.get('name') or info['name'];name=''.join(c if 32<=ord(c)<127 and ord(c) not in (34,92) else '_' for c in name)[:31] or 'Main'
+                result=worker.upload(dict(artifact='ide',slot=1,expected=expected,replace=True,name=name,device_id=row['device_id']))
+                if hello.get('remote_controls') and not definition and (info.get('continuous') or target=='master'):
+                    until=time.monotonic()+5
+                    while not d.request('RCINFO',bytes([int(target=='master'),0]),timeout=2,retries=0)['prepared']:
+                        if time.monotonic()>until:raise RuntimeError('Main saved but constructor is not ready')
+                        time.sleep(.01)
+                if hello.get('remote_controls'):
+                    cached=schema(d,int(target=='master'));cached['_synced']=time.monotonic();node.schemas[int(target=='master')]=cached
+                reply=dict(device_id=row['device_id'],device_name=row['device_name'],verified=result['verified'])
+                if result.get('program_upload') is not None:reply['program']=result['program_upload']
+                if not definition and hello.get('remote_controls'):reply['active']=cached['active']
+                return reply
             finally:
                 if worker:worker.close()
+        def send(row):
+            try:
+                if row.get('runtime')=='rnbo':
+                    def after_restart():
+                        current=self.usb_row_locked()
+                        if current is None or current['device_id']!=row['device_id']:raise ValueError('USB node changed after engine selection')
+                        return deliver(USBNode(current,self.studio),current)
+                    return self.studio.runtime_uploads.send_from_sc(row,artifact,after_restart)
+                node=self.node(row)
+                with node.lock:return deliver(node,row)
+            except Exception as e:return dict(device_id=row['device_id'],device_name=row['device_name'],verified=False,error=str(e))
         results=list(self.upload_pool.map(send,rows))
         with self.lock:self.streams.pop((p.get('_client'),1),None)
         return dict(verified=all(r['verified'] for r in results),results=results,graph_sha256=info['graph_sha256'],source_sha256=info['source_sha256'],controls=info['controls'])

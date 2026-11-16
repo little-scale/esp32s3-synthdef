@@ -1,0 +1,125 @@
+{
+  "format": "voice-pe-automatic-dual-runtime-hardware-v1",
+  "date": "2026-11-16",
+  "device_id": "esp32-1020ba0697d4",
+  "native_rate": 16000,
+  "xmos_changed": false,
+  "muted_tests": true,
+  "listening_checked": false,
+  "firmware": {
+    "synthdef_build": "65c6dc09ae659f7514f0c39bf9cf08db15e325d80efbfe021abf10f1464a58ff",
+    "synthdef_app_sha256": "cbd89235478be74a2864ac229e158c4dea186e57596136eb570e2562d5e3fc00",
+    "rnbo_app_sha256": "60b2c38693288a959eb0a0deebf244d6fe5134283aa1db94c59ba4eda50dcccb",
+    "rnbo_elf_sha256": "3b76e691748fe3c3fb49092c9e5162deafd9c8aab6ba1aa9fe263c3bf57439cd"
+  },
+  "installation": {
+    "synthdef": "installed_verified",
+    "rnbo": "installed_verified",
+    "protected_regions_preserved": true,
+    "rnbo_protected_regions_preserved": true
+  },
+  "checks": [
+    {
+      "name": "same-engine SynthDef upload without reboot",
+      "passed": true
+    },
+    {
+      "name": "automatic RNBO to SynthDef upload",
+      "passed": true
+    },
+    {
+      "name": "automatic SynthDef to RNBO upload",
+      "passed": true
+    },
+    {
+      "name": "same-engine RNBO upload without reboot",
+      "passed": true
+    },
+    {
+      "name": "malformed payload rejected before USB upload",
+      "passed": true
+    },
+    {
+      "name": "wrong-rate payload rejected before USB upload",
+      "passed": true
+    },
+    {
+      "name": "busy transfer blocks runtime switch",
+      "passed": true
+    },
+    {
+      "name": "exclusive USB owner blocks runtime switch",
+      "passed": true
+    },
+    {
+      "name": "original RNBO package and paused state restored",
+      "passed": true
+    },
+    {
+      "name": "return to SynthDef through automatic upload",
+      "passed": true
+    }
+  ],
+  "same_engine_rnbo": {
+    "uptime_before": 19805819,
+    "uptime_after": 35259760,
+    "frames_before": 180480,
+    "frames_after": 365824
+  },
+  "rnbo_clock_check": {
+    "passed": true,
+    "expected_ws_hz": 16000,
+    "measured_ws_hz": 15992.4267578125,
+    "measured_bclk_hz": 1023986.3125
+  },
+  "rnbo_boot_verified": true,
+  "silent_pcm": {
+    "frames": 800,
+    "rate": 16000,
+    "all_zero": true
+  },
+  "restoration": {
+    "engine": "synthdef",
+    "rate": 16000,
+    "main_graph_sha256": "7e37d7faed8849151697fae52c023c6cd7fecfc7a93ea763e86b463cf9675c1e",
+    "source_and_manifest_verified": true,
+    "fx_library_and_selection_verified": true,
+    "fx_bypassed": true,
+    "volume_percent": 36,
+    "rnbo_package_sha256": "7b91cb1689f370b5df77ff3f44cf31458454c247debf1e9cd4728d0101c714cc",
+    "rnbo_paused": true,
+    "reset_required": false
+  },
+  "host_fixes": [
+    "Isolate companion Python imports so SynthDef host/studio.py cannot shadow RNBO host/studio/device.py",
+    "Wait for matching USB identity to re-enumerate before the RNBO transport opens; do not retry payload mutations"
+  ],
+  "host_regressions": {
+    "studio_and_dual_runtime": 120,
+    "companion_installer": 17
+  },
+  "source_sha256": {
+    "host/dual_upload.py": "e358fb9d9092ef03fb2736e045f80a95329cdd9db61285937742be647d36f96f",
+    "host/test_dual_upload.py": "51ad2cee5490e5c8f18b711517fe576c9fa67a99addb56e3fffb593f51031eac",
+    "host/voice_pe_apps.py": "d7c34822a3f8b603fb465519f3b3cdc12698429be9b12b2a651f77933de47966",
+    "firmware/components/patches/patch_service.c": "18069c58875628ddede066b81418278b89a8fe8c58c9e0128cfb7a1fd1be6614",
+    "firmware/components/patches/include/storage_guard.h": "fe0994626a999d5192311ba87a3d9b9d1f3be9d88bf3d13f52bdc4df6e93689b"
+  },
+  "limits": [
+    "Voice PE native 16 kHz only; no physical 48 kHz pair check",
+    "Muted Main uploads; no listening qualification of runtime transitions or automatic FX handoff",
+    "XIAO/AMOLED physical migration and switching still pending",
+    "Studio/SC/Max frontend automatic routing and Wi-Fi/group handoff not integrated",
+    "Reboot uses the guarded USB maintenance path; no seamless or fast live engine switching claimed"
+  ],
+  "restart_check": {
+    "software_restart": true,
+    "cold_power_cycle": false,
+    "graph_sha256": "7e37d7faed8849151697fae52c023c6cd7fecfc7a93ea763e86b463cf9675c1e",
+    "volume_percent": 36,
+    "continuous": true,
+    "fx_bypass": true,
+    "reset_required": false
+  },
+  "studio_reconnected": true
+}

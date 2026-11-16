@@ -9,6 +9,7 @@
 #include "playback_mode.h"
 #include "catalog_generated.h"
 #include "patch_policy.h"
+#include "storage_guard.h"
 #include "esp_heap_caps.h"
 #include "esp_log.h"
 #include "esp_spiffs.h"
@@ -101,6 +102,8 @@ static int persist_selection(unsigned slot)
 {
     return s->mounted && nvs_set_u8(s->nvs,"selected",(uint8_t)slot)==ESP_OK && nvs_commit(s->nvs)==ESP_OK;
 }
+static bool storage_read(void *context,size_t offset,void *buffer,size_t bytes)
+{return esp_partition_read(context,offset,buffer,bytes)==ESP_OK;}
 static int mount_store(void)
 {
     esp_err_t err=nvs_flash_init();
@@ -109,15 +112,22 @@ static int mount_store(void)
     esp_vfs_spiffs_conf_t cfg={.base_path="/patches",.partition_label="storage",.max_files=4,.format_if_mount_failed=false};
     err=esp_vfs_spiffs_register(&cfg);
     if(err!=ESP_OK && !s->provisioned) {
+        const esp_partition_t *storage=esp_partition_find_first(ESP_PARTITION_TYPE_DATA,ESP_PARTITION_SUBTYPE_DATA_SPIFFS,"storage");
 #ifdef CONFIG_SYNTHDEF_VOICE_PE
         /* Only the reviewed tail of stock app1 is a new, dedicated filesystem.
          * A wrong/missing table must never turn inherited stock bytes into FS. */
-        const esp_partition_t *storage=esp_partition_find_first(ESP_PARTITION_TYPE_DATA,ESP_PARTITION_SUBTYPE_DATA_SPIFFS,"storage");
         if(!storage || storage->address!=0xb90000 || storage->size!=0x400000) {
             ESP_LOGE(TAG,"Voice PE storage layout mismatch; no format attempted");
             return 0;
         }
 #endif
+        unsigned char *scratch=heap_caps_malloc(4096,MALLOC_CAP_INTERNAL|MALLOC_CAP_8BIT);
+        bool erased=storage && scratch && patch_storage_erased(storage_read,(void *)storage,storage->size,scratch,4096);
+        heap_caps_free(scratch);
+        if(!erased){
+            ESP_LOGE(TAG,"Existing or unreadable patch storage preserved; refusing to format after mount failure");
+            return 0;
+        }
         /* One-time initialization of this project's dedicated data partition.
          * Never auto-format after it has contained project patches. */
         ESP_LOGW(TAG,"Initializing dedicated patch partition for first use");
@@ -504,7 +514,19 @@ static void process_line(const char *line)
     if(!ok && !s->error[0])snprintf(s->error,160,"Invalid transfer state or incomplete package");
     reply_send(id,ok?"OK":"ERR",ok?s->reply:s->error,true,crc);
 }
-void patches_line(const char *line){if(s){s->channel=0;process_line(line);}}
+void patches_line(const char *line)
+{
+    if(!s)return;
+    s->channel=0;
+    /* Shared, read-only USB discovery. The @ prefix keeps probes out of the
+     * legacy single-character performance controls on either runtime. */
+    if(!strcmp(line,"@RT1 HELLO")) {
+        char reply[192];
+        snprintf(reply,sizeof reply,"@RT1 {\"version\":1,\"engine\":\"synthdef\",\"model\":\"%s\",\"rate\":%u,\"busy\":%s}\n",BOARD_MODEL,SYNTHDEF_SAMPLE_RATE,(s->state==1||s->state==2||s->faulted)?"true":"false");
+        wire_send(reply);return;
+    }
+    process_line(line);
+}
 void patches_exchange(const char *line,char *reply,size_t size)
 {
     if(!s || !size)return;

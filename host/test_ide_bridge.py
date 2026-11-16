@@ -67,6 +67,59 @@ class ControlModule(Module):
         return result
 
 class IDETests(unittest.TestCase):
+    def test_rnbo_discovery_and_controls_never_boot_a_runtime(self):
+        app=Studio(SCLANG);hub=Hub(app)
+        row=dict(device_id='esp32-001122334455',device_name='Test RNBO',address='/fake-usb',
+                 port=0,transport='usb',runtime='rnbo',rate=44100,online=True,paired=True)
+        try:
+            with patch.object(app.runtime_uploads,'usb_hint',return_value=row),patch('dual_upload.boot') as boot:
+                self.assertEqual(hub.usb_row()['runtime'],'rnbo')
+                hub.aliases['test-rnbo-box']=row['device_id']
+                self.assertEqual(hub.resolve('test-rnbo-box'),[row])
+                self.assertIn(row,hub.dispatch('hello',{},b'',b'','test',1)['modules'])
+                with self.assertRaisesRegex(ValueError,'notes, controls or FX'):hub.node(row)
+                boot.assert_not_called()
+        finally:hub.close();app.close()
+
+    def test_sc_main_handoff_preserves_function_definition_and_autoplay_semantics(self):
+        from network import NetworkDevice
+        for method,definition in [('sendESP32',True),('playESP32',False)]:
+            with self.subTest(method=method),tempfile.TemporaryDirectory() as folder:
+                folder=Path(folder);module=ControlModule(85);app=Studio(SCLANG)
+                app.pairings=Pairings(folder/'pairs.json')
+                identity=module.info()['device_id']
+                row=dict(device_id=identity,device_name='Paired USB',address='/fake-usb',port=0,
+                         transport='usb',runtime='rnbo',rate=44100,online=True,paired=True)
+                transport=NetworkDevice(module.info(),module.pairing())
+                class USBProxy:
+                    def hello(self):return transport.hello()
+                    def request(self,*args,**kwargs):return transport.request(*args,**kwargs)
+                    def close(self):transport.close()
+                bridge=Bridge(app,'test-runtime-main',config=folder/'connection.json')
+                seen=[]
+                def handoff(selected,artifact,deliver):
+                    self.assertEqual(selected['device_id'],identity)
+                    self.assertEqual(artifact.info['definition'],definition)
+                    seen.append(artifact.info['graph_sha256'])
+                    app.device=USBProxy();app.device_info=app.device.hello();app.device_port='/fake-usb'
+                    # Mirror the manager's connection lease; delivery must not
+                    # try to acquire the same non-reentrant lock a second time.
+                    with app.device_lock:return deliver()
+                script=folder/'runtime.scd'
+                script.write_text('Routine({try { ESP32.connect('+json.dumps(str(folder/'connection.json'))+').wait; '
+                    '{arg freq=220;SinOsc.ar(freq,0,0.01)!2}.'+method+'('+json.dumps(identity)+', args:[\\freq,660]).wait; '
+                    'ESP32.disconnect;"PASS: paired runtime Main lifecycle".postln;0.exit; '
+                    '} {|error|error.reportError;1.exit} }).play(SystemClock);')
+                try:
+                    with patch.object(app.runtime_uploads,'usb_hint',return_value=row),patch.object(app.runtime_uploads,'send_from_sc',side_effect=handoff):
+                        run=subprocess.run([SCLANG,'-l',str(LANGUAGE),'-D',str(script)],capture_output=True,text=True,timeout=40)
+                    self.assertEqual(run.returncode,0,run.stdout+run.stderr)
+                    self.assertEqual(len(seen),1);self.assertEqual(bool(module.meta[157]&1),definition)
+                    self.assertEqual(module.running[0],not definition)
+                    names=dict(module.graphs[0]['names'])
+                    self.assertEqual(module.graphs[0]['controls'][names['freq']],660)
+                finally:bridge.server_close();app.close();module.close()
+
     def test_function_play_is_autonomous_and_definition_lifecycle_is_preserved(self):
         m=ControlModule(71)
         with tempfile.TemporaryDirectory() as folder:

@@ -15,6 +15,7 @@
   <nav class="studio-views" aria-label="Studio views">
     <button id="patches-tab" type="button" class="quiet" aria-pressed="true">Patches</button>
     <button id="groups-tab" type="button" class="quiet" aria-pressed="false" hidden>Groups</button>
+    <button id="runtimes-tab" type="button" class="quiet" aria-pressed="false" hidden>Runtimes</button>
   </nav>
   <main id="patches-view">
     <section class="composer panel" aria-labelledby="source-title">
@@ -149,6 +150,25 @@
       </div>
     </div>
     <p id="groups-status" class="hint" role="status"></p>
+  </section>
+  <section id="runtimes-view" class="panel runtime-view" aria-labelledby="runtime-title" hidden>
+    <div class="panel-heading"><div><span class="step">SYNTHDEF + RNBO · USB</span><h2 id="runtime-title">Send a Main sound</h2></div></div>
+    <p class="hint">For modules with both runtimes installed. The file or code chooses the engine. Changing engines fades the current output and restarts the module; another upload to the same engine stays there.</p>
+    <label for="runtime-port">USB module</label>
+    <div class="connect-row"><select id="runtime-port"></select><button id="runtime-refresh" type="button" class="quiet">Refresh</button><button id="runtime-inspect" type="button" class="secondary">Inspect</button></div>
+    <p id="runtime-device" class="hint" role="status">Choose a USB module and inspect its runtime.</p>
+    <div class="file-actions"><button id="runtime-open" type="button" class="quiet">Choose file</button><input id="runtime-file" type="file" accept=".scd,.sc,.scsyndef,.rnbopkg"><button id="runtime-paste" type="button" class="quiet">Use pasted code</button></div>
+    <p id="runtime-file-info" class="hint">Paste SuperCollider code below, or choose an SC source, compiled SynthDef or RNBO package.</p>
+    <label class="sr-only" for="runtime-source">SuperCollider Main code</label>
+    <textarea id="runtime-source" spellcheck="false" placeholder="{ SinOsc.ar(440, 0, 0.05) ! 2 }.play"></textarea>
+    <label class="runtime-definition"><input id="runtime-definition" type="checkbox"> Save a SynthDef definition without starting it</label>
+    <p class="hint">Use source and native RNBO packages you trust. This replaces the selected engine’s Main; each engine keeps its own saved program. Firmware pairing and Wi-Fi switching use separate workflows.</p>
+    <button id="runtime-review" type="button" class="secondary" disabled>Review upload</button>
+    <div id="runtime-confirmation" class="runtime-confirmation" hidden>
+      <p id="runtime-review-summary"></p>
+      <button id="runtime-upload" type="button" class="primary" disabled>Upload Main</button>
+    </div>
+    <p id="runtime-progress" class="hint" role="status" aria-live="polite"></p>
   </section>
   <div id="message" class="message" role="alert" hidden></div>
   <footer class="page-footer"><span>SuperCollider compiler → USB or Wi-Fi → Main → FX / bypass → output</span><span>Compilation runs locally on this computer.</span></footer>

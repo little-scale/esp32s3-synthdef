@@ -204,6 +204,13 @@ or failed audio writes were reported.
    overwrite the factory or data partitions for this experiment.
 4. Unplug, return USB SELECT to ESP32, reconnect and install the matched ESP16
    app with the guarded Voice PE updater, preserving bootloader, NVS and patches.
+   The updater also accepts the companion RNBO Voice PE player
+   (`rnbo_s3_voice-pe`) in app0 on either reviewed project partition layout.
+   It backs up and verifies that complete application and checks its Voice PE
+   marker before writing only the SynthDef application. RNBO files remain in
+   storage; they are not converted into SynthDefs. Unknown applications, a
+   different layout or app1 selection still reject. This conversion leaves XMOS
+   unchanged, so it also applies when XMOS is already configured for 16 kHz.
    For the initial ESP update, activate a Python environment with esptool 4.9–4.x,
    finish the build first, replace the port/MAC placeholders with this exact unit,
    and use the existing guarded updater (not `idf.py flash`):

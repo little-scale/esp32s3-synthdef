@@ -1,0 +1,51 @@
+{
+  "format": "voice-pe-dual-runtime-hardware-v1",
+  "date": "2026-11-16",
+  "device_id": "esp32-1020ba0697d4",
+  "rate": 16000,
+  "install": {
+    "status": "installed_verified",
+    "app1_sha256": "a6035227a61f1891259ad023af32519ec662c82604b1ae7c7496386db27436b0",
+    "protected_regions_match": true
+  },
+  "switch_to_rnbo": "selected_verified",
+  "rnbo_runtime": {
+    "runtime": "rnbo-esp32s3-player",
+    "profile": "voice-pe-16000-256-v1",
+    "rate": 16000,
+    "output_rate": 16000,
+    "paused": true,
+    "boot_verified": true,
+    "firmware_elf_sha256": "8c6b416d84cc4915a9f027ea08f3643cc8443cac40488880faa86f416b4fcef7"
+  },
+  "rnbo_saved_package_sha256": "7b91cb1689f370b5df77ff3f44cf31458454c247debf1e9cd4728d0101c714cc",
+  "switch_to_synthdef": "selected_verified",
+  "synthdef_live": {
+    "model": "Home Assistant Voice PE",
+    "rate": 16000,
+    "output_rate": 16000,
+    "reset_required": false,
+    "saved_main": "SoundBlock",
+    "continuous": true
+  },
+  "listening_checked": false,
+  "xmos_changed": false,
+  "tests": {
+    "dual_app_tests": 12,
+    "routing_layout_tests": 7,
+    "synthdef_installer_tests": 23,
+    "rnbo_installer_tests": 17
+  },
+  "source_sha256": {
+    "host/voice_pe_apps.py": "5b95b40bf5cd76589c0a2f946e1cfd4f7c2112ccc9ecf24668b6b6e3ab319266",
+    "host/test_voice_pe_apps.py": "7dd2b4850c5683ce4bddab58a4e6548b7454f2a1b22f4284e0e85eb95213b3c0",
+    "host/runtime_routing.py": "e79549d6abfae8b3141bb9cf505c8aa8a114c316a81527fc90e9f14cc08dfd7c",
+    "host/test_runtime_routing.py": "3efc1dc147687a039919a09f5f9d9d01292be9b3b03d3d1d62bc942379edf85e"
+  },
+  "pending": [
+    "automatic uploader integration",
+    "XIAO/AMOLED guarded migration implementation and hardware qualification",
+    "Wi-Fi runtime handoff",
+    "new listening qualification"
+  ]
+}

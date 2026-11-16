@@ -27,6 +27,17 @@ switch. Twelve-Saw audio averaged 37.2% CPU in a short native-16k observation,
 not a general performance guarantee. Fresh Voice PE installations remain 48 kHz;
 Voice PE Wi-Fi, jack output and Grove sensors still need qualification.
 
+An experimental [dual-runtime USB workflow](docs/DUAL_RUNTIME.md) can keep
+SynthDef and RNBO installed together and reboot into the required engine.
+Manual switching and muted automatic Main uploads in both directions have been
+verified on native-16k Voice PE. Studio now has a **Runtimes** tab for reviewed
+USB uploads of SC source, compiled SynthDefs or RNBO packages, with automatic
+engine selection and progress that survives a page reload. XIAO/AMOLED migration
+tools pass computer checks; their hardware qualification is pending. A Main
+`.sendESP32`/`.playESP32` deployment can also select SynthDef for the inspected
+paired USB node while it is running RNBO. Notes and parameter changes do not
+switch engines. Wi-Fi handoff remains pending.
+
 Each module has **one Main definition, one master FX definition, and FX bypass**.
 Use continuous sound Functions, literal SynthDefs, named controls and routed
 SuperCollider patterns. The display shows the original source with syntax
