@@ -290,6 +290,7 @@ def installed_pair(board, mac, rate):
     for role in ('synthdef', 'rnbo'):
         record = roles[role]
         if (type(record) is not dict or type(record.get('bytes')) is not int or record['bytes'] <= 0
+                or record.get('rate',rate)!=rate
                 or not re.fullmatch('[0-9a-f]{64}', record.get('sha256', ''))):
             raise ValueError('Incomplete verified dual-app inventory')
     return set(roles)
@@ -346,7 +347,8 @@ def main():
         if not re.fullmatch('[0-9a-f]{12}', args.mac): raise ValueError('Use the exact lowercase 12-digit MAC')
         rate = args.rate or (44100 if args.board != 'voice-pe' else None)
         if args.board == 'voice-pe' and rate not in (16000, 48000): raise ValueError('Choose the installed Voice PE native --rate')
-        if args.board != 'voice-pe' and rate != 44100: raise ValueError('XIAO/AMOLED use 44100 Hz')
+        if args.board == 'xiao' and rate not in (16000,44100):raise ValueError('XIAO uses a matched 16000 or 44100 Hz pair')
+        if args.board == 'amoled-v2' and rate != 44100:raise ValueError('AMOLED uses 44100 Hz')
         artifact = prepare(args.file, rate, args.board, args.sclang, target=args.target, definition=args.definition)
         result = dict(engine=artifact.engine, rate=rate, payload_sha256=artifact.identity, valid=True)
         if not args.check: result = route(artifact, args.board, args.mac, rate, args.port, allow_legacy_reboot=args.allow_legacy_reboot)

@@ -1,6 +1,6 @@
 # SynthDef and RNBO on one device
 
-Development checkpoint: 16 November 2026. This is an experimental USB workflow.
+Development checkpoint: 17 November 2026. This is an experimental USB workflow.
 Both applications live in flash; only one runs. Selecting the other application
 changes its boot record and restarts the ESP32. It does not reinstall either app
 or double the running graph's RAM/CPU cost. Switching has an audible gap.
@@ -10,14 +10,14 @@ The companion RNBO protocol/updater changes are recorded in
 
 ## Current qualification
 
-| Capability | Voice PE native 16 kHz | Voice PE 48 kHz | XIAO / AMOLED V2 |
-| --- | --- | --- | --- |
-| Both runtime images build | Pass | Pass | Pass, 44.1 kHz |
-| Install companion and manually boot both directions | Hardware verified | Pending hardware | Simulated flash tests; pending hardware |
-| Automatic Main payload selection | Hardware verified, muted | Host tests; pending hardware | Host tests; pending hardware |
-| Studio Runtimes tab: automatic USB Main upload | Hardware verified, muted | Host tested; pending hardware | Host tested; pending hardware |
-| SC Main deployment selects SynthDef for the inspected USB node | Hardware verified, muted | Host tested; pending hardware | Host tested; pending hardware |
-| Wi-Fi uploads switch engines | Not integrated | Not integrated | Not integrated |
+| Capability | Voice PE native 16 kHz | Voice PE 48 kHz | XIAO 44.1 / 16 kHz | AMOLED V2 |
+| --- | --- | --- | --- | --- |
+| Both runtime images build | Pass | Pass | Pass | Pass, 44.1 kHz |
+| Both runtime apps booted | Hardware verified | Pending hardware | Hardware verified at both rates | Simulated; pending hardware |
+| Automatic Main payload selection | Hardware verified, muted | Host tested | S→R at 44.1k; R→S at 16k | Host tested |
+| Studio Runtimes automatic USB Main upload | Hardware verified, muted | Host tested | Host tested; real 16k connection/inspection pass | Host tested |
+| SC Main deployment selects SynthDef | Hardware verified, muted | Host tested | Host tested; SC hardware pending | Host tested |
+| Wi-Fi uploads switch engines | Not integrated | Not integrated | Not integrated | Not integrated |
 
 The commissioned VoicePE-0697d4 now has both runtime-aware builds installed at
 native 16 kHz. Automatic Main uploads, same-engine uploads without reboot,
@@ -148,6 +148,7 @@ sh host/dual_upload.sh /absolute/path/to/patch.rnbopkg \
 ```
 
 For XIAO/AMOLED use the corresponding board and MAC; their rate defaults to 44100.
+For a commissioned native-16k XIAO pair, pass `--rate 16000` explicitly.
 For Voice PE explicitly choose 16000 or 48000 to match **both installed apps and
 XMOS**. This workflow does not change XMOS, resample an incompatible package or
 switch native rate. SynthDef uses 64-frame DSP blocks; the RNBO player uses its
@@ -307,3 +308,63 @@ it without retaining a restorable copy. Steps 1–4 have now been exercised in t
 resumed native-16k Voice PE session, including muted PCM capture and original
 program restoration. The 48 kHz pair, automatic FX handoff, listening checks and
 physical XIAO/AMOLED migration remain separate qualification work.
+
+
+## XIAO native 16 kHz pair
+
+The matching RNBO player and PCM5102A checks are recorded in
+[esp32s3-rnbo commit 65dba0a](https://github.com/little-scale/esp32s3-rnbo/commit/65dba0a).
+
+XIAO now has separate matched SynthDef/RNBO builds at **44.1 kHz** and
+**16 kHz**, with the PCM5102A as the initial low-rate DAC. There are two runtime
+slots, not four. Changing engines selects an installed app and reboots; changing
+rates updates the pair's application images through the guarded updater.
+A payload never silently changes the device's sample rate.
+
+Build the SynthDef side with `bash host/xiao_native16.sh build`. In the companion
+RNBO project, use:
+
+```sh
+python3 tools/build_firmware.py xiao --player --variant dual-native16 \
+  --profile voice-pe-16000-256-v1
+```
+
+The historical `voice-pe-16000-256-v1` identifier is the shared 16 kHz/256-frame
+RNBO package ABI, now also admitted on XIAO. It does not select Voice PE hardware
+or expose its physical controls. RNBO native exports/packages must actually be
+compiled for 16 kHz; changing a package header is not a conversion. SynthDef
+continues to use 64-frame blocks (4 ms); RNBO uses 256-frame callbacks (16 ms).
+Both generate native 16 kHz I²S master output on XIAO, with 16-bit PCM in 32-bit
+slots so the PCM5102A receives its required 64-fs BCLK. No XMOS step is involved.
+
+For a factory-layout XIAO, use `host/dual_apps.py plan/setup` with these matching
+build folders, following the existing commissioning procedure. For an existing
+pair, use `update --engine synthdef` and then `update --engine rnbo`, supplying
+both matching build folders each time. Never run the factory installer over a
+paired layout. Each update backs up the app/boot record, retains the other
+verified runtime as the recovery selection while writing, checks protected
+regions and restores the previous selected engine.
+
+New images carry an explicit native-rate marker checked against build metadata.
+The inventory records each application's rate. During the intermediate state of
+an update, the two apps can have different rates; automatic payload routing is
+blocked until both match. Manual selection/status reports the selected app's
+actual rate. Older unmarked XIAO/AMOLED images are treated as their historical
+44.1 kHz profile. Unknown/conflicting rate markers are rejected.
+
+Settings and the storage partition retain their addresses and geometry. A saved
+RNBO package compiled for the old rate is not retagged; upload a matching package
+after changing rates. Physical control bindings at 16 kHz need separate coverage.
+
+
+### XIAO hardware checkpoint
+
+On 17 November 2026, XIAO-3eeb84 and its PCM5102A passed the four playback
+combinations: SynthDef/RNBO at 44.1 kHz and at 16 kHz. The user confirmed clean
+sound at 20%. Automatic S→R upload at 44.1k and R→S upload at 16k passed;
+Studio then connected and inspected the completed native16 pair successfully.
+Updates preserved boot/settings/storage regions and the original Main was
+restored exactly. The unit was left in SynthDef 16k, FX bypassed, 20% saved volume.
+There are no external clock measurements or physical cold power-cycle results
+for this session. Full-rate DSP equivalence, all UGens at 16k and network load
+are not implied by these tone tests. [Detailed evidence](../evidence/xiao-dual-rate-hardware-20261117.json).

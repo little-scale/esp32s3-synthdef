@@ -509,6 +509,24 @@ class HTTPTests(unittest.TestCase):
             status,_,_=self.request('POST','/api/firmware/review',dict(board='voice-pe-native-16k',port=port['port']),auth)
             self.assertEqual(status,409);programmer.assert_not_called()
 
+    def test_xiao_native16_review_needs_no_xmos_or_existing_connection(self):
+        app=self.server.studio
+        port=dict(port='/dev/fake-xiao',name='Test ESP32',esp32=True,usb_id=(0x303a,0x1001,'12:34:56:78:9a:bc','test'))
+        image=firmware_upload.Image(firmware_upload.TARGETS['xiao-native-16k'],'qio','80m',(b'boot',b'table',b'app'))
+        auth={'X-Studio-Token':self.server.token,'Content-Type':'application/json'}
+        app.device=app.device_info=app.device_port=None
+        with (patch.object(app,'ports',return_value=([port],True)),patch('firmware_upload.load_image',return_value=image),
+              patch('firmware_upload.programmer_python',return_value='test-python')):
+            choices={x['id'] for x in app.config()['firmware_targets']}
+            self.assertTrue({'xiao','xiao-native-16k'} <= choices)
+            status,body,_=self.request('POST','/api/firmware/review',dict(board='xiao-native-16k',port=port['port']),auth)
+            self.assertEqual(status,200)
+            body=json.loads(body)
+            self.assertEqual(body['rate'],16000)
+            self.assertFalse(body['voice_pe'])
+            self.assertIn('1.024 MHz',body['notes'])
+            self.assertNotIn('matching custom XMOS',body['notes'])
+
     def test_muted_profile_borrows_current_usb_and_guards_identity(self):
         class ProfileDevice:
             percent=0

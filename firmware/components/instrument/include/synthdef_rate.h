@@ -6,7 +6,12 @@
 #if defined(CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE) && defined(CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K)
 #error Select either native 16k or converted 16k, not both
 #endif
-#if defined(CONFIG_SYNTHDEF_VOICE_PE) && (defined(CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE) || defined(CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K))
+#if defined(CONFIG_SYNTHDEF_XIAO_NATIVE_16K) && (!defined(CONFIG_SYNTHDEF_HEADLESS) || defined(CONFIG_SYNTHDEF_VOICE_PE))
+#error XIAO native 16k requires the headless XIAO board
+#endif
+#if defined(CONFIG_SYNTHDEF_XIAO_NATIVE_16K)
+#define SYNTHDEF_SAMPLE_RATE 16000u
+#elif defined(CONFIG_SYNTHDEF_VOICE_PE) && (defined(CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE) || defined(CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K))
 #define SYNTHDEF_SAMPLE_RATE 16000u
 #elif defined(CONFIG_SYNTHDEF_VOICE_PE)
 #define SYNTHDEF_SAMPLE_RATE 48000u
@@ -24,3 +29,7 @@ static inline int synthdef_rate_valid(unsigned rate)
 {
     return rate == 16000 || rate == 44100 || rate == 48000;
 }
+/* Retained in the application image for guarded offline rate identification. */
+#define SYNTHDEF_RATE_STRING_IMPL(x) #x
+#define SYNTHDEF_RATE_STRING(x) SYNTHDEF_RATE_STRING_IMPL(x)
+#define SYNTHDEF_NATIVE_RATE_MARKER "S3_NATIVE_RATE=" SYNTHDEF_RATE_STRING(SYNTHDEF_SAMPLE_RATE)

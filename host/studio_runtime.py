@@ -56,7 +56,7 @@ class RuntimeUploads:
         if not reply:
             raise ValueError('This app lacks runtime identification. Install the matching runtime-aware pair first.')
         board = next((key for key, model in dual.MODELS.items() if model == reply.get('model')), None)
-        if board is None or reply['rate'] not in ((16000, 48000) if board == 'voice-pe' else (44100,)):
+        if board is None or reply['rate'] not in ((16000, 48000) if board == 'voice-pe' else (16000, 44100) if board == 'xiao' else (44100,)):
             raise ValueError('Unrecognized board or native sample rate')
         prior = self.last_target or {}
         owned = self.studio.device_info or {}
@@ -70,7 +70,8 @@ class RuntimeUploads:
         with self.connection():
             found = self.identify(self.target(payload.get('port')))
         error = ''
-        try: dual.installed_pair(found['board'], found['mac'], found['rate'])
+        try:
+            dual.installed_pair(found['board'], found['mac'], found['rate'])
         except ValueError as failure: error = str(failure)
         token = secrets.token_urlsafe(24)
         with self.lock:

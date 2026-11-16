@@ -99,7 +99,7 @@ internal_adapter='CONFIG_SYNTHDEF_INTERNAL_ADAPTER=y' in config
 adapter_hot=['instrument_apply','instrument_apply_batch','instrument_render','instrument_pcm']
 adapter_hot+=['instrument_render_stereo','master_delay_render','master_delay_set']
 if 'CONFIG_SYNTHDEF_NO_DISPLAY=y' in config:adapter_hot.append('instrument_pcm_stereo')
-if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config:
+if 'CONFIG_SYNTHDEF_NO_DISPLAY=y' in config and 'CONFIG_SYNTHDEF_DIAGNOSTICS=y' not in config:
     # Diagnostics are intentionally excluded; unused mono wrappers are removed.
     adapter_hot=[name for name in adapter_hot if name not in ('instrument_render','instrument_pcm')]
 assert all(name in symbols for name in adapter_hot)
@@ -117,6 +117,13 @@ for name,length,start,offset in re.findall(r'^\s*\d+\s+(\S+)\s+([0-9a-f]+)\s+([0
         break
 else:raise AssertionError('Sine table section not found')
 assert size==32772 and sine_hash=='3264f07efa6217955d24e1756a7887972ef7fce7ad6709e99eec1dc9331232fd', 'Pinned sine table bytes changed'
+xiao_native16='CONFIG_SYNTHDEF_XIAO_NATIVE_16K=y' in config
+voice_pe='CONFIG_SYNTHDEF_VOICE_PE=y' in config
+sample_rate=16000 if xiao_native16 else 44100
+output_rate=sample_rate
+if voice_pe:
+    sample_rate=16000 if any(flag in config for flag in ('CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE=y','CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y')) else 48000
+    output_rate=16000 if 'CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y' in config else 48000
 report = {
     'status': 'cross-compiled; physical runtime results are recorded separately',
     'build_id': build_id,
@@ -131,8 +138,9 @@ report = {
     'idf_commit': subprocess.check_output(['git', '-C', str(idf_path), 'rev-parse', 'HEAD'], text=True).strip(),
     'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
     'target': 'esp32s3',
-    'sample_rate': (16000 if any(flag in config for flag in ('CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE=y','CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y')) else 48000) if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config else 44100,
-    'output_sample_rate':(16000 if 'CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y' in config else 48000) if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config else 44100,
+    'sample_rate':sample_rate,
+    'output_sample_rate':output_rate,
+    'xiao_i2s_slot_bits': (32 if 'CONFIG_SYNTHDEF_XIAO_NATIVE_16K=y' in config else 16) if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else None,
     'native_16k_requires_matching_xmos':'CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y' in config,
     'output_converter':'63-tap 3-phase FIR, 16k DSP to 48k wire' if 'CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE=y' in config else 'none',
     'board_revision': 'Nabu Casa Voice PE (experimental)' if 'CONFIG_SYNTHDEF_VOICE_PE=y' in config else 'XIAO ESP32-S3 (headless profile)' if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else 'V2 (user confirmed; not physically probed)',

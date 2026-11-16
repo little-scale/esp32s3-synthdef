@@ -7,12 +7,16 @@ browser tool or directly from the SuperCollider IDE over USB or Wi-Fi.
 | Device | Audio rate | Interface |
 | --- | --- | --- |
 | Waveshare Touch AMOLED 1.8 V2 | 44.1 kHz | Source display, touch and onboard audio |
-| Seeed XIAO ESP32-S3 | 44.1 kHz | Headless, external I²S DAC/amp |
+| Seeed XIAO ESP32-S3 | 44.1 kHz; optional experimental native 16 kHz | Headless, external I²S DAC/amp |
 | Nabu Casa Home Assistant Voice PE | 48 kHz; optional native 16 kHz pair | Built-in speaker, dial, button and RGB LED buses; experimental port |
 
 For the **headless Seeed XIAO ESP32-S3**, use the separate
 [headless build and quickstart](docs/HEADLESS.md). Headless audio has been tested
 on hardware with the [NS4168 I²S speaker amp](docs/HEADLESS.md#ns4168-i2s-dac-and-speaker-amplifier).
+An isolated [native 16 kHz PCM5102A build](docs/HEADLESS.md#native-16-khz-pcm5102a-option-experimental)
+is also available in Studio. XIAO-3eeb84 passed clean PCM5102A listening
+checks at both rates, using both SynthDef and RNBO at 20% volume.
+[Dual-rate hardware results](evidence/xiao-dual-rate-hardware-20261117.json).
 
 An [experimental Nabu Casa Voice PE port](ports/voice_pe/README.md) now runs the
 shared Main/FX application at **48 kHz**, with verified Studio USB upload/readback,
@@ -33,7 +37,8 @@ Manual switching and muted automatic Main uploads in both directions have been
 verified on native-16k Voice PE. Studio now has a **Runtimes** tab for reviewed
 USB uploads of SC source, compiled SynthDefs or RNBO packages, with automatic
 engine selection and progress that survives a page reload. XIAO/AMOLED migration
-tools pass computer checks; their hardware qualification is pending. A Main
+tools pass computer checks. XIAO now also has physical dual-boot/audio checks
+at 44.1 and 16 kHz; AMOLED migration remains pending. A Main
 `.sendESP32`/`.playESP32` deployment can also select SynthDef for the inspected
 paired USB node while it is running RNBO. Notes and parameter changes do not
 switch engines. Wi-Fi handoff remains pending.
@@ -321,7 +326,7 @@ events/second ceiling is an admission bound, not a performance guarantee.
 | Area | Current behaviour |
 | --- | --- |
 | Hardware | Waveshare AMOLED 1.8 **V2**, XIAO ESP32-S3 and experimental Voice PE; 240 MHz baseline |
-| Audio | 64-frame DSP blocks, float32 internals; 44.1 kHz on AMOLED/XIAO, 48 kHz on Voice PE, optional matched native-16k Voice PE build |
+| Audio | 64-frame DSP blocks, float32 internals; 44.1 kHz on AMOLED/XIAO, 48 kHz on Voice PE; optional native-16k XIAO/PCM5102A and matched Voice PE builds |
 | Routing | Stereo graph bus through Main → FX/bypass → smoothed output volume → board-specific mono/stereo output |
 | Definitions | One saved Main and one saved FX; legacy numbered slots are archived, not exposed |
 | Instances | One Main voice and one FX instance; note patterns are monophonic |
@@ -384,7 +389,7 @@ selected supported/rejected graphs and the standalone pattern reference suite.
 The list is a **compiled engine inventory**, not a claim of unrestricted SC
 compatibility or complete hardware qualification on every board/rate:
 
-- **Native 16 kHz Voice PE rejects MiRings1–6**, which require at least 32 kHz.
+- **All native 16 kHz builds reject MiRings1–6**, which require at least 32 kHz.
   The other 149 native names remain subject to their normal input/rate checks;
   they have not all been independently qualified on Voice PE at 16 kHz.
 - `MiRings1`–`MiRings6` are project compile-only wrappers, supplied in

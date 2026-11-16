@@ -69,6 +69,17 @@ def complete_image(chip, offset, capacity, expected, model):
     return data
 
 
+def image_rate(data, board):
+    markers=set(re.findall(rb'S3_NATIVE_RATE=([0-9]+)u?\x00',data))
+    if len(markers)>1:raise ValueError('Conflicting application sample-rate markers')
+    if b'S3_NATIVE_RATE=' in data and not markers:raise ValueError('Malformed application sample-rate marker')
+    # Images predating explicit rate markers on these boards were 44.1 kHz only.
+    rate=int(next(iter(markers))) if markers else 44100
+    if rate not in ((16000,44100) if board=='xiao' else (44100,)):
+        raise ValueError('Unsupported application board/sample rate')
+    return rate
+
+
 def inspect(chip, board):
     rows = partitions(chip.read_flash(0x8000, 4096)); plan = validate_dual_layout(board, rows)
     current = active_slot(chip.read_flash(0x300000, 8192))
@@ -76,8 +87,9 @@ def inspect(chip, board):
     for role, key in [('synthdef', 'app0'), ('rnbo', 'app1')]:
         slot = plan[key]
         data = complete_image(chip, slot['offset'], slot['capacity'], {identities(board)[role]}, MODELS[board])
-        apps[role] = dict(**slot, bytes=len(data), sha256=hashlib.sha256(data).hexdigest())
-    return dict(board=board, rate=44100, selected='synthdef' if current == 0 else 'rnbo', apps=apps)
+        apps[role] = dict(**slot, bytes=len(data), sha256=hashlib.sha256(data).hexdigest(),rate=image_rate(data,board))
+    selected='synthdef' if current == 0 else 'rnbo'
+    return dict(board=board, rate=apps[selected]['rate'], selected=selected, apps=apps)
 
 
 def select(chip, esptool, board, role, backup, mac):
@@ -93,11 +105,13 @@ def select(chip, esptool, board, role, backup, mac):
     if active_slot(chip.read_flash(0x300000, 8192)) != int(role == 'rnbo'):
         raise ValueError('Boot selection verification failed')
     if before != [chip.flash_md5sum(*r) for r in ranges]: raise ValueError('Protected flash changed')
-    return dict(board=board, rate=44100, selected=role, changed=True, backup=str(folder))
+    return dict(board=board, rate=info['apps'][role]['rate'], selected=role, changed=True, backup=str(folder))
 
 
 def setup(chip, esptool, board, synth, rnbo, backup, mac):
     if board not in MODELS: raise ValueError('Unknown board')
+    rate=image_rate(synth,board)
+    if image_rate(rnbo,board)!=rate:raise ValueError('Both applications must have the same sample rate for setup')
     for role, data in [('synthdef', synth), ('rnbo', rnbo)]:
         verified_image(data)
         if project_name(data[:256]) != identities(board)[role] or MODELS[board].encode() not in data:
@@ -125,7 +139,7 @@ def setup(chip, esptool, board, synth, rnbo, backup, mac):
     ota = bytearray(b'\xff' * 8192); ota[offset:offset + 4096] = record
     ota_path = stage(folder, 'initial-ota-rnbo.bin', bytes(ota))
     receipt = folder / 'operation.json'
-    result = dict(board=board, mac=mac, rate=44100, status='backup_verified',
+    result = dict(board=board, mac=mac, rate=rate, status='backup_verified',
                   backup=saved, layout_before=rows, layout_after=dual_layout(board, plan))
     def journal(stage_name):
         result['status'] = stage_name; receipt.write_text(json.dumps(result, indent=2) + '\n'); os.chmod(receipt, 0o600)
@@ -147,14 +161,15 @@ def setup(chip, esptool, board, synth, rnbo, backup, mac):
     applications = {}
     for role, data, slot in [('synthdef', synth, plan['app0']), ('rnbo', rnbo, plan['app1'])]:
         applications[role] = dict(**slot, project=identities(board)[role], bytes=len(data),
-                                  sha256=hashlib.sha256(data).hexdigest(), md5=hashlib.md5(data).hexdigest())
-    save_inventory(backup, mac, 44100, applications, board=board)
-    return dict(board=board, rate=44100, selected=selected['selected'], backup=str(folder),
+                                  sha256=hashlib.sha256(data).hexdigest(), md5=hashlib.md5(data).hexdigest(),rate=rate)
+    save_inventory(backup, mac, rate, applications, board=board)
+    return dict(board=board, rate=rate, selected=selected['selected'], backup=str(folder),
                 layout=plan, status='setup_verified')
 
 
 def update(chip, esptool, board, role, data, backup, mac):
     info = inspect(chip, board)
+    rate=image_rate(data,board)
     if role not in ('synthdef', 'rnbo'): raise ValueError('Choose the runtime to update')
     verified_image(data)
     if project_name(data[:256]) != identities(board)[role] or MODELS[board].encode() not in data:
@@ -186,11 +201,14 @@ def update(chip, esptool, board, role, data, backup, mac):
     selected = select(chip, esptool, board, info['selected'], backup, mac)
     journal('updated_verified')
     applications = dict(info['apps'])
-    applications[role] = dict(target, bytes=len(data), project=identities(board)[role],
+    applications[role] = dict(target, bytes=len(data), project=identities(board)[role],rate=rate,
                               sha256=hashlib.sha256(data).hexdigest(), md5=hashlib.md5(data).hexdigest())
     applications[other] = dict(untouched, project=identities(board)[other],
                                md5=chip.flash_md5sum(untouched['offset'], untouched['bytes']))
-    save_inventory(backup, mac, 44100, applications, board=board)
+    common_rate=rate if rate==applications[other]['rate'] else None
+    # A staged rate change may temporarily leave different app rates. Keep the
+    # per-app facts, but disable automatic routing until both images match.
+    save_inventory(backup, mac, common_rate, applications, board=board)
     return dict(updated=role, selected=selected['selected'], verified=True, backup=str(folder),
                 app_sha256=hashlib.sha256(data).hexdigest())
 
@@ -206,11 +224,13 @@ def load_targets(board, synth_folder, rnbo_folder):
             or sdk.get('SYNTHDEF_HEADLESS', False) is not (board == 'xiao')
             or sdk.get('SYNTHDEF_TOUCH_UI', False) is not (board == 'amoled-v2')):
         raise ValueError('SynthDef build metadata does not match the chosen board')
+    rate=16000 if sdk.get('SYNTHDEF_XIAO_NATIVE_16K', False) else 44100
+    if rate==16000 and board!='xiao':raise ValueError('Native 16 kHz is only supported on XIAO here')
     report = json.loads((rnbo_folder / 'build-report.json').read_text())
     if (report.get('board') != RNBO_BOARDS[board] or report.get('player') is not True
-            or report.get('sample_rate') != 44100 or report.get('block_frames') != 256
+            or report.get('sample_rate') != rate or report.get('block_frames') != 256
             or report.get('usb_midi_host', False)):
-        raise ValueError('RNBO must be the matching board player with USB console and 44100/256 profile')
+        raise ValueError('RNBO must be the matching board player with USB console and matching sample rate / 256-frame profile')
     rnbo_sdk = json.loads((rnbo_folder / 'config/sdkconfig.json').read_text())
     geometry = ('SPIFFS_PAGE_SIZE', 'SPIFFS_OBJ_NAME_LEN', 'SPIFFS_META_LENGTH',
                 'SPIFFS_USE_MAGIC', 'SPIFFS_USE_MAGIC_LENGTH', 'SPIFFS_USE_MTIME',
@@ -228,6 +248,7 @@ def load_targets(board, synth_folder, rnbo_folder):
     if hashes != [hashlib.sha256(rnbo).hexdigest()]: raise ValueError('RNBO image differs from its build report')
     for role, data in [('synthdef', synth), ('rnbo', rnbo)]:
         verified_image(data)
+        if image_rate(data,board)!=rate:raise ValueError('Application rate marker differs from its build metadata')
         if project_name(data[:256]) != identities(board)[role] or MODELS[board].encode() not in data:
             raise ValueError('Wrong target firmware image')
     compact_layout(board, len(synth), len(rnbo))

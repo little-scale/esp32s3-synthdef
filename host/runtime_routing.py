@@ -28,7 +28,7 @@ def plan_upload(upload, *, board, current_engine, device_rate, installed, action
         raise ValueError('Validate the payload before planning a runtime switch')
     if board not in BOARDS or current_engine not in ENGINES or device_rate != upload.rate:
         raise ValueError('Device identity, current runtime or sample rate is incompatible')
-    allowed = (16000, 48000) if board == 'voice-pe' else (44100,)
+    allowed = (16000, 48000) if board == 'voice-pe' else (16000,44100) if board=='xiao' else (44100,)
     if upload.rate not in allowed:
         raise ValueError('Unsupported board/sample-rate combination')
     if action != 'upload' and upload.engine != current_engine:

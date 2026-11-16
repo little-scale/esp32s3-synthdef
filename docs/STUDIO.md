@@ -68,6 +68,13 @@ USB, Studio offers its matching ESP image from `firmware/build-voice-pe-native16
 and rejects a mismatched 48k update. This is not a runtime rate selector or an
 automatic XMOS installer. First conversion uses the documented paired procedure.
 
+XIAO also has a separate **Seeed XIAO ESP32-S3 · native 16 kHz experimental
+(PCM5102A)** choice. Build it with `bash host/xiao_native16.sh build`; Studio
+reads `firmware/build-xiao-native16`. This generates native ESP32 I²S master
+clocks and requires no XMOS conversion or existing connection. Its 32-bit slots
+supply the required 64-fs BCLK while carrying 16-bit PCM. Initial PCM5102A listening passes at 16 kHz with both runtimes. The standard XIAO choice remains 44.1 kHz; RNBO-paired
+XIAOs cannot use the factory installer. [Build, wiring and limits](HEADLESS.md#native-16-khz-pcm5102a-option-experimental).
+
 The programmer uses esptool 4.9–4.x from the Studio Python environment or the
 installed ESP-IDF 5.5 Python environment.
 

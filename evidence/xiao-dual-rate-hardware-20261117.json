@@ -1,0 +1,184 @@
+{
+  "date": "2026-11-17",
+  "device_id": "esp32-1c29043eeb84",
+  "device_name": "XIAO-3eeb84",
+  "dac": "PCM5102A",
+  "passed": true,
+  "listening_volume_percent": 20,
+  "backup": {
+    "bytes": 8388608,
+    "verified": true,
+    "sha256": "02aea8a4e5ea219ff87b8ccd63137ee4fb616693cb5fef4605a0a87f4f6a64be",
+    "private": true
+  },
+  "preservation": {
+    "bootloader_settings_storage_verified": true,
+    "rate_updates_repartitioned": false,
+    "original_main_graph_source_metadata_restored": true
+  },
+  "cases": [
+    {
+      "engine": "synthdef",
+      "rate": 44100,
+      "volume": 20,
+      "passed": true,
+      "frequency": 330.0,
+      "left_rms": 0.011313703214466989,
+      "right_rms": 0.0,
+      "capture": {
+        "state": 2,
+        "frames": 22050,
+        "requested": 22050,
+        "channels": 2,
+        "rate": 44100,
+        "bytes": 88200,
+        "capture_id": 2199435496
+      },
+      "listening": "user confirmed clean"
+    },
+    {
+      "engine": "rnbo",
+      "rate": 44100,
+      "volume": 20,
+      "passed": true,
+      "listening": "user confirmed clean",
+      "fault_counters": {
+        "nonfinite": 0,
+        "write_errors": 0,
+        "dma_errors": 0,
+        "module_errors": 0,
+        "audio_heap_allocations": 0,
+        "audio_heap_frees": 0,
+        "render_deadline_overruns": 0
+      }
+    },
+    {
+      "engine": "rnbo",
+      "rate": 16000,
+      "volume": 20,
+      "passed": true,
+      "frequency": 440.0,
+      "left_rms": 0.014140183750797423,
+      "stereo_max_difference": 0,
+      "capture": {
+        "state": 2,
+        "frames": 8000,
+        "requested": 8000,
+        "channels": 2,
+        "rate": 16000,
+        "bytes": 32000,
+        "capture_id": 4148046144,
+        "max_chunk_bytes": 1024
+      },
+      "listening": "user confirmed clean",
+      "fault_counters": {
+        "nonfinite": 0,
+        "write_errors": 0,
+        "dma_errors": 0,
+        "module_errors": 0,
+        "audio_heap_allocations": 0,
+        "audio_heap_frees": 0,
+        "render_deadline_overruns": 0
+      }
+    },
+    {
+      "engine": "synthdef",
+      "rate": 16000,
+      "volume": 20,
+      "passed": true,
+      "frequency": 330.0,
+      "left_rms": 0.011312303315558428,
+      "right_rms": 0.0,
+      "capture": {
+        "state": 2,
+        "frames": 8000,
+        "requested": 8000,
+        "channels": 2,
+        "rate": 16000,
+        "bytes": 32000,
+        "capture_id": 2701658536
+      },
+      "listening": "user confirmed clean"
+    }
+  ],
+  "automatic_uploads": [
+    {
+      "source": "synthdef",
+      "destination": "rnbo",
+      "rate": 44100,
+      "verified": true
+    },
+    {
+      "source": "rnbo",
+      "destination": "synthdef",
+      "rate": 16000,
+      "verified": true
+    }
+  ],
+  "installed_apps": {
+    "synthdef": {
+      "bytes": 1208208,
+      "sha256": "a3e7bf0c005810694fe1c5dc7c178939fe1480ad5d3ff1553a582df1fc317aa1",
+      "rate": 16000,
+      "offset": 65536,
+      "capacity": 1769472
+    },
+    "rnbo": {
+      "bytes": 939504,
+      "sha256": "869ed67dda2ec6f967438c1d3500c7e8d3d12443507814a6125914dd1613d8d2",
+      "rate": 16000,
+      "offset": 1835008,
+      "capacity": 1310720
+    }
+  },
+  "final": {
+    "engine": "synthdef",
+    "rate": 16000,
+    "volume_percent": 20,
+    "volume_saved": true,
+    "fx_bypassed": true,
+    "original_main_graph_sha256": "5fd5088feeb7dfb18c868d7b919d9513117a102b8bf00e5112e0c8a9490742ff",
+    "original_main_source_sha256": "dd253b7f3b7ddaf69d90d14968d39da3723d08684aa38fd39fd65ec984eee4bb",
+    "studio_connected": true,
+    "studio_runtime_inspection_ready": true
+  },
+  "final_audio_sample": {
+    "average_x10": 89,
+    "peak_x10": 140,
+    "faults": 0,
+    "nonfinite": 0,
+    "write_fail": 0,
+    "partial": 0,
+    "dma_event_overflow": 0,
+    "clips": 0
+  },
+  "computer_checks": {
+    "synthdef_host_tests": 135,
+    "rnbo_profile_tests": 6,
+    "rnbo_player_tests": 15,
+    "rnbo_adapter_tests": 1,
+    "browser_reload_startup": true,
+    "native_dsp_graphs": 8,
+    "native_dsp_rates": [
+      16000,
+      48000
+    ],
+    "multi_rate_admission_delay_timing": true
+  },
+  "clocks": {
+    "native16_lrck_hz": 16000,
+    "native16_bclk_hz": 1024000,
+    "native16_slot_bits": 32,
+    "pcm_bits": 16,
+    "mclk_wire": false,
+    "external_measurement": false,
+    "datasheet": "https://www.ti.com/lit/ds/symlink/pcm5102a.pdf"
+  },
+  "limits": [
+    "Captures are DSP post-volume PCM, not analog recordings.",
+    "44.1k RNBO listening used the first runtime-aware image; the later addition exposes headless capture commands and is hardware-exercised at 16k.",
+    "No physical cold power-cycle, extended load or Wi-Fi handoff test in this session.",
+    "Not a matched-rate CPU benchmark or full UGen-at-16k qualification.",
+    "Two runtime slots; a rate change updates both apps, not an instantaneous four-image selector."
+  ]
+}

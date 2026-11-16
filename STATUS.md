@@ -1,5 +1,34 @@
 # Project status — 17 November 2026
 
+## Experimental XIAO / PCM5102A native 16 kHz — 17 November 2026
+
+- Added an isolated `host/xiao_native16.sh` build and Studio firmware target.
+  Main/FX and I²S run at 16 kHz; float32 arithmetic and 64-frame blocks remain.
+  PCM5102A's BCK-derived PLL needs 64 fs at this rate: 32-bit wire slots carry
+  the existing 16-bit PCM, giving 1.024 MHz BCLK without MCLK. Existing wiring
+  and the standard 44.1 kHz build are retained.
+- Both XIAO images cross-build. Tests cover all rate-header profiles, actual
+  adapter configuration/capture state with fake IDF I/O, installer mismatches,
+  Studio review and RNBO rate guards. The final 135 host tests pass. Eight real-SC graphs pass sanitized
+  16/48k rendering and seeded restart checks with production candidate-off DSP.
+- Subsequently XIAO-3eeb84 was connected with PCM5102A. The full 8 MiB backup
+  was independently verified, the pair was installed at 44.1 kHz and updated
+  in-place to 16 kHz. Both runtimes booted and played at each rate; the user
+  confirmed all listening clean at 20%. SynthDef captures measured 330 Hz at
+  both rates, RNBO native16 measured 440 Hz with identical stereo channels, and
+  its fault/overrun counters remained zero. Automatic S→R at 44.1k and R→S at
+  16k passed. Studio USB connection and paired-runtime inspection pass at 16k.
+- New app-image rate markers are checked against build metadata and each app's
+  rate is stored in the pairing inventory. Mixed-rate intermediate updates
+  block automatic routing until both apps match. The original Main graph/source/
+  metadata were restored exactly; the board is left in SynthDef 16k, FX bypassed,
+  with 20% saved volume. Its short final CPU sample was 8.9% average / 14.0% peak,
+  with zero reported audio faults. This is not a matched-rate benchmark.
+- Rings is rejected below 32 kHz. NS4168 at 16 kHz, external clock measurement,
+  physical cold power-cycle and extended low-rate qualification remain pending.
+  [Build and qualification](docs/HEADLESS.md#native-16-khz-pcm5102a-option-experimental),
+  [hardware evidence](evidence/xiao-dual-rate-hardware-20261117.json).
+
 ## Experimental dual-runtime update — 17 November 2026
 
 - SynthDef app0 and RNBO app1 were both installed and booted in each direction
@@ -7,8 +36,9 @@
   its original programs, FX bypass/settings and 36% volume were restored, and
   it was left in SynthDef. XMOS was not changed.
 - Guarded XIAO/AMOLED pairing, updates and selection are implemented, with
-  simulated flash preservation and interruption tests. Physical migration is
-  pending. Both runtimes build for those boards and Voice PE at 16/48 kHz.
+  simulated flash preservation and interruption tests. XIAO physical migration
+  subsequently passed as recorded above; AMOLED migration remains pending.
+  Both runtimes build for XIAO at 16/44.1k, AMOLED 44.1k and Voice PE 16/48k.
 - A new USB payload uploader compiles/validates before access, identifies the
   runtime, rejects busy/incompatible devices, fades and selects the other app
   when necessary, then uses that engine's verified upload protocol. Muted Main

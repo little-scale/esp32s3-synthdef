@@ -5,7 +5,7 @@ from runtime_routing import Upload, compact_layout, plan_upload
 
 class RoutingTests(unittest.TestCase):
     def test_both_directions_on_each_board_and_matching_rates(self):
-        for board, rates in [('voice-pe', (16000, 48000)), ('xiao', (44100,)), ('amoled-v2', (44100,))]:
+        for board, rates in [('voice-pe', (16000, 48000)), ('xiao', (16000,44100)), ('amoled-v2', (44100,))]:
             for rate in rates:
                 for source, target in [('synthdef', 'rnbo'), ('rnbo', 'synthdef')]:
                     with self.subTest(board=board, rate=rate, source=source):
@@ -32,7 +32,7 @@ class RoutingTests(unittest.TestCase):
 
     def test_wrong_board_rate_is_not_a_request_to_reconfigure_clocks(self):
         with self.assertRaises(ValueError):
-            plan_upload(Upload('rnbo', 16000, 'sha'), board='xiao', current_engine='synthdef',
+            plan_upload(Upload('rnbo', 16000, 'sha'), board='amoled-v2', current_engine='synthdef',
                         device_rate=16000, installed={'synthdef', 'rnbo'})
 
 

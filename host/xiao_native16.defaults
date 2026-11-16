@@ -1,0 +1,4 @@
+# Overlay on xiao.defaults; isolated SDK configuration and build directory.
+CONFIG_SYNTHDEF_XIAO_NATIVE_16K=y
+# Legacy fixed-44.1k diagnostic fixtures are not valid at this rate.
+CONFIG_SYNTHDEF_DIAGNOSTICS=n

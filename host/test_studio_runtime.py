@@ -38,6 +38,14 @@ class RuntimeTests(unittest.TestCase):
         self.manager.close()
         for item in reversed(self.patches):item.stop()
 
+    def test_xiao_native16_is_identified_and_checks_verified_pair_inventory(self):
+        self.reply.update(model='XIAO ESP32-S3',rate=16000)
+        result=self.manager.inspect(dict(port='/usb'))
+        self.assertEqual(result['board'],'xiao')
+        self.assertEqual(result['rate'],16000)
+        self.assertTrue(result['ready'])
+        dual.installed_pair.assert_called_once_with('xiao','1020ba0697d4',16000)
+
     def review(self):
         inspection=self.manager.inspect(dict(port='/usb'))
         with patch.object(dual,'prepare',return_value=self.artifact):

@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 /* XIAO ESP32-S3: Philips stereo, no codec or display dependency. */
 #include "board_audio.h"
+#include "synthdef_rate.h"
 #include "driver/i2s_std.h"
 #include "driver/gpio.h"
 #include "esp_check.h"
@@ -16,13 +17,14 @@ static unsigned capture_requested;
 static uint32_t capture_id;
 static int16_t *capture;
 static uint32_t sample_rate;
-enum { CAPTURE_FRAMES=44100,LED_GPIO=21 };
+enum { CAPTURE_FRAMES=SYNTHDEF_SAMPLE_RATE,LED_GPIO=21 };
 static const char *TAG="board_audio";
 static bool IRAM_ATTR dma_error(i2s_chan_handle_t h,i2s_event_data_t *event,void *ctx)
 {(void)h;(void)event;(void)ctx;atomic_fetch_add(&dma_errors,1);return false;}
 esp_err_t board_audio_init(uint32_t rate)
 {
     if(tx)return ESP_ERR_INVALID_STATE;
+    if(rate!=SYNTHDEF_SAMPLE_RATE)return ESP_ERR_INVALID_ARG;
     if(CONFIG_SYNTHDEF_I2S_BCLK==CONFIG_SYNTHDEF_I2S_WS || CONFIG_SYNTHDEF_I2S_BCLK==CONFIG_SYNTHDEF_I2S_DOUT || CONFIG_SYNTHDEF_I2S_WS==CONFIG_SYNTHDEF_I2S_DOUT)return ESP_ERR_INVALID_ARG;
     capture=heap_caps_malloc(CAPTURE_FRAMES*2*sizeof(int16_t),MALLOC_CAP_SPIRAM|MALLOC_CAP_8BIT);
     if(!capture)return ESP_ERR_NO_MEM;
@@ -36,12 +38,19 @@ esp_err_t board_audio_init(uint32_t rate)
         .slot_cfg=I2S_STD_PHILIP_SLOT_DEFAULT_CONFIG(I2S_DATA_BIT_WIDTH_16BIT,I2S_SLOT_MODE_STEREO),
         .gpio_cfg={.mclk=I2S_GPIO_UNUSED,.bclk=CONFIG_SYNTHDEF_I2S_BCLK,.ws=CONFIG_SYNTHDEF_I2S_WS,.dout=CONFIG_SYNTHDEF_I2S_DOUT,.din=I2S_GPIO_UNUSED}
     };
+#ifdef CONFIG_SYNTHDEF_XIAO_NATIVE_16K
+    /* PCM5102A Table 11: at 16 kHz the BCK-derived PLL requires 64 fs,
+     * not 32 fs. DMA still holds interleaved int16_t PCM; hardware pads
+     * the 16-bit samples into 32-bit Philips slots. */
+    standard.slot_cfg.slot_bit_width=I2S_SLOT_BIT_WIDTH_32BIT;
+    standard.slot_cfg.ws_width=32;
+#endif
     ESP_RETURN_ON_ERROR(i2s_channel_init_std_mode(tx,&standard),TAG,"I2S format");
     i2s_event_callbacks_t callbacks={.on_send_q_ovf=dma_error};
     ESP_RETURN_ON_ERROR(i2s_channel_register_event_callback(tx,&callbacks,NULL),TAG,"I2S events");
     gpio_config_t led={.pin_bit_mask=1ULL<<LED_GPIO,.mode=GPIO_MODE_OUTPUT};
     ESP_RETURN_ON_ERROR(gpio_config(&led),TAG,"activity LED");gpio_set_level(LED_GPIO,1);
-    ESP_LOGI(TAG,"Stereo I2S: rate=%lu BCLK=%d WS=%d DOUT=%d; no MCLK; DMA=6x128; capture=1 second",(unsigned long)rate,CONFIG_SYNTHDEF_I2S_BCLK,CONFIG_SYNTHDEF_I2S_WS,CONFIG_SYNTHDEF_I2S_DOUT);
+    ESP_LOGI(TAG,"Stereo I2S: rate=%lu BCLK=%d WS=%d DOUT=%d; slot_bits=%u; no MCLK; DMA=6x128; capture=1 second",(unsigned long)rate,CONFIG_SYNTHDEF_I2S_BCLK,CONFIG_SYNTHDEF_I2S_WS,CONFIG_SYNTHDEF_I2S_DOUT,(unsigned)standard.slot_cfg.slot_bit_width);
     return ESP_OK;
 }
 esp_err_t board_audio_write(const int16_t *pcm,size_t frames,size_t *written)

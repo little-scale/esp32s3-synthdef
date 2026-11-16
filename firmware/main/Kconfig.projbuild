@@ -24,6 +24,15 @@ menu "SynthDef diagnostics"
     config SYNTHDEF_HEADLESS
         bool "Seeed XIAO ESP32-S3 headless stereo I2S target"
         default n
+    config SYNTHDEF_XIAO_NATIVE_16K
+        bool "Native 16 kHz XIAO output (PCM5102A, experimental)"
+        depends on SYNTHDEF_HEADLESS && !SYNTHDEF_VOICE_PE
+        default n
+        help
+            Main and FX run at 16 kHz with 64-frame (4 ms) control blocks.
+            The I2S master uses 32-bit slots carrying 16-bit PCM, providing
+            the 64-fs BCLK required by PCM5102A's three-wire PLL at 16 kHz.
+            No XMOS image or MCLK wire is involved. Rings is not admitted.
     config SYNTHDEF_I2S_BCLK
         int "Headless I2S bit clock GPIO"
         depends on SYNTHDEF_HEADLESS

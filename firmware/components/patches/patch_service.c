@@ -364,7 +364,7 @@ static void process_line(const char *line)
 #ifdef CONFIG_SYNTHDEF_VOICE_PE
         end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"capture_rate\":%u,\"capture_source\":\"dsp-post-volume\",\"output_rate\":%u,\"input_buses\":[0,1,2],\"codec_gain_db\":0,\"control_outputs\":{\"base\":3,\"count\":39},\"grove_reserved_base\":42}",BOARD_CAPTURE_CHUNK_BYTES,SYNTHDEF_SAMPLE_RATE,SYNTHDEF_OUTPUT_SAMPLE_RATE);
 #else
-        end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"input_buses\":[8,9,10]}",BOARD_CAPTURE_CHUNK_BYTES);
+        end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"capture_rate\":%u,\"output_rate\":%u,\"input_buses\":[8,9,10]}",BOARD_CAPTURE_CHUNK_BYTES,SYNTHDEF_SAMPLE_RATE,SYNTHDEF_OUTPUT_SAMPLE_RATE);
 #endif
 #endif
         const patch_program_usage *program = &s->hooks.program;

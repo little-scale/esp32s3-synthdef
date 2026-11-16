@@ -27,6 +27,7 @@ class Target:
 
 TARGETS = {
     'xiao': Target('Seeed XIAO ESP32-S3', 'build-xiao', '8MB', True),
+    'xiao-native-16k': Target('Seeed XIAO ESP32-S3 · native 16 kHz experimental (PCM5102A)', 'build-xiao-native16', '8MB', True, rate=16000, native16=True),
     'amoled-v2': Target('Waveshare AMOLED 1.8 V2', 'build-instrument', '16MB', False),
     'voice-pe': Target('Nabu Casa Home Assistant Voice Preview Edition · 48 kHz', 'build-voice-pe-app', '16MB', False, True,48000),
     'voice-pe-native-16k': Target('Nabu Casa Home Assistant Voice Preview Edition · native 16 kHz experimental (matching XMOS required)', 'build-voice-pe-native16', '16MB', False, True,16000,True),
@@ -72,6 +73,8 @@ def load_image(board):
             and config.get('SYNTHDEF_HEADLESS', False) is target.headless
             and config.get('SYNTHDEF_TOUCH_UI', False) is (not (target.headless or target.voice_pe))
             and config.get('SYNTHDEF_VOICE_PE', False) is target.voice_pe
+            and config.get('SYNTHDEF_XIAO_NATIVE_16K', False) is (target.headless and target.native16)
+            and (target.voice_pe or not (config.get('SYNTHDEF_VOICE_PE_LOW_RATE', False) or config.get('SYNTHDEF_VOICE_PE_NATIVE_16K', False)))
             and config.get('ESPTOOLPY_FLASHSIZE') == settings['flash_size'] == target.flash_size
             and manifest['extra_esptool_args']['chip'] == 'esp32s3'
             and manifest['flash_files'] == (dict(FILES, **{'0x9000':'ota_data_initial.bin'}) if target.voice_pe else FILES)
@@ -81,6 +84,8 @@ def load_image(board):
         )
         if not valid:
             raise ValueError('Build metadata does not match the selected board.')
+        if target.headless and target.native16 and config.get('SYNTHDEF_DIAGNOSTICS', False):
+            raise ValueError('XIAO native 16 kHz excludes the legacy fixed-rate diagnostic fixtures.')
         if target.voice_pe:
             from voice_pe_firmware import PROJECT,partitions
             if (config.get('SYNTHDEF_NO_DISPLAY') is not True or config.get('SYNTHDEF_FM1_COMPAT') is not True

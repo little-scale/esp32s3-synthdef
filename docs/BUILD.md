@@ -15,6 +15,13 @@ The [Voice PE port](../ports/voice_pe/README.md) has separate 48 kHz and matched
 native-16k build wrappers and a guarded installer. Use its recovery instructions;
 the generic flash commands below are for Waveshare/XIAO layouts.
 
+The [XIAO PCM5102A native-16k option](HEADLESS.md#native-16-khz-pcm5102a-option-experimental)
+uses `bash host/xiao_native16.sh build`, an isolated SDK configuration and
+`firmware/build-xiao-native16`. Both DSP and I²S output run at 16 kHz, using
+32-bit slots for the DAC's 64-fs PLL requirement. The standard XIAO build remains
+44.1 kHz. Computer checks and initial PCM5102A listening pass at both rates; see the
+[XIAO dual-runtime results](../evidence/xiao-dual-rate-hardware-20261117.json).
+
 The proposed [selective DSP defaults](QUALIFIED_DSP_UPDATE.md) are controlled by
 `SYNTHDEF_QUALIFIED_KERNELS=ON` in board builds. Disable them with
 `-D SYNTHDEF_QUALIFIED_KERNELS=OFF`; leave experimental candidates set to `none`

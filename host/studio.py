@@ -378,7 +378,7 @@ class Studio:
             output_rate=self.device_info.get('output_rate',self.device_info.get('rate'))
             if output_rate in (16000,48000) and output_rate!=image.target.rate:
                 raise Problem(f'This Voice PE uses {output_rate} Hz audio. Choose its matching ESP firmware; changing rate also requires the corresponding XMOS firmware.',409)
-        if image.target.native16 and not (self.device and self.device_port==row['port'] and
+        if image.target.voice_pe and image.target.native16 and not (self.device and self.device_port==row['port'] and
                 self.device_info and self.device_info.get('model')=='Home Assistant Voice PE' and
                 self.device_info.get('output_rate',self.device_info.get('rate'))==16000):
             raise Problem('Connect the already commissioned native 16 kHz Voice PE before updating its ESP firmware. First installation requires the paired XMOS/ESP procedure.',409)
@@ -389,7 +389,7 @@ class Studio:
                     folder='firmware/' + image.target.folder, app_sha256=image.app_hash,
                     rate=image.target.rate,voice_pe=image.target.voice_pe,
                     output_rate=image.target.rate,
-                    notes=(('EXPERIMENTAL NATIVE 16 kHz: install the matching custom XMOS firmware first. This ESP upload does not update XMOS. Stock 48 kHz XMOS clocks will keep audio muted. ' if image.target.native16 else '') + ('Voice PE: preserves the ESP bootloader, settings and XMOS firmware. First installation creates a verified private ESP flash backup before replacing stock firmware and creating patch storage; this can take several minutes. Updates preserve patches. The first upgrade from the quiet codec profile starts at no more than 5% volume; later volume settings are retained.' if image.target.voice_pe else 'Flashing replaces the board’s firmware and restarts it.')))
+                    notes=(('EXPERIMENTAL NATIVE 16 kHz: install the matching custom XMOS firmware first. This ESP upload does not update XMOS. Stock 48 kHz XMOS clocks will keep audio muted. ' if image.target.voice_pe and image.target.native16 else '') + ('XIAO native 16 kHz: PCM5102A three-wire I2S, 32-bit slots carrying 16-bit PCM, 1.024 MHz BCLK. No XMOS or MCLK wire. Initial PCM5102A listening passed on XIAO-3eeb84 at 20% volume. Rings is unavailable. Already paired devices require the matched dual-app updater instead of this factory installer. ' if image.target.headless and image.target.native16 else '') + ('Voice PE: preserves the ESP bootloader, settings and XMOS firmware. First installation creates a verified private ESP flash backup before replacing stock firmware and creating patch storage; this can take several minutes. Updates preserve patches. The first upgrade from the quiet codec profile starts at no more than 5% volume; later volume settings are retained.' if image.target.voice_pe else 'Flashing replaces the board’s firmware and restarts it.')))
 
     def flash_firmware(self, payload):
         token = payload.get('plan')

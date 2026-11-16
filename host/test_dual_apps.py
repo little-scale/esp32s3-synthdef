@@ -15,6 +15,39 @@ from test_voice_pe_firmware import Chip, app
 
 
 class MigrationTests(unittest.TestCase):
+    def test_xiao_16k_cannot_be_paired_with_44100_rnbo(self):
+        with tempfile.TemporaryDirectory() as root:
+            synth = Path(root) / 'synth'; (synth/'config').mkdir(parents=True)
+            (synth/'project_description.json').write_text(json.dumps(dict(project_name='waveshare_synthdef',target='esp32s3')))
+            (synth/'config/sdkconfig.json').write_text(json.dumps(dict(ESPTOOLPY_FLASHSIZE='8MB',
+                SYNTHDEF_HEADLESS=True,SYNTHDEF_XIAO_NATIVE_16K=True)))
+            rnbo=Path(root)/'rnbo';rnbo.mkdir()
+            (rnbo/'build-report.json').write_text(json.dumps(dict(board='xiao',player=True,sample_rate=44100,block_frames=256)))
+            # Rate rejection precedes image loading or device access.
+            with self.assertRaisesRegex(ValueError,'matching sample rate'):
+                dual.load_targets('xiao',synth,rnbo)
+
+    def test_rate_markers_and_unknown_old_images(self):
+        self.assertEqual(dual.image_rate(b'old firmware','xiao'),44100)
+        self.assertEqual(dual.image_rate(b'S3_NATIVE_RATE=16000u\0','xiao'),16000)
+        for data,board in ((b'S3_NATIVE_RATE=16000u\0','amoled-v2'),
+                           (b'S3_NATIVE_RATE=22050u\0','xiao'),
+                           (b'S3_NATIVE_RATE=invalid\0','xiao'),
+                           (b'S3_NATIVE_RATE=48000u\0','xiao'),
+                           (b'S3_NATIVE_RATE=16000u\0S3_NATIVE_RATE=44100u\0','xiao')):
+            with self.assertRaises(ValueError):dual.image_rate(data,board)
+
+    def test_mixed_rate_update_blocks_auto_inventory_until_both_match(self):
+        chip,tool,synth,rnbo,_,_=self.setup_pair('xiao')
+        synth16=app('waveshare_synthdef',b'XIAO ESP32-S3\0S3_NATIVE_RATE=16000u\0')
+        rnbo16=app('rnbo_s3_xiao',b'XIAO ESP32-S3\0S3_NATIVE_RATE=16000u\0')
+        dual.update(chip,tool,'xiao','synthdef',synth16,self.root,'001122334455')
+        inventory=self.root/'001122334455/installed-apps.json'
+        self.assertIsNone(json.loads(inventory.read_text())['rate'])
+        self.assertEqual(dual.inspect(chip,'xiao')['rate'],16000)
+        dual.update(chip,tool,'xiao','rnbo',rnbo16,self.root,'001122334455')
+        self.assertEqual(json.loads(inventory.read_text())['rate'],16000)
+
     def test_filesystem_format_mismatch_rejects_before_loading_images(self):
         with tempfile.TemporaryDirectory() as root:
             synth, rnbo = Path(root) / 'synth', Path(root) / 'rnbo'

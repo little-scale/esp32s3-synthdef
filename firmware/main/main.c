@@ -843,6 +843,7 @@ void app_main(void)
              app->version, app->app_elf_sha256[0], app->app_elf_sha256[1], app->app_elf_sha256[2], app->app_elf_sha256[3],
              flash_bytes, (unsigned)esp_psram_get_size());
     ESP_LOGI(TAG, "requested_rate=%u block=%d channels=%d S16 Philips DMA=6x128", SAMPLE_RATE, FM_BLOCK, BOARD_AUDIO_CHANNELS);
+    ESP_LOGI(TAG, "%s", SYNTHDEF_NATIVE_RATE_MARKER);
     ESP_LOGW(TAG, "Actual clocks, channel packing, continuity and latency require hardware measurement");
     ESP_LOGI(TAG, "graph=%u voice=%u scratch=%u baseline_patch=%s touch_patch=%s", (unsigned)sizeof(fm_graph),
              (unsigned)sizeof(fm_voice), (unsigned)sizeof(fm_scratch), PATCH_SHA256, TOUCH_PATCH_SHA256);

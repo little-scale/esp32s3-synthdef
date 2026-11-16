@@ -260,6 +260,93 @@ python3 host/record_build.py --build-dir build-xiao --output xiao-build.json
 component manager for this build because no third-party BSP components are
 needed. Keep using the normal build command for the AMOLED target.
 
+### Native 16 kHz PCM5102A option (experimental)
+
+Build a separate SynthDef application for the existing three-wire PCM5102A
+connection:
+
+```sh
+python3 host/prepare.py
+bash host/xiao_native16.sh build
+python3 host/record_build.py --build-dir build-xiao-native16 --output xiao-native16-build.json
+```
+
+The wrapper has its own SDK configuration (`build/host/xiao-native16-sdkconfig`)
+and output directory (`firmware/build-xiao-native16`). The standard `xiao.sh`
+configuration and 44.1 kHz output remain available. In Studio, restart the host
+after updating its source, open **Install firmware**, and choose **Seeed XIAO
+ESP32-S3 · native 16 kHz experimental (PCM5102A)**. Review and flash the exact
+XIAO USB port, then reconnect. A fresh XIAO does not require a prior Studio
+connection. To return to 44.1 kHz, select the standard XIAO image.
+
+This is a firmware choice, not a live sample-rate switch. It uses the existing
+8 MiB factory partition layout; the installer refuses an already paired
+SynthDef/RNBO layout. Keep the existing working PCM5102A wiring, including SCK
+held low, FMT low (Philips I²S), DEMP low and XSMT high. No hardware strap changes
+or XMOS flash step are required.
+
+| Property | Standard XIAO | Native-16k XIAO |
+| --- | --- | --- |
+| DSP and LRCK rate | 44,100 Hz | 16,000 Hz |
+| Internal arithmetic | float32 | float32 |
+| PCM sample size | signed 16-bit stereo | signed 16-bit stereo |
+| I²S slot size | 16 bits/channel | 32 bits/channel, hardware padding |
+| BCLK | 1.4112 MHz (32 fs) | 1.024 MHz (64 fs) |
+| DSP/control block | 64 frames, ≈1.45 ms | 64 frames, 4 ms |
+| DMA capacity | 6 × 128 frames, ≈17.4 ms | 6 × 128 frames, 48 ms |
+| Maximum PCM capture | one second | one second (16,000 stereo frames) |
+
+The wider slots are necessary: [TI's PCM5102A datasheet, §9.3.5.3, Table 11](https://www.ti.com/lit/ds/symlink/pcm5102a.pdf)
+lists only **64 fs** for BCK-derived PLL operation at 16 kHz. Simply lowering
+the old 16-bit-slot clock would produce an unsupported 512 kHz BCLK. The ESP32
+continues to send int16 PCM through DMA; the wider wire slots do not reduce
+DSP precision or require larger PCM buffers. The DMA figures are capacity,
+not a measured end-to-end latency.
+
+Main, FX, patterns, envelopes, CPU reporting and capture use the actual native
+rate. Studio/SC use the device's rate-specific admission results; no manual
+SynthDef sample-rate setting is needed. Fewer samples per second should reduce
+sample-processing cost, but hardware CPU savings have not yet been measured.
+Audio bandwidth ends at 8 kHz and control updates occur at 250 blocks/second;
+oscillator/control-rate Nyquist limits still apply. MiRings1–6 are rejected below
+32 kHz. Delay allocation is recalculated at the actual rate and remains subject
+to the existing arena limit. Legacy fixed-44.1k diagnostic commands are disabled
+in this profile; normal status, CPU telemetry, profiling and PCM capture remain.
+
+Use this installer for a **standalone SynthDef device**. The separate
+[dual-app workflow](DUAL_RUNTIME.md#xiao-native-16-khz-pair) also supports matching
+16 kHz SynthDef/RNBO builds. It preserves the existing paired partition table;
+the factory installer refuses that layout.
+NS4168 operation at 16 kHz has not been qualified by this change.
+
+Computer checks cover all rate-header profiles, wrong-build rejection,
+Studio review, I²S configuration and capture boundaries using fake IDF I/O,
+plus eight real-SC graph compilations with sanitized native-engine rendering
+and seeded restarts. Both XIAO images cross-build and pass their audits.
+After those computer checks, XIAO-3eeb84 was connected with the PCM5102A.
+Both runtimes booted and played at 44.1 and 16 kHz, with clean listening
+confirmed by the user at 20%. SynthDef stereo captures measured 330 Hz and a
+silent opposite channel during the left-tone stage at each rate. RNBO's native
+16k capture measured 440 Hz with identical stereo channels and zero reported
+fault/overrun counters. These captures are before the DAC; BCLK/LRCK were
+configured and supported by successful DAC listening, not externally measured.
+A full 8 MiB recovery backup was independently verified before migration;
+settings/storage checks passed. Your original Main bytes and metadata were
+restored at 16 kHz, FX bypassed and 20% volume saved. Its short final resource
+sample showed 8.9% average / 14.0% peak, with zero faults, nonfinite samples,
+write failures, partial writes, DMA errors or clips. This is not a matched-rate
+performance benchmark. Cold power-cycle, extended load and full UGen-at-16k
+qualification remain separate work.
+[Hardware evidence](../evidence/xiao-dual-rate-hardware-20261117.json).
+
+To repeat the computer checks (no USB access):
+
+```sh
+python3 host/test_xiao_native16.py
+python3 host/test_xiao_native16_dsp.py
+python3 host/test_voice_pe_rates.py
+```
+
 In the ESP-IDF Python environment, from `firmware/build-xiao`:
 
 ```sh
