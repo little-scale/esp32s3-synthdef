@@ -21,15 +21,18 @@ checks at both rates, using both SynthDef and RNBO at 20% volume.
 An [experimental Nabu Casa Voice PE port](ports/voice_pe/README.md) now runs the
 shared Main/FX application at **48 kHz**, with verified Studio USB upload/readback,
 stereo PCM capture and scheduled control events. Its [physical bus map](ports/voice_pe/CONTROLS.md)
-uses button/dial/mute 0–2, LED RGB 3–38 and all-LED RGB 39–41; Grove starts at 42
-and remains reserved. Speaker listening, physical controls and cold restart pass.
+uses button/dial/mute 0–2, LED RGB 3–38 and all-LED RGB 39–41. The
+[M5Stack Grove DLight sensor](ports/voice_pe/GROVE_DLIGHT.md) now supplies
+normalised light on `In.kr(42)` and lux on `In.kr(43)`, with fresh-only updates
+and held values between samples. Native-16k hardware cover/light checks pass.
+Further Grove inputs start at 44. Speaker listening, physical controls and cold restart pass.
 Studio offers a guarded [48 kHz firmware installation/update option](docs/STUDIO.md#voice-pe-installation-and-recovery)
 with recovery backups. The [native 16 kHz build](ports/voice_pe/NATIVE_16K.md)
 also passes on-board Function/SynthDef/Pbind, pitch, delay, Main/FX and listening
 checks. It needs matching custom XMOS firmware; it is not a runtime sample-rate
 switch. Twelve-Saw audio averaged 37.2% CPU in a short native-16k observation,
 not a general performance guarantee. Fresh Voice PE installations remain 48 kHz;
-Voice PE Wi-Fi, jack output and Grove sensors still need qualification.
+Voice PE Wi-Fi, jack output and other Grove sensors still need qualification.
 
 An experimental [dual-runtime USB workflow](docs/DUAL_RUNTIME.md) can keep
 SynthDef and RNBO installed together and reboot into the required engine.

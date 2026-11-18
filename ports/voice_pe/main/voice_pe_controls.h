@@ -5,6 +5,7 @@ enum {
     VPE_BUS_DIAL=1, VPE_BUS_MIC_MUTE=2, VPE_BUS_BUTTON=0,
     VPE_BUS_LED_BASE=3, VPE_LED_CHANNELS=39, VPE_RING_LEDS=12,
     VPE_BUS_ALL_LEDS=39, VPE_GROVE_RESERVED_BASE=42,
+    VPE_BUS_LIGHT_NORMALISED=42, VPE_BUS_LIGHT_LUX=43, VPE_GROVE_NEXT_BASE=44,
     VPE_LED_MAX_BYTE=51 /* 20% physical brightness cap for initial USB-powered port */
 };
 /* Each graph adds its own Out.kr writers. Explicit FX writes override Main on

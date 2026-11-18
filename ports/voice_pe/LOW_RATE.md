@@ -71,5 +71,6 @@ modify or reflash XMOS just to offer a lower-rate synthesis mode.
    envelopes, random triggers, sustained DSP load and stop/reload transitions.
 
 This is a concrete follow-up design, not a supported firmware option or a
-completed quality/performance qualification. Grove work also remains deferred
-until an actual sensor is available.
+completed quality/performance qualification. Grove input is independent of this
+unimplemented converter design: the [DLight driver](GROVE_DLIGHT.md) has since
+been added and tested on the separate native-16k matched build.

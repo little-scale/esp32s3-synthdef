@@ -1,5 +1,14 @@
 # Source register and board map
 
+The register below preserves the original 5 November source survey. The
+[19 November DLight integration](GROVE_DLIGHT.md) subsequently verified the
+external Grove pin assignments against the [official Grove I2C configuration](https://github.com/esphome/home-assistant-voice-pe/blob/dev/modules/grove-i2c.yaml):
+SDA GPIO1, SCL GPIO2 and active-high power enable GPIO46. The new driver uses a
+dedicated controller, separate from the codec/XMOS bus on GPIO5/6. The M5Stack
+U136 at address 0x23 produced changing light readings on the attached Voice PE;
+its bus map is 42 normalised / 43 lux. Other Grove devices are not identified or
+activated automatically.
+
 Checked 5 November 2026. Confidence labels: **source-confirmed** means a direct match between named source files, not a measurement of the ordered unit; **inferred** means a consequence of those sources; **pending** needs a physical check. No electrical datasheet qualification or ready-to-fabricate review is claimed.
 
 ## Pinned sources

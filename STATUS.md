@@ -1,4 +1,25 @@
-# Project status — 17 November 2026
+# Project status — 19 November 2026
+
+## Voice PE Grove DLight — 19 November 2026
+
+- Added the M5Stack Unit DLight U136 / BH1750FVI driver on the dedicated
+  GPIO1/2 Grove I2C bus, powered by GPIO46. Bus 42 is `clip(lux/1000,0,1)`;
+  bus 43 is lux. Both are read-only, shared by Main and FX; further channels
+  start at 44. Only successful new sensor readings publish a bus update.
+  Inter-sample periods and read failures retain the prior values. Status
+  separately reports availability, age, errors and publication/audio sequences.
+- No I2C, waiting or allocation is performed by the audio owner. The driver
+  polls at approximately 5 Hz on the controls task with bounded transactions.
+  Sanitised protocol/mailbox and real-adapter fake-I/O checks pass, including
+  optional init failures, absence/recovery and generation rollover. Input-bank
+  tests cover 16/44.1/48 kHz. The example compiles at 16/48 kHz; both Voice PE
+  images cross-build and pass the atomic-helper/build audits.
+- Protected native-16k app-only installation passes on VoicePE-0697d4, retaining
+  its Main/FX graph/source, RNBO app, storage and latest 18% user volume. The
+  cover/light trace contains 752 observations over 0–3,157.5 lux, with no sensor
+  I/O errors and correct held values between new samples. Studio is connected.
+  Physical cold restart, unplug/reconnect, 48k sensor and other Grove modules
+  remain separate qualification. [Details and examples](ports/voice_pe/GROVE_DLIGHT.md).
 
 ## Experimental XIAO / PCM5102A native 16 kHz — 17 November 2026
 

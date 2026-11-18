@@ -9,6 +9,9 @@
 #include <stdio.h>
 esp_err_t voice_pe_led_init(void);
 void voice_pe_led_poll(void);
+void voice_pe_grove_init(void);
+void voice_pe_grove_poll(void);
+int voice_pe_grove_info(char *,size_t);
 static atomic_uint bank[3];
 static pcnt_unit_handle_t encoder;
 static int previous_count;
@@ -38,12 +41,14 @@ esp_err_t headless_io_init(void)
     if((err=pcnt_unit_clear_count(encoder))!=ESP_OK)return err;
     if((err=pcnt_unit_start(encoder))!=ESP_OK)return err;
     store(0,dial);store(1,(float)gpio_get_level(3));store(2,0);
-    return voice_pe_led_init();
+    err=voice_pe_led_init();if(err!=ESP_OK)return err;
+    voice_pe_grove_init();return ESP_OK;
 }
 void headless_io_poll(void)
 {
     voice_pe_led_poll();
     int64_t now=esp_timer_get_time();if(now<next_poll)return;next_poll=now+10000;
+    voice_pe_grove_poll();
     int count;
     if(pcnt_unit_get_count(encoder,&count)==ESP_OK){
         int64_t delta=(int64_t)count-previous_count;previous_count=count;
@@ -59,7 +64,17 @@ void headless_io_values(float out[3])
 int headless_io_info(char *out,size_t size)
 {
     float value[3];headless_io_values(value);
+#ifdef CONFIG_SYNTHDEF_VOICE_PE_DLIGHT
+    unsigned next_reserved=44;
+#else
+    unsigned next_reserved=42;
+#endif
     gpio_io_config_t a={0},b={0};
     bool configured=gpio_get_io_config(16,&a)==ESP_OK && gpio_get_io_config(18,&b)==ESP_OK;
-    return snprintf(out,size,"{\"led_buses\":{\"base\":3,\"count\":39,\"all_rgb_base\":39,\"grove_reserved_base\":42,\"leds\":12,\"order\":\"RGB\",\"maximum_brightness\":0.2},\"analog_enabled\":false,\"buses\":[1,2,0],\"labels\":[\"dial\",\"microphone_mute\",\"button\"],\"gpio\":[16,18,3,0],\"values\":[%.6f,%.0f,%.0f],\"encoder_pullups\":[%d,%d],\"encoder_inputs\":[%d,%d],\"encoder_count\":%d,\"raw_ab\":[%d,%d],\"amplifier_enabled\":%d,\"led_power\":%d}",(double)value[0],(double)value[1],(double)value[2],configured && a.pu,configured && b.pu,configured && a.ie,configured && b.ie,previous_count,gpio_get_level(16),gpio_get_level(18),gpio_get_level(47),gpio_get_level(45))>0;
+    int used=snprintf(out,size,"{\"led_buses\":{\"base\":3,\"count\":39,\"all_rgb_base\":39,\"grove_reserved_base\":%u,\"leds\":12,\"order\":\"RGB\",\"maximum_brightness\":0.2},\"analog_enabled\":false,\"buses\":[1,2,0],\"labels\":[\"dial\",\"microphone_mute\",\"button\"],\"gpio\":[16,18,3,0],\"values\":[%.6f,%.0f,%.0f],\"encoder_pullups\":[%d,%d],\"encoder_inputs\":[%d,%d],\"encoder_count\":%d,\"raw_ab\":[%d,%d],\"amplifier_enabled\":%d,\"led_power\":%d}",next_reserved,(double)value[0],(double)value[1],(double)value[2],configured && a.pu,configured && b.pu,configured && a.ie,configured && b.ie,previous_count,gpio_get_level(16),gpio_get_level(18),gpio_get_level(47),gpio_get_level(45));
+    if(used<=0 || (size_t)used>=size)return 0;
+    out[used-1]=',';
+    int extra=voice_pe_grove_info(out+used,size-(size_t)used);
+    if(extra<=0 || (size_t)extra+1>=size-(size_t)used)return 0;
+    out[used+extra]='}';out[used+extra+1]=0;return 1;
 }

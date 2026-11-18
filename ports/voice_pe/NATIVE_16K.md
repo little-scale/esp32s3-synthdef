@@ -33,7 +33,8 @@ The shared SC compilation, Main/FX definitions and instances, exposed arguments,
 network messages, groups and patterns remain the existing implementations.
 Admission is evaluated independently at each recipient's rate. Voice PE's
 button/dial/mute buses 0–2, LED channels 3–38 and broadcast channels 39–41 retain
-their assignments. Grove buses 42 onward remain reserved.
+their assignments. The [DLight driver](GROVE_DLIGHT.md) now provides normalised
+light on bus 42 and lux on bus 43; further Grove channels start at 44.
 
 For a first sound after commissioning, choose this module's actual ID or alias:
 

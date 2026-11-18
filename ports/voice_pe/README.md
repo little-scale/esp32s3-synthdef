@@ -4,7 +4,8 @@ Integrated into this checkout on 14 November 2026 from the reviewed starter
 handover. There are now two separate builds: the preserved commissioning probe
 and an **experimental shared Main/FX application** at 48 kHz. The shared application uses the
 existing Studio/SC protocol, storage and engine; a matched native-16k variant is
-available separately. Waveshare/XIAO remain at 44.1 kHz.
+available separately. Waveshare remains at 44.1 kHz; XIAO has 44.1 kHz and
+experimental native-16k builds.
 Studio now offers a guarded **Voice PE · 48 kHz** firmware option for recognized
 stock layouts and project updates; [installation and backup details](../../docs/STUDIO.md#voice-pe-installation-and-recovery).
 
@@ -32,7 +33,7 @@ The separate commissioning probe remains at −24 dB.
 
 The playback adapter retains the XMOS-provided clocks, configures the codec at
 0 dB playback gain, and preserves stereo S16 application PCM in S32 I²S
-slots. Main/FX and host admission use the actual 48 kHz rate. Ordinary graph
+slots. Main/FX and host admission use the actual 48 or matched native-16k rate. Ordinary graph
 replacement retains the existing fades; hardware codec transactions remain off
 the audio task. USB identity is `VoicePE-0697d4` / `esp32-1020ba0697d4` on the
 commissioned unit. Patch/source readback, PCM capture and resource reporting use
@@ -41,12 +42,15 @@ have also passed through the refreshed Studio USB bridge. Wi-Fi code is shared, 
 still pending.
 
 [Button, dial, RGB LED bus map and examples](CONTROLS.md). Inputs are 0–2,
-individual LEDs 3–38, shared RGB 39–41, and 42 onward is reserved for Grove.
-No Grove driver is activated.
+individual LEDs 3–38 and shared RGB 39–41. The
+[M5Stack DLight driver](GROVE_DLIGHT.md) supplies normalised light on bus 42 and
+lux on bus 43; further Grove channels start at 44. It publishes only fresh,
+successful readings and holds the last values between readings or on failure.
 
 An [optional 16 kHz design](LOW_RATE.md) describes a lower-rate DSP pipeline
 feeding the existing 48 kHz wire stream. It is not enabled or advertised as
-supported firmware yet.
+supported firmware; the separate [native-16k matched pair](NATIVE_16K.md) is the
+implemented lower-rate option.
 
 The reviewed storage table keeps the original bootloader, OTA metadata, app0 and
 NVS at their original addresses. It shortens the originally empty app1 to
@@ -118,9 +122,9 @@ partition CSV matches this inspected unit, not a guaranteed universal layout.
 
 The [portable input-bus component](../../firmware/components/input_buses/README.md)
 is imported and tested at 16/44.1/48 kHz. The shared application supplies its
-button/dial/mute snapshot to Main and FX through the Voice PE adapter. Grove
-sensor drivers remain deferred; the portable sensor prototype does not activate
-them on the board.
+button/dial/mute snapshot to Main and FX through the Voice PE adapter. The
+shared application now also activates the DLight input on buses 42/43. The
+earlier portable sensor prototype remains separate from that production adapter.
 
 ## Remaining work
 
@@ -133,7 +137,9 @@ records verified USB transfers, stereo/FX captures, remote notes and the encoder
 pull-up correction. The user confirmed ring/button response, subsequent physical encoder movement
 and audible button-triggered speaker sound at 25% volume. The faster dial,
 button release and normal operation after a physical power cycle also passed. Missing-clock recovery, physical
-jack audio, Grove drivers and Voice PE Wi-Fi remain pending.
+jack audio, further Grove drivers and Voice PE Wi-Fi remain pending. DLight
+cover/light response passed on native 16 kHz on 19 November; physical sensor
+reconnection, cold restart and 48 kHz operation remain to qualify.
 An observed maximum 6 ms gap across USB reopen intervals
 means the 1 ms input poll is not a guarantee of lossless fast encoder capture.
 Direction, detent resolution and debouncing need their own qualification.

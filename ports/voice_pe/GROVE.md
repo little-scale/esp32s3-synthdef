@@ -1,6 +1,11 @@
 # Grove inputs for the shared SynthDef target
 
-Design draft, source-checked 6 November 2026. A portable normalization/freshness/bus-writing component is now implemented and host-tested; it is not connected to the production application. **No Grove driver, configuration loader or concurrent sensor mailbox is implemented. No sensor or board has been tested.** The silent probe still leaves Grove untouched. The JSON files are proposed metadata, not files accepted by current firmware or Studio.
+**Historical design draft.** The production [M5Stack DLight driver](GROVE_DLIGHT.md)
+now uses bus 42 (normalised) and 43 (lux), with fresh-only publication and native
+16 kHz hardware checks. The older 16–31 prototype below remains unconnected;
+its proposed configuration files are not accepted by current firmware.
+
+Design draft, source-checked 6 November 2026. At the time of this draft, only a portable normalization/freshness/bus-writing component was implemented and host-tested; it was not connected to the production application. No Grove driver, configuration loader or concurrent sensor mailbox existed, and no sensor or board had been tested. The preserved silent probe still leaves Grove untouched. The JSON files below are proposed metadata, not files accepted by current firmware or Studio.
 
 ## Intended user experience
 

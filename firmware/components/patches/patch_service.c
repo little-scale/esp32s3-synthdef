@@ -362,7 +362,17 @@ static void process_line(const char *line)
 #endif
 #ifdef CONFIG_SYNTHDEF_NO_DISPLAY
 #ifdef CONFIG_SYNTHDEF_VOICE_PE
-        end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"capture_rate\":%u,\"capture_source\":\"dsp-post-volume\",\"output_rate\":%u,\"input_buses\":[0,1,2],\"codec_gain_db\":0,\"control_outputs\":{\"base\":3,\"count\":39},\"grove_reserved_base\":42}",BOARD_CAPTURE_CHUNK_BYTES,SYNTHDEF_SAMPLE_RATE,SYNTHDEF_OUTPUT_SAMPLE_RATE);
+#ifdef CONFIG_SYNTHDEF_VOICE_PE_DLIGHT
+        const char *physical_inputs="[0,1,2,42,43]";
+        unsigned grove_reserved=44;
+#else
+        const char *physical_inputs="[0,1,2]";
+        unsigned grove_reserved=42;
+#endif
+        end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"capture_rate\":%u,\"capture_source\":\"dsp-post-volume\",\"output_rate\":%u,\"input_buses\":%s,\"codec_gain_db\":0,\"control_outputs\":{\"base\":3,\"count\":39},\"grove_reserved_base\":%u}",BOARD_CAPTURE_CHUNK_BYTES,SYNTHDEF_SAMPLE_RATE,SYNTHDEF_OUTPUT_SAMPLE_RATE,physical_inputs,grove_reserved);
+#ifdef CONFIG_SYNTHDEF_VOICE_PE_DLIGHT
+        end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"grove_light\":{\"buses\":[42,43],\"normalise_lux\":1000,\"new_samples_only\":true,\"hold_last\":true}}");
+#endif
 #else
         end=strlen(s->reply);if(end && s->reply[end-1]=='}')snprintf(s->reply+end-1,sizeof s->reply-end+1,",\"headless\":true,\"output_channels\":2,\"pcm_capture\":1,\"pcm_capture_chunk\":%u,\"pcm_capture_id\":1,\"capture_rate\":%u,\"output_rate\":%u,\"input_buses\":[8,9,10]}",BOARD_CAPTURE_CHUNK_BYTES,SYNTHDEF_SAMPLE_RATE,SYNTHDEF_OUTPUT_SAMPLE_RATE);
 #endif

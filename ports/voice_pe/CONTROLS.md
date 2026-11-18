@@ -13,7 +13,13 @@ Waveshare/XIAO touch and pin mappings retain their existing assignments.
 | 39 | `Out.kr` | Shared red value for all twelve LEDs |
 | 40 | `Out.kr` | Shared green value for all twelve LEDs |
 | 41 | `Out.kr` | Shared blue value for all twelve LEDs |
-| 42 onward | Reserved | Future Grove sensor inputs; no drivers, activation or hardware tests yet |
+| 42 | `In.kr` | DLight normalised illuminance: 0–1 over 0–1,000 lux, clamped |
+| 43 | `In.kr` | DLight illuminance in lux, retaining values above 1,000 lux |
+| 44 onward | Reserved | Further Grove inputs |
+
+The [M5Stack DLight driver](GROVE_DLIGHT.md) updates 42/43 only after successful
+new sensor readings. Values hold between samples and on read failure; sensor
+availability and age are separate status fields. Main and FX share these inputs.
 
 The mute switch is **input data**, not a software speaker-mute instruction. It
 continues to physically control the microphone hardware. Dial polarity and the
@@ -80,7 +86,7 @@ These audio channel rules do not prevent writing multiple LED control channels.
 
 A literal SynthDef may contain both `Out.kr(...)` and its authored `Out.ar(0,...)`.
 Control-rate physical output writes are limited to buses **3–41**; writes to
-button/dial/mute or future Grove addresses are rejected. Dynamic bus addresses
+button/dial/mute, Grove inputs or future Grove addresses are rejected. Dynamic bus addresses
 are checked again during rendering. A nonfinite signal or invalid dynamic range
 faults the graph and clears its physical output bank. Old firmware or a board
 without the Voice PE output adapter is rejected by Studio before transfer.
@@ -128,5 +134,5 @@ python3 -m unittest discover -s host -p test_signal_limits.py
 Tests cover first/last output channels, additive writes, dynamic address faults,
 nonfinite data, prepare/restart, physical-input isolation from note lifecycle,
 broadcast and per-channel priority, RGB/GRB ordering, default darkness and both
-16/44.1/48 kHz engine rates. Grove remains a separate unconnected prototype; its old
-16–31 draft must not be bound into this new Voice PE layout.
+16/44.1/48 kHz engine rates. DLight now occupies 42/43; the historical Grove
+16–31 prototype draft must not be bound into this Voice PE layout.

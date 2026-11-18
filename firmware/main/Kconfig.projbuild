@@ -10,6 +10,14 @@ menu "SynthDef diagnostics"
             Main and FX run at 16 kHz, with 4 ms control blocks. A fixed
             polyphase FIR converts stereo output to the existing 48 kHz XMOS
             link. Rings requires at least 32 kHz and is rejected in this mode.
+    config SYNTHDEF_VOICE_PE_DLIGHT
+        bool "M5Stack DLight BH1750 sensor on Voice PE Grove port"
+        depends on SYNTHDEF_VOICE_PE
+        default y
+        help
+            Polls only the dedicated Grove I2C bus, outside the audio task.
+            Bus 42 is 0..1 over 0..1000 lux, bus 43 is raw lux. Values are
+            published only on successful new readings and held on failure.
     config SYNTHDEF_VOICE_PE_NATIVE_16K
         bool "Native 16 kHz Voice PE output (requires matching custom XMOS)"
         depends on SYNTHDEF_VOICE_PE && !SYNTHDEF_VOICE_PE_LOW_RATE

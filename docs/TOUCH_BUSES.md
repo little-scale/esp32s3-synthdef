@@ -4,7 +4,9 @@ The code-first interface reads hardware-style control buses with standard
 SuperCollider `In.kr`. The shared engine has 68 readable float32 channels, numbered 0–67. Older
 firmware has 32. Touch assignments on Waveshare remain unchanged.
 [Voice PE uses its own physical input/LED map](../ports/voice_pe/CONTROLS.md):
-button/dial/mute 0–2, individual RGB 3–38, shared RGB 39–41, Grove reserved from 42.
+button/dial/mute 0–2, individual RGB 3–38, shared RGB 39–41,
+[DLight normalised/lux](../ports/voice_pe/GROVE_DLIGHT.md) 42/43, further Grove
+channels reserved from 44.
 
 Control-bus numbering is separate from the existing stereo audio input bus.
 

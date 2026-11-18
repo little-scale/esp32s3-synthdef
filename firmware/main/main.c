@@ -326,6 +326,14 @@ static void audio_task(void *unused)
         float physical[3];headless_io_values(physical);
 #ifdef CONFIG_SYNTHDEF_VOICE_PE
         physical_buses[VPE_BUS_DIAL]=physical[0];physical_buses[VPE_BUS_MIC_MUTE]=physical[1];physical_buses[VPE_BUS_BUTTON]=physical[2];
+        /* New sensor samples alone update the Grove buses. The mailbox read
+         * is bounded; no I2C, waiting, allocation or repeated bus writes here. */
+        static uint32_t grove_sequence;
+        float light[2];
+        if(headless_io_grove_sample(&grove_sequence,light)){
+            physical_buses[VPE_BUS_LIGHT_NORMALISED]=light[0];
+            physical_buses[VPE_BUS_LIGHT_LUX]=light[1];
+        }
 #else
         for(unsigned i=0;i<3;++i)synth.buses[8+i]=physical[i];
 #endif

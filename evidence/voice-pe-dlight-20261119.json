@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-19",
+  "board": "Nabu Casa Home Assistant Voice Preview Edition",
+  "device_name": "VoicePE-0697d4",
+  "runtime": "SynthDef",
+  "sample_rate": 16000,
+  "sensor": {
+    "module": "M5Stack Unit DLight U136",
+    "chip": "BH1750FVI",
+    "address": 35,
+    "sda_gpio": 1,
+    "scl_gpio": 2,
+    "power_enable_gpio": 46,
+    "buses": {
+      "42": "clip(lux / 1000, 0, 1)",
+      "43": "lux"
+    },
+    "next_reserved_bus": 44,
+    "read_interval_ms": 200,
+    "i2c_timeout_ms": 5,
+    "updates": "new successful readings only; equal-valued new conversions still publish",
+    "failure": "hold last values; separate availability/error/age status"
+  },
+  "computer_tests": {
+    "passed": true,
+    "hardware_access": false,
+    "adapter_cases": 5,
+    "engine_bus_rates": [
+      16000,
+      44100,
+      48000
+    ],
+    "output": "PASS: BH1750 protocol/conversion deadlines, fresh-only publication, hold-last on failure, recovery, dark/full-scale and mailbox rollover\nPASS: In.kr(42,2), shared Main/FX bank, held values and graph restart at 16000 Hz\nPASS: In.kr(42,2), shared Main/FX bank, held values and graph restart at 44100 Hz\nPASS: In.kr(42,2), shared Main/FX bank, held values and graph restart at 48000 Hz\n"
+  },
+  "example_compile": {
+    "passed": true,
+    "graphs": 1,
+    "rates": [
+      16000,
+      48000
+    ],
+    "nodes": 14,
+    "graph_sha256": "23318fb7a1e323f399420b2f745894e12b24569939b4abab4c1bd92d0bf2275c",
+    "requires_control_outputs": true
+  },
+  "build_audits": {
+    "16000": {
+      "build_id": "2b8bf94768049c0e0d829a11c38f62232590394ddb128ae8fc06fe0cce1bda6a",
+      "app_bytes": 1258544,
+      "sha256": "ea571f91b5642d8b3c50c6d745989e78f7f1d6dbfd826387a8402e0186c4bec0",
+      "mailbox_atomic_runtime_helpers": false
+    },
+    "48000": {
+      "build_id": "2b8bf94768049c0e0d829a11c38f62232590394ddb128ae8fc06fe0cce1bda6a",
+      "app_bytes": 1256400,
+      "sha256": "d6ad17d53dc72ffc53f3475cbcddbf30dacd4026f069a2d39287fdd31fe1f4e9",
+      "mailbox_atomic_runtime_helpers": false
+    }
+  },
+  "installation": {
+    "method": "Studio protected app0-only update",
+    "verified": true,
+    "protected_regions_unchanged": true,
+    "xmos_unchanged": true,
+    "rnbo_app_unchanged": true,
+    "main_graph_and_source_unchanged": true,
+    "fx_graph_and_source_unchanged": true,
+    "retained_volume_percent": 18,
+    "paired_inventory": "SynthDef hash refreshed from verified update receipt; RNBO record retained; no additional device write"
+  },
+  "physical_cover_light_test": {
+    "user_performed": true,
+    "observations": 752,
+    "lux_min": 0.0,
+    "lux_max": 3157.5,
+    "new_samples": 332,
+    "sensor_errors": 0,
+    "all_observations_available": true,
+    "held_same_generation_observations": 419,
+    "max_audio_generation_gap": 1
+  },
+  "audio_health": {
+    "before_update_dma_event_overflow": 1,
+    "after_update": {
+      "faults": 0,
+      "write_fail": 0,
+      "partial": 0,
+      "nonfinite": 0,
+      "clips": 0,
+      "dma_event_overflow": 1,
+      "overflow": 0,
+      "average_x10": 738,
+      "peak_x10": 824
+    },
+    "followup_frames": 48000,
+    "dma_counter_increase_during_followup": 0,
+    "note": "Cumulative queue counter is reported honestly; this is not a DSP performance benchmark. Existing user patch was not replaced."
+  },
+  "qualification_remaining": [
+    "Physical DLight sensor unplug/reconnect",
+    "Physical cold power-cycle with DLight",
+    "Physical 48 kHz sensor operation",
+    "Other Grove sensor models"
+  ],
+  "privacy": "Full trace, patch/source and recovery backups remain private; no Wi-Fi credentials or Studio session token included."
+}

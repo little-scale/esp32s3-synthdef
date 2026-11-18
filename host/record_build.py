@@ -124,6 +124,14 @@ output_rate=sample_rate
 if voice_pe:
     sample_rate=16000 if any(flag in config for flag in ('CONFIG_SYNTHDEF_VOICE_PE_LOW_RATE=y','CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y')) else 48000
     output_rate=16000 if 'CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y' in config else 48000
+grove_dlight=None
+if voice_pe and 'CONFIG_SYNTHDEF_VOICE_PE_DLIGHT=y' in config:
+    grove_object=next((BUILD/'esp-idf/headless_io').rglob('voice_pe_dlight.c.obj'))
+    imports=subprocess.check_output([str(nm),'-u',str(grove_object)],text=True)
+    assert not re.search(r'\b__(?:atomic|sync)_',imports),'Grove mailbox gained atomic runtime helpers'
+    grove_dlight=dict(buses=[42,43],normalise_lux=1000,poll_ms=200,i2c_timeout_ms=5,
+        audio_publication='new successful sensor sample only; hold last on failure',
+        mailbox_atomic_runtime_helpers=False)
 report = {
     'status': 'cross-compiled; physical runtime results are recorded separately',
     'build_id': build_id,
@@ -139,6 +147,7 @@ report = {
     'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
     'target': 'esp32s3',
     'sample_rate':sample_rate,
+    'grove_dlight':grove_dlight,
     'output_sample_rate':output_rate,
     'xiao_i2s_slot_bits': (32 if 'CONFIG_SYNTHDEF_XIAO_NATIVE_16K=y' in config else 16) if 'CONFIG_SYNTHDEF_HEADLESS=y' in config else None,
     'native_16k_requires_matching_xmos':'CONFIG_SYNTHDEF_VOICE_PE_NATIVE_16K=y' in config,
